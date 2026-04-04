@@ -32,8 +32,8 @@
   --text: #F0EBF8;
   --text-muted: #9D8CB5;
   --text-dim: rgba(240,235,248,0.4);
-  --glass: rgba(255,255,255,0.04);
-  --glass-border: rgba(139,92,246,0.2);
+  --glass: rgba(255,255,255,0.09);
+  --glass-border: rgba(139,92,246,0.32);
   --font-heading: 'Cinzel', serif;
   --font-body: 'Inter', sans-serif;
 }
@@ -111,14 +111,14 @@ nav.scrolled { background: rgba(4,2,12,0.85); backdrop-filter: blur(20px); -webk
 
 /* FEATURES GRID */
 #features { position: relative; z-index: 2; padding: 100px 40px; }
-.features-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
-.feature-tile { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; padding: 20px 16px; text-align: center; transition: transform 0.2s, border-color 0.2s, background 0.2s; cursor: default; position: relative; overflow: hidden; }
-.feature-tile::before { content: ''; position: absolute; inset: 0; border-radius: 16px; background: linear-gradient(135deg, rgba(139,92,246,0.08), transparent); opacity: 0; transition: opacity 0.3s; }
-.feature-tile:hover { transform: translateY(-4px); border-color: rgba(139,92,246,0.45); background: rgba(139,92,246,0.06); }
+.features-grid { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+.feature-tile { width: 200px; flex-shrink: 0; flex-grow: 0; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 28px 20px 24px; text-align: center; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; cursor: default; position: relative; overflow: hidden; }
+.feature-tile::before { content: ''; position: absolute; inset: 0; border-radius: 20px; background: linear-gradient(135deg, rgba(139,92,246,0.10), transparent 60%); opacity: 0; transition: opacity 0.3s; }
+.feature-tile:hover { transform: translateY(-6px); border-color: rgba(139,92,246,0.55); box-shadow: 0 16px 48px rgba(139,92,246,0.18); }
 .feature-tile:hover::before { opacity: 1; }
-.feature-tile-icon { font-size: 32px; margin-bottom: 10px; display: block; filter: drop-shadow(0 0 12px rgba(255,255,255,0.15)); }
-.feature-tile-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: 0.3px; line-height: 1.3; }
-.feature-tile-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; line-height: 1.3; }
+.feature-tile-icon { font-size: 38px; margin-bottom: 14px; display: block; filter: drop-shadow(0 0 14px rgba(255,255,255,0.18)); }
+.feature-tile-name { font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: 0.3px; line-height: 1.3; margin-bottom: 6px; }
+.feature-tile-sub { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
 .stat-card { text-align: center; padding: 32px 24px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s; }
 .stat-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(139,92,246,0.05), transparent); border-radius: 20px; }
 .stat-card:hover { transform: translateY(-4px); border-color: rgba(139,92,246,0.4); }
@@ -178,6 +178,35 @@ nav.scrolled { background: rgba(4,2,12,0.85); backdrop-filter: blur(20px); -webk
 @keyframes cursorBlink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
 .oracle-footer { padding: 16px 28px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 12px; color: var(--text-dim); text-align: center; letter-spacing: 0.3px; }
 
+
+/* APP PREVIEW */
+#preview { position: relative; z-index: 2; padding: 100px 40px; }
+.preview-cards { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 280px 1fr 280px; gap: 48px; align-items: center; }
+.preview-card { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.preview-phone { width: 240px; height: 460px; background: linear-gradient(160deg, #1A1A2E, #0F0F23); border-radius: 36px; padding: 12px; box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08), inset 0 0 0 1px rgba(255,255,255,0.04); position: relative; }
+.preview-phone::before { content: ''; position: absolute; top: 16px; left: 50%; transform: translateX(-50%); width: 80px; height: 20px; background: #0F0F23; border-radius: 10px; z-index: 10; }
+.preview-phone-screen { width: 100%; height: 100%; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column; }
+.preview-screen-header { padding: 28px 14px 10px; background: rgba(14,21,33,0.95); display: flex; align-items: center; justify-content: center; }
+.preview-logo { font-size: 12px; font-weight: 800; letter-spacing: 2px; color: #CEAE72; }
+.preview-screen-body { flex: 1; background: linear-gradient(160deg,#0E1521,#141A26); padding: 12px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 8px; position: relative; overflow: hidden; }
+.preview-orb { position: absolute; top: 20%; left: 20%; width: 120px; height: 120px; background: radial-gradient(circle, rgba(139,92,246,0.25), transparent); border-radius: 50%; pointer-events: none; }
+.preview-widget { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); border-radius: 14px; padding: 12px 10px; display: flex; flex-direction: column; align-items: center; z-index: 1; }
+.preview-widget-oracle { grid-column: 1; }
+.preview-widget-tarot { grid-column: 2; }
+.preview-widget-moon { grid-column: span 2; }
+.preview-widget-light-1, .preview-widget-light-2 { background: rgba(255,255,255,0.7); border: 1px solid rgba(169,122,57,0.2); border-radius: 14px; padding: 12px 10px; display: flex; flex-direction: column; align-items: center; z-index: 1; }
+.preview-widget-light-3 { grid-column: span 2; background: rgba(255,255,255,0.7); border: 1px solid rgba(169,122,57,0.2); border-radius: 14px; padding: 12px 10px; display: flex; flex-direction: column; align-items: center; z-index: 1; }
+.preview-phone-screen-light .preview-screen-body { background: linear-gradient(160deg,#FBF5EC,#EDE4CF); }
+.preview-screen-footer { padding: 10px 16px; background: rgba(14,21,33,0.95); display: flex; justify-content: space-around; align-items: center; font-size: 18px; border-top: 1px solid rgba(255,255,255,0.06); }
+.preview-label { font-size: 13px; font-weight: 600; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+.preview-features-list { display: flex; flex-direction: column; gap: 24px; }
+.preview-feature-item { display: flex; gap: 16px; align-items: flex-start; }
+.preview-feature-icon { font-size: 28px; width: 52px; height: 52px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.preview-feature-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.preview-feature-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+@media (max-width: 1100px) { .preview-cards { grid-template-columns: 1fr 1fr; } .preview-card-2 { display: none; } }
+@media (max-width: 700px) { .preview-cards { grid-template-columns: 1fr; } .preview-card-1 { display: none; } }
+
 /* STEPS */
 #steps { position: relative; z-index: 2; padding: 100px 40px; }
 .steps-grid { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
@@ -187,6 +216,23 @@ nav.scrolled { background: rgba(4,2,12,0.85); backdrop-filter: blur(20px); -webk
 .step-icon { font-size: 48px; margin-bottom: 20px; display: block; }
 .step-title { font-family: var(--font-heading); font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 12px; letter-spacing: 0.5px; }
 .step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+
+/* TESTIMONIALS */
+#testimonials { position: relative; z-index: 2; padding: 100px 40px; }
+.testimonials-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.testimonial-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 28px 24px; display: flex; flex-direction: column; gap: 16px; position: relative; transition: transform 0.3s, border-color 0.3s; }
+.testimonial-card:hover { transform: translateY(-4px); border-color: rgba(139,92,246,0.3); }
+.testimonial-card-featured { background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(206,174,114,0.06)); border-color: rgba(139,92,246,0.25); }
+.testimonial-badge { position: absolute; top: -10px; left: 20px; background: linear-gradient(90deg,var(--purple),var(--gold)); color: white; font-size: 10px; font-weight: 700; letter-spacing: 1px; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; }
+.testimonial-stars { color: var(--gold); font-size: 16px; letter-spacing: 2px; }
+.testimonial-text { font-size: 14px; color: var(--text-muted); line-height: 1.7; flex: 1; font-style: italic; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.testimonial-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg,var(--purple),var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: white; flex-shrink: 0; }
+.testimonial-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.testimonial-role { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+@media (max-width: 1100px) { .testimonials-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .testimonials-grid { grid-template-columns: 1fr; } }
 
 /* DOWNLOAD */
 #download { position: relative; z-index: 2; padding: 120px 40px; text-align: center; overflow: hidden; }
@@ -256,7 +302,8 @@ footer { position: relative; z-index: 2; background: rgba(4,2,12,0.9); border-to
 
 /* RESPONSIVE */
 @media (max-width: 1100px) { .worlds-grid { grid-template-columns: repeat(2, 1fr); } .footer-grid { grid-template-columns: 1fr 1fr; } .stats-inner { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 900px) { .stats-inner { grid-template-columns: repeat(2, 1fr); } .steps-grid { grid-template-columns: 1fr; max-width: 480px; } .features-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); } }
+@media (max-width: 900px) { .stats-inner { grid-template-columns: repeat(2, 1fr); } .steps-grid { grid-template-columns: 1fr; max-width: 480px; } .feature-tile { width: 160px; } }
+@media (max-width: 600px) { .feature-tile { width: calc(50% - 8px); } }
 @media (max-width: 768px) {
   nav { padding: 0 20px; }
   .nav-links, .nav-right { display: none; }
@@ -273,6 +320,89 @@ footer { position: relative; z-index: 2; background: rgba(4,2,12,0.9); border-to
 }
 @media (max-width: 480px) { .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 12px; } .hero-ctas { flex-direction: column; align-items: center; } }
 html[lang="ar"] { direction: rtl; }
+
+/* READABILITY: stronger glass + backdrop */
+.feature-tile { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); background: rgba(12,6,28,0.72); border-color: rgba(139,92,246,0.30); }
+.stat-card { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); background: rgba(12,6,28,0.72); }
+.world-card-front { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.world-card-back { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.step-card { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); background: rgba(12,6,28,0.72); }
+.testimonial-card { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(12,6,28,0.70); }
+.oracle-window { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.hero-sub { text-shadow: 0 2px 20px rgba(0,0,0,0.8); }
+.section-sub { text-shadow: 0 1px 12px rgba(0,0,0,0.6); }
+.feature-tile-name { text-shadow: 0 1px 8px rgba(0,0,0,0.5); }
+.world-desc { text-shadow: 0 1px 6px rgba(0,0,0,0.5); }
+
+/* CEO / TEAM SECTION */
+#team { position: relative; z-index: 2; padding: 100px 40px; }
+.team-inner { max-width: 900px; margin: 0 auto; }
+.ceo-card { display: grid; grid-template-columns: 280px 1fr; gap: 56px; align-items: center; background: rgba(12,6,28,0.72); border: 1px solid rgba(139,92,246,0.32); border-radius: 28px; padding: 48px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); position: relative; overflow: hidden; }
+.ceo-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--purple), var(--gold), transparent); }
+.ceo-avatar-wrap { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.ceo-avatar { width: 180px; height: 180px; border-radius: 50%; background: linear-gradient(135deg, rgba(139,92,246,0.3), rgba(206,174,114,0.2)); border: 2px solid rgba(139,92,246,0.4); display: flex; align-items: center; justify-content: center; font-size: 72px; position: relative; box-shadow: 0 0 60px rgba(139,92,246,0.2); }
+.ceo-avatar::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 1px solid rgba(206,174,114,0.3); animation: ceoGlow 4s ease-in-out infinite alternate; }
+@keyframes ceoGlow { from { box-shadow: 0 0 20px rgba(139,92,246,0.2); } to { box-shadow: 0 0 50px rgba(206,174,114,0.25); } }
+.ceo-badge { background: linear-gradient(135deg, rgba(206,174,114,0.15), rgba(139,92,246,0.1)); border: 1px solid rgba(206,174,114,0.3); border-radius: 100px; padding: 6px 16px; font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--gold-l); text-transform: uppercase; }
+.ceo-info { display: flex; flex-direction: column; gap: 16px; }
+.ceo-name { font-family: var(--font-heading); font-size: clamp(28px, 4vw, 40px); font-weight: 700; letter-spacing: 2px; background: linear-gradient(135deg, #ffffff, var(--purple-xl)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; }
+.ceo-title { font-size: 14px; font-weight: 600; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+.ceo-divider { width: 60px; height: 2px; background: linear-gradient(90deg, var(--purple), var(--gold)); border-radius: 2px; }
+.ceo-bio { font-size: 16px; color: var(--text-muted); line-height: 1.8; }
+.ceo-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+.ceo-tag { background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.25); border-radius: 100px; padding: 6px 16px; font-size: 13px; color: var(--purple-l); font-weight: 500; }
+@media (max-width: 700px) { .ceo-card { grid-template-columns: 1fr; text-align: center; padding: 32px 24px; gap: 32px; } .ceo-avatar-wrap { align-items: center; } .ceo-divider { margin: 0 auto; } .ceo-tags { justify-content: center; } }
+@media (max-width: 480px) { #team { padding: 80px 20px; } }
+
+/* CONTACT FORM */
+#contact { position: relative; z-index: 2; padding: 100px 40px; }
+.contact-inner { max-width: 760px; margin: 0 auto; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.contact-info { display: flex; flex-direction: column; gap: 24px; padding-top: 8px; }
+.contact-info-item { display: flex; align-items: flex-start; gap: 14px; }
+.contact-info-icon { width: 44px; height: 44px; border-radius: 14px; background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.25); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.contact-info-label { font-size: 12px; font-weight: 600; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 4px; }
+.contact-info-value { font-size: 15px; color: var(--text); }
+.contact-info-value a { color: var(--purple-l); text-decoration: none; transition: color 0.2s; }
+.contact-info-value a:hover { color: var(--text); }
+.contact-form { background: rgba(12,6,28,0.72); border: 1px solid rgba(139,92,246,0.32); border-radius: 24px; padding: 36px 32px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); position: relative; overflow: hidden; }
+.contact-form::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--purple), transparent); }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 12px; font-weight: 600; letter-spacing: 1.5px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px; }
+.form-control { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(139,92,246,0.22); border-radius: 12px; padding: 12px 16px; font-size: 15px; color: var(--text); font-family: var(--font-body); transition: border-color 0.2s, background 0.2s; outline: none; }
+.form-control::placeholder { color: rgba(157,140,181,0.5); }
+.form-control:focus { border-color: var(--purple); background: rgba(139,92,246,0.06); }
+textarea.form-control { min-height: 120px; resize: vertical; }
+.btn-contact { width: 100%; background: linear-gradient(135deg, var(--purple), var(--purple-l)); color: white; border: none; padding: 14px 24px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; font-family: var(--font-body); letter-spacing: 0.5px; box-shadow: 0 0 24px rgba(139,92,246,0.4); transition: box-shadow 0.2s, transform 0.2s; }
+.btn-contact:hover { box-shadow: 0 0 40px rgba(139,92,246,0.6); transform: translateY(-2px); }
+.form-success { display: none; text-align: center; padding: 24px; }
+.form-success-icon { font-size: 48px; margin-bottom: 16px; display: block; }
+.form-success-title { font-family: var(--font-heading); font-size: 20px; color: var(--text); margin-bottom: 8px; }
+.form-success-sub { font-size: 14px; color: var(--text-muted); }
+@media (max-width: 700px) { .contact-grid { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { #contact { padding: 80px 20px; } .contact-form { padding: 24px 20px; } }
+
+/* SIGNUP MODAL */
+#signup-modal { position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+#signup-modal.open { opacity: 1; pointer-events: all; }
+.modal-backdrop { position: absolute; inset: 0; background: rgba(4,2,12,0.85); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); cursor: pointer; }
+.modal-box { position: relative; z-index: 1; background: rgba(12,6,28,0.96); border: 1px solid rgba(139,92,246,0.4); border-radius: 28px; padding: 48px 40px; max-width: 480px; width: 100%; box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 80px rgba(139,92,246,0.1); transform: translateY(20px) scale(0.96); transition: transform 0.3s; overflow: hidden; }
+#signup-modal.open .modal-box { transform: translateY(0) scale(1); }
+.modal-box::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--purple), var(--gold), transparent); }
+.modal-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; background: rgba(255,255,255,0.06); border: none; border-radius: 8px; color: var(--text-muted); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, color 0.2s; }
+.modal-close:hover { background: rgba(255,255,255,0.12); color: var(--text); }
+.modal-icon { font-size: 48px; text-align: center; margin-bottom: 20px; display: block; }
+.modal-title { font-family: var(--font-heading); font-size: 24px; font-weight: 700; letter-spacing: 1px; text-align: center; background: linear-gradient(135deg, var(--text), var(--purple-xl)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+.modal-sub { font-size: 14px; color: var(--text-muted); text-align: center; line-height: 1.6; margin-bottom: 28px; }
+.modal-success { display: none; text-align: center; padding: 8px 0; }
+.modal-success-icon { font-size: 56px; display: block; margin-bottom: 16px; }
+.modal-success-title { font-family: var(--font-heading); font-size: 22px; color: var(--text); margin-bottom: 8px; }
+.modal-success-sub { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; }
+.btn-modal { width: 100%; background: linear-gradient(135deg, var(--purple), var(--purple-l)); color: white; border: none; padding: 15px 24px; border-radius: 14px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: var(--font-body); letter-spacing: 0.5px; box-shadow: 0 0 30px rgba(139,92,246,0.5); transition: box-shadow 0.2s, transform 0.2s; margin-top: 8px; }
+.btn-modal:hover { box-shadow: 0 0 50px rgba(139,92,246,0.7); transform: translateY(-2px); }
+.modal-terms { font-size: 12px; color: var(--text-dim); text-align: center; margin-top: 16px; }
+.modal-terms a { color: var(--purple-l); text-decoration: none; }
+@media (max-width: 520px) { .modal-box { padding: 36px 24px; } }
 </style>
 </head>
 <body>
@@ -302,6 +432,8 @@ html[lang="ar"] { direction: rtl; }
     <li><a href="#oracle" data-i18n="nav_oracle">Oracle</a></li>
     <li><a href="#download" data-i18n="nav_download">Pobierz</a></li>
     <li><a href="#legal" data-i18n="nav_legal">Prawne</a></li>
+    <li><a href="#team">O nas</a></li>
+    <li><a href="#contact">Kontakt</a></li>
   </ul>
   <div class="nav-right">
     <select class="lang-select" id="lang-select" aria-label="Wybierz jezyk">
@@ -316,7 +448,8 @@ html[lang="ar"] { direction: rtl; }
       <option value="ar">&#127480;&#127462; &#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</option>
       <option value="ja">&#127471;&#127477; &#26085;&#26412;&#35486;</option>
     </select>
-    <a href="#download" class="btn-nav" data-i18n="nav_cta">Pobierz &#8212; Gratis</a>
+    <button onclick="openSignupModal()" class="btn-nav" style="margin-right:4px;">Zarejestruj się</button>
+    <a href="#download" class="btn-nav" data-i18n="nav_cta" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);box-shadow:none;">Pobierz &#8212; Gratis</a>
   </div>
   <div class="hamburger" id="hamburger" role="button" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -330,7 +463,10 @@ html[lang="ar"] { direction: rtl; }
   <a href="#oracle" data-i18n="nav_oracle">Oracle</a>
   <a href="#download" data-i18n="nav_download">Pobierz</a>
   <a href="#legal" data-i18n="nav_legal">Prawne</a>
-  <a href="#download" class="btn-nav" style="text-align:center;margin-top:8px;" data-i18n="nav_cta">Pobierz &#8212; Gratis</a>
+  <a href="#team">O nas</a>
+  <a href="#contact">Kontakt</a>
+  <button onclick="openSignupModal();document.getElementById('mobile-menu').classList.remove('open');document.getElementById('hamburger').classList.remove('open');" class="btn-nav" style="text-align:center;margin-top:4px;border:none;width:100%;cursor:pointer;">Zarejestruj się</button>
+  <a href="#download" class="btn-nav" style="text-align:center;margin-top:4px;" data-i18n="nav_cta">Pobierz &#8212; Gratis</a>
 </div>
 
 <!-- HERO -->
@@ -422,6 +558,109 @@ html[lang="ar"] { direction: rtl; }
   </div>
 </section>
 
+
+<!-- APP PREVIEW -->
+<section id="preview">
+  <div class="section-header">
+    <span class="section-eyebrow" data-i18n="preview_eyebrow">Aplikacja mobilna</span>
+    <h2 class="section-title" data-i18n="preview_title">Pi&#281;kna. Szybka. Intuicyjna.</h2>
+    <p class="section-sub" data-i18n="preview_sub">Zaprojektowana z dbało&#347;ci&#261; o ka&#380;dy detal &#8212; ciemne i jasne motywy, animacje, osobisty styl.</p>
+  </div>
+  <div class="preview-cards">
+    <div class="preview-card preview-card-1">
+      <div class="preview-phone">
+        <div class="preview-phone-screen">
+          <div class="preview-screen-header">
+            <span class="preview-logo">&#10022; AETHERA</span>
+          </div>
+          <div class="preview-screen-body">
+            <div class="preview-orb"></div>
+            <div class="preview-widget preview-widget-oracle">
+              <span style="font-size:22px">&#128302;</span>
+              <div style="font-size:11px;font-weight:700;color:#E0D5FF;margin-top:6px;" data-i18n="preview_oracle_label">Oracle AI</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:2px;" data-i18n="preview_oracle_sub">3 wiadomo&#347;ci dzi&#347;</div>
+            </div>
+            <div class="preview-widget preview-widget-tarot">
+              <span style="font-size:22px">&#127183;</span>
+              <div style="font-size:11px;font-weight:700;color:#F5EDD8;margin-top:6px;" data-i18n="preview_tarot_label">Karta dnia</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:2px;" data-i18n="preview_tarot_card">Gwiazda &#10022;</div>
+            </div>
+            <div class="preview-widget preview-widget-moon">
+              <span style="font-size:22px">&#127769;</span>
+              <div style="font-size:11px;font-weight:700;color:#CBD5FF;margin-top:6px;" data-i18n="preview_moon_label">Faza Ksi&#281;&#380;yca</div>
+              <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:2px;" data-i18n="preview_moon_phase">Pe&#322;nia &#9675;</div>
+            </div>
+          </div>
+          <div class="preview-screen-footer">
+            <span>&#127968;</span><span>&#127758;</span><span style="background:rgba(139,92,246,0.4);border-radius:50%;padding:4px;">&#128302;</span><span>&#128276;</span><span>&#128100;</span>
+          </div>
+        </div>
+      </div>
+      <div class="preview-label" data-i18n="preview_label_dark">Ciemny motyw</div>
+    </div>
+    <div class="preview-features-list">
+      <div class="preview-feature-item">
+        <div class="preview-feature-icon">&#127912;</div>
+        <div>
+          <div class="preview-feature-title" data-i18n="prev_feat1_title">8 unikalnych motyw&#243;w</div>
+          <div class="preview-feature-desc" data-i18n="prev_feat1_desc">Od z&#322;otego rytu&#322;u po oceaniczny sen &#8212; ka&#380;dy motyw ma ciemn&#261; i jasn&#261; wersj&#281;.</div>
+        </div>
+      </div>
+      <div class="preview-feature-item">
+        <div class="preview-feature-icon">&#127769;</div>
+        <div>
+          <div class="preview-feature-title" data-i18n="prev_feat2_title">Tryb jasny i ciemny</div>
+          <div class="preview-feature-desc" data-i18n="prev_feat2_desc">Automatyczny tryb dostosowany do pory dnia lub r&#281;czny wyb&#243;r.</div>
+        </div>
+      </div>
+      <div class="preview-feature-item">
+        <div class="preview-feature-icon">&#9889;</div>
+        <div>
+          <div class="preview-feature-title" data-i18n="prev_feat3_title">P&#322;ynne animacje</div>
+          <div class="preview-feature-desc" data-i18n="prev_feat3_desc">Reanimated 3.0 &#8212; ka&#380;de przej&#347;cie jest p&#322;ynne jak medytacja.</div>
+        </div>
+      </div>
+      <div class="preview-feature-item">
+        <div class="preview-feature-icon">&#128276;</div>
+        <div>
+          <div class="preview-feature-title" data-i18n="prev_feat4_title">Personalizowane powiadomienia</div>
+          <div class="preview-feature-desc" data-i18n="prev_feat4_desc">Codzienny rytu&#322;, karta dnia, wiadomo&#347;&#263; od Oracle &#8212; w Twoim tempie.</div>
+        </div>
+      </div>
+    </div>
+    <div class="preview-card preview-card-2">
+      <div class="preview-phone">
+        <div class="preview-phone-screen preview-phone-screen-light">
+          <div class="preview-screen-header" style="background:rgba(245,236,216,0.9);">
+            <span class="preview-logo" style="color:#A97A39;">&#10022; AETHERA</span>
+          </div>
+          <div class="preview-screen-body" style="background:linear-gradient(160deg,#FBF5EC,#EDE4CF);">
+            <div class="preview-widget-light-1">
+              <span style="font-size:22px">&#127775;</span>
+              <div style="font-size:11px;font-weight:700;color:#3A2A1A;margin-top:6px;" data-i18n="preview_horoscope_label">Horoskop</div>
+              <div style="font-size:10px;color:#8A7060;margin-top:2px;" data-i18n="preview_today">Dzi&#347; dla Ciebie</div>
+            </div>
+            <div class="preview-widget-light-2">
+              <span style="font-size:22px">&#129496;</span>
+              <div style="font-size:11px;font-weight:700;color:#3A2A1A;margin-top:6px;" data-i18n="preview_meditation_label">Medytacja</div>
+              <div style="font-size:10px;color:#8A7060;margin-top:2px;" data-i18n="preview_min">10 min</div>
+            </div>
+            <div class="preview-widget-light-3">
+              <span style="font-size:22px">&#128214;</span>
+              <div style="font-size:11px;font-weight:700;color:#3A2A1A;margin-top:6px;" data-i18n="preview_journal_label">Dziennik</div>
+              <div style="font-size:10px;color:#8A7060;margin-top:2px;" data-i18n="preview_entries">52 wpisy</div>
+            </div>
+          </div>
+          <div class="preview-screen-footer" style="background:rgba(245,236,216,0.95);border-top:1px solid rgba(169,122,57,0.12);">
+            <span>&#127968;</span><span>&#127758;</span><span style="background:rgba(206,174,114,0.3);border-radius:50%;padding:4px;">&#128302;</span><span>&#128276;</span><span>&#128100;</span>
+          </div>
+        </div>
+      </div>
+      <div class="preview-label" data-i18n="preview_label_light">Jasny motyw</div>
+    </div>
+  </div>
+</section>
+
 <!-- STEPS -->
 <section id="steps">
   <div class="section-header">
@@ -432,6 +671,162 @@ html[lang="ar"] { direction: rtl; }
     <div class="step-card"><div class="step-number">1</div><span class="step-icon">&#127758;</span><h3 class="step-title" data-i18n="step1_title">Wybierz j&#281;zyk</h3><p class="step-desc" data-i18n="step1_desc">Aethera m&#243;wi do Ciebie w Twoim j&#281;zyku. Wybierz spo&#347;r&#243;d 10 dost&#281;pnych j&#281;zyk&#243;w &#8212; od polskiego po japo&#324;ski.</p></div>
     <div class="step-card"><div class="step-number">2</div><span class="step-icon">&#10024;</span><h3 class="step-title" data-i18n="step2_title">Skonfiguruj profil</h3><p class="step-desc" data-i18n="step2_desc">Podaj dat&#281; urodzenia, znak zodiaku i archetyp duszy. AI Oracle dopasuje swoje odpowiedzi do Twojej energii.</p></div>
     <div class="step-card"><div class="step-number">3</div><span class="step-icon">&#128640;</span><h3 class="step-title" data-i18n="step3_title">Odkryj</h3><p class="step-desc" data-i18n="step3_desc">130+ funkcji, AI Oracle zawsze do Twojej dyspozycji. Tarot, horoskopy, medytacje, rytu&#261;&#322;y &#8212; wszystko w jednej aplikacji.</p></div>
+  </div>
+</section>
+
+
+<!-- TEAM / CEO -->
+<section id="team">
+  <div class="section-header">
+    <span class="section-eyebrow">Twórca</span>
+    <h2 class="section-title">Człowiek za Aetherą</h2>
+    <p class="section-sub">Wizja, pasja i technologia — połączone w jednej aplikacji.</p>
+  </div>
+  <div class="team-inner">
+    <div class="ceo-card">
+      <div class="ceo-avatar-wrap">
+        <div class="ceo-avatar">🧿</div>
+        <div class="ceo-badge">&#10022; Założyciel</div>
+      </div>
+      <div class="ceo-info">
+        <div class="ceo-name">Tomasz Klimczyk</div>
+        <div class="ceo-title">CEO &amp; Architect</div>
+        <div class="ceo-divider"></div>
+        <p class="ceo-bio">Twórca i architekt Aethery — aplikacji łączącej starożytną mądrość z nowoczesną technologią AI. Z pasją do duchowości, designu i inżynierii oprogramowania, Tomasz zbudował od podstaw ekosystem 130+ funkcji, integrując AI Oracle, tarot, astrologię i społeczność w jednej, spójnej wizji.</p>
+        <p class="ceo-bio" style="margin-top:-8px;">Aethera to projekt, w którym każdy detal — od animacji po algorytmy AI — był przemyślany z myślą o Twojej duchowej podróży.</p>
+        <div class="ceo-tags">
+          <span class="ceo-tag">React Native</span>
+          <span class="ceo-tag">AI / GPT-4</span>
+          <span class="ceo-tag">Firebase</span>
+          <span class="ceo-tag">Spiritual Tech</span>
+          <span class="ceo-tag">UX Design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-header">
+    <span class="section-eyebrow" data-i18n="testimonials_eyebrow">Opinie u&#380;ytkownik&#243;w</span>
+    <h2 class="section-title" data-i18n="testimonials_title">Co m&#243;wi&#261; o Aetherze?</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="testimonial-text" data-i18n="test1_text">&#8222;Oracle AI za ka&#380;dym razem trafia w sedno. To nie jest zwyk&#322;y horoskop &#8212; to rozmowa z czym&#347; g&#322;&#281;bszym.&#8221;</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">M</div>
+        <div>
+          <div class="testimonial-name">Marta K.</div>
+          <div class="testimonial-role" data-i18n="test_role_pl">Polska &middot; &#9810; Wodnik</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card testimonial-card-featured">
+      <div class="testimonial-badge" data-i18n="test_badge_editor">Wyb&#243;r redakcji</div>
+      <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="testimonial-text" data-i18n="test2_text">&#8222;U&#380;ywam Aethery codziennie od 3 miesi&#281;cy. Rytu&#322;y poranne zmieni&#322;y m&#243;j poranek ca&#322;kowicie. Wreszcie aplikacja, kt&#243;ra naprawd&#281; rozumie duchowo&#347;&#263;.&#8221;</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--gold),var(--purple));">A</div>
+        <div>
+          <div class="testimonial-name">Anna W.</div>
+          <div class="testimonial-role" data-i18n="test_role_pl2">Polska &middot; &#9811; Ryby &middot; Premium</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="testimonial-text" data-i18n="test3_text">&#8220;The tarot readings with AI interpretation are absolutely stunning. I&#8217;ve tried many apps &#8212; Aethera is in a different league.&#8221;</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--teal),var(--purple));">S</div>
+        <div>
+          <div class="testimonial-name">Sarah L.</div>
+          <div class="testimonial-role" data-i18n="test_role_en">UK &middot; &#9804; Leo</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="testimonial-text" data-i18n="test4_text">&#8220;Die Chakra-Meditation und Binaural Beats sind ph&#228;nomenal. Endlich eine App, die das alles vereint.&#8221;</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background:linear-gradient(135deg,#60A5FA,var(--purple));">K</div>
+        <div>
+          <div class="testimonial-name">Klaus M.</div>
+          <div class="testimonial-role" data-i18n="test_role_de">Deutschland &middot; &#9807; Skorpion</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-eyebrow">Napisz do nas</span>
+    <h2 class="section-title">Kontakt</h2>
+    <p class="section-sub">Masz pytanie, pomysł lub chcesz nawiązać współpracę? Jesteśmy tu dla Ciebie.</p>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-info-item">
+          <div class="contact-info-icon">✉️</div>
+          <div>
+            <div class="contact-info-label">Email główny</div>
+            <div class="contact-info-value"><a href="mailto:contact@aethera.pl">contact@aethera.pl</a></div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">🌐</div>
+          <div>
+            <div class="contact-info-label">Strona</div>
+            <div class="contact-info-value"><a href="https://aethera.pl">aethera.pl</a></div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">⚡</div>
+          <div>
+            <div class="contact-info-label">Czas odpowiedzi</div>
+            <div class="contact-info-value">Do 48 godzin roboczych</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">🔒</div>
+          <div>
+            <div class="contact-info-label">Prywatność</div>
+            <div class="contact-info-value">Twoje dane są bezpieczne i nie są udostępniane osobom trzecim</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form" id="contact-form-wrap">
+        <div id="contact-form-fields">
+          <div class="form-group">
+            <label>Imię i nazwisko</label>
+            <input type="text" class="form-control" id="c-name" placeholder="Jan Kowalski" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label>Adres e-mail *</label>
+            <input type="email" class="form-control" id="c-email" placeholder="twoj@email.com" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label>Temat</label>
+            <input type="text" class="form-control" id="c-subject" placeholder="W czym możemy pomóc?">
+          </div>
+          <div class="form-group">
+            <label>Wiadomość *</label>
+            <textarea class="form-control" id="c-message" placeholder="Opisz swoje pytanie lub pomysł..." required></textarea>
+          </div>
+          <button class="btn-contact" onclick="submitContact()">Wyślij wiadomość ✦</button>
+        </div>
+        <div class="form-success" id="contact-success">
+          <span class="form-success-icon">✦</span>
+          <div class="form-success-title">Wiadomość przygotowana!</div>
+          <p class="form-success-sub">Twój klient poczty otworzy się z wypełnioną wiadomością. Wyślij ją, aby skontaktować się z nami na adres <strong>contact@aethera.pl</strong></p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -486,7 +881,9 @@ html[lang="ar"] { direction: rtl; }
     <div>
       <div class="footer-col-title" data-i18n="footer_col_contact">Kontakt</div>
       <ul class="footer-links">
-        <li><a href="mailto:kontakt@aethera.pl">kontakt@aethera.pl</a></li>
+        <li><a href="mailto:contact@aethera.pl">contact@aethera.pl</a></li>
+        <li><a href="#team">Tomasz Klimczyk — CEO</a></li>
+        <li><a href="#contact">Formularz kontaktowy</a></li>
         <li><a href="https://aethera.pl">aethera.pl</a></li>
       </ul>
     </div>
@@ -872,7 +1269,23 @@ var TRANSLATIONS = {
     feat_chat:'Chat Wspólnoty',feat_chat_sub:'Wiele pokoi tematycznych',
     feat_live:'Rytuały na Żywo',feat_live_sub:'Z innymi użytkownikami',
     feat_challenges:'Wyzwania Duchowe',feat_challenges_sub:'Cotygodniowe misje',
-    feat_retro:'Retrogradacje',feat_retro_sub:'Planety i ich wpływ'
+    feat_retro:'Retrogradacje',feat_retro_sub:'Planety i ich wpływ',
+    preview_eyebrow:'Aplikacja mobilna',preview_title:'Piekna. Szybka. Intuicyjna.',preview_sub:'Zaprojektowana z dbałością o każdy detal — ciemne i jasne motywy, animacje, osobisty styl.',
+    preview_oracle_label:'Oracle AI',preview_oracle_sub:'3 wiadomości dziś',preview_tarot_label:'Karta dnia',preview_tarot_card:'Gwiazda ✦',
+    preview_moon_label:'Faza Księżyca',preview_moon_phase:'Pełnia ○',preview_label_dark:'Ciemny motyw',preview_label_light:'Jasny motyw',
+    preview_horoscope_label:'Horoskop',preview_today:'Dziś dla Ciebie',preview_meditation_label:'Medytacja',preview_min:'10 min',
+    preview_journal_label:'Dziennik',preview_entries:'52 wpisy',
+    prev_feat1_title:'8 unikalnych motywów',prev_feat1_desc:'Od złotego rytuału po oceaniczny sen — każdy motyw ma ciemną i jasną wersję.',
+    prev_feat2_title:'Tryb jasny i ciemny',prev_feat2_desc:'Automatyczny tryb dostosowany do pory dnia lub ręczny wybór.',
+    prev_feat3_title:'Płynne animacje',prev_feat3_desc:'Reanimated 3.0 — każde przejście jest płynne jak medytacja.',
+    prev_feat4_title:'Personalizowane powiadomienia',prev_feat4_desc:'Codzienny rytuał, karta dnia, wiadomość od Oracle — w Twoim tempie.',
+    testimonials_eyebrow:'Opinie użytkowników',testimonials_title:'Co mówią o Aetherze?',
+    test1_text:'"Oracle AI za każdym razem trafia w sedno. To nie jest zwykły horoskop — to rozmowa z czymś głębszym."',
+    test2_text:'"Używam Aethery codziennie od 3 miesięcy. Rytuały poranne zmieniły mój poranek całkowicie."',
+    test3_text:'"The tarot readings with AI interpretation are absolutely stunning. Aethera is in a different league."',
+    test4_text:'"Die Chakra-Meditation und Binaural Beats sind phänomenal. Endlich eine App, die das alles vereint."',
+    test_badge_editor:'Wybór redakcji',test_role_pl:'Polska · ♒ Wodnik',test_role_pl2:'Polska · ♓ Ryby · Premium',
+    test_role_en:'UK · ♌ Leo',test_role_de:'Deutschland · ♏ Skorpion'
   },
   en: {
     nav_worlds:'Worlds',nav_features:'Features',nav_oracle:'Oracle',nav_download:'Download',nav_legal:'Legal',nav_cta:'Download — Free',
@@ -926,7 +1339,23 @@ var TRANSLATIONS = {
     feat_chat:'Community Chat',feat_chat_sub:'Multiple themed rooms',
     feat_live:'Live Rituals',feat_live_sub:'With other users',
     feat_challenges:'Spiritual Challenges',feat_challenges_sub:'Weekly missions',
-    feat_retro:'Retrogrades',feat_retro_sub:'Planets & their influence'
+    feat_retro:'Retrogrades',feat_retro_sub:'Planets & their influence',
+    preview_eyebrow:'Mobile App',preview_title:'Beautiful. Fast. Intuitive.',preview_sub:'Designed with attention to every detail — dark and light themes, animations, personal style.',
+    preview_oracle_label:'Oracle AI',preview_oracle_sub:'3 messages today',preview_tarot_label:'Card of the day',preview_tarot_card:'The Star ✦',
+    preview_moon_label:'Moon Phase',preview_moon_phase:'Full Moon ○',preview_label_dark:'Dark theme',preview_label_light:'Light theme',
+    preview_horoscope_label:'Horoscope',preview_today:'Today for you',preview_meditation_label:'Meditation',preview_min:'10 min',
+    preview_journal_label:'Journal',preview_entries:'52 entries',
+    prev_feat1_title:'8 unique themes',prev_feat1_desc:'From golden ritual to ocean dream — each theme has a dark and light version.',
+    prev_feat2_title:'Light and dark mode',prev_feat2_desc:'Automatic mode adapted to the time of day or manual selection.',
+    prev_feat3_title:'Smooth animations',prev_feat3_desc:'Reanimated 3.0 — every transition is as smooth as meditation.',
+    prev_feat4_title:'Personalized notifications',prev_feat4_desc:'Daily ritual, card of the day, message from Oracle — at your own pace.',
+    testimonials_eyebrow:'User Reviews',testimonials_title:'What do they say about Aethera?',
+    test1_text:'"Oracle AI hits the mark every time. This is not a regular horoscope — it is a conversation with something deeper."',
+    test2_text:'"I have been using Aethera daily for 3 months. Morning rituals have completely changed my mornings."',
+    test3_text:'"The tarot readings with AI interpretation are absolutely stunning. Aethera is in a different league."',
+    test4_text:'"Die Chakra-Meditation und Binaural Beats sind phänomenal. Endlich eine App, die das alles vereint."',
+    test_badge_editor:"Editor's Choice",test_role_pl:'Poland · ♒ Aquarius',test_role_pl2:'Poland · ♓ Pisces · Premium',
+    test_role_en:'UK · ♌ Leo',test_role_de:'Germany · ♏ Scorpio'
   },
   de: {
     nav_worlds:'Welten',nav_features:'Funktionen',nav_oracle:'Orakel',nav_download:'Herunterladen',nav_legal:'Rechtliches',nav_cta:'Kostenlos herunterladen',
@@ -977,7 +1406,23 @@ var TRANSLATIONS = {
     feat_chat:'Community-Chat',feat_chat_sub:'Mehrere Themenräume',
     feat_live:'Live-Rituale',feat_live_sub:'Mit anderen Nutzern',
     feat_challenges:'Spirituelle Herausforderungen',feat_challenges_sub:'Wöchentliche Missionen',
-    feat_retro:'Planetenrückläufe',feat_retro_sub:'Planeten & ihr Einfluss'
+    feat_retro:'Planetenrückläufe',feat_retro_sub:'Planeten & ihr Einfluss',
+    preview_eyebrow:'Mobile App',preview_title:'Schoen. Schnell. Intuitiv.',preview_sub:'Entwickelt mit Liebe zum Detail — dunkle und helle Themen, Animationen, persönlicher Stil.',
+    preview_oracle_label:'Oracle KI',preview_oracle_sub:'3 Nachrichten heute',preview_tarot_label:'Tageskarte',preview_tarot_card:'Der Stern ✦',
+    preview_moon_label:'Mondphase',preview_moon_phase:'Vollmond ○',preview_label_dark:'Dunkles Thema',preview_label_light:'Helles Thema',
+    preview_horoscope_label:'Horoskop',preview_today:'Heute für dich',preview_meditation_label:'Meditation',preview_min:'10 Min',
+    preview_journal_label:'Tagebuch',preview_entries:'52 Einträge',
+    prev_feat1_title:'8 einzigartige Themen',prev_feat1_desc:'Vom goldenen Ritual bis zum Ozeantraum — jedes Thema hat eine dunkle und helle Version.',
+    prev_feat2_title:'Hell- und Dunkelmodus',prev_feat2_desc:'Automatischer Modus oder manuelle Auswahl.',
+    prev_feat3_title:'Sanfte Animationen',prev_feat3_desc:'Reanimated 3.0 — jeder Übergang ist sanft wie Meditation.',
+    prev_feat4_title:'Personalisierte Benachrichtigungen',prev_feat4_desc:'Tägliches Ritual, Tageskarte, Oracle-Nachricht — in deinem Tempo.',
+    testimonials_eyebrow:'Nutzerbewertungen',testimonials_title:'Was sagen sie über Aethera?',
+    test1_text:'"Oracle KI trifft jedes Mal ins Schwarze. Das ist kein normales Horoskop — das ist ein Gespräch mit etwas Tieferem."',
+    test2_text:'"Ich nutze Aethera täglich seit 3 Monaten. Die Morgenrituale haben meinen Morgen völlig verändert."',
+    test3_text:'"The tarot readings with AI interpretation are absolutely stunning. Aethera is in a different league."',
+    test4_text:'"Die Chakra-Meditation und Binaural Beats sind phänomenal. Endlich eine App, die das alles vereint."',
+    test_badge_editor:'Redaktionstipp',test_role_pl:'Polen · ♒ Wassermann',test_role_pl2:'Polen · ♓ Fische · Premium',
+    test_role_en:'UK · ♌ Löwe',test_role_de:'Deutschland · ♏ Skorpion'
   },
   fr: {
     nav_worlds:'Mondes',nav_features:'Fonctions',nav_oracle:'Oracle',nav_download:'Télécharger',nav_legal:'Légal',nav_cta:'Télécharger — Gratuit',
@@ -1028,7 +1473,23 @@ var TRANSLATIONS = {
     feat_chat:'Chat Communautaire',feat_chat_sub:'Plusieurs salons thématiques',
     feat_live:'Rituels en Direct',feat_live_sub:'Avec d\'autres utilisateurs',
     feat_challenges:'Défis Spirituels',feat_challenges_sub:'Missions hebdomadaires',
-    feat_retro:'Rétrogrades',feat_retro_sub:'Planètes & leur influence'
+    feat_retro:'Rétrogrades',feat_retro_sub:'Planètes & leur influence',
+    preview_eyebrow:'Application mobile',preview_title:'Belle. Rapide. Intuitive.',preview_sub:'Conçue avec soin pour chaque détail — thèmes sombres et clairs, animations, style personnel.',
+    preview_oracle_label:'Oracle IA',preview_oracle_sub:"3 messages aujourd'hui",preview_tarot_label:'Carte du jour',preview_tarot_card:"L'Etoile \u2726",
+    preview_moon_label:'Phase de la Lune',preview_moon_phase:'Pleine Lune \u25CB',preview_label_dark:'Th\u00e8me sombre',preview_label_light:'Th\u00e8me clair',
+    preview_horoscope_label:'Horoscope',preview_today:"Aujourd'hui pour toi",preview_meditation_label:'M\u00e9ditation',preview_min:'10 min',
+    preview_journal_label:'Journal',preview_entries:'52 entrées',
+    prev_feat1_title:'8 th\u00e8mes uniques',prev_feat1_desc:'Du rituel dor\u00e9 au r\u00eave oc\u00e9anique \u2014 chaque th\u00e8me a une version sombre et claire.',
+    prev_feat2_title:'Mode clair et sombre',prev_feat2_desc:"Mode automatique adapt\u00e9 \u00e0 l'heure ou s\u00e9lection manuelle.",
+    prev_feat3_title:'Animations fluides',prev_feat3_desc:"Reanimated 3.0 \u2014 chaque transition est aussi fluide qu'une m\u00e9ditation.",
+    prev_feat4_title:'Notifications personnalis\u00e9es',prev_feat4_desc:"Rituel quotidien, carte du jour, message d'Oracle \u2014 \u00e0 votre rythme.",
+    testimonials_eyebrow:'Avis des utilisateurs',testimonials_title:"Que disent-ils d'Aethera?",
+    test1_text:'"Oracle IA touche juste \u00e0 chaque fois. Ce n\u2019est pas un horoscope ordinaire \u2014 c\u2019est une conversation avec quelque chose de plus profond."',
+    test2_text:'"J\u2019utilise Aethera tous les jours depuis 3 mois. Les rituels du matin ont compl\u00e8tement chang\u00e9 ma matin\u00e9e."',
+    test3_text:'"The tarot readings with AI interpretation are absolutely stunning. Aethera is in a different league."',
+    test4_text:'"Die Chakra-Meditation und Binaural Beats sind phänomenal."',
+    test_badge_editor:'Choix de la rédaction',test_role_pl:'Pologne · ♒ Verseau',test_role_pl2:'Pologne · ♓ Poissons · Premium',
+    test_role_en:'UK · ♌ Lion',test_role_de:'Allemagne · ♏ Scorpion'
   },
   es: {
     nav_worlds:'Mundos',nav_features:'Funciones',nav_oracle:'Oráculo',nav_download:'Descargar',nav_legal:'Legal',nav_cta:'Descargar — Gratis',
@@ -1079,7 +1540,23 @@ var TRANSLATIONS = {
     feat_chat:'Chat Comunitario',feat_chat_sub:'Múltiples salas temáticas',
     feat_live:'Rituales en Vivo',feat_live_sub:'Con otros usuarios',
     feat_challenges:'Desafíos Espirituales',feat_challenges_sub:'Misiones semanales',
-    feat_retro:'Retrógrados',feat_retro_sub:'Planetas y su influencia'
+    feat_retro:'Retrógrados',feat_retro_sub:'Planetas y su influencia',
+    preview_eyebrow:'Aplicación móvil',preview_title:'Hermosa. Rapida. Intuitiva.',preview_sub:'Diseñada con atención a cada detalle — temas oscuros y claros, animaciones, estilo personal.',
+    preview_oracle_label:'Oracle IA',preview_oracle_sub:'3 mensajes hoy',preview_tarot_label:'Carta del día',preview_tarot_card:'La Estrella ✦',
+    preview_moon_label:'Fase Lunar',preview_moon_phase:'Luna Llena ○',preview_label_dark:'Tema oscuro',preview_label_light:'Tema claro',
+    preview_horoscope_label:'Horóscopo',preview_today:'Hoy para ti',preview_meditation_label:'Meditación',preview_min:'10 min',
+    preview_journal_label:'Diario',preview_entries:'52 entradas',
+    prev_feat1_title:'8 temas únicos',prev_feat1_desc:'Del ritual dorado al sueño oceánico — cada tema tiene versión oscura y clara.',
+    prev_feat2_title:'Modo claro y oscuro',prev_feat2_desc:'Modo automático adaptado a la hora del día o selección manual.',
+    prev_feat3_title:'Animaciones fluidas',prev_feat3_desc:'Reanimated 3.0 — cada transición es tan fluida como la meditación.',
+    prev_feat4_title:'Notificaciones personalizadas',prev_feat4_desc:'Ritual diario, carta del día, mensaje de Oracle — a tu ritmo.',
+    testimonials_eyebrow:'Opiniones de usuarios',testimonials_title:'¿Qué dicen de Aethera?',
+    test1_text:'"Oracle IA acierta siempre. No es un horóscopo ordinario — es una conversación con algo más profundo."',
+    test2_text:'"Uso Aethera todos los días desde hace 3 meses. Los rituales matutinos cambiaron completamente mis mañanas."',
+    test3_text:'"The tarot readings with AI interpretation are absolutely stunning. Aethera is in a different league."',
+    test4_text:'"Die Chakra-Meditation und Binaural Beats sind phänomenal."',
+    test_badge_editor:'Elección de la redacción',test_role_pl:'Polonia · ♒ Acuario',test_role_pl2:'Polonia · ♓ Piscis · Premium',
+    test_role_en:'UK · ♌ Leo',test_role_de:'Alemania · ♏ Escorpio'
   },
   pt: {
     nav_worlds:'Mundos',nav_features:'Funções',nav_oracle:'Oráculo',nav_download:'Baixar',nav_legal:'Legal',nav_cta:'Baixar — Grátis',
@@ -1130,7 +1607,23 @@ var TRANSLATIONS = {
     feat_chat:'Chat Comunitário',feat_chat_sub:'Várias salas temáticas',
     feat_live:'Rituais ao Vivo',feat_live_sub:'Com outros utilizadores',
     feat_challenges:'Desafios Espirituais',feat_challenges_sub:'Missões semanais',
-    feat_retro:'Retrógrados',feat_retro_sub:'Planetas e a sua influência'
+    feat_retro:'Retrógrados',feat_retro_sub:'Planetas e a sua influência',
+    preview_eyebrow:'Aplicativo móvel',preview_title:'Bonito. Rapido. Intuitivo.',preview_sub:'Projetado com atenção a cada detalhe — temas escuros e claros, animações, estilo pessoal.',
+    preview_oracle_label:'Oracle IA',preview_oracle_sub:'3 mensagens hoje',preview_tarot_label:'Carta do dia',preview_tarot_card:'A Estrela ✦',
+    preview_moon_label:'Fase da Lua',preview_moon_phase:'Lua Cheia ○',preview_label_dark:'Tema escuro',preview_label_light:'Tema claro',
+    preview_horoscope_label:'Horóscopo',preview_today:'Hoje para você',preview_meditation_label:'Meditação',preview_min:'10 min',
+    preview_journal_label:'Diário',preview_entries:'52 entradas',
+    prev_feat1_title:'8 temas únicos',prev_feat1_desc:'Do ritual dourado ao sonho oceânico — cada tema tem versão escura e clara.',
+    prev_feat2_title:'Modo claro e escuro',prev_feat2_desc:'Modo automático adaptado à hora do dia ou seleção manual.',
+    prev_feat3_title:'Animações suaves',prev_feat3_desc:'Reanimated 3.0 — cada transição é tão suave quanto a meditação.',
+    prev_feat4_title:'Notificações personalizadas',prev_feat4_desc:'Ritual diário, carta do dia, mensagem do Oracle — no seu ritmo.',
+    testimonials_eyebrow:'Opiniões de utilizadores',testimonials_title:'O que dizem sobre Aethera?',
+    test1_text:'"Oracle IA acerta sempre. Não é um horóscopo comum — é uma conversa com algo mais profundo."',
+    test2_text:'"Uso Aethera todos os dias há 3 meses. Os rituais matinais mudaram completamente as minhas manhãs."',
+    test3_text:'"The tarot readings with AI interpretation are absolutely stunning. Aethera is in a different league."',
+    test4_text:'"Die Chakra-Meditation und Binaural Beats sind phänomenal."',
+    test_badge_editor:'Escolha da redação',test_role_pl:'Polónia · ♒ Aquário',test_role_pl2:'Polónia · ♓ Peixes · Premium',
+    test_role_en:'UK · ♌ Leão',test_role_de:'Alemanha · ♏ Escorpião'
   },
   it: {
     nav_worlds:'Mondi',nav_features:'Funzioni',nav_oracle:'Oracolo',nav_download:'Scarica',nav_legal:'Legale',nav_cta:'Scarica — Gratis',
@@ -1181,7 +1674,23 @@ var TRANSLATIONS = {
     feat_chat:'Chat della Comunità',feat_chat_sub:'Più stanze tematiche',
     feat_live:'Rituali in Diretta',feat_live_sub:'Con altri utenti',
     feat_challenges:'Sfide Spirituali',feat_challenges_sub:'Missioni settimanali',
-    feat_retro:'Retrogrado',feat_retro_sub:'Pianeti e la loro influenza'
+    feat_retro:'Retrogrado',feat_retro_sub:'Pianeti e la loro influenza',
+    preview_eyebrow:'Applicazione mobile',preview_title:'Bella. Veloce. Intuitiva.',preview_sub:'Progettata con cura per ogni dettaglio — temi scuri e chiari, animazioni, stile personale.',
+    preview_oracle_label:'Oracle IA',preview_oracle_sub:'3 messaggi oggi',preview_tarot_label:'Carta del giorno',preview_tarot_card:'La Stella ✦',
+    preview_moon_label:'Fase Lunare',preview_moon_phase:'Luna Piena ○',preview_label_dark:'Tema scuro',preview_label_light:'Tema chiaro',
+    preview_horoscope_label:'Oroscopo',preview_today:'Oggi per te',preview_meditation_label:'Meditazione',preview_min:'10 min',
+    preview_journal_label:'Diario',preview_entries:'52 voci',
+    prev_feat1_title:'8 temi unici',prev_feat1_desc:'Dal rituale dorato al sogno oceanico — ogni tema ha una versione scura e chiara.',
+    prev_feat2_title:'Modalit\u00e0 chiara e scura',prev_feat2_desc:"Modalit\u00e0 automatica adattata all'ora del giorno o selezione manuale.",
+    prev_feat3_title:'Animazioni fluide',prev_feat3_desc:'Reanimated 3.0 \u2014 ogni transizione \u00e8 fluida come la meditazione.',
+    prev_feat4_title:'Notifiche personalizzate',prev_feat4_desc:"Rituale quotidiano, carta del giorno, messaggio dell'Oracle \u2014 al tuo ritmo.",
+    testimonials_eyebrow:'Recensioni degli utenti',testimonials_title:'Cosa dicono di Aethera?',
+    test1_text:'"Oracle IA coglie nel segno ogni volta. Non è un oroscopo ordinario — è una conversazione con qualcosa di più profondo."',
+    test2_text:'"Uso Aethera ogni giorno da 3 mesi. I rituali mattutini hanno completamente cambiato le mie mattine."',
+    test3_text:'"The tarot readings with AI interpretation are absolutely stunning. Aethera is in a different league."',
+    test4_text:'"Die Chakra-Meditation und Binaural Beats sind phänomenal."',
+    test_badge_editor:'Scelta della redazione',test_role_pl:'Polonia · ♒ Acquario',test_role_pl2:'Polonia · ♓ Pesci · Premium',
+    test_role_en:'UK · ♌ Leone',test_role_de:'Germania · ♏ Scorpione'
   },
   ru: {
     nav_worlds:'Миры',nav_features:'Функции',nav_oracle:'Оракул',nav_download:'Скачать',nav_legal:'Правовое',nav_cta:'Скачать — Бесплатно',
@@ -1232,7 +1741,23 @@ var TRANSLATIONS = {
     feat_chat:'Чат Сообщества',feat_chat_sub:'Несколько тематических комнат',
     feat_live:'Живые Ритуалы',feat_live_sub:'С другими пользователями',
     feat_challenges:'Духовные Испытания',feat_challenges_sub:'Еженедельные миссии',
-    feat_retro:'Ретроградные Планеты',feat_retro_sub:'Планеты и их влияние'
+    feat_retro:'Ретроградные Планеты',feat_retro_sub:'Планеты и их влияние',
+    preview_eyebrow:'Мобильное приложение',preview_title:'Красивое. Быстрое. Интуитивное.',preview_sub:'Разработано с вниманием к каждой детали — тёмные и светлые темы, анимации, личный стиль.',
+    preview_oracle_label:'Oracle ИИ',preview_oracle_sub:'3 сообщения сегодня',preview_tarot_label:'Карта дня',preview_tarot_card:'Звезда ✦',
+    preview_moon_label:'Фаза Луны',preview_moon_phase:'Полнолуние ○',preview_label_dark:'Тёмная тема',preview_label_light:'Светлая тема',
+    preview_horoscope_label:'Гороскоп',preview_today:'Сегодня для тебя',preview_meditation_label:'Медитация',preview_min:'10 мин',
+    preview_journal_label:'Дневник',preview_entries:'52 записи',
+    prev_feat1_title:'8 уникальных тем',prev_feat1_desc:'От золотого ритуала до океанской мечты — каждая тема имеет тёмную и светлую версии.',
+    prev_feat2_title:'Светлый и тёмный режим',prev_feat2_desc:'Автоматический режим по времени суток или ручной выбор.',
+    prev_feat3_title:'Плавные анимации',prev_feat3_desc:'Reanimated 3.0 — каждый переход плавный, как медитация.',
+    prev_feat4_title:'Персонализированные уведомления',prev_feat4_desc:'Ежедневный ритуал, карта дня, сообщение от Oracle — в твоём темпе.',
+    testimonials_eyebrow:'Отзывы пользователей',testimonials_title:'Что говорят об Aethera?',
+    test1_text:'"Oracle ИИ всегда попадает в точку. Это не обычный гороскоп — это разговор с чем-то более глубоким."',
+    test2_text:'"Я использую Aethera каждый день 3 месяца. Утренние ритуалы полностью изменили моё утро."',
+    test3_text:'"The tarot readings with AI interpretation are absolutely stunning. Aethera is in a different league."',
+    test4_text:'"Die Chakra-Meditation und Binaural Beats sind phänomenal."',
+    test_badge_editor:'Выбор редакции',test_role_pl:'Польша · ♒ Водолей',test_role_pl2:'Польша · ♓ Рыбы · Премиум',
+    test_role_en:'UK · ♌ Лев',test_role_de:'Германия · ♏ Скорпион'
   },
   ar: {
     nav_worlds:'العوالم',nav_features:'الميزات',nav_oracle:'الأوراكل',nav_download:'تحميل',nav_legal:'قانوني',nav_cta:'تحميل — مجاناً',
@@ -1283,7 +1808,23 @@ var TRANSLATIONS = {
     feat_chat:'دردشة المجتمع',feat_chat_sub:'غرف موضوعية متعددة',
     feat_live:'الطقوس المباشرة',feat_live_sub:'مع المستخدمين الآخرين',
     feat_challenges:'التحديات الروحية',feat_challenges_sub:'مهام أسبوعية',
-    feat_retro:'تراجع الكواكب',feat_retro_sub:'الكواكب وتأثيرها'
+    feat_retro:'تراجع الكواكب',feat_retro_sub:'الكواكب وتأثيرها',
+    preview_eyebrow:'التطبيق المحمول',preview_title:'جميل. سريع. بديهي.',preview_sub:'مصمم بعناية فائقة لكل تفصيلة — ثيمات مظلمة وفاتحة، رسوم متحركة، أسلوب شخصي.',
+    preview_oracle_label:'أوراكل AI',preview_oracle_sub:'3 رسائل اليوم',preview_tarot_label:'بطاقة اليوم',preview_tarot_card:'النجمة ✦',
+    preview_moon_label:'مرحلة القمر',preview_moon_phase:'القمر الكامل ○',preview_label_dark:'الثيم الداكن',preview_label_light:'الثيم الفاتح',
+    preview_horoscope_label:'الأبراج',preview_today:'اليوم لك',preview_meditation_label:'تأمل',preview_min:'10 دقائق',
+    preview_journal_label:'يوميات',preview_entries:'52 مدخلاً',
+    prev_feat1_title:'8 ثيمات فريدة',prev_feat1_desc:'من الطقوس الذهبية إلى الحلم المحيطي — كل ثيم له نسخة مظلمة وفاتحة.',
+    prev_feat2_title:'الوضع الفاتح والمظلم',prev_feat2_desc:'وضع تلقائي يتكيف مع الوقت أو اختيار يدوي.',
+    prev_feat3_title:'رسوم متحركة سلسة',prev_feat3_desc:'Reanimated 3.0 — كل انتقال سلس مثل التأمل.',
+    prev_feat4_title:'إشعارات مخصصة',prev_feat4_desc:'طقوس يومية، بطاقة اليوم، رسالة من Oracle — بوتيرتك الخاصة.',
+    testimonials_eyebrow:'آراء المستخدمين',testimonials_title:'ماذا يقولون عن Aethera؟',
+    test1_text:'"أوراكل AI يصيب الهدف في كل مرة. هذا ليس برجاً عادياً — إنه حوار مع شيء أعمق."',
+    test2_text:'"أستخدم Aethera يومياً منذ 3 أشهر. غيّرت طقوس الصباح صباحي تماماً."',
+    test3_text:'"The tarot readings with AI interpretation are absolutely stunning. Aethera is in a different league."',
+    test4_text:'"Die Chakra-Meditation und Binaural Beats sind phänomenal."',
+    test_badge_editor:'اختيار التحرير',test_role_pl:'بولندا · ♒ الدلو',test_role_pl2:'بولندا · ♓ الحوت · بريميوم',
+    test_role_en:'المملكة المتحدة · ♌ الأسد',test_role_de:'ألمانيا · ♏ العقرب'
   },
   ja: {
     nav_worlds:'世界',nav_features:'機能',nav_oracle:'オラクル',nav_download:'ダウンロード',nav_legal:'法的情報',nav_cta:'無料ダウンロード',
@@ -1335,7 +1876,23 @@ var TRANSLATIONS = {
     feat_chat:'コミュニティチャット',feat_chat_sub:'複数のテーマルーム',
     feat_live:'ライブ儀式',feat_live_sub:'他のユーザーと共に',
     feat_challenges:'スピリチュアルチャレンジ',feat_challenges_sub:'毎週のミッション',
-    feat_retro:'惑星逆行',feat_retro_sub:'惑星とその影響'
+    feat_retro:'惑星逆行',feat_retro_sub:'惑星とその影響',
+    preview_eyebrow:'モバイルアプリ',preview_title:'美しい。速い。直感的。',preview_sub:'すべての細部に気を配って設計 — ダークとライトのテーマ、アニメーション、個人スタイル。',
+    preview_oracle_label:'Oracle AI',preview_oracle_sub:'今日3通のメッセージ',preview_tarot_label:'今日のカード',preview_tarot_card:'星 ✦',
+    preview_moon_label:'月の満ち欠け',preview_moon_phase:'満月 ○',preview_label_dark:'ダークテーマ',preview_label_light:'ライトテーマ',
+    preview_horoscope_label:'ホロスコープ',preview_today:'今日あなたへ',preview_meditation_label:'瞑想',preview_min:'10分',
+    preview_journal_label:'日記',preview_entries:'52エントリー',
+    prev_feat1_title:'8つのユニークなテーマ',prev_feat1_desc:'黄金の儀式から海の夢まで — 各テーマにはダークとライトのバージョンがあります。',
+    prev_feat2_title:'ライトとダークモード',prev_feat2_desc:'時間帯に合わせた自動モードまたは手動選択。',
+    prev_feat3_title:'滑らかなアニメーション',prev_feat3_desc:'Reanimated 3.0 — すべての遷移は瞑想のように滑らかです。',
+    prev_feat4_title:'パーソナライズされた通知',prev_feat4_desc:'毎日の儀式、今日のカード、Oracleからのメッセージ — あなたのペースで。',
+    testimonials_eyebrow:'ユーザーレビュー',testimonials_title:'Aetheraについて何を言っていますか？',
+    test1_text:'"Oracle AIは毎回核心を突きます。普通のホロスコープではありません — より深いものとの対話です。"',
+    test2_text:'"3ヶ月間毎日Aetheraを使っています。朝のリチュアルが私の朝を完全に変えました。"',
+    test3_text:'"The tarot readings with AI interpretation are absolutely stunning. Aethera is in a different league."',
+    test4_text:'"Die Chakra-Meditation und Binaural Beats sind phänomenal."',
+    test_badge_editor:'編集部のおすすめ',test_role_pl:'ポーランド · ♒ みずがめ座',test_role_pl2:'ポーランド · ♓ うお座 · プレミアム',
+    test_role_en:'英国 · ♌ しし座',test_role_de:'ドイツ · ♏ さそり座'
   }
 };
 
@@ -1779,6 +2336,10 @@ function applyTranslations() {
   });
   document.documentElement.lang = currentLang;
   document.documentElement.dir = (currentLang === 'ar') ? 'rtl' : 'ltr';
+  // Auto-sync legal language with main language
+  if (typeof setLegalLang === 'function') {
+    setLegalLang(currentLang === 'pl' ? 'pl' : 'en');
+  }
   buildWorldsGrid();
   buildFeaturesGrid();
   oracleDemoPlayed = false;
@@ -1806,6 +2367,10 @@ function initLangSelect() {
     currentLang = e.target.value;
     localStorage.setItem('aethera_lang', currentLang);
     applyTranslations();
+    // Auto-sync legal language with main language
+    if (typeof setLegalLang === 'function') {
+      setLegalLang(currentLang === 'pl' ? 'pl' : 'en');
+    }
   });
 }
 
@@ -1888,6 +2453,88 @@ function closeCookieBanner() {
   if(legal) legal.scrollIntoView({ behavior: 'smooth' });
   setTimeout(function(){ showLegalTab('cookies'); }, 800);
 }
+
+/* ── SIGNUP MODAL ── */
+function openSignupModal() {
+  var m = document.getElementById('signup-modal');
+  if(m) { m.classList.add('open'); document.body.style.overflow = 'hidden'; }
+}
+function closeSignupModal() {
+  var m = document.getElementById('signup-modal');
+  if(m) { m.classList.remove('open'); document.body.style.overflow = ''; }
+}
+document.addEventListener('keydown', function(e) { if(e.key === 'Escape') closeSignupModal(); });
+
+function submitSignup() {
+  var name = document.getElementById('s-name').value.trim();
+  var email = document.getElementById('s-email').value.trim();
+  if(!email || email.indexOf('@') === -1) {
+    document.getElementById('s-email').focus();
+    document.getElementById('s-email').style.borderColor = 'var(--red)';
+    return;
+  }
+  document.getElementById('s-email').style.borderColor = '';
+  var subject = encodeURIComponent('Rejestracja Aethera — ' + (name || email));
+  var body = encodeURIComponent('Chcę dołączyć do Aethery!\n\nImię: ' + (name || '—') + '\nEmail: ' + email + '\n\nDowiedziałem/am się o Aetherze ze strony aethera.pl');
+  window.location.href = 'mailto:contact@aethera.pl?subject=' + subject + '&body=' + body;
+  document.getElementById('signup-form-fields').style.display = 'none';
+  document.getElementById('signup-success').style.display = 'block';
+}
+
+/* ── CONTACT FORM ── */
+function submitContact() {
+  var name = document.getElementById('c-name').value.trim();
+  var email = document.getElementById('c-email').value.trim();
+  var subject = document.getElementById('c-subject').value.trim();
+  var message = document.getElementById('c-message').value.trim();
+  if(!email || email.indexOf('@') === -1) {
+    document.getElementById('c-email').focus();
+    document.getElementById('c-email').style.borderColor = 'var(--red)';
+    return;
+  }
+  if(!message) {
+    document.getElementById('c-message').focus();
+    document.getElementById('c-message').style.borderColor = 'var(--red)';
+    return;
+  }
+  var mailSubject = encodeURIComponent(subject || 'Wiadomość z aethera.pl');
+  var mailBody = encodeURIComponent(
+    'Imię: ' + (name || '—') + '\nEmail: ' + email + '\n\n' + message
+  );
+  window.location.href = 'mailto:contact@aethera.pl?subject=' + mailSubject + '&body=' + mailBody;
+  document.getElementById('contact-form-fields').style.display = 'none';
+  document.getElementById('contact-success').style.display = 'block';
+}
 </script>
+
+<!-- SIGNUP MODAL -->
+<div id="signup-modal" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
+  <div class="modal-backdrop" onclick="closeSignupModal()"></div>
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeSignupModal()" aria-label="Zamknij">&#10005;</button>
+    <div id="signup-form-fields">
+      <span class="modal-icon">&#10022;</span>
+      <h2 class="modal-title" id="modal-heading">Dołącz do Aethery</h2>
+      <p class="modal-sub">Zarejestruj swój e-mail i bądź na bieżąco z premierą aplikacji.<br>Konto tworzy się w aplikacji — na iOS i Android.</p>
+      <div class="form-group">
+        <label>Imię (opcjonalne)</label>
+        <input type="text" class="form-control" id="s-name" placeholder="Twoje imię" autocomplete="given-name">
+      </div>
+      <div class="form-group">
+        <label>Adres e-mail *</label>
+        <input type="email" class="form-control" id="s-email" placeholder="twoj@email.com" autocomplete="email">
+      </div>
+      <button class="btn-modal" onclick="submitSignup()">Zarejestruj się &#10022;</button>
+      <p class="modal-terms">Rejestrując się akceptujesz <a href="#legal" onclick="closeSignupModal();showLegalTab('terms')">Regulamin</a> i <a href="#legal" onclick="closeSignupModal();showLegalTab('privacy')">Politykę Prywatności</a>.</p>
+    </div>
+    <div class="modal-success" id="signup-success">
+      <span class="modal-success-icon">✦</span>
+      <div class="modal-success-title">Dziękujemy!</div>
+      <p class="modal-success-sub">Twój klient poczty otworzy się z gotową wiadomością. Wyślij ją, a my skontaktujemy się z Tobą w ciągu 48 godzin.<br><br>Pobierz Aetherę już dziś ze sklepu App Store lub Google Play!</p>
+      <button class="btn-modal" onclick="closeSignupModal();document.getElementById('download').scrollIntoView({behavior:'smooth'})">Pobierz aplikację &#8595;</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
