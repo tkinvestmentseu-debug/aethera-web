@@ -8,15 +8,17 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthService } from '../../core/services/auth.service';
 import { hydrateUserProfile } from '../../store/useAuthStore';
+import { useTranslation } from 'react-i18next';
 
 export const LoginScreen = ({ navigation }: any) => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
-      Alert.alert('Błąd', 'Podaj email i hasło.');
+      Alert.alert('Błąd', t('auth.email') + ' / ' + t('auth.password'));
       return;
     }
     setLoading(true);
@@ -25,8 +27,8 @@ export const LoginScreen = ({ navigation }: any) => {
       await hydrateUserProfile(user.uid);
     } catch (e: any) {
       const msg = e?.code === 'auth/invalid-credential'
-        ? 'Nieprawidłowy email lub hasło.'
-        : 'Nie udało się zalogować. Sprawdź połączenie.';
+        ? t('auth.errorInvalidCredential')
+        : t('auth.errorConnection');
       Alert.alert('Błąd logowania', msg);
     } finally {
       setLoading(false);
@@ -41,11 +43,11 @@ export const LoginScreen = ({ navigation }: any) => {
           style={styles.container}
         >
           <Text style={styles.logo}>✦ Aethera</Text>
-          <Text style={styles.subtitle}>Zaloguj się do swojej duszy</Text>
+          <Text style={styles.subtitle}>{t('auth.subtitle')}</Text>
 
           <TextInput
             style={styles.input}
-            placeholder="Email"
+            placeholder={t('auth.email')}
             placeholderTextColor="rgba(255,255,255,0.4)"
             value={email}
             onChangeText={setEmail}
@@ -55,7 +57,7 @@ export const LoginScreen = ({ navigation }: any) => {
           />
           <TextInput
             style={styles.input}
-            placeholder="Hasło"
+            placeholder={t('auth.password')}
             placeholderTextColor="rgba(255,255,255,0.4)"
             value={password}
             onChangeText={setPassword}
@@ -65,12 +67,12 @@ export const LoginScreen = ({ navigation }: any) => {
           <Pressable style={styles.btn} onPress={handleLogin} disabled={loading}>
             {loading
               ? <ActivityIndicator color="#fff" />
-              : <Text style={styles.btnText}>Wejdź ✦</Text>}
+              : <Text style={styles.btnText}>{t('auth.loginButton')}</Text>}
           </Pressable>
 
           <Pressable onPress={() => navigation.navigate('Register')} style={{ marginTop: 20 }}>
             <Text style={styles.link}>
-              Nie masz konta? <Text style={{ color: '#A78BFA' }}>Zarejestruj się</Text>
+              {t('auth.noAccount')} <Text style={{ color: '#A78BFA' }}>{t('auth.register')}</Text>
             </Text>
           </Pressable>
         </KeyboardAvoidingView>

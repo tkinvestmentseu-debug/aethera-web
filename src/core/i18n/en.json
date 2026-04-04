@@ -1371,5 +1371,29 @@
     "tabAffirmations": "Affirmations",
     "start": "Start",
     "stop": "Stop"
+  },
+  "auth": {
+    "loginTitle": "Sign In",
+    "subtitle": "Sign in to your soul",
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Enter ✦",
+    "noAccount": "Don't have an account?",
+    "register": "Sign Up",
+    "hasAccount": "Already have an account?",
+    "login": "Sign In",
+    "step1": "Step 1/2 — Account Details",
+    "step2": "Step 2/2 — Your Profile",
+    "displayName": "Your name",
+    "zodiacSign": "Zodiac sign",
+    "archetype": "Soul archetype",
+    "symbol": "Your symbol",
+    "registerButton": "Create account ✦",
+    "nextStep": "Next →",
+    "backStep": "← Back",
+    "errorInvalidCredential": "Invalid email or password.",
+    "errorEmailInUse": "This email is already in use.",
+    "errorWeakPassword": "Password must be at least 6 characters.",
+    "errorConnection": "Could not sign in. Check your connection."
   }
 }

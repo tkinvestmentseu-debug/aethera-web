@@ -67,7 +67,9 @@
     "sort": "Ordina",
     "refresh": "AGGIORNA",
     "copied": "Copiato",
-    "copy": "COPIA"
+    "copy": "COPIA",
+    "screenErrorTitle": "ERRORE SCHERMATA",
+    "screenErrorBody": "Questa schermata ha riscontrato un problema.\nTorna indietro e riprova."
   },
   "nav": {
     "portal": "Portale",
@@ -535,9 +537,9 @@
     "pause": "Pausa",
     "benefits": "Benefici",
     "techniques": {
+      "478": "Respirazione 4-7-8",
       "box": "Respirazione a scatola",
       "box_desc": "4-4-4-4 per la calma e la concentrazione",
-      "478": "Respirazione 4-7-8",
       "478_desc": "Tecnica di rilassamento profondo e riduzione dell'ansia",
       "wim_hof": "Metodo Wim Hof",
       "wim_hof_desc": "Respirazione energizzante per vitalità e resistenza",
@@ -1369,5 +1371,29 @@
     "tabAffirmations": "Affermazioni",
     "start": "Inizia",
     "stop": "Ferma"
+  },
+  "auth": {
+    "loginTitle": "Accedi",
+    "subtitle": "Accedi alla tua anima",
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Entra ✦",
+    "noAccount": "Non hai un account?",
+    "register": "Registrati",
+    "hasAccount": "Hai già un account?",
+    "login": "Accedi",
+    "step1": "Passo 1/2 — Dati dell'account",
+    "step2": "Passo 2/2 — Il tuo profilo",
+    "displayName": "Il tuo nome",
+    "zodiacSign": "Segno zodiacale",
+    "archetype": "Archetipo dell'anima",
+    "symbol": "Il tuo simbolo",
+    "registerButton": "Crea account ✦",
+    "nextStep": "Avanti →",
+    "backStep": "← Indietro",
+    "errorInvalidCredential": "Email o password non validi.",
+    "errorEmailInUse": "Questa email è già in uso.",
+    "errorWeakPassword": "La password deve contenere almeno 6 caratteri.",
+    "errorConnection": "Accesso non riuscito. Controlla la tua connessione."
   }
 }

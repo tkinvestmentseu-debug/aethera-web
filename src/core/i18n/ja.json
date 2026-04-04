@@ -67,7 +67,9 @@
     "sort": "並び替え",
     "refresh": "更新する",
     "copied": "コピーしました",
-    "copy": "コピーする"
+    "copy": "コピーする",
+    "screenErrorTitle": "画面エラー",
+    "screenErrorBody": "この画面で問題が発生しました。\n戻って再試行してください。"
   },
   "nav": {
     "portal": "ポータル",
@@ -309,12 +311,24 @@
     "forSomeoneTitle": "誰かのためのリーディング",
     "enterName": "人の名前を入力してください",
     "spreads": {
-      "daily_card": { "name": "今日のカード" },
-      "celtic_cross": { "name": "ケルトクロス" },
-      "past_present_future": { "name": "過去・現在・未来" },
-      "love_spread": { "name": "愛のスプレッド" },
-      "career_success": { "name": "キャリアの道" },
-      "yes_no": { "name": "イエス・ノー神託" }
+      "daily_card": {
+        "name": "今日のカード"
+      },
+      "celtic_cross": {
+        "name": "ケルトクロス"
+      },
+      "past_present_future": {
+        "name": "過去・現在・未来"
+      },
+      "love_spread": {
+        "name": "愛のスプレッド"
+      },
+      "career_success": {
+        "name": "キャリアの道"
+      },
+      "yes_no": {
+        "name": "イエス・ノー神託"
+      }
     },
     "decks": {
       "classic": "ゴールデンドーン",
@@ -468,9 +482,21 @@
     },
     "transformativePractices": "変容の実践",
     "ritual_items": {
-      "morning_alignment": { "title": "朝の調整", "description": "一日の意図を設定するための短い瞑想。", "duration": "5分" },
-      "evening_reflection": { "title": "夜の内省", "description": "眠る前に蓄積された感情を解放する。", "duration": "10分" },
-      "candle_magic": { "title": "キャンドルマジック", "description": "火の元素を通じて特定の願いを顕現させる。", "duration": "15分" }
+      "morning_alignment": {
+        "title": "朝の調整",
+        "description": "一日の意図を設定するための短い瞑想。",
+        "duration": "5分"
+      },
+      "evening_reflection": {
+        "title": "夜の内省",
+        "description": "眠る前に蓄積された感情を解放する。",
+        "duration": "10分"
+      },
+      "candle_magic": {
+        "title": "キャンドルマジック",
+        "description": "火の元素を通じて特定の願いを顕現させる。",
+        "duration": "15分"
+      }
     }
   },
   "meditation": {
@@ -515,9 +541,9 @@
     "roundsCompleted": "完了したラウンド",
     "totalBreaths": "合計呼吸数",
     "techniques": {
+      "478": "4-7-8呼吸法",
       "box": "ボックス呼吸法",
       "box_desc": "4-4-4-4 — 神経系を整え、ストレスを軽減する",
-      "478": "4-7-8呼吸法",
       "478_desc": "4秒吸う、7秒止める、8秒吐く — 深いリラクゼーション",
       "wim_hof": "ウィム・ホフ・メソッド",
       "wim_hof_desc": "速い呼吸 — エネルギーを高め、免疫を強化する",
@@ -800,28 +826,94 @@
     "appVersion": "アプリバージョン",
     "guidanceStyle": "ガイドスタイル",
     "archetypes": {
-      "1": { "name": "魔術師", "title": "現実の創造者" },
-      "2": { "name": "女教皇", "title": "秘密の守護者" },
-      "3": { "name": "女帝", "title": "豊かさの支配者" },
-      "4": { "name": "皇帝", "title": "秩序の建築家" },
-      "5": { "name": "法王", "title": "伝統の番人" },
-      "6": { "name": "恋人たち", "title": "エネルギーの調和者" },
-      "7": { "name": "戦車", "title": "目標の達成者" },
-      "8": { "name": "正義", "title": "カルマのバランス" },
-      "9": { "name": "隠者", "title": "真実の探求者" },
-      "10": { "name": "運命の輪", "title": "運命の主" },
-      "11": { "name": "力", "title": "感情の達人" },
-      "12": { "name": "吊られた男", "title": "視点の先見者" },
-      "13": { "name": "死神", "title": "変容の代理人" },
-      "14": { "name": "節制", "title": "バランスの錬金術師" },
-      "15": { "name": "悪魔", "title": "影の探求者" },
-      "16": { "name": "塔", "title": "幻想の破壊者" },
-      "17": { "name": "星", "title": "希望の鼓舞者" },
-      "18": { "name": "月", "title": "潜在意識の航海者" },
-      "19": { "name": "太陽", "title": "明晰さの光" },
-      "20": { "name": "審判", "title": "覚醒の声" },
-      "21": { "name": "世界", "title": "統合の達人" },
-      "22": { "name": "愚者", "title": "自由な魂" }
+      "1": {
+        "name": "魔術師",
+        "title": "現実の創造者"
+      },
+      "2": {
+        "name": "女教皇",
+        "title": "秘密の守護者"
+      },
+      "3": {
+        "name": "女帝",
+        "title": "豊かさの支配者"
+      },
+      "4": {
+        "name": "皇帝",
+        "title": "秩序の建築家"
+      },
+      "5": {
+        "name": "法王",
+        "title": "伝統の番人"
+      },
+      "6": {
+        "name": "恋人たち",
+        "title": "エネルギーの調和者"
+      },
+      "7": {
+        "name": "戦車",
+        "title": "目標の達成者"
+      },
+      "8": {
+        "name": "正義",
+        "title": "カルマのバランス"
+      },
+      "9": {
+        "name": "隠者",
+        "title": "真実の探求者"
+      },
+      "10": {
+        "name": "運命の輪",
+        "title": "運命の主"
+      },
+      "11": {
+        "name": "力",
+        "title": "感情の達人"
+      },
+      "12": {
+        "name": "吊られた男",
+        "title": "視点の先見者"
+      },
+      "13": {
+        "name": "死神",
+        "title": "変容の代理人"
+      },
+      "14": {
+        "name": "節制",
+        "title": "バランスの錬金術師"
+      },
+      "15": {
+        "name": "悪魔",
+        "title": "影の探求者"
+      },
+      "16": {
+        "name": "塔",
+        "title": "幻想の破壊者"
+      },
+      "17": {
+        "name": "星",
+        "title": "希望の鼓舞者"
+      },
+      "18": {
+        "name": "月",
+        "title": "潜在意識の航海者"
+      },
+      "19": {
+        "name": "太陽",
+        "title": "明晰さの光"
+      },
+      "20": {
+        "name": "審判",
+        "title": "覚醒の声"
+      },
+      "21": {
+        "name": "世界",
+        "title": "統合の達人"
+      },
+      "22": {
+        "name": "愚者",
+        "title": "自由な魂"
+      }
     }
   },
   "checkin": {
@@ -1067,34 +1159,112 @@
       "darkDesc": "シャドウワークと隠れた真実のための深いデッキ。"
     },
     "rituals": {
-      "morning_alignment": { "title": "朝の調整", "description": "一日の意図を設定するための短い瞑想。", "duration": "5分" },
-      "evening_reflection": { "title": "夜の内省", "description": "眠る前に蓄積された感情を解放する。", "duration": "10分" },
-      "candle_magic": { "title": "キャンドルマジック", "description": "火の元素を通じて特定の願いを顕現させる。", "duration": "15分" }
+      "morning_alignment": {
+        "title": "朝の調整",
+        "description": "一日の意図を設定するための短い瞑想。",
+        "duration": "5分"
+      },
+      "evening_reflection": {
+        "title": "夜の内省",
+        "description": "眠る前に蓄積された感情を解放する。",
+        "duration": "10分"
+      },
+      "candle_magic": {
+        "title": "キャンドルマジック",
+        "description": "火の元素を通じて特定の願いを顕現させる。",
+        "duration": "15分"
+      }
     }
   },
   "archetypes": {
-    "1": { "name": "魔術師", "title": "現実の創造者" },
-    "2": { "name": "女教皇", "title": "秘密の守護者" },
-    "3": { "name": "女帝", "title": "豊かさの支配者" },
-    "4": { "name": "皇帝", "title": "秩序の建築家" },
-    "5": { "name": "法王", "title": "伝統の番人" },
-    "6": { "name": "恋人たち", "title": "エネルギーの調和者" },
-    "7": { "name": "戦車", "title": "目標の達成者" },
-    "8": { "name": "正義", "title": "カルマのバランス" },
-    "9": { "name": "隠者", "title": "真実の探求者" },
-    "10": { "name": "運命の輪", "title": "運命の主" },
-    "11": { "name": "力", "title": "感情の達人" },
-    "12": { "name": "吊られた男", "title": "視点の先見者" },
-    "13": { "name": "死神", "title": "変容の代理人" },
-    "14": { "name": "節制", "title": "バランスの錬金術師" },
-    "15": { "name": "悪魔", "title": "影の探求者" },
-    "16": { "name": "塔", "title": "幻想の破壊者" },
-    "17": { "name": "星", "title": "希望の鼓舞者" },
-    "18": { "name": "月", "title": "潜在意識の航海者" },
-    "19": { "name": "太陽", "title": "明晰さの光" },
-    "20": { "name": "審判", "title": "覚醒の声" },
-    "21": { "name": "世界", "title": "統合の達人" },
-    "22": { "name": "愚者", "title": "自由な魂" }
+    "1": {
+      "name": "魔術師",
+      "title": "現実の創造者"
+    },
+    "2": {
+      "name": "女教皇",
+      "title": "秘密の守護者"
+    },
+    "3": {
+      "name": "女帝",
+      "title": "豊かさの支配者"
+    },
+    "4": {
+      "name": "皇帝",
+      "title": "秩序の建築家"
+    },
+    "5": {
+      "name": "法王",
+      "title": "伝統の番人"
+    },
+    "6": {
+      "name": "恋人たち",
+      "title": "エネルギーの調和者"
+    },
+    "7": {
+      "name": "戦車",
+      "title": "目標の達成者"
+    },
+    "8": {
+      "name": "正義",
+      "title": "カルマのバランス"
+    },
+    "9": {
+      "name": "隠者",
+      "title": "真実の探求者"
+    },
+    "10": {
+      "name": "運命の輪",
+      "title": "運命の主"
+    },
+    "11": {
+      "name": "力",
+      "title": "感情の達人"
+    },
+    "12": {
+      "name": "吊られた男",
+      "title": "視点の先見者"
+    },
+    "13": {
+      "name": "死神",
+      "title": "変容の代理人"
+    },
+    "14": {
+      "name": "節制",
+      "title": "バランスの錬金術師"
+    },
+    "15": {
+      "name": "悪魔",
+      "title": "影の探求者"
+    },
+    "16": {
+      "name": "塔",
+      "title": "幻想の破壊者"
+    },
+    "17": {
+      "name": "星",
+      "title": "希望の鼓舞者"
+    },
+    "18": {
+      "name": "月",
+      "title": "潜在意識の航海者"
+    },
+    "19": {
+      "name": "太陽",
+      "title": "明晰さの光"
+    },
+    "20": {
+      "name": "審判",
+      "title": "覚醒の声"
+    },
+    "21": {
+      "name": "世界",
+      "title": "統合の達人"
+    },
+    "22": {
+      "name": "愚者",
+      "title": "自由な魂"
+    }
   },
   "sleepRitual": {
     "title": "睡眠の儀式",
@@ -1201,5 +1371,29 @@
     "tabAffirmations": "アファメーション",
     "start": "開始",
     "stop": "停止"
+  },
+  "auth": {
+    "loginTitle": "ログイン",
+    "subtitle": "あなたの魂へログイン",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "loginButton": "入る ✦",
+    "noAccount": "アカウントをお持ちでない方",
+    "register": "登録",
+    "hasAccount": "すでにアカウントをお持ちですか？",
+    "login": "ログイン",
+    "step1": "ステップ 1/2 — アカウント情報",
+    "step2": "ステップ 2/2 — プロフィール",
+    "displayName": "あなたの名前",
+    "zodiacSign": "星座",
+    "archetype": "魂のアーキタイプ",
+    "symbol": "あなたのシンボル",
+    "registerButton": "アカウントを作成 ✦",
+    "nextStep": "次へ →",
+    "backStep": "← 戻る",
+    "errorInvalidCredential": "メールアドレスまたはパスワードが無効です。",
+    "errorEmailInUse": "このメールアドレスはすでに使用されています。",
+    "errorWeakPassword": "パスワードは6文字以上である必要があります。",
+    "errorConnection": "ログインできませんでした。接続を確認してください。"
   }
 }

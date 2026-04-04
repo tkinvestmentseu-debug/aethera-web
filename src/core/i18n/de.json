@@ -67,7 +67,9 @@
     "sort": "Sortieren",
     "refresh": "AKTUALISIEREN",
     "copied": "Kopiert",
-    "copy": "KOPIEREN"
+    "copy": "KOPIEREN",
+    "screenErrorTitle": "BILDSCHIRMFEHLER",
+    "screenErrorBody": "Dieser Bildschirm hatte ein Problem.\nGeh zurück und versuche es erneut."
   },
   "nav": {
     "portal": "Portal",
@@ -535,9 +537,9 @@
     "pause": "Pausieren",
     "benefits": "Wirkungen",
     "techniques": {
+      "478": "4-7-8",
       "box": "Quadratisches Atmen",
       "box_desc": "Gleichgewicht von Geist und Körper durch dieses rhythmische 4-Takt-Muster",
-      "478": "4-7-8",
       "478_desc": "Aktiviert das parasympathische Nervensystem für tiefe Ruhe",
       "wim_hof": "Wim Hof",
       "wim_hof_desc": "Kraftvolle Technik zur Energetisierung von Körper und Geist",
@@ -1369,5 +1371,29 @@
     "tabAffirmations": "Affirmationen",
     "start": "Starten",
     "stop": "Stoppen"
+  },
+  "auth": {
+    "loginTitle": "Anmelden",
+    "subtitle": "Melde dich bei deiner Seele an",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "loginButton": "Eintreten ✦",
+    "noAccount": "Kein Konto?",
+    "register": "Registrieren",
+    "hasAccount": "Bereits ein Konto?",
+    "login": "Anmelden",
+    "step1": "Schritt 1/2 — Kontodaten",
+    "step2": "Schritt 2/2 — Dein Profil",
+    "displayName": "Dein Name",
+    "zodiacSign": "Sternzeichen",
+    "archetype": "Seelen-Archetyp",
+    "symbol": "Dein Symbol",
+    "registerButton": "Konto erstellen ✦",
+    "nextStep": "Weiter →",
+    "backStep": "← Zurück",
+    "errorInvalidCredential": "Ungültige E-Mail oder Passwort.",
+    "errorEmailInUse": "Diese E-Mail-Adresse wird bereits verwendet.",
+    "errorWeakPassword": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+    "errorConnection": "Anmeldung fehlgeschlagen. Überprüfe deine Verbindung."
   }
 }

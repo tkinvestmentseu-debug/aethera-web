@@ -52,6 +52,8 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '../store/useAuthStore';
+import { ChatService, ChatMessage as FBChatMessage } from '../core/services/community/chat.service';
 
 const { width: SW } = Dimensions.get('window');
 const SP = layout.padding.screen; // 22
@@ -832,6 +834,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
+  const { currentUser } = useAuthStore();
   const currentTheme = getResolvedTheme(themeName);
   const isLight = currentTheme.background.startsWith('#F');
 
@@ -858,12 +861,16 @@ export const CommunityChatScreen = ({ navigation }: any) => {
   const typingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const replyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const scrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const fbUnsubRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
+    // Seed Firebase chat rooms on mount
+    ChatService.seedRoomsIfNeeded().catch(() => {});
     return () => {
       if (typingTimerRef.current) clearTimeout(typingTimerRef.current);
       if (replyTimerRef.current) clearTimeout(replyTimerRef.current);
       if (scrollTimerRef.current) clearTimeout(scrollTimerRef.current);
+      if (fbUnsubRef.current) fbUnsubRef.current();
     };
   }, []);
 
@@ -876,12 +883,31 @@ export const CommunityChatScreen = ({ navigation }: any) => {
     setInputText('');
     setIsTyping(false);
     HapticsService.impact('medium');
-  }, []);
+    // Unsubscribe previous room listener
+    if (fbUnsubRef.current) { fbUnsubRef.current(); fbUnsubRef.current = null; }
+    // Subscribe to Firebase messages for this room
+    fbUnsubRef.current = ChatService.listenToMessages(roomId, (fbMsgs: FBChatMessage[]) => {
+      if (fbMsgs.length === 0) return; // Keep seed messages if no Firebase data
+      const mapped: ChatMessage[] = fbMsgs.map(m => {
+        const t = new Date(m.createdAt);
+        const timeStr = `${t.getHours().toString().padStart(2,'0')}:${t.getMinutes().toString().padStart(2,'0')}`;
+        return {
+          id: m.id,
+          author: m.authorName,
+          isOwn: currentUser ? m.authorId === currentUser.uid : false,
+          text: m.text,
+          time: timeStr,
+        };
+      });
+      setMessagesByRoom(prev => ({ ...prev, [roomId]: mapped }));
+    });
+  }, [currentUser]);
 
   const leaveRoom = useCallback(() => {
     setActiveRoomId(null);
     setIsTyping(false);
     HapticsService.impact('light');
+    if (fbUnsubRef.current) { fbUnsubRef.current(); fbUnsubRef.current = null; }
   }, []);
 
   // ── Send message ───────────────────────────────────────────────────────────
@@ -897,11 +923,20 @@ export const CommunityChatScreen = ({ navigation }: any) => {
 
     const newMsg: ChatMessage = {
       id: `msg_${Date.now()}`,
-      author: 'Ty',
+      author: currentUser?.displayName ?? 'Ty',
       isOwn: true,
       text,
       time: timeStr,
     };
+
+    // Write to Firebase (real-time listener will update UI)
+    if (currentUser && activeRoomId) {
+      ChatService.sendMessage(activeRoomId, text, {
+        uid: currentUser.uid,
+        displayName: currentUser.displayName,
+        avatarEmoji: currentUser.avatarEmoji ?? '🌙',
+      }).catch(() => {});
+    }
 
     setMessagesByRoom((prev) => ({
       ...prev,

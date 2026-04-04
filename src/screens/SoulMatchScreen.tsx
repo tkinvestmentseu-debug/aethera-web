@@ -19,6 +19,8 @@ import {
 } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { getResolvedTheme } from '../core/theme/tokens';
+import { useAuthStore } from '../store/useAuthStore';
+import { SoulsService } from '../core/services/community/souls.service';
 import { layout } from '../core/theme/designSystem';
 import { useAppStore } from '../store/useAppStore';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
@@ -135,6 +137,7 @@ export const SoulMatchScreen = ({ navigation }) => {
   const themeName = useAppStore(s => s.themeName);
   const currentTheme = getResolvedTheme(themeName);
   const userData = useAppStore(s => s.userData);
+  const { currentUser } = useAuthStore();
   const isLight = currentTheme.background.startsWith('#F');
 
   const textColor  = isLight ? '#1A0010' : '#FFF0F8';
@@ -215,13 +218,18 @@ export const SoulMatchScreen = ({ navigation }) => {
     if (!connectedIds.includes(profile.id)) {
       setConnectedIds(prev => [...prev, profile.id]);
       const dateStr = new Date().toLocaleDateString(getLocaleCode(), { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+      const iceBreaker = getIceBreaker(profile.id);
       setSentIntentions(prev => [{
         id: profile.id,
         name: profile.name,
         compat: profile.compat,
-        question: getIceBreaker(profile.id),
+        question: iceBreaker,
         date: dateStr,
       }, ...prev]);
+      // Write connection to Firebase
+      if (currentUser) {
+        SoulsService.connect(currentUser.uid, profile.id, iceBreaker).catch(() => {});
+      }
     }
     setExpandedId(null);
   };

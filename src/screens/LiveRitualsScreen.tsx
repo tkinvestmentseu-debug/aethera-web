@@ -20,6 +20,8 @@ import { useTranslation } from 'react-i18next';
 import { getResolvedTheme } from '../core/theme/tokens';
 import { layout } from '../core/theme/designSystem';
 import { useAppStore } from '../store/useAppStore';
+import { useAuthStore } from '../store/useAuthStore';
+import { RitualsService, Ritual as FBRitual } from '../core/services/community/rituals.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
@@ -326,11 +328,16 @@ function getIconName(type: string): string {
 }
 
 // ─── Main Component ────────────────────────────────────────────────────────────
+const TYPE_ICONS: Record<string, any> = {
+  KSIĘŻYC: MoonStar, OGIEŃ: Flame, CZAKRY: Zap, MEDYTACJA: Globe2, WODA: Waves,
+};
+
 export const LiveRitualsScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const themeName = useAppStore(s => s.themeName);
   const userData = useAppStore(s => s.userData);
+  const { currentUser } = useAuthStore();
   const currentTheme = getResolvedTheme(themeName);
   const isLight = currentTheme.background.startsWith('#F');
 
@@ -371,6 +378,35 @@ export const LiveRitualsScreen = ({ navigation }) => {
   // ── Joined & created ──────────────────────────────────────────────────────
   const [joinedIds, setJoinedIds] = useState<string[]>([]);
   const [createdRituals, setCreatedRituals] = useState<any[]>([]);
+  // Firebase real participant counts keyed by ritual ID
+  const [fbParticipants, setFbParticipants] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    if (!currentUser) return;
+    RitualsService.seedRitualsIfNeeded({ uid: currentUser.uid, displayName: currentUser.displayName }).catch(() => {});
+    const unsub = RitualsService.listenToRituals((fbRituals: FBRitual[]) => {
+      const participantMap: Record<string, number> = {};
+      fbRituals.forEach(r => { participantMap[r.id] = r.participantCount; });
+      setFbParticipants(participantMap);
+      // Add any user-created rituals from Firebase not in RITUALS_BASE
+      const baseIds = RITUALS_BASE.map(r => r.id);
+      const newFbRituals = fbRituals.filter(r => !baseIds.includes(r.id));
+      setCreatedRituals(newFbRituals.map(r => ({
+        id: r.id, title: r.title, host: r.hostName,
+        participants: r.participantCount, type: r.type,
+        icon: TYPE_ICONS[r.type] || Sparkles, color: TYPE_COLORS[r.type] || ACCENT,
+        live: r.isLive, desc: r.description, tips: r.tips,
+        element: r.element, duration: r.duration, maxParticipants: r.maxParticipants,
+        isCreated: true,
+      })));
+      // Check which rituals user joined
+      fbRituals.forEach(async r => {
+        const isParticipant = await RitualsService.isParticipant(r.id, currentUser.uid);
+        if (isParticipant) setJoinedIds(prev => prev.includes(r.id) ? prev : [...prev, r.id]);
+      });
+    });
+    return () => unsub();
+  }, [currentUser?.uid]);
 
   // ── Modals ────────────────────────────────────────────────────────────────
   const [selectedRitual, setSelectedRitual] = useState<any>(null);
@@ -403,7 +439,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
   // ── Helpers ───────────────────────────────────────────────────────────────
   const getCountdown = (id: string) => formatSeconds(seconds[id] ?? -1);
   const isLive = (id: string) => (seconds[id] ?? -1) <= 0;
-  const getParticipants = (r: any) => Math.max(1, r.participants + (partDelta[r.id] || 0));
+  const getParticipants = (r: any) => fbParticipants[r.id] !== undefined ? fbParticipants[r.id] : Math.max(1, r.participants + (partDelta[r.id] || 0));
 
   const openDetail = (r: any) => {
     HapticsService.impact();
@@ -420,32 +456,26 @@ export const LiveRitualsScreen = ({ navigation }) => {
 
   const toggleJoin = (id: string) => {
     HapticsService.impact();
-    setJoinedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+    const isJoined = joinedIds.includes(id);
+    setJoinedIds(prev => isJoined ? prev.filter(x => x !== id) : [...prev, id]);
+    if (!currentUser) return;
+    if (isJoined) {
+      RitualsService.leaveRitual(id, currentUser.uid).catch(() => {});
+    } else {
+      RitualsService.joinRitual(id, { uid: currentUser.uid, displayName: currentUser.displayName }).catch(() => {});
+    }
   };
 
   const submitCreate = () => {
     if (!cTitle.trim()) return;
     HapticsService.notify();
-    const newRitual = {
-      id: `c${Date.now()}`,
-      title: cTitle.trim(),
-      host: userData?.name || 'Ty',
-      participants: 1,
-      type: cCategory,
-      icon: MoonStar,
-      color: TYPE_COLORS[cCategory] || ACCENT,
-      live: false,
-      desc: cDesc.trim() || 'Rytuał stworzony przez użytkownika.',
-      tips: ['Przygotuj intencję', 'Stwórz spokojne miejsce', 'Bądź w pełni obecny'],
-      element: 'Przestrzeń',
-      duration: cDuration,
-      maxParticipants: cMaxPart === 0 ? 9999 : cMaxPart,
-      isCreated: true,
-      scheduledHour: cHour,
-      scheduledMin: cMin,
-      isPublic: cPublic,
-    };
-    setCreatedRituals(prev => [newRitual, ...prev]);
+    // Write to Firebase
+    if (currentUser) {
+      RitualsService.createRitual(
+        { uid: currentUser.uid, displayName: currentUser.displayName },
+        { title: cTitle.trim(), type: cCategory, description: cDesc.trim() || 'Rytuał stworzony przez użytkownika.', duration: cDuration, element: 'Przestrzeń', maxParticipants: cMaxPart === 0 ? 9999 : cMaxPart }
+      ).catch(() => {});
+    }
     setShowCreate(false);
     setCTitle(''); setCDesc(''); setCCategory('KSIĘŻYC'); setCDuration(30);
     setCMaxPart(50); setCHour(20); setCMin(0); setCPublic(true);

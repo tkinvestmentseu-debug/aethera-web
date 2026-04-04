@@ -64,9 +64,21 @@ import { useAppStore } from '../store/useAppStore';
 import { HapticsService } from '../core/services/haptics.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '../store/useAuthStore';
+import { FeedService } from '../core/services/community/feed.service';
 
 const { width: SW } = Dimensions.get('window');
 const SP = layout.padding.screen; // 22
+
+function formatFeedTimeAgo(ms: number): string {
+  const diff = Date.now() - ms;
+  const min = Math.floor(diff / 60000);
+  if (min < 1) return 'Teraz';
+  if (min < 60) return `${min} min temu`;
+  const h = Math.floor(min / 60);
+  if (h < 24) return `${h}h temu`;
+  return `${Math.floor(h / 24)}d temu`;
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // CONSTANTS
@@ -862,6 +874,7 @@ export const GlobalShareScreen = () => {
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
   const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
+  const { currentUser } = useAuthStore();
   const currentTheme = getResolvedTheme(themeName);
   const isLight = currentTheme.background.startsWith('#F');
 
@@ -872,6 +885,7 @@ export const GlobalShareScreen = () => {
 
   const [posts, setPosts] = useState<FeedPost[]>(SEED_POSTS);
   const [activeFilter, setActiveFilter] = useState('ALL');
+  const lastFbDocRef = useRef<any>(null);
   const [showFilter, setShowFilter] = useState(false);
   const [showCompose, setShowCompose] = useState(false);
   const [commentPost, setCommentPost] = useState<FeedPost | null>(null);
@@ -881,9 +895,41 @@ export const GlobalShareScreen = () => {
     ? posts
     : posts.filter(p => p.type === activeFilter);
 
+  useEffect(() => {
+    // Load real posts from Firebase on mount
+    if (currentUser) {
+      FeedService.getPosts(currentUser.uid).then(({ posts: fbPosts, lastDoc }) => {
+        if (fbPosts.length > 0) {
+          lastFbDocRef.current = lastDoc;
+          // Map Firebase FeedPost to screen FeedPost shape
+          setPosts(fbPosts.map(p => ({
+            id: p.id,
+            author: p.authorName,
+            avatar: p.authorEmoji,
+            zodiac: p.authorZodiac,
+            country: '🌍',
+            type: p.type as any,
+            content: p.content,
+            timeAgo: formatFeedTimeAgo(p.createdAt),
+            reactions: { resonuje: p.reactions.resonuje, prawda: p.reactions.prawda, czuje: p.reactions.czuje, comments: p.commentCount },
+            anonymous: false,
+          })));
+        }
+      }).catch(() => {});
+    }
+  }, []);
+
   const handleNewPost = (post: FeedPost) => {
     setPosts(prev => [post, ...prev]);
     HapticsService.notify();
+    // Write to Firebase
+    if (currentUser) {
+      FeedService.createPost(
+        { uid: currentUser.uid, displayName: currentUser.displayName, avatarEmoji: currentUser.avatarEmoji ?? '🌙', zodiacSign: currentUser.zodiacSign ?? '' },
+        post.type as any,
+        post.content,
+      ).catch(() => {});
+    }
   };
 
   const fabScale = useSharedValue(1);

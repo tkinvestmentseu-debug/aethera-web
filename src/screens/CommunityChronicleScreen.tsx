@@ -21,6 +21,8 @@ import { useTranslation } from 'react-i18next';
 import { formatLocaleNumber } from '../core/utils/localeFormat';
 import { useAppStore } from '../store/useAppStore';
 import { HapticsService } from '../core/services/haptics.service';
+import { useAuthStore } from '../store/useAuthStore';
+import { ChroniclesService, Chronicle } from '../core/services/community/chronicles.service';
 
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#E879F9';
@@ -58,6 +60,15 @@ const TRENDING_STORIES = [
   { title: 'Sen, który przepowiedział moje przebudzenie', reads: 22345, color: '#FBBF24' },
 ];
 
+function formatTimeAgo(ms: number): string {
+  const diff = Date.now() - ms;
+  const min = Math.floor(diff / 60000);
+  if (min < 60) return `${min} min temu`;
+  const h = Math.floor(min / 60);
+  if (h < 24) return `${h}h temu`;
+  return `${Math.floor(h / 24)}d temu`;
+}
+
 const TOP_STORYTELLERS = [
   { name: 'Luna M.', stories: 34, color: '#818CF8' },
   { name: 'Vera K.', stories: 28, color: '#F472B6' },
@@ -70,6 +81,7 @@ export const CommunityChronicleScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
+  const { currentUser } = useAuthStore();
   const [entries, setEntries] = useState(ENTRIES);
   const [activeCategory, setActiveCategory] = useState('Wszystkie');
   const [liked, setLiked] = useState({});
@@ -84,7 +96,25 @@ export const CommunityChronicleScreen = ({ navigation }) => {
   const publishTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    return () => { if (publishTimerRef.current) clearTimeout(publishTimerRef.current); };
+    const unsub = ChroniclesService.listenToChronicles(null, (chronicles: Chronicle[]) => {
+      if (chronicles.length > 0) {
+        setEntries(chronicles.map(c => ({
+          id: c.id,
+          author: c.authorName,
+          initials: c.authorInitials,
+          color: c.authorColor,
+          category: c.category,
+          time: formatTimeAgo(c.createdAt),
+          title: c.title,
+          likes: c.likes,
+          comments: c.commentCount,
+          reads: c.reads,
+          bookmarked: false,
+          body: c.body,
+        })));
+      }
+    });
+    return () => { unsub(); if (publishTimerRef.current) clearTimeout(publishTimerRef.current); };
   }, []);
 
   const shimmerAnim = useSharedValue(0);
@@ -95,29 +125,20 @@ export const CommunityChronicleScreen = ({ navigation }) => {
 
   const INITIALS_COLORS = ['#818CF8', '#34D399', '#F472B6', '#FBBF24', '#60A5FA', '#E879F9'];
 
-  const handlePublish = () => {
+  const handlePublish = async () => {
     if (storyTitle.trim().length < 2) return;
-    const newEntry = {
-      id: Date.now(),
-      author: 'Ty',
-      initials: 'TY',
-      color: INITIALS_COLORS[entries.length % INITIALS_COLORS.length],
-      category: storyCategory,
-      time: 'Właśnie teraz',
-      title: storyTitle.trim(),
-      likes: 0,
-      comments: 0,
-      reads: 1,
-      bookmarked: false,
-      body: storyBody.trim() || '...',
-    };
-    setEntries(prev => [newEntry, ...prev]);
     setShowWriteModal(false);
-    setStoryTitle('');
-    setStoryBody('');
     setPublishSuccess(true);
     if (publishTimerRef.current) clearTimeout(publishTimerRef.current);
     publishTimerRef.current = setTimeout(() => setPublishSuccess(false), 3000);
+    if (currentUser) {
+      await ChroniclesService.createChronicle(
+        { uid: currentUser.uid, displayName: currentUser.displayName },
+        { title: storyTitle.trim(), body: storyBody.trim() || '...', category: storyCategory }
+      ).catch(() => {});
+    }
+    setStoryTitle('');
+    setStoryBody('');
   };
 
   const filtered = activeCategory === 'Wszystkie'
@@ -246,7 +267,11 @@ export const CommunityChronicleScreen = ({ navigation }) => {
                     <Text style={{ color: textColor, fontSize: 15, fontWeight: '700', marginBottom: 8, lineHeight: 22 }}>{entry.title}</Text>
                     <Text style={{ color: subColor, fontSize: 13, lineHeight: 20 }} numberOfLines={3}>{entry.body}</Text>
                     <View style={{ flexDirection: 'row', gap: 16, marginTop: 12, alignItems: 'center' }}>
-                      <TouchableOpacity onPress={() => setLiked(l => ({ ...l, [entry.id]: !l[entry.id] }))}
+                      <TouchableOpacity onPress={() => {
+                          const nowLiked = !liked[entry.id];
+                          setLiked(l => ({ ...l, [entry.id]: nowLiked }));
+                          if (currentUser) ChroniclesService.toggleLike(entry.id, currentUser.uid).catch(() => {});
+                        }}
                         style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                         <Heart size={15} color={liked[entry.id] ? '#F472B6' : subColor} fill={liked[entry.id] ? '#F472B6' : 'none'} />
                         <Text style={{ color: subColor, fontSize: 12 }}>{entry.likes + (liked[entry.id] ? 1 : 0)}</Text>

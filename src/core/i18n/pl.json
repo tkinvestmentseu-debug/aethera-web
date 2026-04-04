@@ -1371,5 +1371,29 @@
     "tabAffirmations": "Afirmacje",
     "start": "Rozpocznij",
     "stop": "Stop"
+  },
+  "auth": {
+    "loginTitle": "Zaloguj się",
+    "subtitle": "Zaloguj się do swojej duszy",
+    "email": "Email",
+    "password": "Hasło",
+    "loginButton": "Wejdź ✦",
+    "noAccount": "Nie masz konta?",
+    "register": "Zarejestruj się",
+    "hasAccount": "Masz konto?",
+    "login": "Zaloguj się",
+    "step1": "Krok 1/2 — Dane konta",
+    "step2": "Krok 2/2 — Twój profil",
+    "displayName": "Twoje imię",
+    "zodiacSign": "Znak zodiaku",
+    "archetype": "Archetyp duszy",
+    "symbol": "Twój symbol",
+    "registerButton": "Stwórz konto ✦",
+    "nextStep": "Dalej →",
+    "backStep": "← Wróć",
+    "errorInvalidCredential": "Nieprawidłowy email lub hasło.",
+    "errorEmailInUse": "Ten email jest już zajęty.",
+    "errorWeakPassword": "Hasło musi mieć co najmniej 6 znaków.",
+    "errorConnection": "Nie udało się zalogować. Sprawdź połączenie."
   }
 }

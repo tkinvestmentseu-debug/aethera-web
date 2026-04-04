@@ -67,7 +67,9 @@
     "sort": "Ordenar",
     "refresh": "ATUALIZAR",
     "copied": "Copiado",
-    "copy": "COPIAR"
+    "copy": "COPIAR",
+    "screenErrorTitle": "ERRO DE TELA",
+    "screenErrorBody": "Esta tela encontrou um problema.\nVolte e tente novamente."
   },
   "nav": {
     "portal": "Portal",
@@ -535,9 +537,9 @@
     "pause": "Pausar",
     "benefits": "Benefícios",
     "techniques": {
+      "478": "4-7-8",
       "box": "Respiração Quadrada",
       "box_desc": "Equilibre mente e corpo com este padrão rítmico de 4 tempos",
-      "478": "4-7-8",
       "478_desc": "Ativa o sistema nervoso parassimpático para uma calma profunda",
       "wim_hof": "Wim Hof",
       "wim_hof_desc": "Técnica poderosa que energiza corpo e mente",
@@ -1369,5 +1371,29 @@
     "tabAffirmations": "Afirmações",
     "start": "Iniciar",
     "stop": "Parar"
+  },
+  "auth": {
+    "loginTitle": "Entrar",
+    "subtitle": "Entre na sua alma",
+    "email": "Email",
+    "password": "Senha",
+    "loginButton": "Entrar ✦",
+    "noAccount": "Não tem conta?",
+    "register": "Cadastre-se",
+    "hasAccount": "Já tem uma conta?",
+    "login": "Entrar",
+    "step1": "Passo 1/2 — Dados da conta",
+    "step2": "Passo 2/2 — Seu perfil",
+    "displayName": "Seu nome",
+    "zodiacSign": "Signo do zodíaco",
+    "archetype": "Arquétipo da alma",
+    "symbol": "Seu símbolo",
+    "registerButton": "Criar conta ✦",
+    "nextStep": "Próximo →",
+    "backStep": "← Voltar",
+    "errorInvalidCredential": "Email ou senha inválidos.",
+    "errorEmailInUse": "Este email já está em uso.",
+    "errorWeakPassword": "A senha deve ter pelo menos 6 caracteres.",
+    "errorConnection": "Não foi possível entrar. Verifique sua conexão."
   }
 }

@@ -12,6 +12,8 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '../store/useAuthStore';
+import { ChallengesService, Challenge as FBChallenge } from '../core/services/community/challenges.service';
 
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#F97316';
@@ -51,6 +53,7 @@ const RANKING = [
 export const SpiritualChallengesScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
+  const { currentUser } = useAuthStore();
   const currentTheme = getResolvedTheme(themeName);
   const isLight = currentTheme.background.startsWith('#F');
   const tc = isLight ? '#1A1008' : '#F0ECE4';
@@ -66,32 +69,77 @@ export const SpiritualChallengesScreen = ({ navigation }) => {
   const [newTask, setNewTask] = useState('');
   const [createSent, setCreateSent] = useState(false);
   const createSentTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Firebase: real participant counts & IDs keyed by challenge title (lowercased)
+  const [fbChallenges, setFbChallenges] = useState<FBChallenge[]>([]);
 
   useEffect(() => {
-    return () => { if (createSentTimerRef.current) clearTimeout(createSentTimerRef.current); };
+    ChallengesService.seedIfNeeded().catch(() => {});
+    const unsub = ChallengesService.listenToChallenges(chs => {
+      setFbChallenges(chs);
+      // Restore joined state from Firebase
+      if (currentUser) {
+        chs.forEach(async c => {
+          const prog = await ChallengesService.getProgress(c.id, currentUser.uid);
+          if (prog) {
+            // Map Firebase title to local static ID by index
+            const idx = CHALLENGES.findIndex(lc => lc.title.toLowerCase().includes(c.title.split(' ')[0].toLowerCase()));
+            if (idx >= 0) {
+              setJoinedIds(prev => prev.includes(CHALLENGES[idx].id) ? prev : [...prev, CHALLENGES[idx].id]);
+              const today = new Date().toISOString().split('T')[0];
+              if (prog.completedDays?.includes(today)) {
+                setCheckedInIds(prev => prev.includes(CHALLENGES[idx].id) ? prev : [...prev, CHALLENGES[idx].id]);
+              }
+            }
+          }
+        });
+      }
+    });
+    return () => { unsub(); if (createSentTimerRef.current) clearTimeout(createSentTimerRef.current); };
   }, []);
 
-  const toggleJoin = (id: string) => {
-    HapticsService.impact('medium');
-    setJoinedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  const getFbChallenge = (staticId: string): FBChallenge | undefined => {
+    const idx = CHALLENGES.findIndex(c => c.id === staticId);
+    return fbChallenges[idx];
   };
 
-  const handleCheckIn = (id: string) => {
+  const toggleJoin = async (id: string) => {
+    HapticsService.impact('medium');
+    const isJoined = joinedIds.includes(id);
+    setJoinedIds(prev => isJoined ? prev.filter(x => x !== id) : [...prev, id]);
+    if (!isJoined && currentUser) {
+      const fb = getFbChallenge(id);
+      if (fb) ChallengesService.joinChallenge(fb.id, currentUser.uid).catch(() => {});
+    }
+  };
+
+  const handleCheckIn = async (id: string) => {
     if (checkedInIds.includes(id)) return;
     HapticsService.impact('medium');
     setCheckedInIds(prev => [...prev, id]);
+    if (currentUser) {
+      const fb = getFbChallenge(id);
+      if (fb) ChallengesService.checkIn(fb.id, currentUser.uid).catch(() => {});
+    }
   };
 
   const handleCreate = () => {
     if (!newTitle.trim()) return;
     HapticsService.impact('medium');
     setCreateSent(true);
+    if (currentUser) {
+      ChallengesService.createCustom(
+        { uid: currentUser.uid, displayName: currentUser.displayName },
+        { title: newTitle.trim(), days: parseInt(newDays) || 7, task: newTask.trim() || newTitle.trim() }
+      ).catch(() => {});
+    }
     setNewTitle(''); setNewDays(''); setNewTask('');
     if (createSentTimerRef.current) clearTimeout(createSentTimerRef.current);
     createSentTimerRef.current = setTimeout(() => setCreateSent(false), 3000);
   };
 
-  const totalParticipants = CHALLENGES.reduce((sum, c) => sum + c.participants, 0);
+  const totalParticipants = fbChallenges.length > 0
+    ? fbChallenges.reduce((sum, c) => sum + (c.participantCount ?? 0), 0)
+    : CHALLENGES.reduce((sum, c) => sum + c.participants, 0);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
@@ -153,7 +201,7 @@ export const SpiritualChallengesScreen = ({ navigation }) => {
                   <View style={styles.challengeStats}>
                     <Text style={[styles.challengeStat, { color: sc }]}>{c.days} dni</Text>
                     <Text style={[styles.challengeStat, { color: sc }]}>·</Text>
-                    <Text style={[styles.challengeStat, { color: sc }]}>{c.participants.toLocaleString()} uczestników</Text>
+                    <Text style={[styles.challengeStat, { color: sc }]}>{(getFbChallenge(c.id)?.participantCount ?? c.participants).toLocaleString()} uczestników</Text>
                     <Text style={[styles.challengeStat, { color: sc }]}>·</Text>
                     <Text style={[styles.challengeStat, { color: c.color }]}>{c.completion}% ukończenia</Text>
                   </View>

@@ -12,6 +12,8 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
+import { useAuthStore } from '../store/useAuthStore';
+import { AffirmationsService, Affirmation } from '../core/services/community/affirmations.service';
 
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#FBBF24';
@@ -49,6 +51,7 @@ const RANDOM_AFFIRMATIONS = [
 export const CommunityAffirmationScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const { themeName } = useAppStore();
+  const { currentUser } = useAuthStore();
   const currentTheme = getResolvedTheme(themeName);
   const isLight = currentTheme.background.startsWith('#F');
   const tc = isLight ? '#1A1008' : '#F0ECE4';
@@ -56,6 +59,8 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
   const cb = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
   const cbr = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
 
+  const affirmationIdRef = useRef<string | null>(null);
+  const [heroText, setHeroText] = useState(HERO_AFFIRMATION);
   const [votes, setVotes] = useState(2341);
   const [voted, setVoted] = useState(false);
   const [reactions, setReactions] = useState({ '💛': 891, '✨': 654, '🌸': 796 });
@@ -70,6 +75,17 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
   const proposalTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    // Load hero affirmation from Firebase
+    AffirmationsService.getOrSeedHeroAffirmation().then(async (aff: Affirmation) => {
+      affirmationIdRef.current = aff.id;
+      setHeroText(aff.text);
+      setVotes(aff.votes);
+      setReactions({ '💛': aff.reactions.heart, '✨': aff.reactions.star, '🌸': aff.reactions.flower });
+      if (currentUser) {
+        const hasVoted = await AffirmationsService.hasVoted(aff.id, currentUser.uid);
+        setVoted(hasVoted);
+      }
+    }).catch(() => {});
     return () => {
       if (copiedTimerRef.current) clearTimeout(copiedTimerRef.current);
       if (proposalTimerRef.current) clearTimeout(proposalTimerRef.current);
@@ -82,17 +98,22 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
   const heartScale = useSharedValue(1);
   const heartStyle = useAnimatedStyle(() => ({ transform: [{ scale: heartScale.value }] }));
 
-  const handleVote = () => {
-    if (voted) return;
+  const handleVote = async () => {
+    if (voted || !currentUser || !affirmationIdRef.current) return;
     HapticsService.impact('medium');
     setVoted(true);
     setVotes(v => v + 1);
     heartScale.value = withSequence(withSpring(1.4), withSpring(1));
+    AffirmationsService.vote(affirmationIdRef.current, currentUser.uid).catch(() => {});
   };
 
   const handleReaction = (emoji: string) => {
     HapticsService.impact('light');
     setReactions(r => ({ ...r, [emoji]: r[emoji] + 1 }));
+    const emojiToKey: Record<string, 'heart'|'star'|'flower'> = { '💛': 'heart', '✨': 'star', '🌸': 'flower' };
+    if (currentUser && affirmationIdRef.current && emojiToKey[emoji]) {
+      AffirmationsService.react(affirmationIdRef.current, currentUser.uid, emojiToKey[emoji]).catch(() => {});
+    }
   };
 
   const handleWeeklyReaction = (index: number, emoji: string) => {
@@ -123,6 +144,9 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
     setProposalText('');
     if (proposalTimerRef.current) clearTimeout(proposalTimerRef.current);
     proposalTimerRef.current = setTimeout(() => setProposalSent(false), 3000);
+    if (currentUser) {
+      AffirmationsService.propose({ uid: currentUser.uid, displayName: currentUser.displayName }, text).catch(() => {});
+    }
   };
 
   const handleShuffle = () => {
@@ -163,7 +187,7 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 8 }}>
             <LinearGradient colors={['#92400E', '#B45309', '#D97706']} style={styles.heroCard}>
               <Text style={styles.heroLabel}>AFIRMACJA DNIA</Text>
-              <Text style={styles.heroText}>{HERO_AFFIRMATION}</Text>
+              <Text style={styles.heroText}>{heroText}</Text>
               <Text style={styles.heroVotes}>{votes.toLocaleString()} głosów</Text>
             </LinearGradient>
 

@@ -15,6 +15,8 @@ import { TTSService } from '../core/services/tts.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 import { formatLocaleNumber } from '../core/utils/localeFormat';
+import { useAuthStore } from '../store/useAuthStore';
+import { CirclesService } from '../core/services/community/circles.service';
 
 const SYNC_MUSIC_OPTIONS = [
   { id: 'waves', label: 'Fale', emoji: '🌊', color: '#67D1B2' },
@@ -32,6 +34,14 @@ const SEED_INTENTIONS = [
   { id: 'i4', author: 'Solaris', emoji: '☀️', text: 'Wyobrażam sobie złotą nić łączącą nas wszystkich ponad granicami', time: '18 min temu' },
 ];
 
+function formatIntentionTime(ms: number): string {
+  const diff = Date.now() - ms;
+  const min = Math.floor(diff / 60000);
+  if (min < 1) return 'teraz';
+  if (min < 60) return `${min} min temu`;
+  return `${Math.floor(min / 60)}h temu`;
+}
+
 const SESSIONS = [
   { id: 1, topic: 'Uziemienie i spokój wewnętrzny', host: 'Aria Sol', time: '20:00', participants: 384, type: 'UZIEMIENIE', color: '#10B981' },
   { id: 2, topic: 'Krąg Miłości — serce i relacje', host: 'Luna Voss', time: '21:30', participants: 217, type: 'MIŁOŚĆ', color: '#EC4899' },
@@ -43,6 +53,7 @@ const BREATH = [{ label: 'Wdech', d: 4000, c: '#6366F1' }, { label: 'Zatrzymaj',
 export const EnergyCircleScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
+  const { currentUser } = useAuthStore();
   const theme = getResolvedTheme(themeName);
   const isLight = theme.background.startsWith('#F');
   const tc = isLight ? '#1A1008' : '#F0ECE4';
@@ -91,11 +102,29 @@ export const EnergyCircleScreen = ({ navigation }) => {
   const rs = useAnimatedStyle(() => ({ opacity: ring.value }));
   const bs = useAnimatedStyle(() => ({ transform: [{ scale: breath.value }] }));
 
-  // Simulate live participant count fluctuations
+  // Subscribe to real-time circle data and intentions
+  useEffect(() => {
+    const unsubCircle = CirclesService.listenToCircle(circle => {
+      setLiveCount(prev => Math.max(1, circle.participantCount));
+    });
+    const unsubIntentions = CirclesService.listenToIntentions(fbIntentions => {
+      if (fbIntentions.length > 0) {
+        setIntentions(fbIntentions.map(i => ({
+          id: i.id, author: i.authorName, emoji: i.authorEmoji,
+          text: i.text, time: formatIntentionTime(i.createdAt),
+        })));
+      }
+    });
+    // Check if user is already in circle
+    if (currentUser) {
+      CirclesService.isInCircle(currentUser.uid).then(inCircle => { if (inCircle) setJoined(true); }).catch(() => {});
+    }
+    return () => { unsubCircle(); unsubIntentions(); };
+  }, []);
+
+  // Simulate live session participant count fluctuations (SESSIONS are local-only)
   useEffect(() => {
     const interval = setInterval(() => {
-      const delta = Math.floor(Math.random() * 7) - 3; // -3 to +3
-      setLiveCount(prev => Math.max(1200, prev + delta));
       setSessionCounts(prev => ({
         1: Math.max(370, prev[1] + Math.floor(Math.random() * 5) - 2),
         2: Math.max(200, prev[2] + Math.floor(Math.random() * 5) - 2),
@@ -105,9 +134,18 @@ export const EnergyCircleScreen = ({ navigation }) => {
     return () => clearInterval(interval);
   }, []);
 
-  // Bump count when user joins/leaves
+  // Join/leave Firebase circle when state changes
   useEffect(() => {
-    setLiveCount(prev => joined ? prev + 1 : Math.max(1200, prev - 1));
+    if (!currentUser) return;
+    if (joined) {
+      CirclesService.joinCircle({ uid: currentUser.uid, displayName: currentUser.displayName }).catch(() => {});
+    } else {
+      CirclesService.leaveCircle(currentUser.uid).catch(() => {});
+    }
+  }, [joined]);
+
+  // Timer when user joins/leaves
+  useEffect(() => {
     if (joined) {
       setJoinSeconds(0);
       joinTimerRef.current = setInterval(() => {
@@ -374,16 +412,16 @@ export const EnergyCircleScreen = ({ navigation }) => {
                   style={{ flex: 1, color: tc, fontSize: 13, paddingVertical: 4 }}
                   returnKeyType="send"
                   onSubmitEditing={() => {
-                    if (!intentionInput.trim()) return;
+                    if (!intentionInput.trim() || !currentUser) return;
                     HapticsService.impact('light');
-                    setIntentions(prev => [{ id: String(Date.now()), author: 'Ty', emoji: '✨', text: intentionInput.trim(), time: 'teraz' }, ...prev]);
+                    CirclesService.addIntention({ uid: currentUser.uid, displayName: currentUser.displayName, avatarEmoji: currentUser.avatarEmoji ?? '✨' }, intentionInput.trim()).catch(() => {});
                     setIntentionInput('');
                   }}
                 />
                 <Pressable onPress={() => {
-                  if (!intentionInput.trim()) return;
+                  if (!intentionInput.trim() || !currentUser) return;
                   HapticsService.impact('light');
-                  setIntentions(prev => [{ id: String(Date.now()), author: 'Ty', emoji: '✨', text: intentionInput.trim(), time: 'teraz' }, ...prev]);
+                  CirclesService.addIntention({ uid: currentUser.uid, displayName: currentUser.displayName, avatarEmoji: currentUser.avatarEmoji ?? '✨' }, intentionInput.trim()).catch(() => {});
                   setIntentionInput('');
                 }} style={{ width: 32, height: 32, borderRadius: 16, backgroundColor: intentionInput.trim() ? ACCENT : ACCENT + '44', alignItems: 'center', justifyContent: 'center' }}>
                   <Send color="#fff" size={14} />

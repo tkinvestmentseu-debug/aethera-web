@@ -67,7 +67,9 @@
     "sort": "Trier",
     "refresh": "ACTUALISER",
     "copied": "Copié",
-    "copy": "COPIER"
+    "copy": "COPIER",
+    "screenErrorTitle": "ERREUR D'ÉCRAN",
+    "screenErrorBody": "Cet écran a rencontré un problème.\nReviens en arrière et réessaie."
   },
   "nav": {
     "portal": "Portail",
@@ -309,12 +311,24 @@
     "forSomeoneTitle": "Tirage pour Quelqu'un",
     "enterName": "Entre le prénom de la personne",
     "spreads": {
-      "daily_card": { "name": "Carte du Jour" },
-      "celtic_cross": { "name": "Croix Celtique" },
-      "past_present_future": { "name": "Passé, Présent, Futur" },
-      "love_spread": { "name": "Tirage de l'Amour" },
-      "career_success": { "name": "Chemin de Carrière" },
-      "yes_no": { "name": "Oracle Oui/Non" }
+      "daily_card": {
+        "name": "Carte du Jour"
+      },
+      "celtic_cross": {
+        "name": "Croix Celtique"
+      },
+      "past_present_future": {
+        "name": "Passé, Présent, Futur"
+      },
+      "love_spread": {
+        "name": "Tirage de l'Amour"
+      },
+      "career_success": {
+        "name": "Chemin de Carrière"
+      },
+      "yes_no": {
+        "name": "Oracle Oui/Non"
+      }
     },
     "decks": {
       "classic": "Golden Dawn",
@@ -468,9 +482,21 @@
     },
     "transformativePractices": "Pratiques transformatrices",
     "ritual_items": {
-      "morning_alignment": { "title": "Alignement du Matin", "description": "Une courte méditation pour ancrer ton intention de la journée.", "duration": "5 min" },
-      "evening_reflection": { "title": "Réflexion du Soir", "description": "Libère les émotions accumulées avant le sommeil.", "duration": "10 min" },
-      "candle_magic": { "title": "Magie des Bougies", "description": "Manifester un désir spécifique par l'élément du feu.", "duration": "15 min" }
+      "morning_alignment": {
+        "title": "Alignement du Matin",
+        "description": "Une courte méditation pour ancrer ton intention de la journée.",
+        "duration": "5 min"
+      },
+      "evening_reflection": {
+        "title": "Réflexion du Soir",
+        "description": "Libère les émotions accumulées avant le sommeil.",
+        "duration": "10 min"
+      },
+      "candle_magic": {
+        "title": "Magie des Bougies",
+        "description": "Manifester un désir spécifique par l'élément du feu.",
+        "duration": "15 min"
+      }
     }
   },
   "meditation": {
@@ -515,9 +541,9 @@
     "roundsCompleted": "Cycles accomplis",
     "totalBreaths": "Respirations totales",
     "techniques": {
+      "478": "Respiration 4-7-8",
       "box": "Respiration en Carré",
       "box_desc": "4-4-4-4 — équilibre le système nerveux et réduit le stress",
-      "478": "Respiration 4-7-8",
       "478_desc": "Inspirer 4s, retenir 7s, expirer 8s — relaxation profonde",
       "wim_hof": "Méthode Wim Hof",
       "wim_hof_desc": "Respirations rapides — énergise et renforce l'immunité",
@@ -800,28 +826,94 @@
     "appVersion": "Version de l'Application",
     "guidanceStyle": "Style de Guide",
     "archetypes": {
-      "1": { "name": "Le Magicien", "title": "Créateur de Réalité" },
-      "2": { "name": "La Grande Prêtresse", "title": "Gardienne des Secrets" },
-      "3": { "name": "L'Impératrice", "title": "Souveraine de l'Abondance" },
-      "4": { "name": "L'Empereur", "title": "Architecte de l'Ordre" },
-      "5": { "name": "Le Hiérophante", "title": "Gardien de la Tradition" },
-      "6": { "name": "Les Amoureux", "title": "Harmoniseur d'Énergie" },
-      "7": { "name": "Le Chariot", "title": "Réalisateur d'Objectifs" },
-      "8": { "name": "La Justice", "title": "Équilibre du Karma" },
-      "9": { "name": "L'Hermite", "title": "Chercheur de Vérité" },
-      "10": { "name": "La Roue de Fortune", "title": "Maître du Destin" },
-      "11": { "name": "La Force", "title": "Maître des Émotions" },
-      "12": { "name": "Le Pendu", "title": "Visionnaire des Perspectives" },
-      "13": { "name": "La Mort", "title": "Agent de Transformation" },
-      "14": { "name": "La Tempérance", "title": "Alchimiste de l'Équilibre" },
-      "15": { "name": "Le Diable", "title": "Explorateur de l'Ombre" },
-      "16": { "name": "La Tour", "title": "Destructeur d'Illusions" },
-      "17": { "name": "L'Étoile", "title": "Inspirateur d'Espoir" },
-      "18": { "name": "La Lune", "title": "Voyageur du Subconscient" },
-      "19": { "name": "Le Soleil", "title": "Rayon de Clarté" },
-      "20": { "name": "Le Jugement", "title": "Voix de l'Éveil" },
-      "21": { "name": "Le Monde", "title": "Maître de l'Intégration" },
-      "22": { "name": "Le Fou", "title": "Esprit Libre" }
+      "1": {
+        "name": "Le Magicien",
+        "title": "Créateur de Réalité"
+      },
+      "2": {
+        "name": "La Grande Prêtresse",
+        "title": "Gardienne des Secrets"
+      },
+      "3": {
+        "name": "L'Impératrice",
+        "title": "Souveraine de l'Abondance"
+      },
+      "4": {
+        "name": "L'Empereur",
+        "title": "Architecte de l'Ordre"
+      },
+      "5": {
+        "name": "Le Hiérophante",
+        "title": "Gardien de la Tradition"
+      },
+      "6": {
+        "name": "Les Amoureux",
+        "title": "Harmoniseur d'Énergie"
+      },
+      "7": {
+        "name": "Le Chariot",
+        "title": "Réalisateur d'Objectifs"
+      },
+      "8": {
+        "name": "La Justice",
+        "title": "Équilibre du Karma"
+      },
+      "9": {
+        "name": "L'Hermite",
+        "title": "Chercheur de Vérité"
+      },
+      "10": {
+        "name": "La Roue de Fortune",
+        "title": "Maître du Destin"
+      },
+      "11": {
+        "name": "La Force",
+        "title": "Maître des Émotions"
+      },
+      "12": {
+        "name": "Le Pendu",
+        "title": "Visionnaire des Perspectives"
+      },
+      "13": {
+        "name": "La Mort",
+        "title": "Agent de Transformation"
+      },
+      "14": {
+        "name": "La Tempérance",
+        "title": "Alchimiste de l'Équilibre"
+      },
+      "15": {
+        "name": "Le Diable",
+        "title": "Explorateur de l'Ombre"
+      },
+      "16": {
+        "name": "La Tour",
+        "title": "Destructeur d'Illusions"
+      },
+      "17": {
+        "name": "L'Étoile",
+        "title": "Inspirateur d'Espoir"
+      },
+      "18": {
+        "name": "La Lune",
+        "title": "Voyageur du Subconscient"
+      },
+      "19": {
+        "name": "Le Soleil",
+        "title": "Rayon de Clarté"
+      },
+      "20": {
+        "name": "Le Jugement",
+        "title": "Voix de l'Éveil"
+      },
+      "21": {
+        "name": "Le Monde",
+        "title": "Maître de l'Intégration"
+      },
+      "22": {
+        "name": "Le Fou",
+        "title": "Esprit Libre"
+      }
     }
   },
   "checkin": {
@@ -1067,34 +1159,112 @@
       "darkDesc": "Un jeu profond pour le travail sur l'ombre et les vérités cachées."
     },
     "rituals": {
-      "morning_alignment": { "title": "Alignement du Matin", "description": "Une courte méditation pour ancrer ton intention de la journée.", "duration": "5 min" },
-      "evening_reflection": { "title": "Réflexion du Soir", "description": "Libère les émotions accumulées avant le sommeil.", "duration": "10 min" },
-      "candle_magic": { "title": "Magie des Bougies", "description": "Manifester un désir spécifique par l'élément du feu.", "duration": "15 min" }
+      "morning_alignment": {
+        "title": "Alignement du Matin",
+        "description": "Une courte méditation pour ancrer ton intention de la journée.",
+        "duration": "5 min"
+      },
+      "evening_reflection": {
+        "title": "Réflexion du Soir",
+        "description": "Libère les émotions accumulées avant le sommeil.",
+        "duration": "10 min"
+      },
+      "candle_magic": {
+        "title": "Magie des Bougies",
+        "description": "Manifester un désir spécifique par l'élément du feu.",
+        "duration": "15 min"
+      }
     }
   },
   "archetypes": {
-    "1": { "name": "Le Magicien", "title": "Créateur de Réalité" },
-    "2": { "name": "La Grande Prêtresse", "title": "Gardienne des Secrets" },
-    "3": { "name": "L'Impératrice", "title": "Souveraine de l'Abondance" },
-    "4": { "name": "L'Empereur", "title": "Architecte de l'Ordre" },
-    "5": { "name": "Le Hiérophante", "title": "Gardien de la Tradition" },
-    "6": { "name": "Les Amoureux", "title": "Harmoniseur d'Énergie" },
-    "7": { "name": "Le Chariot", "title": "Réalisateur d'Objectifs" },
-    "8": { "name": "La Justice", "title": "Équilibre du Karma" },
-    "9": { "name": "L'Hermite", "title": "Chercheur de Vérité" },
-    "10": { "name": "La Roue de Fortune", "title": "Maître du Destin" },
-    "11": { "name": "La Force", "title": "Maître des Émotions" },
-    "12": { "name": "Le Pendu", "title": "Visionnaire des Perspectives" },
-    "13": { "name": "La Mort", "title": "Agent de Transformation" },
-    "14": { "name": "La Tempérance", "title": "Alchimiste de l'Équilibre" },
-    "15": { "name": "Le Diable", "title": "Explorateur de l'Ombre" },
-    "16": { "name": "La Tour", "title": "Destructeur d'Illusions" },
-    "17": { "name": "L'Étoile", "title": "Inspirateur d'Espoir" },
-    "18": { "name": "La Lune", "title": "Voyageur du Subconscient" },
-    "19": { "name": "Le Soleil", "title": "Rayon de Clarté" },
-    "20": { "name": "Le Jugement", "title": "Voix de l'Éveil" },
-    "21": { "name": "Le Monde", "title": "Maître de l'Intégration" },
-    "22": { "name": "Le Fou", "title": "Esprit Libre" }
+    "1": {
+      "name": "Le Magicien",
+      "title": "Créateur de Réalité"
+    },
+    "2": {
+      "name": "La Grande Prêtresse",
+      "title": "Gardienne des Secrets"
+    },
+    "3": {
+      "name": "L'Impératrice",
+      "title": "Souveraine de l'Abondance"
+    },
+    "4": {
+      "name": "L'Empereur",
+      "title": "Architecte de l'Ordre"
+    },
+    "5": {
+      "name": "Le Hiérophante",
+      "title": "Gardien de la Tradition"
+    },
+    "6": {
+      "name": "Les Amoureux",
+      "title": "Harmoniseur d'Énergie"
+    },
+    "7": {
+      "name": "Le Chariot",
+      "title": "Réalisateur d'Objectifs"
+    },
+    "8": {
+      "name": "La Justice",
+      "title": "Équilibre du Karma"
+    },
+    "9": {
+      "name": "L'Hermite",
+      "title": "Chercheur de Vérité"
+    },
+    "10": {
+      "name": "La Roue de Fortune",
+      "title": "Maître du Destin"
+    },
+    "11": {
+      "name": "La Force",
+      "title": "Maître des Émotions"
+    },
+    "12": {
+      "name": "Le Pendu",
+      "title": "Visionnaire des Perspectives"
+    },
+    "13": {
+      "name": "La Mort",
+      "title": "Agent de Transformation"
+    },
+    "14": {
+      "name": "La Tempérance",
+      "title": "Alchimiste de l'Équilibre"
+    },
+    "15": {
+      "name": "Le Diable",
+      "title": "Explorateur de l'Ombre"
+    },
+    "16": {
+      "name": "La Tour",
+      "title": "Destructeur d'Illusions"
+    },
+    "17": {
+      "name": "L'Étoile",
+      "title": "Inspirateur d'Espoir"
+    },
+    "18": {
+      "name": "La Lune",
+      "title": "Voyageur du Subconscient"
+    },
+    "19": {
+      "name": "Le Soleil",
+      "title": "Rayon de Clarté"
+    },
+    "20": {
+      "name": "Le Jugement",
+      "title": "Voix de l'Éveil"
+    },
+    "21": {
+      "name": "Le Monde",
+      "title": "Maître de l'Intégration"
+    },
+    "22": {
+      "name": "Le Fou",
+      "title": "Esprit Libre"
+    }
   },
   "sleepRitual": {
     "title": "Rituel du Sommeil",
@@ -1201,5 +1371,29 @@
     "tabAffirmations": "Affirmations",
     "start": "Commencer",
     "stop": "Arrêter"
+  },
+  "auth": {
+    "loginTitle": "Connexion",
+    "subtitle": "Connecte-toi à ton âme",
+    "email": "Email",
+    "password": "Mot de passe",
+    "loginButton": "Entrer ✦",
+    "noAccount": "Pas de compte ?",
+    "register": "S'inscrire",
+    "hasAccount": "Déjà un compte ?",
+    "login": "Connexion",
+    "step1": "Étape 1/2 — Données du compte",
+    "step2": "Étape 2/2 — Ton profil",
+    "displayName": "Ton prénom",
+    "zodiacSign": "Signe du zodiaque",
+    "archetype": "Archétype de l'âme",
+    "symbol": "Ton symbole",
+    "registerButton": "Créer un compte ✦",
+    "nextStep": "Suivant →",
+    "backStep": "← Retour",
+    "errorInvalidCredential": "Email ou mot de passe incorrect.",
+    "errorEmailInUse": "Cet email est déjà utilisé.",
+    "errorWeakPassword": "Le mot de passe doit comporter au moins 6 caractères.",
+    "errorConnection": "Connexion impossible. Vérifie ta connexion."
   }
 }

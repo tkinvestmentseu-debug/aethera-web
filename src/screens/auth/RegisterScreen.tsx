@@ -8,12 +8,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AuthService } from '../../core/services/auth.service';
 import { hydrateUserProfile } from '../../store/useAuthStore';
+import { useTranslation } from 'react-i18next';
 
 const ZODIAC_SIGNS = ['Baran','Byk','Bliźnięta','Rak','Lew','Panna','Waga','Skorpion','Strzelec','Koziorożec','Wodnik','Ryby'];
 const ARCHETYPES = ['Mistyk','Wojownik','Mędrzec','Uzdrowiciel','Wizjoner','Strażnik','Twórca','Poszukiwacz'];
 const EMOJIS = ['🌙','✨','🌸','🔮','🌿','🦋','🌊','🔥','💫','🌺','⚡','🕊️'];
 
 export const RegisterScreen = ({ navigation }: any) => {
+  const { t } = useTranslation();
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,17 +26,17 @@ export const RegisterScreen = ({ navigation }: any) => {
   const [loading, setLoading] = useState(false);
 
   const handleRegister = async () => {
-    if (!displayName.trim()) { Alert.alert('Błąd', 'Podaj swoje imię.'); return; }
+    if (!displayName.trim()) { Alert.alert('Błąd', t('auth.displayName')); return; }
     setLoading(true);
     try {
       const user = await AuthService.register({ email, password, displayName: displayName.trim(), zodiacSign, archetype, avatarEmoji });
       await hydrateUserProfile(user.uid);
     } catch (e: any) {
       const msg = e?.code === 'auth/email-already-in-use'
-        ? 'Ten email jest już zajęty.'
+        ? t('auth.errorEmailInUse')
         : e?.code === 'auth/weak-password'
-        ? 'Hasło musi mieć co najmniej 6 znaków.'
-        : 'Błąd rejestracji. Sprawdź połączenie.';
+        ? t('auth.errorWeakPassword')
+        : t('auth.errorConnection');
       Alert.alert('Błąd', msg);
     } finally {
       setLoading(false);
@@ -42,8 +44,8 @@ export const RegisterScreen = ({ navigation }: any) => {
   };
 
   const nextStep = () => {
-    if (!email.trim() || !password.trim()) { Alert.alert('Błąd', 'Podaj email i hasło.'); return; }
-    if (password.length < 6) { Alert.alert('Błąd', 'Hasło musi mieć co najmniej 6 znaków.'); return; }
+    if (!email.trim() || !password.trim()) { Alert.alert('Błąd', t('auth.email')); return; }
+    if (password.length < 6) { Alert.alert('Błąd', t('auth.errorWeakPassword')); return; }
     setStep(2);
   };
 
@@ -53,24 +55,24 @@ export const RegisterScreen = ({ navigation }: any) => {
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
           <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
             <Text style={styles.logo}>✦ Aethera</Text>
-            <Text style={styles.step}>{step === 1 ? 'Krok 1/2 — Dane konta' : 'Krok 2/2 — Twój profil'}</Text>
+            <Text style={styles.step}>{step === 1 ? t('auth.step1') : t('auth.step2')}</Text>
 
             {step === 1 ? (
               <>
-                <TextInput style={styles.input} placeholder="Email" placeholderTextColor="rgba(255,255,255,0.4)"
+                <TextInput style={styles.input} placeholder={t('auth.email')} placeholderTextColor="rgba(255,255,255,0.4)"
                   value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" autoCorrect={false} />
-                <TextInput style={styles.input} placeholder="Hasło (min. 6 znaków)" placeholderTextColor="rgba(255,255,255,0.4)"
+                <TextInput style={styles.input} placeholder={t('auth.password')} placeholderTextColor="rgba(255,255,255,0.4)"
                   value={password} onChangeText={setPassword} secureTextEntry />
                 <Pressable style={styles.btn} onPress={nextStep}>
-                  <Text style={styles.btnText}>Dalej →</Text>
+                  <Text style={styles.btnText}>{t('auth.nextStep')}</Text>
                 </Pressable>
               </>
             ) : (
               <>
-                <TextInput style={styles.input} placeholder="Twoje imię" placeholderTextColor="rgba(255,255,255,0.4)"
+                <TextInput style={styles.input} placeholder={t('auth.displayName')} placeholderTextColor="rgba(255,255,255,0.4)"
                   value={displayName} onChangeText={setDisplayName} />
 
-                <Text style={styles.label}>Znak zodiaku</Text>
+                <Text style={styles.label}>{t('auth.zodiacSign')}</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
                   {ZODIAC_SIGNS.map(z => (
                     <Pressable key={z} onPress={() => setZodiacSign(z)}
@@ -80,7 +82,7 @@ export const RegisterScreen = ({ navigation }: any) => {
                   ))}
                 </ScrollView>
 
-                <Text style={styles.label}>Archetyp duszy</Text>
+                <Text style={styles.label}>{t('auth.archetype')}</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
                   {ARCHETYPES.map(a => (
                     <Pressable key={a} onPress={() => setArchetype(a)}
@@ -90,7 +92,7 @@ export const RegisterScreen = ({ navigation }: any) => {
                   ))}
                 </ScrollView>
 
-                <Text style={styles.label}>Twój symbol</Text>
+                <Text style={styles.label}>{t('auth.symbol')}</Text>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginBottom: 24 }}>
                   {EMOJIS.map(e => (
                     <Pressable key={e} onPress={() => setAvatarEmoji(e)}
@@ -101,16 +103,16 @@ export const RegisterScreen = ({ navigation }: any) => {
                 </View>
 
                 <Pressable style={styles.btn} onPress={handleRegister} disabled={loading}>
-                  {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.btnText}>Stwórz konto ✦</Text>}
+                  {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.btnText}>{t('auth.registerButton')}</Text>}
                 </Pressable>
                 <Pressable onPress={() => setStep(1)} style={{ marginTop: 12 }}>
-                  <Text style={styles.link}>← Wróć</Text>
+                  <Text style={styles.link}>{t('auth.backStep')}</Text>
                 </Pressable>
               </>
             )}
 
             <Pressable onPress={() => navigation.navigate('Login')} style={{ marginTop: 16 }}>
-              <Text style={styles.link}>Masz konto? <Text style={{ color: '#A78BFA' }}>Zaloguj się</Text></Text>
+              <Text style={styles.link}>{t('auth.hasAccount')} <Text style={{ color: '#A78BFA' }}>{t('auth.login')}</Text></Text>
             </Pressable>
           </ScrollView>
         </KeyboardAvoidingView>
