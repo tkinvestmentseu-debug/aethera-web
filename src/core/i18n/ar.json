@@ -1,0 +1,1373 @@
+{
+  "common": {
+    "appName": "Aethera",
+    "back": "رجوع",
+    "next": "التالي",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "close": "إغلاق",
+    "send": "إرسال",
+    "loading": "التواصل مع الكون...",
+    "error": "حدث خطأ ما",
+    "retry": "إعادة المحاولة",
+    "done": "تم",
+    "start": "ابدأ",
+    "stop": "إيقاف",
+    "pause": "توقف مؤقت",
+    "resume": "استئناف",
+    "continue": "متابعة",
+    "skip": "تخطي",
+    "share": "مشاركة",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "add": "إضافة",
+    "yes": "نعم",
+    "no": "لا",
+    "ok": "موافق",
+    "or": "أو",
+    "and": "و",
+    "for_someone": "لشخص آخر",
+    "anonymous": "مجهول الهوية",
+    "publish": "نشر",
+    "generate": "توليد",
+    "interpret": "تفسير",
+    "ai_thinking": "العرّاف يتأمل...",
+    "session_complete": "اكتملت الجلسة",
+    "minutes": "دقائق",
+    "seconds": "ثواني",
+    "hours": "ساعات",
+    "days": "أيام",
+    "streak": "سلسلة",
+    "level": "مستوى",
+    "premium": "مميز",
+    "free": "مجاني",
+    "now": "الآن",
+    "today": "اليوم",
+    "yesterday": "أمس",
+    "week": "أسبوع",
+    "month": "شهر",
+    "morning": "الصباح",
+    "afternoon": "بعد الظهر",
+    "evening": "المساء",
+    "night": "الليل",
+    "greeting_morning": "صباح النور يا روح جميلة",
+    "greeting_afternoon": "مرحباً أيها المسافر الروحي",
+    "greeting_evening": "مساء الخير يا كائن النور",
+    "greeting_night": "تصبح على خير يا روح الأحلام",
+    "localeCode": "ar-SA",
+    "welcome": "مرحباً، أيها المسافر",
+    "welcome_sub": "رحلتك الداخلية مستمرة",
+    "noData": "لا توجد بيانات",
+    "seeAll": "عرض الكل",
+    "confirm": "تأكيد",
+    "reset": "إعادة تعيين",
+    "clear": "مسح",
+    "search": "بحث",
+    "filter": "تصفية",
+    "sort": "ترتيب",
+    "refresh": "تحديث",
+    "copied": "تم النسخ",
+    "copy": "نسخ"
+  },
+  "nav": {
+    "portal": "البوابة",
+    "worlds": "العوالم",
+    "oracle": "العرّاف",
+    "notifications": "الإشعارات",
+    "profile": "الملف الشخصي",
+    "community": "المجتمع"
+  },
+  "tabs": {
+    "home": "اليوم",
+    "tarot": "التاروت",
+    "oracle": "العرّاف",
+    "matrix": "المصفوفة",
+    "profile": "الملف الشخصي",
+    "stars": "النجوم",
+    "portal": "البوابة",
+    "worlds": "العوالم",
+    "notifications": "الإشعارات",
+    "community": "المجتمع"
+  },
+  "onboarding": {
+    "language_title": "اختر لغتك",
+    "language_subtitle": "بأي لغة تتحدث روحك؟",
+    "language_full": "دعم كامل",
+    "language_limited": "دعم جزئي",
+    "language_coming_soon": "قريباً",
+    "name_title": "ما اسمك؟",
+    "name_placeholder": "اسمك الروحي",
+    "name_hint": "اسمك سيرشد العرّاف",
+    "birthdate_title": "متى وُلدت؟",
+    "birthdate_hint": "تاريخ ميلادك يكشف مصيرك",
+    "birthplace_title": "أين وُلدت؟",
+    "birthplace_placeholder": "مدينة الميلاد",
+    "birthplace_hint": "مكان ميلادك يدقق خريطتك النجمية",
+    "level_title": "ما هو مستواك الروحي؟",
+    "level_subtitle": "سنخصص مسيرتك لك",
+    "level_beginner": "مبتدئ",
+    "level_beginner_sub": "أنا في بداية رحلتي",
+    "level_seeker": "باحث",
+    "level_seeker_sub": "أستكشف الممارسات الروحية",
+    "level_practitioner": "ممارس",
+    "level_practitioner_sub": "لديّ ممارسة منتظمة",
+    "level_master": "معلم",
+    "level_master_sub": "أنا متجذر عميقاً في مسيرتي",
+    "theme_title": "اختر ثيمك البصري",
+    "begin": "ابدأ الرحلة",
+    "step_of": "{{step}} / {{total}}",
+    "welcome": "أهلاً بك في Aethera",
+    "welcome_sub": "ملاذك الرقمي لنمو الروح",
+    "continue_btn": "متابعة",
+    "chooseLanguage": "اختر اللغة",
+    "languageDesc": "اختر اللغة لتجربتك الروحية",
+    "yourBirth": "ميلادك",
+    "birthDesc": "النجوم تتذكر لحظة قدومك",
+    "yourName": "اسمك",
+    "namePlaceholder": "أدخل اسمك",
+    "birthDate": "تاريخ الميلاد",
+    "yourPath": "مسيرتك",
+    "pathDesc": "ما هو نيّتك في Aethera؟",
+    "whatAreYouLookingFor": "ماذا تبحث عن؟",
+    "yourExperienceLevel": "مستوى خبرتك",
+    "aiGuideStyle": "أسلوب المرشد الذكي",
+    "intentions": {
+      "love": "الحب",
+      "career": "المهنة",
+      "peace": "السلام الداخلي",
+      "growth": "النمو",
+      "spirituality": "الروحانية"
+    },
+    "styles": {
+      "mystical": "صوفي",
+      "gentle": "لطيف",
+      "direct": "مباشر",
+      "reflective": "تأملي"
+    },
+    "themes": {
+      "mysticGold": "الذهب الصوفي",
+      "cosmicViolet": "البنفسجي الكوني",
+      "moonlightSilver": "الفضي القمري",
+      "roseLove": "الوردي المحب",
+      "emeraldSpirit": "الزمردي الروحي",
+      "midnightPremium": "منتصف الليل المميز",
+      "ivoryLight": "الضوء العاجي",
+      "royalPurple": "الأرجواني الملكي",
+      "celestialBlue": "الأزرق السماوي"
+    },
+    "portalOpen": "البوابة مفتوحة",
+    "portalDesc": "رحلتك نحو التحول تبدأ الآن",
+    "enterAethera": "ادخل إلى Aethera",
+    "vibrationDesc": "اختر الجمالية التي تتناغم مع طاقتك.",
+    "chooseVibration": "اختر اهتزازك"
+  },
+  "home": {
+    "worlds": {
+      "self": "الذات",
+      "self_desc": "استكشف جوهرك الداخلي",
+      "horoscope": "الأبراج",
+      "horoscope_desc": "اقرأ رسائل النجوم",
+      "oracle": "العرّاف",
+      "oracle_desc": "ابحث عن التوجيه الإلهي",
+      "astrology": "علم النجوم",
+      "astrology_desc": "افهم الدورات الكونية",
+      "support": "الدعم",
+      "support_desc": "أدوات للشفاء والتوازن",
+      "cleansing": "التطهير",
+      "cleansing_desc": "حرر ما لم يعد يخدمك",
+      "rituals": "الطقوس",
+      "rituals_desc": "ممارسات مقدسة لكل يوم",
+      "community": "المجتمع",
+      "community_desc": "أرواح في رحلة معاً"
+    },
+    "greeting": "أهلاً بك يا روح جميلة",
+    "today_date": "يومك الروحي",
+    "quick_actions": "إجراءات سريعة",
+    "magicOfDay": "سحر اليوم",
+    "tarotOracle": "عرّاف التاروت",
+    "tarotOracleDesc": "دع الأوراق تتحدث إلى روحك",
+    "startRitual": "ابدأ الطقس",
+    "yourEnergy": "طاقتك",
+    "moonPhase": "مرحلة القمر",
+    "powerAffirmation": "تأكيد القوة",
+    "yourPractices": "ممارساتك",
+    "soulPath": "مسار الروح",
+    "startTransformation": "ابدأ التحول",
+    "dailyRitual": "الطقس اليومي",
+    "reflectionJournal": "مجلة التأمل",
+    "saveInsights": "حفظ الرؤى",
+    "exploration": "استكشاف",
+    "soulLibrary": "مكتبة الروح",
+    "dreamBook": "كتاب الأحلام",
+    "reports": "التقارير",
+    "continueJourney": "متابعة الرحلة",
+    "oracleWhisper": "همس العرّاف",
+    "practices": "الممارسات",
+    "recommendedForYou": "موصى به لك",
+    "dailyAlignment": "المحاذاة اليومية",
+    "allPractices": "جميع الممارسات",
+    "synastry": "التوافق الفلكي",
+    "yourConstellation": "كوكبتك",
+    "checkEmotions": "تحقق من مشاعرك",
+    "trackEnergy": "كيف تشعر الآن؟ تتبع طاقتك.",
+    "homeDesc": "دع هذا الفضاء يكون مرآة لحقيقتك الداخلية.",
+    "resumeConversation": "استئناف المحادثة",
+    "recentReflection": "التأمل الأخير",
+    "mantraOfDay": "مانترا اليوم",
+    "affirmationsTitle": "التأكيدات",
+    "nextStep": "الخطوة التالية",
+    "continuationSection": "استمرار",
+    "seeMore": "المزيد",
+    "todayProgress": "تقدمك اليوم",
+    "keepGoing": "استمر!",
+    "startYourDay": "ابدأ يومك بنية"
+  },
+  "portal": {
+    "daily_affirmation": "تأكيد اليوم",
+    "moon_phase": "مرحلة القمر",
+    "favorites": "المفضلة",
+    "quick_links": "روابط سريعة",
+    "add_favorites": "إضافة إلى المفضلة",
+    "widgets": "الأدوات",
+    "no_favorites": "لا توجد مفضلة بعد. استكشف واحفظ ما يتردد صداه في روحك.",
+    "greeting_morning": "صباح النور يا كائن الضوء",
+    "greeting_afternoon": "مرحباً يا روح هائمة",
+    "greeting_evening": "مساء الخير يا روح حكيمة",
+    "greeting_night": "تصبح على خير، أيها المسافر",
+    "editWidgets": "تعديل الأدوات",
+    "dailyCrystal": "بلورة اليوم",
+    "chakraFocus": "تركيز الشاكرا",
+    "breathingReminder": "تذكير التنفس",
+    "energyForecast": "توقعات الطاقة",
+    "gratitudeStreak": "سلسلة الامتنان",
+    "portalTitle": "بوابة Aethera",
+    "yourSanctuary": "ملاذك"
+  },
+  "oracle": {
+    "title": "العرّاف",
+    "subtitle": "مرشدك الروحي الشخصي",
+    "welcome": "أهلاً بك في حجرة العرّاف",
+    "chat_placeholder": "اسأل العرّاف...",
+    "thinking": "العرّاف يتأمل...",
+    "historyTitle": "الجلسات السابقة",
+    "noHistory": "لا توجد جلسات سابقة",
+    "closeSession": "إغلاق الجلسة",
+    "topicsTitle": "موضوعات مقترحة",
+    "askPlaceholder": "عمَّ تريد أن تتأمل؟",
+    "modes": {
+      "daily_wisdom": "حكمة اليوم",
+      "daily_wisdom_sub": "توجيه ليومك",
+      "soul_guide": "مرشد الروح",
+      "soul_guide_sub": "تواصل مع جوهرك العميق",
+      "shadow_oracle": "عرّاف الظل",
+      "shadow_oracle_sub": "استكشف ما هو خفي",
+      "cosmic_timing": "التوقيت الكوني",
+      "cosmic_timing_sub": "متى تتصرف ومتى تنتظر",
+      "dream_decoder": "مفسر الأحلام",
+      "dream_decoder_sub": "اكشف رسائل الليل",
+      "relationship": "العلاقات",
+      "relationship_sub": "ديناميكيات القلب والروح",
+      "past_lives": "الأرواح الماضية",
+      "past_lives_sub": "أصداء كارمية من الأبدية",
+      "higher_self": "الذات العليا",
+      "higher_self_sub": "نسختك المستنيرة ترشدك"
+    },
+    "starters": {
+      "energy": "كيف هي طاقتي اليوم؟",
+      "relationship": "ماذا تعلمني هذه العلاقة؟",
+      "abundance": "كيف أجذب الوفرة؟"
+    },
+    "for_someone": "لشخص آخر",
+    "enter_name": "أدخل الاسم",
+    "clear": "مسح",
+    "copy_response": "نسخ الرد",
+    "new_session": "جلسة جديدة",
+    "expertModes": "أوضاع الخبراء",
+    "basicModes": "الأوضاع الأساسية",
+    "startSession": "بدء الجلسة",
+    "continueSession": "متابعة"
+  },
+  "tarot": {
+    "title": "التاروت",
+    "draw_card": "اسحب بطاقة",
+    "your_card": "بطاقتك",
+    "reversed": "مقلوبة",
+    "upright": "مستقيمة",
+    "for_someone": "لشخص آخر",
+    "interpret": "تفسير",
+    "yourTools": "أدواتك",
+    "chooseDeck": "اختر مجموعتك",
+    "spreads": {
+      "daily_card": {
+        "name": "بطاقة اليوم"
+      },
+      "celtic_cross": {
+        "name": "الصليب السلتي"
+      },
+      "past_present_future": {
+        "name": "الماضي والحاضر والمستقبل"
+      },
+      "love_spread": {
+        "name": "بسط الحب"
+      },
+      "career_success": {
+        "name": "مسار المهنة"
+      },
+      "yes_no": {
+        "name": "عرّاف نعم أو لا"
+      }
+    },
+    "decks": {
+      "classic": "الفجر الذهبي",
+      "classicDesc": "المجموعة الكلاسيكية الدقيقة المستندة إلى تقليد رايدر-ويت.",
+      "cosmic": "الضوء الكوني",
+      "cosmicDesc": "تفسير حديث مجري للأنماط العالمية الأصيلة.",
+      "dark": "ظلام الروح",
+      "darkDesc": "مجموعة عميقة لعمل الظل والحقائق الخفية."
+    },
+    "newReading": "قراءة جديدة",
+    "chooseSpread": "اختر توزيعاً",
+    "dailyCard": "بطاقة اليوم",
+    "drawNow": "اسحب الآن",
+    "cardMeaning": "معنى البطاقة",
+    "reflection": "تأمل",
+    "saveReading": "حفظ القراءة",
+    "cardOfDay": "بطاقة اليوم",
+    "partnerReading": "قراءة الشريك",
+    "forSomeoneTitle": "قراءة لشخص ما",
+    "enterName": "أدخل اسم الشخص"
+  },
+  "horoscope": {
+    "title": "الأبراج",
+    "daily": "يومي",
+    "weekly": "أسبوعي",
+    "monthly": "شهري",
+    "yearly": "سنوي",
+    "compatibility": "التوافق",
+    "for_someone": "لشخص آخر",
+    "partnerHoroscope": "برج الشريك",
+    "checkCompatibility": "تحقق من التوافق",
+    "dailyEnergy": "طاقة اليوم",
+    "chineseZodiac": "الأبراج الصينية",
+    "compatibilityTitle": "التوافق الفلكي",
+    "luckyNumbers": "الأرقام المحظوظة",
+    "luckyColors": "الألوان المحظوظة",
+    "signs": {
+      "aries": "الحمل",
+      "taurus": "الثور",
+      "gemini": "الجوزاء",
+      "cancer": "السرطان",
+      "leo": "الأسد",
+      "virgo": "العذراء",
+      "libra": "الميزان",
+      "scorpio": "العقرب",
+      "sagittarius": "القوس",
+      "capricorn": "الجدي",
+      "aquarius": "الدلو",
+      "pisces": "الحوت"
+    },
+    "planets": {
+      "sun": "الشمس",
+      "moon": "القمر",
+      "mercury": "عطارد",
+      "venus": "الزهرة",
+      "mars": "المريخ",
+      "jupiter": "المشتري",
+      "saturn": "زحل",
+      "uranus": "أورانوس",
+      "neptune": "نبتون",
+      "pluto": "بلوتو"
+    },
+    "yourSign": "برجك",
+    "todayMessage": "رسالة اليوم",
+    "planetaryInfluences": "التأثيرات الكوكبية",
+    "moonInSign": "القمر في",
+    "sunInSign": "الشمس في",
+    "rising": "الطالع"
+  },
+  "journal": {
+    "title": "المجلة",
+    "new_entry": "مدخل جديد",
+    "placeholder": "اكتب أفكار روحك...",
+    "mood": "المزاج",
+    "energy": "الطاقة",
+    "save": "حفظ المدخل",
+    "soulJournal": "مجلة الروح",
+    "yourHistory": "تاريخك",
+    "weeklyInsight": "بصيرة أسبوعية",
+    "cleanSlate": "صفحة بيضاء",
+    "addFirstEntry": "أضف مدخلك الأول",
+    "types": {
+      "reflection": "تأمل",
+      "gratitude": "امتنان",
+      "shadow_work": "عمل الظل",
+      "dream": "حلم",
+      "matrix": "مصفوفة",
+      "tarot": "تاروت"
+    },
+    "weeklyInsightDesc": "متوسط طاقتك {{energy}}%، والمزاج السائد هو {{mood}}. {{focus}}",
+    "suggestedTopic": "الموضوع المقترح لليوم",
+    "journalEmptyDesc": "مجلة روحك تنتظر أول إدخال. سجّل أحلامك وتبصرات التاروت والتأملات اليومية لترى أنماط قدرك.",
+    "editEntry": "تعديل الإدخال",
+    "deleteEntry": "حذف الإدخال",
+    "entryDeleted": "تم حذف الإدخال",
+    "wordCount": "كلمة"
+  },
+  "dreams": {
+    "title": "الأحلام",
+    "record_dream": "سجل حلماً",
+    "placeholder": "صف حلمك...",
+    "symbols": "الرموز",
+    "interpretation": "التفسير",
+    "no_dreams": "لم تُسجَّل أحلام بعد",
+    "analyze": "تحليل",
+    "dictionary": "قاموس الأحلام",
+    "phases": {
+      "rem": "حركة العين السريعة",
+      "deep": "عميق",
+      "light": "خفيف"
+    },
+    "dreamTitle": "عنوان الحلم",
+    "dreamDate": "تاريخ الحلم",
+    "recurringDream": "حلم متكرر",
+    "lucidDream": "حلم واعٍ",
+    "emotionInDream": "المشاعر في الحلم",
+    "addSymbol": "إضافة رمز",
+    "symbolMeaning": "معنى الرمز",
+    "aiInterpretation": "تفسير الذكاء الاصطناعي",
+    "symbolarium": "دليل الرموز",
+    "searchSymbol": "ابحث عن رمز..."
+  },
+  "rituals": {
+    "title": "الطقوس",
+    "start": "ابدأ الطقس",
+    "complete": "إكمال",
+    "daily_ritual": "الطقس اليومي",
+    "my_rituals": "طقوسي",
+    "all_rituals": "جميع الطقوس",
+    "minutes": "دقائق",
+    "steps_count": "خطوات",
+    "sacredRituals": "الطقوس المقدسة",
+    "completeRitual": "إكمال الطقس",
+    "ritualCompleted": "اكتمل الطقس",
+    "ritualCompletedDesc": "لقد أكملت هذه الممارسة المقدسة. طاقتك قد تحولت.",
+    "backToLibrary": "العودة إلى المكتبة",
+    "transformativePractices": "ممارسات تحويلية",
+    "categories": {
+      "morning": "الصباح",
+      "evening": "المساء",
+      "meditation": "التأمل",
+      "energy": "الطاقة",
+      "Cleansing": "التطهير",
+      "CleansingDesc": "حرر الطاقات الراكدة وجدد مساحتك",
+      "Love": "الحب",
+      "LoveDesc": "افتح قلبك واجذب الروابط العميقة",
+      "Manifestation": "التجلي",
+      "ManifestationDesc": "أحضر رغباتك إلى الواقع",
+      "Protection": "الحماية",
+      "ProtectionDesc": "دروع طاقية لأورتك",
+      "Grounding": "التأريض",
+      "GroundingDesc": "تواصل مع الأرض واستقر طاقتك"
+    },
+    "ritual_items": {
+      "morning_alignment": {
+        "title": "المحاذاة الصباحية",
+        "description": "تأمل قصير لتحديد نيّتك لهذا اليوم.",
+        "duration": "٥ دقائق"
+      },
+      "evening_reflection": {
+        "title": "التأمل المسائي",
+        "description": "حرر المشاعر المتراكمة قبل النوم.",
+        "duration": "١٠ دقائق"
+      },
+      "candle_magic": {
+        "title": "سحر الشمعة",
+        "description": "تجلي رغبة محددة من خلال عنصر النار.",
+        "duration": "١٥ دقيقة"
+      }
+    },
+    "ritualDetail": "تفاصيل الطقس",
+    "description": "الوصف",
+    "materials": "المواد المطلوبة",
+    "steps": "خطوات الطقس",
+    "quickPaths": "مسارات الطقس",
+    "planTab": "خطة",
+    "libraryTab": "مكتبة",
+    "historyTab": "السجل",
+    "completedToday": "مكتمل اليوم",
+    "currentStreak": "السلسلة الحالية"
+  },
+  "meditation": {
+    "title": "التأمل",
+    "start": "ابدأ التأمل",
+    "pause": "توقف مؤقت",
+    "finish": "إنهاء",
+    "duration": "المدة",
+    "technique": "الأسلوب",
+    "session_complete": "اكتمل التأمل",
+    "tips": "نصائح",
+    "streak": "سلسلة",
+    "sessions": "الجلسات",
+    "techniques": {
+      "mindfulness": "اليقظة الذهنية",
+      "body_scan": "مسح الجسم",
+      "loving_kindness": "المحبة والرحمة",
+      "visualization": "التخيل",
+      "mantra": "المانترا"
+    },
+    "totalTime": "الوقت الإجمالي",
+    "avgSession": "متوسط الجلسة",
+    "chooseAmbient": "الصوت المحيطي",
+    "sessionHistory": "سجل الجلسات",
+    "noSessions": "لا توجد جلسات مسجلة",
+    "benefitsTitle": "فوائد الممارسة",
+    "meditationTips": "نصائح التأمل",
+    "selectDuration": "اختر المدة",
+    "readyToBegin": "مستعد للبدء؟",
+    "focusBreath": "ركّز على تنفسك"
+  },
+  "breathwork": {
+    "title": "تمارين التنفس",
+    "inhale": "شهيق",
+    "hold": "حبس النفَس",
+    "exhale": "زفير",
+    "start": "ابدأ",
+    "pause": "توقف مؤقت",
+    "benefits": "الفوائد",
+    "techniques": {
+      "box": "التنفس المربع",
+      "box_desc": "٤-٤-٤-٤ للهدوء والتركيز",
+      "478": "تنفس ٤-٧-٨",
+      "478_desc": "تقنية استرخاء عميق وتخفيف القلق",
+      "wim_hof": "طريقة ويم هوف",
+      "wim_hof_desc": "تنفس منشط للحيوية والتحمل",
+      "calm": "التنفس المهدئ",
+      "calm_desc": "تنفس لطيف للجهاز العصبي",
+      "slow": "التنفس البطيء",
+      "slow_desc": "تنفس عميق وبطيء للحضور",
+      "nadi": "نادي شودهانا",
+      "nadi_desc": "التنفس بالتناوب بين فتحتي الأنف للتوازن"
+    },
+    "selectTechnique": "اختر التقنية",
+    "sessionComplete": "اكتملت الجلسة",
+    "roundsCompleted": "جولات مكتملة",
+    "totalBreaths": "إجمالي الأنفاس"
+  },
+  "chakra": {
+    "title": "الشاكرات",
+    "balance": "التوازن",
+    "practice": "الممارسة",
+    "names": {
+      "root": "الجذر (موولادهارا)",
+      "sacral": "العجزي (سفادهيستانا)",
+      "solar": "الضفيرة الشمسية (مانيبورا)",
+      "heart": "القلب (أناهاتا)",
+      "throat": "الحلق (فيشودها)",
+      "third_eye": "العين الثالثة (أجنا)",
+      "crown": "التاج (ساهاسرارا)"
+    },
+    "elements": {
+      "earth": "الأرض",
+      "water": "الماء",
+      "fire": "النار",
+      "air": "الهواء",
+      "space": "الفضاء",
+      "light": "النور",
+      "thought": "الفكر"
+    },
+    "bodyMap": "خريطة الجسم",
+    "chakraOfDay": "شاكرا اليوم",
+    "activateChakra": "تنشيط الشاكرا",
+    "practiceModal": "ممارسة الشاكرا",
+    "affirmation": "تأكيد",
+    "element": "العنصر",
+    "color": "اللون",
+    "sanskrit": "السنسكريتية"
+  },
+  "affirmations": {
+    "title": "التأكيدات",
+    "daily": "تأكيد اليوم",
+    "for_someone": "لشخص آخر",
+    "shuffle": "خلط",
+    "propose": "اقتراح",
+    "vote": "تصويت",
+    "categories": {
+      "love": "الحب",
+      "abundance": "الوفرة",
+      "healing": "الشفاء",
+      "strength": "القوة",
+      "peace": "السلام",
+      "transformation": "التحول",
+      "vision": "الرؤية",
+      "gratitude": "الامتنان",
+      "confidence": "الثقة",
+      "protection": "الحماية"
+    },
+    "forSomeoneTitle": "تأكيد لـ:",
+    "enterName": "أدخل الاسم",
+    "aiGenerate": "توليد بالذكاء الاصطناعي",
+    "copyAffirmation": "نسخ التأكيد",
+    "saveToJournal": "حفظ في المجلة"
+  },
+  "gratitude": {
+    "title": "الامتنان",
+    "add_item": "أضف شكراً",
+    "placeholder": "أنا ممتن/ة لـ...",
+    "save": "حفظ",
+    "streak": "سلسلة الامتنان",
+    "history": "السجل",
+    "ai_reflection": "تأمل الذكاء الاصطناعي",
+    "items_today": "شكراً اليوم",
+    "inspiration": "إلهام",
+    "todayEntry": "امتنان اليوم",
+    "alreadySaved": "تم الحفظ اليوم بالفعل",
+    "addMore": "إضافة المزيد",
+    "generateReflection": "توليد تأمل",
+    "pastEntries": "الإدخالات السابقة",
+    "gratitudeStreak": "{{days}} أيام متتالية",
+    "emptyHistory": "لا يوجد سجل امتنان بعد"
+  },
+  "shadow": {
+    "title": "عمل الظل",
+    "reflection": "تأمل",
+    "placeholder": "استكشف ظلك بشجاعة...",
+    "save": "حفظ التأمل",
+    "oracle_prompt": "اسأل عرّاف الظل",
+    "anonymous_save": "حفظ مجهول الهوية",
+    "areas": {
+      "fear": "الخوف",
+      "anger": "الغضب",
+      "shame": "الخجل",
+      "grief": "الحزن",
+      "control": "السيطرة"
+    },
+    "jungiandepth": "العمق اليونغي",
+    "questions": "أسئلة التأمل",
+    "sessionCount": "الجلسة {{count}}",
+    "deepDive": "الغوص العميق",
+    "lightAfterShadow": "بعد الظل يأتي النور"
+  },
+  "lunar": {
+    "title": "التقويم القمري",
+    "phase": "المرحلة",
+    "new_moon": "القمر الجديد",
+    "full_moon": "البدر",
+    "waxing": "القمر المتزايد",
+    "waning": "القمر المتناقص",
+    "crescent": "الهلال",
+    "gibbous": "القمر الأحدب",
+    "set_intention": "حدد نيّتك",
+    "intention_placeholder": "نيّتي لهذه المرحلة القمرية...",
+    "moonCalendar": "التقويم القمري",
+    "currentPhase": "المرحلة الحالية",
+    "moonEnergy": "طاقة القمر",
+    "newMoonRitual": "طقس القمر الجديد",
+    "fullMoonRitual": "طقس البدر",
+    "intentionSaved": "تم حفظ النية",
+    "viewMonth": "عرض الشهر",
+    "tapDayForDetails": "اضغط على يوم للتفاصيل"
+  },
+  "soundbath": {
+    "title": "حمام الصوت",
+    "start": "ابدأ الجلسة",
+    "stop": "إيقاف",
+    "duration": "المدة",
+    "session_complete": "اكتملت الجلسة",
+    "soundscapes": {
+      "rain": "المطر",
+      "waves": "الأمواج",
+      "fire": "النار",
+      "forest": "الغابة",
+      "ritual": "الطقسي"
+    },
+    "selectDuration": "اختر المدة",
+    "ambientLabel": "الصوت المحيطي",
+    "visualizer": "المُصوِّر",
+    "muteToggle": "كتم الصوت",
+    "countdown": "الوقت المتبقي"
+  },
+  "numerology": {
+    "title": "علم الأعداد",
+    "life_path": "رقم مسار الحياة",
+    "destiny": "رقم المصير",
+    "soul_urge": "رقم نداء الروح",
+    "personality": "رقم الشخصية",
+    "calculate": "احسب",
+    "for_someone": "لشخص آخر",
+    "your_number": "رقمك",
+    "birthDate": "تاريخ الميلاد",
+    "enterBirthDate": "أدخل تاريخ الميلاد",
+    "partnerName": "اسم الشخص",
+    "lifePathMeaning": "معنى مسار الحياة",
+    "personalYear": "السنة الشخصية",
+    "personalMonth": "الشهر الشخصي",
+    "personalDay": "اليوم الشخصي",
+    "masterNumbers": "الأعداد الرئيسية",
+    "vibration": "الاهتزاز"
+  },
+  "matrix": {
+    "title": "مصفوفة المصير",
+    "destiny_matrix": "مصفوفة المصير",
+    "calculate": "احسب المصفوفة",
+    "for_someone": "لشخص آخر",
+    "positions": {
+      "personal": "شخصي",
+      "karmic": "كارمي",
+      "soul": "الروح",
+      "higher": "الأعلى"
+    },
+    "interpretation": "التفسير",
+    "lifeTask": "مهمة الحياة",
+    "karmicTail": "الذيل الكارمي",
+    "karmicGift": "الهبة الكارمية",
+    "pastLife": "الحياة الماضية",
+    "futureLife": "المستقبل",
+    "energyCenter": "مركز الطاقة",
+    "forSomeone": "محسوب لـ:",
+    "yourMatrix": "مصفوفتك"
+  },
+  "cleansing": {
+    "title": "التطهير",
+    "release": "الإفراج",
+    "placeholder": "ماذا تريد أن تحرر اليوم؟",
+    "burdens": "الأعباء",
+    "steps": "الخطوات",
+    "aftercare": "الرعاية بعد الطقس",
+    "ritual_complete": "اكتمل التطهير",
+    "soundscapes": "مشاهد صوتية",
+    "ai_guide": "المرشد الروحي الذكي",
+    "releaseRitual": "طقس التحرر",
+    "breatheOut": "أخرج الأعباء مع الزفير",
+    "intentionSet": "تم تحديد النية",
+    "chooseBurden": "اختر عبئاً",
+    "writeYourOwn": "اكتب عبأك الخاص",
+    "ritualFrame": "إطار الطقس",
+    "aiCtaLabel": "اطلب إرشاد الذكاء الاصطناعي"
+  },
+  "community": {
+    "title": "المجتمع",
+    "online": "متصل",
+    "join": "انضم",
+    "leave": "غادر",
+    "share": "مشاركة",
+    "comment": "تعليق",
+    "like": "إعجاب",
+    "send": "إرسال",
+    "souls_online": "روح متصلة",
+    "live": "مباشر",
+    "chronicle": "السجل",
+    "global_stream": "التدفق العالمي",
+    "chat": "محادثة",
+    "affirmation": "تأكيد",
+    "energy_circle": "دائرة الطاقة",
+    "tarot_community": "تاروت المجتمع",
+    "post_types": {
+      "TAROT": "Tarot",
+      "HOROSKOP": "الأبراج",
+      "MEDYTACJA": "التأمل",
+      "SEN": "الحلم",
+      "REFLEKSJA": "التأمل الذاتي",
+      "AFIRMACJA": "التأكيد"
+    },
+    "compose_title": "شارك مع المجتمع",
+    "compose_placeholder": "شارك نورك الروحي...",
+    "publish": "نشر",
+    "reactions": {
+      "resonuje": "يتردد صداه",
+      "prawda": "حقيقة",
+      "czuje": "أشعر به"
+    },
+    "noPostsYet": "لا توجد منشورات في المجتمع بعد",
+    "beFirst": "كن أول روح تشارك",
+    "liveSession": "جلسة مباشرة",
+    "joinCircle": "انضم إلى الدائرة"
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "theme": "الثيم",
+    "language": "اللغة",
+    "notifications": "الإشعارات",
+    "premium": "مميز",
+    "sign_out": "تسجيل الخروج",
+    "level": "المستوى",
+    "wanderer": "الرحّال",
+    "aetheraPremium": "Aethera المميز",
+    "premiumPortalDesc": "افتح إمكانات روحك الكاملة",
+    "visualTheme": "الثيم البصري",
+    "resetProgress": "إعادة تعيين التقدم",
+    "chooseVibration": "اختر الاهتزاز",
+    "archetypeEvolution": "تطور النموذج الأصلي",
+    "evolutionDesc": "مسيرتك نحو الإتقان الروحي",
+    "toNextLevel": "إلى المستوى التالي",
+    "mySanctuary": "ملاذي",
+    "savedLibrary": "المكتبة المحفوظة",
+    "viewArchive": "عرض الأرشيف",
+    "soulPathTrends": "اتجاهات مسار الروح",
+    "deepAnalysis": "تحليل عميق",
+    "practiceCount": "الممارسات المكتملة",
+    "music_volume": "مستوى صوت الموسيقى",
+    "ambient_volume": "مستوى صوت المحيط",
+    "narrator_voice": "صوت الراوي",
+    "voice_female": "أنثوي",
+    "voice_male": "ذكوري",
+    "premiumMember": "عضو مميز في Aethera",
+    "yourRecords": "سجلاتك",
+    "trends": "اتجاهاتك",
+    "monthlyVibration": "الاهتزاز الشهري",
+    "personalDay": "اليوم الشخصي",
+    "backgroundMotion": "رسوم متحركة للخلفية",
+    "hapticFeedback": "ردود الفعل اللمسية",
+    "notificationSettings": "إعدادات الإشعارات",
+    "privacyPolicy": "سياسة الخصوصية",
+    "termsOfService": "شروط الخدمة",
+    "appVersion": "إصدار التطبيق",
+    "guidanceStyle": "أسلوب التوجيه",
+    "archetypes": {
+      "1": {
+        "name": "الساحر",
+        "title": "خالق الواقع"
+      },
+      "2": {
+        "name": "الكاهنة العليا",
+        "title": "حارسة الأسرار"
+      },
+      "3": {
+        "name": "الإمبراطورة",
+        "title": "سيدة الوفرة"
+      },
+      "4": {
+        "name": "الإمبراطور",
+        "title": "مهندس النظام"
+      },
+      "5": {
+        "name": "الحبر الأعظم",
+        "title": "حارس التقاليد"
+      },
+      "6": {
+        "name": "العشاق",
+        "title": "منسق الطاقات"
+      },
+      "7": {
+        "name": "العجلة",
+        "title": "محقق الأهداف"
+      },
+      "8": {
+        "name": "العدالة",
+        "title": "توازن الكارما"
+      },
+      "9": {
+        "name": "الناسك",
+        "title": "باحث الحقيقة"
+      },
+      "10": {
+        "name": "عجلة الحظ",
+        "title": "سيد المصير"
+      },
+      "11": {
+        "name": "القوة",
+        "title": "سيد المشاعر"
+      },
+      "12": {
+        "name": "المعلق",
+        "title": "رائي المنظور"
+      },
+      "13": {
+        "name": "الموت",
+        "title": "عامل التحول"
+      },
+      "14": {
+        "name": "الاعتدال",
+        "title": "خيميائي التوازن"
+      },
+      "15": {
+        "name": "الشيطان",
+        "title": "مستكشف الظل"
+      },
+      "16": {
+        "name": "البرج",
+        "title": "محطم الأوهام"
+      },
+      "17": {
+        "name": "النجمة",
+        "title": "ملهم الأمل"
+      },
+      "18": {
+        "name": "القمر",
+        "title": "رحالة اللاوعي"
+      },
+      "19": {
+        "name": "الشمس",
+        "title": "شعاع الوضوح"
+      },
+      "20": {
+        "name": "الحكم",
+        "title": "صوت الصحوة"
+      },
+      "21": {
+        "name": "العالم",
+        "title": "سيد التكامل"
+      },
+      "22": {
+        "name": "المهرج",
+        "title": "الروح الحرة"
+      }
+    }
+  },
+  "checkin": {
+    "title": "فحص الروح",
+    "mood": "المزاج",
+    "energy": "الطاقة",
+    "focus": "التركيز",
+    "save": "حفظ",
+    "particles": "الجزيئات",
+    "moods": {
+      "joy": "الفرح",
+      "peace": "السلام",
+      "gratitude": "الامتنان",
+      "love": "الحب",
+      "anxiety": "القلق",
+      "sadness": "الحزن",
+      "anger": "الغضب",
+      "confusion": "الارتباك",
+      "emptiness": "الفراغ"
+    },
+    "energy_levels": {
+      "very_low": "منخفض جداً",
+      "low": "منخفض",
+      "medium": "متوسط",
+      "high": "مرتفع",
+      "very_high": "مرتفع جداً"
+    },
+    "focus_areas": {
+      "love": "الحب",
+      "career": "المهنة",
+      "health": "الصحة",
+      "spirituality": "الروحانية",
+      "creativity": "الإبداع",
+      "healing": "الشفاء"
+    }
+  },
+  "reports": {
+    "title": "التقارير",
+    "pathAnalysis": "تحليل المسار",
+    "weeklyInsight": "بصيرة أسبوعية",
+    "dominantEnergy": "الطاقة السائدة",
+    "frequentArchetypes": "النماذج الأصيلة المتكررة",
+    "suggestedFocus": "التركيز المقترح",
+    "consistencyMastery": "إتقان الاستمرارية",
+    "streakDesc": "أيام متواصلة من الممارسة",
+    "entries": "المدخلات",
+    "readings": "القراءات",
+    "recordDays": "أيام قياسية",
+    "currentPhase": "المرحلة الحالية",
+    "emotionalLandscape": "المشهد العاطفي",
+    "moodConstellation": "كوكبة المزاج",
+    "practiceDynamics": "ديناميكيات الممارسة",
+    "calm": "هادئ",
+    "excellent": "ممتاز",
+    "good": "جيد",
+    "peaceful": "مسالم",
+    "weak": "ضعيف",
+    "difficult": "صعب",
+    "soulReports": "تقارير الروح",
+    "trends": "الاتجاهات",
+    "generating": "جارٍ إنشاء التقرير...",
+    "weeklyReport": "التقرير الأسبوعي",
+    "monthlyReport": "التقرير الشهري",
+    "constellationDesc": "تصوير لحالاتك العاطفية كخريطة نجمية.",
+    "reflections": "التأملات",
+    "tarotInsight": "بصيرة التاروت"
+  },
+  "astrology": {
+    "title": "علم النجوم",
+    "transits": "العبور",
+    "cycles": "الدورات",
+    "biorhythm": "الإيقاع البيولوجي",
+    "stars": "النجوم",
+    "vedic": "الفيدية",
+    "retrograde": "رجعي",
+    "aspects": "الجوانب",
+    "conjunction": "اقتران",
+    "opposition": "تقابل",
+    "trine": "تثليث",
+    "square": "تربيع",
+    "sextile": "تسديس",
+    "natalChart": "خريطة الميلاد",
+    "starsMap": "خريطة النجوم",
+    "currentTransits": "العبورات الحالية",
+    "biorhythmCycles": "دورات الإيقاع البيولوجي",
+    "physical": "الجسدي",
+    "emotional": "العاطفي",
+    "intellectual": "الفكري"
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "reminders": "التذكيرات",
+    "add_reminder": "إضافة تذكير",
+    "morning": "الصباح",
+    "evening": "المساء",
+    "meditation": "التأمل",
+    "ritual": "الطقس",
+    "enabled": "مفعّل",
+    "disabled": "معطّل",
+    "time": "الوقت",
+    "days": "الأيام",
+    "presets": "الإعدادات المسبقة",
+    "customTime": "وقت مخصص",
+    "reminderLabel": "التسمية",
+    "saveReminder": "حفظ التذكير",
+    "deleteReminder": "حذف التذكير",
+    "allDays": "كل يوم",
+    "weekdays": "أيام الأسبوع",
+    "weekends": "عطلة نهاية الأسبوع"
+  },
+  "paywall": {
+    "premiumTitle": "Aethera المميز",
+    "premiumSubtitle": "افتح تحولك الروحي الكامل",
+    "choosePath": "اختر مسيرتك",
+    "monthly": "شهري",
+    "yearly": "سنوي",
+    "monthlyDesc": "وصول كامل شهراً بشهر",
+    "yearlyDesc": "أفضل قيمة لرحلتك السنوية",
+    "bestValue": "أفضل قيمة",
+    "restore": "استعادة المشتريات",
+    "feature1Title": "عرّاف بلا حدود",
+    "feature1Desc": "جلسات غير محدودة مع عرّاف الذكاء الاصطناعي",
+    "feature2Title": "جميع مجموعات التاروت",
+    "feature2Desc": "الوصول إلى جميع المجموعات المميزة",
+    "feature3Title": "تحليل عميق",
+    "feature3Desc": "تقارير روح مفصلة واتجاهات",
+    "feature4Title": "تجارب صوتية مميزة",
+    "feature4Desc": "تأملات موجهة وحمامات صوتية حصرية"
+  },
+  "compatibility": {
+    "title": "التوافق",
+    "relationships": "العلاقات",
+    "synastry": "السيناسترا",
+    "addPartnerEnergy": "أضف طاقة الشريك",
+    "partnerName": "اسم الشريك",
+    "namePlaceholder": "أدخل الاسم",
+    "birthDate": "تاريخ الميلاد",
+    "selectDate": "اختر تاريخاً",
+    "calculateMatch": "احسب التوافق",
+    "you": "أنت",
+    "partner": "الشريك",
+    "relationshipEnergy": "طاقة العلاقة",
+    "vibration": "الاهتزاز",
+    "changePartner": "تغيير الشريك",
+    "compatibilityScore": "درجة التوافق",
+    "strengths": "نقاط القوة",
+    "challenges": "التحديات",
+    "advice": "النصيحة"
+  },
+  "journeys": {
+    "title": "الرحلات",
+    "spiritualPrograms": "البرامج الروحية",
+    "transformationPaths": "مسارات التحول",
+    "weeklyFocus": "التركيز الأسبوعي",
+    "dailyPractice": "الممارسة اليومية",
+    "completedSessions": "الجلسات المكتملة",
+    "nextStep": "الخطوة التالية",
+    "continueJourney": "متابعة الرحلة",
+    "startJourney": "ابدأ الرحلة",
+    "currentJourney": "الرحلة الحالية",
+    "availableJourneys": "الرحلات المتاحة",
+    "progress": "التقدم",
+    "daysLeft": "الأيام المتبقية"
+  },
+  "palmreading": {
+    "title": "قراءة الكف",
+    "analyze": "تحليل الكف",
+    "upload": "ارفع صورة يدك",
+    "instructions": "صوّر راحة يدك في ضوء جيد",
+    "lines": {
+      "heart": "خط القلب",
+      "head": "خط العقل",
+      "life": "خط الحياة",
+      "fate": "خط المصير",
+      "sun": "خط الشمس"
+    },
+    "interpretationTitle": "تفسير الكف",
+    "loading": "تحليل خطوط يدك..."
+  },
+  "binauralbeats": {
+    "title": "موجات الدماغ",
+    "subtitle": "النبضات الثنائية الأذن",
+    "start": "ابدأ",
+    "stop": "أوقف",
+    "waves": {
+      "delta": "دلتا — نوم عميق",
+      "theta": "ثيتا — تأمل",
+      "alpha": "ألفا — استرخاء",
+      "beta": "بيتا — تركيز",
+      "gamma": "غاما — إدراك عالٍ"
+    },
+    "benefits": "الفوائد",
+    "session_complete": "اكتملت الجلسة"
+  },
+  "sleephelper": {
+    "title": "مساعد النوم",
+    "start": "ابدأ النوم",
+    "duration": "المدة",
+    "soundscape": "الأصوات",
+    "story": "قصة",
+    "meditation": "تأمل النوم",
+    "goodnight": "تصبح على خير، أيتها الروح"
+  },
+  "stars": {
+    "title": "النجوم",
+    "skyMap": "خريطة السماء",
+    "catalogue": "فهرس النجوم",
+    "constellation": "كوكبة",
+    "magnitude": "السطوع",
+    "distance": "المسافة",
+    "realTimeSky": "السماء في الوقت الفعلي",
+    "yourZenith": "سمتك",
+    "tabMap": "خريطة",
+    "tabCatalogue": "فهرس",
+    "tabInfo": "معلومات"
+  },
+  "biorhythm": {
+    "title": "الإيقاع البيولوجي",
+    "physical": "الجسدي",
+    "emotional": "العاطفي",
+    "intellectual": "الفكري",
+    "today": "اليوم",
+    "peak": "الذروة",
+    "low": "الحضيض",
+    "neutral": "محايد",
+    "chartTitle": "مخطط الإيقاع البيولوجي"
+  },
+  "knowledge": {
+    "title": "المكتبة",
+    "search": "ابحث عن المعرفة...",
+    "categories": "الفئات",
+    "articles": "المقالات",
+    "savedArticles": "المقالات المحفوظة",
+    "readMore": "اقرأ المزيد"
+  },
+  "data": {
+    "decks": {
+      "classic": "الفجر الذهبي",
+      "classicDesc": "أدق مجموعة تاروت كلاسيكية بناءً على تقليد رايدر-ويت.",
+      "cosmic": "الضوء الكوني",
+      "cosmicDesc": "تفسير حديث وكوني لنماذج الكون.",
+      "dark": "ظل الروح",
+      "darkDesc": "مجموعة عميقة للعمل مع الظل والحقائق الخفية."
+    },
+    "rituals": {
+      "morning_alignment": {
+        "title": "التوافق الصباحي",
+        "description": "تأمل قصير لتحديد نية اليوم.",
+        "duration": "٥ دق"
+      },
+      "evening_reflection": {
+        "title": "التأمل المسائي",
+        "description": "أطلق المشاعر المتراكمة قبل النوم.",
+        "duration": "١٠ دق"
+      },
+      "candle_magic": {
+        "title": "طقس الشمعة",
+        "description": "تجلية رغبة من خلال عنصر النار.",
+        "duration": "١٥ دق"
+      }
+    }
+  },
+  "archetypes": {
+    "1": {
+      "name": "الساحر",
+      "title": "سيد الإرادة"
+    },
+    "2": {
+      "name": "الكاهنة العليا",
+      "title": "حارسة الأسرار"
+    },
+    "3": {
+      "name": "الإمبراطورة",
+      "title": "وفرة الطبيعة"
+    },
+    "4": {
+      "name": "الإمبراطور",
+      "title": "البنية والسلطة"
+    },
+    "5": {
+      "name": "الكاهن الأكبر",
+      "title": "المرشد الروحي"
+    },
+    "6": {
+      "name": "العشاق",
+      "title": "الاتحاد والاختيار"
+    },
+    "7": {
+      "name": "العجلة",
+      "title": "إرادة الانتصار"
+    },
+    "8": {
+      "name": "العدالة",
+      "title": "التوازن والحقيقة"
+    },
+    "9": {
+      "name": "الناسك",
+      "title": "الحكمة الداخلية"
+    },
+    "10": {
+      "name": "عجلة الحظ",
+      "title": "دورات المصير"
+    },
+    "11": {
+      "name": "القوة",
+      "title": "الشجاعة الداخلية"
+    },
+    "12": {
+      "name": "المعلق",
+      "title": "التسليم والمنظور"
+    },
+    "13": {
+      "name": "الموت",
+      "title": "التحول والولادة من جديد"
+    },
+    "14": {
+      "name": "الاعتدال",
+      "title": "الانسجام والتوازن"
+    },
+    "15": {
+      "name": "الشيطان",
+      "title": "التحرر من القيود"
+    },
+    "16": {
+      "name": "البرج",
+      "title": "الكشف المفاجئ"
+    },
+    "17": {
+      "name": "النجم",
+      "title": "الأمل والإلهام"
+    },
+    "18": {
+      "name": "القمر",
+      "title": "الوهم والحدس"
+    },
+    "19": {
+      "name": "الشمس",
+      "title": "الفرح والحيوية"
+    },
+    "20": {
+      "name": "الحكم",
+      "title": "الصحوة والخلاص"
+    },
+    "21": {
+      "name": "العالم",
+      "title": "الاكتمال والكلية"
+    },
+    "22": {
+      "name": "الأحمق",
+      "title": "البداية والإمكانية اللانهائية"
+    }
+  },
+  "sleepRitual": {
+    "title": "طقس النوم",
+    "eyebrow": "عالم الأحلام",
+    "tabProtocol": "البروتوكول",
+    "tabScan": "مسح الجسم",
+    "tabBreath": "التنفس",
+    "start": "ابدأ",
+    "done": "تم"
+  },
+  "lucidDreaming": {
+    "title": "الحلم الواعي",
+    "eyebrow": "عالم الأحلام",
+    "tabTechniques": "التقنيات",
+    "tabDiary": "اليوميات",
+    "tabSigns": "العلامات"
+  },
+  "fireCeremony": {
+    "title": "احتفالية النار",
+    "eyebrow": "عالم الطقوس",
+    "writeIntention": "اكتب نيتك...",
+    "burn": "أحرق"
+  },
+  "ancestralConnection": {
+    "title": "التواصل مع الأجداد",
+    "eyebrow": "عالم الطقوس",
+    "askOracle": "اسأل الأوراكل"
+  },
+  "protectionRitual": {
+    "title": "درع الحماية",
+    "eyebrow": "عالم التطهير",
+    "activate": "تفعيل الحماية"
+  },
+  "saltBath": {
+    "title": "حمام الملح",
+    "eyebrow": "عالم التطهير",
+    "tabProtocols": "البروتوكولات",
+    "tabSteps": "الخطوات",
+    "start": "ابدأ"
+  },
+  "releaseLetters": {
+    "title": "رسائل إلى النار",
+    "eyebrow": "عالم التطهير",
+    "write": "اكتب رسالة...",
+    "release": "أطلق"
+  },
+  "innerChild": {
+    "title": "الطفل الداخلي",
+    "eyebrow": "عالم الدعم",
+    "askOracle": "اسأل الأوراكل"
+  },
+  "anxietyRelief": {
+    "title": "تخفيف القلق",
+    "eyebrow": "عالم الدعم",
+    "sos": "SOS",
+    "techniques": "التقنيات",
+    "habits": "العادات"
+  },
+  "selfCompassion": {
+    "title": "التعاطف مع النفس",
+    "eyebrow": "عالم الدعم",
+    "generateLetter": "توليد رسالة"
+  },
+  "healingFrequencies": {
+    "title": "الترددات الشافية",
+    "eyebrow": "عالم الدعم",
+    "play": "تشغيل",
+    "stop": "إيقاف"
+  },
+  "emotionalAnchors": {
+    "title": "المراسي العاطفية",
+    "eyebrow": "عالم الدعم",
+    "activate": "تفعيل المرساة",
+    "create": "إنشاء جديد"
+  },
+  "lifeWheel": {
+    "title": "عجلة الحياة",
+    "eyebrow": "عالمك",
+    "score": "التقييم",
+    "yourWheel": "عجلتك"
+  },
+  "soulArchetype": {
+    "title": "النمط الأصلي للروح",
+    "eyebrow": "عالمك",
+    "startQuiz": "ابدأ الاختبار",
+    "result": "نمطك الأصلي"
+  },
+  "natalChart": {
+    "title": "خريطة الميلاد",
+    "eyebrow": "عالم الأبراج",
+    "tabChart": "الخريطة",
+    "tabPlanets": "الكواكب",
+    "tabHouses": "البيوت"
+  },
+  "retrogrades": {
+    "title": "التراجعات ℞",
+    "eyebrow": "عالم الأبراج",
+    "survivalGuide": "دليل النجاة ℞"
+  },
+  "signMeditation": {
+    "title": "تأمل البرج",
+    "eyebrow": "عالم الأبراج",
+    "tabMeditation": "التأمل",
+    "tabAffirmations": "التأكيدات",
+    "start": "ابدأ",
+    "stop": "إيقاف"
+  }
+}

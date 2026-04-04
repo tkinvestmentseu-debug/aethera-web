@@ -1,0 +1,1375 @@
+{
+  "common": {
+    "appName": "Aethera",
+    "localeCode": "pl-PL",
+    "back": "POWRÓT",
+    "next": "DALEJ",
+    "save": "ZAPISZ",
+    "cancel": "ANULUJ",
+    "close": "ZAMKNIJ",
+    "send": "WYŚLIJ",
+    "loading": "Łączenie z wszechświatem...",
+    "error": "Coś poszło nie tak",
+    "retry": "SPRÓBUJ PONOWNIE",
+    "done": "GOTOWE",
+    "start": "START",
+    "stop": "STOP",
+    "pause": "PAUZA",
+    "resume": "WZNÓW",
+    "continue": "KONTYNUUJ",
+    "skip": "POMIŃ",
+    "share": "UDOSTĘPNIJ",
+    "delete": "USUŃ",
+    "edit": "EDYTUJ",
+    "add": "DODAJ",
+    "yes": "TAK",
+    "no": "NIE",
+    "ok": "OK",
+    "or": "lub",
+    "and": "i",
+    "for_someone": "Dla kogoś",
+    "anonymous": "Anonimowo",
+    "publish": "OPUBLIKUJ",
+    "generate": "GENERUJ",
+    "interpret": "INTERPRETUJ",
+    "ai_thinking": "Wyrocznia myśli...",
+    "session_complete": "Sesja zakończona",
+    "minutes": "min",
+    "seconds": "sek",
+    "hours": "godz",
+    "days": "dni",
+    "streak": "Passa",
+    "level": "Poziom",
+    "premium": "Premium",
+    "free": "Bezpłatnie",
+    "now": "Teraz",
+    "today": "Dzisiaj",
+    "yesterday": "Wczoraj",
+    "week": "Tydzień",
+    "month": "Miesiąc",
+    "morning": "Dobrego Poranka",
+    "afternoon": "Dobrego Popołudnia",
+    "evening": "Dobrego Wieczoru",
+    "night": "Dobrej Nocy",
+    "greeting_morning": "Pięknego poranka, wędrowcze",
+    "greeting_afternoon": "Niech to popołudnie przyniesie Ci jasność",
+    "greeting_evening": "Wieczór pełen refleksji, duszo",
+    "greeting_night": "Niech noc przyniesie Ci spokój",
+    "welcome": "Witaj, Wędrowcze",
+    "welcome_sub": "Twoja podróż w głąb siebie trwa",
+    "noData": "Brak danych",
+    "seeAll": "Zobacz wszystkie",
+    "confirm": "POTWIERDŹ",
+    "reset": "RESETUJ",
+    "clear": "WYCZYŚĆ",
+    "search": "Szukaj",
+    "filter": "Filtruj",
+    "sort": "Sortuj",
+    "refresh": "ODŚWIEŻ",
+    "copied": "Skopiowano",
+    "copy": "KOPIUJ",
+    "screenErrorTitle": "BŁĄD EKRANU",
+    "screenErrorBody": "Ten ekran napotkał problem.\nWróć i spróbuj ponownie."
+  },
+  "nav": {
+    "portal": "Portal",
+    "worlds": "Światy",
+    "oracle": "Wyrocznia",
+    "notifications": "Powiadomienia",
+    "profile": "Profil",
+    "community": "Społeczność"
+  },
+  "tabs": {
+    "home": "Dzisiaj",
+    "portal": "Portal",
+    "worlds": "Światy",
+    "tarot": "Tarot",
+    "oracle": "Wyrocznia",
+    "matrix": "Matryca",
+    "profile": "Profil",
+    "stars": "Gwiazdy",
+    "notifications": "Powiadomienia",
+    "community": "Społeczność"
+  },
+  "onboarding": {
+    "language_title": "Język Duszy",
+    "language_subtitle": "Wybierz język wglądów",
+    "language_full": "Pełna obsługa",
+    "language_limited": "Ograniczona obsługa",
+    "language_coming_soon": "Wkrótce",
+    "name_title": "JAK CIĘ NAZYWAĆ?",
+    "name_placeholder": "Wpisz swoje imię...",
+    "name_hint": "Twoje imię nada osobisty charakter każdemu wglądowi",
+    "birthdate_title": "DATA URODZENIA",
+    "birthdate_hint": "Twoja data urodzenia pozwala nam obliczyć Twoją Matrycę Przeznaczenia i tranzyty",
+    "birthplace_title": "MIEJSCE URODZENIA",
+    "birthplace_placeholder": "Wpisz miasto urodzenia...",
+    "birthplace_hint": "Potrzebne do precyzyjnych obliczeń astrologicznych",
+    "level_title": "POZIOM DOŚWIADCZENIA",
+    "level_subtitle": "Powiedz nam, gdzie jesteś na swojej duchowej ścieżce",
+    "level_beginner": "Nowicjusz",
+    "level_beginner_sub": "Dopiero zaczynam swoją duchową podróż",
+    "level_seeker": "Poszukiwacz",
+    "level_seeker_sub": "Eksploruję duchowość od jakiegoś czasu",
+    "level_practitioner": "Praktykant",
+    "level_practitioner_sub": "Mam regularną praktykę duchową",
+    "level_master": "Mistrz",
+    "level_master_sub": "Duchowość to centralna część mojego życia",
+    "theme_title": "WYBIERZ WIBRACJĘ",
+    "begin": "ROZPOCZNIJ",
+    "step_of": "{{step}} / {{total}}",
+    "welcome": "Witaj w Aethera",
+    "welcome_sub": "Przestrzeń dla Twojej duszy. Odkryj mądrość gwiazd i głębię własnego wnętrza.",
+    "continue_btn": "KONTYNUUJ",
+    "chooseLanguage": "Język Duszy",
+    "languageDesc": "Wybierz język, w którym chcesz otrzymywać wglądy.",
+    "vibrationDesc": "Wybierz estetykę, która najbardziej rezonuje z Twoją energią.",
+    "yourBirth": "Twój Początek",
+    "birthDesc": "Twoja data urodzenia pozwala nam obliczyć Twoją Matrycę Przeznaczenia i tranzyty.",
+    "yourName": "JAK CIĘ NAZYWAĆ?",
+    "namePlaceholder": "Wpisz swoje imię...",
+    "birthDate": "DATA URODZENIA",
+    "yourPath": "Twoja Ścieżka",
+    "pathDesc": "Zdefiniuj swój kierunek we wszechświecie.",
+    "intentions": {
+      "love": "Miłość",
+      "career": "Kariera",
+      "peace": "Spokój",
+      "growth": "Rozwój",
+      "spirituality": "Duchowość"
+    },
+    "whatAreYouLookingFor": "CZEGO SZUKASZ?",
+    "yourExperienceLevel": "POZIOM DOŚWIADCZENIA",
+    "aiGuideStyle": "STYL PRZEWODNIKA AI",
+    "styles": {
+      "mystical": "Mistyczny & Poetycki",
+      "gentle": "Łagodny & Wspierający",
+      "direct": "Konkretny & Bezpośredni",
+      "reflective": "Refleksyjny & Głęboki"
+    },
+    "themes": {
+      "mysticGold": "Złoty Mistycyzm",
+      "cosmicViolet": "Kosmiczny Fiolet",
+      "moonlightSilver": "Srebrny Blask",
+      "roseLove": "Różowa Miłość",
+      "emeraldSpirit": "Szmaragdowy Duch",
+      "midnightPremium": "Północna Czerń",
+      "ivoryLight": "Kość Słoniowa",
+      "royalPurple": "Królewski Purpur",
+      "celestialBlue": "Niebiański Błękit"
+    },
+    "portalOpen": "Portal Otwarty",
+    "portalDesc": "Twoja podróż w głąb siebie właśnie się zaczyna. Witamy w Aethera.",
+    "enterAethera": "WEJDŹ DO AETHERA",
+    "chooseVibration": "Wybierz Wibrację"
+  },
+  "home": {
+    "worlds": {
+      "self": "Ty",
+      "self_desc": "Poznaj siebie — numerologia, cień, przeznaczenie",
+      "horoscope": "Horoskop",
+      "horoscope_desc": "Gwiazdy i ich wpływ na Twoją duszę",
+      "oracle": "Wyrocznia",
+      "oracle_desc": "AI przewodnik gotowy na każde pytanie",
+      "astrology": "Astrologia",
+      "astrology_desc": "Tranzyty, biorytmy, mapa nieba",
+      "support": "Wsparcie",
+      "support_desc": "Czakry, wdzięczność, pielęgnacja duszy",
+      "cleansing": "Oczyszczanie",
+      "cleansing_desc": "Uwolnij ciężary, oddech i dźwięk",
+      "rituals": "Rytuały",
+      "rituals_desc": "Święte praktyki i medytacje",
+      "community": "Społeczność",
+      "community_desc": "Połącz się z innymi duszami"
+    },
+    "greeting": "Witaj, Wędrowcze",
+    "today_date": "Dzisiaj",
+    "quick_actions": "Szybkie Akcje",
+    "magicOfDay": "MAGIA DNIA",
+    "tarotOracle": "Wyrocznia Tarota",
+    "tarotOracleDesc": "Wyciągnij kartę, aby odkryć przesłanie, które wszechświat ma dziś dla Ciebie.",
+    "startRitual": "ZACZNIJ RYTUAŁ",
+    "yourEnergy": "TWOJA ENERGIA",
+    "moonPhase": "FAZA KSIĘŻYCA",
+    "powerAffirmation": "AFIRMACJA MOCY",
+    "yourPractices": "TWOJE PRAKTYKI",
+    "soulPath": "Ścieżka Duszy",
+    "startTransformation": "Rozpocznij transformację",
+    "dailyRitual": "Codzienny Rytuał",
+    "reflectionJournal": "Dziennik Refleksji",
+    "saveInsights": "Zapisuj swoje wglądy",
+    "exploration": "EKSPLORACJA",
+    "soulLibrary": "Biblioteka Duszy",
+    "synastry": "Synastria",
+    "dreamBook": "Sennik",
+    "reports": "Raporty",
+    "yourConstellation": "Twoja Konstelacja",
+    "checkEmotions": "Zamelduj Emocje",
+    "trackEnergy": "Jak się teraz czujesz? Śledź swoją energię.",
+    "homeDesc": "Pozwól tej przestrzeni być lustrem Twojej wewnętrznej prawdy.",
+    "continueJourney": "KONTYNUUJ SWOJĄ PODRÓŻ",
+    "oracleWhisper": "Szept Wyroczni",
+    "resumeConversation": "Wznów rozmowę",
+    "recentReflection": "Ostatnia Refleksja",
+    "practices": "PRAKTYKI",
+    "recommendedForYou": "POLECANE DLA CIEBIE",
+    "dailyAlignment": "CODZIENNE DOSTROJENIE",
+    "allPractices": "WSZYSTKIE PRAKTYKI",
+    "mantraOfDay": "MANTRA DNIA",
+    "affirmationsTitle": "Afirmacje",
+    "nextStep": "NASTĘPNY KROK",
+    "continuationSection": "KONTYNUACJA",
+    "seeMore": "WIĘCEJ",
+    "todayProgress": "Twój dzisiejszy postęp",
+    "keepGoing": "Tak trzymaj!",
+    "startYourDay": "Zacznij swój dzień z intencją"
+  },
+  "portal": {
+    "daily_affirmation": "Afirmacja Dnia",
+    "moon_phase": "Faza Księżyca",
+    "favorites": "ULUBIONE",
+    "quick_links": "SZYBKIE LINKI",
+    "add_favorites": "Dodaj ulubione",
+    "widgets": "Widżety",
+    "no_favorites": "Nie masz jeszcze ulubionych. Dodaj gwiazdkę ⭐ do dowolnego ekranu.",
+    "greeting_morning": "Dobrego poranka, duszo",
+    "greeting_afternoon": "Pięknego popołudnia",
+    "greeting_evening": "Spokojnego wieczoru",
+    "greeting_night": "Dobrej nocy, wędrowcze",
+    "editWidgets": "Edytuj widżety",
+    "dailyCrystal": "Kryształ Dnia",
+    "chakraFocus": "Fokus Czakry",
+    "breathingReminder": "Przypomnienie o Oddechu",
+    "energyForecast": "Prognoza Energii",
+    "gratitudeStreak": "Passa Wdzięczności",
+    "portalTitle": "Portal Aethera",
+    "yourSanctuary": "Twoje sanktuarium"
+  },
+  "oracle": {
+    "title": "Wyrocznia Aethera",
+    "subtitle": "Szept Przeznaczenia",
+    "welcome": "Witaj, wędrowcze. O czym chciałbyś dzisiaj porozmawiać? Pamiętaj, że nasze słowa są tu by inspirować Twoją własną refleksję.",
+    "chat_placeholder": "Zapytaj wyrocznię...",
+    "thinking": "Wyrocznia myśli...",
+    "historyTitle": "Historia Szeptów",
+    "noHistory": "Brak zapisanych szeptów.",
+    "closeSession": "Zakończ Obecną Sesję",
+    "topicsTitle": "TEMATY DO EKSPLORACJI",
+    "askPlaceholder": "Zapytaj wyrocznię...",
+    "modes": {
+      "daily_wisdom": "Mądrość Dnia",
+      "daily_wisdom_sub": "Codzienny wgląd dla Twojej duszy",
+      "soul_guide": "Przewodnik Duszy",
+      "soul_guide_sub": "Głęboka rozmowa o Twojej ścieżce",
+      "shadow_oracle": "Wyrocznia Cienia",
+      "shadow_oracle_sub": "Odkryj ukryte aspekty siebie",
+      "cosmic_timing": "Kosmiczne Rytmy",
+      "cosmic_timing_sub": "Kiedy działać, kiedy czekać",
+      "dream_decoder": "Dekoder Snów",
+      "dream_decoder_sub": "Odczytaj symbole Twoich snów",
+      "relationship": "Energia Relacji",
+      "relationship_sub": "Wglądy w miłość i połączenia",
+      "past_lives": "Poprzednie Życia",
+      "past_lives_sub": "Echa karmicznych wzorców",
+      "higher_self": "Wyższe Ja",
+      "higher_self_sub": "Połączenie z Twoją najwyższą mądrością"
+    },
+    "starters": {
+      "energy": "Co blokuje dzisiaj moją energię?",
+      "relationship": "Potrzebuję wskazówki w relacji.",
+      "abundance": "Jak mogę przyciągnąć więcej obfitości?"
+    },
+    "for_someone": "Dla kogoś",
+    "enter_name": "Wpisz imię osoby",
+    "clear": "Wyczyść",
+    "copy_response": "Kopiuj odpowiedź",
+    "new_session": "Nowa Sesja",
+    "expertModes": "TRYBY EKSPERCKIE",
+    "basicModes": "TRYBY PODSTAWOWE",
+    "startSession": "ROZPOCZNIJ SESJĘ",
+    "continueSession": "KONTYNUUJ"
+  },
+  "tarot": {
+    "title": "Tarot",
+    "draw_card": "Wyciągnij Kartę",
+    "your_card": "Twoja Karta",
+    "reversed": "Odwrócona",
+    "upright": "Prosta",
+    "for_someone": "Dla kogoś",
+    "interpret": "INTERPRETUJ",
+    "yourTools": "TWOJE NARZĘDZIA",
+    "chooseDeck": "Wybierz talię",
+    "newReading": "Nowy Odczyt",
+    "chooseSpread": "WYBIERZ ROZKŁAD",
+    "dailyCard": "Karta Dnia",
+    "drawNow": "WYCIĄGNIJ TERAZ",
+    "cardMeaning": "ZNACZENIE KARTY",
+    "reflection": "REFLEKSJA",
+    "saveReading": "ZAPISZ ODCZYT",
+    "cardOfDay": "KARTA DNIA",
+    "partnerReading": "Odczyt Partnerski",
+    "forSomeoneTitle": "Odczyt dla Kogoś",
+    "enterName": "Wpisz imię osoby",
+    "spreads": {
+      "daily_card": {
+        "name": "Karta Dnia"
+      },
+      "celtic_cross": {
+        "name": "Krzyż Celtycki"
+      },
+      "past_present_future": {
+        "name": "Przeszłość, Teraźniejszość, Przyszłość"
+      },
+      "love_spread": {
+        "name": "Rozkład Miłosny"
+      },
+      "career_success": {
+        "name": "Ścieżka Kariery"
+      },
+      "yes_no": {
+        "name": "Wyrocznia Tak/Nie"
+      }
+    },
+    "decks": {
+      "classic": "Złoty Świt",
+      "classicDesc": "Najbardziej precyzyjna, klasyczna talia oparta na tradycji Rider-Waite.",
+      "cosmic": "Kosmiczne Światło",
+      "cosmicDesc": "Nowoczesna, galaktyczna interpretacja archetypów wszechświata.",
+      "dark": "Mrok Duszy",
+      "darkDesc": "Głęboka talia do pracy z cieniem i ukrytymi prawdami."
+    }
+  },
+  "horoscope": {
+    "title": "Horoskop",
+    "daily": "Dzienny",
+    "weekly": "Tygodniowy",
+    "monthly": "Miesięczny",
+    "yearly": "Roczny",
+    "compatibility": "Zgodność",
+    "for_someone": "Dla kogoś",
+    "partnerHoroscope": "Horoskop Partnerski",
+    "checkCompatibility": "Sprawdź dopasowanie gwiazd",
+    "dailyEnergy": "ENERGIA NA DZIŚ",
+    "chineseZodiac": "Chiński Zodiak",
+    "compatibilityTitle": "Zgodność Znaków",
+    "luckyNumbers": "Szczęśliwe liczby",
+    "luckyColors": "Szczęśliwe kolory",
+    "yourSign": "TWÓJ ZNAK",
+    "todayMessage": "PRZESŁANIE NA DZIŚ",
+    "planetaryInfluences": "WPŁYWY PLANETARNE",
+    "moonInSign": "Księżyc w",
+    "sunInSign": "Słońce w",
+    "rising": "Ascendent",
+    "signs": {
+      "aries": "Baran",
+      "taurus": "Byk",
+      "gemini": "Bliźnięta",
+      "cancer": "Rak",
+      "leo": "Lew",
+      "virgo": "Panna",
+      "libra": "Waga",
+      "scorpio": "Skorpion",
+      "sagittarius": "Strzelec",
+      "capricorn": "Koziorożec",
+      "aquarius": "Wodnik",
+      "pisces": "Ryby"
+    },
+    "planets": {
+      "sun": "Słońce",
+      "moon": "Księżyc",
+      "mercury": "Merkury",
+      "venus": "Wenus",
+      "mars": "Mars",
+      "jupiter": "Jowisz",
+      "saturn": "Saturn",
+      "uranus": "Uran",
+      "neptune": "Neptun",
+      "pluto": "Pluton"
+    }
+  },
+  "journal": {
+    "title": "Dziennik",
+    "new_entry": "Nowy Wpis",
+    "placeholder": "Co chcesz dziś zapisać dla swojej duszy?",
+    "mood": "Nastrój",
+    "energy": "Energia",
+    "save": "ZAPISZ",
+    "soulJournal": "Dziennik Duszy",
+    "yourHistory": "TWOJA HISTORIA",
+    "weeklyInsight": "WGLĄD Z TEGO TYGODNIA",
+    "weeklyInsightDesc": "Twoja średnia energia wynosi {{energy}}%, a dominujący nastrój to {{mood}}. {{focus}}",
+    "suggestedTopic": "SUGEROWANY TEMAT NA DZIŚ",
+    "cleanSlate": "Czysta Karta",
+    "journalEmptyDesc": "Twój dziennik duszy czeka na pierwszy wpis. Zapisuj sny, wglądy z tarota i codzienne refleksje, aby dostrzec wzorce swojego przeznaczenia.",
+    "addFirstEntry": "DODAJ PIERWSZY WPIS",
+    "editEntry": "Edytuj wpis",
+    "deleteEntry": "Usuń wpis",
+    "entryDeleted": "Wpis usunięty",
+    "wordCount": "słów",
+    "types": {
+      "reflection": "Refleksja",
+      "gratitude": "Wdzięczność",
+      "shadow_work": "Praca z Cieniem",
+      "dream": "Sen",
+      "matrix": "Matryca",
+      "tarot": "Tarot"
+    }
+  },
+  "dreams": {
+    "title": "Sny",
+    "record_dream": "Zapisz Sen",
+    "placeholder": "Opisz swój sen... Jakie obrazy, uczucia i symbole pamiętasz?",
+    "symbols": "Symbole",
+    "interpretation": "Interpretacja",
+    "no_dreams": "Nie masz jeszcze zapisanych snów. Twój sennik czeka.",
+    "analyze": "INTERPRETUJ SEN",
+    "dictionary": "Słownik Symboli",
+    "dreamTitle": "Tytuł Snu",
+    "dreamDate": "Data Snu",
+    "recurringDream": "Sen Powtarzający się",
+    "lucidDream": "Sen Świadomy",
+    "emotionInDream": "Emocja w śnie",
+    "addSymbol": "Dodaj symbol",
+    "symbolMeaning": "Znaczenie symbolu",
+    "aiInterpretation": "Interpretacja AI",
+    "phases": {
+      "rem": "Faza REM",
+      "deep": "Głęboki sen",
+      "light": "Płytki sen"
+    },
+    "symbolarium": "Symbolarium",
+    "searchSymbol": "Szukaj symbolu..."
+  },
+  "rituals": {
+    "title": "Rytuały",
+    "start": "ROZPOCZNIJ",
+    "complete": "ZAKOŃCZ",
+    "daily_ritual": "Codzienny Rytuał",
+    "my_rituals": "Moje Rytuały",
+    "all_rituals": "Wszystkie Rytuały",
+    "minutes": "min",
+    "steps_count": "{{count}} kroków",
+    "sacredRituals": "Święte Rytuały",
+    "ritualDetail": "SZCZEGÓŁY RYTUAŁU",
+    "description": "OPIS",
+    "materials": "POTRZEBNE MATERIAŁY",
+    "steps": "KROKI RYTUAŁU",
+    "completeRitual": "ZAKOŃCZ RYTUAŁ",
+    "ritualCompleted": "Rytuał Zakończony",
+    "ritualCompletedDesc": "Twoja energia została pomyślnie zharmonizowana. Niech ten stan towarzyszy Ci przez resztę dnia.",
+    "backToLibrary": "POWRÓT DO PRAKTYK",
+    "quickPaths": "ŚCIEŻKI RYTUALNE",
+    "planTab": "PLAN",
+    "libraryTab": "BIBLIOTEKA",
+    "historyTab": "HISTORIA",
+    "completedToday": "Ukończono dziś",
+    "currentStreak": "Aktualna passa",
+    "categories": {
+      "morning": "Poranek",
+      "evening": "Wieczór",
+      "meditation": "Medytacja",
+      "energy": "Energia",
+      "Cleansing": "Oczyszczanie",
+      "CleansingDesc": "Uwolnij to, co ciąży. Rytuały energetycznego oczyszczenia przestrzeni i ciała.",
+      "Love": "Miłość",
+      "LoveDesc": "Otwórz serce. Praktyki przyciągania, wzmacniania i celebracji relacji.",
+      "Manifestation": "Manifestacja",
+      "ManifestationDesc": "Przekształć intencję w rzeczywistość. Ceremonie skupienia i stwarzania.",
+      "Protection": "Ochrona",
+      "ProtectionDesc": "Utwardź swoje granice. Rytuały wzmacniające tarczę energetyczną.",
+      "Grounding": "Uziemienie",
+      "GroundingDesc": "Wróć do ciała i ziemi. Praktyki kotwiczenia i stabilności."
+    },
+    "transformativePractices": "Praktyki transformacyjne",
+    "ritual_items": {
+      "morning_alignment": {
+        "title": "Poranne Dostrojenie",
+        "description": "Krótka medytacja by ustawić intencję na nadchodzący dzień.",
+        "duration": "5 min"
+      },
+      "evening_reflection": {
+        "title": "Wieczorna Refleksja",
+        "description": "Uwolnienie nagromadzonych emocji przed snem.",
+        "duration": "10 min"
+      },
+      "candle_magic": {
+        "title": "Rytuał Świecy",
+        "description": "Manifestacja konkretnego pragnienia poprzez żywioł ognia.",
+        "duration": "15 min"
+      }
+    }
+  },
+  "meditation": {
+    "title": "Medytacja",
+    "start": "ROZPOCZNIJ SESJĘ",
+    "pause": "PAUZA",
+    "finish": "ZAKOŃCZ",
+    "duration": "Czas trwania",
+    "technique": "Technika",
+    "session_complete": "Sesja zakończona",
+    "techniques": {
+      "mindfulness": "Uważność",
+      "body_scan": "Skanowanie Ciała",
+      "loving_kindness": "Miłująca Dobroć",
+      "visualization": "Wizualizacja",
+      "mantra": "Mantra"
+    },
+    "tips": "Wskazówki",
+    "streak": "Passa medytacji",
+    "sessions": "Sesje",
+    "totalTime": "Łączny czas",
+    "avgSession": "Średnia sesja",
+    "chooseAmbient": "Dźwięk otoczenia",
+    "sessionHistory": "Historia sesji",
+    "noSessions": "Brak zapisanych sesji",
+    "benefitsTitle": "Korzyści z praktyki",
+    "meditationTips": "Porady medytacyjne",
+    "selectDuration": "WYBIERZ CZAS",
+    "readyToBegin": "Gotowy, by zacząć?",
+    "focusBreath": "Skup się na oddechu"
+  },
+  "breathwork": {
+    "title": "Oddech",
+    "inhale": "Wdech",
+    "hold": "Zatrzymaj",
+    "exhale": "Wydech",
+    "start": "ROZPOCZNIJ",
+    "pause": "PAUZA",
+    "benefits": "Korzyści",
+    "selectTechnique": "WYBIERZ TECHNIKĘ",
+    "sessionComplete": "Sesja zakończona",
+    "roundsCompleted": "Ukończone rundy",
+    "totalBreaths": "Łączna liczba oddechów",
+    "techniques": {
+      "478": "Oddech 4-7-8",
+      "box": "Oddech Pudełkowy",
+      "box_desc": "4-4-4-4 — równoważy układ nerwowy i redukuje stres",
+      "478_desc": "Wdech 4s, zatrzymanie 7s, wydech 8s — głęboki relaks",
+      "wim_hof": "Metoda Wima Hofa",
+      "wim_hof_desc": "Szybkie wdechy i wydechy — energizuje i wzmacnia odporność",
+      "calm": "Uspokajający",
+      "calm_desc": "Powolny, łagodny oddech — redukuje lęk i napięcie",
+      "slow": "Wolny Oddech",
+      "slow_desc": "6 oddechów na minutę — aktywuje przywspółczulny układ nerwowy",
+      "nadi": "Nadi Shodhana",
+      "nadi_desc": "Naprzemienne nozdrza — balansuje energię i umysł"
+    }
+  },
+  "chakra": {
+    "title": "Czakry",
+    "balance": "Balans",
+    "practice": "Praktyka",
+    "bodyMap": "Mapa Ciała",
+    "chakraOfDay": "CZAKRA DNIA",
+    "activateChakra": "Aktywuj czakrę",
+    "practiceModal": "Praktyka dla czakry",
+    "affirmation": "Afirmacja",
+    "element": "Żywioł",
+    "color": "Kolor",
+    "sanskrit": "Sanskrit",
+    "names": {
+      "root": "Muladhara — Korzeniowa",
+      "sacral": "Swadhisthana — Sakralna",
+      "solar": "Manipura — Splot Słoneczny",
+      "heart": "Anahata — Sercowa",
+      "throat": "Vishuddha — Gardłowa",
+      "third_eye": "Ajna — Trzecie Oko",
+      "crown": "Sahasrara — Koronowa"
+    },
+    "elements": {
+      "earth": "Ziemia",
+      "water": "Woda",
+      "fire": "Ogień",
+      "air": "Powietrze",
+      "space": "Przestrzeń",
+      "light": "Światło",
+      "thought": "Myśl"
+    }
+  },
+  "affirmations": {
+    "title": "Afirmacje",
+    "daily": "Afirmacja Dnia",
+    "for_someone": "Dla kogoś",
+    "shuffle": "LOSUJ",
+    "propose": "Zaproponuj",
+    "vote": "Głosuj",
+    "forSomeoneTitle": "Afirmacja dla:",
+    "enterName": "Wpisz imię",
+    "aiGenerate": "Generuj AI",
+    "copyAffirmation": "Kopiuj afirmację",
+    "saveToJournal": "Zapisz do dziennika",
+    "categories": {
+      "love": "Miłość",
+      "abundance": "Obfitość",
+      "healing": "Uzdrowienie",
+      "strength": "Siła",
+      "peace": "Spokój",
+      "transformation": "Transformacja",
+      "vision": "Wizja",
+      "gratitude": "Wdzięczność",
+      "confidence": "Pewność siebie",
+      "protection": "Ochrona"
+    }
+  },
+  "gratitude": {
+    "title": "Wdzięczność",
+    "add_item": "Dodaj wdzięczność",
+    "placeholder": "Za co jesteś dziś wdzięczny?",
+    "save": "ZAPISZ WDZIĘCZNOŚĆ",
+    "streak": "Passa wdzięczności",
+    "history": "Historia",
+    "ai_reflection": "Refleksja AI",
+    "items_today": "Wpisy na dziś",
+    "inspiration": "Inspiracja",
+    "todayEntry": "Dzisiejsza wdzięczność",
+    "alreadySaved": "Zapisano już na dzisiaj",
+    "addMore": "Dodaj więcej",
+    "generateReflection": "Generuj refleksję",
+    "pastEntries": "Poprzednie wpisy",
+    "gratitudeStreak": "{{days}} dni z rzędu",
+    "emptyHistory": "Brak historii wdzięczności"
+  },
+  "shadow": {
+    "title": "Praca z Cieniem",
+    "reflection": "Refleksja",
+    "placeholder": "Napisz swoje uczucia bez cenzury. To jest bezpieczna przestrzeń...",
+    "save": "ZAPISZ",
+    "areas": {
+      "fear": "Strach",
+      "anger": "Gniew",
+      "shame": "Wstyd",
+      "grief": "Smutek",
+      "control": "Kontrola"
+    },
+    "oracle_prompt": "Zapytaj Wyrocznię Cienia",
+    "anonymous_save": "ZAPISZ ANONIMOWO",
+    "jungiandepth": "Głębokość Jungowska",
+    "questions": "Pytania do refleksji",
+    "sessionCount": "Sesja {{count}}",
+    "deepDive": "Głębokie Zanurzenie",
+    "lightAfterShadow": "Po cieniu przychodzi światło"
+  },
+  "lunar": {
+    "title": "Kalendarz Księżycowy",
+    "phase": "Faza",
+    "new_moon": "Nów",
+    "full_moon": "Pełnia",
+    "waxing": "Przybywający",
+    "waning": "Ubywający",
+    "crescent": "Sierp",
+    "gibbous": "Garb",
+    "set_intention": "Ustaw Intencję",
+    "intention_placeholder": "Jaka jest Twoja intencja na tę fazę księżyca?",
+    "moonCalendar": "Kalendarz Księżycowy",
+    "currentPhase": "Obecna faza",
+    "moonEnergy": "Energia Księżyca",
+    "newMoonRitual": "Rytuał Nowiu",
+    "fullMoonRitual": "Rytuał Pełni",
+    "intentionSaved": "Intencja zapisana",
+    "viewMonth": "Widok Miesiąca",
+    "tapDayForDetails": "Dotknij dzień, by zobaczyć szczegóły"
+  },
+  "soundbath": {
+    "title": "Kąpiel Dźwiękowa",
+    "start": "ROZPOCZNIJ",
+    "stop": "ZATRZYMAJ",
+    "duration": "Czas trwania",
+    "soundscapes": {
+      "rain": "Deszcz",
+      "waves": "Fale",
+      "fire": "Ogień",
+      "forest": "Las",
+      "ritual": "Rytuał"
+    },
+    "session_complete": "Kąpiel dźwiękowa zakończona",
+    "selectDuration": "WYBIERZ CZAS",
+    "ambientLabel": "Dźwięk otoczenia",
+    "visualizer": "Wizualizator",
+    "muteToggle": "Wycisz",
+    "countdown": "Pozostały czas"
+  },
+  "numerology": {
+    "title": "Numerologia",
+    "life_path": "Ścieżka Życia",
+    "destiny": "Liczba Przeznaczenia",
+    "soul_urge": "Liczba Duszy",
+    "personality": "Liczba Osobowości",
+    "calculate": "OBLICZ",
+    "for_someone": "Dla kogoś",
+    "your_number": "Twoja liczba",
+    "birthDate": "Data urodzenia",
+    "enterBirthDate": "Wprowadź datę urodzenia",
+    "partnerName": "Imię osoby",
+    "lifePathMeaning": "Znaczenie Ścieżki Życia",
+    "personalYear": "Rok Osobisty",
+    "personalMonth": "Miesiąc Osobisty",
+    "personalDay": "Dzień Osobisty",
+    "masterNumbers": "Liczby Mistrzowskie",
+    "vibration": "Wibracja"
+  },
+  "matrix": {
+    "title": "Matryca Przeznaczenia",
+    "destiny_matrix": "Matryca Przeznaczenia",
+    "calculate": "OBLICZ",
+    "for_someone": "Dla kogoś",
+    "positions": {
+      "personal": "Energia Osobista",
+      "karmic": "Karma",
+      "soul": "Zadanie Duszy",
+      "higher": "Wyższe Ja"
+    },
+    "interpretation": "INTERPRETACJA",
+    "lifeTask": "Zadanie Życiowe",
+    "karmicTail": "Ogon Karmiczny",
+    "karmicGift": "Dar Karmiczny",
+    "pastLife": "Poprzednie Życie",
+    "futureLife": "Przyszłość",
+    "energyCenter": "Centrum Energetyczne",
+    "forSomeone": "Obliczenie dla:",
+    "yourMatrix": "Twoja Matryca"
+  },
+  "cleansing": {
+    "title": "Oczyszczanie",
+    "release": "UWOLNIJ",
+    "placeholder": "Co chcesz dziś uwolnić? Zapisz ciężary swojej duszy...",
+    "burdens": "CIĘŻARY",
+    "steps": "KROKI RYTUAŁU",
+    "aftercare": "OPIEKA PO RYTUALE",
+    "ritual_complete": "Rytuał zakończony",
+    "soundscapes": "Dźwięki",
+    "ai_guide": "Przewodnik AI",
+    "releaseRitual": "Rytuał Uwalniający",
+    "breatheOut": "Wydech ciężarów",
+    "intentionSet": "Intencja ustawiona",
+    "chooseBurden": "Wybierz ciężar",
+    "writeYourOwn": "Napisz własny ciężar",
+    "ritualFrame": "Rama Rytuału",
+    "aiCtaLabel": "Poproś AI o prowadzenie"
+  },
+  "community": {
+    "title": "Społeczność",
+    "online": "online",
+    "join": "DOŁĄCZ",
+    "leave": "OPUŚĆ",
+    "share": "UDOSTĘPNIJ",
+    "comment": "Komentuj",
+    "like": "Lubię to",
+    "send": "WYŚLIJ",
+    "souls_online": "dusz online",
+    "live": "Na żywo",
+    "chronicle": "Kronika",
+    "global_stream": "Globalny Strumień",
+    "chat": "Czat",
+    "affirmation": "Afirmacja",
+    "energy_circle": "Krąg Energii",
+    "tarot_community": "Tarot Społeczności",
+    "post_types": {
+      "TAROT": "Tarot",
+      "HOROSKOP": "Horoskop",
+      "MEDYTACJA": "Medytacja",
+      "SEN": "Sen",
+      "REFLEKSJA": "Refleksja",
+      "AFIRMACJA": "Afirmacja"
+    },
+    "compose_title": "Podziel się wglądem",
+    "compose_placeholder": "Co chcesz podzielić się ze społecznością dusz?",
+    "publish": "OPUBLIKUJ",
+    "reactions": {
+      "resonuje": "Rezonuje",
+      "prawda": "Prawda",
+      "czuje": "Czuję to"
+    },
+    "noPostsYet": "Brak wpisów społeczności",
+    "beFirst": "Bądź pierwszą duszą, która się podzieli",
+    "liveSession": "Sesja na żywo",
+    "joinCircle": "Dołącz do kręgu"
+  },
+  "profile": {
+    "title": "Profil",
+    "settings": "Ustawienia",
+    "theme": "Motyw",
+    "language": "Język",
+    "notifications": "Powiadomienia",
+    "premium": "Premium",
+    "sign_out": "WYLOGUJ",
+    "level": "POZIOM {{level}}",
+    "wanderer": "Wędrowiec",
+    "aetheraPremium": "Aethera Premium",
+    "premiumPortalDesc": "Odblokuj pełny dostęp do wszystkich wglądów i rytuałów.",
+    "visualTheme": "Motyw Wizualny",
+    "resetProgress": "ZRESETUJ POSTĘP",
+    "chooseVibration": "Wybierz Wibrację",
+    "archetypeEvolution": "EWOLUCJA ARCHETYPU",
+    "evolutionDesc": "Rozpoczynasz proces integracji swojej głównej energii. Kontynuuj codzienne praktyki, aby odblokować głębsze warstwy tego archetypu.",
+    "toNextLevel": "{{percent}}% do Poziomu {{next}}",
+    "mySanctuary": "MOJE SANKTUARIUM",
+    "savedLibrary": "Biblioteka Zapisanych Wglądów",
+    "viewArchive": "Zobacz Archiwum",
+    "soulPathTrends": "Trendy Ścieżki Duszy",
+    "deepAnalysis": "Głęboka Analiza",
+    "practiceCount": "Praktyki",
+    "premiumMember": "CZŁONEK AETHERA PREMIUM",
+    "yourRecords": "Twoje zapisy",
+    "trends": "Twoje trendy",
+    "music_volume": "GŁOŚNOŚĆ MUZYKI",
+    "ambient_volume": "GŁOŚNOŚĆ AMBIENT",
+    "narrator_voice": "Głos Narratora",
+    "voice_female": "Żeński",
+    "voice_male": "Męski",
+    "monthlyVibration": "Wibracja Miesiąca",
+    "personalDay": "Dzień Osobisty",
+    "backgroundMotion": "Animacja Tła",
+    "hapticFeedback": "Wibracje Dotykowe",
+    "notificationSettings": "Ustawienia Powiadomień",
+    "privacyPolicy": "Polityka Prywatności",
+    "termsOfService": "Warunki Użytkowania",
+    "appVersion": "Wersja Aplikacji",
+    "guidanceStyle": "Styl Przewodnika",
+    "archetypes": {
+      "1": {
+        "name": "Mag",
+        "title": "Twórca Rzeczywistości"
+      },
+      "2": {
+        "name": "Kapłanka",
+        "title": "Strażniczka Tajemnic"
+      },
+      "3": {
+        "name": "Cesarzowa",
+        "title": "Władczyni Obfitości"
+      },
+      "4": {
+        "name": "Cesarz",
+        "title": "Architekt Porządku"
+      },
+      "5": {
+        "name": "Arcykapłan",
+        "title": "Strażnik Tradycji"
+      },
+      "6": {
+        "name": "Kochankowie",
+        "title": "Harmonizator Energii"
+      },
+      "7": {
+        "name": "Rydwan",
+        "title": "Zdobywca Celów"
+      },
+      "8": {
+        "name": "Sprawiedliwość",
+        "title": "Waga Karmy"
+      },
+      "9": {
+        "name": "Pustelnik",
+        "title": "Poszukiwacz Prawdy"
+      },
+      "10": {
+        "name": "Koło Fortuny",
+        "title": "Władca Losu"
+      },
+      "11": {
+        "name": "Siła",
+        "title": "Mistrz Emocji"
+      },
+      "12": {
+        "name": "Wisielec",
+        "title": "Wizjoner Perspektywy"
+      },
+      "13": {
+        "name": "Śmierć",
+        "title": "Agent Transformacji"
+      },
+      "14": {
+        "name": "Umiarkowanie",
+        "title": "Alchemik Równowagi"
+      },
+      "15": {
+        "name": "Diabeł",
+        "title": "Badacz Cienia"
+      },
+      "16": {
+        "name": "Wieża",
+        "title": "Burzyciel Iluzji"
+      },
+      "17": {
+        "name": "Gwiazda",
+        "title": "Inspirator Nadziei"
+      },
+      "18": {
+        "name": "Księżyc",
+        "title": "Podróżnik Podświadomości"
+      },
+      "19": {
+        "name": "Słońce",
+        "title": "Promień Jasności"
+      },
+      "20": {
+        "name": "Sąd",
+        "title": "Głos Przebudzenia"
+      },
+      "21": {
+        "name": "Świat",
+        "title": "Mistrz Integracji"
+      },
+      "22": {
+        "name": "Głupiec",
+        "title": "Wolny Duch"
+      }
+    }
+  },
+  "checkin": {
+    "title": "Zameldowanie",
+    "mood": "Nastrój",
+    "energy": "Energia",
+    "focus": "Fokus",
+    "moods": {
+      "joy": "Radość",
+      "peace": "Spokój",
+      "gratitude": "Wdzięczność",
+      "love": "Miłość",
+      "anxiety": "Niepokój",
+      "sadness": "Smutek",
+      "anger": "Gniew",
+      "confusion": "Zamęt",
+      "emptiness": "Pustka"
+    },
+    "energy_levels": {
+      "very_low": "Bardzo niska",
+      "low": "Niska",
+      "medium": "Średnia",
+      "high": "Wysoka",
+      "very_high": "Bardzo wysoka"
+    },
+    "focus_areas": {
+      "love": "Miłość",
+      "career": "Kariera",
+      "health": "Zdrowie",
+      "spirituality": "Duchowość",
+      "creativity": "Kreatywność",
+      "healing": "Uzdrowienie"
+    },
+    "save": "ZAPISZ ZAMELDOWANIE",
+    "particles": "cząsteczek energii"
+  },
+  "reports": {
+    "title": "Raporty",
+    "pathAnalysis": "ANALIZA ŚCIEŻKI",
+    "weeklyInsight": "Tygodniowy Wgląd",
+    "dominantEnergy": "DOMINUJĄCA ENERGIA",
+    "frequentArchetypes": "CZĘSTE ARCHETYPY",
+    "suggestedFocus": "SUGEROWANA KONCENTRACJA",
+    "consistencyMastery": "Mistrzostwo Spójności",
+    "streakDesc": "Utrzymujesz kontakt ze swoim wnętrzem przez {{days}} dni z rzędu.",
+    "entries": "WPISY",
+    "readings": "ODCZYTY",
+    "recordDays": "REKORD DNI",
+    "currentPhase": "OBECNA FAZA",
+    "emotionalLandscape": "KRAJOBRAZ EMOCJONALNY",
+    "moodConstellation": "KONSTELACJA NASTROJU",
+    "constellationDesc": "Wizualizacja Twoich stanów emocjonalnych jako gwiezdnej mapy.",
+    "practiceDynamics": "DYNAMIKA PRAKTYK",
+    "reflections": "REFLEKSJE",
+    "tarotInsight": "WGLĄD TAROTA",
+    "calm": "Spokojny",
+    "excellent": "Znakomity",
+    "good": "Dobry",
+    "peaceful": "Spokojny",
+    "weak": "Słaby",
+    "difficult": "Trudny",
+    "soulReports": "Raporty Duszy",
+    "trends": "Twoje trendy",
+    "generating": "Generowanie raportu...",
+    "weeklyReport": "Raport Tygodniowy",
+    "monthlyReport": "Raport Miesięczny"
+  },
+  "astrology": {
+    "title": "Astrologia",
+    "transits": "Tranzyty",
+    "cycles": "Cykle",
+    "biorhythm": "Biorytm",
+    "stars": "Gwiazdy",
+    "vedic": "Astrologia Wedyjska",
+    "retrograde": "Retrogradacja",
+    "aspects": "Aspekty",
+    "conjunction": "Koniunkcja",
+    "opposition": "Opozycja",
+    "trine": "Trygon",
+    "square": "Kwadrat",
+    "sextile": "Sekstyl",
+    "natalChart": "Karta Urodzeniowa",
+    "starsMap": "Mapa Nieba",
+    "currentTransits": "Aktualne Tranzyty",
+    "biorhythmCycles": "Cykle Biorytmu",
+    "physical": "Fizyczny",
+    "emotional": "Emocjonalny",
+    "intellectual": "Intelektualny"
+  },
+  "notifications": {
+    "title": "Powiadomienia",
+    "reminders": "Przypomnienia",
+    "add_reminder": "Dodaj Przypomnienie",
+    "morning": "Poranne",
+    "evening": "Wieczorne",
+    "meditation": "Medytacja",
+    "ritual": "Rytuał",
+    "enabled": "Włączone",
+    "disabled": "Wyłączone",
+    "time": "Godzina",
+    "days": "Dni",
+    "presets": "Gotowe ustawienia",
+    "customTime": "Własna godzina",
+    "reminderLabel": "Etykieta przypomnienia",
+    "saveReminder": "ZAPISZ PRZYPOMNIENIE",
+    "deleteReminder": "Usuń przypomnienie",
+    "allDays": "Codziennie",
+    "weekdays": "Dni robocze",
+    "weekends": "Weekendy"
+  },
+  "paywall": {
+    "premiumTitle": "Odblokuj Nieskończoną Mądrość",
+    "premiumSubtitle": "Twoja droga do głębszego zrozumienia wszechświata zaczyna się tutaj. Dołącz do elitarnego kręgu poszukiwaczy.",
+    "choosePath": "WYBIERZ SWOJĄ ŚCIEŻKĘ",
+    "monthly": "Miesięcznie",
+    "yearly": "Rocznie",
+    "monthlyDesc": "Anuluj w dowolnym momencie",
+    "yearlyDesc": "Tylko $4.99 / miesiąc",
+    "bestValue": "NAJLEPSZA WARTOŚĆ",
+    "restore": "PRZYWRÓĆ ZAKUPY",
+    "feature1Title": "Nielimitowany Chat z Wyrocznią",
+    "feature1Desc": "Rozmawiaj ze swoim przewodnikiem AI bez ograniczeń o każdej porze.",
+    "feature2Title": "Zaawansowane Rozkłady Tarota",
+    "feature2Desc": "Dostęp do wszystkich 22 arkana wielkich i mniejszych oraz specjalistycznych rozkładów.",
+    "feature3Title": "Wglądy w Ścieżkę Duszy",
+    "feature3Desc": "Głęboka analiza Twojej Matrycy Przeznaczenia i tranzyty osobistych.",
+    "feature4Title": "Biblioteka Święta",
+    "feature4Desc": "Stałe sanktuarium dla Twoich ulubionych afirmacji, odczytów i snów."
+  },
+  "compatibility": {
+    "title": "Zgodność",
+    "relationships": "RELACJE",
+    "synastry": "Synastria",
+    "addPartnerEnergy": "DODAJ ENERGIĘ PARTNERA",
+    "partnerName": "IMIĘ PARTNERA / OSOBY",
+    "namePlaceholder": "Wpisz imię...",
+    "birthDate": "DATA URODZENIA",
+    "selectDate": "Wybierz datę",
+    "calculateMatch": "OBLICZ DOPASOWANIE",
+    "you": "Ty",
+    "partner": "Partner",
+    "relationshipEnergy": "ENERGIA RELACJI",
+    "vibration": "Wibracja",
+    "changePartner": "ZMIEŃ OSOBĘ",
+    "compatibilityScore": "Wynik zgodności",
+    "strengths": "Mocne strony",
+    "challenges": "Wyzwania",
+    "advice": "Rada"
+  },
+  "journeys": {
+    "title": "Podróże",
+    "spiritualPrograms": "Programy duchowe",
+    "transformationPaths": "Ścieżki transformacji",
+    "weeklyFocus": "Tygodniowy fokus",
+    "dailyPractice": "Dzienna praktyka",
+    "completedSessions": "Ukończone sesje",
+    "nextStep": "Następny krok",
+    "continueJourney": "Kontynuuj podróż",
+    "startJourney": "Rozpocznij podróż",
+    "currentJourney": "Aktualna podróż",
+    "availableJourneys": "Dostępne podróże",
+    "progress": "Postęp",
+    "daysLeft": "Dni pozostały"
+  },
+  "palmreading": {
+    "title": "Odczyt Dłoni",
+    "analyze": "ANALIZUJ DŁOŃ",
+    "upload": "Prześlij zdjęcie dłoni",
+    "instructions": "Sfotografuj wnętrze dłoni w dobrym świetle",
+    "lines": {
+      "heart": "Linia Serca",
+      "head": "Linia Głowy",
+      "life": "Linia Życia",
+      "fate": "Linia Przeznaczenia",
+      "sun": "Linia Słońca"
+    },
+    "interpretationTitle": "Interpretacja Dłoni",
+    "loading": "Analizuję linie Twojej dłoni..."
+  },
+  "binauralbeats": {
+    "title": "Fale Mózgowe",
+    "subtitle": "Binauralne bity",
+    "start": "ROZPOCZNIJ",
+    "stop": "ZATRZYMAJ",
+    "waves": {
+      "delta": "Delta — głęboki sen",
+      "theta": "Theta — medytacja",
+      "alpha": "Alfa — relaks",
+      "beta": "Beta — skupienie",
+      "gamma": "Gamma — wysokie poznanie"
+    },
+    "benefits": "Korzyści",
+    "session_complete": "Sesja zakończona"
+  },
+  "sleephelper": {
+    "title": "Pomocnik Snu",
+    "start": "ZACZNIJ ZASYPIAĆ",
+    "duration": "Czas trwania",
+    "soundscape": "Dźwięki",
+    "story": "Opowieść",
+    "meditation": "Medytacja zasypiania",
+    "goodnight": "Dobranoc, duszo"
+  },
+  "stars": {
+    "title": "Gwiazdy",
+    "skyMap": "Mapa Nieba",
+    "catalogue": "Katalog Gwiazd",
+    "constellation": "Konstelacja",
+    "magnitude": "Jasność",
+    "distance": "Odległość",
+    "realTimeSky": "Niebo w czasie rzeczywistym",
+    "yourZenith": "Twój zenit",
+    "tabMap": "Mapa",
+    "tabCatalogue": "Katalog",
+    "tabInfo": "Info"
+  },
+  "biorhythm": {
+    "title": "Biorytm",
+    "physical": "Fizyczny",
+    "emotional": "Emocjonalny",
+    "intellectual": "Intelektualny",
+    "today": "Dzisiaj",
+    "peak": "Szczyt",
+    "low": "Dół",
+    "neutral": "Neutralny",
+    "chartTitle": "Wykres Biorytmu"
+  },
+  "knowledge": {
+    "title": "Biblioteka",
+    "search": "Szukaj wiedzy...",
+    "categories": "Kategorie",
+    "articles": "Artykuły",
+    "savedArticles": "Zapisane artykuły",
+    "readMore": "Czytaj więcej"
+  },
+  "data": {
+    "decks": {
+      "classic": "Złoty Świt",
+      "classicDesc": "Najbardziej precyzyjna, klasyczna talia oparta na tradycji Rider-Waite.",
+      "cosmic": "Kosmiczne Światło",
+      "cosmicDesc": "Nowoczesna, galaktyczna interpretacja archetypów wszechświata.",
+      "dark": "Mrok Duszy",
+      "darkDesc": "Głęboka talia do pracy z cieniem i ukrytymi prawdami."
+    },
+    "rituals": {
+      "morning_alignment": {
+        "title": "Poranne Dostrojenie",
+        "description": "Krótka medytacja by ustawić intencję na nadchodzący dzień.",
+        "duration": "5 min"
+      },
+      "evening_reflection": {
+        "title": "Wieczorna Refleksja",
+        "description": "Uwolnienie nagromadzonych emocji przed snem.",
+        "duration": "10 min"
+      },
+      "candle_magic": {
+        "title": "Rytuał Świecy",
+        "description": "Manifestacja konkretnego pragnienia poprzez żywioł ognia.",
+        "duration": "15 min"
+      }
+    }
+  },
+  "archetypes": {
+    "1": {
+      "name": "Mag",
+      "title": "Twórca Rzeczywistości"
+    },
+    "2": {
+      "name": "Kapłanka",
+      "title": "Strażniczka Tajemnic"
+    },
+    "3": {
+      "name": "Cesarzowa",
+      "title": "Władczyni Obfitości"
+    },
+    "4": {
+      "name": "Cesarz",
+      "title": "Architekt Porządku"
+    },
+    "5": {
+      "name": "Arcykapłan",
+      "title": "Strażnik Tradycji"
+    },
+    "6": {
+      "name": "Kochankowie",
+      "title": "Harmonizator Energii"
+    },
+    "7": {
+      "name": "Rydwan",
+      "title": "Zdobywca Celów"
+    },
+    "8": {
+      "name": "Sprawiedliwość",
+      "title": "Waga Karmy"
+    },
+    "9": {
+      "name": "Pustelnik",
+      "title": "Poszukiwacz Prawdy"
+    },
+    "10": {
+      "name": "Koło Fortuny",
+      "title": "Władca Losu"
+    },
+    "11": {
+      "name": "Siła",
+      "title": "Mistrz Emocji"
+    },
+    "12": {
+      "name": "Wisielec",
+      "title": "Wizjoner Perspektywy"
+    },
+    "13": {
+      "name": "Śmierć",
+      "title": "Agent Transformacji"
+    },
+    "14": {
+      "name": "Umiarkowanie",
+      "title": "Alchemik Równowagi"
+    },
+    "15": {
+      "name": "Diabeł",
+      "title": "Badacz Cienia"
+    },
+    "16": {
+      "name": "Wieża",
+      "title": "Burzyciel Iluzji"
+    },
+    "17": {
+      "name": "Gwiazda",
+      "title": "Inspirator Nadziei"
+    },
+    "18": {
+      "name": "Księżyc",
+      "title": "Podróżnik Podświadomości"
+    },
+    "19": {
+      "name": "Słońce",
+      "title": "Promień Jasności"
+    },
+    "20": {
+      "name": "Sąd",
+      "title": "Głos Przebudzenia"
+    },
+    "21": {
+      "name": "Świat",
+      "title": "Mistrz Integracji"
+    },
+    "22": {
+      "name": "Głupiec",
+      "title": "Wolny Duch"
+    }
+  },
+  "sleepRitual": {
+    "title": "Rytuał Snu",
+    "eyebrow": "ŚWIAT SNÓW",
+    "tabProtocol": "Protokół",
+    "tabScan": "Skanowanie",
+    "tabBreath": "Oddech",
+    "start": "Rozpocznij",
+    "done": "Gotowe"
+  },
+  "lucidDreaming": {
+    "title": "Świadome Śnienie",
+    "eyebrow": "ŚWIAT SNÓW",
+    "tabTechniques": "Techniki",
+    "tabDiary": "Dziennik",
+    "tabSigns": "Znaki"
+  },
+  "fireCeremony": {
+    "title": "Ceremonia Ognia",
+    "eyebrow": "ŚWIAT RYTUAŁÓW",
+    "writeIntention": "Napisz intencję...",
+    "burn": "Spal"
+  },
+  "ancestralConnection": {
+    "title": "Połączenie z Przodkami",
+    "eyebrow": "ŚWIAT RYTUAŁÓW",
+    "askOracle": "Zapytaj Wyrocznię"
+  },
+  "protectionRitual": {
+    "title": "Tarcza Ochronna",
+    "eyebrow": "ŚWIAT OCZYSZCZANIA",
+    "activate": "Aktywuj ochronę"
+  },
+  "saltBath": {
+    "title": "Kąpiel Solna",
+    "eyebrow": "ŚWIAT OCZYSZCZANIA",
+    "tabProtocols": "Protokoły",
+    "tabSteps": "Kroki",
+    "start": "Rozpocznij"
+  },
+  "releaseLetters": {
+    "title": "Listy do Ognia",
+    "eyebrow": "ŚWIAT OCZYSZCZANIA",
+    "write": "Pisz list...",
+    "release": "Uwolnij"
+  },
+  "innerChild": {
+    "title": "Wewnętrzne Dziecko",
+    "eyebrow": "ŚWIAT WSPARCIA",
+    "askOracle": "Zapytaj Wyrocznię"
+  },
+  "anxietyRelief": {
+    "title": "Ulga w Lęku",
+    "eyebrow": "ŚWIAT WSPARCIA",
+    "sos": "SOS",
+    "techniques": "Techniki",
+    "habits": "Nawyki"
+  },
+  "selfCompassion": {
+    "title": "Współczucie dla Siebie",
+    "eyebrow": "ŚWIAT WSPARCIA",
+    "generateLetter": "Wygeneruj list"
+  },
+  "healingFrequencies": {
+    "title": "Częstotliwości Uzdrawiające",
+    "eyebrow": "ŚWIAT WSPARCIA",
+    "play": "Odtwórz",
+    "stop": "Stop"
+  },
+  "emotionalAnchors": {
+    "title": "Kotwice Emocjonalne",
+    "eyebrow": "ŚWIAT WSPARCIA",
+    "activate": "Aktywuj kotwicę",
+    "create": "Utwórz nową"
+  },
+  "lifeWheel": {
+    "title": "Koło Życia",
+    "eyebrow": "ŚWIAT TY",
+    "score": "Ocena",
+    "yourWheel": "Twoje Koło"
+  },
+  "soulArchetype": {
+    "title": "Archetyp Duszy",
+    "eyebrow": "ŚWIAT TY",
+    "startQuiz": "Rozpocznij quiz",
+    "result": "Twój archetyp"
+  },
+  "natalChart": {
+    "title": "Karta Urodzenia",
+    "eyebrow": "ŚWIAT HOROSKOPU",
+    "tabChart": "Mapa",
+    "tabPlanets": "Planety",
+    "tabHouses": "Domy"
+  },
+  "retrogrades": {
+    "title": "Retrogradacje ℞",
+    "eyebrow": "ŚWIAT HOROSKOPU",
+    "survivalGuide": "SURVIVAL GUIDE ℞"
+  },
+  "signMeditation": {
+    "title": "Medytacja Znaku",
+    "eyebrow": "ŚWIAT HOROSKOPU",
+    "tabMeditation": "Medytacja",
+    "tabAffirmations": "Afirmacje",
+    "start": "Rozpocznij",
+    "stop": "Stop"
+  }
+}

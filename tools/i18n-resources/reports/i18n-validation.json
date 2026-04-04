@@ -1,0 +1,3375 @@
+{
+  "generatedAt": "2026-04-04T07:57:48.878Z",
+  "missingKeys": {
+    "ar": [
+      "common.screenErrorTitle",
+      "common.screenErrorBody"
+    ],
+    "de": [
+      "common.screenErrorTitle",
+      "common.screenErrorBody"
+    ],
+    "es": [
+      "common.screenErrorTitle",
+      "common.screenErrorBody"
+    ],
+    "fr": [
+      "common.screenErrorTitle",
+      "common.screenErrorBody"
+    ],
+    "glossary.aethera": [
+      "common.appName",
+      "common.localeCode",
+      "common.back",
+      "common.next",
+      "common.save",
+      "common.cancel",
+      "common.close",
+      "common.send",
+      "common.loading",
+      "common.error",
+      "common.retry",
+      "common.done",
+      "common.start",
+      "common.stop",
+      "common.pause",
+      "common.resume",
+      "common.continue",
+      "common.skip",
+      "common.share",
+      "common.delete",
+      "common.edit",
+      "common.add",
+      "common.yes",
+      "common.no",
+      "common.ok",
+      "common.or",
+      "common.and",
+      "common.for_someone",
+      "common.anonymous",
+      "common.publish",
+      "common.generate",
+      "common.interpret",
+      "common.ai_thinking",
+      "common.session_complete",
+      "common.minutes",
+      "common.seconds",
+      "common.hours",
+      "common.days",
+      "common.streak",
+      "common.level",
+      "common.premium",
+      "common.free",
+      "common.now",
+      "common.today",
+      "common.yesterday",
+      "common.week",
+      "common.month",
+      "common.morning",
+      "common.afternoon",
+      "common.evening",
+      "common.night",
+      "common.greeting_morning",
+      "common.greeting_afternoon",
+      "common.greeting_evening",
+      "common.greeting_night",
+      "common.welcome",
+      "common.welcome_sub",
+      "common.noData",
+      "common.seeAll",
+      "common.confirm",
+      "common.reset",
+      "common.clear",
+      "common.search",
+      "common.filter",
+      "common.sort",
+      "common.refresh",
+      "common.copied",
+      "common.copy",
+      "common.screenErrorTitle",
+      "common.screenErrorBody",
+      "nav.portal",
+      "nav.worlds",
+      "nav.oracle",
+      "nav.notifications",
+      "nav.profile",
+      "nav.community",
+      "tabs.home",
+      "tabs.portal",
+      "tabs.worlds",
+      "tabs.tarot",
+      "tabs.oracle",
+      "tabs.matrix",
+      "tabs.profile",
+      "tabs.stars",
+      "tabs.notifications",
+      "tabs.community",
+      "onboarding.language_title",
+      "onboarding.language_subtitle",
+      "onboarding.language_full",
+      "onboarding.language_limited",
+      "onboarding.language_coming_soon",
+      "onboarding.name_title",
+      "onboarding.name_placeholder",
+      "onboarding.name_hint",
+      "onboarding.birthdate_title",
+      "onboarding.birthdate_hint",
+      "onboarding.birthplace_title",
+      "onboarding.birthplace_placeholder",
+      "onboarding.birthplace_hint",
+      "onboarding.level_title",
+      "onboarding.level_subtitle",
+      "onboarding.level_beginner",
+      "onboarding.level_beginner_sub",
+      "onboarding.level_seeker",
+      "onboarding.level_seeker_sub",
+      "onboarding.level_practitioner",
+      "onboarding.level_practitioner_sub",
+      "onboarding.level_master",
+      "onboarding.level_master_sub",
+      "onboarding.theme_title",
+      "onboarding.begin",
+      "onboarding.step_of",
+      "onboarding.welcome",
+      "onboarding.welcome_sub",
+      "onboarding.continue_btn",
+      "onboarding.chooseLanguage",
+      "onboarding.languageDesc",
+      "onboarding.vibrationDesc",
+      "onboarding.yourBirth",
+      "onboarding.birthDesc",
+      "onboarding.yourName",
+      "onboarding.namePlaceholder",
+      "onboarding.birthDate",
+      "onboarding.yourPath",
+      "onboarding.pathDesc",
+      "onboarding.intentions.love",
+      "onboarding.intentions.career",
+      "onboarding.intentions.peace",
+      "onboarding.intentions.growth",
+      "onboarding.intentions.spirituality",
+      "onboarding.whatAreYouLookingFor",
+      "onboarding.yourExperienceLevel",
+      "onboarding.aiGuideStyle",
+      "onboarding.styles.mystical",
+      "onboarding.styles.gentle",
+      "onboarding.styles.direct",
+      "onboarding.styles.reflective",
+      "onboarding.themes.mysticGold",
+      "onboarding.themes.cosmicViolet",
+      "onboarding.themes.moonlightSilver",
+      "onboarding.themes.roseLove",
+      "onboarding.themes.emeraldSpirit",
+      "onboarding.themes.midnightPremium",
+      "onboarding.themes.ivoryLight",
+      "onboarding.themes.royalPurple",
+      "onboarding.themes.celestialBlue",
+      "onboarding.portalOpen",
+      "onboarding.portalDesc",
+      "onboarding.enterAethera",
+      "onboarding.chooseVibration",
+      "home.worlds.self",
+      "home.worlds.self_desc",
+      "home.worlds.horoscope",
+      "home.worlds.horoscope_desc",
+      "home.worlds.oracle",
+      "home.worlds.oracle_desc",
+      "home.worlds.astrology",
+      "home.worlds.astrology_desc",
+      "home.worlds.support",
+      "home.worlds.support_desc",
+      "home.worlds.cleansing",
+      "home.worlds.cleansing_desc",
+      "home.worlds.rituals",
+      "home.worlds.rituals_desc",
+      "home.worlds.community",
+      "home.worlds.community_desc",
+      "home.greeting",
+      "home.today_date",
+      "home.quick_actions",
+      "home.magicOfDay",
+      "home.tarotOracle",
+      "home.tarotOracleDesc",
+      "home.startRitual",
+      "home.yourEnergy",
+      "home.moonPhase",
+      "home.powerAffirmation",
+      "home.yourPractices",
+      "home.soulPath",
+      "home.startTransformation",
+      "home.dailyRitual",
+      "home.reflectionJournal",
+      "home.saveInsights",
+      "home.exploration",
+      "home.soulLibrary",
+      "home.synastry",
+      "home.dreamBook",
+      "home.reports",
+      "home.yourConstellation",
+      "home.checkEmotions",
+      "home.trackEnergy",
+      "home.homeDesc",
+      "home.continueJourney",
+      "home.oracleWhisper",
+      "home.resumeConversation",
+      "home.recentReflection",
+      "home.practices",
+      "home.recommendedForYou",
+      "home.dailyAlignment",
+      "home.allPractices",
+      "home.mantraOfDay",
+      "home.affirmationsTitle",
+      "home.nextStep",
+      "home.continuationSection",
+      "home.seeMore",
+      "home.todayProgress",
+      "home.keepGoing",
+      "home.startYourDay",
+      "portal.daily_affirmation",
+      "portal.moon_phase",
+      "portal.favorites",
+      "portal.quick_links",
+      "portal.add_favorites",
+      "portal.widgets",
+      "portal.no_favorites",
+      "portal.greeting_morning",
+      "portal.greeting_afternoon",
+      "portal.greeting_evening",
+      "portal.greeting_night",
+      "portal.editWidgets",
+      "portal.dailyCrystal",
+      "portal.chakraFocus",
+      "portal.breathingReminder",
+      "portal.energyForecast",
+      "portal.gratitudeStreak",
+      "portal.portalTitle",
+      "portal.yourSanctuary",
+      "oracle.title",
+      "oracle.subtitle",
+      "oracle.welcome",
+      "oracle.chat_placeholder",
+      "oracle.thinking",
+      "oracle.historyTitle",
+      "oracle.noHistory",
+      "oracle.closeSession",
+      "oracle.topicsTitle",
+      "oracle.askPlaceholder",
+      "oracle.modes.daily_wisdom",
+      "oracle.modes.daily_wisdom_sub",
+      "oracle.modes.soul_guide",
+      "oracle.modes.soul_guide_sub",
+      "oracle.modes.shadow_oracle",
+      "oracle.modes.shadow_oracle_sub",
+      "oracle.modes.cosmic_timing",
+      "oracle.modes.cosmic_timing_sub",
+      "oracle.modes.dream_decoder",
+      "oracle.modes.dream_decoder_sub",
+      "oracle.modes.relationship",
+      "oracle.modes.relationship_sub",
+      "oracle.modes.past_lives",
+      "oracle.modes.past_lives_sub",
+      "oracle.modes.higher_self",
+      "oracle.modes.higher_self_sub",
+      "oracle.starters.energy",
+      "oracle.starters.relationship",
+      "oracle.starters.abundance",
+      "oracle.for_someone",
+      "oracle.enter_name",
+      "oracle.clear",
+      "oracle.copy_response",
+      "oracle.new_session",
+      "oracle.expertModes",
+      "oracle.basicModes",
+      "oracle.startSession",
+      "oracle.continueSession",
+      "tarot.title",
+      "tarot.draw_card",
+      "tarot.your_card",
+      "tarot.reversed",
+      "tarot.upright",
+      "tarot.for_someone",
+      "tarot.interpret",
+      "tarot.yourTools",
+      "tarot.chooseDeck",
+      "tarot.newReading",
+      "tarot.chooseSpread",
+      "tarot.dailyCard",
+      "tarot.drawNow",
+      "tarot.cardMeaning",
+      "tarot.reflection",
+      "tarot.saveReading",
+      "tarot.cardOfDay",
+      "tarot.partnerReading",
+      "tarot.forSomeoneTitle",
+      "tarot.enterName",
+      "tarot.spreads.daily_card.name",
+      "tarot.spreads.celtic_cross.name",
+      "tarot.spreads.past_present_future.name",
+      "tarot.spreads.love_spread.name",
+      "tarot.spreads.career_success.name",
+      "tarot.spreads.yes_no.name",
+      "tarot.decks.classic",
+      "tarot.decks.classicDesc",
+      "tarot.decks.cosmic",
+      "tarot.decks.cosmicDesc",
+      "tarot.decks.dark",
+      "tarot.decks.darkDesc",
+      "horoscope.title",
+      "horoscope.daily",
+      "horoscope.weekly",
+      "horoscope.monthly",
+      "horoscope.yearly",
+      "horoscope.compatibility",
+      "horoscope.for_someone",
+      "horoscope.partnerHoroscope",
+      "horoscope.checkCompatibility",
+      "horoscope.dailyEnergy",
+      "horoscope.chineseZodiac",
+      "horoscope.compatibilityTitle",
+      "horoscope.luckyNumbers",
+      "horoscope.luckyColors",
+      "horoscope.yourSign",
+      "horoscope.todayMessage",
+      "horoscope.planetaryInfluences",
+      "horoscope.moonInSign",
+      "horoscope.sunInSign",
+      "horoscope.rising",
+      "horoscope.signs.aries",
+      "horoscope.signs.taurus",
+      "horoscope.signs.gemini",
+      "horoscope.signs.cancer",
+      "horoscope.signs.leo",
+      "horoscope.signs.virgo",
+      "horoscope.signs.libra",
+      "horoscope.signs.scorpio",
+      "horoscope.signs.sagittarius",
+      "horoscope.signs.capricorn",
+      "horoscope.signs.aquarius",
+      "horoscope.signs.pisces",
+      "horoscope.planets.sun",
+      "horoscope.planets.moon",
+      "horoscope.planets.mercury",
+      "horoscope.planets.venus",
+      "horoscope.planets.mars",
+      "horoscope.planets.jupiter",
+      "horoscope.planets.saturn",
+      "horoscope.planets.uranus",
+      "horoscope.planets.neptune",
+      "horoscope.planets.pluto",
+      "journal.title",
+      "journal.new_entry",
+      "journal.placeholder",
+      "journal.mood",
+      "journal.energy",
+      "journal.save",
+      "journal.soulJournal",
+      "journal.yourHistory",
+      "journal.weeklyInsight",
+      "journal.weeklyInsightDesc",
+      "journal.suggestedTopic",
+      "journal.cleanSlate",
+      "journal.journalEmptyDesc",
+      "journal.addFirstEntry",
+      "journal.editEntry",
+      "journal.deleteEntry",
+      "journal.entryDeleted",
+      "journal.wordCount",
+      "journal.types.reflection",
+      "journal.types.gratitude",
+      "journal.types.shadow_work",
+      "journal.types.dream",
+      "journal.types.matrix",
+      "journal.types.tarot",
+      "dreams.title",
+      "dreams.record_dream",
+      "dreams.placeholder",
+      "dreams.symbols",
+      "dreams.interpretation",
+      "dreams.no_dreams",
+      "dreams.analyze",
+      "dreams.dictionary",
+      "dreams.dreamTitle",
+      "dreams.dreamDate",
+      "dreams.recurringDream",
+      "dreams.lucidDream",
+      "dreams.emotionInDream",
+      "dreams.addSymbol",
+      "dreams.symbolMeaning",
+      "dreams.aiInterpretation",
+      "dreams.phases.rem",
+      "dreams.phases.deep",
+      "dreams.phases.light",
+      "dreams.symbolarium",
+      "dreams.searchSymbol",
+      "rituals.title",
+      "rituals.start",
+      "rituals.complete",
+      "rituals.daily_ritual",
+      "rituals.my_rituals",
+      "rituals.all_rituals",
+      "rituals.minutes",
+      "rituals.steps_count",
+      "rituals.sacredRituals",
+      "rituals.ritualDetail",
+      "rituals.description",
+      "rituals.materials",
+      "rituals.steps",
+      "rituals.completeRitual",
+      "rituals.ritualCompleted",
+      "rituals.ritualCompletedDesc",
+      "rituals.backToLibrary",
+      "rituals.quickPaths",
+      "rituals.planTab",
+      "rituals.libraryTab",
+      "rituals.historyTab",
+      "rituals.completedToday",
+      "rituals.currentStreak",
+      "rituals.categories.morning",
+      "rituals.categories.evening",
+      "rituals.categories.meditation",
+      "rituals.categories.energy",
+      "rituals.categories.Cleansing",
+      "rituals.categories.CleansingDesc",
+      "rituals.categories.Love",
+      "rituals.categories.LoveDesc",
+      "rituals.categories.Manifestation",
+      "rituals.categories.ManifestationDesc",
+      "rituals.categories.Protection",
+      "rituals.categories.ProtectionDesc",
+      "rituals.categories.Grounding",
+      "rituals.categories.GroundingDesc",
+      "rituals.transformativePractices",
+      "rituals.ritual_items.morning_alignment.title",
+      "rituals.ritual_items.morning_alignment.description",
+      "rituals.ritual_items.morning_alignment.duration",
+      "rituals.ritual_items.evening_reflection.title",
+      "rituals.ritual_items.evening_reflection.description",
+      "rituals.ritual_items.evening_reflection.duration",
+      "rituals.ritual_items.candle_magic.title",
+      "rituals.ritual_items.candle_magic.description",
+      "rituals.ritual_items.candle_magic.duration",
+      "meditation.title",
+      "meditation.start",
+      "meditation.pause",
+      "meditation.finish",
+      "meditation.duration",
+      "meditation.technique",
+      "meditation.session_complete",
+      "meditation.techniques.mindfulness",
+      "meditation.techniques.body_scan",
+      "meditation.techniques.loving_kindness",
+      "meditation.techniques.visualization",
+      "meditation.techniques.mantra",
+      "meditation.tips",
+      "meditation.streak",
+      "meditation.sessions",
+      "meditation.totalTime",
+      "meditation.avgSession",
+      "meditation.chooseAmbient",
+      "meditation.sessionHistory",
+      "meditation.noSessions",
+      "meditation.benefitsTitle",
+      "meditation.meditationTips",
+      "meditation.selectDuration",
+      "meditation.readyToBegin",
+      "meditation.focusBreath",
+      "breathwork.title",
+      "breathwork.inhale",
+      "breathwork.hold",
+      "breathwork.exhale",
+      "breathwork.start",
+      "breathwork.pause",
+      "breathwork.benefits",
+      "breathwork.selectTechnique",
+      "breathwork.sessionComplete",
+      "breathwork.roundsCompleted",
+      "breathwork.totalBreaths",
+      "breathwork.techniques.478",
+      "breathwork.techniques.box",
+      "breathwork.techniques.box_desc",
+      "breathwork.techniques.478_desc",
+      "breathwork.techniques.wim_hof",
+      "breathwork.techniques.wim_hof_desc",
+      "breathwork.techniques.calm",
+      "breathwork.techniques.calm_desc",
+      "breathwork.techniques.slow",
+      "breathwork.techniques.slow_desc",
+      "breathwork.techniques.nadi",
+      "breathwork.techniques.nadi_desc",
+      "chakra.title",
+      "chakra.balance",
+      "chakra.practice",
+      "chakra.bodyMap",
+      "chakra.chakraOfDay",
+      "chakra.activateChakra",
+      "chakra.practiceModal",
+      "chakra.affirmation",
+      "chakra.element",
+      "chakra.color",
+      "chakra.sanskrit",
+      "chakra.names.root",
+      "chakra.names.sacral",
+      "chakra.names.solar",
+      "chakra.names.heart",
+      "chakra.names.throat",
+      "chakra.names.third_eye",
+      "chakra.names.crown",
+      "chakra.elements.earth",
+      "chakra.elements.water",
+      "chakra.elements.fire",
+      "chakra.elements.air"
+    ],
+    "it": [
+      "common.screenErrorTitle",
+      "common.screenErrorBody"
+    ],
+    "ja": [
+      "common.screenErrorTitle",
+      "common.screenErrorBody"
+    ],
+    "pt": [
+      "common.screenErrorTitle",
+      "common.screenErrorBody"
+    ],
+    "ru": [
+      "common.screenErrorTitle",
+      "common.screenErrorBody"
+    ],
+    "translation-memory": [
+      "common.appName",
+      "common.localeCode",
+      "common.back",
+      "common.next",
+      "common.save",
+      "common.cancel",
+      "common.close",
+      "common.send",
+      "common.loading",
+      "common.error",
+      "common.retry",
+      "common.done",
+      "common.start",
+      "common.stop",
+      "common.pause",
+      "common.resume",
+      "common.continue",
+      "common.skip",
+      "common.share",
+      "common.delete",
+      "common.edit",
+      "common.add",
+      "common.yes",
+      "common.no",
+      "common.ok",
+      "common.or",
+      "common.and",
+      "common.for_someone",
+      "common.anonymous",
+      "common.publish",
+      "common.generate",
+      "common.interpret",
+      "common.ai_thinking",
+      "common.session_complete",
+      "common.minutes",
+      "common.seconds",
+      "common.hours",
+      "common.days",
+      "common.streak",
+      "common.level",
+      "common.premium",
+      "common.free",
+      "common.now",
+      "common.today",
+      "common.yesterday",
+      "common.week",
+      "common.month",
+      "common.morning",
+      "common.afternoon",
+      "common.evening",
+      "common.night",
+      "common.greeting_morning",
+      "common.greeting_afternoon",
+      "common.greeting_evening",
+      "common.greeting_night",
+      "common.welcome",
+      "common.welcome_sub",
+      "common.noData",
+      "common.seeAll",
+      "common.confirm",
+      "common.reset",
+      "common.clear",
+      "common.search",
+      "common.filter",
+      "common.sort",
+      "common.refresh",
+      "common.copied",
+      "common.copy",
+      "common.screenErrorTitle",
+      "common.screenErrorBody",
+      "nav.portal",
+      "nav.worlds",
+      "nav.oracle",
+      "nav.notifications",
+      "nav.profile",
+      "nav.community",
+      "tabs.home",
+      "tabs.portal",
+      "tabs.worlds",
+      "tabs.tarot",
+      "tabs.oracle",
+      "tabs.matrix",
+      "tabs.profile",
+      "tabs.stars",
+      "tabs.notifications",
+      "tabs.community",
+      "onboarding.language_title",
+      "onboarding.language_subtitle",
+      "onboarding.language_full",
+      "onboarding.language_limited",
+      "onboarding.language_coming_soon",
+      "onboarding.name_title",
+      "onboarding.name_placeholder",
+      "onboarding.name_hint",
+      "onboarding.birthdate_title",
+      "onboarding.birthdate_hint",
+      "onboarding.birthplace_title",
+      "onboarding.birthplace_placeholder",
+      "onboarding.birthplace_hint",
+      "onboarding.level_title",
+      "onboarding.level_subtitle",
+      "onboarding.level_beginner",
+      "onboarding.level_beginner_sub",
+      "onboarding.level_seeker",
+      "onboarding.level_seeker_sub",
+      "onboarding.level_practitioner",
+      "onboarding.level_practitioner_sub",
+      "onboarding.level_master",
+      "onboarding.level_master_sub",
+      "onboarding.theme_title",
+      "onboarding.begin",
+      "onboarding.step_of",
+      "onboarding.welcome",
+      "onboarding.welcome_sub",
+      "onboarding.continue_btn",
+      "onboarding.chooseLanguage",
+      "onboarding.languageDesc",
+      "onboarding.vibrationDesc",
+      "onboarding.yourBirth",
+      "onboarding.birthDesc",
+      "onboarding.yourName",
+      "onboarding.namePlaceholder",
+      "onboarding.birthDate",
+      "onboarding.yourPath",
+      "onboarding.pathDesc",
+      "onboarding.intentions.love",
+      "onboarding.intentions.career",
+      "onboarding.intentions.peace",
+      "onboarding.intentions.growth",
+      "onboarding.intentions.spirituality",
+      "onboarding.whatAreYouLookingFor",
+      "onboarding.yourExperienceLevel",
+      "onboarding.aiGuideStyle",
+      "onboarding.styles.mystical",
+      "onboarding.styles.gentle",
+      "onboarding.styles.direct",
+      "onboarding.styles.reflective",
+      "onboarding.themes.mysticGold",
+      "onboarding.themes.cosmicViolet",
+      "onboarding.themes.moonlightSilver",
+      "onboarding.themes.roseLove",
+      "onboarding.themes.emeraldSpirit",
+      "onboarding.themes.midnightPremium",
+      "onboarding.themes.ivoryLight",
+      "onboarding.themes.royalPurple",
+      "onboarding.themes.celestialBlue",
+      "onboarding.portalOpen",
+      "onboarding.portalDesc",
+      "onboarding.enterAethera",
+      "onboarding.chooseVibration",
+      "home.worlds.self",
+      "home.worlds.self_desc",
+      "home.worlds.horoscope",
+      "home.worlds.horoscope_desc",
+      "home.worlds.oracle",
+      "home.worlds.oracle_desc",
+      "home.worlds.astrology",
+      "home.worlds.astrology_desc",
+      "home.worlds.support",
+      "home.worlds.support_desc",
+      "home.worlds.cleansing",
+      "home.worlds.cleansing_desc",
+      "home.worlds.rituals",
+      "home.worlds.rituals_desc",
+      "home.worlds.community",
+      "home.worlds.community_desc",
+      "home.greeting",
+      "home.today_date",
+      "home.quick_actions",
+      "home.magicOfDay",
+      "home.tarotOracle",
+      "home.tarotOracleDesc",
+      "home.startRitual",
+      "home.yourEnergy",
+      "home.moonPhase",
+      "home.powerAffirmation",
+      "home.yourPractices",
+      "home.soulPath",
+      "home.startTransformation",
+      "home.dailyRitual",
+      "home.reflectionJournal",
+      "home.saveInsights",
+      "home.exploration",
+      "home.soulLibrary",
+      "home.synastry",
+      "home.dreamBook",
+      "home.reports",
+      "home.yourConstellation",
+      "home.checkEmotions",
+      "home.trackEnergy",
+      "home.homeDesc",
+      "home.continueJourney",
+      "home.oracleWhisper",
+      "home.resumeConversation",
+      "home.recentReflection",
+      "home.practices",
+      "home.recommendedForYou",
+      "home.dailyAlignment",
+      "home.allPractices",
+      "home.mantraOfDay",
+      "home.affirmationsTitle",
+      "home.nextStep",
+      "home.continuationSection",
+      "home.seeMore",
+      "home.todayProgress",
+      "home.keepGoing",
+      "home.startYourDay",
+      "portal.daily_affirmation",
+      "portal.moon_phase",
+      "portal.favorites",
+      "portal.quick_links",
+      "portal.add_favorites",
+      "portal.widgets",
+      "portal.no_favorites",
+      "portal.greeting_morning",
+      "portal.greeting_afternoon",
+      "portal.greeting_evening",
+      "portal.greeting_night",
+      "portal.editWidgets",
+      "portal.dailyCrystal",
+      "portal.chakraFocus",
+      "portal.breathingReminder",
+      "portal.energyForecast",
+      "portal.gratitudeStreak",
+      "portal.portalTitle",
+      "portal.yourSanctuary",
+      "oracle.title",
+      "oracle.subtitle",
+      "oracle.welcome",
+      "oracle.chat_placeholder",
+      "oracle.thinking",
+      "oracle.historyTitle",
+      "oracle.noHistory",
+      "oracle.closeSession",
+      "oracle.topicsTitle",
+      "oracle.askPlaceholder",
+      "oracle.modes.daily_wisdom",
+      "oracle.modes.daily_wisdom_sub",
+      "oracle.modes.soul_guide",
+      "oracle.modes.soul_guide_sub",
+      "oracle.modes.shadow_oracle",
+      "oracle.modes.shadow_oracle_sub",
+      "oracle.modes.cosmic_timing",
+      "oracle.modes.cosmic_timing_sub",
+      "oracle.modes.dream_decoder",
+      "oracle.modes.dream_decoder_sub",
+      "oracle.modes.relationship",
+      "oracle.modes.relationship_sub",
+      "oracle.modes.past_lives",
+      "oracle.modes.past_lives_sub",
+      "oracle.modes.higher_self",
+      "oracle.modes.higher_self_sub",
+      "oracle.starters.energy",
+      "oracle.starters.relationship",
+      "oracle.starters.abundance",
+      "oracle.for_someone",
+      "oracle.enter_name",
+      "oracle.clear",
+      "oracle.copy_response",
+      "oracle.new_session",
+      "oracle.expertModes",
+      "oracle.basicModes",
+      "oracle.startSession",
+      "oracle.continueSession",
+      "tarot.title",
+      "tarot.draw_card",
+      "tarot.your_card",
+      "tarot.reversed",
+      "tarot.upright",
+      "tarot.for_someone",
+      "tarot.interpret",
+      "tarot.yourTools",
+      "tarot.chooseDeck",
+      "tarot.newReading",
+      "tarot.chooseSpread",
+      "tarot.dailyCard",
+      "tarot.drawNow",
+      "tarot.cardMeaning",
+      "tarot.reflection",
+      "tarot.saveReading",
+      "tarot.cardOfDay",
+      "tarot.partnerReading",
+      "tarot.forSomeoneTitle",
+      "tarot.enterName",
+      "tarot.spreads.daily_card.name",
+      "tarot.spreads.celtic_cross.name",
+      "tarot.spreads.past_present_future.name",
+      "tarot.spreads.love_spread.name",
+      "tarot.spreads.career_success.name",
+      "tarot.spreads.yes_no.name",
+      "tarot.decks.classic",
+      "tarot.decks.classicDesc",
+      "tarot.decks.cosmic",
+      "tarot.decks.cosmicDesc",
+      "tarot.decks.dark",
+      "tarot.decks.darkDesc",
+      "horoscope.title",
+      "horoscope.daily",
+      "horoscope.weekly",
+      "horoscope.monthly",
+      "horoscope.yearly",
+      "horoscope.compatibility",
+      "horoscope.for_someone",
+      "horoscope.partnerHoroscope",
+      "horoscope.checkCompatibility",
+      "horoscope.dailyEnergy",
+      "horoscope.chineseZodiac",
+      "horoscope.compatibilityTitle",
+      "horoscope.luckyNumbers",
+      "horoscope.luckyColors",
+      "horoscope.yourSign",
+      "horoscope.todayMessage",
+      "horoscope.planetaryInfluences",
+      "horoscope.moonInSign",
+      "horoscope.sunInSign",
+      "horoscope.rising",
+      "horoscope.signs.aries",
+      "horoscope.signs.taurus",
+      "horoscope.signs.gemini",
+      "horoscope.signs.cancer",
+      "horoscope.signs.leo",
+      "horoscope.signs.virgo",
+      "horoscope.signs.libra",
+      "horoscope.signs.scorpio",
+      "horoscope.signs.sagittarius",
+      "horoscope.signs.capricorn",
+      "horoscope.signs.aquarius",
+      "horoscope.signs.pisces",
+      "horoscope.planets.sun",
+      "horoscope.planets.moon",
+      "horoscope.planets.mercury",
+      "horoscope.planets.venus",
+      "horoscope.planets.mars",
+      "horoscope.planets.jupiter",
+      "horoscope.planets.saturn",
+      "horoscope.planets.uranus",
+      "horoscope.planets.neptune",
+      "horoscope.planets.pluto",
+      "journal.title",
+      "journal.new_entry",
+      "journal.placeholder",
+      "journal.mood",
+      "journal.energy",
+      "journal.save",
+      "journal.soulJournal",
+      "journal.yourHistory",
+      "journal.weeklyInsight",
+      "journal.weeklyInsightDesc",
+      "journal.suggestedTopic",
+      "journal.cleanSlate",
+      "journal.journalEmptyDesc",
+      "journal.addFirstEntry",
+      "journal.editEntry",
+      "journal.deleteEntry",
+      "journal.entryDeleted",
+      "journal.wordCount",
+      "journal.types.reflection",
+      "journal.types.gratitude",
+      "journal.types.shadow_work",
+      "journal.types.dream",
+      "journal.types.matrix",
+      "journal.types.tarot",
+      "dreams.title",
+      "dreams.record_dream",
+      "dreams.placeholder",
+      "dreams.symbols",
+      "dreams.interpretation",
+      "dreams.no_dreams",
+      "dreams.analyze",
+      "dreams.dictionary",
+      "dreams.dreamTitle",
+      "dreams.dreamDate",
+      "dreams.recurringDream",
+      "dreams.lucidDream",
+      "dreams.emotionInDream",
+      "dreams.addSymbol",
+      "dreams.symbolMeaning",
+      "dreams.aiInterpretation",
+      "dreams.phases.rem",
+      "dreams.phases.deep",
+      "dreams.phases.light",
+      "dreams.symbolarium",
+      "dreams.searchSymbol",
+      "rituals.title",
+      "rituals.start",
+      "rituals.complete",
+      "rituals.daily_ritual",
+      "rituals.my_rituals",
+      "rituals.all_rituals",
+      "rituals.minutes",
+      "rituals.steps_count",
+      "rituals.sacredRituals",
+      "rituals.ritualDetail",
+      "rituals.description",
+      "rituals.materials",
+      "rituals.steps",
+      "rituals.completeRitual",
+      "rituals.ritualCompleted",
+      "rituals.ritualCompletedDesc",
+      "rituals.backToLibrary",
+      "rituals.quickPaths",
+      "rituals.planTab",
+      "rituals.libraryTab",
+      "rituals.historyTab",
+      "rituals.completedToday",
+      "rituals.currentStreak",
+      "rituals.categories.morning",
+      "rituals.categories.evening",
+      "rituals.categories.meditation",
+      "rituals.categories.energy",
+      "rituals.categories.Cleansing",
+      "rituals.categories.CleansingDesc",
+      "rituals.categories.Love",
+      "rituals.categories.LoveDesc",
+      "rituals.categories.Manifestation",
+      "rituals.categories.ManifestationDesc",
+      "rituals.categories.Protection",
+      "rituals.categories.ProtectionDesc",
+      "rituals.categories.Grounding",
+      "rituals.categories.GroundingDesc",
+      "rituals.transformativePractices",
+      "rituals.ritual_items.morning_alignment.title",
+      "rituals.ritual_items.morning_alignment.description",
+      "rituals.ritual_items.morning_alignment.duration",
+      "rituals.ritual_items.evening_reflection.title",
+      "rituals.ritual_items.evening_reflection.description",
+      "rituals.ritual_items.evening_reflection.duration",
+      "rituals.ritual_items.candle_magic.title",
+      "rituals.ritual_items.candle_magic.description",
+      "rituals.ritual_items.candle_magic.duration",
+      "meditation.title",
+      "meditation.start",
+      "meditation.pause",
+      "meditation.finish",
+      "meditation.duration",
+      "meditation.technique",
+      "meditation.session_complete",
+      "meditation.techniques.mindfulness",
+      "meditation.techniques.body_scan",
+      "meditation.techniques.loving_kindness",
+      "meditation.techniques.visualization",
+      "meditation.techniques.mantra",
+      "meditation.tips",
+      "meditation.streak",
+      "meditation.sessions",
+      "meditation.totalTime",
+      "meditation.avgSession",
+      "meditation.chooseAmbient",
+      "meditation.sessionHistory",
+      "meditation.noSessions",
+      "meditation.benefitsTitle",
+      "meditation.meditationTips",
+      "meditation.selectDuration",
+      "meditation.readyToBegin",
+      "meditation.focusBreath",
+      "breathwork.title",
+      "breathwork.inhale",
+      "breathwork.hold",
+      "breathwork.exhale",
+      "breathwork.start",
+      "breathwork.pause",
+      "breathwork.benefits",
+      "breathwork.selectTechnique",
+      "breathwork.sessionComplete",
+      "breathwork.roundsCompleted",
+      "breathwork.totalBreaths",
+      "breathwork.techniques.478",
+      "breathwork.techniques.box",
+      "breathwork.techniques.box_desc",
+      "breathwork.techniques.478_desc",
+      "breathwork.techniques.wim_hof",
+      "breathwork.techniques.wim_hof_desc",
+      "breathwork.techniques.calm",
+      "breathwork.techniques.calm_desc",
+      "breathwork.techniques.slow",
+      "breathwork.techniques.slow_desc",
+      "breathwork.techniques.nadi",
+      "breathwork.techniques.nadi_desc",
+      "chakra.title",
+      "chakra.balance",
+      "chakra.practice",
+      "chakra.bodyMap",
+      "chakra.chakraOfDay",
+      "chakra.activateChakra",
+      "chakra.practiceModal",
+      "chakra.affirmation",
+      "chakra.element",
+      "chakra.color",
+      "chakra.sanskrit",
+      "chakra.names.root",
+      "chakra.names.sacral",
+      "chakra.names.solar",
+      "chakra.names.heart",
+      "chakra.names.throat",
+      "chakra.names.third_eye",
+      "chakra.names.crown",
+      "chakra.elements.earth",
+      "chakra.elements.water",
+      "chakra.elements.fire",
+      "chakra.elements.air"
+    ]
+  },
+  "placeholderMismatches": [
+    {
+      "locale": "ar",
+      "key": "rituals.steps_count",
+      "sourcePlaceholders": [
+        "{{count}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "ar",
+      "key": "profile.level",
+      "sourcePlaceholders": [
+        "{{level}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "ar",
+      "key": "profile.toNextLevel",
+      "sourcePlaceholders": [
+        "{{percent}}",
+        "{{next}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "ar",
+      "key": "reports.streakDesc",
+      "sourcePlaceholders": [
+        "{{days}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "de",
+      "key": "journal.weeklyInsightDesc",
+      "sourcePlaceholders": [
+        "{{energy}}",
+        "{{mood}}",
+        "{{focus}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "de",
+      "key": "rituals.steps_count",
+      "sourcePlaceholders": [
+        "{{count}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "de",
+      "key": "profile.level",
+      "sourcePlaceholders": [
+        "{{level}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "de",
+      "key": "profile.toNextLevel",
+      "sourcePlaceholders": [
+        "{{percent}}",
+        "{{next}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "de",
+      "key": "reports.streakDesc",
+      "sourcePlaceholders": [
+        "{{days}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "es",
+      "key": "journal.weeklyInsightDesc",
+      "sourcePlaceholders": [
+        "{{energy}}",
+        "{{mood}}",
+        "{{focus}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "es",
+      "key": "rituals.steps_count",
+      "sourcePlaceholders": [
+        "{{count}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "es",
+      "key": "profile.level",
+      "sourcePlaceholders": [
+        "{{level}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "es",
+      "key": "profile.toNextLevel",
+      "sourcePlaceholders": [
+        "{{percent}}",
+        "{{next}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "es",
+      "key": "reports.streakDesc",
+      "sourcePlaceholders": [
+        "{{days}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "it",
+      "key": "rituals.steps_count",
+      "sourcePlaceholders": [
+        "{{count}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "it",
+      "key": "profile.level",
+      "sourcePlaceholders": [
+        "{{level}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "it",
+      "key": "profile.toNextLevel",
+      "sourcePlaceholders": [
+        "{{percent}}",
+        "{{next}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "it",
+      "key": "reports.streakDesc",
+      "sourcePlaceholders": [
+        "{{days}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "ja",
+      "key": "profile.toNextLevel",
+      "sourcePlaceholders": [
+        "{{percent}}",
+        "{{next}}"
+      ],
+      "targetPlaceholders": [
+        "{{next}}",
+        "{{percent}}"
+      ]
+    },
+    {
+      "locale": "pt",
+      "key": "journal.weeklyInsightDesc",
+      "sourcePlaceholders": [
+        "{{energy}}",
+        "{{mood}}",
+        "{{focus}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "pt",
+      "key": "rituals.steps_count",
+      "sourcePlaceholders": [
+        "{{count}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "pt",
+      "key": "profile.level",
+      "sourcePlaceholders": [
+        "{{level}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "pt",
+      "key": "profile.toNextLevel",
+      "sourcePlaceholders": [
+        "{{percent}}",
+        "{{next}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "pt",
+      "key": "reports.streakDesc",
+      "sourcePlaceholders": [
+        "{{days}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "ru",
+      "key": "rituals.steps_count",
+      "sourcePlaceholders": [
+        "{{count}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "ru",
+      "key": "profile.level",
+      "sourcePlaceholders": [
+        "{{level}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "ru",
+      "key": "profile.toNextLevel",
+      "sourcePlaceholders": [
+        "{{percent}}",
+        "{{next}}"
+      ],
+      "targetPlaceholders": []
+    },
+    {
+      "locale": "ru",
+      "key": "reports.streakDesc",
+      "sourcePlaceholders": [
+        "{{days}}"
+      ],
+      "targetPlaceholders": []
+    }
+  ],
+  "polishResidueInNonPl": [
+    {
+      "locale": "de",
+      "key": "onboarding.language_title",
+      "sample": "Wähle deine Sprache"
+    },
+    {
+      "locale": "de",
+      "key": "onboarding.level_subtitle",
+      "sample": "Wähle die Stufe, die deine spirituelle Erfahrung am besten beschreibt"
+    },
+    {
+      "locale": "de",
+      "key": "onboarding.theme_title",
+      "sample": "Wähle deine Schwingung"
+    },
+    {
+      "locale": "de",
+      "key": "onboarding.chooseLanguage",
+      "sample": "Sprache wählen"
+    },
+    {
+      "locale": "de",
+      "key": "onboarding.languageDesc",
+      "sample": "Wähle die Sprache, in der du erkunden möchtest"
+    },
+    {
+      "locale": "de",
+      "key": "onboarding.vibrationDesc",
+      "sample": "Wähle die Ästhetik, die am meisten mit deiner Energie in Resonanz steht."
+    },
+    {
+      "locale": "de",
+      "key": "onboarding.birthDesc",
+      "sample": "Der Himmel zum Zeitpunkt deiner Geburt enthält die Karte deiner Seele"
+    },
+    {
+      "locale": "de",
+      "key": "onboarding.chooseVibration",
+      "sample": "Wähle deine Schwingung"
+    },
+    {
+      "locale": "de",
+      "key": "home.worlds.horoscope",
+      "sample": "Horoskop"
+    },
+    {
+      "locale": "de",
+      "key": "home.tarotOracleDesc",
+      "sample": "Lass die Karten zu deiner Seele sprechen"
+    },
+    {
+      "locale": "de",
+      "key": "home.yourEnergy",
+      "sample": "Deine Energie"
+    },
+    {
+      "locale": "de",
+      "key": "home.trackEnergy",
+      "sample": "Energie verfolgen"
+    },
+    {
+      "locale": "de",
+      "key": "portal.energyForecast",
+      "sample": "Energieprognose"
+    },
+    {
+      "locale": "de",
+      "key": "oracle.starters.energy",
+      "sample": "Wie ist meine Energie heute?"
+    },
+    {
+      "locale": "de",
+      "key": "tarot.draw_card",
+      "sample": "Karte ziehen"
+    },
+    {
+      "locale": "de",
+      "key": "tarot.your_card",
+      "sample": "Deine Karte"
+    },
+    {
+      "locale": "de",
+      "key": "tarot.chooseDeck",
+      "sample": "Wähle dein Deck"
+    },
+    {
+      "locale": "de",
+      "key": "tarot.chooseSpread",
+      "sample": "LEGUNG WÄHLEN"
+    },
+    {
+      "locale": "de",
+      "key": "tarot.dailyCard",
+      "sample": "Tageskarte"
+    },
+    {
+      "locale": "de",
+      "key": "tarot.cardMeaning",
+      "sample": "KARTENBEDEUTUNG"
+    },
+    {
+      "locale": "de",
+      "key": "tarot.cardOfDay",
+      "sample": "KARTE DES TAGES"
+    },
+    {
+      "locale": "de",
+      "key": "tarot.spreads.daily_card.name",
+      "sample": "Tageskarte"
+    },
+    {
+      "locale": "de",
+      "key": "horoscope.title",
+      "sample": "Horoskop"
+    },
+    {
+      "locale": "de",
+      "key": "horoscope.weekly",
+      "sample": "Wöchentlich"
+    },
+    {
+      "locale": "de",
+      "key": "horoscope.partnerHoroscope",
+      "sample": "Partner-Horoskop"
+    },
+    {
+      "locale": "de",
+      "key": "horoscope.dailyEnergy",
+      "sample": "Energie des Tages"
+    },
+    {
+      "locale": "de",
+      "key": "journal.energy",
+      "sample": "Energie"
+    },
+    {
+      "locale": "de",
+      "key": "journal.weeklyInsight",
+      "sample": "Wöchentliche Erkenntnis"
+    },
+    {
+      "locale": "de",
+      "key": "journal.wordCount",
+      "sample": "Wörter"
+    },
+    {
+      "locale": "de",
+      "key": "rituals.categories.energy",
+      "sample": "Energie"
+    },
+    {
+      "locale": "de",
+      "key": "rituals.categories.ManifestationDesc",
+      "sample": "Ziehe deine tiefsten Wünsche an"
+    },
+    {
+      "locale": "de",
+      "key": "rituals.categories.ProtectionDesc",
+      "sample": "Schütze deine Energie mit göttlichem Licht"
+    },
+    {
+      "locale": "de",
+      "key": "meditation.selectDuration",
+      "sample": "DAUER WÄHLEN"
+    },
+    {
+      "locale": "de",
+      "key": "breathwork.selectTechnique",
+      "sample": "TECHNIK WÄHLEN"
+    },
+    {
+      "locale": "de",
+      "key": "breathwork.techniques.nadi_desc",
+      "sample": "Reinigung der Energiekanäle durch Wechselatmung"
+    },
+    {
+      "locale": "de",
+      "key": "chakra.bodyMap",
+      "sample": "Körperkarte"
+    },
+    {
+      "locale": "de",
+      "key": "lunar.moonEnergy",
+      "sample": "Mondenergie"
+    },
+    {
+      "locale": "de",
+      "key": "soundbath.selectDuration",
+      "sample": "DAUER WÄHLEN"
+    },
+    {
+      "locale": "de",
+      "key": "matrix.energyCenter",
+      "sample": "Energiezentrum"
+    },
+    {
+      "locale": "de",
+      "key": "cleansing.chooseBurden",
+      "sample": "Wähle eine Last"
+    },
+    {
+      "locale": "de",
+      "key": "community.energy_circle",
+      "sample": "Energiekreis"
+    },
+    {
+      "locale": "de",
+      "key": "community.post_types.HOROSKOP",
+      "sample": "Horoskop"
+    },
+    {
+      "locale": "de",
+      "key": "profile.chooseVibration",
+      "sample": "Wähle deine Schwingung"
+    },
+    {
+      "locale": "de",
+      "key": "profile.archetypes.6.title",
+      "sample": "Energieharmonisierer"
+    },
+    {
+      "locale": "de",
+      "key": "checkin.energy",
+      "sample": "Energie"
+    },
+    {
+      "locale": "de",
+      "key": "reports.weeklyInsight",
+      "sample": "Wöchentliche Erkenntnis"
+    },
+    {
+      "locale": "de",
+      "key": "reports.dominantEnergy",
+      "sample": "Dominante Energie"
+    },
+    {
+      "locale": "de",
+      "key": "reports.constellationDesc",
+      "sample": "Die Karte deiner Emotionen im Zeitraum"
+    },
+    {
+      "locale": "de",
+      "key": "astrology.starsMap",
+      "sample": "Sternenkarte"
+    },
+    {
+      "locale": "de",
+      "key": "paywall.choosePath",
+      "sample": "Wähle deinen Weg"
+    },
+    {
+      "locale": "de",
+      "key": "compatibility.addPartnerEnergy",
+      "sample": "Partnerenergie hinzufügen"
+    },
+    {
+      "locale": "de",
+      "key": "compatibility.relationshipEnergy",
+      "sample": "Beziehungsenergie"
+    },
+    {
+      "locale": "de",
+      "key": "stars.skyMap",
+      "sample": "Himmelskarte"
+    },
+    {
+      "locale": "de",
+      "key": "stars.tabMap",
+      "sample": "Karte"
+    },
+    {
+      "locale": "de",
+      "key": "natalChart.tabChart",
+      "sample": "Karte"
+    },
+    {
+      "locale": "en",
+      "key": "onboarding.level_beginner_sub",
+      "sample": "I am just beginning my spiritual journey"
+    },
+    {
+      "locale": "en",
+      "key": "onboarding.level_seeker_sub",
+      "sample": "I have been exploring spirituality for some time"
+    },
+    {
+      "locale": "en",
+      "key": "onboarding.level_practitioner_sub",
+      "sample": "I have a regular spiritual practice"
+    },
+    {
+      "locale": "en",
+      "key": "home.trackEnergy",
+      "sample": "How do you feel now? Track your energy."
+    },
+    {
+      "locale": "en",
+      "key": "oracle.starters.relationship",
+      "sample": "I need guidance on a relationship."
+    },
+    {
+      "locale": "en",
+      "key": "oracle.starters.abundance",
+      "sample": "How can I attract more abundance?"
+    },
+    {
+      "locale": "en",
+      "key": "journal.placeholder",
+      "sample": "What do you want to record for your soul today?"
+    },
+    {
+      "locale": "en",
+      "key": "dreams.placeholder",
+      "sample": "Describe your dream... What images, feelings and symbols do you remember?"
+    },
+    {
+      "locale": "en",
+      "key": "breathwork.techniques.wim_hof_desc",
+      "sample": "Rapid breaths — energises and strengthens immunity"
+    },
+    {
+      "locale": "en",
+      "key": "cleansing.placeholder",
+      "sample": "What do you want to release today? Write down the burdens of your soul..."
+    },
+    {
+      "locale": "en",
+      "key": "community.compose_placeholder",
+      "sample": "What do you want to share with the community of souls?"
+    },
+    {
+      "locale": "en",
+      "key": "community.reactions.czuje",
+      "sample": "I feel this"
+    },
+    {
+      "locale": "es",
+      "key": "common.error",
+      "sample": "Algo salió mal"
+    },
+    {
+      "locale": "es",
+      "key": "common.anonymous",
+      "sample": "Anónimo"
+    },
+    {
+      "locale": "es",
+      "key": "common.session_complete",
+      "sample": "Sesión completada"
+    },
+    {
+      "locale": "es",
+      "key": "onboarding.language_coming_soon",
+      "sample": "Próximamente"
+    },
+    {
+      "locale": "es",
+      "key": "onboarding.name_title",
+      "sample": "¿Cómo te llaman?"
+    },
+    {
+      "locale": "es",
+      "key": "onboarding.birthplace_title",
+      "sample": "¿Dónde naciste?"
+    },
+    {
+      "locale": "es",
+      "key": "onboarding.theme_title",
+      "sample": "Elige tu vibración"
+    },
+    {
+      "locale": "es",
+      "key": "onboarding.namePlaceholder",
+      "sample": "¿Cómo te llaman?"
+    },
+    {
+      "locale": "es",
+      "key": "onboarding.pathDesc",
+      "sample": "Cada alma llega con su propio propósito"
+    },
+    {
+      "locale": "es",
+      "key": "onboarding.intentions.career",
+      "sample": "Propósito y carrera"
+    },
+    {
+      "locale": "es",
+      "key": "onboarding.styles.mystical",
+      "sample": "Místico y poético"
+    },
+    {
+      "locale": "es",
+      "key": "onboarding.themes.cosmicViolet",
+      "sample": "Violeta Cósmico"
+    },
+    {
+      "locale": "es",
+      "key": "onboarding.chooseVibration",
+      "sample": "Elige tu vibración"
+    },
+    {
+      "locale": "es",
+      "key": "home.worlds.horoscope",
+      "sample": "Horóscopo"
+    },
+    {
+      "locale": "es",
+      "key": "home.worlds.support_desc",
+      "sample": "Nutre tu alma y tu corazón"
+    },
+    {
+      "locale": "es",
+      "key": "home.worlds.cleansing",
+      "sample": "Purificación"
+    },
+    {
+      "locale": "es",
+      "key": "home.powerAffirmation",
+      "sample": "Afirmación del poder"
+    },
+    {
+      "locale": "es",
+      "key": "home.startTransformation",
+      "sample": "Iniciar transformación"
+    },
+    {
+      "locale": "es",
+      "key": "home.reflectionJournal",
+      "sample": "Diario de reflexión"
+    },
+    {
+      "locale": "es",
+      "key": "home.exploration",
+      "sample": "Exploración"
+    },
+    {
+      "locale": "es",
+      "key": "home.yourConstellation",
+      "sample": "Tu constelación"
+    },
+    {
+      "locale": "es",
+      "key": "home.resumeConversation",
+      "sample": "Retomar conversación"
+    },
+    {
+      "locale": "es",
+      "key": "home.recentReflection",
+      "sample": "Reflexión reciente"
+    },
+    {
+      "locale": "es",
+      "key": "home.dailyAlignment",
+      "sample": "Alineación diaria"
+    },
+    {
+      "locale": "es",
+      "key": "home.affirmationsTitle",
+      "sample": "Afirmaciones"
+    },
+    {
+      "locale": "es",
+      "key": "home.continuationSection",
+      "sample": "CONTINUACIÓN"
+    },
+    {
+      "locale": "es",
+      "key": "home.startYourDay",
+      "sample": "Comienza tu día con intención"
+    },
+    {
+      "locale": "es",
+      "key": "portal.daily_affirmation",
+      "sample": "Afirmación del día"
+    },
+    {
+      "locale": "es",
+      "key": "portal.breathingReminder",
+      "sample": "Recordatorio de respiración"
+    },
+    {
+      "locale": "es",
+      "key": "portal.energyForecast",
+      "sample": "Pronóstico energético"
+    },
+    {
+      "locale": "es",
+      "key": "oracle.welcome",
+      "sample": "El oráculo te escucha. ¿Qué hay en tu corazón hoy?"
+    },
+    {
+      "locale": "es",
+      "key": "oracle.closeSession",
+      "sample": "Cerrar sesión"
+    },
+    {
+      "locale": "es",
+      "key": "oracle.modes.daily_wisdom_sub",
+      "sample": "Guía e inspiración para el día de hoy"
+    },
+    {
+      "locale": "es",
+      "key": "oracle.modes.soul_guide_sub",
+      "sample": "Orientación en tu camino espiritual"
+    },
+    {
+      "locale": "es",
+      "key": "oracle.modes.cosmic_timing",
+      "sample": "Sincronía Cósmica"
+    },
+    {
+      "locale": "es",
+      "key": "oracle.starters.energy",
+      "sample": "¿Cómo está mi energía hoy?"
+    },
+    {
+      "locale": "es",
+      "key": "oracle.starters.abundance",
+      "sample": "¿Cómo puedo atraer más abundancia?"
+    },
+    {
+      "locale": "es",
+      "key": "oracle.new_session",
+      "sample": "Nueva sesión"
+    },
+    {
+      "locale": "es",
+      "key": "oracle.startSession",
+      "sample": "INICIAR SESIÓN"
+    },
+    {
+      "locale": "es",
+      "key": "tarot.reflection",
+      "sample": "REFLEXIÓN"
+    },
+    {
+      "locale": "es",
+      "key": "tarot.decks.classicDesc",
+      "sample": "La baraja clásica de la tradición Rider-Waite"
+    },
+    {
+      "locale": "es",
+      "key": "tarot.decks.cosmic",
+      "sample": "Luz Cósmica"
+    },
+    {
+      "locale": "es",
+      "key": "tarot.decks.cosmicDesc",
+      "sample": "Una interpretación moderna y galáctica de los arquetipos"
+    },
+    {
+      "locale": "es",
+      "key": "horoscope.title",
+      "sample": "Horóscopo"
+    },
+    {
+      "locale": "es",
+      "key": "horoscope.partnerHoroscope",
+      "sample": "Horóscopo de la pareja"
+    },
+    {
+      "locale": "es",
+      "key": "horoscope.planets.pluto",
+      "sample": "Plutón"
+    },
+    {
+      "locale": "es",
+      "key": "journal.placeholder",
+      "sample": "¿Qué hay en tu corazón hoy?"
+    },
+    {
+      "locale": "es",
+      "key": "journal.weeklyInsight",
+      "sample": "Revelación semanal"
+    },
+    {
+      "locale": "es",
+      "key": "journal.types.reflection",
+      "sample": "Reflexión"
+    },
+    {
+      "locale": "es",
+      "key": "dreams.interpretation",
+      "sample": "Interpretación"
+    },
+    {
+      "locale": "es",
+      "key": "dreams.emotionInDream",
+      "sample": "Emoción en el sueño"
+    },
+    {
+      "locale": "es",
+      "key": "dreams.aiInterpretation",
+      "sample": "Interpretación de IA"
+    },
+    {
+      "locale": "es",
+      "key": "rituals.description",
+      "sample": "Descripción"
+    },
+    {
+      "locale": "es",
+      "key": "rituals.ritualCompletedDesc",
+      "sample": "Has completado esta práctica sagrada con devoción"
+    },
+    {
+      "locale": "es",
+      "key": "rituals.categories.meditation",
+      "sample": "Meditación"
+    },
+    {
+      "locale": "es",
+      "key": "rituals.categories.Cleansing",
+      "sample": "Purificación"
+    },
+    {
+      "locale": "es",
+      "key": "rituals.categories.LoveDesc",
+      "sample": "Abre tu corazón a la abundancia del amor"
+    },
+    {
+      "locale": "es",
+      "key": "rituals.categories.Manifestation",
+      "sample": "Manifestación"
+    },
+    {
+      "locale": "es",
+      "key": "rituals.categories.Protection",
+      "sample": "Protección"
+    },
+    {
+      "locale": "es",
+      "key": "rituals.ritual_items.morning_alignment.title",
+      "sample": "Alineación Matutina"
+    },
+    {
+      "locale": "es",
+      "key": "rituals.ritual_items.morning_alignment.description",
+      "sample": "Una meditación breve para establecer tu intención del día"
+    },
+    {
+      "locale": "es",
+      "key": "rituals.ritual_items.evening_reflection.title",
+      "sample": "Reflexión Vespertina"
+    },
+    {
+      "locale": "es",
+      "key": "meditation.title",
+      "sample": "Meditación"
+    },
+    {
+      "locale": "es",
+      "key": "meditation.duration",
+      "sample": "Duración"
+    },
+    {
+      "locale": "es",
+      "key": "meditation.session_complete",
+      "sample": "Sesión completada"
+    },
+    {
+      "locale": "es",
+      "key": "meditation.techniques.mindfulness",
+      "sample": "Atención plena"
+    },
+    {
+      "locale": "es",
+      "key": "meditation.techniques.visualization",
+      "sample": "Visualización"
+    },
+    {
+      "locale": "es",
+      "key": "meditation.avgSession",
+      "sample": "Sesión promedio"
+    },
+    {
+      "locale": "es",
+      "key": "meditation.meditationTips",
+      "sample": "Consejos de meditación"
+    },
+    {
+      "locale": "es",
+      "key": "meditation.selectDuration",
+      "sample": "SELECCIONAR DURACIÓN"
+    },
+    {
+      "locale": "es",
+      "key": "meditation.focusBreath",
+      "sample": "Enfócate en tu respiración"
+    },
+    {
+      "locale": "es",
+      "key": "breathwork.title",
+      "sample": "Trabajo de Respiración"
+    },
+    {
+      "locale": "es",
+      "key": "breathwork.sessionComplete",
+      "sample": "Sesión completada"
+    },
+    {
+      "locale": "es",
+      "key": "breathwork.techniques.box",
+      "sample": "Respiración Cuadrada"
+    },
+    {
+      "locale": "es",
+      "key": "breathwork.techniques.box_desc",
+      "sample": "Equilibra mente y cuerpo con este patrón rítmico de 4 tiempos"
+    },
+    {
+      "locale": "es",
+      "key": "breathwork.techniques.wim_hof_desc",
+      "sample": "Técnica poderosa que energiza cuerpo y mente"
+    },
+    {
+      "locale": "es",
+      "key": "breathwork.techniques.calm_desc",
+      "sample": "Una respiración suave para soltar la tensión del día"
+    },
+    {
+      "locale": "es",
+      "key": "breathwork.techniques.slow",
+      "sample": "Respiración Lenta"
+    },
+    {
+      "locale": "es",
+      "key": "breathwork.techniques.nadi_desc",
+      "sample": "Purificación de los canales energéticos con respiración alterna"
+    },
+    {
+      "locale": "es",
+      "key": "chakra.affirmation",
+      "sample": "Afirmación"
+    },
+    {
+      "locale": "es",
+      "key": "chakra.names.root",
+      "sample": "Raíz"
+    },
+    {
+      "locale": "es",
+      "key": "chakra.names.heart",
+      "sample": "Corazón"
+    },
+    {
+      "locale": "es",
+      "key": "affirmations.title",
+      "sample": "Afirmaciones"
+    },
+    {
+      "locale": "es",
+      "key": "affirmations.daily",
+      "sample": "Afirmación del día"
+    },
+    {
+      "locale": "es",
+      "key": "affirmations.forSomeoneTitle",
+      "sample": "Afirmación para:"
+    },
+    {
+      "locale": "es",
+      "key": "affirmations.copyAffirmation",
+      "sample": "Copiar afirmación"
+    },
+    {
+      "locale": "es",
+      "key": "affirmations.categories.healing",
+      "sample": "Sanación"
+    },
+    {
+      "locale": "es",
+      "key": "affirmations.categories.transformation",
+      "sample": "Transformación"
+    },
+    {
+      "locale": "es",
+      "key": "affirmations.categories.vision",
+      "sample": "Visión"
+    },
+    {
+      "locale": "es",
+      "key": "affirmations.categories.protection",
+      "sample": "Protección"
+    },
+    {
+      "locale": "es",
+      "key": "gratitude.ai_reflection",
+      "sample": "Reflexión del oráculo"
+    },
+    {
+      "locale": "es",
+      "key": "gratitude.inspiration",
+      "sample": "Inspiración"
+    },
+    {
+      "locale": "es",
+      "key": "gratitude.generateReflection",
+      "sample": "Generar reflexión"
+    },
+    {
+      "locale": "es",
+      "key": "shadow.reflection",
+      "sample": "Reflexión"
+    },
+    {
+      "locale": "es",
+      "key": "shadow.questions",
+      "sample": "Preguntas de reflexión"
+    },
+    {
+      "locale": "es",
+      "key": "shadow.sessionCount",
+      "sample": "Sesión {{count}}"
+    },
+    {
+      "locale": "es",
+      "key": "shadow.deepDive",
+      "sample": "Inmersión profunda"
+    },
+    {
+      "locale": "es",
+      "key": "lunar.set_intention",
+      "sample": "Establecer intención"
+    },
+    {
+      "locale": "es",
+      "key": "lunar.intentionSaved",
+      "sample": "Intención guardada"
+    },
+    {
+      "locale": "es",
+      "key": "soundbath.duration",
+      "sample": "Duración"
+    },
+    {
+      "locale": "es",
+      "key": "soundbath.selectDuration",
+      "sample": "SELECCIONAR DURACIÓN"
+    },
+    {
+      "locale": "es",
+      "key": "numerology.vibration",
+      "sample": "Vibración"
+    },
+    {
+      "locale": "es",
+      "key": "matrix.interpretation",
+      "sample": "INTERPRETACIÓN"
+    },
+    {
+      "locale": "es",
+      "key": "cleansing.title",
+      "sample": "Purificación"
+    },
+    {
+      "locale": "es",
+      "key": "cleansing.ritual_complete",
+      "sample": "Ritual de purificación completado"
+    },
+    {
+      "locale": "es",
+      "key": "cleansing.releaseRitual",
+      "sample": "Ritual de liberación"
+    },
+    {
+      "locale": "es",
+      "key": "cleansing.intentionSet",
+      "sample": "Intención establecida"
+    },
+    {
+      "locale": "es",
+      "key": "community.chronicle",
+      "sample": "Crónica"
+    },
+    {
+      "locale": "es",
+      "key": "community.affirmation",
+      "sample": "Afirmación"
+    },
+    {
+      "locale": "es",
+      "key": "community.post_types.HOROSKOP",
+      "sample": "Horóscopo"
+    },
+    {
+      "locale": "es",
+      "key": "community.post_types.MEDYTACJA",
+      "sample": "Meditación"
+    },
+    {
+      "locale": "es",
+      "key": "community.post_types.REFLEKSJA",
+      "sample": "Reflexión"
+    },
+    {
+      "locale": "es",
+      "key": "community.post_types.AFIRMACJA",
+      "sample": "Afirmación"
+    },
+    {
+      "locale": "es",
+      "key": "community.compose_title",
+      "sample": "Crear publicación"
+    },
+    {
+      "locale": "es",
+      "key": "community.compose_placeholder",
+      "sample": "Comparte lo que hay en tu corazón..."
+    },
+    {
+      "locale": "es",
+      "key": "community.liveSession",
+      "sample": "Sesión en vivo"
+    },
+    {
+      "locale": "es",
+      "key": "profile.settings",
+      "sample": "Configuración"
+    },
+    {
+      "locale": "es",
+      "key": "profile.sign_out",
+      "sample": "Cerrar sesión"
+    },
+    {
+      "locale": "es",
+      "key": "profile.chooseVibration",
+      "sample": "Elige tu vibración"
+    },
+    {
+      "locale": "es",
+      "key": "profile.archetypeEvolution",
+      "sample": "Evolución del arquetipo"
+    },
+    {
+      "locale": "es",
+      "key": "profile.monthlyVibration",
+      "sample": "Vibración mensual"
+    },
+    {
+      "locale": "es",
+      "key": "profile.backgroundMotion",
+      "sample": "Animación de fondo"
+    },
+    {
+      "locale": "es",
+      "key": "profile.hapticFeedback",
+      "sample": "Retroalimentación háptica"
+    },
+    {
+      "locale": "es",
+      "key": "profile.notificationSettings",
+      "sample": "Configuración de notificaciones"
+    },
+    {
+      "locale": "es",
+      "key": "profile.appVersion",
+      "sample": "Versión de la app"
+    },
+    {
+      "locale": "es",
+      "key": "profile.archetypes.5.title",
+      "sample": "Guardián de la Tradición"
+    },
+    {
+      "locale": "es",
+      "key": "profile.archetypes.13.title",
+      "sample": "Agente de Transformación"
+    },
+    {
+      "locale": "es",
+      "key": "profile.archetypes.21.title",
+      "sample": "Maestro de la Integración"
+    },
+    {
+      "locale": "es",
+      "key": "checkin.moods.confusion",
+      "sample": "Confusión"
+    },
+    {
+      "locale": "es",
+      "key": "checkin.focus_areas.healing",
+      "sample": "Sanación"
+    },
+    {
+      "locale": "es",
+      "key": "reports.weeklyInsight",
+      "sample": "Revelación semanal"
+    },
+    {
+      "locale": "es",
+      "key": "reports.moodConstellation",
+      "sample": "Constelación anímica"
+    },
+    {
+      "locale": "es",
+      "key": "reports.tarotInsight",
+      "sample": "Revelación del tarot"
+    },
+    {
+      "locale": "es",
+      "key": "astrology.retrograde",
+      "sample": "Retrógrado"
+    },
+    {
+      "locale": "es",
+      "key": "astrology.conjunction",
+      "sample": "Conjunción"
+    },
+    {
+      "locale": "es",
+      "key": "astrology.opposition",
+      "sample": "Oposición"
+    },
+    {
+      "locale": "es",
+      "key": "notifications.meditation",
+      "sample": "Meditación"
+    },
+    {
+      "locale": "es",
+      "key": "compatibility.namePlaceholder",
+      "sample": "¿Cómo se llama?"
+    },
+    {
+      "locale": "es",
+      "key": "compatibility.relationshipEnergy",
+      "sample": "Energía de la relación"
+    },
+    {
+      "locale": "es",
+      "key": "compatibility.vibration",
+      "sample": "Vibración"
+    },
+    {
+      "locale": "es",
+      "key": "compatibility.compatibilityScore",
+      "sample": "Puntuación de compatibilidad"
+    },
+    {
+      "locale": "es",
+      "key": "journeys.transformationPaths",
+      "sample": "Caminos de transformación"
+    },
+    {
+      "locale": "es",
+      "key": "palmreading.instructions",
+      "sample": "Fotografía el interior de tu mano con buena iluminación"
+    },
+    {
+      "locale": "es",
+      "key": "palmreading.lines.heart",
+      "sample": "Línea del Corazón"
+    },
+    {
+      "locale": "es",
+      "key": "palmreading.interpretationTitle",
+      "sample": "Interpretación de la Mano"
+    },
+    {
+      "locale": "es",
+      "key": "binauralbeats.waves.theta",
+      "sample": "Theta — meditación"
+    },
+    {
+      "locale": "es",
+      "key": "binauralbeats.waves.alpha",
+      "sample": "Alpha — relajación"
+    },
+    {
+      "locale": "es",
+      "key": "binauralbeats.waves.beta",
+      "sample": "Beta — concentración"
+    },
+    {
+      "locale": "es",
+      "key": "binauralbeats.waves.gamma",
+      "sample": "Gamma — cognición elevada"
+    },
+    {
+      "locale": "es",
+      "key": "binauralbeats.session_complete",
+      "sample": "Sesión completada"
+    },
+    {
+      "locale": "es",
+      "key": "sleephelper.duration",
+      "sample": "Duración"
+    },
+    {
+      "locale": "es",
+      "key": "sleephelper.meditation",
+      "sample": "Meditación para dormir"
+    },
+    {
+      "locale": "es",
+      "key": "stars.constellation",
+      "sample": "Constelación"
+    },
+    {
+      "locale": "es",
+      "key": "data.decks.classicDesc",
+      "sample": "La baraja clásica más precisa basada en la tradición Rider-Waite."
+    },
+    {
+      "locale": "es",
+      "key": "data.decks.cosmic",
+      "sample": "Luz Cósmica"
+    },
+    {
+      "locale": "es",
+      "key": "data.decks.cosmicDesc",
+      "sample": "Interpretación moderna y galáctica de los arquetipos del universo."
+    },
+    {
+      "locale": "es",
+      "key": "data.rituals.morning_alignment.title",
+      "sample": "Alineación Matutina"
+    },
+    {
+      "locale": "es",
+      "key": "data.rituals.morning_alignment.description",
+      "sample": "Breve meditación para establecer la intención del día."
+    },
+    {
+      "locale": "es",
+      "key": "data.rituals.evening_reflection.title",
+      "sample": "Reflexión Vespertina"
+    },
+    {
+      "locale": "es",
+      "key": "data.rituals.candle_magic.description",
+      "sample": "Manifestación de un deseo a través del elemento fuego."
+    },
+    {
+      "locale": "es",
+      "key": "archetypes.3.title",
+      "sample": "Madre de la creación"
+    },
+    {
+      "locale": "es",
+      "key": "archetypes.6.title",
+      "sample": "Unión y elección"
+    },
+    {
+      "locale": "es",
+      "key": "archetypes.12.title",
+      "sample": "Rendición y perspectiva"
+    },
+    {
+      "locale": "es",
+      "key": "archetypes.13.title",
+      "sample": "Transformación y renacimiento"
+    },
+    {
+      "locale": "es",
+      "key": "archetypes.14.title",
+      "sample": "Armonía y moderación"
+    },
+    {
+      "locale": "es",
+      "key": "archetypes.15.title",
+      "sample": "Sombras y liberación"
+    },
+    {
+      "locale": "es",
+      "key": "archetypes.16.title",
+      "sample": "Revelación y cambio"
+    },
+    {
+      "locale": "es",
+      "key": "archetypes.18.title",
+      "sample": "Intuición y misterio"
+    },
+    {
+      "locale": "es",
+      "key": "sleepRitual.tabBreath",
+      "sample": "Respiración"
+    },
+    {
+      "locale": "es",
+      "key": "fireCeremony.writeIntention",
+      "sample": "Escribe tu intención..."
+    },
+    {
+      "locale": "es",
+      "key": "ancestralConnection.title",
+      "sample": "Conexión Ancestral"
+    },
+    {
+      "locale": "es",
+      "key": "protectionRitual.title",
+      "sample": "Escudo de Protección"
+    },
+    {
+      "locale": "es",
+      "key": "protectionRitual.activate",
+      "sample": "Activar protección"
+    },
+    {
+      "locale": "es",
+      "key": "selfCompassion.title",
+      "sample": "Autocompasión"
+    },
+    {
+      "locale": "es",
+      "key": "lifeWheel.score",
+      "sample": "Puntuación"
+    },
+    {
+      "locale": "es",
+      "key": "natalChart.eyebrow",
+      "sample": "MUNDO DEL HORÓSCOPO"
+    },
+    {
+      "locale": "es",
+      "key": "retrogrades.title",
+      "sample": "Retrógrados ℞"
+    },
+    {
+      "locale": "es",
+      "key": "retrogrades.eyebrow",
+      "sample": "MUNDO DEL HORÓSCOPO"
+    },
+    {
+      "locale": "es",
+      "key": "signMeditation.title",
+      "sample": "Meditación del Signo"
+    },
+    {
+      "locale": "es",
+      "key": "signMeditation.eyebrow",
+      "sample": "MUNDO DEL HORÓSCOPO"
+    },
+    {
+      "locale": "es",
+      "key": "signMeditation.tabMeditation",
+      "sample": "Meditación"
+    },
+    {
+      "locale": "es",
+      "key": "signMeditation.tabAffirmations",
+      "sample": "Afirmaciones"
+    },
+    {
+      "locale": "fr",
+      "key": "onboarding.styles.mystical",
+      "sample": "Mystique & Poétique"
+    },
+    {
+      "locale": "fr",
+      "key": "stars.yourZenith",
+      "sample": "Ton zénith"
+    },
+    {
+      "locale": "it",
+      "key": "onboarding.vibrationDesc",
+      "sample": "Seleziona l'estetica che risuona di più con la tua energia."
+    },
+    {
+      "locale": "it",
+      "key": "home.worlds.horoscope_desc",
+      "sample": "Leggi i messaggi delle stelle"
+    },
+    {
+      "locale": "it",
+      "key": "home.worlds.astrology_desc",
+      "sample": "Comprendi i cicli cosmici"
+    },
+    {
+      "locale": "it",
+      "key": "home.yourEnergy",
+      "sample": "La tua energia"
+    },
+    {
+      "locale": "it",
+      "key": "home.trackEnergy",
+      "sample": "Come ti senti ora? Monitora la tua energia."
+    },
+    {
+      "locale": "it",
+      "key": "oracle.modes.dream_decoder_sub",
+      "sample": "Svela i messaggi notturni"
+    },
+    {
+      "locale": "it",
+      "key": "oracle.starters.energy",
+      "sample": "Come sta la mia energia oggi?"
+    },
+    {
+      "locale": "it",
+      "key": "tarot.yourTools",
+      "sample": "I TUOI STRUMENTI"
+    },
+    {
+      "locale": "it",
+      "key": "horoscope.dailyEnergy",
+      "sample": "Energia quotidiana"
+    },
+    {
+      "locale": "it",
+      "key": "journal.placeholder",
+      "sample": "Scrivi i pensieri della tua anima..."
+    },
+    {
+      "locale": "it",
+      "key": "journal.energy",
+      "sample": "Energia"
+    },
+    {
+      "locale": "it",
+      "key": "journal.weeklyInsightDesc",
+      "sample": "La tua energia media è {{energy}}%, e l'umore dominante è {{mood}}. {{focus}}"
+    },
+    {
+      "locale": "it",
+      "key": "journal.journalEmptyDesc",
+      "sample": "Il tuo diario dell'anima aspetta la prima voce. Registra sogni, intuizioni dei tarocchi e riflessioni quotidiane per vedere i modelli del tuo destino."
+    },
+    {
+      "locale": "it",
+      "key": "rituals.my_rituals",
+      "sample": "I miei rituali"
+    },
+    {
+      "locale": "it",
+      "key": "rituals.all_rituals",
+      "sample": "Tutti i rituali"
+    },
+    {
+      "locale": "it",
+      "key": "rituals.ritualCompletedDesc",
+      "sample": "Hai completato questa pratica sacra. La tua energia è trasformata."
+    },
+    {
+      "locale": "it",
+      "key": "rituals.categories.energy",
+      "sample": "Energia"
+    },
+    {
+      "locale": "it",
+      "key": "rituals.categories.CleansingDesc",
+      "sample": "Libera le energie stagnanti e rinnova il tuo spazio"
+    },
+    {
+      "locale": "it",
+      "key": "rituals.categories.ManifestationDesc",
+      "sample": "Porta i tuoi desideri nella realtà"
+    },
+    {
+      "locale": "it",
+      "key": "rituals.categories.GroundingDesc",
+      "sample": "Connettiti con la terra e stabilizza la tua energia"
+    },
+    {
+      "locale": "it",
+      "key": "breathwork.techniques.wim_hof_desc",
+      "sample": "Respirazione energizzante per vitalità e resistenza"
+    },
+    {
+      "locale": "it",
+      "key": "lunar.moonEnergy",
+      "sample": "Energia lunare"
+    },
+    {
+      "locale": "it",
+      "key": "lunar.tapDayForDetails",
+      "sample": "Tocca un giorno per i dettagli"
+    },
+    {
+      "locale": "it",
+      "key": "cleansing.breatheOut",
+      "sample": "Espira i fardelli"
+    },
+    {
+      "locale": "it",
+      "key": "profile.yourRecords",
+      "sample": "I tuoi record"
+    },
+    {
+      "locale": "it",
+      "key": "profile.trends",
+      "sample": "I tuoi trend"
+    },
+    {
+      "locale": "it",
+      "key": "profile.archetypes.6.title",
+      "sample": "Armonizzatore di Energie"
+    },
+    {
+      "locale": "it",
+      "key": "checkin.energy",
+      "sample": "Energia"
+    },
+    {
+      "locale": "it",
+      "key": "reports.dominantEnergy",
+      "sample": "Energia dominante"
+    },
+    {
+      "locale": "it",
+      "key": "paywall.feature2Title",
+      "sample": "Tutti i mazzi di tarocchi"
+    },
+    {
+      "locale": "it",
+      "key": "paywall.feature2Desc",
+      "sample": "Accesso a tutti i mazzi premium"
+    },
+    {
+      "locale": "it",
+      "key": "compatibility.addPartnerEnergy",
+      "sample": "Aggiungi l'energia del partner"
+    },
+    {
+      "locale": "it",
+      "key": "compatibility.relationshipEnergy",
+      "sample": "Energia della relazione"
+    },
+    {
+      "locale": "pt",
+      "key": "common.next",
+      "sample": "Próximo"
+    },
+    {
+      "locale": "pt",
+      "key": "onboarding.vibrationDesc",
+      "sample": "Selecione a estética que mais ressoa com sua energia."
+    },
+    {
+      "locale": "pt",
+      "key": "onboarding.birthDesc",
+      "sample": "O céu no momento do seu nascimento contém o mapa da sua alma"
+    },
+    {
+      "locale": "pt",
+      "key": "onboarding.pathDesc",
+      "sample": "Cada alma chega com seu próprio propósito"
+    },
+    {
+      "locale": "pt",
+      "key": "onboarding.intentions.career",
+      "sample": "Propósito e carreira"
+    },
+    {
+      "locale": "pt",
+      "key": "onboarding.aiGuideStyle",
+      "sample": "Estilo de guia do oráculo"
+    },
+    {
+      "locale": "pt",
+      "key": "onboarding.styles.mystical",
+      "sample": "Místico e poético"
+    },
+    {
+      "locale": "pt",
+      "key": "onboarding.themes.cosmicViolet",
+      "sample": "Violeta Cósmico"
+    },
+    {
+      "locale": "pt",
+      "key": "home.worlds.horoscope",
+      "sample": "Horóscopo"
+    },
+    {
+      "locale": "pt",
+      "key": "home.worlds.oracle_desc",
+      "sample": "Sabedoria do universo para você"
+    },
+    {
+      "locale": "pt",
+      "key": "home.worlds.cleansing_desc",
+      "sample": "Liberte-se do que não te serve mais"
+    },
+    {
+      "locale": "pt",
+      "key": "home.magicOfDay",
+      "sample": "A magia do dia"
+    },
+    {
+      "locale": "pt",
+      "key": "home.yourEnergy",
+      "sample": "Sua energia"
+    },
+    {
+      "locale": "pt",
+      "key": "home.powerAffirmation",
+      "sample": "Afirmação do poder"
+    },
+    {
+      "locale": "pt",
+      "key": "home.reports",
+      "sample": "Relatórios"
+    },
+    {
+      "locale": "pt",
+      "key": "home.trackEnergy",
+      "sample": "Acompanhar energia"
+    },
+    {
+      "locale": "pt",
+      "key": "home.oracleWhisper",
+      "sample": "Sussurro do oráculo"
+    },
+    {
+      "locale": "pt",
+      "key": "home.mantraOfDay",
+      "sample": "Mantra do dia"
+    },
+    {
+      "locale": "pt",
+      "key": "home.affirmationsTitle",
+      "sample": "Afirmações"
+    },
+    {
+      "locale": "pt",
+      "key": "home.nextStep",
+      "sample": "PRÓXIMO PASSO"
+    },
+    {
+      "locale": "pt",
+      "key": "portal.daily_affirmation",
+      "sample": "Afirmação do dia"
+    },
+    {
+      "locale": "pt",
+      "key": "portal.dailyCrystal",
+      "sample": "Cristal do dia"
+    },
+    {
+      "locale": "pt",
+      "key": "oracle.subtitle",
+      "sample": "Sabedoria do universo"
+    },
+    {
+      "locale": "pt",
+      "key": "oracle.modes.shadow_oracle_sub",
+      "sample": "Explore as profundezas do seu ser"
+    },
+    {
+      "locale": "pt",
+      "key": "oracle.modes.cosmic_timing",
+      "sample": "Sincronia Cósmica"
+    },
+    {
+      "locale": "pt",
+      "key": "oracle.modes.dream_decoder_sub",
+      "sample": "As mensagens ocultas do seu inconsciente"
+    },
+    {
+      "locale": "pt",
+      "key": "oracle.modes.past_lives_sub",
+      "sample": "Ecos do passado que moldam o presente"
+    },
+    {
+      "locale": "pt",
+      "key": "oracle.modes.higher_self_sub",
+      "sample": "A voz mais elevada do seu ser"
+    },
+    {
+      "locale": "pt",
+      "key": "oracle.starters.energy",
+      "sample": "Como está minha energia hoje?"
+    },
+    {
+      "locale": "pt",
+      "key": "tarot.dailyCard",
+      "sample": "Carta do dia"
+    },
+    {
+      "locale": "pt",
+      "key": "tarot.cardOfDay",
+      "sample": "CARTA DO DIA"
+    },
+    {
+      "locale": "pt",
+      "key": "tarot.spreads.daily_card.name",
+      "sample": "Carta do Dia"
+    },
+    {
+      "locale": "pt",
+      "key": "tarot.spreads.love_spread.name",
+      "sample": "Tiragem do Amor"
+    },
+    {
+      "locale": "pt",
+      "key": "tarot.decks.cosmic",
+      "sample": "Luz Cósmica"
+    },
+    {
+      "locale": "pt",
+      "key": "horoscope.title",
+      "sample": "Horóscopo"
+    },
+    {
+      "locale": "pt",
+      "key": "horoscope.partnerHoroscope",
+      "sample": "Horóscopo do parceiro"
+    },
+    {
+      "locale": "pt",
+      "key": "horoscope.dailyEnergy",
+      "sample": "Energia do dia"
+    },
+    {
+      "locale": "pt",
+      "key": "horoscope.signs.capricorn",
+      "sample": "Capricórnio"
+    },
+    {
+      "locale": "pt",
+      "key": "journal.energy",
+      "sample": "Energia"
+    },
+    {
+      "locale": "pt",
+      "key": "journal.yourHistory",
+      "sample": "Sua história"
+    },
+    {
+      "locale": "pt",
+      "key": "journal.journalEmptyDesc",
+      "sample": "Seu diário está vazio. Toda grande história começa com a primeira palavra."
+    },
+    {
+      "locale": "pt",
+      "key": "dreams.dreamTitle",
+      "sample": "Título do sonho"
+    },
+    {
+      "locale": "pt",
+      "key": "dreams.dreamDate",
+      "sample": "Data do sonho"
+    },
+    {
+      "locale": "pt",
+      "key": "dreams.symbolMeaning",
+      "sample": "Significado do símbolo"
+    },
+    {
+      "locale": "pt",
+      "key": "rituals.ritualDetail",
+      "sample": "Detalhe do ritual"
+    },
+    {
+      "locale": "pt",
+      "key": "rituals.ritualCompleted",
+      "sample": "Ritual concluído!"
+    },
+    {
+      "locale": "pt",
+      "key": "rituals.historyTab",
+      "sample": "HISTÓRICO"
+    },
+    {
+      "locale": "pt",
+      "key": "rituals.completedToday",
+      "sample": "Concluído hoje"
+    },
+    {
+      "locale": "pt",
+      "key": "rituals.categories.energy",
+      "sample": "Energia"
+    },
+    {
+      "locale": "pt",
+      "key": "rituals.categories.LoveDesc",
+      "sample": "Abra seu coração para a abundância do amor"
+    },
+    {
+      "locale": "pt",
+      "key": "rituals.categories.ProtectionDesc",
+      "sample": "Proteja sua energia com luz divina"
+    },
+    {
+      "locale": "pt",
+      "key": "rituals.ritual_items.morning_alignment.description",
+      "sample": "Uma meditação breve para estabelecer sua intenção do dia"
+    },
+    {
+      "locale": "pt",
+      "key": "rituals.ritual_items.candle_magic.description",
+      "sample": "Manifestar um desejo específico através do elemento fogo"
+    },
+    {
+      "locale": "pt",
+      "key": "meditation.sessionHistory",
+      "sample": "Histórico de sessões"
+    },
+    {
+      "locale": "pt",
+      "key": "meditation.focusBreath",
+      "sample": "Foque na sua respiração"
+    },
+    {
+      "locale": "pt",
+      "key": "breathwork.techniques.wim_hof_desc",
+      "sample": "Técnica poderosa que energiza corpo e mente"
+    },
+    {
+      "locale": "pt",
+      "key": "breathwork.techniques.calm_desc",
+      "sample": "Uma respiração suave para soltar a tensão do dia"
+    },
+    {
+      "locale": "pt",
+      "key": "chakra.chakraOfDay",
+      "sample": "CHAKRA DO DIA"
+    },
+    {
+      "locale": "pt",
+      "key": "chakra.affirmation",
+      "sample": "Afirmação"
+    },
+    {
+      "locale": "pt",
+      "key": "affirmations.title",
+      "sample": "Afirmações"
+    },
+    {
+      "locale": "pt",
+      "key": "affirmations.daily",
+      "sample": "Afirmação do dia"
+    },
+    {
+      "locale": "pt",
+      "key": "affirmations.forSomeoneTitle",
+      "sample": "Afirmação para:"
+    },
+    {
+      "locale": "pt",
+      "key": "affirmations.copyAffirmation",
+      "sample": "Copiar afirmação"
+    },
+    {
+      "locale": "pt",
+      "key": "gratitude.history",
+      "sample": "Histórico"
+    },
+    {
+      "locale": "pt",
+      "key": "gratitude.ai_reflection",
+      "sample": "Reflexão do oráculo"
+    },
+    {
+      "locale": "pt",
+      "key": "gratitude.emptyHistory",
+      "sample": "Sem histórico de gratidão ainda"
+    },
+    {
+      "locale": "pt",
+      "key": "lunar.moonEnergy",
+      "sample": "Energia lunar"
+    },
+    {
+      "locale": "pt",
+      "key": "soundbath.session_complete",
+      "sample": "Banho de som concluído"
+    },
+    {
+      "locale": "pt",
+      "key": "numerology.destiny",
+      "sample": "Número do destino"
+    },
+    {
+      "locale": "pt",
+      "key": "numerology.lifePathMeaning",
+      "sample": "Significado do caminho de vida"
+    },
+    {
+      "locale": "pt",
+      "key": "matrix.title",
+      "sample": "Matriz do Destino"
+    },
+    {
+      "locale": "pt",
+      "key": "matrix.destiny_matrix",
+      "sample": "Matriz do Destino"
+    },
+    {
+      "locale": "pt",
+      "key": "cleansing.ritual_complete",
+      "sample": "Ritual de purificação concluído"
+    },
+    {
+      "locale": "pt",
+      "key": "cleansing.ai_guide",
+      "sample": "Guia do oráculo"
+    },
+    {
+      "locale": "pt",
+      "key": "cleansing.writeYourOwn",
+      "sample": "Escreva seu próprio fardo"
+    },
+    {
+      "locale": "pt",
+      "key": "community.affirmation",
+      "sample": "Afirmação"
+    },
+    {
+      "locale": "pt",
+      "key": "community.energy_circle",
+      "sample": "Círculo de energia"
+    },
+    {
+      "locale": "pt",
+      "key": "community.post_types.HOROSKOP",
+      "sample": "Horóscopo"
+    },
+    {
+      "locale": "pt",
+      "key": "community.post_types.AFIRMACJA",
+      "sample": "Afirmação"
+    },
+    {
+      "locale": "pt",
+      "key": "profile.premiumPortalDesc",
+      "sample": "Desbloqueie todas as ferramentas do universo"
+    },
+    {
+      "locale": "pt",
+      "key": "profile.archetypeEvolution",
+      "sample": "Evolução do arquétipo"
+    },
+    {
+      "locale": "pt",
+      "key": "profile.evolutionDesc",
+      "sample": "Seu crescimento espiritual ao longo do tempo"
+    },
+    {
+      "locale": "pt",
+      "key": "profile.toNextLevel",
+      "sample": "Para o próximo nível"
+    },
+    {
+      "locale": "pt",
+      "key": "profile.soulPathTrends",
+      "sample": "Tendências do caminho"
+    },
+    {
+      "locale": "pt",
+      "key": "profile.narrator_voice",
+      "sample": "Voz do narrador"
+    },
+    {
+      "locale": "pt",
+      "key": "profile.appVersion",
+      "sample": "Versão do app"
+    },
+    {
+      "locale": "pt",
+      "key": "profile.archetypes.6.title",
+      "sample": "Harmonizador de Energias"
+    },
+    {
+      "locale": "pt",
+      "key": "profile.archetypes.8.title",
+      "sample": "Equilíbrio do Karma"
+    },
+    {
+      "locale": "pt",
+      "key": "profile.archetypes.10.title",
+      "sample": "Mestre do Destino"
+    },
+    {
+      "locale": "pt",
+      "key": "profile.archetypes.14.title",
+      "sample": "Alquimista do Equilíbrio"
+    },
+    {
+      "locale": "pt",
+      "key": "profile.archetypes.18.title",
+      "sample": "Viajante do Subconsciente"
+    },
+    {
+      "locale": "pt",
+      "key": "profile.archetypes.20.title",
+      "sample": "Voz do Despertar"
+    },
+    {
+      "locale": "pt",
+      "key": "checkin.energy",
+      "sample": "Energia"
+    },
+    {
+      "locale": "pt",
+      "key": "reports.title",
+      "sample": "Relatórios"
+    },
+    {
+      "locale": "pt",
+      "key": "reports.pathAnalysis",
+      "sample": "Análise do caminho"
+    },
+    {
+      "locale": "pt",
+      "key": "reports.dominantEnergy",
+      "sample": "Energia dominante"
+    },
+    {
+      "locale": "pt",
+      "key": "reports.consistencyMastery",
+      "sample": "Maestria na constância"
+    },
+    {
+      "locale": "pt",
+      "key": "reports.constellationDesc",
+      "sample": "O mapa das suas emoções do período"
+    },
+    {
+      "locale": "pt",
+      "key": "reports.tarotInsight",
+      "sample": "Revelação do tarot"
+    },
+    {
+      "locale": "pt",
+      "key": "reports.soulReports",
+      "sample": "Relatórios da alma"
+    },
+    {
+      "locale": "pt",
+      "key": "reports.generating",
+      "sample": "Gerando relatório..."
+    },
+    {
+      "locale": "pt",
+      "key": "reports.weeklyReport",
+      "sample": "Relatório Semanal"
+    },
+    {
+      "locale": "pt",
+      "key": "reports.monthlyReport",
+      "sample": "Relatório Mensal"
+    },
+    {
+      "locale": "pt",
+      "key": "astrology.retrograde",
+      "sample": "Retrógrado"
+    },
+    {
+      "locale": "pt",
+      "key": "astrology.biorhythmCycles",
+      "sample": "Ciclos do Biorritmo"
+    },
+    {
+      "locale": "pt",
+      "key": "notifications.reminderLabel",
+      "sample": "Rótulo"
+    },
+    {
+      "locale": "pt",
+      "key": "paywall.feature3Desc",
+      "sample": "Relatórios detalhados do seu caminho espiritual"
+    },
+    {
+      "locale": "pt",
+      "key": "compatibility.addPartnerEnergy",
+      "sample": "Adicionar energia do parceiro"
+    },
+    {
+      "locale": "pt",
+      "key": "compatibility.partnerName",
+      "sample": "Nome do parceiro"
+    },
+    {
+      "locale": "pt",
+      "key": "compatibility.relationshipEnergy",
+      "sample": "Energia do relacionamento"
+    },
+    {
+      "locale": "pt",
+      "key": "journeys.nextStep",
+      "sample": "Próxima etapa"
+    },
+    {
+      "locale": "pt",
+      "key": "palmreading.lines.heart",
+      "sample": "Linha do Coração"
+    },
+    {
+      "locale": "pt",
+      "key": "palmreading.lines.fate",
+      "sample": "Linha do Destino"
+    },
+    {
+      "locale": "pt",
+      "key": "palmreading.lines.sun",
+      "sample": "Linha do Sol"
+    },
+    {
+      "locale": "pt",
+      "key": "sleephelper.story",
+      "sample": "História"
+    },
+    {
+      "locale": "pt",
+      "key": "stars.skyMap",
+      "sample": "Mapa do Céu"
+    },
+    {
+      "locale": "pt",
+      "key": "stars.yourZenith",
+      "sample": "Seu zênite"
+    },
+    {
+      "locale": "pt",
+      "key": "biorhythm.chartTitle",
+      "sample": "Gráfico do Biorritmo"
+    },
+    {
+      "locale": "pt",
+      "key": "data.decks.classicDesc",
+      "sample": "O baralho clássico mais preciso baseado na tradição Rider-Waite."
+    },
+    {
+      "locale": "pt",
+      "key": "data.decks.cosmic",
+      "sample": "Luz Cósmica"
+    },
+    {
+      "locale": "pt",
+      "key": "data.decks.cosmicDesc",
+      "sample": "Interpretação moderna e galáctica dos arquétipos do universo."
+    },
+    {
+      "locale": "pt",
+      "key": "data.rituals.morning_alignment.description",
+      "sample": "Breve meditação para definir a intenção do dia."
+    },
+    {
+      "locale": "pt",
+      "key": "data.rituals.candle_magic.description",
+      "sample": "Manifestação de um desejo através do elemento fogo."
+    },
+    {
+      "locale": "pt",
+      "key": "archetypes.2.title",
+      "sample": "Guardiã do mistério"
+    },
+    {
+      "locale": "pt",
+      "key": "archetypes.7.title",
+      "sample": "Vontade e vitória"
+    },
+    {
+      "locale": "pt",
+      "key": "archetypes.10.title",
+      "sample": "Ciclos do destino"
+    },
+    {
+      "locale": "pt",
+      "key": "sleepRitual.title",
+      "sample": "Ritual do Sono"
+    },
+    {
+      "locale": "pt",
+      "key": "fireCeremony.title",
+      "sample": "Cerimônia do Fogo"
+    },
+    {
+      "locale": "pt",
+      "key": "natalChart.eyebrow",
+      "sample": "MUNDO DO HORÓSCOPO"
+    },
+    {
+      "locale": "pt",
+      "key": "retrogrades.title",
+      "sample": "Retrógrados ℞"
+    },
+    {
+      "locale": "pt",
+      "key": "retrogrades.eyebrow",
+      "sample": "MUNDO DO HORÓSCOPO"
+    },
+    {
+      "locale": "pt",
+      "key": "signMeditation.title",
+      "sample": "Meditação do Signo"
+    },
+    {
+      "locale": "pt",
+      "key": "signMeditation.eyebrow",
+      "sample": "MUNDO DO HORÓSCOPO"
+    },
+    {
+      "locale": "pt",
+      "key": "signMeditation.tabAffirmations",
+      "sample": "Afirmações"
+    }
+  ]
+}

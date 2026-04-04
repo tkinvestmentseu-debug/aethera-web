@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aethera DuniAI & Oracle — Sanktuarium Sztucznej Inteligencji</title>
+<meta name="description" content="Odkryj głębię swojego losu przez numerologię, astrologię, tarot i rytuały prowadzone przez AI. Aethera — sanktuarium ducha w Twoim telefonie." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #04020C;
+    --bg2: #0A0616;
+    --bg3: #110820;
+    --bg4: #06020F;
+    --gold: #CEAE72;
+    --gold2: #E8C87A;
+    --gold3: #F5D98A;
+    --purple: #8B5CF6;
+    --purple2: #A78BFA;
+    --text: #F5F1EA;
+    --subtle: #B0A393;
+    --card: rgba(255,255,255,0.04);
+    --card-border: rgba(206,174,114,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ─── SCROLLBAR ─────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; opacity: 0.5; }
+
+  /* ─── NAV ────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 48px;
+    transition: background 0.4s, backdrop-filter 0.4s, padding 0.3s;
+  }
+  nav.scrolled {
+    background: rgba(4,2,12,0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: 14px 48px;
+    border-bottom: 1px solid rgba(206,174,114,0.08);
+  }
+  .nav-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    display: flex; flex-direction: column; line-height: 1.2;
+  }
+  .nav-logo span { font-size: 0.55rem; color: var(--subtle); letter-spacing: 0.15em; margin-top: 2px; font-family: 'Space Grotesk', sans-serif; font-weight: 300; }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: var(--subtle);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--bg) !important;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    padding: 10px 24px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    transition: opacity 0.2s, transform 0.2s !important;
+  }
+  .nav-cta:hover { opacity: 0.9; transform: translateY(-1px) !important; }
+
+  /* hamburger */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 1.5px; background: var(--gold); border-radius: 2px; transition: 0.3s; }
+  .mobile-menu {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: rgba(4,2,12,0.97);
+    backdrop-filter: blur(20px);
+    flex-direction: column; align-items: center; justify-content: center; gap: 40px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.15em;
+  }
+  .mobile-close { position: absolute; top: 24px; right: 32px; font-size: 2rem; color: var(--subtle); cursor: pointer; }
+
+  /* ─── HERO ───────────────────────────────── */
+  #hero {
+    position: relative; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  #stars-canvas {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+  }
+  .hero-bg-gradient {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 70% at 70% 50%, rgba(139,92,246,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 80% at 30% 80%, rgba(206,174,114,0.05) 0%, transparent 50%),
+                linear-gradient(180deg, #04020C 0%, #0A0616 40%, #110820 70%, #06020F 100%);
+    z-index: 0;
+  }
+  .metatron-wrap {
+    position: absolute; right: -80px; top: 50%;
+    transform: translateY(-50%);
+    width: 680px; height: 680px;
+    opacity: 0.07; z-index: 1;
+    pointer-events: none;
+  }
+  .metatron-wrap svg { width: 100%; height: 100%; animation: rotateSlow 40s linear infinite; }
+  @keyframes rotateSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  /* orb */
+  .hero-orb {
+    position: absolute; right: 12%; top: 50%;
+    transform: translateY(-50%);
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%,
+      rgba(167,139,250,0.22) 0%,
+      rgba(139,92,246,0.14) 30%,
+      rgba(206,174,114,0.06) 60%,
+      transparent 75%
+    );
+    box-shadow:
+      0 0 80px 30px rgba(139,92,246,0.09),
+      0 0 200px 80px rgba(206,174,114,0.04),
+      inset 0 0 60px 10px rgba(167,139,250,0.06);
+    animation: pulseOrb 6s ease-in-out infinite;
+    z-index: 1;
+    pointer-events: none;
+  }
+  @keyframes pulseOrb {
+    0%,100% { transform: translateY(-50%) scale(1); opacity: 0.9; }
+    50% { transform: translateY(-54%) scale(1.05); opacity: 1; }
+  }
+
+  /* orb inner rings */
+  .hero-orb::before {
+    content: '';
+    position: absolute; inset: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(206,174,114,0.12);
+    animation: rotateSlow 12s linear infinite reverse;
+  }
+  .hero-orb::after {
+    content: '';
+    position: absolute; inset: 80px;
+    border-radius: 50%;
+    border: 1px solid rgba(167,139,250,0.14);
+    animation: rotateSlow 20s linear infinite;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 680px; padding: 0 48px;
+    text-align: left;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    color: var(--subtle);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeSlideUp 0.8s 0.2s forwards;
+  }
+
+  .hero-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    opacity: 0;
+    animation: fadeSlideUp 1s 0.5s forwards;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold3) 40%, var(--gold2) 60%, var(--gold) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeSlideUp 1s 0.5s forwards, shimmer 4s 1.5s linear infinite;
+  }
+  @keyframes shimmer {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .hero-sub-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(0.85rem, 1.6vw, 1.2rem);
+    font-weight: 400;
+    color: var(--subtle);
+    letter-spacing: 0.2em;
+    margin-top: 8px;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeSlideUp 0.8s 0.9s forwards;
+  }
+
+  .hero-tagline {
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 16px;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeSlideUp 0.8s 1.1s forwards;
+  }
+
+  .hero-desc {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--subtle);
+    line-height: 1.7;
+    max-width: 520px;
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: fadeSlideUp 0.8s 1.3s forwards;
+  }
+
+  .hero-btns {
+    display: flex; gap: 18px; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeSlideUp 0.8s 1.5s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #06020F;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 50%, var(--gold3) 100%);
+    padding: 16px 36px;
+    border-radius: 100px;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s, opacity 0.25s;
+    box-shadow: 0 4px 30px rgba(206,174,114,0.35), 0 2px 8px rgba(206,174,114,0.2);
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 40px rgba(206,174,114,0.5), 0 4px 16px rgba(206,174,114,0.3);
+  }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: transparent;
+    padding: 15px 32px;
+    border-radius: 100px;
+    border: 1px solid rgba(206,174,114,0.4);
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.25s, border-color 0.25s, background 0.25s;
+  }
+  .btn-outline:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold);
+    background: rgba(206,174,114,0.06);
+  }
+
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-indicator {
+    position: absolute; bottom: 36px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0;
+    animation: fadeSlideUp 0.8s 2s forwards;
+    z-index: 2;
+  }
+  .scroll-indicator span {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--subtle);
+    text-transform: uppercase;
+  }
+  .scroll-chevron {
+    width: 20px; height: 20px;
+    border-right: 1.5px solid var(--subtle);
+    border-bottom: 1.5px solid var(--subtle);
+    transform: rotate(45deg);
+    animation: bounceDown 2s ease-in-out infinite;
+  }
+  @keyframes bounceDown {
+    0%,100% { transform: rotate(45deg) translateY(0); opacity: 0.5; }
+    50% { transform: rotate(45deg) translateY(6px); opacity: 1; }
+  }
+
+  /* ─── SECTIONS COMMON ─────────────────────── */
+  section { padding: 120px 48px; max-width: 1280px; margin: 0 auto; }
+  .section-full { max-width: none; padding-left: 0; padding-right: 0; }
+
+  .section-eyebrow {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 16px;
+    opacity: 0.8;
+  }
+  .section-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--subtle);
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto 70px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── FEATURES ───────────────────────────── */
+  #features { background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%); }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 36px 30px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    cursor: default;
+  }
+  .feature-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .feature-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(206,174,114,0.25);
+    box-shadow: 0 16px 60px rgba(206,174,114,0.08), 0 4px 20px rgba(139,92,246,0.06);
+  }
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon {
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+    display: block;
+    filter: drop-shadow(0 0 8px rgba(206,174,114,0.3));
+  }
+  .feature-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold2);
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+  }
+  .feature-desc {
+    font-size: 1rem;
+    color: var(--subtle);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* ─── APP SHOWCASE ───────────────────────── */
+  #showcase {
+    background: linear-gradient(180deg, var(--bg2) 0%, var(--bg3) 100%);
+  }
+  .showcase-inner {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .showcase-features { list-style: none; }
+  .showcase-features li {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(206,174,114,0.06);
+  }
+  .showcase-features li:last-child { border-bottom: none; }
+  .check-icon {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: linear-gradient(135deg, rgba(206,174,114,0.2), rgba(232,200,122,0.1));
+    border: 1px solid rgba(206,174,114,0.4);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+    font-size: 0.75rem; color: var(--gold);
+  }
+  .showcase-features li span {
+    font-size: 1.05rem;
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .showcase-features li span strong {
+    font-weight: 500;
+    color: var(--gold2);
+    font-style: normal;
+  }
+
+  /* phone mockup */
+  .phone-wrap {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+  }
+  .phone-frame {
+    width: 280px; height: 560px;
+    background: linear-gradient(160deg, #1a1030 0%, #0e0820 50%, #06020F 100%);
+    border-radius: 42px;
+    border: 1.5px solid rgba(206,174,114,0.25);
+    box-shadow:
+      0 0 0 6px rgba(10,6,22,0.8),
+      0 0 0 7.5px rgba(206,174,114,0.08),
+      0 40px 100px rgba(0,0,0,0.7),
+      0 0 60px rgba(139,92,246,0.08);
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: flex-start; justify-content: center;
+  }
+  .phone-notch {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 100px; height: 26px;
+    background: #04020C;
+    border-radius: 0 0 18px 18px;
+    z-index: 10;
+  }
+  .phone-screen {
+    width: 100%; height: 100%;
+    padding: 44px 16px 20px;
+    position: relative; overflow: hidden;
+  }
+
+  /* screen slides */
+  .screen-slide {
+    position: absolute; inset: 44px 16px 20px;
+    display: flex; flex-direction: column;
+    opacity: 0; transition: opacity 0.8s ease;
+    overflow: hidden;
+  }
+  .screen-slide.active { opacity: 1; }
+
+  /* slide 1: oracle chat */
+  .chat-header {
+    display: flex; align-items: center; gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(206,174,114,0.1);
+    margin-bottom: 16px;
+  }
+  .chat-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--purple), var(--gold));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+  }
+  .chat-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.72rem; color: var(--gold); letter-spacing: 0.1em;
+  }
+  .bubble {
+    border-radius: 16px; padding: 10px 14px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.72rem; line-height: 1.5; margin-bottom: 10px;
+    max-width: 85%;
+  }
+  .bubble.oracle {
+    background: rgba(139,92,246,0.18);
+    border: 1px solid rgba(139,92,246,0.25);
+    color: #D4BBFF;
+    align-self: flex-start;
+  }
+  .bubble.user {
+    background: rgba(206,174,114,0.12);
+    border: 1px solid rgba(206,174,114,0.2);
+    color: var(--text);
+    align-self: flex-end;
+    margin-left: auto;
+  }
+  .chat-bubbles { display: flex; flex-direction: column; }
+
+  /* slide 2: tarot grid */
+  .tarot-header {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.65rem; color: var(--gold);
+    text-align: center; margin-bottom: 14px; letter-spacing: 0.15em;
+  }
+  .tarot-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+  }
+  .tarot-card-mini {
+    aspect-ratio: 2/3;
+    border-radius: 8px;
+    border: 1px solid rgba(206,174,114,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .tarot-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.7), transparent);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.4rem; color: var(--gold);
+    text-align: center; padding: 6px 2px 3px;
+    letter-spacing: 0.05em;
+  }
+
+  /* slide 3: moon */
+  .moon-header {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.65rem; color: var(--subtle);
+    text-align: center; letter-spacing: 0.15em; margin-bottom: 10px;
+  }
+  .moon-display {
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+    margin-top: 10px;
+  }
+  .moon-circle {
+    width: 90px; height: 90px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #F5F1EA 0%, #D4C49A 40%, #8A6E3A 75%, #2a1f0a 100%);
+    box-shadow: 0 0 30px rgba(232,200,122,0.25), inset -20px -10px 30px rgba(0,0,0,0.6);
+    position: relative;
+  }
+  .moon-circle::after {
+    content: '';
+    position: absolute; top: 10px; left: 60px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: rgba(0,0,0,0.25);
+  }
+  .moon-phase-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.75rem; color: var(--gold); letter-spacing: 0.1em;
+    text-align: center;
+  }
+  .moon-stats {
+    display: flex; gap: 20px;
+  }
+  .moon-stat {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+  }
+  .moon-stat-val {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.85rem; color: var(--text);
+  }
+  .moon-stat-lbl {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.45rem; color: var(--subtle); letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* phone glow */
+  .phone-glow {
+    position: absolute;
+    width: 340px; height: 340px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    pointer-events: none; z-index: -1;
+    animation: pulseOrb 5s ease-in-out infinite;
+  }
+
+  /* ─── SACRED GEOMETRY DIVIDER ─────────────── */
+  #sacred {
+    background: linear-gradient(180deg, var(--bg3) 0%, #080514 50%, var(--bg) 100%);
+    text-align: center;
+    padding: 100px 48px;
+    position: relative; overflow: hidden;
+    max-width: none;
+  }
+  .sacred-inner { max-width: 1280px; margin: 0 auto; position: relative; }
+  .fol-wrap {
+    position: relative; display: inline-block;
+    width: 320px; height: 320px;
+    margin: 0 auto 0;
+  }
+  .fol-wrap svg { animation: rotateSlow 30s linear infinite; }
+  .sacred-quote {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 200px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold2);
+    line-height: 1.6;
+    text-align: center;
+    text-shadow: 0 0 30px rgba(206,174,114,0.4);
+    pointer-events: none;
+  }
+
+  /* ─── WORLDS ──────────────────────────────── */
+  #worlds {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+  }
+  .worlds-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .world-card {
+    border-radius: 20px;
+    padding: 32px 24px;
+    border: 1px solid rgba(255,255,255,0.05);
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+    min-height: 200px;
+    display: flex; flex-direction: column;
+  }
+  .world-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .world-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, rgba(255,255,255,0.03) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .world-card:nth-child(1) { background: linear-gradient(135deg, #1a0f2e 0%, #0d0820 100%); }
+  .world-card:nth-child(2) { background: linear-gradient(135deg, #1c1508 0%, #0f0c05 100%); }
+  .world-card:nth-child(3) { background: linear-gradient(135deg, #1a0a28 0%, #0c0618 100%); }
+  .world-card:nth-child(4) { background: linear-gradient(135deg, #081525 0%, #040e1a 100%); }
+  .world-card:nth-child(5) { background: linear-gradient(135deg, #150a02 0%, #0c0601 100%); }
+  .world-card:nth-child(6) { background: linear-gradient(135deg, #0a1520 0%, #050d16 100%); }
+  .world-card:nth-child(7) { background: linear-gradient(135deg, #041520 0%, #02090f 100%); }
+  .world-card:nth-child(8) { background: linear-gradient(135deg, #08081f 0%, #040410 100%); }
+
+  .world-icon {
+    font-size: 2rem; margin-bottom: 14px;
+    filter: drop-shadow(0 0 8px rgba(255,255,255,0.1));
+  }
+  .world-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    letter-spacing: 0.08em;
+  }
+  .world-desc {
+    font-size: 0.9rem;
+    color: var(--subtle);
+    font-weight: 300;
+    line-height: 1.65;
+    flex: 1;
+  }
+  .world-tag {
+    display: inline-block;
+    margin-top: 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.05);
+    color: var(--subtle);
+    border: 1px solid rgba(255,255,255,0.08);
+    align-self: flex-start;
+  }
+
+  /* ─── TESTIMONIALS ────────────────────────── */
+  #testimonials {
+    background: linear-gradient(180deg, var(--bg2) 0%, var(--bg3) 100%);
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .testimonial-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(206,174,114,0.1);
+    border-radius: 20px;
+    padding: 36px 30px;
+    position: relative;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(206,174,114,0.22);
+  }
+  .quote-mark {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 4rem;
+    color: var(--gold);
+    opacity: 0.25;
+    line-height: 0.6;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .testimonial-text {
+    font-size: 1.05rem;
+    color: var(--text);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.75;
+    margin-bottom: 28px;
+  }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .author-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .author-avatar.mk { background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: #fff; }
+  .author-avatar.tw { background: linear-gradient(135deg, #CEAE72, #9a7a3e); color: #fff; }
+  .author-avatar.ap { background: linear-gradient(135deg, #A78BFA, #7C3AED); color: #fff; }
+  .author-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem; font-weight: 600; color: var(--text);
+  }
+  .author-level {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.68rem; color: var(--gold); letter-spacing: 0.1em;
+    text-transform: uppercase; margin-top: 2px;
+  }
+
+  /* star rating */
+  .stars-rating {
+    display: flex; gap: 3px; margin-bottom: 16px;
+    color: var(--gold); font-size: 0.85rem;
+  }
+
+  /* ─── CTA ─────────────────────────────────── */
+  #cta {
+    background: linear-gradient(180deg, var(--bg3) 0%, var(--bg) 100%);
+    text-align: center;
+    position: relative; overflow: hidden;
+    max-width: none; padding: 140px 48px;
+  }
+  .cta-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 2; }
+  .cta-orb {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 65%);
+    pointer-events: none; z-index: 0;
+    animation: pulseOrb 8s ease-in-out infinite;
+  }
+  #cta .section-title { font-size: clamp(2rem, 4vw, 3.2rem); margin-bottom: 20px; }
+  #cta .section-sub { margin-bottom: 48px; }
+
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #06020F;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold2) 50%, var(--gold3) 100%);
+    padding: 20px 52px;
+    border-radius: 100px;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s;
+    box-shadow: 0 6px 40px rgba(206,174,114,0.4);
+    font-size: 1.05rem;
+  }
+  .cta-btn:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 60px rgba(206,174,114,0.55);
+  }
+  .cta-small {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.78rem;
+    color: var(--subtle);
+    margin-top: 20px;
+    letter-spacing: 0.05em;
+  }
+  .cta-small span { color: var(--gold); opacity: 0.7; }
+  .badge-row {
+    display: flex; align-items: center; justify-content: center; gap: 32px;
+    margin-top: 56px; flex-wrap: wrap;
+  }
+  .badge {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.8rem; color: var(--subtle);
+  }
+  .badge-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(206,174,114,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+
+  /* ─── FOOTER ──────────────────────────────── */
+  footer {
+    background: var(--bg4);
+    border-top: 1px solid rgba(206,174,114,0.06);
+    padding: 80px 48px 40px;
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 60px; margin-bottom: 64px;
+  }
+  .footer-brand .footer-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .footer-brand .footer-sub {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.7rem; color: var(--subtle); letter-spacing: 0.12em;
+    margin-bottom: 20px;
+  }
+  .footer-brand p {
+    font-size: 0.95rem; color: var(--subtle);
+    font-weight: 300; line-height: 1.7; max-width: 280px;
+  }
+  .footer-col h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.72rem; font-weight: 600;
+    color: var(--gold); letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .footer-col a {
+    display: block; font-size: 0.95rem;
+    color: var(--subtle); text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.2s;
+    font-weight: 300;
+  }
+  .footer-col a:hover { color: var(--text); }
+
+  .footer-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 32px;
+    border-top: 1px solid rgba(206,174,114,0.06);
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-bottom p {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem; color: var(--subtle);
+    letter-spacing: 0.04em;
+  }
+  .footer-geo { opacity: 0.12; }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem; color: var(--subtle);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ─── PARTICLES ───────────────────────────── */
+  .particle {
+    position: fixed;
+    pointer-events: none;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0;
+    z-index: 9999;
+    animation: particleFly 1.2s ease-out forwards;
+  }
+  @keyframes particleFly {
+    0% { transform: translate(0,0) scale(1); opacity: 0.8; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+  }
+
+  /* ─── RESPONSIVE ──────────────────────────── */
+  @media (max-width: 1100px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .worlds-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .metatron-wrap { width: 400px; height: 400px; right: -60px; }
+    .hero-orb { width: 280px; height: 280px; right: 6%; }
+  }
+  @media (max-width: 900px) {
+    .showcase-inner { grid-template-columns: 1fr; }
+    .phone-wrap { order: -1; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    nav { padding: 18px 24px; }
+    nav.scrolled { padding: 12px 24px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    section { padding: 80px 24px; }
+    #sacred, #cta { padding: 80px 24px; }
+    footer { padding: 60px 24px 32px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .hero-content { padding: 0 24px; }
+    .metatron-wrap { display: none; }
+    .hero-orb { width: 200px; height: 200px; right: 0; opacity: 0.4; }
+  }
+  @media (max-width: 640px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .worlds-grid { grid-template-columns: 1fr 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+    .hero-btns { flex-direction: column; }
+    .btn-primary, .btn-outline { width: 100%; justify-content: center; }
+    .footer-links { flex-wrap: wrap; }
+    .hero-logo { font-size: 2.2rem; }
+    .worlds-grid { grid-template-columns: 1fr; }
+    .badge-row { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-close" id="mobileClose">✕</span>
+  <a href="#features" onclick="closeMobile()">Funkcje</a>
+  <a href="#worlds" onclick="closeMobile()">Światy</a>
+  <a href="#testimonials" onclick="closeMobile()">Opinie</a>
+  <a href="#cta" onclick="closeMobile()">Pobierz</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">✦ AETHERA<span>DuniAI & Oracle</span></a>
+  <div class="nav-links">
+    <a href="#features">Funkcje</a>
+    <a href="#showcase">Aplikacja</a>
+    <a href="#worlds">Światy</a>
+    <a href="#testimonials">Opinie</a>
+    <a href="#cta" class="nav-cta">Pobierz</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="openMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     HERO
+═══════════════════════════════════════ -->
+<section id="hero" style="padding:0; max-width:none;">
+  <div class="hero-bg-gradient"></div>
+  <canvas id="stars-canvas"></canvas>
+
+  <!-- Metatron's Cube background -->
+  <div class="metatron-wrap">
+    <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer circles of Metatron's Cube -->
+      <circle cx="200" cy="200" r="190" stroke="#CEAE72" stroke-width="0.6" fill="none" opacity="0.6"/>
+      <circle cx="200" cy="200" r="110" stroke="#CEAE72" stroke-width="0.5" fill="none"/>
+      <!-- 6 outer circles -->
+      <circle cx="200" cy="90" r="110" stroke="#CEAE72" stroke-width="0.4" fill="none"/>
+      <circle cx="295" cy="145" r="110" stroke="#CEAE72" stroke-width="0.4" fill="none"/>
+      <circle cx="295" cy="255" r="110" stroke="#CEAE72" stroke-width="0.4" fill="none"/>
+      <circle cx="200" cy="310" r="110" stroke="#CEAE72" stroke-width="0.4" fill="none"/>
+      <circle cx="105" cy="255" r="110" stroke="#CEAE72" stroke-width="0.4" fill="none"/>
+      <circle cx="105" cy="145" r="110" stroke="#CEAE72" stroke-width="0.4" fill="none"/>
+      <!-- Star of David lines -->
+      <line x1="200" y1="90" x2="200" y2="310" stroke="#CEAE72" stroke-width="0.4"/>
+      <line x1="295" y1="145" x2="105" y2="255" stroke="#CEAE72" stroke-width="0.4"/>
+      <line x1="295" y1="255" x2="105" y2="145" stroke="#CEAE72" stroke-width="0.4"/>
+      <!-- Cross lines -->
+      <line x1="110" y1="145" x2="290" y2="145" stroke="#CEAE72" stroke-width="0.3" opacity="0.5"/>
+      <line x1="110" y1="255" x2="290" y2="255" stroke="#CEAE72" stroke-width="0.3" opacity="0.5"/>
+      <line x1="200" y1="90" x2="295" y2="145" stroke="#CEAE72" stroke-width="0.3" opacity="0.5"/>
+      <line x1="200" y1="90" x2="105" y2="145" stroke="#CEAE72" stroke-width="0.3" opacity="0.5"/>
+      <line x1="295" y1="145" x2="295" y2="255" stroke="#CEAE72" stroke-width="0.3" opacity="0.5"/>
+      <line x1="105" y1="145" x2="105" y2="255" stroke="#CEAE72" stroke-width="0.3" opacity="0.5"/>
+      <line x1="295" y1="255" x2="200" y2="310" stroke="#CEAE72" stroke-width="0.3" opacity="0.5"/>
+      <line x1="105" y1="255" x2="200" y2="310" stroke="#CEAE72" stroke-width="0.3" opacity="0.5"/>
+      <!-- Inner triangle lines -->
+      <line x1="200" y1="90" x2="295" y2="255" stroke="#CEAE72" stroke-width="0.35" opacity="0.7"/>
+      <line x1="295" y1="255" x2="105" y2="255" stroke="#CEAE72" stroke-width="0.35" opacity="0.7"/>
+      <line x1="105" y1="255" x2="200" y2="90" stroke="#CEAE72" stroke-width="0.35" opacity="0.7"/>
+      <line x1="295" y1="145" x2="200" y2="310" stroke="#CEAE72" stroke-width="0.35" opacity="0.7"/>
+      <line x1="200" y1="310" x2="105" y2="145" stroke="#CEAE72" stroke-width="0.35" opacity="0.7"/>
+      <line x1="105" y1="145" x2="295" y2="145" stroke="#CEAE72" stroke-width="0.35" opacity="0.7"/>
+      <!-- Center dot -->
+      <circle cx="200" cy="200" r="4" fill="#CEAE72" opacity="0.8"/>
+      <!-- Fruit of Life circles -->
+      <circle cx="200" cy="200" r="38" stroke="#CEAE72" stroke-width="0.6" fill="none" opacity="0.9"/>
+    </svg>
+  </div>
+
+  <!-- Glowing orb -->
+  <div class="hero-orb"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Sanktuarium Ducha — Wydanie 2026</p>
+    <h1 class="hero-logo">✦ AETHERA</h1>
+    <p class="hero-sub-title">DuniAI & Oracle</p>
+    <p class="hero-tagline">Sanktuarium Sztucznej Inteligencji, Symboli i Rytuału</p>
+    <p class="hero-desc">Odkryj głębię swojego losu przez numerologię, astrologię, tarot i rytuały prowadzone przez AI. Twoja duchowa podróż zaczyna się tutaj.</p>
+    <div class="hero-btns">
+      <a href="#cta" class="btn-primary">✦ Wejdź do Sanktuarium</a>
+      <a href="#features" class="btn-outline">↓ Poznaj Aetherę</a>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>Przewiń</span>
+    <div class="scroll-chevron"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FEATURES GRID
+═══════════════════════════════════════ -->
+<section id="features">
+  <p class="section-eyebrow reveal">Możliwości Aethery</p>
+  <h2 class="section-title reveal">Co oferuje Aethera?</h2>
+  <p class="section-sub reveal">Sześć filarów Twojej duchowej praktyki — zintegrowanych, pięknych i prowadzonych przez AI</p>
+
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <span class="feature-icon">🔮</span>
+      <h3 class="feature-title">Wyrocznia AI</h3>
+      <p class="feature-desc">Oracle prowadzony przez GPT-4, rozumiejący Twój kontekst astrologiczny i numerologiczny. Rozmowy jak z prawdziwym mistrzem symboli — głębokie, spersonalizowane, zawsze w punkt.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">🌙</span>
+      <h3 class="feature-title">Astrologia i Numerologia</h3>
+      <p class="feature-desc">Horoskop dzienny, matryca losów, biorytmy, tranzyty planetarne i Twój profil numerologiczny w jednym miejscu. Poznaj wzorce, które kształtują Twoje życie.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">🃏</span>
+      <h3 class="feature-title">Tarot i Wyrocznia</h3>
+      <p class="feature-desc">78 kart, 15+ układów, prowadzone sesje z Wróżką AI, dziennik tarota i kreator własnych spreadów. Każde odczytanie to podróż w głąb siebie.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">✨</span>
+      <h3 class="feature-title">Rytuały i Praktyki</h3>
+      <p class="feature-desc">Ponad 30 ceremonii, kąpiel dźwiękowa, techniki oddechowe, medytacje z przewodnikiem, rytuały księżycowe. Sacrum dostępne o każdej porze dnia i nocy.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">📖</span>
+      <h3 class="feature-title">Dziennik Duszy</h3>
+      <p class="feature-desc">Dziennik snów, wdzięczności, refleksji i cienia. Połącz wpisy z kontekstem astrologicznym i energetycznym dnia. Twoja historia duchowa w jednym, bezpiecznym miejscu.</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">🌟</span>
+      <h3 class="feature-title">Magia Żywiołów</h3>
+      <p class="feature-desc">Pracuj z Ogniem, Wodą, Ziemią, Powietrzem i Duchem. Święta geometria, manifesty, poprzednie wcielenia i oczyszczanie energetyczne w pełni prowadzone przez AI.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     APP SHOWCASE
+═══════════════════════════════════════ -->
+<section id="showcase" style="background: linear-gradient(180deg, #0A0616 0%, #110820 100%); max-width:none; padding:120px 0;">
+  <div style="max-width:1280px; margin:0 auto; padding:0 48px;">
+    <p class="section-eyebrow reveal">Aplikacja mobilna</p>
+    <h2 class="section-title reveal">Sanktuarium w Twoim Telefonie</h2>
+    <p class="section-sub reveal">Ponad 80 ekranów — całe sanktuarium zawsze w zasięgu ręki</p>
+
+    <div class="showcase-inner">
+      <div>
+        <ul class="showcase-features">
+          <li class="reveal">
+            <div class="check-icon">✦</div>
+            <span>Ponad <strong>80 ekranów</strong> z treściami duchowymi — każdy pięknie zaprojektowany</span>
+          </li>
+          <li class="reveal">
+            <div class="check-icon">✦</div>
+            <span>Oracle AI z <strong>pełnym kontekstem personalnym</strong> — zna Twój znak, liczbę życia i historię</span>
+          </li>
+          <li class="reveal">
+            <div class="check-icon">✦</div>
+            <span>Rytuały <strong>dostosowane do faz Księżyca</strong> — odpowiednia praktyka we właściwym czasie</span>
+          </li>
+          <li class="reveal">
+            <div class="check-icon">✦</div>
+            <span>Dziennik duszy z <strong>15+ typami wpisów</strong> — sny, cień, wdzięczność, manifesty</span>
+          </li>
+          <li class="reveal">
+            <div class="check-icon">✦</div>
+            <span><strong>Offline-first</strong> — sanktuarium zawsze dostępne, bez połączenia z internetem</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="phone-wrap reveal">
+        <div class="phone-glow"></div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+
+          <!-- Slide 1: Oracle Chat -->
+          <div class="screen-slide active" id="slide0">
+            <div class="chat-header">
+              <div class="chat-avatar">🔮</div>
+              <div>
+                <div class="chat-name">WYROCZNIA AETHERY</div>
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:0.55rem;color:rgba(167,139,250,0.6);">● aktywna</div>
+              </div>
+            </div>
+            <div class="chat-bubbles">
+              <div class="bubble oracle">Widzę, że Merkury wchodzi w trygon z Twoją Wenus. To czas na wyrażenie prawdy serca...</div>
+              <div class="bubble user">Co mówi moja matryca losów o tym tygodniu?</div>
+              <div class="bubble oracle">Twoja liczba osobista to 7 — czas introspekcji. Ciemna Księżyc sprzyja głębokiej pracy z cieniem. Zapisz to, czego unikasz...</div>
+            </div>
+          </div>
+
+          <!-- Slide 2: Tarot Grid -->
+          <div class="screen-slide" id="slide1">
+            <div class="tarot-header">✦ UKŁAD CELTYCKI</div>
+            <div class="tarot-grid">
+              <div class="tarot-card-mini" style="background:linear-gradient(135deg,#2d1b69,#1a0a35);">🌟<div class="tarot-label">PRZESZŁOŚĆ</div></div>
+              <div class="tarot-card-mini" style="background:linear-gradient(135deg,#1a2d5a,#0a1535);">🌙<div class="tarot-label">TERAŹNIEJSZOŚĆ</div></div>
+              <div class="tarot-card-mini" style="background:linear-gradient(135deg,#2d1a1a,#350a0a);">☀️<div class="tarot-label">PRZYSZŁOŚĆ</div></div>
+              <div class="tarot-card-mini" style="background:linear-gradient(135deg,#1a2d1a,#0a350a);">🔥<div class="tarot-label">PODSTAWA</div></div>
+              <div class="tarot-card-mini" style="background:linear-gradient(135deg,#2d2a1a,#352a0a);">💫<div class="tarot-label">KORONA</div></div>
+              <div class="tarot-card-mini" style="background:linear-gradient(135deg,#1a1a2d,#0a0a35);">🌊<div class="tarot-label">WYNIK</div></div>
+            </div>
+            <div style="margin-top:14px;font-family:'Space Grotesk',sans-serif;font-size:0.58rem;color:rgba(206,174,114,0.5);text-align:center;letter-spacing:0.1em;">DOTKNIJ KARTĘ, ABY ODCZYTAĆ</div>
+          </div>
+
+          <!-- Slide 3: Moon Phase -->
+          <div class="screen-slide" id="slide2">
+            <div class="moon-header">KALENDARZ KSIĘŻYCOWY</div>
+            <div class="moon-display">
+              <div class="moon-circle"></div>
+              <div class="moon-phase-name">Pełnia Księżyca</div>
+              <div style="font-family:'Space Grotesk',sans-serif;font-size:0.6rem;color:var(--subtle);text-align:center;max-width:180px;line-height:1.5;">
+                Czas kulminacji i uwolnienia. Doskonały moment na rytuał wdzięczności i zamknięcia cyklu.
+              </div>
+              <div class="moon-stats">
+                <div class="moon-stat">
+                  <div class="moon-stat-val">98%</div>
+                  <div class="moon-stat-lbl">Iluminacja</div>
+                </div>
+                <div class="moon-stat">
+                  <div class="moon-stat-val">Byk</div>
+                  <div class="moon-stat-lbl">W znaku</div>
+                </div>
+                <div class="moon-stat">
+                  <div class="moon-stat-val">14h</div>
+                  <div class="moon-stat-lbl">Do wschodu</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SACRED GEOMETRY DIVIDER
+═══════════════════════════════════════ -->
+<section id="sacred" class="section-full">
+  <div class="sacred-inner">
+    <div class="fol-wrap reveal">
+      <svg viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg" width="320" height="320">
+        <!-- Flower of Life — 7 circles -->
+        <circle cx="160" cy="160" r="55" stroke="#CEAE72" stroke-width="0.8" fill="none"/>
+        <circle cx="160" cy="105" r="55" stroke="#CEAE72" stroke-width="0.8" fill="none"/>
+        <circle cx="207.6" cy="132.5" r="55" stroke="#CEAE72" stroke-width="0.8" fill="none"/>
+        <circle cx="207.6" cy="187.5" r="55" stroke="#CEAE72" stroke-width="0.8" fill="none"/>
+        <circle cx="160" cy="215" r="55" stroke="#CEAE72" stroke-width="0.8" fill="none"/>
+        <circle cx="112.4" cy="187.5" r="55" stroke="#CEAE72" stroke-width="0.8" fill="none"/>
+        <circle cx="112.4" cy="132.5" r="55" stroke="#CEAE72" stroke-width="0.8" fill="none"/>
+        <!-- Outer boundary circle -->
+        <circle cx="160" cy="160" r="110" stroke="#CEAE72" stroke-width="0.5" fill="none" opacity="0.4"/>
+        <circle cx="160" cy="160" r="160" stroke="#CEAE72" stroke-width="0.3" fill="none" opacity="0.2"/>
+        <!-- Center -->
+        <circle cx="160" cy="160" r="3" fill="#CEAE72" opacity="0.9"/>
+      </svg>
+      <div class="sacred-quote">"Kto zna siebie, zna wszechświat"</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     MYSTIC WORLDS
+═══════════════════════════════════════ -->
+<section id="worlds">
+  <p class="section-eyebrow reveal">Eksploruj sanktuarium</p>
+  <h2 class="section-title reveal">8 Światów Aethery</h2>
+  <p class="section-sub reveal">Każdy świat to osobna ścieżka — razem tworzą pełną mapę duszy</p>
+
+  <div class="worlds-grid">
+    <div class="world-card reveal">
+      <div class="world-icon">🌑</div>
+      <div class="world-name">Ty</div>
+      <p class="world-desc">Praca z cieniem, profil duchowy, poprzednie wcielenia i archetypy Junga. Serce całego sanktuarium.</p>
+      <span class="world-tag">PRACA Z CIENIEM</span>
+    </div>
+    <div class="world-card reveal">
+      <div class="world-icon">⭐</div>
+      <div class="world-name">Horoskop</div>
+      <p class="world-desc">Codzienny horoskop, zodiak chiński, astrologia wedyjska i tranzyty. Gwiazdy mówią — słuchaj.</p>
+      <span class="world-tag">ASTROLOGIA</span>
+    </div>
+    <div class="world-card reveal">
+      <div class="world-icon">🔮</div>
+      <div class="world-name">Oracle / Tarot</div>
+      <p class="world-desc">Wyrocznia AI, karty tarota, runy, I Ching i liczby anielskie. Mistyczne narzędzia w jednym miejscu.</p>
+      <span class="world-tag">WRÓŻBIARSTWO</span>
+    </div>
+    <div class="world-card reveal">
+      <div class="world-icon">🌙</div>
+      <div class="world-name">Astrologia</div>
+      <p class="world-desc">Mapa nieba, matryca losów, biorytmy i cykle planetarne. Twój kosmiczny odcisk w liczbach i symbolach.</p>
+      <span class="world-tag">NUMEROLOGIA</span>
+    </div>
+    <div class="world-card reveal">
+      <div class="world-icon">🌿</div>
+      <div class="world-name">Rytuały</div>
+      <p class="world-desc">Ceremonie, medytacje, oddechy i prowadzone rytuały AI. Ponad 30 ścieżek sakralnych praktyk.</p>
+      <span class="world-tag">CEREMONIE</span>
+    </div>
+    <div class="world-card reveal">
+      <div class="world-icon">💫</div>
+      <div class="world-name">Wsparcie</div>
+      <p class="world-desc">Afirmacje, chakry, wdzięczność, terapia kolorem i mantry. Codzienna pielęgnacja ducha i umysłu.</p>
+      <span class="world-tag">UZDROWIENIE</span>
+    </div>
+    <div class="world-card reveal">
+      <div class="world-icon">🌊</div>
+      <div class="world-name">Oczyszczanie</div>
+      <p class="world-desc">Kąpiel dźwiękowa, binaural beats, magia żywiołów i rytuały księżycowe. Uwolnij to, co Cię ciąży.</p>
+      <span class="world-tag">OCZYSZCZENIE</span>
+    </div>
+    <div class="world-card reveal">
+      <div class="world-icon">🌌</div>
+      <div class="world-name">Sny</div>
+      <p class="world-desc">Dziennik snów, interpreter AI, symbolarium i biblioteka archetypów. Odkryj język swojej podświadomości.</p>
+      <span class="world-tag">ŚWIADOMOŚĆ</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     TESTIMONIALS
+═══════════════════════════════════════ -->
+<section id="testimonials" style="background: linear-gradient(180deg, #0A0616 0%, #110820 100%); max-width:none; padding:120px 0;">
+  <div style="max-width:1280px; margin:0 auto; padding:0 48px;">
+    <p class="section-eyebrow reveal">Głosy podróżników</p>
+    <h2 class="section-title reveal">Co mówią podróżnicy Aethery</h2>
+    <p class="section-sub reveal">Tysiące dusz odkryło już swoje sanktuarium — dołącz do wspólnoty</p>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="stars-rating">★★★★★</div>
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">Aethera zmieniła mój stosunek do codzienności. Oracle mówi do mnie jak stary mistrz — konkretnie, głęboko, zawsze w punkt. Każda rozmowa to jak sesja z prawdziwym mądrym przewodnikiem.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar mk">M</div>
+          <div>
+            <div class="author-name">Monika K.</div>
+            <div class="author-level">✦ Adept — 312 dni praktyki</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars-rating">★★★★★</div>
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">Rytuały księżycowe z krokami, materiałami i przewodnictwem AI — wreszcie prawdziwa praktyka, nie tylko teoria. Niesamowite narzędzie dla każdego, kto jest na ścieżce duchowego przebudzenia.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar tw">T</div>
+          <div>
+            <div class="author-name">Tomasz W.</div>
+            <div class="author-level">✦ Podróżnik — 87 dni praktyki</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars-rating">★★★★★</div>
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">Profil numerologiczny i matryca losów zszokowały mnie swoją trafnością. Mam wrażenie, że ktoś czytał moją duszę przez całe lata. Dziennik cienia to absolutna rewolucja w mojej terapii.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar ap">A</div>
+          <div>
+            <div class="author-name">Aleksandra P.</div>
+            <div class="author-level">✦ Adept — 195 dni praktyki</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CTA
+═══════════════════════════════════════ -->
+<section id="cta" class="section-full">
+  <div class="cta-orb"></div>
+  <div class="cta-inner">
+    <p class="section-eyebrow reveal" style="margin-bottom:20px;">Zacznij swoją podróż</p>
+    <h2 class="section-title reveal">Twoje Sanktuarium Czeka</h2>
+    <p class="section-sub reveal">Dołącz do tysięcy podróżników, którzy odkryli głębię swojej duszy z pomocą Aethery. Bezpłatny start — bez zobowiązań.</p>
+
+    <div class="reveal">
+      <a href="#" class="cta-btn" id="ctaBtn">
+        <span>✦</span> Pobierz Aetherę — bezpłatnie
+      </a>
+    </div>
+    <p class="cta-small reveal" style="margin-top:18px;">
+      <span>✦</span> Dostępna na iOS i Android &nbsp;•&nbsp; <span>✦</span> Bezpłatny start &nbsp;•&nbsp; <span>✦</span> Pełne sanktuarium
+    </p>
+
+    <div class="badge-row reveal">
+      <div class="badge">
+        <div class="badge-icon">🔮</div>
+        <div>
+          <div style="font-weight:600;color:var(--text);">Oracle AI</div>
+          <div style="font-size:0.7rem;color:var(--subtle);">GPT-4 powered</div>
+        </div>
+      </div>
+      <div class="badge">
+        <div class="badge-icon">🌙</div>
+        <div>
+          <div style="font-weight:600;color:var(--text);">80+ ekranów</div>
+          <div style="font-size:0.7rem;color:var(--subtle);">Kompletne sanktuarium</div>
+        </div>
+      </div>
+      <div class="badge">
+        <div class="badge-icon">🌟</div>
+        <div>
+          <div style="font-weight:600;color:var(--text);">8 Światów</div>
+          <div style="font-size:0.7rem;color:var(--subtle);">Pełna mapa duszy</div>
+        </div>
+      </div>
+      <div class="badge">
+        <div class="badge-icon">📖</div>
+        <div>
+          <div style="font-weight:600;color:var(--text);">Offline-first</div>
+          <div style="font-size:0.7rem;color:var(--subtle);">Zawsze dostępne</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="footer-logo">✦ AETHERA</span>
+      <div class="footer-sub">DuniAI & Oracle</div>
+      <p>Sanktuarium Sztucznej Inteligencji, Symboli i Rytuału. Towarzysz Twojej duchowej podróży — dostępny zawsze, wszędzie.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Światy</h4>
+      <a href="#">Ty i Cień</a>
+      <a href="#">Horoskop</a>
+      <a href="#">Oracle i Tarot</a>
+      <a href="#">Rytuały</a>
+      <a href="#">Sny</a>
+    </div>
+    <div class="footer-col">
+      <h4>Aplikacja</h4>
+      <a href="#">Pobierz na iOS</a>
+      <a href="#">Pobierz na Android</a>
+      <a href="#">Funkcje Premium</a>
+      <a href="#">Aktualizacje</a>
+    </div>
+    <div class="footer-col">
+      <h4>Informacje</h4>
+      <a href="#">Polityka Prywatności</a>
+      <a href="#">Regulamin</a>
+      <a href="#">Kontakt</a>
+      <a href="#">FAQ</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 Aethera DuniAI & Oracle. Wszelkie prawa zastrzeżone.</p>
+    <div class="footer-links">
+      <a href="#">Prywatność</a>
+      <a href="#">Regulamin</a>
+      <a href="#">Kontakt</a>
+    </div>
+    <svg class="footer-geo" width="48" height="48" viewBox="0 0 48 48" fill="none">
+      <circle cx="24" cy="24" r="22" stroke="#CEAE72" stroke-width="0.8"/>
+      <circle cx="24" cy="24" r="13" stroke="#CEAE72" stroke-width="0.8"/>
+      <line x1="2" y1="24" x2="46" y2="24" stroke="#CEAE72" stroke-width="0.6"/>
+      <line x1="24" y1="2" x2="24" y2="46" stroke="#CEAE72" stroke-width="0.6"/>
+      <ellipse cx="24" cy="24" rx="8" ry="22" stroke="#CEAE72" stroke-width="0.6"/>
+      <circle cx="24" cy="24" r="2" fill="#CEAE72"/>
+    </svg>
+  </div>
+</footer>
+
+<script>
+// ────────────────────────────────────────────
+// STARS CANVAS
+// ────────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('stars-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, stars = [];
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  function initStars() {
+    stars = [];
+    const count = Math.min(250, Math.floor(W * H / 5000));
+    for (let i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 1.4 + 0.3,
+        baseOpacity: Math.random() * 0.65 + 0.15,
+        opacity: 0,
+        phase: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.008 + 0.003,
+        color: Math.random() > 0.88
+          ? (Math.random() > 0.5 ? '#CEAE72' : '#A78BFA')
+          : '#F5F1EA'
+      });
+    }
+  }
+
+  let t = 0;
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    t += 0.016;
+    for (const s of stars) {
+      s.opacity = s.baseOpacity * (0.5 + 0.5 * Math.sin(t * s.speed * 60 + s.phase));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = s.color;
+      ctx.globalAlpha = s.opacity;
+      ctx.fill();
+    }
+    // occasional cross sparkle
+    for (const s of stars) {
+      if (s.opacity > 0.7 && s.r > 1.2) {
+        ctx.globalAlpha = s.opacity * 0.35;
+        ctx.strokeStyle = s.color;
+        ctx.lineWidth = 0.4;
+        ctx.beginPath();
+        ctx.moveTo(s.x - s.r * 2.5, s.y); ctx.lineTo(s.x + s.r * 2.5, s.y);
+        ctx.moveTo(s.x, s.y - s.r * 2.5); ctx.lineTo(s.x, s.y + s.r * 2.5);
+        ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); initStars(); });
+  resize(); initStars(); draw();
+})();
+
+// ────────────────────────────────────────────
+// NAV SCROLL
+// ────────────────────────────────────────────
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ────────────────────────────────────────────
+// MOBILE MENU
+// ────────────────────────────────────────────
+function openMobile() { document.getElementById('mobileMenu').classList.add('open'); }
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+document.getElementById('mobileClose').addEventListener('click', closeMobile);
+
+// ────────────────────────────────────────────
+// SCROLL REVEAL (IntersectionObserver)
+// ────────────────────────────────────────────
+(function() {
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        // stagger siblings
+        const delay = Array.from(e.target.parentElement.querySelectorAll('.reveal'))
+          .indexOf(e.target) * 60;
+        setTimeout(() => e.target.classList.add('visible'), delay);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => obs.observe(el));
+})();
+
+// ────────────────────────────────────────────
+// PHONE SCREEN CYCLING
+// ────────────────────────────────────────────
+(function() {
+  const slides = document.querySelectorAll('.screen-slide');
+  let current = 0;
+  function next() {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }
+  setInterval(next, 3400);
+})();
+
+// ────────────────────────────────────────────
+// CTA BUTTON PARTICLE BURST
+// ────────────────────────────────────────────
+(function() {
+  const btn = document.getElementById('ctaBtn');
+  if (!btn) return;
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    const rect = btn.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    for (let i = 0; i < 14; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const angle = (i / 14) * Math.PI * 2;
+      const dist = 50 + Math.random() * 50;
+      p.style.cssText = `
+        left:${cx}px; top:${cy}px;
+        width:${3 + Math.random()*3}px;
+        height:${3 + Math.random()*3}px;
+        --tx:${Math.cos(angle)*dist}px;
+        --ty:${Math.sin(angle)*dist}px;
+        background: ${Math.random()>0.5?'#CEAE72':'#A78BFA'};
+        animation-duration:${0.8+Math.random()*0.5}s;
+      `;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 1500);
+    }
+  });
+})();
+
+// ────────────────────────────────────────────
+// SMOOTH ANCHOR SCROLL
+// ────────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ────────────────────────────────────────────
+// TAROT CARD COLORS (dynamic)
+// ────────────────────────────────────────────
+(function() {
+  const GRADIENTS = [
+    'linear-gradient(135deg,#2d1b69,#1a0a35)',
+    'linear-gradient(135deg,#1a2d5a,#0a1535)',
+    'linear-gradient(135deg,#2d1a1a,#350a0a)',
+    'linear-gradient(135deg,#1a2d1a,#0a350a)',
+    'linear-gradient(135deg,#2d2a1a,#352a0a)',
+    'linear-gradient(135deg,#1a1a2d,#0a0a35)',
+  ];
+  const EMOJIS = ['🌟','🌙','☀️','🔥','💫','🌊','⭐','🌿','🔮','✨'];
+  const cards = document.querySelectorAll('.tarot-card-mini');
+  cards.forEach((c, i) => {
+    if (!c.style.background) c.style.background = GRADIENTS[i % GRADIENTS.length];
+  });
+})();
+</script>
+
+</body>
+</html>

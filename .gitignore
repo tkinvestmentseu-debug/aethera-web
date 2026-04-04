@@ -2,12 +2,14 @@
 
 # dependencies
 node_modules/
+.pnpm-store/
 
 # Expo
 .expo/
 dist/
 web-build/
 expo-env.d.ts
+.android-home/
 
 # Native
 .kotlin/
@@ -25,13 +27,26 @@ expo-env.d.ts
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+*.log
 
 # macOS
 .DS_Store
 *.pem
 
+# editors
+.idea/
+.claude/
+
+# temp and local scratch
+.tmp/
+tmp/
+temp/
+
 # local env files
+.env
 .env*.local
+.env.local
+.env.production
 
 # typescript
 *.tsbuildinfo
@@ -39,3 +54,33 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Local API keys (DO NOT COMMIT)
+API.txt
+Gkey.txt
+
+# API key bridge file
+src/core/config/projectApi.ts
+
+# local backups and experiments
+*.bak
+*.bak_*
+*.bak*
+__*.txt
+dump_*.txt
+t.txt
+test_*.txt
+SoulversesrcscreensWeeklyReportScreen.tsx
+
+# local repair / diagnostic scripts
+fix_*.ps1
+android_expo_runtime_diag.ps1
+restore_app.js
+scan_*.py
+gen_*.py
+__write_tcv.py
+
+# QA and runtime reports
+QA_RUNTIME_REPORTS/
+qa_output/
+qa_v2/

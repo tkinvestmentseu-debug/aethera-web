@@ -1,30 +1,77 @@
 {
   "expo": {
-    "name": "SoulVerseExpo",
-    "slug": "SoulVerseExpo",
+    "name": "Aethera DuniAI & Oracle",
+    "slug": "aethera",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#010106"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aethera.app",
+      "jsEngine": "hermes",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "buildNumber": "1"
     },
     "android": {
+      "package": "com.aethera.app",
+      "jsEngine": "hermes",
+      "enableProguardInReleaseBuilds": true,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
+      ],
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Aethera używa biblioteki zdjęć tylko po to, by dodać osobisty portret do Twojego sanktuarium.",
+          "cameraPermission": "Aethera może użyć aparatu, aby stworzyć osobisty portret dla Twojego sanktuarium."
+        }
+      ],
+      "expo-font",
+      "expo-audio",
+      "@react-native-community/datetimepicker",
+      "expo-asset",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#010106",
+          "sounds": []
+        }
+      ]
+    ],
+    "backgroundColor": "#010106",
+    "scheme": "aethera",
+    "assetBundlePatterns": [
+      "assets/**/*"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "1d091bde-98e5-4ee4-89c1-f9cfc947f027"
+      }
     }
   }
 }

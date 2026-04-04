@@ -1,0 +1,1373 @@
+{
+  "common": {
+    "appName": "Aethera",
+    "back": "Назад",
+    "next": "Далее",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "close": "Закрыть",
+    "send": "Отправить",
+    "loading": "Связь с вселенной...",
+    "error": "Что-то пошло не так",
+    "retry": "Повторить",
+    "done": "Готово",
+    "start": "Начать",
+    "stop": "Остановить",
+    "pause": "Пауза",
+    "resume": "Продолжить",
+    "continue": "Продолжить",
+    "skip": "Пропустить",
+    "share": "Поделиться",
+    "delete": "Удалить",
+    "edit": "Изменить",
+    "add": "Добавить",
+    "yes": "Да",
+    "no": "Нет",
+    "ok": "Ок",
+    "or": "или",
+    "and": "и",
+    "for_someone": "Для кого-то",
+    "anonymous": "Анонимно",
+    "publish": "Опубликовать",
+    "generate": "Сгенерировать",
+    "interpret": "Интерпретировать",
+    "ai_thinking": "Оракул размышляет...",
+    "session_complete": "Сессия завершена",
+    "minutes": "минут",
+    "seconds": "секунд",
+    "hours": "часов",
+    "days": "дней",
+    "streak": "серия",
+    "level": "уровень",
+    "premium": "Премиум",
+    "free": "Бесплатно",
+    "now": "сейчас",
+    "today": "сегодня",
+    "yesterday": "вчера",
+    "week": "неделя",
+    "month": "месяц",
+    "morning": "утро",
+    "afternoon": "день",
+    "evening": "вечер",
+    "night": "ночь",
+    "greeting_morning": "Доброе утро, светлая душа",
+    "greeting_afternoon": "Добрый день, странник",
+    "greeting_evening": "Добрый вечер, существо света",
+    "greeting_night": "Доброй ночи, мечтающий дух",
+    "localeCode": "ru-RU",
+    "welcome": "Добро пожаловать, Путник",
+    "welcome_sub": "Ваше внутреннее путешествие продолжается",
+    "noData": "Нет данных",
+    "seeAll": "Смотреть все",
+    "confirm": "ПОДТВЕРДИТЬ",
+    "reset": "СБРОСИТЬ",
+    "clear": "ОЧИСТИТЬ",
+    "search": "Поиск",
+    "filter": "Фильтр",
+    "sort": "Сортировка",
+    "refresh": "ОБНОВИТЬ",
+    "copied": "Скопировано",
+    "copy": "КОПИРОВАТЬ"
+  },
+  "nav": {
+    "portal": "Портал",
+    "worlds": "Миры",
+    "oracle": "Оракул",
+    "notifications": "Уведомления",
+    "profile": "Профиль",
+    "community": "Сообщество"
+  },
+  "tabs": {
+    "home": "Сегодня",
+    "tarot": "Таро",
+    "oracle": "Оракул",
+    "matrix": "Матрица",
+    "profile": "Профиль",
+    "stars": "Звёзды",
+    "portal": "Портал",
+    "worlds": "Миры",
+    "notifications": "Уведомления",
+    "community": "Сообщество"
+  },
+  "onboarding": {
+    "language_title": "Выберите язык",
+    "language_subtitle": "На каком языке говорит ваша душа?",
+    "language_full": "Полная поддержка",
+    "language_limited": "Ограниченная поддержка",
+    "language_coming_soon": "Скоро",
+    "name_title": "Как вас зовут?",
+    "name_placeholder": "Ваше духовное имя",
+    "name_hint": "Ваше имя будет направлять оракул",
+    "birthdate_title": "Когда вы родились?",
+    "birthdate_hint": "Дата рождения раскрывает вашу судьбу",
+    "birthplace_title": "Где вы родились?",
+    "birthplace_placeholder": "Город рождения",
+    "birthplace_hint": "Место рождения уточняет вашу натальную карту",
+    "level_title": "Каков ваш духовный уровень?",
+    "level_subtitle": "Мы персонализируем ваш путь",
+    "level_beginner": "Начинающий",
+    "level_beginner_sub": "Я только начинаю свой путь",
+    "level_seeker": "Искатель",
+    "level_seeker_sub": "Я исследую духовные практики",
+    "level_practitioner": "Практик",
+    "level_practitioner_sub": "У меня есть регулярная практика",
+    "level_master": "Мастер",
+    "level_master_sub": "Я глубоко укоренён в своём пути",
+    "theme_title": "Выберите визуальную тему",
+    "begin": "Начать путешествие",
+    "step_of": "{{step}} / {{total}}",
+    "welcome": "Добро пожаловать в Aethera",
+    "welcome_sub": "Ваше цифровое святилище для роста души",
+    "continue_btn": "Продолжить",
+    "chooseLanguage": "Выбрать язык",
+    "languageDesc": "Выберите язык для вашего духовного опыта",
+    "yourBirth": "Ваше рождение",
+    "birthDesc": "Звёзды помнят момент вашего прихода",
+    "yourName": "Ваше имя",
+    "namePlaceholder": "Введите ваше имя",
+    "birthDate": "Дата рождения",
+    "yourPath": "Ваш путь",
+    "pathDesc": "Какова ваша цель в Aethera?",
+    "whatAreYouLookingFor": "Что вы ищете?",
+    "yourExperienceLevel": "Ваш уровень опыта",
+    "aiGuideStyle": "Стиль ИИ-проводника",
+    "intentions": {
+      "love": "Любовь",
+      "career": "Карьера",
+      "peace": "Внутренний покой",
+      "growth": "Рост",
+      "spirituality": "Духовность"
+    },
+    "styles": {
+      "mystical": "Мистический",
+      "gentle": "Мягкий",
+      "direct": "Прямой",
+      "reflective": "Рефлексивный"
+    },
+    "themes": {
+      "mysticGold": "Мистическое золото",
+      "cosmicViolet": "Космический фиолет",
+      "moonlightSilver": "Лунное серебро",
+      "roseLove": "Розовая любовь",
+      "emeraldSpirit": "Изумрудный дух",
+      "midnightPremium": "Полночный премиум",
+      "ivoryLight": "Слоновая кость",
+      "royalPurple": "Королевский пурпур",
+      "celestialBlue": "Небесный синий"
+    },
+    "portalOpen": "Портал открыт",
+    "portalDesc": "Ваш путь трансформации начинается сейчас",
+    "enterAethera": "Войти в Aethera",
+    "vibrationDesc": "Выберите эстетику, которая наиболее резонирует с вашей энергией.",
+    "chooseVibration": "Выберите свою вибрацию"
+  },
+  "home": {
+    "worlds": {
+      "self": "Я",
+      "self_desc": "Исследуй свою внутреннюю сущность",
+      "horoscope": "Гороскоп",
+      "horoscope_desc": "Читай послания звёзд",
+      "oracle": "Оракул",
+      "oracle_desc": "Ищи божественное руководство",
+      "astrology": "Астрология",
+      "astrology_desc": "Понимай космические циклы",
+      "support": "Поддержка",
+      "support_desc": "Инструменты для исцеления и равновесия",
+      "cleansing": "Очищение",
+      "cleansing_desc": "Отпусти то, что больше не служит тебе",
+      "rituals": "Ритуалы",
+      "rituals_desc": "Священные практики на каждый день",
+      "community": "Сообщество",
+      "community_desc": "Души в пути вместе"
+    },
+    "greeting": "Добро пожаловать, светлая душа",
+    "today_date": "Ваш духовный день",
+    "quick_actions": "Быстрые действия",
+    "magicOfDay": "Магия дня",
+    "tarotOracle": "Таро-оракул",
+    "tarotOracleDesc": "Позвольте картам говорить с вашей душой",
+    "startRitual": "Начать ритуал",
+    "yourEnergy": "Ваша энергия",
+    "moonPhase": "Фаза луны",
+    "powerAffirmation": "Аффирмация силы",
+    "yourPractices": "Ваши практики",
+    "soulPath": "Путь души",
+    "startTransformation": "Начать трансформацию",
+    "dailyRitual": "Ежедневный ритуал",
+    "reflectionJournal": "Дневник размышлений",
+    "saveInsights": "Сохранить озарения",
+    "exploration": "Исследование",
+    "soulLibrary": "Библиотека души",
+    "dreamBook": "Книга сновидений",
+    "reports": "Отчёты",
+    "continueJourney": "Продолжить путешествие",
+    "oracleWhisper": "Шёпот оракула",
+    "practices": "Практики",
+    "recommendedForYou": "Рекомендовано для вас",
+    "dailyAlignment": "Ежедневное выравнивание",
+    "allPractices": "Все практики",
+    "synastry": "Синастрия",
+    "yourConstellation": "Ваше созвездие",
+    "checkEmotions": "Проверить эмоции",
+    "trackEnergy": "Как вы себя чувствуете сейчас? Отследите свою энергию.",
+    "homeDesc": "Пусть это пространство станет зеркалом вашей внутренней истины.",
+    "resumeConversation": "Продолжить разговор",
+    "recentReflection": "Последнее размышление",
+    "mantraOfDay": "МАНТРА ДНЯ",
+    "affirmationsTitle": "Аффирмации",
+    "nextStep": "СЛЕДУЮЩИЙ ШАГ",
+    "continuationSection": "ПРОДОЛЖЕНИЕ",
+    "seeMore": "ЕЩЁ",
+    "todayProgress": "Ваш прогресс сегодня",
+    "keepGoing": "Продолжайте!",
+    "startYourDay": "Начните день с намерения"
+  },
+  "portal": {
+    "daily_affirmation": "Аффирмация дня",
+    "moon_phase": "Фаза луны",
+    "favorites": "Избранное",
+    "quick_links": "Быстрый доступ",
+    "add_favorites": "Добавить в избранное",
+    "widgets": "Виджеты",
+    "no_favorites": "Пока нет избранного. Исследуй и сохраняй то, что резонирует.",
+    "greeting_morning": "Доброе утро, существо света",
+    "greeting_afternoon": "Добрый день, блуждающая душа",
+    "greeting_evening": "Добрый вечер, мудрый дух",
+    "greeting_night": "Доброй ночи, странник",
+    "editWidgets": "Редактировать виджеты",
+    "dailyCrystal": "Кристалл дня",
+    "chakraFocus": "Фокус чакры",
+    "breathingReminder": "Напоминание о дыхании",
+    "energyForecast": "Прогноз энергии",
+    "gratitudeStreak": "Полоса благодарности",
+    "portalTitle": "Портал Aethera",
+    "yourSanctuary": "Ваше святилище"
+  },
+  "oracle": {
+    "title": "Оракул",
+    "subtitle": "Ваш персональный духовный проводник",
+    "welcome": "Добро пожаловать в покои оракула",
+    "chat_placeholder": "Спросите оракул...",
+    "thinking": "Оракул размышляет...",
+    "historyTitle": "Предыдущие сессии",
+    "noHistory": "Нет предыдущих сессий",
+    "closeSession": "Закрыть сессию",
+    "topicsTitle": "Предлагаемые темы",
+    "askPlaceholder": "О чём вы хотите поразмышлять?",
+    "modes": {
+      "daily_wisdom": "Мудрость дня",
+      "daily_wisdom_sub": "Руководство для вашего дня",
+      "soul_guide": "Проводник души",
+      "soul_guide_sub": "Соединитесь со своей глубинной сущностью",
+      "shadow_oracle": "Оракул тени",
+      "shadow_oracle_sub": "Исследуйте скрытое",
+      "cosmic_timing": "Космический выбор времени",
+      "cosmic_timing_sub": "Когда действовать, когда ждать",
+      "dream_decoder": "Дешифровщик снов",
+      "dream_decoder_sub": "Раскройте ночные послания",
+      "relationship": "Отношения",
+      "relationship_sub": "Динамика сердца и души",
+      "past_lives": "Прошлые жизни",
+      "past_lives_sub": "Кармические отголоски из вечности",
+      "higher_self": "Высшее Я",
+      "higher_self_sub": "Ваша просветлённая версия ведёт вас"
+    },
+    "starters": {
+      "energy": "Какова моя энергия сегодня?",
+      "relationship": "Чему учит меня эта связь?",
+      "abundance": "Как привлечь изобилие?"
+    },
+    "for_someone": "Для кого-то",
+    "enter_name": "Введите имя",
+    "clear": "Очистить",
+    "copy_response": "Скопировать ответ",
+    "new_session": "Новая сессия",
+    "expertModes": "ЭКСПЕРТНЫЕ РЕЖИМЫ",
+    "basicModes": "БАЗОВЫЕ РЕЖИМЫ",
+    "startSession": "НАЧАТЬ СЕССИЮ",
+    "continueSession": "ПРОДОЛЖИТЬ"
+  },
+  "tarot": {
+    "title": "Таро",
+    "draw_card": "Вытащить карту",
+    "your_card": "Ваша карта",
+    "reversed": "Перевёрнутая",
+    "upright": "Прямая",
+    "for_someone": "Для кого-то",
+    "interpret": "Интерпретировать",
+    "yourTools": "ВАШИ ИНСТРУМЕНТЫ",
+    "chooseDeck": "Выберите колоду",
+    "spreads": {
+      "daily_card": {
+        "name": "Карта дня"
+      },
+      "celtic_cross": {
+        "name": "Кельтский крест"
+      },
+      "past_present_future": {
+        "name": "Прошлое, Настоящее, Будущее"
+      },
+      "love_spread": {
+        "name": "Расклад на любовь"
+      },
+      "career_success": {
+        "name": "Карьерный путь"
+      },
+      "yes_no": {
+        "name": "Оракул Да/Нет"
+      }
+    },
+    "decks": {
+      "classic": "Золотая Заря",
+      "classicDesc": "Классическая точная колода, основанная на традиции Райдера-Уэйта.",
+      "cosmic": "Космический свет",
+      "cosmicDesc": "Современная галактическая интерпретация универсальных архетипов.",
+      "dark": "Тьма души",
+      "darkDesc": "Глубокая колода для работы с тенью и скрытыми истинами."
+    },
+    "newReading": "Новый расклад",
+    "chooseSpread": "ВЫБЕРИТЕ РАСКЛАД",
+    "dailyCard": "Карта дня",
+    "drawNow": "ВЫТАЩИТЬ СЕЙЧАС",
+    "cardMeaning": "ЗНАЧЕНИЕ КАРТЫ",
+    "reflection": "РАЗМЫШЛЕНИЕ",
+    "saveReading": "СОХРАНИТЬ РАСКЛАД",
+    "cardOfDay": "КАРТА ДНЯ",
+    "partnerReading": "Расклад для партнёра",
+    "forSomeoneTitle": "Расклад для кого-то",
+    "enterName": "Введите имя человека"
+  },
+  "horoscope": {
+    "title": "Гороскоп",
+    "daily": "Ежедневный",
+    "weekly": "Еженедельный",
+    "monthly": "Ежемесячный",
+    "yearly": "Годовой",
+    "compatibility": "Совместимость",
+    "for_someone": "Для кого-то",
+    "partnerHoroscope": "Гороскоп партнёра",
+    "checkCompatibility": "Проверить совместимость",
+    "dailyEnergy": "Энергия дня",
+    "chineseZodiac": "Китайский зодиак",
+    "compatibilityTitle": "Астрологическая совместимость",
+    "luckyNumbers": "Счастливые числа",
+    "luckyColors": "Счастливые цвета",
+    "signs": {
+      "aries": "Овен",
+      "taurus": "Телец",
+      "gemini": "Близнецы",
+      "cancer": "Рак",
+      "leo": "Лев",
+      "virgo": "Дева",
+      "libra": "Весы",
+      "scorpio": "Скорпион",
+      "sagittarius": "Стрелец",
+      "capricorn": "Козерог",
+      "aquarius": "Водолей",
+      "pisces": "Рыбы"
+    },
+    "planets": {
+      "sun": "Солнце",
+      "moon": "Луна",
+      "mercury": "Меркурий",
+      "venus": "Венера",
+      "mars": "Марс",
+      "jupiter": "Юпитер",
+      "saturn": "Сатурн",
+      "uranus": "Уран",
+      "neptune": "Нептун",
+      "pluto": "Плутон"
+    },
+    "yourSign": "ВАШ ЗНАК",
+    "todayMessage": "ПОСЛАНИЕ ДНЯ",
+    "planetaryInfluences": "ПЛАНЕТАРНЫЕ ВЛИЯНИЯ",
+    "moonInSign": "Луна в",
+    "sunInSign": "Солнце в",
+    "rising": "Асцендент"
+  },
+  "journal": {
+    "title": "Дневник",
+    "new_entry": "Новая запись",
+    "placeholder": "Запишите мысли своей души...",
+    "mood": "Настроение",
+    "energy": "Энергия",
+    "save": "Сохранить запись",
+    "soulJournal": "Дневник души",
+    "yourHistory": "Ваша история",
+    "weeklyInsight": "Еженедельное озарение",
+    "cleanSlate": "Чистый лист",
+    "addFirstEntry": "Добавьте первую запись",
+    "types": {
+      "reflection": "Размышление",
+      "gratitude": "Благодарность",
+      "shadow_work": "Работа с тенью",
+      "dream": "Сон",
+      "matrix": "Матрица",
+      "tarot": "Таро"
+    },
+    "weeklyInsightDesc": "Ваша средняя энергия {{energy}}%, преобладающее настроение — {{mood}}. {{focus}}",
+    "suggestedTopic": "РЕКОМЕНДУЕМАЯ ТЕМА НА СЕГОДНЯ",
+    "journalEmptyDesc": "Ваш дневник души ждёт первой записи. Записывайте сны, инсайты Таро и ежедневные размышления, чтобы увидеть паттерны своей судьбы.",
+    "editEntry": "Редактировать запись",
+    "deleteEntry": "Удалить запись",
+    "entryDeleted": "Запись удалена",
+    "wordCount": "слов"
+  },
+  "dreams": {
+    "title": "Сновидения",
+    "record_dream": "Записать сон",
+    "placeholder": "Опишите свой сон...",
+    "symbols": "Символы",
+    "interpretation": "Интерпретация",
+    "no_dreams": "Сны ещё не записаны",
+    "analyze": "Анализировать",
+    "dictionary": "Словарь сновидений",
+    "phases": {
+      "rem": "БДГ",
+      "deep": "Глубокий",
+      "light": "Лёгкий"
+    },
+    "dreamTitle": "Название сна",
+    "dreamDate": "Дата сна",
+    "recurringDream": "Повторяющийся сон",
+    "lucidDream": "Осознанный сон",
+    "emotionInDream": "Эмоция во сне",
+    "addSymbol": "Добавить символ",
+    "symbolMeaning": "Значение символа",
+    "aiInterpretation": "Интерпретация ИИ",
+    "symbolarium": "Символарий",
+    "searchSymbol": "Поиск символа..."
+  },
+  "rituals": {
+    "title": "Ритуалы",
+    "start": "Начать ритуал",
+    "complete": "Завершить",
+    "daily_ritual": "Ежедневный ритуал",
+    "my_rituals": "Мои ритуалы",
+    "all_rituals": "Все ритуалы",
+    "minutes": "минут",
+    "steps_count": "шагов",
+    "sacredRituals": "Священные ритуалы",
+    "completeRitual": "Завершить ритуал",
+    "ritualCompleted": "Ритуал завершён",
+    "ritualCompletedDesc": "Вы завершили эту священную практику. Ваша энергия трансформирована.",
+    "backToLibrary": "Вернуться в библиотеку",
+    "transformativePractices": "Трансформирующие практики",
+    "categories": {
+      "morning": "Утро",
+      "evening": "Вечер",
+      "meditation": "Медитация",
+      "energy": "Энергия",
+      "Cleansing": "Очищение",
+      "CleansingDesc": "Освободите застоявшуюся энергию и обновите своё пространство",
+      "Love": "Любовь",
+      "LoveDesc": "Откройте сердце и привлеките глубокие связи",
+      "Manifestation": "Манифестация",
+      "ManifestationDesc": "Воплотите свои желания в реальность",
+      "Protection": "Защита",
+      "ProtectionDesc": "Энергетические щиты для вашей ауры",
+      "Grounding": "Заземление",
+      "GroundingDesc": "Соединитесь с землёй и стабилизируйте свою энергию"
+    },
+    "ritual_items": {
+      "morning_alignment": {
+        "title": "Утреннее выравнивание",
+        "description": "Короткая медитация для установки намерения на день.",
+        "duration": "5 мин"
+      },
+      "evening_reflection": {
+        "title": "Вечернее размышление",
+        "description": "Освободите накопленные эмоции перед сном.",
+        "duration": "10 мин"
+      },
+      "candle_magic": {
+        "title": "Магия свечи",
+        "description": "Манифестация конкретного желания через стихию огня.",
+        "duration": "15 мин"
+      }
+    },
+    "ritualDetail": "ДЕТАЛИ РИТУАЛА",
+    "description": "ОПИСАНИЕ",
+    "materials": "НЕОБХОДИМЫЕ МАТЕРИАЛЫ",
+    "steps": "ШАГИ РИТУАЛА",
+    "quickPaths": "ПУТИ РИТУАЛА",
+    "planTab": "ПЛАН",
+    "libraryTab": "БИБЛИОТЕКА",
+    "historyTab": "ИСТОРИЯ",
+    "completedToday": "Выполнено сегодня",
+    "currentStreak": "Текущая серия"
+  },
+  "meditation": {
+    "title": "Медитация",
+    "start": "Начать медитацию",
+    "pause": "Пауза",
+    "finish": "Завершить",
+    "duration": "Длительность",
+    "technique": "Техника",
+    "session_complete": "Медитация завершена",
+    "tips": "Советы",
+    "streak": "Серия",
+    "sessions": "Сессии",
+    "techniques": {
+      "mindfulness": "Осознанность",
+      "body_scan": "Сканирование тела",
+      "loving_kindness": "Любящая доброта",
+      "visualization": "Визуализация",
+      "mantra": "Мантра"
+    },
+    "totalTime": "Общее время",
+    "avgSession": "Средняя сессия",
+    "chooseAmbient": "Фоновый звук",
+    "sessionHistory": "История сессий",
+    "noSessions": "Нет записанных сессий",
+    "benefitsTitle": "Польза практики",
+    "meditationTips": "Советы по медитации",
+    "selectDuration": "ВЫБЕРИТЕ ДЛИТЕЛЬНОСТЬ",
+    "readyToBegin": "Готовы начать?",
+    "focusBreath": "Сосредоточьтесь на дыхании"
+  },
+  "breathwork": {
+    "title": "Дыхательные практики",
+    "inhale": "Вдох",
+    "hold": "Задержка",
+    "exhale": "Выдох",
+    "start": "Начать",
+    "pause": "Пауза",
+    "benefits": "Преимущества",
+    "techniques": {
+      "box": "Квадратное дыхание",
+      "box_desc": "4-4-4-4 для спокойствия и концентрации",
+      "478": "Дыхание 4-7-8",
+      "478_desc": "Техника глубокого расслабления и снятия тревоги",
+      "wim_hof": "Метод Вима Хофа",
+      "wim_hof_desc": "Энергизирующее дыхание для жизненной силы и выносливости",
+      "calm": "Успокаивающее дыхание",
+      "calm_desc": "Мягкое дыхание для нервной системы",
+      "slow": "Медленное дыхание",
+      "slow_desc": "Глубокое и медленное дыхание для присутствия",
+      "nadi": "Нади Шодхана",
+      "nadi_desc": "Поочерёдное дыхание через ноздри для баланса"
+    },
+    "selectTechnique": "ВЫБЕРИТЕ ТЕХНИКУ",
+    "sessionComplete": "Сессия завершена",
+    "roundsCompleted": "Раундов завершено",
+    "totalBreaths": "Всего вдохов"
+  },
+  "chakra": {
+    "title": "Чакры",
+    "balance": "Баланс",
+    "practice": "Практика",
+    "names": {
+      "root": "Корень (Муладхара)",
+      "sacral": "Крестец (Свадхистана)",
+      "solar": "Солнечное сплетение (Манипура)",
+      "heart": "Сердце (Анахата)",
+      "throat": "Горло (Вишудха)",
+      "third_eye": "Третий глаз (Аджна)",
+      "crown": "Корона (Сахасрара)"
+    },
+    "elements": {
+      "earth": "Земля",
+      "water": "Вода",
+      "fire": "Огонь",
+      "air": "Воздух",
+      "space": "Пространство",
+      "light": "Свет",
+      "thought": "Мысль"
+    },
+    "bodyMap": "Карта тела",
+    "chakraOfDay": "ЧАКРА ДНЯ",
+    "activateChakra": "Активировать чакру",
+    "practiceModal": "Практика чакры",
+    "affirmation": "Аффирмация",
+    "element": "Стихия",
+    "color": "Цвет",
+    "sanskrit": "Санскрит"
+  },
+  "affirmations": {
+    "title": "Аффирмации",
+    "daily": "Аффирмация дня",
+    "for_someone": "Для кого-то",
+    "shuffle": "Перемешать",
+    "propose": "Предложить",
+    "vote": "Проголосовать",
+    "categories": {
+      "love": "Любовь",
+      "abundance": "Изобилие",
+      "healing": "Исцеление",
+      "strength": "Сила",
+      "peace": "Мир",
+      "transformation": "Трансформация",
+      "vision": "Видение",
+      "gratitude": "Благодарность",
+      "confidence": "Уверенность",
+      "protection": "Защита"
+    },
+    "forSomeoneTitle": "Аффирмация для:",
+    "enterName": "Введите имя",
+    "aiGenerate": "Сгенерировать с ИИ",
+    "copyAffirmation": "Скопировать аффирмацию",
+    "saveToJournal": "Сохранить в журнал"
+  },
+  "gratitude": {
+    "title": "Благодарность",
+    "add_item": "Добавить благодарность",
+    "placeholder": "Я благодарен/благодарна за...",
+    "save": "Сохранить",
+    "streak": "Серия благодарности",
+    "history": "История",
+    "ai_reflection": "Размышление ИИ",
+    "items_today": "Благодарности сегодня",
+    "inspiration": "Вдохновение",
+    "todayEntry": "Благодарность сегодня",
+    "alreadySaved": "Уже сохранено на сегодня",
+    "addMore": "Добавить ещё",
+    "generateReflection": "Сгенерировать размышление",
+    "pastEntries": "Прошлые записи",
+    "gratitudeStreak": "{{days}} дней подряд",
+    "emptyHistory": "Истории благодарности пока нет"
+  },
+  "shadow": {
+    "title": "Работа с тенью",
+    "reflection": "Размышление",
+    "placeholder": "Исследуйте свою тень с мужеством...",
+    "save": "Сохранить размышление",
+    "oracle_prompt": "Спросить оракула тени",
+    "anonymous_save": "Сохранить анонимно",
+    "areas": {
+      "fear": "Страх",
+      "anger": "Гнев",
+      "shame": "Стыд",
+      "grief": "Горе",
+      "control": "Контроль"
+    },
+    "jungiandepth": "Юнгианская глубина",
+    "questions": "Вопросы для размышления",
+    "sessionCount": "Сессия {{count}}",
+    "deepDive": "Глубокое погружение",
+    "lightAfterShadow": "После тени приходит свет"
+  },
+  "lunar": {
+    "title": "Лунный календарь",
+    "phase": "Фаза",
+    "new_moon": "Новолуние",
+    "full_moon": "Полнолуние",
+    "waxing": "Растущая луна",
+    "waning": "Убывающая луна",
+    "crescent": "Серп",
+    "gibbous": "Горбатая луна",
+    "set_intention": "Поставить намерение",
+    "intention_placeholder": "Моё намерение на эту лунную фазу...",
+    "moonCalendar": "Лунный календарь",
+    "currentPhase": "Текущая фаза",
+    "moonEnergy": "Лунная энергия",
+    "newMoonRitual": "Ритуал новолуния",
+    "fullMoonRitual": "Ритуал полнолуния",
+    "intentionSaved": "Намерение сохранено",
+    "viewMonth": "Вид месяца",
+    "tapDayForDetails": "Нажмите на день для деталей"
+  },
+  "soundbath": {
+    "title": "Звуковая ванна",
+    "start": "Начать сессию",
+    "stop": "Остановить",
+    "duration": "Длительность",
+    "session_complete": "Сессия завершена",
+    "soundscapes": {
+      "rain": "Дождь",
+      "waves": "Волны",
+      "fire": "Огонь",
+      "forest": "Лес",
+      "ritual": "Ритуал"
+    },
+    "selectDuration": "ВЫБЕРИТЕ ДЛИТЕЛЬНОСТЬ",
+    "ambientLabel": "Фоновый звук",
+    "visualizer": "Визуализатор",
+    "muteToggle": "Без звука",
+    "countdown": "Оставшееся время"
+  },
+  "numerology": {
+    "title": "Нумерология",
+    "life_path": "Число жизненного пути",
+    "destiny": "Число судьбы",
+    "soul_urge": "Число стремления души",
+    "personality": "Число личности",
+    "calculate": "Рассчитать",
+    "for_someone": "Для кого-то",
+    "your_number": "Ваше число",
+    "birthDate": "Дата рождения",
+    "enterBirthDate": "Введите дату рождения",
+    "partnerName": "Имя человека",
+    "lifePathMeaning": "Значение жизненного пути",
+    "personalYear": "Личный год",
+    "personalMonth": "Личный месяц",
+    "personalDay": "Личный день",
+    "masterNumbers": "Мастер-числа",
+    "vibration": "Вибрация"
+  },
+  "matrix": {
+    "title": "Матрица судьбы",
+    "destiny_matrix": "Матрица судьбы",
+    "calculate": "Рассчитать матрицу",
+    "for_someone": "Для кого-то",
+    "positions": {
+      "personal": "Личное",
+      "karmic": "Кармическое",
+      "soul": "Душа",
+      "higher": "Высшее"
+    },
+    "interpretation": "ИНТЕРПРЕТАЦИЯ",
+    "lifeTask": "Жизненная задача",
+    "karmicTail": "Кармический хвост",
+    "karmicGift": "Кармический дар",
+    "pastLife": "Прошлая жизнь",
+    "futureLife": "Будущее",
+    "energyCenter": "Энергетический центр",
+    "forSomeone": "Рассчитано для:",
+    "yourMatrix": "Ваша матрица"
+  },
+  "cleansing": {
+    "title": "Очищение",
+    "release": "Отпустить",
+    "placeholder": "Что вы хотите отпустить сегодня?",
+    "burdens": "Бремена",
+    "steps": "Шаги",
+    "aftercare": "Уход после ритуала",
+    "ritual_complete": "Очищение завершено",
+    "soundscapes": "Звуковые пейзажи",
+    "ai_guide": "Духовный проводник ИИ",
+    "releaseRitual": "Ритуал отпускания",
+    "breatheOut": "Выдохните бремя",
+    "intentionSet": "Намерение установлено",
+    "chooseBurden": "Выберите бремя",
+    "writeYourOwn": "Напишите своё бремя",
+    "ritualFrame": "Рамка ритуала",
+    "aiCtaLabel": "Спросить ИИ о руководстве"
+  },
+  "community": {
+    "title": "Сообщество",
+    "online": "Онлайн",
+    "join": "Присоединиться",
+    "leave": "Покинуть",
+    "share": "Поделиться",
+    "comment": "Комментировать",
+    "like": "Нравится",
+    "send": "Отправить",
+    "souls_online": "душ онлайн",
+    "live": "Прямой эфир",
+    "chronicle": "Хроника",
+    "global_stream": "Глобальный поток",
+    "chat": "Чат",
+    "affirmation": "Аффирмация",
+    "energy_circle": "Энергетический круг",
+    "tarot_community": "Совместное Таро",
+    "post_types": {
+      "TAROT": "Tarot",
+      "HOROSKOP": "Гороскоп",
+      "MEDYTACJA": "Медитация",
+      "SEN": "Сон",
+      "REFLEKSJA": "Размышление",
+      "AFIRMACJA": "Аффирмация"
+    },
+    "compose_title": "Поделиться с сообществом",
+    "compose_placeholder": "Поделитесь своим духовным светом...",
+    "publish": "Опубликовать",
+    "reactions": {
+      "resonuje": "Резонирует",
+      "prawda": "Истина",
+      "czuje": "Чувствую"
+    },
+    "noPostsYet": "Публикаций в сообществе пока нет",
+    "beFirst": "Будьте первой душой, которая поделится",
+    "liveSession": "Прямая сессия",
+    "joinCircle": "Присоединиться к кругу"
+  },
+  "profile": {
+    "title": "Профиль",
+    "settings": "Настройки",
+    "theme": "Тема",
+    "language": "Язык",
+    "notifications": "Уведомления",
+    "premium": "Премиум",
+    "sign_out": "Выйти",
+    "level": "Уровень",
+    "wanderer": "Странник",
+    "aetheraPremium": "Aethera Премиум",
+    "premiumPortalDesc": "Раскройте полный потенциал вашей души",
+    "visualTheme": "Визуальная тема",
+    "resetProgress": "Сбросить прогресс",
+    "chooseVibration": "Выбрать вибрацию",
+    "archetypeEvolution": "Эволюция архетипа",
+    "evolutionDesc": "Ваш путь к духовному мастерству",
+    "toNextLevel": "до следующего уровня",
+    "mySanctuary": "Моё святилище",
+    "savedLibrary": "Сохранённая библиотека",
+    "viewArchive": "Просмотреть архив",
+    "soulPathTrends": "Тенденции пути души",
+    "deepAnalysis": "Глубокий анализ",
+    "practiceCount": "Завершённые практики",
+    "music_volume": "Громкость музыки",
+    "ambient_volume": "Громкость окружения",
+    "narrator_voice": "Голос рассказчика",
+    "voice_female": "Женский",
+    "voice_male": "Мужской",
+    "premiumMember": "ПРЕМИУМ-УЧАСТНИК AETHERA",
+    "yourRecords": "Ваши записи",
+    "trends": "Ваши тренды",
+    "monthlyVibration": "Месячная вибрация",
+    "personalDay": "Личный день",
+    "backgroundMotion": "Фоновая анимация",
+    "hapticFeedback": "Тактильная обратная связь",
+    "notificationSettings": "Настройки уведомлений",
+    "privacyPolicy": "Политика конфиденциальности",
+    "termsOfService": "Условия использования",
+    "appVersion": "Версия приложения",
+    "guidanceStyle": "Стиль руководства",
+    "archetypes": {
+      "1": {
+        "name": "Маг",
+        "title": "Создатель реальности"
+      },
+      "2": {
+        "name": "Верховная Жрица",
+        "title": "Хранительница тайн"
+      },
+      "3": {
+        "name": "Императрица",
+        "title": "Владычица изобилия"
+      },
+      "4": {
+        "name": "Император",
+        "title": "Архитектор порядка"
+      },
+      "5": {
+        "name": "Иерофант",
+        "title": "Хранитель традиций"
+      },
+      "6": {
+        "name": "Влюблённые",
+        "title": "Гармонизатор энергий"
+      },
+      "7": {
+        "name": "Колесница",
+        "title": "Достигатель целей"
+      },
+      "8": {
+        "name": "Справедливость",
+        "title": "Баланс кармы"
+      },
+      "9": {
+        "name": "Отшельник",
+        "title": "Искатель истины"
+      },
+      "10": {
+        "name": "Колесо Фортуны",
+        "title": "Мастер судьбы"
+      },
+      "11": {
+        "name": "Сила",
+        "title": "Мастер эмоций"
+      },
+      "12": {
+        "name": "Повешенный",
+        "title": "Визионер перспективы"
+      },
+      "13": {
+        "name": "Смерть",
+        "title": "Агент трансформации"
+      },
+      "14": {
+        "name": "Умеренность",
+        "title": "Алхимик баланса"
+      },
+      "15": {
+        "name": "Дьявол",
+        "title": "Исследователь тени"
+      },
+      "16": {
+        "name": "Башня",
+        "title": "Разрушитель иллюзий"
+      },
+      "17": {
+        "name": "Звезда",
+        "title": "Источник надежды"
+      },
+      "18": {
+        "name": "Луна",
+        "title": "Путешественник подсознания"
+      },
+      "19": {
+        "name": "Солнце",
+        "title": "Луч ясности"
+      },
+      "20": {
+        "name": "Суд",
+        "title": "Голос пробуждения"
+      },
+      "21": {
+        "name": "Мир",
+        "title": "Мастер интеграции"
+      },
+      "22": {
+        "name": "Дурак",
+        "title": "Свободный дух"
+      }
+    }
+  },
+  "checkin": {
+    "title": "Самопроверка души",
+    "mood": "Настроение",
+    "energy": "Энергия",
+    "focus": "Фокус",
+    "save": "Сохранить",
+    "particles": "Частицы",
+    "moods": {
+      "joy": "Радость",
+      "peace": "Покой",
+      "gratitude": "Благодарность",
+      "love": "Любовь",
+      "anxiety": "Тревога",
+      "sadness": "Печаль",
+      "anger": "Гнев",
+      "confusion": "Смятение",
+      "emptiness": "Пустота"
+    },
+    "energy_levels": {
+      "very_low": "Очень низкая",
+      "low": "Низкая",
+      "medium": "Средняя",
+      "high": "Высокая",
+      "very_high": "Очень высокая"
+    },
+    "focus_areas": {
+      "love": "Любовь",
+      "career": "Карьера",
+      "health": "Здоровье",
+      "spirituality": "Духовность",
+      "creativity": "Творчество",
+      "healing": "Исцеление"
+    }
+  },
+  "reports": {
+    "title": "Отчёты",
+    "pathAnalysis": "Анализ пути",
+    "weeklyInsight": "Еженедельное озарение",
+    "dominantEnergy": "Доминирующая энергия",
+    "frequentArchetypes": "Частые архетипы",
+    "suggestedFocus": "Рекомендуемый фокус",
+    "consistencyMastery": "Мастерство постоянства",
+    "streakDesc": "Дней практики подряд",
+    "entries": "Записи",
+    "readings": "Чтения",
+    "recordDays": "Рекордные дни",
+    "currentPhase": "Текущая фаза",
+    "emotionalLandscape": "Эмоциональный пейзаж",
+    "moodConstellation": "Созвездие настроения",
+    "practiceDynamics": "Динамика практик",
+    "calm": "Спокойно",
+    "excellent": "Отлично",
+    "good": "Хорошо",
+    "peaceful": "Мирно",
+    "weak": "Слабо",
+    "difficult": "Трудно",
+    "soulReports": "Отчёты души",
+    "trends": "Тенденции",
+    "generating": "Формирование отчёта...",
+    "weeklyReport": "Еженедельный отчёт",
+    "monthlyReport": "Ежемесячный отчёт",
+    "constellationDesc": "Визуализация ваших эмоциональных состояний в виде звёздной карты.",
+    "reflections": "РАЗМЫШЛЕНИЯ",
+    "tarotInsight": "ИНСАЙТ ТАРО"
+  },
+  "astrology": {
+    "title": "Астрология",
+    "transits": "Транзиты",
+    "cycles": "Циклы",
+    "biorhythm": "Биоритм",
+    "stars": "Звёзды",
+    "vedic": "Ведическая",
+    "retrograde": "Ретроградный",
+    "aspects": "Аспекты",
+    "conjunction": "Соединение",
+    "opposition": "Оппозиция",
+    "trine": "Тригон",
+    "square": "Квадратура",
+    "sextile": "Секстиль",
+    "natalChart": "Натальная карта",
+    "starsMap": "Карта звёздного неба",
+    "currentTransits": "Текущие транзиты",
+    "biorhythmCycles": "Циклы биоритма",
+    "physical": "Физический",
+    "emotional": "Эмоциональный",
+    "intellectual": "Интеллектуальный"
+  },
+  "notifications": {
+    "title": "Уведомления",
+    "reminders": "Напоминания",
+    "add_reminder": "Добавить напоминание",
+    "morning": "Утро",
+    "evening": "Вечер",
+    "meditation": "Медитация",
+    "ritual": "Ритуал",
+    "enabled": "Включено",
+    "disabled": "Выключено",
+    "time": "Время",
+    "days": "Дни",
+    "presets": "Пресеты",
+    "customTime": "Своё время",
+    "reminderLabel": "Метка",
+    "saveReminder": "СОХРАНИТЬ НАПОМИНАНИЕ",
+    "deleteReminder": "Удалить напоминание",
+    "allDays": "Ежедневно",
+    "weekdays": "Будни",
+    "weekends": "Выходные"
+  },
+  "paywall": {
+    "premiumTitle": "Aethera Премиум",
+    "premiumSubtitle": "Раскройте свою полную духовную трансформацию",
+    "choosePath": "Выберите свой путь",
+    "monthly": "Ежемесячно",
+    "yearly": "Ежегодно",
+    "monthlyDesc": "Полный доступ месяц за месяцем",
+    "yearlyDesc": "Лучшая ценность для вашего годового пути",
+    "bestValue": "Лучшая ценность",
+    "restore": "Восстановить покупки",
+    "feature1Title": "Безлимитный оракул",
+    "feature1Desc": "Неограниченные сессии с ИИ-оракулом",
+    "feature2Title": "Все колоды Таро",
+    "feature2Desc": "Доступ ко всем премиум-колодам",
+    "feature3Title": "Глубокий анализ",
+    "feature3Desc": "Подробные отчёты души и тенденции",
+    "feature4Title": "Премиум аудио-опыт",
+    "feature4Desc": "Эксклюзивные медитации и звуковые ванны"
+  },
+  "compatibility": {
+    "title": "Совместимость",
+    "relationships": "Отношения",
+    "synastry": "Синастрия",
+    "addPartnerEnergy": "Добавить энергию партнёра",
+    "partnerName": "Имя партнёра",
+    "namePlaceholder": "Введите имя",
+    "birthDate": "Дата рождения",
+    "selectDate": "Выбрать дату",
+    "calculateMatch": "Рассчитать совместимость",
+    "you": "Вы",
+    "partner": "Партнёр",
+    "relationshipEnergy": "Энергия отношений",
+    "vibration": "Вибрация",
+    "changePartner": "Сменить партнёра",
+    "compatibilityScore": "Оценка совместимости",
+    "strengths": "Сильные стороны",
+    "challenges": "Вызовы",
+    "advice": "Совет"
+  },
+  "journeys": {
+    "title": "Путешествия",
+    "spiritualPrograms": "Духовные программы",
+    "transformationPaths": "Пути трансформации",
+    "weeklyFocus": "Еженедельный фокус",
+    "dailyPractice": "Ежедневная практика",
+    "completedSessions": "Завершённые сессии",
+    "nextStep": "Следующий шаг",
+    "continueJourney": "Продолжить путешествие",
+    "startJourney": "Начать путешествие",
+    "currentJourney": "Текущее путешествие",
+    "availableJourneys": "Доступные путешествия",
+    "progress": "Прогресс",
+    "daysLeft": "Оставшихся дней"
+  },
+  "palmreading": {
+    "title": "Хиромантия",
+    "analyze": "АНАЛИЗИРОВАТЬ РУКУ",
+    "upload": "Загрузите фото вашей руки",
+    "instructions": "Сфотографируйте ладонь при хорошем освещении",
+    "lines": {
+      "heart": "Линия Сердца",
+      "head": "Линия Разума",
+      "life": "Линия Жизни",
+      "fate": "Линия Судьбы",
+      "sun": "Линия Солнца"
+    },
+    "interpretationTitle": "Интерпретация ладони",
+    "loading": "Анализ линий вашей руки..."
+  },
+  "binauralbeats": {
+    "title": "Мозговые волны",
+    "subtitle": "Бинауральные ритмы",
+    "start": "НАЧАТЬ",
+    "stop": "ОСТАНОВИТЬ",
+    "waves": {
+      "delta": "Дельта — глубокий сон",
+      "theta": "Тета — медитация",
+      "alpha": "Альфа — расслабление",
+      "beta": "Бета — концентрация",
+      "gamma": "Гамма — высшее познание"
+    },
+    "benefits": "Преимущества",
+    "session_complete": "Сессия завершена"
+  },
+  "sleephelper": {
+    "title": "Помощник сна",
+    "start": "НАЧАТЬ ЗАСЫПАНИЕ",
+    "duration": "Длительность",
+    "soundscape": "Звуки",
+    "story": "История",
+    "meditation": "Медитация для сна",
+    "goodnight": "Спокойной ночи, душа"
+  },
+  "stars": {
+    "title": "Звёзды",
+    "skyMap": "Карта неба",
+    "catalogue": "Каталог звёзд",
+    "constellation": "Созвездие",
+    "magnitude": "Яркость",
+    "distance": "Расстояние",
+    "realTimeSky": "Небо в реальном времени",
+    "yourZenith": "Ваш зенит",
+    "tabMap": "Карта",
+    "tabCatalogue": "Каталог",
+    "tabInfo": "Инфо"
+  },
+  "biorhythm": {
+    "title": "Биоритм",
+    "physical": "Физический",
+    "emotional": "Эмоциональный",
+    "intellectual": "Интеллектуальный",
+    "today": "Сегодня",
+    "peak": "Пик",
+    "low": "Спад",
+    "neutral": "Нейтральный",
+    "chartTitle": "График биоритма"
+  },
+  "knowledge": {
+    "title": "Библиотека",
+    "search": "Поиск знаний...",
+    "categories": "Категории",
+    "articles": "Статьи",
+    "savedArticles": "Сохранённые статьи",
+    "readMore": "Читать дальше"
+  },
+  "data": {
+    "decks": {
+      "classic": "Золотая Заря",
+      "classicDesc": "Самая точная классическая колода, основанная на традиции Райдера-Уэйта.",
+      "cosmic": "Космический Свет",
+      "cosmicDesc": "Современная, галактическая интерпретация архетипов вселенной.",
+      "dark": "Тень Души",
+      "darkDesc": "Глубокая колода для работы с тенью и скрытыми истинами."
+    },
+    "rituals": {
+      "morning_alignment": {
+        "title": "Утреннее выравнивание",
+        "description": "Короткая медитация для установки намерения на день.",
+        "duration": "5 мин"
+      },
+      "evening_reflection": {
+        "title": "Вечерняя рефлексия",
+        "description": "Отпустите накопленные эмоции перед сном.",
+        "duration": "10 мин"
+      },
+      "candle_magic": {
+        "title": "Ритуал свечи",
+        "description": "Манифестация желания через стихию огня.",
+        "duration": "15 мин"
+      }
+    }
+  },
+  "archetypes": {
+    "1": {
+      "name": "Маг",
+      "title": "Мастер воли"
+    },
+    "2": {
+      "name": "Жрица",
+      "title": "Хранительница тайн"
+    },
+    "3": {
+      "name": "Императрица",
+      "title": "Изобилие природы"
+    },
+    "4": {
+      "name": "Император",
+      "title": "Структура и власть"
+    },
+    "5": {
+      "name": "Иерофант",
+      "title": "Духовный наставник"
+    },
+    "6": {
+      "name": "Влюблённые",
+      "title": "Союз и выбор"
+    },
+    "7": {
+      "name": "Колесница",
+      "title": "Победоносная воля"
+    },
+    "8": {
+      "name": "Справедливость",
+      "title": "Равновесие и истина"
+    },
+    "9": {
+      "name": "Отшельник",
+      "title": "Внутренняя мудрость"
+    },
+    "10": {
+      "name": "Колесо Фортуны",
+      "title": "Циклы судьбы"
+    },
+    "11": {
+      "name": "Сила",
+      "title": "Внутреннее мужество"
+    },
+    "12": {
+      "name": "Повешенный",
+      "title": "Смирение и перспектива"
+    },
+    "13": {
+      "name": "Смерть",
+      "title": "Трансформация и возрождение"
+    },
+    "14": {
+      "name": "Умеренность",
+      "title": "Гармония и мера"
+    },
+    "15": {
+      "name": "Дьявол",
+      "title": "Освобождение от оков"
+    },
+    "16": {
+      "name": "Башня",
+      "title": "Внезапное откровение"
+    },
+    "17": {
+      "name": "Звезда",
+      "title": "Надежда и вдохновение"
+    },
+    "18": {
+      "name": "Луна",
+      "title": "Иллюзия и интуиция"
+    },
+    "19": {
+      "name": "Солнце",
+      "title": "Радость и жизненная сила"
+    },
+    "20": {
+      "name": "Суд",
+      "title": "Пробуждение и искупление"
+    },
+    "21": {
+      "name": "Мир",
+      "title": "Завершение и целостность"
+    },
+    "22": {
+      "name": "Шут",
+      "title": "Начало и бесконечный потенциал"
+    }
+  },
+  "sleepRitual": {
+    "title": "Ритуал Сна",
+    "eyebrow": "МИР СНОВ",
+    "tabProtocol": "Протокол",
+    "tabScan": "Сканирование",
+    "tabBreath": "Дыхание",
+    "start": "Начать",
+    "done": "Готово"
+  },
+  "lucidDreaming": {
+    "title": "Осознанные Сновидения",
+    "eyebrow": "МИР СНОВ",
+    "tabTechniques": "Техники",
+    "tabDiary": "Дневник",
+    "tabSigns": "Знаки"
+  },
+  "fireCeremony": {
+    "title": "Огненная Церемония",
+    "eyebrow": "МИР РИТУАЛОВ",
+    "writeIntention": "Напишите намерение...",
+    "burn": "Сжечь"
+  },
+  "ancestralConnection": {
+    "title": "Связь с Предками",
+    "eyebrow": "МИР РИТУАЛОВ",
+    "askOracle": "Спросить Оракула"
+  },
+  "protectionRitual": {
+    "title": "Защитный Щит",
+    "eyebrow": "МИР ОЧИЩЕНИЯ",
+    "activate": "Активировать защиту"
+  },
+  "saltBath": {
+    "title": "Солевая Ванна",
+    "eyebrow": "МИР ОЧИЩЕНИЯ",
+    "tabProtocols": "Протоколы",
+    "tabSteps": "Шаги",
+    "start": "Начать"
+  },
+  "releaseLetters": {
+    "title": "Письма в Огонь",
+    "eyebrow": "МИР ОЧИЩЕНИЯ",
+    "write": "Пишите письмо...",
+    "release": "Освободить"
+  },
+  "innerChild": {
+    "title": "Внутренний Ребёнок",
+    "eyebrow": "МИР ПОДДЕРЖКИ",
+    "askOracle": "Спросить Оракула"
+  },
+  "anxietyRelief": {
+    "title": "Облегчение Тревоги",
+    "eyebrow": "МИР ПОДДЕРЖКИ",
+    "sos": "SOS",
+    "techniques": "Техники",
+    "habits": "Привычки"
+  },
+  "selfCompassion": {
+    "title": "Самосострадание",
+    "eyebrow": "МИР ПОДДЕРЖКИ",
+    "generateLetter": "Создать письмо"
+  },
+  "healingFrequencies": {
+    "title": "Исцеляющие Частоты",
+    "eyebrow": "МИР ПОДДЕРЖКИ",
+    "play": "Воспроизвести",
+    "stop": "Остановить"
+  },
+  "emotionalAnchors": {
+    "title": "Эмоциональные Якоря",
+    "eyebrow": "МИР ПОДДЕРЖКИ",
+    "activate": "Активировать якорь",
+    "create": "Создать новый"
+  },
+  "lifeWheel": {
+    "title": "Колесо Жизни",
+    "eyebrow": "МИР ТЕБЯ",
+    "score": "Оценка",
+    "yourWheel": "Твоё Колесо"
+  },
+  "soulArchetype": {
+    "title": "Архетип Души",
+    "eyebrow": "МИР ТЕБЯ",
+    "startQuiz": "Начать тест",
+    "result": "Твой архетип"
+  },
+  "natalChart": {
+    "title": "Натальная Карта",
+    "eyebrow": "МИР ГОРОСКОПА",
+    "tabChart": "Карта",
+    "tabPlanets": "Планеты",
+    "tabHouses": "Дома"
+  },
+  "retrogrades": {
+    "title": "Ретрограды ℞",
+    "eyebrow": "МИР ГОРОСКОПА",
+    "survivalGuide": "РУКОВОДСТВО ПО ВЫЖИВАНИЮ ℞"
+  },
+  "signMeditation": {
+    "title": "Медитация Знака",
+    "eyebrow": "МИР ГОРОСКОПА",
+    "tabMeditation": "Медитация",
+    "tabAffirmations": "Аффирмации",
+    "start": "Начать",
+    "stop": "Остановить"
+  }
+}

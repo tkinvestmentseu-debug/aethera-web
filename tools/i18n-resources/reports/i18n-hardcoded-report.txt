@@ -1,0 +1,800 @@
+plik: src/components/MoonPhaseWidget.tsx
+linia 48: "LunarCalendar" -> klucz: moonphasewidget.navigate
+plik: src/components/MoonPhaseWidget.tsx
+linia 58: "KSIĘŻYC" -> klucz: moonphasewidget.moonphasewidget
+plik: src/components/MoonPhaseWidget.tsx
+linia 73: "FAZA KSIĘŻYCA" -> klucz: moonphasewidget.moonphasewidget
+plik: src/components/MusicPicker.tsx
+linia 11: "528 Hz" -> klucz: musicpicker.label
+plik: src/components/MusicPicker.tsx
+linia 12: "432 Hz" -> klucz: musicpicker.label
+plik: src/components/MusicPicker.tsx
+linia 13: "40 Hz" -> klucz: musicpicker.label
+plik: src/components/MusicPicker.tsx
+linia 14: "396 Hz" -> klucz: musicpicker.label
+plik: src/components/MusicPicker.tsx
+linia 15: "963 Hz" -> klucz: musicpicker.label
+plik: src/components/MusicPicker.tsx
+linia 16: "741 Hz" -> klucz: musicpicker.label
+plik: src/components/MusicPicker.tsx
+linia 20: "Deszcz" -> klucz: musicpicker.label
+plik: src/components/MusicPicker.tsx
+linia 21: "Ocean" -> klucz: musicpicker.label
+plik: src/components/MusicPicker.tsx
+linia 22: "Ogień" -> klucz: musicpicker.label
+plik: src/components/MusicPicker.tsx
+linia 23: "Las" -> klucz: musicpicker.label
+plik: src/components/MusicPicker.tsx
+linia 24: "Rytuał" -> klucz: musicpicker.label
+plik: src/components/PremiumGateModal.tsx
+linia 39: "Twoja Wyrocznia ma więcej" -> klucz: premiumgatemodal.headline
+plik: src/components/PremiumGateModal.tsx
+linia 43: "Karty ujawniły coś dla ciebie" -> klucz: premiumgatemodal.headline
+plik: src/components/PremiumGateModal.tsx
+linia 47: "Symbol z twojego snu czeka" -> klucz: premiumgatemodal.headline
+plik: src/components/PremiumGateModal.tsx
+linia 51: "Twój kod liczbowy jest gotowy" -> klucz: premiumgatemodal.headline
+plik: src/components/PremiumGateModal.tsx
+linia 55: "Linie twojej dłoni mówią" -> klucz: premiumgatemodal.headline
+plik: src/components/PremiumGateModal.tsx
+linia 59: "Rytuał jest dla ciebie gotowy" -> klucz: premiumgatemodal.headline
+plik: src/components/PremiumGateModal.tsx
+linia 63: "Odblokuj pełny dostęp" -> klucz: premiumgatemodal.headline
+plik: src/components/PremiumGateModal.tsx
+linia 208: "Oracle bez limitu" -> klucz: premiumgatemodal.label
+plik: src/components/PremiumGateModal.tsx
+linia 209: "Wszystkie odczyty AI" -> klucz: premiumgatemodal.label
+plik: src/components/PremiumGateModal.tsx
+linia 210: "Rytuały premium" -> klucz: premiumgatemodal.label
+plik: src/components/PremiumGateModal.tsx
+linia 216: "149,99 zł" -> klucz: premiumgatemodal.premiumgatemodal
+plik: src/components/PremiumGateModal.tsx
+linia 217: "tylko 12,50 zł miesięcznie · oszczędzasz 58%" -> klucz: premiumgatemodal.premiumgatemodal
+plik: src/components/PremiumGateModal.tsx
+linia 218: "Miesięcznie: 29,99 zł" -> klucz: premiumgatemodal.premiumgatemodal
+plik: src/components/PremiumGateModal.tsx
+linia 236: "ZACZNIJ 7 DNI GRATIS" -> klucz: premiumgatemodal.premiumgatemodal
+plik: src/components/PremiumGateModal.tsx
+linia 240: "Następnie 149,99 zł/rok · anuluj kiedy chcesz" -> klucz: premiumgatemodal.premiumgatemodal
+plik: src/components/PremiumGateModal.tsx
+linia 244: "Może później" -> klucz: premiumgatemodal.premiumgatemodal
+plik: src/components/PremiumGateModal.tsx
+linia 251: "Gwarancja zwrotu przez 7 dni · Bez zobowiązań" -> klucz: premiumgatemodal.premiumgatemodal
+plik: src/components/QuickOracle.tsx
+linia 80: "PYTANIE DNIA" -> klucz: quickoracle.quickoracle
+plik: src/components/StreakBadge.tsx
+linia 50: "dni z rzędu" -> klucz: streakbadge.streakbadge
+plik: src/core/i18n/languageOptions.ts
+linia 16: "Polski" -> klucz: i18n.label
+plik: src/core/i18n/languageOptions.ts
+linia 23: "Angielski" -> klucz: i18n.label
+plik: src/core/i18n/languageOptions.ts
+linia 30: "Hiszpański" -> klucz: i18n.label
+plik: src/core/i18n/languageOptions.ts
+linia 37: "Portugalski" -> klucz: i18n.label
+plik: src/core/i18n/languageOptions.ts
+linia 44: "Niemiecki" -> klucz: i18n.label
+plik: src/core/i18n/languageOptions.ts
+linia 51: "Francuski" -> klucz: i18n.label
+plik: src/core/i18n/languageOptions.ts
+linia 58: "Włoski" -> klucz: i18n.label
+plik: src/core/i18n/languageOptions.ts
+linia 65: "Rosyjski" -> klucz: i18n.label
+plik: src/core/i18n/languageOptions.ts
+linia 72: "Arabski" -> klucz: i18n.label
+plik: src/core/i18n/languageOptions.ts
+linia 80: "Japoński" -> klucz: i18n.label
+plik: src/core/services/audio.service.ts
+linia 41: "Ukojenie" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 41: "Miękki, spokojny puls dla codziennego sanktuarium." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 42: "Impuls" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 42: "Jaśniejsza energia dla decyzji, działania i ruchu." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 43: "Sen" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 43: "Cichsza warstwa do wieczornego wygaszenia i odpoczynku." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 44: "Głębokie skupienie" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 44: "Stabilny podkład, gdy chcesz zebrać myśli." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 45: "Rytuał" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 45: "Ceremonialny ton do pracy symbolicznej i intencji." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 46: "Niebiański ambient" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 46: "Kosmiczne tło dla najbardziej mistycznej wersji Aethery." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 47: "Natura" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 47: "Szeroki pejzaż jogi i miękkiego otwarcia oddechu." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 48: "Uzdrawianie" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 48: "Łagodna fala regeneracji do pracy z ciałem i spokojem." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 49: "Leśna mgła" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 49: "Naturalna mgła i organiczne piano do sesji ugruntowania." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 50: "Głęboka medytacja" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 50: "Ciemniejszy, głębszy ton do wejścia w ciszę i skupienie." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 51: "Serene" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 51: "Jasne, podnoszące ukojenie do łagodnych sesji dziennych." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 52: "Drift" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 52: "Powolny dryf dla snu, odpuszczenia i wyhamowania." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 53: "Voxscape" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 53: "Eteryczne głosy i przestrzeń dla praktyk bardziej mistycznych." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 54: "Zen Garden" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 54: "Czyściejsza struktura do rytmu, porządku i oddechu." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 58: "Deszcz" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 58: "Chłodny, oczyszczający szum dla odpuszczania napięcia." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 59: "Fale" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 59: "Miękkie kołysanie do regulacji i powrotu do oddechu." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 60: "Ogień" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 60: "Ciepły trzask do domykania i wzmacniania granic." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 61: "Las" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 61: "Naturalne ugruntowanie, gdy ciało potrzebuje oparcia." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 62: "Rytualny ambient" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 62: "Cichy ceremonialny pejzaż dla praktyk symbolicznych." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 63: "Wiatr" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 63: "Przewietrzająca warstwa do oczyszczania i resetu." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 64: "Noc" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 64: "Głęboki nocny ambience do snu i wygaszania." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 65: "Jaskinia" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 65: "Skupiona przestrzeń odcinająca od nadmiaru bodźców." -> klucz: services.description
+plik: src/core/services/audio.service.ts
+linia 66: "Oddech" -> klucz: services.label
+plik: src/core/services/audio.service.ts
+linia 66: "Rytm wdechu i wydechu prowadzący przez ćwiczenie oddechowe." -> klucz: services.description
+plik: src/core/services/avatar.service.ts
+linia 40: "Zdjęcia pozostają prywatne" -> klucz: services.title
+plik: src/core/services/avatar.service.ts
+linia 63: "Nie udało się odczytać portretu" -> klucz: services.title
+plik: src/core/services/avatar.service.ts
+linia 64: "Spróbuj wybrać inne zdjęcie. Najlepiej działa spokojny, pojedynczy kadr z galerii." -> klucz: services.message
+plik: src/core/services/avatar.service.ts
+linia 71: "Portret został zapisany" -> klucz: services.title
+plik: src/core/services/avatar.service.ts
+linia 72: "Twoje sanktuarium ma teraz bardziej osobisty punkt wejścia." -> klucz: services.message
+plik: src/core/services/avatar.service.ts
+linia 77: "Portret potrzebuje chwili" -> klucz: services.title
+plik: src/core/services/avatar.service.ts
+linia 78: "Biblioteka zdjęć nie odpowiedziała tak, jak powinna. Spróbuj ponownie za moment." -> klucz: services.message
+plik: src/core/services/notifications.service.ts
+linia 71: "Aethera ✦" -> klucz: services.title
+plik: src/core/services/notifications.service.ts
+linia 87: "Aethera 🌙" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 94: "Naturalny przywódca i inicjator" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 95: "Głębia intuicji i wewnętrznej wiedzy" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 96: "Duch tworzenia i ekspresji" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 97: "Mistrz struktury i fundamentu" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 98: "Wolny duch zmiany i przygody" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 99: "Serce troski i harmonii" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 100: "Poszukiwacz prawdy i głębi" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 101: "Siła sprawczości i obfitości" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 102: "Służba szerszemu dobru" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 103: "Duch zmiany i nowych cykli" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 104: "Wewnętrzna siła i łagodność" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 105: "Głębokie widzenie przez ciszę" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 106: "Mistrz przemiany i odnowy" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 107: "Sztuka równowagi i integracji" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 108: "Praca z cieniem i ukrytą siłą" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 109: "Przełamywacz starych struktur" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 110: "Nadzieja i kosmiczne inspiracje" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 111: "Praca z podświadomością i intuicją" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 112: "Radość, witalność i pełnia" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 113: "Odrodzenie i wyższe powołanie" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 114: "Pełnia i synteza życiowych lekcji" -> klucz: services.title
+plik: src/core/services/soulEngine.service.ts
+linia 115: "Początek i nieskończoność drogi" -> klucz: services.title
+plik: src/features/affirmations/data/affirmations.ts
+linia 9: "Jestem godna miłości — zarówno dawania jej, jak i przyjmowania." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 10: "Moje relacje rosną w zaufaniu, ciepłości i wzajemnym szacunku." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 11: "Otwieram serce na bliskość bez lęku i bez maski." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 12: "Przyciągam ludzi, którzy widzą mnie taką, jaka jestem, i kochają mnie za to." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 13: "Daję sobie tę samą łagodność, jaką ofiaruję innym." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 14: "Moje serce jest bezpieczne — mogę kochać i być kochana." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 15: "Zasługuję na relację opartą na prawdzie, wolności i głębokiej więzi." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 18: "Pieniądze płyną do mnie naturalnie — jestem otwarta na ich przepływ." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 19: "Tworzę wartość w świecie i z wdzięcznością przyjmuję jej zwrot." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 20: "Obfitość jest moim naturalnym stanem — czuję to w każdym oddechu." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 21: "Jestem gotowa przyjąć więcej dobrego, niż kiedykolwiek marzyłam." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 22: "Moje zasoby rosną, gdy działam z intencją i spokojem." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 23: "Zasługuję na dobrobyt — finansowy, emocjonalny i duchowy." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 24: "Uwalniam przekonanie o braku i witam przepływ w każdej formie." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 27: "Moje działania są zgodne z moją najgłębszą intencją." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 28: "Każdy krok — nawet mały — prowadzi mnie bliżej tego, czego pragnę." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 29: "Mam w sobie wszystko, czego potrzebuję, by tworzyć to, co chcę." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 30: "Skupiam się na tym, co w mocy, i puszczam resztę." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 31: "Moje cele są jasne — kieruję energię tam, gdzie rośnie moc sprawczości." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 32: "Jestem zdolna do zmiany — uczę się, rosnę i wybieram mądrze." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 33: "Sukces nie omija mnie — przyciągam go swoją stałością i wizją." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 36: "Jestem tu i teraz — to wystarczy." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 37: "Oddycham spokojnie — moje ciało wie, jak wrócić do równowagi." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 38: "Puszczam to, czego nie mogę kontrolować, i wracam do siebie." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 40: "Wybieram łagodność wobec siebie — szczególnie kiedy jest najtrudniej." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 41: "Zaufanie do życia jest moją kotwicą — płynę, nie walczę." -> klucz: affirmations.text
+plik: src/features/affirmations/data/affirmations.ts
+linia 42: "Harmonia jest moim naturalnym rytmem — wracam do niej zawsze." -> klucz: affirmations.text
+plik: src/features/dreams/data.ts
+linia 13: "Woda w snach często odsłania stan emocji. Spokojna przynosi regulację i płynięcie z intuicją, wzburzona pokazuje przeciążenie lub uczucia, którym trudno nadać formę." -> klucz: dreams.meaning
+plik: src/features/dreams/data.ts
+linia 20: "Dom symbolizuje wewnętrzny świat, poczucie bezpieczeństwa i strukturę psychiczną. Konkretne pomieszczenia mogą wskazywać obszary życia, które wołają o uwagę." -> klucz: dreams.meaning
+plik: src/features/dreams/data.ts
+linia 27: "Las oznacza wejście w nieznane, kontakt z podświadomością i z tym, co nie zostało jeszcze nazwane. Może zapraszać do odkrycia ukrytego aspektu siebie." -> klucz: dreams.meaning
+plik: src/features/dreams/data.ts
+linia 34: "Latanie bywa znakiem wolności, ekspansji i odzyskiwania perspektywy. Jeśli we śnie pojawia się lęk podczas lotu, może to oznaczać trudność w utrzymaniu kontroli." -> klucz: dreams.meaning
+plik: src/features/dreams/data.ts
+linia 41: "Bycie ściganym pokazuje energię uniku. Sen sugeruje, że jakaś emocja, decyzja albo temat wraca, bo nie został świadomie domknięty." -> klucz: dreams.meaning
+plik: src/features/dreams/data.ts
+linia 48: "Motyw zębów często dotyczy kontroli, wizerunku, utraty siły lub napięcia ukrytego pod powierzchnią. To sen o kruchości tego, co wydaje się stabilne." -> klucz: dreams.meaning
+plik: src/features/dreams/data.ts
+linia 55: "Dziecko w śnie bywa obrazem wrażliwej części siebie, nowego początku albo potrzeby delikatniejszego kontaktu z własnymi emocjami." -> klucz: dreams.meaning
+plik: src/features/dreams/data.ts
+linia 62: "Pociąg dotyczy kierunku życia i poczucia, że coś już ruszyło. Sen może pytać, czy jedziesz swoim rytmem, czy raczej podążasz cudzym torem." -> klucz: dreams.meaning
+plik: src/features/dreams/data.ts
+linia 69: "Schody pokazują przejście pomiędzy poziomami świadomości. Wchodzenie sugeruje rozwój, schodzenie zejście do głębszych warstw lub pamięci." -> klucz: dreams.meaning
+plik: src/features/dreams/data.ts
+linia 76: "Ocean wzmacnia temat podświadomości, ogromu i tego, co wymyka się kontroli rozumu. To symbol siły, która jest większa niż chwilowe napięcie." -> klucz: dreams.meaning
+plik: src/features/dreams/data.ts
+linia 83: "Ogień oznacza transformację, intensywność i energię, która może oczyszczać lub niszczyć. Wiele zależy od tego, czy sen pokazuje ciepło, czy zagrożenie." -> klucz: dreams.meaning
+plik: src/features/dreams/data.ts
+linia 90: "Ptaki niosą wiadomość o perspektywie, wolności i sygnale z subtelniejszej warstwy psychiki. Często są zaproszeniem do spojrzenia szerzej." -> klucz: dreams.meaning
+plik: src/features/journeys/data.ts
+linia 46: "Przebudzenie" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 47: "Podstawy duchowości — 7 dni" -> klucz: journeys.subtitle
+plik: src/features/journeys/data.ts
+linia 48: "Tydzień codziennych praktyk i obserwacji prowadzących do głębszego samozrozumienia. Każdy dzień to jeden krok bliżej własnej prawdy." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 64: "Obserwacja i intencja" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 64: "Zanim zaczniesz działać, zatrzymaj się. Dziś obserwujesz swoje myśli bez oceniania i ustawiasz intencję na cały tydzień." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 65: "Praca z ciałem" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 65: "Ciało przechowuje to, co umysł zapomniał. Krótki rytuał ruchu i uziemienia, który łączy Cię z teraźniejszością." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 66: "Głos Tarota" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 66: "Jedna karta jako lustro dnia. Nie szukaj przepowiedni — szukaj pytania, które karta zadaje Tobie." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 67: "Afirmacja zmiany" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 67: "Jedno zdanie, które przeprogramowuje powtarzający się wzorzec. Powiedz je głośno, zapisz, wróć do niego wieczorem." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 68: "Dziennik cienia" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 68: "Co w sobie odsuwasz? Co drażni Cię u innych? Dziś piszesz o tym, co nosiłeś w milczeniu." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 69: "Integracja emocji" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 69: "Przejrzyj notatki z poprzednich dni. Znajdź powtarzający się temat — to właśnie on chce być zauważony." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 70: "Karta zamknięcia" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 70: "Ostatnia karta tygodnia. Co zakończyło się, co zaczyna, co prosi o Twoją uwagę w następnym rozdziale." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 75: "Uzdrowienie Serca" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 76: "Praktyki leczenia — 14 dni" -> klucz: journeys.subtitle
+plik: src/features/journeys/data.ts
+linia 77: "Pogłębiona praca z sercem, granicami i tym, jak kochasz i jesteś kochany. Dla tych, którzy chcą zrozumieć wzorce w swoich relacjach i uzdrowić rany z przeszłości." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 93: "Mapa serca" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 93: "Narysuj w dzienniku mapę swoich ważnych relacji. Kto daje Ci energię, kto ją zabiera?" -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 94: "Tarot miłości" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 94: "Rozkład trzech kart: Ja, Ty, My. Nie szukaj przyszłości — szukaj obecnego stanu połączenia." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 95: "Rytuał granic" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 95: "Granice to nie mury. Dziś ustawiasz jedną granicę, którą odkładałeś zbyt długo." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 96: "List do siebie" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 96: "Napisz list do wersji siebie z przeszłości — tej, która potrzebowała usłyszenia czegoś ważnego." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 97: "Oddech uwalniający" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 97: "Technika oddechowa ukierunkowana na uwalnianie napięcia z okolic klatki piersiowej i serca." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 98: "Afirmacje serca" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 98: "Pięć afirmacji przebudowujących przekonania o miłości, warte powtarzania przez cały tydzień." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 99: "Obserwacja wzorców" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 99: "Przejrzyj swoje notatki. Jaki wzorzec pojawia się najczęściej w Twoich relacjach?" -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 100: "Medytacja miłości" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 100: "Klasyczna metta — medytacja życzliwości skierowana najpierw do siebie, potem do innych." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 101: "Tarot granic" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 101: "Karta pokazująca, gdzie Twoje granice potrzebują wzmocnienia lub zmiękczenia." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 102: "Rytuał wybaczania" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 102: "Nie dla innych — dla siebie. Ceremonia symbolicznego uwolnienia starego bólu." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 103: "Dziennik wdzięczności" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 103: "Trzy rzeczy, za które jesteś wdzięczny sobie samemu. Trzy sposoby, w jakie siebie chronisz." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 104: "Głos ciała" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 104: "Gdzie w ciele czujesz miłość? Gdzie czujesz jej brak? Skanowanie ciała jako praktyka uważności." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 105: "Nowa narracja" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 105: "Napisz nową historię o sobie — nie o tym, kim byłeś, ale o tym, kim się stajesz." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 106: "Zamknięcie ścieżki" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 106: "Finalna karta tarota + wpis o tym, co się naprawdę zmieniło w tych dwóch tygodniach." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 111: "Mistyczna Transformacja" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 112: "Praca z cieniem i integracja — 21 dni" -> klucz: journeys.subtitle
+plik: src/features/journeys/data.ts
+linia 113: "Trudne, ale transformujące. Praca z tym, co nosimy w cieniu — stłumionymi emocjami i odrzuconymi częściami siebie — prowadzi do prawdziwej wolności i pełni." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 129: "Odkryj cień" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 129: "Co w sobie potępiasz? Co drażni Cię u innych? To właśnie tam zaczyna się Twój cień." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 130: "Projekcje i lustra" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 130: "Przez trzy osoby, które Cię irytują, dowiadujemy się o sobie więcej niż przez lata terapii." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 131: "Karta cienia" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 131: "Rozkład tarota: Co chcę zobaczyć / Co ukrywam / Co prosi o integrację." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 132: "Rytuał konfrontacji" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 132: "Symboliczne spotkanie z jedną odrzuconą częścią siebie. Nie walka — dialog." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 133: "Oddech transformacyjny" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 133: "Głęboka praca oddechowa wspierająca uwalnianie zakorzenionych napięć." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 134: "Archetyp siły" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 134: "Który archetyp Junga jest Twoim aktualnym nauczycielem? Bohater, Cień, Anima/Animus?" -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 135: "Integracja tygodnia 1" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 135: "Przejrzyj wszystkie wpisy. Jaki jest centralny temat tej pierwszej fazy pracy?" -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 136: "Emocje bez oceniania" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 136: "Przez jeden dzień obserwuj każdą emocję bez etykietowania jej jako dobra lub zła." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 137: "Ciało cienia" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 137: "Cień mieszka w ciele. Gdzie czujesz napięcie, gdy myślisz o tym, czego nie lubisz w sobie?" -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 138: "Tarot transformacji" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 138: "Karta: Co muszę puścić, żeby mogło przyjść coś nowego." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 139: "List od cienia" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 139: "Napisz list od swojej odrzuconej części do siebie. Daj jej głos." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 140: "Rytuał uwalniania" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 140: "Ceremonialny rytuał spalenia lub zakopania symbolicznego reprezentanta starego wzorca." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 141: "Afirmacje integracji" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 141: "Afirmacje skierowane nie do ideału, ale do całości — tej ciemnej i jasnej razem." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 142: "Integracja tygodnia 2" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 142: "Co zmieniło się w sposobie, w jaki patrzysz na swoje słabości?" -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 143: "Cień to nie tylko to, czego nie lubimy. To też dary, których się wstydzimy. Odkryj swój złoty cień." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 144: "Medytacja na granicę" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 144: "Wizualizacja — stoisz na granicy między tym, kim byłeś, a tym, kim się stajesz." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 145: "Tarot nowego ja" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 145: "Trzy karty: Kim byłem / Kim jestem / Kim mogę się stać." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 146: "Nowa tożsamość" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 146: "Napisz manifest nowej wersji siebie — po integracji cienia." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 147: "Rytuał zamknięcia" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 147: "Uroczysty rytuał zakończenia starego rozdziału i otwarcia nowego." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 148: "Wdzięczność za cień" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 148: "Napisz list wdzięczności do swoich trudnych doświadczeń i odrzuconych części siebie." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 149: "Karta inicjacji" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 149: "Ostatnia karta tarota tej podróży. Nie pyta, kim byłeś — pyta, kto teraz wychodzi z tej ścieżki." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 154: "Rok Inicjacji" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 155: "Pełne duchowe przebudzenie — 30 dni" -> klucz: journeys.subtitle
+plik: src/features/journeys/data.ts
+linia 156: "Trzydzieści dni intensywnej pracy duchowej tworzących fundament świadomego życia. Dla tych, którzy są gotowi na pełną transformację i nie boją się głębi." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 185: "Dzień {{i + 1}} Roku Inicjacji. Głęboka praca z kolejną warstwą swojej duchowej ścieżki — krok po kroku, dzień po dniu." -> klucz: journeys.description (z interpolacją)
+plik: src/features/journeys/data.ts
+linia 191: "Droga Tarota" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 192: "Mistrzowska praca z tarotem — 21 dni" -> klucz: journeys.subtitle
+plik: src/features/journeys/data.ts
+linia 193: "Trzy tygodnie intensywnej pracy z tarotem jako narzędziem samopoznania. Od podstaw interpretacji po zaawansowane rozkłady i pracę z archetypami Wielkich Arkanów." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 219: "Praca z {{i + 1}}. Wielkim Arkanem. Medytacja z kartą, symbolika, pytania do refleksji i wpis w dzienniku tarota." -> klucz: journeys.description (z interpolacją)
+plik: src/features/journeys/data.ts
+linia 225: "Rytuały Księżyca" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 226: "Życie w rytmie księżyca — 28 dni" -> klucz: journeys.subtitle
+plik: src/features/journeys/data.ts
+linia 227: "Pełny cykl księżycowy jako mapa wewnętrznej pracy. Nów do pełni — wzrost intencji. Pełnia do nowiu — uwalnianie i integracja. Żyj w rytmie, nie w pośpiechu." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 253: "Dzień {{i + 1}} cyklu księżycowego. Praca z aktualną fazą księżyca — obserwacja jej wpływu na Twój stan wewnętrzny i dostosowanie praktyki." -> klucz: journeys.description (z interpolacją)
+plik: src/features/journeys/data.ts
+linia 259: "Oracle Awakening" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 260: "Mistrzostwo pracy z wyrocznią — 14 dni" -> klucz: journeys.subtitle
+plik: src/features/journeys/data.ts
+linia 261: "Dwie tygodnie pogłębionej pracy z Oracle — narzędziem łączącym intuicję, archetypowe myślenie i wewnętrzną mądrość. Nie przewidujesz przyszłości — odkrywasz prawdę." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 284: "Dzień {{i + 1}} pracy z Oracle. Pogłębiona sesja z pytaniem, symbolem i refleksją pisaną — bez oczekiwania konkretnych odpowiedzi." -> klucz: journeys.description (z interpolacją)
+plik: src/features/journeys/data.ts
+linia 290: "Czakry i Energia" -> klucz: journeys.title
+plik: src/features/journeys/data.ts
+linia 291: "Mistrzostwo systemu czakr — 21 dni" -> klucz: journeys.subtitle
+plik: src/features/journeys/data.ts
+linia 292: "Trzy tygodnie pracy z systemem czakr jako mapą wewnętrznej energii. Każdy tydzień to inna warstwa — od rozpoznania, przez oczyszczenie, po integrację i równowagę." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 317: "Dzień {{i + 1}} pracy z systemem czakr. Dedykowana praktyka, oddech i refleksja skupiona na konkretnym centrum energetycznym." -> klucz: journeys.description (z interpolacją)
+plik: src/features/journeys/data.ts
+linia 332: "Przebudzenie to pierwszy krok na ścieżce transformacji duszy. To moment, w którym coś w Tobie poruszyło się — delikatny, lecz nieodwracalny impuls ku głębszemu rozumieniu siebie. Na tym etapie uczysz się dostrzegać wzorce, które dotąd działały w cieniu Twojej świadomości. Każde przebudzenie jest inne — dla jednych gwałtowne jak błyskawica, dla innych łagodne jak świt." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 351: "Eksploracja to faza odważnego wychodzenia poza znane granice. Zaczynasz badać nowe obszary — zarówno zewnętrzne ścieżki wiedzy, jak i wewnętrzne terytoria, do których wcześniej się nie zapuszczałeś/aś. To czas eksperymentów, prób i błędów, ale też odkryć, które mogą Cię kompletnie zaskoczyć. Pozwól sobie na błądzenie — to właśnie ono prowadzi do najcenniejszych znalezisk." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 370: "Na etapie Zrozumienia zaczyna się układać mozaika. Fragmenty, które zbierałeś/aś podczas eksploracji, nagle tworzą spójny obraz. To czas głębokiego wglądu — kiedy wiesz, dlaczego działasz w określony sposób, ale też, kim naprawdę jesteś pod maską codziennych ról. Zrozumienie nie jest końcem — to most między tym, co było, a tym, czym możesz się stać." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 389: "Transformacja to serce całej podróży — i często jej najtrudniejszy etap. Stare struktury rozpadają się, by zrobić miejsce nowemu. Może być bolesna, dezorientująca, intensywna. Jednak właśnie w tym ogniu oczyszczenia rodzi się Twoja nowa jakość. Transformacja nie pyta o zgodę — ona po prostu zachodzi, gdy jesteś gotowy/a jej zaufać." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 408: "Integracja to czas szycia wszystkiego w całość. Po burzliwej transformacji przychodzi chwila zatrzymania i przyjęcia wszystkich zmian — zarówno tych, które lubimy, jak i tych, które nas zaskoczyły. Integrujesz nowe ja ze starymi korzeniami, nowe przekonania z dawną mądrością. To faza praktyczna — przenoszenia wnętrza na zewnątrz, w codzienne wybory i relacje." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 446: "Oświecenie nie jest celem — jest sposobem istnienia. To nie jednorazowy moment olśnienia, lecz stały stan obecności i pełni. Na tym etapie ścieżka i chodź-ący stają się jednym. Nie szukasz już sensu — jesteś sensem. Każda chwila jest całkowita i wystarczająca. I choć brzmieć może abstrakcyjnie, każdy z nas zna momenty — krótkie błyski — gdy tak właśnie się czujemy." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 465: "Awakening is the first step on the path of soul transformation. It is the moment when something within you begins to move: a subtle but irreversible impulse toward deeper self-understanding. At this stage you begin to notice patterns that used to operate beneath awareness. Every awakening is different. For some it arrives like lightning, for others like a quiet dawn." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 480: "Exploration is the phase of bravely moving beyond the familiar. You begin to investigate new territories: outer paths of knowledge and inner spaces you had not entered before. It is a time of experiments, trial and error, and discoveries that may surprise you completely. Let yourself wander. That wandering often leads to the most valuable findings." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 495: "In Understanding, the mosaic begins to arrange itself. The fragments you gathered during exploration suddenly form a coherent picture. This is a time of deep insight, when you see why you act in certain ways and who you truly are beneath everyday roles. Understanding is not the end. It is the bridge between what was and what you can become." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 510: "Transformation is the heart of the entire journey, and often its most demanding stage. Old structures dissolve to make space for the new. It can feel painful, disorienting, and intense. Yet precisely in this fire of purification a new quality of self is born. Transformation does not ask for permission. It happens when you are ready to trust it." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 525: "Integration is the time of stitching everything into one whole. After the upheaval of transformation comes a pause in which you receive all change: the parts you like and the parts that surprised you. You are integrating the new self with old roots, new beliefs with old wisdom. This is a practical phase, bringing inner change into daily choices and relationships." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 540: "Wisdom is born from the experience of the path already travelled. At this stage you do not only know, you feel what you know in your whole body. Wisdom is not a collection of facts but a deep familiarity with yourself and life that arrives quietly. You begin to see farther, understand more, and forgive more quickly. You become for others what Aethera has been for you: a guide." -> klucz: journeys.description
+plik: src/features/journeys/data.ts
+linia 555: "Enlightenment is not a destination but a way of being. It is not a single flash of revelation but an ongoing state of presence and fullness. At this stage the path and the one who walks it become one. You are no longer searching for meaning. You are meaning. Each moment becomes complete and sufficient. And though it may sound abstract, everyone knows brief flashes of this state." -> klucz: journeys.description
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 24: "Kobieta" -> klucz: onboardingscreen.label
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 26: "Wolę nie podawać" -> klucz: onboardingscreen.label
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 30: "Dopiero wchodzę" -> klucz: onboardingscreen.title
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 30: "Chcę prostego języka i spokojnego prowadzenia." -> klucz: onboardingscreen.description
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 31: "Już praktykuję" -> klucz: onboardingscreen.title
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 31: "Szukam równowagi między intuicją i symboliczną głębią." -> klucz: onboardingscreen.description
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 32: "Jestem głęboko w temacie" -> klucz: onboardingscreen.title
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 32: "Potrzebuję bogatszych warstw i dojrzałego guidance." -> klucz: onboardingscreen.description
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 36: "Dzisiaj" -> klucz: onboardingscreen.title
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 36: "Osobisty ton dnia i kolejne ruchy." -> klucz: onboardingscreen.copy
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 37: "Światy" -> klucz: onboardingscreen.title
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 37: "Tarot, Horoskop, Rytuał i więcej." -> klucz: onboardingscreen.copy
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 38: "Oracle" -> klucz: onboardingscreen.title
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 38: "AI prowadzacy do konkretnego kroku." -> klucz: onboardingscreen.copy
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 39: "Profil" -> klucz: onboardingscreen.title
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 39: "Centrum ustawien i pamieci." -> klucz: onboardingscreen.copy
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 141: "Aethera DuniAI & Oracle" -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 142: "Sanktuarium AI, symboli i rytuału" -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 147: "Sanktuarium stworzone, by prowadzić, nie przytłaczać." -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 150: "Aethera łączy Tarot, astrologię, rytuały i inteligentnego Oracle w jeden spójny świat dostosowany do Twojego rytmu." -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 154: "CO ZNAJDZIESZ" -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 171: "JAK WYGLĄDA WEJŚCIE" -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 241: "Jak się do Ciebie zwracać?" -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 244: "Oracle dostosuje ton i formę zwrotu do Twoich preferencji." -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 277: "Kiedy zaczęła się Twoja droga?" -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 280: "Data urodzenia łączy astrologię, archetyp i energię dnia w jeden spójny obraz." -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 288: "dzień" -> klucz: onboardingscreen.label
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 289: "miesiąc" -> klucz: onboardingscreen.label
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 299: "Dotknij, aby zmienić datę" -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 314: "Jak głęboko chcesz wejść?" -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 317: "To nie ocena. To sposób ustawienia głębokości języka i tempa prowadzenia." -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 354: "Aethera DuniAI & Oracle" -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 357: "Twoje sanktuarium jest gotowe." -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 360: "Wszystko ustawione. Możesz teraz wejść i odkrywać swój osobisty świat." -> klucz: onboardingscreen.renderstep
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 365: "Imię" -> klucz: onboardingscreen.label
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 366: "Forma zwrotu" -> klucz: onboardingscreen.label
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 367: "Data urodzenia" -> klucz: onboardingscreen.label
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 368: "Miejsce urodzenia" -> klucz: onboardingscreen.label
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 369: "Poziom wejścia" -> klucz: onboardingscreen.label
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 446: "Data urodzenia" -> klucz: onboardingscreen.title
+plik: src/features/onboarding/screens/OnboardingScreen.tsx
+linia 447: "Zasili astrologię, archetyp i osobisty ton prowadzenia." -> klucz: onboardingscreen.description
+plik: src/features/portal/types.ts
+linia 66: "Afirmacja dnia" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 66: "Codzienne zdanie prowadzące Twoją wibrację" -> klucz: portal.description
+plik: src/features/portal/types.ts
+linia 67: "Faza Księżyca" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 67: "Aktualna faza i jej energia" -> klucz: portal.description
+plik: src/features/portal/types.ts
+linia 68: "Karta dnia" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 68: "Tarotowy symbol prowadzący Twój dzień" -> klucz: portal.description
+plik: src/features/portal/types.ts
+linia 69: "Energia dnia" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 69: "Wibracja i stan duchowy na dziś" -> klucz: portal.description
+plik: src/features/portal/types.ts
+linia 70: "Pasmo obecności" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 70: "Twoja ciągłość i zaangażowanie" -> klucz: portal.description
+plik: src/features/portal/types.ts
+linia 71: "Horoskop" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 71: "Dzienny rytm Twojego znaku" -> klucz: portal.description
+plik: src/features/portal/types.ts
+linia 72: "Prompt dziennika" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 72: "Pytanie na dziś do refleksji" -> klucz: portal.description
+plik: src/features/portal/types.ts
+linia 73: "Archetyp dnia" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 73: "Energia archetypiczna prowadząca ten dzień" -> klucz: portal.description
+plik: src/features/portal/types.ts
+linia 74: "Numerologia" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 74: "Rok osobisty i wibracja dnia" -> klucz: portal.description
+plik: src/features/portal/types.ts
+linia 75: "Rytuał dnia" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 75: "Ceremonialny rytm na ten czas" -> klucz: portal.description
+plik: src/features/portal/types.ts
+linia 76: "Kryształ dnia" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 76: "Kamień i jego energia na ten dzień" -> klucz: portal.description
+plik: src/features/portal/types.ts
+linia 77: "Czakra dnia" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 77: "Aktywna czakra i afirmacja" -> klucz: portal.description
+plik: src/features/portal/types.ts
+linia 78: "Oddech" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 78: "Krótkie ćwiczenie oddechowe" -> klucz: portal.description
+plik: src/features/portal/types.ts
+linia 79: "Prognoza energii" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 79: "3-dniowy trend energetyczny" -> klucz: portal.description
+plik: src/features/portal/types.ts
+linia 80: "Seria wdzięczności" -> klucz: portal.label
+plik: src/features/portal/types.ts
+linia 80: "Pasmo zapisów wdzięczności" -> klucz: portal.description
+plik: src/features/profile/badges.ts
+linia 12: "Pierwszy świadomy krok" -> klucz: profile.title
+plik: src/features/profile/badges.ts
+linia 13: "Wykonano pierwszy rytuał i otwarto osobistą ścieżkę sanktuarium." -> klucz: profile.description
+plik: src/features/profile/badges.ts
+linia 22: "Trzy dni ciągłości" -> klucz: profile.title
+plik: src/features/profile/badges.ts
+linia 23: "Sanktuarium było odwiedzane trzy dni z rzędu." -> klucz: profile.description
+plik: src/features/profile/badges.ts
+linia 29: "Mistrzyni lub mistrz tarota" -> klucz: profile.title
+plik: src/features/profile/badges.ts
+linia 30: "W archiwum zgromadzono co najmniej dziesięć odczytów tarota." -> klucz: profile.description
+plik: src/features/profile/badges.ts
+linia 36: "Tkacz snów" -> klucz: profile.title
+plik: src/features/profile/badges.ts
+linia 37: "W dzienniku zachowano co najmniej pięć zapisów ze snów." -> klucz: profile.description
+plik: src/features/rituals/data.ts
+linia 22: "Rytuał oczyszczenia i wyciszenia" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 27: "Krótki, ale pełny rytuał przejścia z przeciążenia do regulacji. Nie służy natychmiastowej iluzji ulgi, tylko świadomemu przejściu z pobudzenia do odzyskanego centrum. To praktyka domknięcia hałasu, napięcia i emocjonalnego osadu dnia bez duchowego teatru i bez przymusu perfekcyjnego skupienia." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 50: "Rytuał serca i przyciągania bliskości" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 55: "Praktyka dla relacji, czułości i emocjonalnej prawdy. Nie służy fantazji o idealnej miłości, tylko przywróceniu kontaktu z tym, czego serce naprawdę potrzebuje, żeby wejść w więź bez utraty granic. To rytuał miękki w formie, ale poważny w intencji." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 77: "Rytuał intencji i ukierunkowania energii" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 82: "Rytuał dla dni, w których chcesz odzyskać kierunek i przestać karmić rozproszenie. Łączy intencję z realnym ruchem, tak by symboliczny akt nie kończył się na nastroju. To praktyka decyzji, porządku i odpowiedzialnego wejścia w działanie." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 105: "Rytuał ochrony i zamknięcia przestrzeni" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 110: "Praktyka dla momentów, gdy czujesz, że Twoja przestrzeń jest za bardzo otwarta na cudzy chaos, energię lub presję. Nie chodzi o magiczne odpędzanie zagrożenia, tylko o świadome postawienie granicy między tym, co Twoje, a tym, co niesiesz z zewnątrz. Ten rytuał przywraca poczucie centrum i własnego terytorium bez dramatyzmu." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 133: "Rytuał uwalniania przywiązań i starego śladu" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 138: "Głębokie uwolnienie dla momentów, gdy coś z przeszłości nadal żyje w Twoim ciele, myśli lub reakcjach: stara relacja, niedomknięty konflikt, obraz siebie, który nie jest już prawdziwy, albo historia, która Cię drenuje bez Twojej zgody. Ten rytuał nie kasuje przeszłości. Pomaga postawić świadomą granicę między tym, co było, a tym, czym jesteś teraz." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 161: "Rytuał poranny i zakorzenienie dnia" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 166: "Krótka, konkretna praktyka powrotu do siebie przed wejściem w wir dnia. Nie chodzi o duchową inspirację na start, tylko o zatrzymanie się wystarczająco długo, żeby wiedzieć, z jakiego miejsca wchodzisz w dzień. To różnica między dniem reaktywnym a dniem, w którym masz choćby jeden świadomy ruch." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 188: "Rytuał ciszy i świadomego niedziałania" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 193: "Praktyka dla momentów, gdy zrobiłeś lub zrobiłaś już wystarczająco dużo i teraz potrzebujesz zregenerować się zamiast dołożyć kolejną praktykę. Ten rytuał nie ma produktu. Jest sam w sobie celem. Pozwolenie sobie na ciszę lub nieproduktywny czas to często najtrudniejszy ruch dla osób, które używają działania jako regulacji emocjonalnej." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 215: "Rytuał zamknięcia cyklu i gotowości na nowe" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 220: "Dłuższy, bardziej ceremonialny rytuał na momenty przejścia: koniec projektu, związku, etapu życia, roku, miesiąca, sezonu. Nie chodzi o sztuczne świętowanie, tylko o świadome domknięcie tego, co było, zanim wejdziesz w nowy rozdział. Bez domknięcia stary rozdział kontynuuje się w tle nowego i komplikuje go od środka." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 244: "Rytuał snu i spokojnego wejścia w noc" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 249: "Praktyka na granicy między dniem a nocną ciszą. Nie jest to technika zasypiania, tylko świadome zamknięcie dnia, żeby umysł nie kontynuował go w nieskończoność pod przykryciem. Wielu z nas nie zasypia, tylko przestaje udawać, że działa. Ten rytuał robi ten próg świadomym." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 271: "Rytuał pełni księżyca" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 276: "Ceremonia mocy pełni — czas, gdy energia księżyca jest na swoim szczycie. Rytuał służy wzmocnieniu intencji, zakończeniu tego, co nie służy, i naładowaniu obiektów symbolicznych. To praktyka wymagająca skupienia i szacunku do cyklu." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 300: "Rytuał ochrony energetycznej" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 305: "Codzienna tarcza — szybki rytuał dla osób, które dużo pracują z ludźmi, w chaotycznych środowiskach lub mają tendencję do wchłaniania cudzych emocji. Nie chodzi o izolację, lecz o świadomy filtr między sobą a otoczeniem." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 327: "Rytuał kreatywności i natchnienia" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 332: "Praktyka odblokowująca twórczy przepływ. Dla artystów, twórców, ale też dla każdego, kto czuje, że utknął w powtarzalności i chce przywrócić sobie dostęp do spontaniczności, ciekawości i nowych perspektyw." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 355: "Rytuał obfitości i wdzięczności" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 360: "Praktyka przestawiająca uwagę z niedoboru na obecność. Nie jest to afirmowanie czegoś nieprawdziwego — to trening dostrzegania tego, co już jest. Wdzięczność to nie naiwność, lecz świadomy wybór kierunku uwagi." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 382: "Rytuał uzdrowienia ciała i duszy" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 387: "Praktyka uważności wobec ciała — dla momentów, gdy fizyczne napięcie, ból lub zmęczenie niosą ze sobą emocjonalne echo. Rytuał łączy uważność somatyczną z intencją uzdrowienia w szerokim sensie: nie jako magii, lecz jako świadomego towarzyszenia sobie." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 410: "Rytuał nowego początku" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 415: "Ceremonia nowiu — czas ciemności i nasion. Nów księżyca to energetyczny moment siewu: intencje zasadzone dziś mają moc kiełkowania przez cały cykl. Rytuał skupia się na precyzji zamiaru i odwadze wejścia w nieznane." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 438: "Rytuał Pełni Księżyca" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 443: "Pełnia to czas zbierania plonów intencji zasadzonych w nów. Rytuał pomaga świadomie przyjąć energie pełni — wzmocnić to, co rozkwita, i puścić to, co hamuje wzrost." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 466: "Rytuał Ochrony Energetycznej" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 471: "Praktyka tworzenia energetycznej ochrony wokół siebie. Nie jako zamknięcie się na świat, ale jako wyraźne postawienie granic — co wpuszczasz do swojej przestrzeni, a czego nie." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 494: "Rytuał Kreatywności i Natchnienia" -> klucz: rituals.title
+plik: src/features/rituals/data.ts
+linia 499: "Gdy kreatywność wydaje się zablokowana, ten Rytuał pomaga usunąć wewnętrzne przeszkody i ponownie połączyć się z przepływem twórczej energii — niezależnie od dziedziny." -> klucz: rituals.description
+plik: src/features/rituals/data.ts
+linia 522: "Rytuał Obfitości i Wdzięczności" -> klucz: rituals.title

@@ -1,6 +1,24 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "strict": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "dist",
+    "node_modules",
+    "qa_output",
+    "QA_RUNTIME_REPORTS",
+    "qa_v2",
+    "src/core/services/*.backup_*.ts",
+    "**/*.bak",
+    "**/*.bak_*",
+    "**/__*.txt",
+    "**/dump_*.txt"
+  ]
 }

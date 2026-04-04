@@ -1,0 +1,1328 @@
+{
+  "header": {
+    "eyebrow": "KRAINA SNÓW",
+    "title": "Symbolarium nocy",
+    "favoriteLabel": "Sny",
+    "favoriteId": "dreams",
+    "formTab": "sen"
+  },
+  "tabs": [
+    {
+      "id": "sen",
+      "label": "Sen",
+      "icon": "🌙"
+    },
+    {
+      "id": "symbolarium",
+      "label": "Symbolarium",
+      "icon": "📖"
+    },
+    {
+      "id": "wzorce",
+      "label": "Wzorce",
+      "icon": "🔮"
+    },
+    {
+      "id": "ksiezyc",
+      "label": "Księżyc",
+      "icon": "🌕"
+    },
+    {
+      "id": "lucid",
+      "label": "Świadome",
+      "icon": "💡"
+    },
+    {
+      "id": "kalendarz",
+      "label": "Kalendarz",
+      "icon": "📅"
+    }
+  ],
+  "calendar": {
+    "monthNames": [
+      "Styczeń",
+      "Luty",
+      "Marzec",
+      "Kwiecień",
+      "Maj",
+      "Czerwiec",
+      "Lipiec",
+      "Sierpień",
+      "Wrzesień",
+      "Październik",
+      "Listopad",
+      "Grudzień"
+    ],
+    "weekdays": [
+      "Pon",
+      "Wt",
+      "Śr",
+      "Czw",
+      "Pt",
+      "Sob",
+      "Nd"
+    ],
+    "stats": [
+      {
+        "id": "daysWithDreams",
+        "label": "Dni ze snami",
+        "icon": "🌙"
+      },
+      {
+        "id": "entries",
+        "label": "Wpisów",
+        "icon": "📝"
+      },
+      {
+        "id": "lucid",
+        "label": "Lucid",
+        "icon": "💡"
+      }
+    ],
+    "legend": [
+      {
+        "id": "normal",
+        "label": "Zwykły sen"
+      },
+      {
+        "id": "lucid",
+        "label": "Lucid"
+      },
+      {
+        "id": "nightmare",
+        "label": "Koszmar"
+      }
+    ],
+    "emptyDay": "Brak zapisanych snów w tym dniu",
+    "monthDetailFormat": "{{day}} {{month}}"
+  },
+  "sections": {
+    "dreamStats": [
+      {
+        "id": "dreams",
+        "label": "Snów",
+        "icon": "🌙"
+      },
+      {
+        "id": "streak",
+        "label": "Pasmo",
+        "icon": "🔥"
+      },
+      {
+        "id": "lucid",
+        "label": "Lucid",
+        "icon": "💡"
+      }
+    ],
+    "patternStats": [
+      {
+        "id": "saved",
+        "label": "Zapisanych",
+        "icon": "🌙"
+      },
+      {
+        "id": "nightStreak",
+        "label": "Pasmo nocy",
+        "icon": "🔥"
+      },
+      {
+        "id": "patterns",
+        "label": "Wzorców",
+        "icon": "🔄"
+      }
+    ],
+    "moonStats": [
+      {
+        "id": "lucid",
+        "label": "Lucid",
+        "icon": "💡"
+      },
+      {
+        "id": "prophetic",
+        "label": "Prorocze",
+        "icon": "🔮"
+      },
+      {
+        "id": "streak",
+        "label": "Pasmo",
+        "icon": "🌙"
+      }
+    ],
+    "lucidStats": [
+      {
+        "id": "lucidDreams",
+        "label": "Lucid snów",
+        "icon": "💡"
+      },
+      {
+        "id": "nightStreak",
+        "label": "Pasmo nocy",
+        "icon": "🌙"
+      },
+      {
+        "id": "effectiveness",
+        "label": "Skuteczność",
+        "icon": "📊"
+      }
+    ]
+  },
+  "form": {
+    "ctaTitle": "Zapisz dzisiejszy sen",
+    "ctaSubtitle": "Zaraz po przebudzeniu — zanim obrazy zbledną",
+    "cardEyebrow": "NOWY SEN",
+    "cardTitle": "Zapisz zaraz po przebudzeniu",
+    "titleLabel": "TYTUŁ SNU",
+    "titlePlaceholder": "np. Dom z dziećmi, Lot nad morzem...",
+    "contentLabel": "OPIS SNU",
+    "contentPlaceholder": "Opisz sen — zacznij od koloru, miejsca lub emocji, które pozostały po przebudzeniu...",
+    "detectedSymbols": "WYKRYTE SYMBOLE ({{count}})",
+    "dominantEmotion": "EMOCJA PRZEWODNIA",
+    "tagsLabel": "TAGI",
+    "clarityLabel": "WYRAZISTOŚĆ SNU",
+    "clarityLabels": [
+      "Mglisty",
+      "Słaby",
+      "Wyraźny",
+      "Żywy",
+      "Jak jawa"
+    ],
+    "clarityPlaceholder": "Wybierz wyrazistość",
+    "aiLabel": "JUNGOWSKA INTERPRETACJA",
+    "aiLoading": "Oracle czyta Twój sen...",
+    "emptyTitle": "Brak zapisanych snów",
+    "emptyDescription": "Zapisz swój pierwszy sen zaraz po przebudzeniu. Każdy sen to wiadomość z głębi psychiki.",
+    "emptyCta": "Zapisz pierwszy sen",
+    "detailsAndAi": "Szczegóły i AI",
+    "howToRecord": "JAK ZAPISYWAĆ SNY",
+    "saveDream": "Zapisz sen",
+    "interpret": "Interpretuj",
+    "analyzing": "Analizuję..."
+  },
+  "symbolarium": {
+    "searchPlaceholder": "Szukaj symbolu...",
+    "title": "SYMBOLE ({{count}})",
+    "jungianLayer": "WARSTWA JUNGOWSKA",
+    "shadowLayer": "ELEMENT CIENIA",
+    "emptyTitle": "Brak wyników",
+    "emptyDescription": "Spróbuj innego słowa kluczowego",
+    "dailySymbolEyebrow": "✨ SYMBOL DNIA"
+  },
+  "patterns": {
+    "aiCardTitle": "Jungowska interpretacja wszystkich Twoich snów. Archetypy, Cień i przesłania.",
+    "mapTitle": "MAPA WZORCÓW ONIRYCZNYCH",
+    "aiLoading": "Oracle bada wzorce Twoich snów...",
+    "recurringTitle": "POWTARZAJĄCE SIĘ SYMBOLE",
+    "recurringEmpty": "Zapisz więcej snów, aby odkryć powtarzające się wzorce.",
+    "emotionsTitle": "NAJCZĘSTSZE EMOCJE",
+    "emotionsEmpty": "Zapisuj sny z emocją, żeby zobaczyć statystyki.",
+    "dreamTypesTitle": "TYPY SNÓW",
+    "nextActions": [
+      {
+        "id": "shadow",
+        "title": "Praca z Cieniem"
+      },
+      {
+        "id": "moon",
+        "title": "Kalendarz Księżycowy"
+      },
+      {
+        "id": "journal",
+        "title": "Zapisz refleksję",
+        "subtitle": "Jaki symbol z ostatniego snu rezonuje z Twoim życiem?"
+      }
+    ],
+    "nowPrefix": "TERAZ · ",
+    "aiTitle": "Analiza wzorców AI",
+    "aiLoadingTitle": "Analizuję wzorce...",
+    "streakTitle": "7-DNIOWE PASMO",
+    "streakEmpty": "Zacznij dziś i stwórz swoje pasmo snów.",
+    "streakActive": "Brawo! Zapisujesz sny od {{count}} nocy z rzędu.",
+    "exploreTitle": "✦ EKSPLORUJ DALEJ"
+  },
+  "moon": {
+    "cycleTitle": "CYKL KSIĘŻYCOWY A SEN",
+    "lunarDreamsTitle": "TWOJE SNY KSIĘŻYCOWE",
+    "lunarDreamsNote": "Zapisując datę każdego snu, możesz odkryć, w której fazie księżyca śnisz najintensywniej.",
+    "lucidTipsTitle": "JAK WEJŚĆ W SEN ŚWIADOMY",
+    "lucidTips": [
+      [
+        "Technika MILD",
+        "Zaraz przed snem powtarzaj: \"Następnym razem gdy będę śnił, będę świadomy\". Wizualizuj siebie wykonującego test rzeczywistości we śnie."
+      ],
+      [
+        "Technika WILD",
+        "Wejście do snu przy zachowanej świadomości — obserwuj hipnagogiczne obrazy bez angażowania się, aż sen się uformuje."
+      ],
+      [
+        "Testy rzeczywistości",
+        "Zadawaj sobie pytanie \"Czy śnię?\" kilka razy dziennie. We śnie nawyk przeniesie się automatycznie."
+      ],
+      [
+        "Faza pełni",
+        "Najwyższa aktywność oniryczna. Ustaw budzik na 90 min po zwykłej porze snu i od razu zaśnij z intencją świadomego śnienia."
+      ]
+    ],
+    "lunarCalendarTitle": "Pełny Kalendarz Księżycowy",
+    "lunarCalendarDescription": "Planuj intencje snu zgodnie z cyklem księżyca.",
+    "illuminationSuffix": "iluminacji",
+    "badges": {
+      "lucid": "Lucid {{mark}}",
+      "prophetic": "Prorocze {{mark}}"
+    }
+  },
+  "lucid": {
+    "introEyebrow": "💡 ŚWIADOME ŚNIENIE",
+    "introBody": "Świadome śnienie (lucid dreaming) to stan, w którym wiesz, że śnisz — i możesz aktywnie uczestniczyć w śnie. Regularna praktyka otwiera dostęp do podświadomości, zwiększa kreatywność i umożliwia pracę z lękami w bezpiecznej przestrzeni snu.",
+    "techniquesTitle": "TECHNIKI INDUKCJI",
+    "techniques": [
+      {
+        "tag": "MILD",
+        "icon": "🌿",
+        "difficulty": "Łatwa",
+        "title": "MILD — Mnemonic Induction",
+        "desc": "Przed snem powtarzaj afirmację: \"Następnym razem, gdy będę śnić, będę tego świadomy.\" Wyobraź sobie wyraźnie, że uświadamiasz sobie sen. Ta technika bazuje na pamięci prospektywnej.",
+        "steps": [
+          "Wyznacz intencję tuż przed zaśnięciem",
+          "Wizualizuj moment rozpoznania snu",
+          "Powtarzaj mantrę 10-20 razy spokojnym głosem wewnętrznym",
+          "Przy przebudzeniu w nocy odśwież technikę"
+        ]
+      },
+      {
+        "tag": "WBTB",
+        "icon": "⏰",
+        "difficulty": "Średnia",
+        "title": "WBTB — Wake Back to Bed",
+        "desc": "Ustaw alarm na 5-6 godzin po zaśnięciu. Wstań na 30-60 minut, angażując świadomość (czytaj o lucid dreaming). Wróć do snu. Faza REM jest wtedy najdłuższa i najbardziej intensywna.",
+        "steps": [
+          "Ustaw alarm na 5h po zaśnięciu",
+          "Wstań i czytaj 30-60 min o świadomym śnieniu",
+          "Wróć do łóżka z silną intencją MILD lub WILD",
+          "Faza REM po WBTB trwa nawet 45-60 minut"
+        ]
+      },
+      {
+        "tag": "WILD",
+        "icon": "🌀",
+        "difficulty": "Zaawansowana",
+        "title": "WILD — Wake Initiated Lucid Dream",
+        "desc": "Przenieś świadomość bezpośrednio ze stanu czuwania do snu bez przerwy świadomości. Obserwuj hipnagogiczne obrazy i dźwięki jako sygnał wejścia w sen.",
+        "steps": [
+          "Połącz z WBTB dla najlepszych wyników",
+          "Leż nieruchomo i obserwuj hipnagogiczne wizje",
+          "Nie reaguj emocjonalnie — bądź świadkiem",
+          "Poczujesz wibracje lub \"wciągnięcie\" — to wejście w sen"
+        ]
+      },
+      {
+        "tag": "SSILD",
+        "icon": "👁️",
+        "difficulty": "Łatwa-Średnia",
+        "title": "SSILD — Senses Initiated Lucid Dream",
+        "desc": "Cyklicznie skupiaj uwagę na wzroku, słuchu i czuciu przez 3-4 cykle. Nie analizuj — tylko obserwuj. Technika dezorientuje mózg i przyspiesza wejście w REM z zachowaną świadomością.",
+        "steps": [
+          "Połącz z WBTB dla SSILD po przebudzeniu",
+          "20 sekund skupienia na wzroku (ciemność lub obrazy)",
+          "20 sekund na dźwięki wewnętrzne i zewnętrzne",
+          "20 sekund na czucie ciała — powtórz 4 cykle"
+        ]
+      }
+    ],
+    "realityChecksTitle": "TESTY RZECZYWISTOŚCI",
+    "realityChecksEyebrow": "REALITY CHECKS — WYKONUJ 10× DZIENNIE",
+    "realityChecksBody": "Regularne sprawdzanie rzeczywistości tworzy nawyk, który przenosi się do snów. W śnie coś zawsze będzie nie tak — właśnie wtedy się obudzisz.",
+    "realityChecks": [
+      {
+        "icon": "✋",
+        "title": "Palce dłoni",
+        "desc": "Policz palce — w śnie jest ich zwykle 6-7 lub są zniekształcone."
+      },
+      {
+        "icon": "📖",
+        "title": "Czytanie tekstu",
+        "desc": "Przeczytaj zdanie, odwróć wzrok i wróć — w śnie tekst się zmienia."
+      },
+      {
+        "icon": "⏰",
+        "title": "Cyfrowy zegar",
+        "desc": "W śnie czas jest irracjonalny — cyfry się zmieniają lub nie istnieją."
+      },
+      {
+        "icon": "👃",
+        "title": "Nos",
+        "desc": "Zatkaj nos i spróbuj oddychać. W śnie będziesz mógł mimo zatkanego nosa."
+      },
+      {
+        "icon": "💡",
+        "title": "Włącznik światła",
+        "desc": "W snach przełączniki często nie działają lub działają odwrotnie."
+      }
+    ],
+    "dreamSignsTitle": "TWOJE ZNAKI SENNE",
+    "dreamSignsBody": "Znaki senne to powtarzające się elementy w Twoich snach. Kiedy je rozpoznasz w śnie — budzisz się w świadomość. Zapisuj je w dzienniku po każdym śnie.",
+    "dreamSignsEmpty": "Zanotuj kilka snów, aby Aethera wykryła Twoje osobiste znaki senne.",
+    "dreamSignsCount": "{{count}}× w snach",
+    "tonightIntentionTitle": "INTENCJA NA DZIŚ NOC",
+    "tonightBlocks": [
+      {
+        "title": "Rytuał przed snem",
+        "steps": [
+          "Wyłącz ekrany na 30 min przed snem",
+          "Zapisz dziennik dnia w 3 zdaniach",
+          "Przeczytaj ostatni wpis w dzienniku snów",
+          "Ustaw intencję słowami: \"Dziś w nocy będę świadomy, że śnię\"",
+          "Wizualizuj ulubione miejsce — to punkt powrotu w śnie"
+        ]
+      },
+      {
+        "title": "Optymalne warunki",
+        "steps": [
+          "Temperatura pokoju: 18–20°C",
+          "Ciemność — melatonina wspiera żywe sny",
+          "Nie jedz 2–3h przed snem",
+          "Magnesium glikonian relaksuje i poprawia jakość REM",
+          "7.5–9h snu — pełne cykle REM są kluczowe"
+        ]
+      }
+    ]
+  },
+  "ai": {
+    "interpretSections": [
+      "ANALIZA SYMBOLI",
+      "ELEMENT CIENIA",
+      "PRZESŁANIE",
+      "PRAKTYKA INTEGRACJI"
+    ],
+    "patternSections": [
+      "DOMINUJĄCY TEMAT",
+      "POWTARZAJĄCE SIĘ WZORCE",
+      "CIEŃ I ARCHETYPY",
+      "WIADOMOŚĆ DO ŚNIĄCEGO",
+      "NASTĘPNY KROK"
+    ],
+    "interpretPrompt": {
+      "intro": "Jesteś Jungowskim interpretatorem snów z głęboką wiedzą o archetyp, symbolice i psychologii głębi.",
+      "personPrefix": "Osoba: {{name}}.",
+      "zodiacPrefix": "Znak zodiaku: {{sign}}.",
+      "dreamPrefix": "Sen: \"{{content}}\"",
+      "emotionPrefix": "Dominująca emocja: {{emotion}}.",
+      "tagPrefix": "Typ snu: {{tags}}.",
+      "lucidNote": "To był sen świadomy (lucid dreaming).",
+      "repeatingNote": "Ten sen się powtarza — to ważny sygnał.",
+      "clarityPrefix": "Wyrazistość snu: {{clarity}}/5.",
+      "instruction": "Napisz pogłębioną analizę zawierającą DOKŁADNIE te sekcje w tej kolejności:",
+      "sectionDescriptions": [
+        "ANALIZA SYMBOLI: Zidentyfikuj 2-3 kluczowe symbole ze snu i wyjaśnij ich Jungowskie znaczenie. Co konkretnie symbolizują w kontekście podanego snu? (3-4 zdania)",
+        "ELEMENT CIENIA: Który aspekt Cienia (Carl Jung) ujawnia się w tym śnie? Jaka niezintegrowana część psyche domaga się uwagi? Pisz konkretnie i odważnie. (2-3 zdania)",
+        "PRZESŁANIE: Co nieświadomość próbuje przekazać? Jaką prawdę o sobie lub swojej sytuacji sen odsłania? Pisz bezpośrednio i głęboko. (2-3 zdania)",
+        "PRAKTYKA INTEGRACJI: Zaproponuj jedno konkretne ćwiczenie lub pytanie do pracy z tym snem w ciągu najbliższych dni. (1-2 zdania)"
+      ],
+      "tone": "Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny. Unikaj banałów — sięgaj do sedna.",
+      "fallback": "Oracle milczy tej nocy. Zaufaj intuicji — ona już zna odpowiedź."
+    },
+    "patternPrompt": {
+      "intro": "Jesteś analitykiem snów z Jungowskim wykształceniem.",
+      "recentDreams": "Ostatnie {{count}} sny tej osoby:",
+      "recurringSymbols": "Powtarzające się symbole: {{symbols}}",
+      "dominantEmotions": "Dominujące emocje: {{emotions}}",
+      "streak": "Pasmo snów: {{count}} nocy z rzędu.",
+      "none": "brak",
+      "instruction": "Napisz pogłębioną analizę wzorców, zawierającą:",
+      "sectionDescriptions": [
+        "DOMINUJĄCY TEMAT: Jaki główny temat psychologiczny przewija się przez te sny? (2-3 zdania)",
+        "POWTARZAJĄCE SIĘ WZORCE: Jakie symbole, emocje lub narracje powtarzają się? Co to wskazuje? (2-3 zdania)",
+        "CIEŃ I ARCHETYPY: Jakie archetypowe energie lub elementy Cienia są aktywne? (2-3 zdania)",
+        "WIADOMOŚĆ DO ŚNIĄCEGO: Co nieświadomość konsekwentnie próbuje przekazać? Jedna jasna, bezpośrednia wiadomość. (2 zdania)",
+        "NASTĘPNY KROK: Jedno konkretne działanie lub pytanie do pracy w najbliższym tygodniu."
+      ],
+      "tone": "Pisz w języku użytkownika, głęboko i precyzyjnie.",
+      "fallback": "Wzorce są zbyt subtelne, aby je dziś odczytać. Śnij dalej."
+    }
+  },
+  "data": {
+    "emotions": [
+      {
+        "id": "Strach",
+        "emoji": "😨",
+        "color": "#60A5FA"
+      },
+      {
+        "id": "Radość",
+        "emoji": "😄",
+        "color": "#34D399"
+      },
+      {
+        "id": "Smutek",
+        "emoji": "😢",
+        "color": "#818CF8"
+      },
+      {
+        "id": "Niepokój",
+        "emoji": "😰",
+        "color": "#F97316"
+      },
+      {
+        "id": "Spokój",
+        "emoji": "😌",
+        "color": "#A78BFA"
+      },
+      {
+        "id": "Ekscytacja",
+        "emoji": "🤩",
+        "color": "#FBBF24"
+      },
+      {
+        "id": "Zagubienie",
+        "emoji": "😶‍🌫️",
+        "color": "#94A3B8"
+      },
+      {
+        "id": "Zachwyt",
+        "emoji": "🤩",
+        "color": "#F9A8D4"
+      }
+    ],
+    "dreamTagOptions": [
+      {
+        "id": "koszmar",
+        "label": "Koszmar",
+        "color": "#EF4444",
+        "emoji": "😱"
+      },
+      {
+        "id": "prorocze",
+        "label": "Prorocze",
+        "color": "#FBBF24",
+        "emoji": "🔮"
+      },
+      {
+        "id": "powt",
+        "label": "Powtarzające się",
+        "color": "#F472B6",
+        "emoji": "🔄"
+      },
+      {
+        "id": "lucid",
+        "label": "Świadome (lucid)",
+        "color": "#34D399",
+        "emoji": "💡"
+      },
+      {
+        "id": "uzdrawiajace",
+        "label": "Uzdrawiające",
+        "color": "#86EFAC",
+        "emoji": "💚"
+      },
+      {
+        "id": "astral",
+        "label": "Astral",
+        "color": "#C084FC",
+        "emoji": "✨"
+      }
+    ],
+    "symbolariumCategories": [
+      {
+        "id": "all",
+        "label": "Wszystkie",
+        "icon": "🌙"
+      },
+      {
+        "id": "natura",
+        "label": "Natura",
+        "icon": "🌿"
+      },
+      {
+        "id": "ludzie",
+        "label": "Ludzie",
+        "icon": "👤"
+      },
+      {
+        "id": "obiekty",
+        "label": "Obiekty",
+        "icon": "🗝️"
+      },
+      {
+        "id": "miejsca",
+        "label": "Miejsca",
+        "icon": "🏛️"
+      },
+      {
+        "id": "akcje",
+        "label": "Akcje",
+        "icon": "⚡"
+      },
+      {
+        "id": "emocje",
+        "label": "Emocje",
+        "icon": "💜"
+      }
+    ],
+    "extendedSymbols": [
+      {
+        "id": "e1",
+        "keyword": "Woda",
+        "cat": "natura",
+        "emoji": "💧",
+        "color": "#60A5FA",
+        "meaning": "Woda w snach odsłania stan emocji i podświadomości. Spokojna oznacza regulację i płynięcie z intuicją, wzburzona — przeciążenie emocjonalne lub uczucia bez formy.",
+        "jungian": "Woda to symbol anima/animusa i zbiorowej nieświadomości. Jung widział w oceanie pierwotny chaos, z którego wyłania się świadomość.",
+        "shadow": "Tonięcie lub powódź może oznaczać, że stłumione emocje dochodzą do głosu i żądają integracji.",
+        "followUpPrompt": "Jakie uczucie domaga się dziś łagodnego nazwania zamiast tłumienia?"
+      },
+      {
+        "id": "e2",
+        "keyword": "Ogień",
+        "cat": "natura",
+        "emoji": "🔥",
+        "color": "#FB923C",
+        "meaning": "Ogień oznacza transformację, intensywność i energię. Ciepło symbolizuje pasję i witalność, płomień niszczący — wypalenie lub niekontrolowany gniew.",
+        "jungian": "Ogień to symbol ducha i libido w Jungowskiej symbolice. Prometheus przynosi ogień jako dar świadomości.",
+        "shadow": "Jeśli ogień pali domy lub bliskich, może to oznaczać destrukcyjne aspekty własnego temperamentu.",
+        "followUpPrompt": "Jaka energia chce Cię oczyścić, a jaka zaczyna wypalać?"
+      },
+      {
+        "id": "e3",
+        "keyword": "Las",
+        "cat": "natura",
+        "emoji": "🌳",
+        "color": "#86EFAC",
+        "meaning": "Las oznacza wejście w nieznane, kontakt z podświadomością i z tym, co nie zostało jeszcze nazwane. Zaprasza do odkrycia ukrytego aspektu siebie.",
+        "jungian": "Las to symbol nieświadomości zbiorowej i Jaźni (Self). Bajkowy motyw lasu jako miejsca prób i inicjacji.",
+        "shadow": "Zgubienie się w lesie wskazuje na utratę kontaktu z własnym centrum i poczucia kierunku w życiu.",
+        "followUpPrompt": "W jakim obszarze życia wiesz mniej niż próbujesz udawać przed sobą?"
+      },
+      {
+        "id": "e4",
+        "keyword": "Góra",
+        "cat": "natura",
+        "emoji": "⛰️",
+        "color": "#94A3B8",
+        "meaning": "Góra to wyzwanie, aspiracja i droga ku wyższemu widzeniu. Wspinaczka oznacza dążenie do celu, szczyt — osiągnięcie lub oświecenie.",
+        "jungian": "Góra to archetyp axis mundi — osi świata, łączącej ziemię i niebo. Wspinaczka symbolizuje indywiduację.",
+        "shadow": "Strach przed upadkiem ze szczytu ujawnia lęk przed sukcesem lub widocznością w świecie.",
+        "followUpPrompt": "Jakiego szczytu się boisz osiągnąć, bo coś się wtedy zmieni?"
+      },
+      {
+        "id": "e5",
+        "keyword": "Ocean",
+        "cat": "natura",
+        "emoji": "🌊",
+        "color": "#38BDF8",
+        "meaning": "Ocean wzmacnia temat podświadomości i ogromu tego, co wymyka się kontroli rozumu. Symbol siły większej niż chwilowe napięcie.",
+        "jungian": "Ocean to zbiorowa nieświadomość, materia prima i pierwotny chaos. Stąd wyłaniają się archetypy.",
+        "shadow": "Bycie pochłoniętym przez ocean — regresja do stanu przedindywidualnego lub strach przed utratą tożsamości.",
+        "followUpPrompt": "Co jest w Tobie większe niż słowa, ale chce zostać zauważone?"
+      },
+      {
+        "id": "e6",
+        "keyword": "Piorun",
+        "cat": "natura",
+        "emoji": "⚡",
+        "color": "#EAB308",
+        "meaning": "Piorun we śnie to nagłe olśnienie, przełom lub destrukcja starego porządku. Gwałtowny sygnał ze świadomości.",
+        "jungian": "W mitologii piorun to atrybut boga ojca i symbol boskiej interwencji. Kairos — właściwy moment.",
+        "shadow": "Bycie rażonym piorunem może oznaczać lęk przed nagłą zmianą lub karą za nieautentyczność.",
+        "followUpPrompt": "Co w Twoim życiu potrzebuje nagłego przełomu, a nie kolejnego małego kroku?"
+      },
+      {
+        "id": "e7",
+        "keyword": "Dziecko",
+        "cat": "ludzie",
+        "emoji": "👶",
+        "color": "#F48DB0",
+        "meaning": "Dziecko w śnie to obraz wrażliwej części siebie, nowego początku albo potrzeby delikatniejszego kontaktu z własnymi emocjami.",
+        "jungian": "Archetyp Dziecka (puer/puella) symbolizuje potencjał i możliwości. To Jaźń w zalążku.",
+        "shadow": "Porzucone lub skrzywdzone dziecko w śnie to projekcja zranionego wewnętrznego dziecka.",
+        "followUpPrompt": "Która część Ciebie potrzebuje dziś łagodności zamiast oceny?"
+      },
+      {
+        "id": "e8",
+        "keyword": "Nieznajomy",
+        "cat": "ludzie",
+        "emoji": "🧙",
+        "color": "#A3E635",
+        "meaning": "Nieznajomy we śnie to najczęściej projekcja jakiegoś aspektu Ciebie — cechy jeszcze niezintegrowanej lub odrzuconej.",
+        "jungian": "Nieznajomy może być animą/animusem (aspekt płci przeciwnej psychiki) lub Cieniem.",
+        "shadow": "Jeśli nieznajomy jest zagrażający, warto zapytać: jaką cechę w nim widzę, której nie akceptuję w sobie?",
+        "followUpPrompt": "Jaka nieznana cecha siebie woła o integrację?"
+      },
+      {
+        "id": "e9",
+        "keyword": "Matka",
+        "cat": "ludzie",
+        "emoji": "👩",
+        "color": "#FDA4AF",
+        "meaning": "Matka w snach niesie energię troski, bezpieczeństwa i przynależności. Może też symbolizować kompleks matki lub oczekiwania.",
+        "jungian": "Archetyp Wielkiej Matki — pielęgnujący i pochłaniający aspekt kobiecości, natura i nieświadomość.",
+        "shadow": "Władcza lub nieobecna matka we śnie może wskazywać na nierozwiązane wzorce relacyjne z dzieciństwa.",
+        "followUpPrompt": "Skąd czerpisz dziś poczucie bezpieczeństwa i przynależności?"
+      },
+      {
+        "id": "e10",
+        "keyword": "Ojciec",
+        "cat": "ludzie",
+        "emoji": "👨",
+        "color": "#93C5FD",
+        "meaning": "Ojciec w snach symbolizuje autorytet, zasady, strukturę i aspekt animus. Może też uosabiać kompleks ojca.",
+        "jungian": "Archetyp Starego Mędrca lub Ojca — logos, porządek i świadoma orientacja.",
+        "shadow": "Surowy lub nieobecny ojciec we śnie wskazuje na zinternalizowane krytyczne głosy lub lęk przed autorytetem.",
+        "followUpPrompt": "Jak wyglądają Twoje relacje z wewnętrznym krytykiem i zasadami?"
+      },
+      {
+        "id": "e11",
+        "keyword": "Klucz",
+        "cat": "obiekty",
+        "emoji": "🗝️",
+        "color": "#FCD34D",
+        "meaning": "Klucz to symbol dostępu do tajemnicy, zamkniętego potencjału lub wiedzy czekającej na odkrycie.",
+        "jungian": "Klucz otwiera drzwi do nieświadomości — inicjacja i dostęp do ukrytych zasobów psychicznych.",
+        "shadow": "Zgubiony klucz sugeruje, że wiesz, jakie pytanie zadać, ale boisz się odpowiedzi.",
+        "followUpPrompt": "Do jakiej prawdy o sobie masz dostęp, ale boisz się jej użyć?"
+      },
+      {
+        "id": "e12",
+        "keyword": "Lustro",
+        "cat": "obiekty",
+        "emoji": "🪞",
+        "color": "#818CF8",
+        "meaning": "Lustro to jeden z najmocniejszych symboli — pokazuje prawdziwe oblicze bez filtrów. Zniekształcony obraz sugeruje zniekształcone poczucie siebie.",
+        "jungian": "Lustro jako persona — maska, którą pokazujemy światu. Ale też Cień i to, czego nie akceptujemy.",
+        "shadow": "Rozbite lustro lub straszny obraz w lustrze to klasyczna projekcja Cienia.",
+        "followUpPrompt": "Jaką część siebie unikasz widzieć?"
+      },
+      {
+        "id": "e13",
+        "keyword": "Drzwi",
+        "cat": "obiekty",
+        "emoji": "🚪",
+        "color": "#C4A882",
+        "meaning": "Drzwi to symbol progu i wyboru. Podświadomość szykuje Cię na przejście między etapami życia.",
+        "jungian": "Próg (limen) to miejsce inicjacji — przejście wymaga odwagi i symbolicznej śmierci starego ja.",
+        "shadow": "Drzwi, których nie możesz otworzyć — blokada wewnętrzna, strach przed nieznanym.",
+        "followUpPrompt": "Przed jakim progiem stoisz teraz w życiu?"
+      },
+      {
+        "id": "e14",
+        "keyword": "Samochód",
+        "cat": "obiekty",
+        "emoji": "🚗",
+        "color": "#6EE7B7",
+        "meaning": "Samochód symbolizuje kontrolę nad kierunkiem życia. Kto prowadzi i jak — to obraz Twojego poczucia sprawczości.",
+        "jungian": "Pojazd jako ego — centrum świadomej orientacji. Psujący się pojazd to utrata poczucia kontroli.",
+        "shadow": "Wypadek samochodowy może symbolizować zderzenie dwóch sprzecznych impulów lub decyzji.",
+        "followUpPrompt": "Czy naprawdę prowadzisz swoje życie, czy czujesz się pasażerem?"
+      },
+      {
+        "id": "e15",
+        "keyword": "Broń",
+        "cat": "obiekty",
+        "emoji": "⚔️",
+        "color": "#F87171",
+        "meaning": "Broń we śnie symbolizuje agresję, granice lub siłę, która może chronić lub niszczyć.",
+        "jungian": "Broń jako logos i zasada rozróżniania — miecz odcina nieprawdziwe lub destrukcyjne wzorce.",
+        "shadow": "Użycie broni może symbolizować stłumioną agresję szukającą ujścia.",
+        "followUpPrompt": "Jakie granice w Twoim życiu wymagają ochrony lub jasnego wytyczenia?"
+      },
+      {
+        "id": "e16",
+        "keyword": "Dom",
+        "cat": "miejsca",
+        "emoji": "🏠",
+        "color": "#D9B56D",
+        "meaning": "Dom symbolizuje wewnętrzny świat i strukturę psychiczną. Każde pomieszczenie odpowiada innemu aspektowi Twojej psyche.",
+        "jungian": "Dom jako mandala Jaźni — całość psychiki. Piwnica to nieświadomość, strych to zapomniane wspomnienia.",
+        "shadow": "Nawiedzony dom lub ruina symbolizuje niechciane aspekty siebie oczekujące na integrację.",
+        "followUpPrompt": "Które pomieszczenia swojej psychiki rzadko odwiedzasz?"
+      },
+      {
+        "id": "e17",
+        "keyword": "Szkoła",
+        "cat": "miejsca",
+        "emoji": "🏫",
+        "color": "#FCA5A5",
+        "meaning": "Szkoła w snach nawiązuje do poczucia bycia ocenianym, testowanym lub potrzeby nauczenia się czegoś ważnego.",
+        "jungian": "Archetyp inicjacji — przejście przez próg wiedzy i społeczne oczekiwania.",
+        "shadow": "Egzamin, do którego nie jesteś przygotowany — klasyczna projekcja lęku przed oceną i kompetencją.",
+        "followUpPrompt": "Jak radzisz sobie z poczuciem, że musisz komuś udowodnić swoją wartość?"
+      },
+      {
+        "id": "e18",
+        "keyword": "Kościół",
+        "cat": "miejsca",
+        "emoji": "⛪",
+        "color": "#C084FC",
+        "meaning": "Kościół lub świątynia symbolizuje duchowość, sacrum i kontakt z czymś większym niż codzienność.",
+        "jungian": "Temenos — święta przestrzeń Jaźni. Miejsce spotkania świadomości i nieświadomości.",
+        "shadow": "Lęk lub zakaz wstępu do kościoła może symbolizować odcięcie od własnej duchowości lub wartości.",
+        "followUpPrompt": "Co jest dla Ciebie sacrum i jak o to dbasz?"
+      },
+      {
+        "id": "e19",
+        "keyword": "Most",
+        "cat": "miejsca",
+        "emoji": "🌉",
+        "color": "#F9A8D4",
+        "meaning": "Most sygnalizuje moment przejścia między dwoma etapami życia lub stanami świadomości.",
+        "jungian": "Most jako transcendentna funkcja — łączy przeciwieństwa i umożliwia syntezę.",
+        "shadow": "Zerwany lub niebezpieczny most sugeruje przerwaną transformację lub lęk przed przejściem.",
+        "followUpPrompt": "Jakie przejście w swoim życiu zacząłeś, ale boisz się dokończyć?"
+      },
+      {
+        "id": "e20",
+        "keyword": "Labirynt",
+        "cat": "miejsca",
+        "emoji": "🌀",
+        "color": "#C084FC",
+        "meaning": "Labirynt pojawia się wtedy, gdy w jawie szukasz wyjścia z sytuacji bez prostego rozwiązania.",
+        "jungian": "Labirynt to symbol nieświadomości i poszukiwania centrum — Jaźni. Minotaur to Cień.",
+        "shadow": "Niemożność wyjścia z labiryntu symbolizuje pętle myślowe i powtarzające się wzorce zachowań.",
+        "followUpPrompt": "W jakim kręgu myślowym lub emocjonalnym chodzisz w kółko?"
+      },
+      {
+        "id": "e21",
+        "keyword": "Lot",
+        "cat": "akcje",
+        "emoji": "🕊️",
+        "color": "#67E8F9",
+        "meaning": "Latanie to znak wolności, ekspansji i odzyskiwania perspektywy. Lęk podczas lotu oznacza trudność z utrzymaniem kontroli przy wzroście.",
+        "jungian": "Lot symbolizuje transcendencję ego i dostęp do wyższych rejestrów świadomości.",
+        "shadow": "Strach przed lądowaniem — lęk przed powrotem do codzienności i odpowiedzialności.",
+        "followUpPrompt": "Gdzie potrzebujesz więcej zaufania zamiast kurczowego trzymania kierunku?"
+      },
+      {
+        "id": "e22",
+        "keyword": "Pościg",
+        "cat": "akcje",
+        "emoji": "🏃",
+        "color": "#FB923C",
+        "meaning": "Bycie ściganym pokazuje energię uniku. Sen sugeruje, że jakaś emocja lub temat wraca, bo nie został świadomie domknięty.",
+        "jungian": "Prześladowanie jako cień — to, od czego uciekamy, rośnie w sile. Jung: to, czemu się opieramy, trwa.",
+        "shadow": "Ścigający nas potwór lub postać to niezintegrowany aspekt Cienia domagający się uwagi.",
+        "followUpPrompt": "Przed czym próbujesz uciekać, choć wiesz, że wymaga to nazwania?"
+      },
+      {
+        "id": "e23",
+        "keyword": "Schody",
+        "cat": "akcje",
+        "emoji": "🪜",
+        "color": "#A78BFA",
+        "meaning": "Schody pokazują przejście między poziomami świadomości. Wchodzenie to rozwój, schodzenie — zejście do głębszych warstw.",
+        "jungian": "Schody jako droga inicjacji i zmiany poziomów psychicznych — ego, osobiste i zbiorowe nieświadome.",
+        "shadow": "Schody bez końca lub zapadające się sugerują brak postępu pomimo wysiłku.",
+        "followUpPrompt": "Na jakim progu stoisz teraz emocjonalnie lub życiowo?"
+      },
+      {
+        "id": "e24",
+        "keyword": "Śmierć",
+        "cat": "akcje",
+        "emoji": "💀",
+        "color": "#6B7280",
+        "meaning": "Śmierć we śnie prawie nigdy nie oznacza śmierci fizycznej — to symbol zakończenia etapu i transformacji.",
+        "jungian": "Archetyp śmierci i odrodzenia — symboliczna śmierć ego jest warunkiem indywiduacji.",
+        "shadow": "Śmierć kogoś bliskiego we śnie może symbolizować zakończenie relacji lub aspektu tej osoby w Tobie.",
+        "followUpPrompt": "Co musi umrzeć w Tobie, żeby mogło narodzić się coś nowego?"
+      },
+      {
+        "id": "e25",
+        "keyword": "Upadek",
+        "cat": "akcje",
+        "emoji": "⬇️",
+        "color": "#94A3B8",
+        "meaning": "Upadek symbolizuje utratę kontroli, lęk przed porażką lub konieczność zejścia na ziemię i zejścia z wysokiego ego.",
+        "jungian": "Upadek jako hubris — kara za pychę i oderwanie od instynktów i ziemi.",
+        "shadow": "Lęk przed upadkiem może odzwierciedlać lęk przed utratą pozycji lub tożsamości.",
+        "followUpPrompt": "Co trzyma Cię tak wysoko, że boisz się chwilowo spaść?"
+      },
+      {
+        "id": "e26",
+        "keyword": "Strach",
+        "cat": "emocje",
+        "emoji": "😱",
+        "color": "#EF4444",
+        "meaning": "Strach we śnie jako emocja dominująca wskazuje na obszary, gdzie ego czuje się zagrożone lub niewystarczające.",
+        "jungian": "Strach jako projekcja Cienia — boimy się w innych tego, czego nie akceptujemy w sobie.",
+        "shadow": "Badanie obiektu strachu pozwala integrować nieznaną część siebie.",
+        "followUpPrompt": "Czego naprawdę się boisz, gdy zdjąć warstwę racjonalizacji?"
+      },
+      {
+        "id": "e27",
+        "keyword": "Miłość",
+        "cat": "emocje",
+        "emoji": "❤️",
+        "color": "#F43F5E",
+        "meaning": "Miłość we śnie może symbolizować pragnienie połączenia, integrację anima/animusa lub potrzebę akceptacji.",
+        "jungian": "Miłość do postaci we śnie to często projekcja własnych cech — archetyp anima lub animusa.",
+        "shadow": "Zakazana miłość we śnie może wskazywać na pragnienia, które ego censuruje.",
+        "followUpPrompt": "Jakich aspektów siebie nie możesz jeszcze w pełni pokochać?"
+      },
+      {
+        "id": "e28",
+        "keyword": "Gniew",
+        "cat": "emocje",
+        "emoji": "😡",
+        "color": "#EF4444",
+        "meaning": "Gniew we śnie wskazuje na stłumioną energię, niesprawiedliwość lub przekroczone granice wymagające świadomego przetworzenia.",
+        "jungian": "Gniew jako energia libido skierowana ku zmianom. Mars — siła napędowa transformacji.",
+        "shadow": "Nieregulowany gniew we śnie to Cień domagający się uwagi. Energia czekająca na konstruktywne ujście.",
+        "followUpPrompt": "Jaka niesprawiedliwość lub granica domaga się dziś Twojego głosu?"
+      },
+      {
+        "id": "e29",
+        "keyword": "Wstyd",
+        "cat": "emocje",
+        "emoji": "😔",
+        "color": "#8B5CF6",
+        "meaning": "Wstyd we śnie dotyka głęboko zakorzenionych przekonań o własnej wartości i akceptacji społecznej.",
+        "jungian": "Wstyd jako persona — różnica między tym, kim jesteśmy, a kim chcemy się wydawać.",
+        "shadow": "Wstyd jest jednym z podstawowych mechanizmów formowania Cienia.",
+        "followUpPrompt": "Jakiej prawdy o sobie wstydzisz się jeszcze przyznać?"
+      },
+      {
+        "id": "e30",
+        "keyword": "Księżyc",
+        "cat": "natura",
+        "emoji": "🌕",
+        "color": "#E2D4F0",
+        "meaning": "Księżyc to symbol cykli, intuicji i sfer, do których rozum nie ma dostępu. Pełnia oznacza kulminację, nów — nowy początek.",
+        "jungian": "Księżyc jako anima — cykliczna, instynktowna, nieświadoma część psychiki. Luna i jej fazy.",
+        "shadow": "Zaćmienie księżyca może symbolizować zablokowaną intuicję lub stłumioną emocjonalność.",
+        "followUpPrompt": "W jakim cyklu życiowym teraz jesteś i co to wymaga od Ciebie?"
+      },
+      {
+        "id": "e31",
+        "keyword": "Słońce",
+        "cat": "natura",
+        "emoji": "☀️",
+        "color": "#FBBF24",
+        "meaning": "Słońce symbolizuje świadomość, poczucie własnej wartości i witalność. To źródło ego i jasnej tożsamości.",
+        "jungian": "Słońce jako logos i Sol — świadoma orientacja, rozum i duch. Ojcowski archetyp.",
+        "shadow": "Zasłonięte słońce lub zaćmienie to chwilowe przyćmienie poczucia własnej wartości.",
+        "followUpPrompt": "Co sprawia, że Twoje wewnętrzne słońce świeci pełnym blaskiem?"
+      },
+      {
+        "id": "e32",
+        "keyword": "Drzewo",
+        "cat": "natura",
+        "emoji": "🌳",
+        "color": "#4ADE80",
+        "meaning": "Drzewo to obraz wewnętrznej struktury — korzenie to przekonania i rodowód, pień to tożsamość, korona to aspiracje.",
+        "jungian": "Axis mundi — kosmiczne drzewo łączące podziemia, ziemię i niebiosa. Symbol Jaźni.",
+        "shadow": "Uschnięte lub powalone drzewo symbolizuje utratę korzeni lub kryzysu tożsamości.",
+        "followUpPrompt": "Jak głęboko sięgają Twoje korzenie i gdzie Cię prowadzi korona?"
+      },
+      {
+        "id": "e33",
+        "keyword": "Pająk",
+        "cat": "natura",
+        "emoji": "🕷️",
+        "color": "#6B7280",
+        "meaning": "Pająk symbolizuje twórczą moc tkania życia i sieci relacji, ale też pułapki lub manipulację.",
+        "jungian": "Pająk jako archetyp Spinnerki — los i splecione nici przeznaczenia. Anima w negatywnym aspekcie.",
+        "shadow": "Fobie pajęcze we śnie często wskazują na lęk przed kobiecą mocą lub kontrolą.",
+        "followUpPrompt": "Jakie sieci tkasz w swoim życiu — uwalniające czy ograniczające?"
+      },
+      {
+        "id": "e34",
+        "keyword": "Wąż",
+        "cat": "natura",
+        "emoji": "🐍",
+        "color": "#4ADE80",
+        "meaning": "Wąż to jeden z najbardziej archetypowych symboli — transformacja, uzdrowienie i mądrość ukryta w ziemi.",
+        "jungian": "Wąż jako Kundalini i energia libido. Ouroboros — cykl śmierci i odrodzenia.",
+        "shadow": "Wąż atakujący to siły instynktowne i nagromadzona nieświadomość domagająca się uwagi.",
+        "followUpPrompt": "Jaka transformacja już się w Tobie zaczęła, choć jeszcze jej nie nazwałeś?"
+      },
+      {
+        "id": "e35",
+        "keyword": "Ptak",
+        "cat": "natura",
+        "emoji": "🦅",
+        "color": "#67E8F9",
+        "meaning": "Ptaki niosą wiadomość o perspektywie i wolności. Często zaproszenie do spojrzenia szerzej niż codzienność pozwala.",
+        "jungian": "Ptak jako animus i duch — messager między niebem a ziemią. Posłaniec nieświadomości.",
+        "shadow": "Ranny lub uwięziony ptak symbolizuje stłumioną potrzebę wolności lub ekspresji.",
+        "followUpPrompt": "Co zobaczysz inaczej, jeśli spojrzysz z perspektywy z lotu ptaka?"
+      },
+      {
+        "id": "e36",
+        "keyword": "Telefon",
+        "cat": "obiekty",
+        "emoji": "📱",
+        "color": "#6EE7B7",
+        "meaning": "Telefon symbolizuje komunikację i potrzebę połączenia. Nieodbieranie lub brak sygnału — zerwana więź lub trudność z wyrazem siebie.",
+        "jungian": "Nowoczesny symbol nieświadomości próbującej nawiązać kontakt z ego.",
+        "shadow": "Telefon dzwoniący w pętli bez odpowiedzi — potrzeba, która woła, ale nie jest słyszana.",
+        "followUpPrompt": "Jaka część Ciebie woła dziś o większą uwagę i komunikację?"
+      },
+      {
+        "id": "e37",
+        "keyword": "Pieniądze",
+        "cat": "obiekty",
+        "emoji": "💰",
+        "color": "#FBBF24",
+        "meaning": "Pieniądze we śnie symbolizują energię, wartość i zasoby — nie tylko materialne, ale też duchowe i emocjonalne.",
+        "jungian": "Złoto jako symbol Jaźni i duchowego bogactwa. Alchemiczna transmutacja ołowiu w złoto.",
+        "shadow": "Kradzież lub utrata pieniędzy wskazuje na lęk o własną wartość lub niedobór wewnętrznych zasobów.",
+        "followUpPrompt": "Jakiego rodzaju bogactwa szukasz naprawdę?"
+      },
+      {
+        "id": "e38",
+        "keyword": "Zęby",
+        "cat": "obiekty",
+        "emoji": "🦷",
+        "color": "#F1F5F9",
+        "meaning": "Zęby dotyczą kontroli, wizerunku, utraty siły lub napięcia. Sen o kruchości tego, co wydaje się stabilne.",
+        "jungian": "Zęby jako symbol mocy i agresji — instynkty i zwierzęca strona natury.",
+        "shadow": "Wypadające zęby to jeden z najczęstszych snów — lęk o wizerunek i akceptację społeczną.",
+        "followUpPrompt": "Co w Twoim życiu wygląda stabilnie, ale wymaga prawdziwej opieki?"
+      },
+      {
+        "id": "e39",
+        "keyword": "Broń",
+        "cat": "obiekty",
+        "emoji": "🗡️",
+        "color": "#EF4444",
+        "meaning": "Broń we śnie symbolizuje granice, agresję lub siłę ochronną. Kluczowe jest to, kto ją trzyma i w jakim celu.",
+        "jungian": "Miecz jako logos — zdolność cięcia i odróżniania prawdy od fałszu.",
+        "shadow": "Posługiwanie się bronią wobec bliskich może wskazywać na stłumioną agresję wobec nich.",
+        "followUpPrompt": "Które granice w Twoim życiu wymagają jasnego i odważnego wytyczenia?"
+      },
+      {
+        "id": "e40",
+        "keyword": "Pociąg",
+        "cat": "obiekty",
+        "emoji": "🚂",
+        "color": "#A3A3A3",
+        "meaning": "Pociąg dotyczy kierunku życia i poczucia, że coś ruszyło. Sen pyta, czy jedziesz swoim rytmem, czy cudzym torem.",
+        "jungian": "Podróż jako metafora procesu indywiduacji — nieznane stacje to nowe etapy świadomości.",
+        "shadow": "Spóźnienie na pociąg to klasyczny sen lękowy o utraconej szansie lub opóźnieniu w życiu.",
+        "followUpPrompt": "Czy tempo, w którym żyjesz, naprawdę jest Twoje?"
+      },
+      {
+        "id": "e41",
+        "keyword": "Szpital",
+        "cat": "miejsca",
+        "emoji": "🏥",
+        "color": "#86EFAC",
+        "meaning": "Szpital symbolizuje uzdrowienie, kruchość lub czas transformacji. Może wskazywać na potrzebę troski o siebie.",
+        "jungian": "Sanktuarium uzdrowienia — temenos, gdzie psyche się regeneruje. Chiron — raniony uzdrowiciel.",
+        "shadow": "Konieczność operacji we śnie może symbolizować potrzebę głębokiej pracy nad sobą.",
+        "followUpPrompt": "Która część Ciebie potrzebuje teraz prawdziwego leczenia i odpoczynku?"
+      },
+      {
+        "id": "e42",
+        "keyword": "Więzienie",
+        "cat": "miejsca",
+        "emoji": "⛓️",
+        "color": "#6B7280",
+        "meaning": "Więzienie symbolizuje poczucie ograniczenia, uwięzienia w sytuacji lub przekonaniu bez możliwości wyjścia.",
+        "jungian": "Więzienie jako kompleks — zinternalizowane wzorce blokujące swobodę psychiczną.",
+        "shadow": "Bycie strażnikiem własnego więzienia — sam nakładasz sobie ograniczenia.",
+        "followUpPrompt": "W jakim przekonaniu lub wzorcu sam siebie więzisz?"
+      }
+    ],
+    "nocturnalPrompts": [
+      "Co w tym śnie czuło się jak Twoje, a co obce?",
+      "Który symbol powtarzał się ostatnio w snach?",
+      "Gdyby ten sen był wiadomością — co by mówił?",
+      "Jaką emocję zabrałeś ze snu do przebudzenia?",
+      "Co w tym śnie chciałeś zmienić, ale nie mogłeś?",
+      "Jaki kolor lub miejsce najbardziej pamiętasz?",
+      "Gdybyś mógł wrócić do tego snu — co byś zrobił inaczej?"
+    ],
+    "dailySymbols": [
+      {
+        "name": "Woda",
+        "emoji": "🌊",
+        "color": "#60A5FA",
+        "desc": "Woda we śnie dotyka najgłębszych warstw emocji — tych, które zwykle ukrywamy przed sobą."
+      },
+      {
+        "name": "Ogień",
+        "emoji": "🔥",
+        "color": "#FB923C",
+        "desc": "Ogień symbolizuje transformację i oczyszczającą siłę."
+      },
+      {
+        "name": "Drzewo",
+        "emoji": "🌳",
+        "color": "#86EFAC",
+        "desc": "Drzewo śnione to obraz Twojej wewnętrznej struktury i korzeni."
+      },
+      {
+        "name": "Labirynt",
+        "emoji": "🌀",
+        "color": "#C084FC",
+        "desc": "Labirynt pojawia się wtedy, gdy szukasz wyjścia z sytuacji bez prostego rozwiązania."
+      },
+      {
+        "name": "Ptak",
+        "emoji": "🦅",
+        "color": "#67E8F9",
+        "desc": "Ptak niesie przesłanie wolności i perspektywy z góry."
+      },
+      {
+        "name": "Lustro",
+        "emoji": "🪞",
+        "color": "#818CF8",
+        "desc": "Lustro pokazuje Twoje prawdziwe oblicze bez filtrów."
+      },
+      {
+        "name": "Most",
+        "emoji": "🌉",
+        "color": "#F9A8D4",
+        "desc": "Most sygnalizuje moment przejścia między etapami życia."
+      },
+      {
+        "name": "Klucz",
+        "emoji": "🗝️",
+        "color": "#FCD34D",
+        "desc": "Klucz to symbol dostępu do tajemnicy i ukrytego potencjału."
+      },
+      {
+        "name": "Burza",
+        "emoji": "⛈️",
+        "color": "#818CF8",
+        "desc": "Burza to nagromadzona energia emocjonalna szukająca uwolnienia."
+      },
+      {
+        "name": "Dom",
+        "emoji": "🏠",
+        "color": "#D9B56D",
+        "desc": "Dom we śnie to Ty sam — każde pomieszczenie to aspekt Twojej psychiki."
+      },
+      {
+        "name": "Dziecko",
+        "emoji": "👶",
+        "color": "#F48DB0",
+        "desc": "Dziecko symbolizuje wrażliwą część siebie i nowe początki."
+      },
+      {
+        "name": "Nieznajomy",
+        "emoji": "🧙",
+        "color": "#A3E635",
+        "desc": "Nieznajomy to najczęściej projekcja nieintegrowanego aspektu siebie."
+      },
+      {
+        "name": "Księżyc",
+        "emoji": "🌕",
+        "color": "#E2D4F0",
+        "desc": "Księżyc to symbol cykli, intuicji i sfer poza rozumem."
+      },
+      {
+        "name": "Słońce",
+        "emoji": "☀️",
+        "color": "#FBBF24",
+        "desc": "Słońce śnione to promieniowanie Twojej świadomości i wartości."
+      },
+      {
+        "name": "Wąż",
+        "emoji": "🐍",
+        "color": "#4ADE80",
+        "desc": "Wąż to archetyp transformacji, uzdrowienia i ukrytej mądrości."
+      },
+      {
+        "name": "Góra",
+        "emoji": "⛰️",
+        "color": "#94A3B8",
+        "desc": "Góra to wyzwanie i droga ku wyższemu punktowi widzenia."
+      },
+      {
+        "name": "Drzwi",
+        "emoji": "🚪",
+        "color": "#C4A882",
+        "desc": "Drzwi to symbol progu i wyboru — przejście wzywa."
+      },
+      {
+        "name": "Oko",
+        "emoji": "👁️",
+        "color": "#A78BFA",
+        "desc": "Oko to symbol obserwacji, świadomości i bycia widzianym."
+      },
+      {
+        "name": "Koło",
+        "emoji": "⭕",
+        "color": "#34D399",
+        "desc": "Koło symbolizuje cykl, kompletność i powrót do pełni."
+      },
+      {
+        "name": "Pająk",
+        "emoji": "🕷️",
+        "color": "#6B7280",
+        "desc": "Pająk to twórcza moc tkania życia, sieci relacji i losu."
+      }
+    ],
+    "moonDreamData": [
+      {
+        "phase": "Nów",
+        "emoji": "🌑",
+        "color": "#6B7280",
+        "dreamType": "Sny intencyjne",
+        "description": "Nów to idealny czas na programowanie snów. Podświadomość jest wyjątkowo receptywna na intencje i pytania zanoszone przed snem.",
+        "tip": "Zapisz pytanie przed snem: \"Pokaż mi, gdzie zacząć nowy rozdział\".",
+        "lucidFavorable": false,
+        "propheticFavorable": true
+      },
+      {
+        "phase": "Przybywający sierp",
+        "emoji": "🌒",
+        "color": "#9CA3AF",
+        "dreamType": "Sny wzrostu",
+        "description": "Energie wzrostu sprzyjają snom o ekspansji i nowych możliwościach. Często pojawiają się sny o podróżach i odkryciach.",
+        "tip": "Notuj symbole nowych początków — klucze, nasiona, wschodzące słońce.",
+        "lucidFavorable": false,
+        "propheticFavorable": false
+      },
+      {
+        "phase": "Pierwsza kwadra",
+        "emoji": "🌓",
+        "color": "#D1D5DB",
+        "dreamType": "Sny konfrontacyjne",
+        "description": "Napięcie kwadratu aktywuje sny o wyzwaniach i decyzjach. Podświadomość przetwarza konflikty i dylematy.",
+        "tip": "Zwróć uwagę na postacie, z którymi się kłócisz — to aspekty Ciebie samego.",
+        "lucidFavorable": false,
+        "propheticFavorable": false
+      },
+      {
+        "phase": "Przybywający garb",
+        "emoji": "🌔",
+        "color": "#E5E7EB",
+        "dreamType": "Sny integracyjne",
+        "description": "Zbliżająca się pełnia intensyfikuje aktywność oniryczną. Sny stają się bardziej żywe, emocjonalne i wielowarstwowe.",
+        "tip": "Warto mieć notes przy łóżku — ten czas przynosi szczególnie ważne sny.",
+        "lucidFavorable": true,
+        "propheticFavorable": false
+      },
+      {
+        "phase": "Pełnia",
+        "emoji": "🌕",
+        "color": "#F9FAFB",
+        "dreamType": "Sny objawienia",
+        "description": "Pełnia księżyca to szczyt aktywności onirycznej. Sny są najintensywniejsze, najdłuższe i najłatwiej zapadają w pamięć.",
+        "tip": "Czas na świadome śnienie (lucid dreaming) — zwiększ intencję zaraz przed snem.",
+        "lucidFavorable": true,
+        "propheticFavorable": true
+      },
+      {
+        "phase": "Ubywający garb",
+        "emoji": "🌖",
+        "color": "#D1FAE5",
+        "dreamType": "Sny uwalniające",
+        "description": "Energia ubywania sprzyja snom o pożegnaniach, zakończeniach i puszczaniu tego, co nie służy.",
+        "tip": "Sny w tej fazie często przynoszą uczucie ulgi i zakończenia.",
+        "lucidFavorable": false,
+        "propheticFavorable": false
+      },
+      {
+        "phase": "Ostatnia kwadra",
+        "emoji": "🌗",
+        "color": "#A7F3D0",
+        "dreamType": "Sny oczyszczające",
+        "description": "Czas na przetwarzanie i integrację. Podświadomość porządkuje doświadczenia z całego cyklu.",
+        "tip": "Sny mogą być chaotyczne — to normalne. Szukaj jednego kluczowego symbolu.",
+        "lucidFavorable": false,
+        "propheticFavorable": false
+      },
+      {
+        "phase": "Ubywający sierp",
+        "emoji": "🌘",
+        "color": "#6EE7B7",
+        "dreamType": "Sny ciszy",
+        "description": "Przed nowiem sny stają się spokojniejsze i głębsze. Czas na kontemplację i przygotowanie na nowy cykl.",
+        "tip": "Medytacja przed snem w tej fazie wzmacnia połączenie z intuicją oniryczną.",
+        "lucidFavorable": false,
+        "propheticFavorable": false
+      }
+    ],
+    "monthNames": [
+      "Styczeń",
+      "Luty",
+      "Marzec",
+      "Kwiecień",
+      "Maj",
+      "Czerwiec",
+      "Lipiec",
+      "Sierpień",
+      "Wrzesień",
+      "Październik",
+      "Listopad",
+      "Grudzień"
+    ],
+    "weekdays": [
+      "Pon",
+      "Wt",
+      "Śr",
+      "Czw",
+      "Pt",
+      "Sob",
+      "Nd"
+    ],
+    "moonPhases": [
+      {
+        "max": 1.85,
+        "emoji": "🌑",
+        "label": "Nów"
+      },
+      {
+        "max": 7.38,
+        "emoji": "🌒",
+        "label": "Przybywający sierp"
+      },
+      {
+        "max": 9.22,
+        "emoji": "🌓",
+        "label": "Pierwsza kwadra"
+      },
+      {
+        "max": 14.77,
+        "emoji": "🌔",
+        "label": "Przybywający garb"
+      },
+      {
+        "max": 16.61,
+        "emoji": "🌕",
+        "label": "Pełnia"
+      },
+      {
+        "max": 22.15,
+        "emoji": "🌖",
+        "label": "Ubywający garb"
+      },
+      {
+        "max": 23.99,
+        "emoji": "🌗",
+        "label": "Ostatnia kwadra"
+      },
+      {
+        "max": 29.53,
+        "emoji": "🌘",
+        "label": "Ubywający sierp"
+      }
+    ]
+  },
+  "hero": {
+    "metaLine": "{{dreams}} snów · pasmo {{streak}} nocy · {{lucid}} lucid"
+  },
+  "archive": {
+    "title": "MÓJ SENNIK ({{count}})",
+    "tipsTitle": "JAK ZAPISYWAĆ SNY",
+    "tips": [
+      [
+        "Natychmiast po przebudzeniu",
+        "Po 20 minutach tracisz 80% szczegółów. Zanim wstaniesz — zapisz."
+      ],
+      [
+        "Zacznij od emocji",
+        "Emocja jest ważniejsza niż fabuła — to ona niesie prawdziwe przesłanie."
+      ],
+      [
+        "Jeden obraz wystarczy",
+        "Nawet jeden kolor lub twarz to wartościowy trop Jungowski."
+      ],
+      [
+        "Śledź powtórzenia",
+        "Powtarzający się symbol to głos podświadomości. Nadaj mu własne znaczenie."
+      ]
+    ]
+  }
+}

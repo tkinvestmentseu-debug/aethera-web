@@ -1,0 +1,18 @@
+{
+  "actions": {
+    "clear": "Clear",
+    "confirm": "Confirm"
+  },
+  "labels": {
+    "center": "Center",
+    "relationships": "Relationships",
+    "agency": "Agency",
+    "lesson": "Lesson",
+    "path": "Path"
+  },
+  "status": {
+    "todayActive": "active today",
+    "now": "NOW",
+    "past": "PAST"
+  }
+}

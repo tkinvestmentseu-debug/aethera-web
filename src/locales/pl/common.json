@@ -1,0 +1,20 @@
+{
+  "actions": {
+    "clear": "Wyczyść",
+    "confirm": "Potwierdź",
+    "cancel": "Anuluj",
+    "delete": "Usuń"
+  },
+  "labels": {
+    "center": "Centrum",
+    "relationships": "Relacje",
+    "agency": "Sprawczość",
+    "lesson": "Lekcja",
+    "path": "Droga"
+  },
+  "status": {
+    "todayActive": "dziś aktywna",
+    "now": "TERAZ",
+    "past": "PRZESZŁE"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "diacritics": ["ą", "ć", "ę", "ł", "ń", "ó", "ś", "ź", "ż"],
+  "commonWords": [
+    "i", "oraz", "albo", "dla", "jest", "są", "na", "w", "z", "do", "po", "nie", "tak",
+    "dziś", "dzień", "rytuał", "karta", "energia", "księżyc", "horoskop", "sny", "oczyszczanie",
+    "afirmacja", "prowadzenie", "praktyka", "sesja", "dziennik", "podróż", "gwiazdy", "cykle"
+  ],
+  "stemHints": [
+    "rytua", "kart", "energi", "księży", "afirm", "oczyszcz", "prowadzen", "sanktuar", "duchow", "kosmiczn"
+  ],
+  "qaPatterns": [
+    "\\b(dzień|rytuał|karta|energia|księżyc|afirmacja|dziennik|horoskop|sny|gwiazdy)\\b",
+    "[ąćęłńóśźż]"
+  ]
+}

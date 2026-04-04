@@ -1,0 +1,208 @@
+{
+  "version": 1,
+  "brandTone": "premium spiritual elegant calm",
+  "terms": {
+    "oracle": {
+      "translations": {
+        "pl": "Wyrocznia",
+        "en": "Oracle",
+        "de": "Orakel",
+        "es": "Oráculo",
+        "fr": "Oracle",
+        "it": "Oracolo",
+        "pt": "Oráculo"
+      },
+      "forbidden": {
+        "pl": ["oracle chat", "bot", "chatbot"],
+        "en": ["fortune bot", "mystic bot"]
+      }
+    },
+    "ritual": {
+      "translations": {
+        "pl": "Rytuał",
+        "en": "Ritual",
+        "de": "Ritual",
+        "es": "Ritual",
+        "fr": "Rituel",
+        "it": "Rituale",
+        "pt": "Ritual"
+      }
+    },
+    "cleansing": {
+      "translations": {
+        "pl": "Oczyszczanie",
+        "en": "Cleansing",
+        "de": "Reinigung",
+        "es": "Limpieza",
+        "fr": "Purification",
+        "it": "Purificazione",
+        "pt": "Limpeza"
+      }
+    },
+    "guidance": {
+      "translations": {
+        "pl": "Prowadzenie",
+        "en": "Guidance",
+        "de": "Führung",
+        "es": "Guía",
+        "fr": "Guidance",
+        "it": "Guida",
+        "pt": "Orientação"
+      }
+    },
+    "spread": {
+      "translations": {
+        "pl": "Układ",
+        "en": "Spread",
+        "de": "Legung",
+        "es": "Tirada",
+        "fr": "Tirage",
+        "it": "Stesa",
+        "pt": "Tirada"
+      }
+    },
+    "birthChart": {
+      "translations": {
+        "pl": "Karta Urodzenia",
+        "en": "Birth Chart",
+        "de": "Geburtskarte",
+        "es": "Carta Natal",
+        "fr": "Carte natale",
+        "it": "Carta natale",
+        "pt": "Mapa Astral"
+      }
+    },
+    "tarot": {
+      "translations": {
+        "pl": "Tarot",
+        "en": "Tarot",
+        "de": "Tarot",
+        "es": "Tarot",
+        "fr": "Tarot",
+        "it": "Tarocchi",
+        "pt": "Tarot"
+      }
+    },
+    "astrology": {
+      "translations": {
+        "pl": "Astrologia",
+        "en": "Astrology",
+        "de": "Astrologie",
+        "es": "Astrología",
+        "fr": "Astrologie",
+        "it": "Astrologia",
+        "pt": "Astrologia"
+      }
+    },
+    "dreams": {
+      "translations": {
+        "pl": "Sny",
+        "en": "Dreams",
+        "de": "Träume",
+        "es": "Sueños",
+        "fr": "Rêves",
+        "it": "Sogni",
+        "pt": "Sonhos"
+      }
+    },
+    "visionBoard": {
+      "translations": {
+        "pl": "Tablica Manifestacji",
+        "en": "Vision Board",
+        "de": "Vision Board",
+        "es": "Vision Board",
+        "fr": "Tableau de vision",
+        "it": "Vision Board",
+        "pt": "Quadro de Visão"
+      }
+    },
+    "journeys": {
+      "translations": {
+        "pl": "Podróże duchowe",
+        "en": "Spiritual Journeys",
+        "de": "Spirituelle Reisen",
+        "es": "Viajes espirituales",
+        "fr": "Voyages spirituels",
+        "it": "Viaggi spirituali",
+        "pt": "Jornadas espirituais"
+      }
+    },
+    "session": {
+      "translations": {
+        "pl": "Sesja",
+        "en": "Session",
+        "de": "Sitzung",
+        "es": "Sesión",
+        "fr": "Session",
+        "it": "Sessione",
+        "pt": "Sessão"
+      }
+    },
+    "affirmation": {
+      "translations": {
+        "pl": "Afirmacja",
+        "en": "Affirmation",
+        "de": "Affirmation",
+        "es": "Afirmación",
+        "fr": "Affirmation",
+        "it": "Affermazione",
+        "pt": "Afirmação"
+      }
+    },
+    "spiritualGuidance": {
+      "translations": {
+        "pl": "Duchowe prowadzenie",
+        "en": "Spiritual Guidance",
+        "de": "Spirituelle Führung",
+        "es": "Guía espiritual",
+        "fr": "Guidance spirituelle",
+        "it": "Guida spirituale",
+        "pt": "Orientação espiritual"
+      }
+    },
+    "cosmic": {
+      "translations": {
+        "pl": "Kosmiczny",
+        "en": "Cosmic",
+        "de": "Kosmisch",
+        "es": "Cósmico",
+        "fr": "Cosmique",
+        "it": "Cosmico",
+        "pt": "Cósmico"
+      }
+    },
+    "lunar": {
+      "translations": {
+        "pl": "Księżycowy",
+        "en": "Lunar",
+        "de": "Lunar",
+        "es": "Lunar",
+        "fr": "Lunaire",
+        "it": "Lunare",
+        "pt": "Lunar"
+      }
+    },
+    "intuitive": {
+      "translations": {
+        "pl": "Intuicyjny",
+        "en": "Intuitive",
+        "de": "Intuitiv",
+        "es": "Intuitivo",
+        "fr": "Intuitif",
+        "it": "Intuitivo",
+        "pt": "Intuitivo"
+      }
+    },
+    "support": {
+      "translations": {
+        "pl": "Wsparcie",
+        "en": "Support",
+        "de": "Unterstützung",
+        "es": "Apoyo",
+        "fr": "Soutien",
+        "it": "Supporto",
+        "pt": "Apoio"
+      }
+    }
+  }
+}
