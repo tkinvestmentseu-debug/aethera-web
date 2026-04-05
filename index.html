@@ -828,7 +828,7 @@ html[lang="ar"] { direction: rtl; }
       <option value="ar">&#127480;&#127462; &#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</option>
       <option value="ja">&#127471;&#127477; &#26085;&#26412;&#35486;</option>
     </select>
-    <button onclick="openSignupModal()" class="btn-nav" style="margin-right:4px;">Zarejestruj się</button>
+    <button onclick="openSignupModal()" class="btn-nav" style="margin-right:4px;" data-i18n="nav_register">Create Account</button>
     <a href="#download" class="btn-nav" data-i18n="nav_cta" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);box-shadow:none;">Pobierz &#8212; Gratis</a>
   </div>
   <div class="hamburger" id="hamburger" role="button" aria-label="Menu">
@@ -846,7 +846,7 @@ html[lang="ar"] { direction: rtl; }
   <a href="#legal" data-i18n="nav_legal">Prawne</a>
   <a href="#team" data-i18n="nav_team">Twórca</a>
   <a href="#contact">Kontakt</a>
-  <button onclick="openSignupModal();document.getElementById('mobile-menu').classList.remove('open');document.getElementById('hamburger').classList.remove('open');" class="btn-nav" style="text-align:center;margin-top:4px;border:none;width:100%;cursor:pointer;">Zarejestruj się</button>
+  <button onclick="openSignupModal();document.getElementById('mobile-menu').classList.remove('open');document.getElementById('hamburger').classList.remove('open');" class="btn-nav" style="text-align:center;margin-top:4px;border:none;width:100%;cursor:pointer;" data-i18n="nav_register">Create Account</button>
   <a href="#download" class="btn-nav" style="text-align:center;margin-top:4px;" data-i18n="nav_cta">Pobierz &#8212; Gratis</a>
 </div>
 
@@ -913,6 +913,10 @@ html[lang="ar"] { direction: rtl; }
 
   <div class="hero-badge">&#10022; <span data-i18n="hero_badge">NOWA ERA DUCHOWO&#346;CI</span></div>
   <p class="hero-sub" data-i18n="hero_sub">Staro&#380;ytna m&#261;dro&#347;&#263;. Nowoczesna technologia. Twoja dusza.</p>
+  <!-- Primary CTA: Create Account -->
+  <div style="margin-bottom:24px;text-align:center">
+    <button onclick="openSignupModal()" style="display:inline-block;background:linear-gradient(135deg,#8B5CF6,#A78BFA,#CEAE72);color:#ffffff;border:none;cursor:pointer;padding:18px 52px;border-radius:16px;font-weight:700;font-size:17px;letter-spacing:0.5px;box-shadow:0 0 48px rgba(139,92,246,0.45),0 8px 32px rgba(0,0,0,0.4);font-family:inherit;transition:transform 0.2s,box-shadow 0.2s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 0 64px rgba(139,92,246,0.6),0 12px 40px rgba(0,0,0,0.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 0 48px rgba(139,92,246,0.45),0 8px 32px rgba(0,0,0,0.4)'">&#10022; Create Account — Free</button>
+  </div>
   <div class="hero-ctas">
     <a href="#download" class="btn-store">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -1592,7 +1596,7 @@ html[lang="ar"] { direction: rtl; }
 <script>
 var TRANSLATIONS = {
   pl: {
-    nav_worlds:'Światy',nav_features:'Funkcje',nav_oracle:'Oracle',nav_download:'Pobierz',nav_legal:'Prawne',nav_cta:'Pobierz — Gratis',
+    nav_worlds:'Światy',nav_features:'Funkcje',nav_oracle:'Oracle',nav_download:'Pobierz',nav_legal:'Prawne',nav_cta:'Pobierz — Gratis',nav_register:'Utwórz konto',
     nav_community:'Wspólnota',nav_team:'Twórca',
     hero_badge:'NOWA ERA DUCHOWOŚCI',hero_sub:'Starożytna mądrość. Nowoczesna technologia. Twoja dusza.',
     hero_cta1_sub:'Pobierz w',hero_cta1:'App Store',hero_cta2_sub:'Dostępne w',hero_cta2:'Google Play',
@@ -1685,7 +1689,7 @@ var TRANSLATIONS = {
     test_role_en:'UK · ♌ Leo',test_role_de:'Deutschland · ♏ Skorpion'
   },
   en: {
-    nav_worlds:'Worlds',nav_features:'Features',nav_oracle:'Oracle',nav_download:'Download',nav_legal:'Legal',nav_cta:'Download — Free',
+    nav_worlds:'Worlds',nav_features:'Features',nav_oracle:'Oracle',nav_download:'Download',nav_legal:'Legal',nav_cta:'Download — Free',nav_register:'Create Account',
     nav_community:'Community',nav_team:'Creator',
     hero_badge:'NEW ERA OF SPIRITUALITY',hero_sub:'Ancient wisdom. Modern technology. Your soul.',
     hero_cta1_sub:'Download on',hero_cta1:'App Store',hero_cta2_sub:'Get it on',hero_cta2:'Google Play',
@@ -1778,7 +1782,7 @@ var TRANSLATIONS = {
     test_role_en:'UK · ♌ Leo',test_role_de:'Germany · ♏ Scorpio'
   },
   de: {
-    nav_worlds:'Welten',nav_features:'Funktionen',nav_oracle:'Orakel',nav_download:'Herunterladen',nav_legal:'Rechtliches',nav_cta:'Kostenlos herunterladen',
+    nav_worlds:'Welten',nav_features:'Funktionen',nav_oracle:'Orakel',nav_download:'Herunterladen',nav_legal:'Rechtliches',nav_cta:'Kostenlos herunterladen',nav_register:'Konto erstellen',
     nav_community:'Gemeinschaft',nav_team:'Entwickler',
     hero_badge:'NEUE ÄRA DER SPIRITUALITÄT',hero_sub:'Uralte Weisheit. Moderne Technologie. Deine Seele.',
     hero_cta1_sub:'Im',hero_cta1:'App Store',hero_cta2_sub:'Bei',hero_cta2:'Google Play',
@@ -1868,7 +1872,7 @@ var TRANSLATIONS = {
     test_role_en:'UK · ♌ Löwe',test_role_de:'Deutschland · ♏ Skorpion'
   },
   fr: {
-    nav_worlds:'Mondes',nav_features:'Fonctions',nav_oracle:'Oracle',nav_download:'Télécharger',nav_legal:'Légal',nav_cta:'Télécharger — Gratuit',
+    nav_worlds:'Mondes',nav_features:'Fonctions',nav_oracle:'Oracle',nav_download:'Télécharger',nav_legal:'Légal',nav_cta:'Télécharger — Gratuit',nav_register:'Créer un compte',
     nav_community:'Communauté',nav_team:'Créateur',
     hero_badge:'NOUVELLE ÈRE DE LA SPIRITUALITÉ',hero_sub:'Sagesse ancienne. Technologie moderne. Votre âme.',
     hero_cta1_sub:"Télécharger sur",hero_cta1:"l'App Store",hero_cta2_sub:'Disponible sur',hero_cta2:'Google Play',
@@ -1958,7 +1962,7 @@ var TRANSLATIONS = {
     test_role_en:'UK · ♌ Lion',test_role_de:'Allemagne · ♏ Scorpion'
   },
   es: {
-    nav_worlds:'Mundos',nav_features:'Funciones',nav_oracle:'Oráculo',nav_download:'Descargar',nav_legal:'Legal',nav_cta:'Descargar — Gratis',
+    nav_worlds:'Mundos',nav_features:'Funciones',nav_oracle:'Oráculo',nav_download:'Descargar',nav_legal:'Legal',nav_cta:'Descargar — Gratis',nav_register:'Crear cuenta',
     nav_community:'Comunidad',nav_team:'Creador',
     hero_badge:'NUEVA ERA DE LA ESPIRITUALIDAD',hero_sub:'Sabiduría ancestral. Tecnología moderna. Tu alma.',
     hero_cta1_sub:'Descargar en',hero_cta1:'App Store',hero_cta2_sub:'Disponible en',hero_cta2:'Google Play',
@@ -2011,7 +2015,7 @@ var TRANSLATIONS = {
     test_badge_editor:'Elección de la redacción',test_role_pl:'Polonia · ♒ Acuario',test_role_pl2:'Polonia · ♓ Piscis · Premium',test_role_en:'UK · ♌ Leo',test_role_de:'Alemania · ♏ Escorpio'
   },
   pt: {
-    nav_worlds:'Mundos',nav_features:'Funções',nav_oracle:'Oráculo',nav_download:'Baixar',nav_legal:'Legal',nav_cta:'Baixar — Grátis',
+    nav_worlds:'Mundos',nav_features:'Funções',nav_oracle:'Oráculo',nav_download:'Baixar',nav_legal:'Legal',nav_cta:'Baixar — Grátis',nav_register:'Criar conta',
     nav_community:'Comunidade',nav_team:'Criador',
     hero_badge:'NOVA ERA DA ESPIRITUALIDADE',hero_sub:'Sabedoria ancestral. Tecnologia moderna. Sua alma.',
     hero_cta1_sub:'Baixar na',hero_cta1:'App Store',hero_cta2_sub:'Disponível no',hero_cta2:'Google Play',
@@ -2064,7 +2068,7 @@ var TRANSLATIONS = {
     test_badge_editor:'Escolha da redação',test_role_pl:'Polónia · ♒ Aquário',test_role_pl2:'Polónia · ♓ Peixes · Premium',test_role_en:'UK · ♌ Leão',test_role_de:'Alemanha · ♏ Escorpião'
   },
   it: {
-    nav_worlds:'Mondi',nav_features:'Funzioni',nav_oracle:'Oracolo',nav_download:'Scarica',nav_legal:'Legale',nav_cta:'Scarica — Gratis',
+    nav_worlds:'Mondi',nav_features:'Funzioni',nav_oracle:'Oracolo',nav_download:'Scarica',nav_legal:'Legale',nav_cta:'Scarica — Gratis',nav_register:'Crea account',
     nav_community:'Comunità',nav_team:'Creatore',
     hero_badge:'NUOVA ERA DELLA SPIRITUALITÀ',hero_sub:"La tua anima. La saggezza antica. La tecnologia moderna.",
     hero_cta1_sub:'Scarica su',hero_cta1:'App Store',hero_cta2_sub:'Disponibile su',hero_cta2:'Google Play',
@@ -2117,7 +2121,7 @@ var TRANSLATIONS = {
     test_badge_editor:'Scelta della redazione',test_role_pl:'Polonia · ♒ Acquario',test_role_pl2:'Polonia · ♓ Pesci · Premium',test_role_en:'UK · ♌ Leone',test_role_de:'Germania · ♏ Scorpione'
   },
   ru: {
-    nav_worlds:'Миры',nav_features:'Функции',nav_oracle:'Оракул',nav_download:'Скачать',nav_legal:'Правовое',nav_cta:'Скачать — Бесплатно',
+    nav_worlds:'Миры',nav_features:'Функции',nav_oracle:'Оракул',nav_download:'Скачать',nav_legal:'Правовое',nav_cta:'Скачать — Бесплатно',nav_register:'Создать аккаунт',
     nav_community:'Сообщество',nav_team:'Создатель',
     hero_badge:'НОВАЯ ЭРА ДУХОВНОСТИ',hero_sub:'Древняя мудрость. Современные технологии. Твоя душа.',
     hero_cta1_sub:'Загрузить в',hero_cta1:'App Store',hero_cta2_sub:'Доступно в',hero_cta2:'Google Play',
@@ -2170,7 +2174,7 @@ var TRANSLATIONS = {
     test_badge_editor:'Выбор редакции',test_role_pl:'Польша · ♒ Водолей',test_role_pl2:'Польша · ♓ Рыбы · Премиум',test_role_en:'UK · ♌ Лев',test_role_de:'Германия · ♏ Скорпион'
   },
   ar: {
-    nav_worlds:'العوالم',nav_features:'الميزات',nav_oracle:'الأوراكل',nav_download:'تحميل',nav_legal:'قانوني',nav_cta:'تحميل — مجاناً',
+    nav_worlds:'العوالم',nav_features:'الميزات',nav_oracle:'الأوراكل',nav_download:'تحميل',nav_legal:'قانوني',nav_cta:'تحميل — مجاناً',nav_register:'إنشاء حساب',
     nav_community:'المجتمع',nav_team:'المطور',
     hero_badge:'عصر جديد من الروحانية',hero_sub:'الحكمة القديمة. التكنولوجيا الحديثة. روحك.',
     hero_cta1_sub:'تنزيل من',hero_cta1:'App Store',hero_cta2_sub:'متوفر على',hero_cta2:'Google Play',
@@ -2223,7 +2227,7 @@ var TRANSLATIONS = {
     test_badge_editor:'اختيار التحرير',test_role_pl:'بولندا · ♒ الدلو',test_role_pl2:'بولندا · ♓ الحوت · بريميوم',test_role_en:'المملكة المتحدة · ♌ الأسد',test_role_de:'ألمانيا · ♏ العقرب'
   },
   ja: {
-    nav_worlds:'世界',nav_features:'機能',nav_oracle:'オラクル',nav_download:'ダウンロード',nav_legal:'法的情報',nav_cta:'無料ダウンロード',
+    nav_worlds:'世界',nav_features:'機能',nav_oracle:'オラクル',nav_download:'ダウンロード',nav_legal:'法的情報',nav_cta:'無料ダウンロード',nav_register:'アカウント作成',
     nav_community:'コミュニティ',nav_team:'開発者',
     hero_badge:'精神性の新時代',hero_sub:'古代の知恵。現代テクノロジー。あなたの魂。',
     hero_cta1_sub:'ダウンロード',hero_cta1:'App Store',hero_cta2_sub:'入手可能',hero_cta2:'Google Play',
@@ -2886,25 +2890,24 @@ async function submitSignup() {
   var email   = document.getElementById('s-email').value.trim();
   var hp      = document.getElementById('s-hp').value;  // honeypot
 
-  if(!isEmailValid(email)) { showFieldError('s-email', 'Please enter a valid email.'); return; }
+  if(!isEmailValid(email)) { showFieldError('s-email', 'Please enter a valid email address.'); return; }
 
-  setBtn('s-submit', '✦ Sending…', true);
+  setBtn('s-submit', '✦ Creating account…', true);
 
   try {
     var res = await fetch(AETHERA_API + '/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, email: email, lang: currentLang || 'pl',
-        honeypot: hp, ua: navigator.userAgent }),
+      body: JSON.stringify({ name: name, email: email, lang: 'en', _hp: hp, ua: navigator.userAgent }),
     });
     var data = await res.json();
     if(!res.ok || !data.ok) throw new Error(data.error || 'Server error');
     document.getElementById('signup-form-fields').style.display = 'none';
     document.getElementById('signup-success').style.display = 'block';
   } catch(e) {
-    setBtn('s-submit', '✦ Dołącz do Aethery', false);
+    setBtn('s-submit', '✦ Join Aethera', false);
     var errEl = document.getElementById('s-global-err');
-    if(errEl) { errEl.textContent = 'Coś poszło nie tak. Spróbuj ponownie lub napisz bezpośrednio na contact@aethera.pl'; errEl.style.display = 'block'; }
+    if(errEl) { errEl.textContent = 'Something went wrong. Please try again or email us at contact@aethera.pl'; errEl.style.display = 'block'; }
   }
 }
 
@@ -2951,30 +2954,30 @@ async function submitContact() {
     <button class="modal-close" onclick="closeSignupModal()" aria-label="Zamknij">&#10005;</button>
     <div id="signup-form-fields">
       <span class="modal-icon">&#10022;</span>
-      <h2 class="modal-title" id="modal-heading">Dołącz do Aethery</h2>
-      <p class="modal-sub">Zarejestruj swój e-mail i bądź na bieżąco z premierą aplikacji.<br>Konto tworzy się w aplikacji — na iOS i Android.</p>
+      <h2 class="modal-title" id="modal-heading">Join Aethera</h2>
+      <p class="modal-sub">Create your account and step into the world of magic.<br>A beautiful welcome awaits you in your inbox.</p>
       <!-- Honeypot — hidden from real users, bots fill this -->
       <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none" aria-hidden="true">
         <input type="text" id="s-hp" name="website" tabindex="-1" autocomplete="off">
       </div>
       <div class="form-group">
-        <label>Imię (opcjonalne)</label>
-        <input type="text" class="form-control" id="s-name" placeholder="Twoje imię" autocomplete="given-name">
+        <label>Your name (optional)</label>
+        <input type="text" class="form-control" id="s-name" placeholder="Your first name" autocomplete="given-name">
       </div>
       <div class="form-group">
-        <label>Adres e-mail *</label>
-        <input type="email" class="form-control" id="s-email" placeholder="twoj@email.com" autocomplete="email">
+        <label>Email address *</label>
+        <input type="email" class="form-control" id="s-email" placeholder="you@email.com" autocomplete="email">
         <span id="s-email-err" style="display:none;color:var(--red);font-size:12px;margin-top:4px;display:block"></span>
       </div>
       <div id="s-global-err" style="display:none;color:var(--red);font-size:13px;margin-bottom:12px;padding:10px 14px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:10px"></div>
-      <button class="btn-modal" id="s-submit" onclick="submitSignup()">✦ Dołącz do Aethery</button>
-      <p class="modal-terms">Rejestrując się akceptujesz <a href="#legal" onclick="closeSignupModal();showLegalTab('terms')">Regulamin</a> i <a href="#legal" onclick="closeSignupModal();showLegalTab('privacy')">Politykę Prywatności</a>.</p>
+      <button class="btn-modal" id="s-submit" onclick="submitSignup()">✦ Join Aethera</button>
+      <p class="modal-terms">By registering you accept our <a href="#legal" onclick="closeSignupModal();showLegalTab('terms')">Terms of Service</a> and <a href="#legal" onclick="closeSignupModal();showLegalTab('privacy')">Privacy Policy</a>.</p>
     </div>
     <div class="modal-success" id="signup-success">
       <span class="modal-success-icon">✦</span>
-      <div class="modal-success-title">Jesteś na liście!</div>
-      <p class="modal-success-sub">Twoja rejestracja przebiegła pomyślnie. Wysłaliśmy Ci e-mail powitalny — sprawdź skrzynkę (również folder spam).<br><br>Powiadomimy Cię, gdy Aethera będzie gotowa. Pobierz aplikację już dziś!</p>
-      <button class="btn-modal" onclick="closeSignupModal();document.getElementById('download').scrollIntoView({behavior:'smooth'})">Pobierz aplikację &#8595;</button>
+      <div class="modal-success-title">Welcome to Aethera ✦</div>
+      <p class="modal-success-sub">Your account has been created! We've sent a welcome email to your inbox — check it now (and your spam folder just in case).<br><br>Download the app and start your spiritual journey today.</p>
+      <button class="btn-modal" onclick="closeSignupModal();document.getElementById('download').scrollIntoView({behavior:'smooth'})">Download the app ↓</button>
     </div>
   </div>
 </div>
