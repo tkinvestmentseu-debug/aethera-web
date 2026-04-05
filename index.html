@@ -1286,6 +1286,10 @@ html[lang="ar"] { direction: rtl; }
         </div>
       </div>
       <div class="contact-form" id="contact-form-wrap">
+        <!-- Honeypot — hidden from real users -->
+        <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none" aria-hidden="true">
+          <input type="text" id="c-hp" name="website" tabindex="-1" autocomplete="off">
+        </div>
         <div id="contact-form-fields">
           <div class="form-group">
             <label>Imię i nazwisko</label>
@@ -1294,6 +1298,11 @@ html[lang="ar"] { direction: rtl; }
           <div class="form-group">
             <label>Adres e-mail *</label>
             <input type="email" class="form-control" id="c-email" placeholder="twoj@email.com" autocomplete="email" required>
+            <span id="c-email-err" style="display:none;color:var(--red);font-size:12px;margin-top:4px"></span>
+          </div>
+          <div class="form-group">
+            <label>Firma (opcjonalnie)</label>
+            <input type="text" class="form-control" id="c-company" placeholder="Nazwa firmy lub projektu" autocomplete="organization">
           </div>
           <div class="form-group">
             <label>Temat</label>
@@ -1302,13 +1311,15 @@ html[lang="ar"] { direction: rtl; }
           <div class="form-group">
             <label>Wiadomość *</label>
             <textarea class="form-control" id="c-message" placeholder="Opisz swoje pytanie lub pomysł..." required></textarea>
+            <span id="c-message-err" style="display:none;color:var(--red);font-size:12px;margin-top:4px"></span>
           </div>
-          <button class="btn-contact" onclick="submitContact()">Wyślij wiadomość ✦</button>
+          <div id="c-global-err" style="display:none;color:var(--red);font-size:13px;margin-bottom:14px;padding:12px 16px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:10px;line-height:1.5"></div>
+          <button class="btn-contact" id="c-submit" onclick="submitContact()">Wyślij wiadomość ✦</button>
         </div>
         <div class="form-success" id="contact-success">
           <span class="form-success-icon">✦</span>
-          <div class="form-success-title">Wiadomość przygotowana!</div>
-          <p class="form-success-sub">Twój klient poczty otworzy się z wypełnioną wiadomością. Wyślij ją, aby skontaktować się z nami na adres <strong>contact@aethera.pl</strong></p>
+          <div class="form-success-title">Wiadomość wysłana!</div>
+          <p class="form-success-sub">Dziękujemy za kontakt. Odpiszemy w ciągu 24–48 godzin.<br>Sprawdź skrzynkę — wysłaliśmy Ci potwierdzenie na podany adres e-mail.</p>
         </div>
       </div>
     </div>
@@ -2834,6 +2845,14 @@ function closeCookieBanner() {
   setTimeout(function(){ showLegalTab('cookies'); }, 800);
 }
 
+/* ── CONFIG ── */
+var AETHERA_API = '/api'; // Vercel Functions (relative path — works on any domain)
+
+/* ── AUTOFILL DARK FIX ── */
+var autofillFix = document.createElement('style');
+autofillFix.textContent = 'input:-webkit-autofill,input:-webkit-autofill:focus,input:-webkit-autofill:hover,select:-webkit-autofill,textarea:-webkit-autofill{-webkit-box-shadow:0 0 0 1000px rgba(18,8,40,0.98) inset !important;-webkit-text-fill-color:#F0EBF8 !important;caret-color:#F0EBF8 !important;border-color:rgba(139,92,246,0.4) !important;transition:background-color 9999s ease-in-out 0s}';
+document.head.appendChild(autofillFix);
+
 /* ── SIGNUP MODAL ── */
 function openSignupModal() {
   var m = document.getElementById('signup-modal');
@@ -2845,45 +2864,83 @@ function closeSignupModal() {
 }
 document.addEventListener('keydown', function(e) { if(e.key === 'Escape') closeSignupModal(); });
 
-function submitSignup() {
-  var name = document.getElementById('s-name').value.trim();
-  var email = document.getElementById('s-email').value.trim();
-  if(!email || email.indexOf('@') === -1) {
-    document.getElementById('s-email').focus();
-    document.getElementById('s-email').style.borderColor = 'var(--red)';
-    return;
+function setBtn(id, text, disabled) {
+  var b = document.getElementById(id);
+  if(b) { b.textContent = text; b.disabled = !!disabled; b.style.opacity = disabled ? '0.7' : '1'; }
+}
+
+function showFieldError(id, msg) {
+  var el = document.getElementById(id);
+  if(!el) return;
+  el.style.borderColor = 'var(--red)';
+  el.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.15)';
+  var err = document.getElementById(id + '-err');
+  if(err) { err.textContent = msg; err.style.display = 'block'; }
+  el.addEventListener('input', function once() { el.style.borderColor = ''; el.style.boxShadow = ''; if(err) err.style.display = 'none'; el.removeEventListener('input', once); });
+}
+
+function isEmailValid(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
+
+async function submitSignup() {
+  var name    = document.getElementById('s-name').value.trim();
+  var email   = document.getElementById('s-email').value.trim();
+  var hp      = document.getElementById('s-hp').value;  // honeypot
+
+  if(!isEmailValid(email)) { showFieldError('s-email', 'Please enter a valid email.'); return; }
+
+  setBtn('s-submit', '✦ Sending…', true);
+
+  try {
+    var res = await fetch(AETHERA_API + '/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, email: email, lang: currentLang || 'pl',
+        honeypot: hp, ua: navigator.userAgent }),
+    });
+    var data = await res.json();
+    if(!res.ok || !data.ok) throw new Error(data.error || 'Server error');
+    document.getElementById('signup-form-fields').style.display = 'none';
+    document.getElementById('signup-success').style.display = 'block';
+  } catch(e) {
+    setBtn('s-submit', '✦ Dołącz do Aethery', false);
+    var errEl = document.getElementById('s-global-err');
+    if(errEl) { errEl.textContent = 'Coś poszło nie tak. Spróbuj ponownie lub napisz bezpośrednio na contact@aethera.pl'; errEl.style.display = 'block'; }
   }
-  document.getElementById('s-email').style.borderColor = '';
-  var subject = encodeURIComponent('Rejestracja Aethera — ' + (name || email));
-  var body = encodeURIComponent('Chcę dołączyć do Aethery!\n\nImię: ' + (name || '—') + '\nEmail: ' + email + '\n\nDowiedziałem/am się o Aetherze ze strony aethera.pl');
-  window.location.href = 'mailto:contact@aethera.pl?subject=' + subject + '&body=' + body;
-  document.getElementById('signup-form-fields').style.display = 'none';
-  document.getElementById('signup-success').style.display = 'block';
 }
 
 /* ── CONTACT FORM ── */
-function submitContact() {
-  var name = document.getElementById('c-name').value.trim();
-  var email = document.getElementById('c-email').value.trim();
+async function submitContact() {
+  var name    = document.getElementById('c-name').value.trim();
+  var email   = document.getElementById('c-email').value.trim();
+  var company = document.getElementById('c-company') ? document.getElementById('c-company').value.trim() : '';
   var subject = document.getElementById('c-subject').value.trim();
   var message = document.getElementById('c-message').value.trim();
-  if(!email || email.indexOf('@') === -1) {
-    document.getElementById('c-email').focus();
-    document.getElementById('c-email').style.borderColor = 'var(--red)';
-    return;
+  var hp      = document.getElementById('c-hp').value;  // honeypot
+
+  var valid = true;
+  if(!isEmailValid(email))        { showFieldError('c-email',   'Podaj poprawny adres e-mail.'); valid = false; }
+  if(!message || message.length < 5) { showFieldError('c-message', 'Wiadomość jest za krótka.'); valid = false; }
+  if(!valid) return;
+
+  setBtn('c-submit', '✦ Wysyłanie…', true);
+
+  try {
+    var res = await fetch(AETHERA_API + '/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, email: email, company: company,
+        subject: subject, message: message, lang: currentLang || 'pl',
+        honeypot: hp, ua: navigator.userAgent }),
+    });
+    var data = await res.json();
+    if(!res.ok || !data.ok) throw new Error(data.error || 'Server error');
+    document.getElementById('contact-form-fields').style.display = 'none';
+    document.getElementById('contact-success').style.display = 'block';
+  } catch(e) {
+    setBtn('c-submit', 'Wyślij wiadomość →', false);
+    var errEl = document.getElementById('c-global-err');
+    if(errEl) { errEl.textContent = 'Coś poszło nie tak. Napisz bezpośrednio na contact@aethera.pl'; errEl.style.display = 'block'; }
   }
-  if(!message) {
-    document.getElementById('c-message').focus();
-    document.getElementById('c-message').style.borderColor = 'var(--red)';
-    return;
-  }
-  var mailSubject = encodeURIComponent(subject || 'Wiadomość z aethera.pl');
-  var mailBody = encodeURIComponent(
-    'Imię: ' + (name || '—') + '\nEmail: ' + email + '\n\n' + message
-  );
-  window.location.href = 'mailto:contact@aethera.pl?subject=' + mailSubject + '&body=' + mailBody;
-  document.getElementById('contact-form-fields').style.display = 'none';
-  document.getElementById('contact-success').style.display = 'block';
 }
 </script>
 
@@ -2896,6 +2953,10 @@ function submitContact() {
       <span class="modal-icon">&#10022;</span>
       <h2 class="modal-title" id="modal-heading">Dołącz do Aethery</h2>
       <p class="modal-sub">Zarejestruj swój e-mail i bądź na bieżąco z premierą aplikacji.<br>Konto tworzy się w aplikacji — na iOS i Android.</p>
+      <!-- Honeypot — hidden from real users, bots fill this -->
+      <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none" aria-hidden="true">
+        <input type="text" id="s-hp" name="website" tabindex="-1" autocomplete="off">
+      </div>
       <div class="form-group">
         <label>Imię (opcjonalne)</label>
         <input type="text" class="form-control" id="s-name" placeholder="Twoje imię" autocomplete="given-name">
@@ -2903,14 +2964,16 @@ function submitContact() {
       <div class="form-group">
         <label>Adres e-mail *</label>
         <input type="email" class="form-control" id="s-email" placeholder="twoj@email.com" autocomplete="email">
+        <span id="s-email-err" style="display:none;color:var(--red);font-size:12px;margin-top:4px;display:block"></span>
       </div>
-      <button class="btn-modal" onclick="submitSignup()">Zarejestruj się &#10022;</button>
+      <div id="s-global-err" style="display:none;color:var(--red);font-size:13px;margin-bottom:12px;padding:10px 14px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:10px"></div>
+      <button class="btn-modal" id="s-submit" onclick="submitSignup()">✦ Dołącz do Aethery</button>
       <p class="modal-terms">Rejestrując się akceptujesz <a href="#legal" onclick="closeSignupModal();showLegalTab('terms')">Regulamin</a> i <a href="#legal" onclick="closeSignupModal();showLegalTab('privacy')">Politykę Prywatności</a>.</p>
     </div>
     <div class="modal-success" id="signup-success">
       <span class="modal-success-icon">✦</span>
-      <div class="modal-success-title">Dziękujemy!</div>
-      <p class="modal-success-sub">Twój klient poczty otworzy się z gotową wiadomością. Wyślij ją, a my skontaktujemy się z Tobą w ciągu 48 godzin.<br><br>Pobierz Aetherę już dziś ze sklepu App Store lub Google Play!</p>
+      <div class="modal-success-title">Jesteś na liście!</div>
+      <p class="modal-success-sub">Twoja rejestracja przebiegła pomyślnie. Wysłaliśmy Ci e-mail powitalny — sprawdź skrzynkę (również folder spam).<br><br>Powiadomimy Cię, gdy Aethera będzie gotowa. Pobierz aplikację już dziś!</p>
       <button class="btn-modal" onclick="closeSignupModal();document.getElementById('download').scrollIntoView({behavior:'smooth'})">Pobierz aplikację &#8595;</button>
     </div>
   </div>
