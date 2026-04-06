@@ -3015,20 +3015,8 @@ async function submitContact() {
   </div>
 </div>
 
-<!-- FIREBASE AUTH SDK (for password reset) -->
-<script type="module">
-import { initializeApp, getApps, getApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getAuth, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-
-const _fbCfg = {
-  apiKey: "AIzaSyCxFmYnCniJjpuHSnRJhJkLy6K5ShAjsoc",
-  authDomain: "aethera-duniai.firebaseapp.com",
-  projectId: "aethera-duniai",
-  appId: "1:179102407050:web:664b807f69c41ee5325073"
-};
-const _fbApp = getApps().length ? getApp() : initializeApp(_fbCfg);
-const _fbAuth = getAuth(_fbApp);
-
+<!-- Password reset — no Firebase SDK/config in client. Handled by /api/reset-password serverless function. -->
+<script>
 window._sendPasswordReset = async function() {
   var emailEl = document.getElementById('r-email');
   var errEl   = document.getElementById('r-email-err');
@@ -3045,15 +3033,18 @@ window._sendPasswordReset = async function() {
   }
   if(btn) { btn.textContent = 'Wysyłanie…'; btn.disabled = true; btn.style.opacity = '0.7'; }
   try {
-    await sendPasswordResetEmail(_fbAuth, email, { url: 'https://aethera.pl' });
+    var resp = await fetch('/api/reset-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
+    });
+    var data = await resp.json();
+    if(!resp.ok) throw new Error(data.error || 'error');
     document.getElementById('reset-form-fields').style.display = 'none';
     document.getElementById('reset-success').style.display = 'block';
   } catch(e) {
     if(btn) { btn.textContent = '✦ Wyślij link resetujący'; btn.disabled = false; btn.style.opacity = '1'; }
-    var msg = 'Coś poszło nie tak. Napisz na contact@aethera.pl';
-    if(e.code === 'auth/user-not-found')    msg = 'Nie znaleziono konta z tym adresem email.';
-    if(e.code === 'auth/invalid-email')     msg = 'Nieprawidłowy format adresu email.';
-    if(e.code === 'auth/too-many-requests') msg = 'Zbyt wiele prób. Poczekaj chwilę i spróbuj ponownie.';
+    var msg = e.message || 'Coś poszło nie tak. Napisz na contact@aethera.pl';
     if(gErrEl) { gErrEl.textContent = msg; gErrEl.style.display = 'block'; }
   }
 };
