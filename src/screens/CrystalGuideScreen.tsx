@@ -25,7 +25,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const CARD_W = (SW - layout.padding.screen * 2 - 12) / 2;
 
@@ -356,10 +356,11 @@ const CARE_SECTIONS = [
 export function CrystalGuideScreen({ navigation }: any) {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { isLight } = useTheme();
   const textColor  = isLight ? '#1A0A2E' : '#F0EBF8';
   const subColor   = isLight ? 'rgba(26,10,46,0.55)' : 'rgba(240,235,248,0.55)';
   const cardBg     = isLight ? 'rgba(255,255,255,0.72)' : 'rgba(255,255,255,0.06)';
@@ -441,7 +442,7 @@ export function CrystalGuideScreen({ navigation }: any) {
   }, [zodiacKey]);
 
   // ── CRYSTAL CARD ──────────────────────────────────────────────────────────
-  const CrystalCard = useCallback(({ crystal, index }: { crystal: Crystal; index: number }) => (
+  const renderCrystalCard = useCallback(({ crystal, index }: { crystal: Crystal; index: number }) => (
     <Animated.View entering={FadeInDown.delay(index * 35).duration(360)}>
       <Pressable
         onPress={() => { HapticsService.impact('light'); setSelectedCrystal(crystal); setModalAiText(''); }}
@@ -563,7 +564,9 @@ export function CrystalGuideScreen({ navigation }: any) {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+
       <CrystalBg isLight={isLight} />
 
       {/* Header */}
@@ -681,7 +684,7 @@ export function CrystalGuideScreen({ navigation }: any) {
         {/* Crystal Grid */}
         <View style={styles.crystalGrid}>
           {filtered.map((c, i) => (
-            <CrystalCard key={c.id} crystal={c} index={i} />
+            <React.Fragment key={c.id}>{renderCrystalCard({ crystal: c, index: i })}</React.Fragment>
           ))}
           {filtered.length === 0 && (
             <View style={{ padding: 32, alignItems: 'center', width: '100%' }}>
@@ -754,7 +757,8 @@ export function CrystalGuideScreen({ navigation }: any) {
       </ScrollView>
 
       {renderModal()}
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 }
 

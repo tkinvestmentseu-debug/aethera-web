@@ -34,7 +34,7 @@ import { AiService } from '../core/services/ai.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { DateWheelPicker } from '../components/DateWheelPicker';
 import { buildMatrixShareMessage } from '../core/utils/share';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 
 // ── Animated Pythagorean Matrix Background ──────────────────
@@ -362,14 +362,16 @@ export const MatrixScreen = ({ navigation, route }: any) => {
   const tm = (key: string, options?: Record<string, unknown>) => t(key, { ns: 'matrix', ...(options ?? {}) });
   const tc = (key: string, options?: Record<string, unknown>) => t(key, { ns: 'common', ...(options ?? {}) });
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight      = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const textColor    = isLight ? 'rgba(0,0,0,0.82)'  : 'rgba(255,255,255,0.82)';
-  const subColor     = isLight ? 'rgba(0,0,0,0.56)'  : 'rgba(255,255,255,0.56)';
-  const dividerColor = isLight ? 'rgba(0,0,0,0.08)'  : 'rgba(255,255,255,0.08)';
-  const rowBg        = isLight ? 'rgba(0,0,0,0.03)'  : 'rgba(255,255,255,0.04)';
-  const cardBg       = isLight ? 'rgba(0,0,0,0.03)'  : 'rgba(255,255,255,0.05)';
+  const subColor     = isLight ? 'rgba(0,0,0,0.72)'  : 'rgba(255,255,255,0.56)';
+  const dividerColor = isLight ? 'rgba(122,95,54,0.18)'  : 'rgba(255,255,255,0.08)';
+  const rowBg        = isLight ? 'rgba(240,228,210,0.90)'  : 'rgba(255,255,255,0.04)';
+  const cardBg       = isLight ? 'rgba(240,228,210,0.90)'  : 'rgba(255,255,255,0.05)';
   const accent       = currentTheme.primary;
 
   const tabs = useMemo(
@@ -410,7 +412,7 @@ export const MatrixScreen = ({ navigation, route }: any) => {
   const partnerMatrix     = useMemo(() => partnerBirthDate ? calculateMatrix(partnerBirthDate) : null, [partnerBirthDate]);
   const relationshipMatrix= useMemo(() => (userData.birthDate && partnerBirthDate) ? calculateCompatibility(userData.birthDate, partnerBirthDate) : null, [partnerBirthDate, userData.birthDate]);
 
-  const handleBack  = () => goBackOrToMainTab(navigation, 'Home');
+  const handleBack  = () => goBackOrToMainTab(navigation, 'Portal');
   const handleShare = async () => {
     if (!matrix) return;
     await Share.share({ message: buildMatrixShareMessage(
@@ -450,7 +452,7 @@ export const MatrixScreen = ({ navigation, route }: any) => {
             <Typography variant="bodySmall" align="center" style={[styles.emptyCopy, { color: subColor }]}>{tm('empty.body')}</Typography>
             <View style={[styles.promptList, { backgroundColor: rowBg, borderRadius: 16 }]}>
               <Typography variant="microLabel" color={accent}>{tm('empty.listLabel')}</Typography>
-              {(tm('empty.items', { returnObjects: true }) as string[]).map(item => (
+              {((tm('empty.items', { returnObjects: true }) as string[]) || []).map(item => (
                 <View key={item} style={styles.promptRow}>
                   <View style={[styles.promptDot, { backgroundColor: accent }]} />
                   <Typography variant="bodySmall" style={[styles.promptText, { color: subColor }]}>{item}</Typography>
@@ -484,20 +486,20 @@ export const MatrixScreen = ({ navigation, route }: any) => {
     { id:'left', key:'left', arrow:'left', symbol:'◀' },
     { id:'right', key:'right', arrow:'right', symbol:'▶' },
   ];
-  const readAxes = tm('read.axes', { returnObjects: true }) as Array<{ key: string; label: string; copy: string }>;
-  const readLifeAreas = tm('read.lifeAreas', { returnObjects: true }) as Array<{ key: string; title: string; body: string }>;
-  const readCoreReading = tm('read.coreReading', { returnObjects: true }) as Array<{ key: string; title: string }>;
-  const deepAncestorItems = tm('deep.ancestorItems', { returnObjects: true }) as Array<{ key: string; title: string; desc: string }>;
-  const deepLifePathRows = tm('deep.lifePathRows', { returnObjects: true }) as Array<{ key: string; label: string; desc: string }>;
-  const deepRelationshipRows = tm('deep.relationshipRows', { returnObjects: true }) as Array<{ key: string; label: string; desc: string }>;
-  const deepMoneyRows = tm('deep.moneyRows', { returnObjects: true }) as Array<{ key: string; title: string; desc: string; practice?: string; practiceType?: string }>;
-  const deepMissionRows = tm('deep.missionRows', { returnObjects: true }) as Array<{ key: string; label: string; desc: string }>;
-  const deepAiRows = tm('deep.aiRows', { returnObjects: true }) as Array<{ key: string; title: string; copy: string }>;
-  const practiceMeditationRows = tm('practice.meditationRows', { returnObjects: true }) as Array<{ num: string; title: string; body: string }>;
-  const practiceTipsRows = tm('practice.tipsRows', { returnObjects: true }) as Array<{ key: string; title: string; desc: string }>;
-  const practiceGuideSteps = tm('practice.guideSteps', { returnObjects: true }) as string[];
-  const practiceNextRows = tm('practice.nextRows', { returnObjects: true }) as Array<{ key: string; label: string; desc: string }>;
-  const dailyQuickRows = tm('daily.quickRows', { returnObjects: true }) as Array<{ key: string; label: string; desc: string }>;
+  const readAxes = (tm('read.axes', { returnObjects: true }) as Array<{ key: string; label: string; copy: string }>) || [];
+  const readLifeAreas = (tm('read.lifeAreas', { returnObjects: true }) as Array<{ key: string; title: string; body: string }>) || [];
+  const readCoreReading = (tm('read.coreReading', { returnObjects: true }) as Array<{ key: string; title: string }>) || [];
+  const deepAncestorItems = (tm('deep.ancestorItems', { returnObjects: true }) as Array<{ key: string; title: string; desc: string }>) || [];
+  const deepLifePathRows = (tm('deep.lifePathRows', { returnObjects: true }) as Array<{ key: string; label: string; desc: string }>) || [];
+  const deepRelationshipRows = (tm('deep.relationshipRows', { returnObjects: true }) as Array<{ key: string; label: string; desc: string }>) || [];
+  const deepMoneyRows = (tm('deep.moneyRows', { returnObjects: true }) as Array<{ key: string; title: string; desc: string; practice?: string; practiceType?: string }>) || [];
+  const deepMissionRows = (tm('deep.missionRows', { returnObjects: true }) as Array<{ key: string; label: string; desc: string }>) || [];
+  const deepAiRows = (tm('deep.aiRows', { returnObjects: true }) as Array<{ key: string; title: string; copy: string }>) || [];
+  const practiceMeditationRows = (tm('practice.meditationRows', { returnObjects: true }) as Array<{ num: string; title: string; body: string }>) || [];
+  const practiceTipsRows = (tm('practice.tipsRows', { returnObjects: true }) as Array<{ key: string; title: string; desc: string }>) || [];
+  const practiceGuideSteps = (tm('practice.guideSteps', { returnObjects: true }) as string[]) || [];
+  const practiceNextRows = (tm('practice.nextRows', { returnObjects: true }) as Array<{ key: string; label: string; desc: string }>) || [];
+  const dailyQuickRows = (tm('daily.quickRows', { returnObjects: true }) as Array<{ key: string; label: string; desc: string }>) || [];
 
   const today       = new Date();
   const dayOfYear   = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000);
@@ -526,7 +528,7 @@ export const MatrixScreen = ({ navigation, route }: any) => {
     return result;
   })() : [];
 
-  const matrixAiPrompts = (tm('practice.aiPrompts', { returnObjects: true }) as Array<{ key: string; title: string; copy: string; context: string }>).map(item => ({
+  const matrixAiPrompts = ((tm('practice.aiPrompts', { returnObjects: true }) as Array<{ key: string; title: string; copy: string; context: string }>) || []).map(item => ({
     ...item,
     copy: t(item.copy, { ns: 'matrix', center: matrix.center, relationship: matrix.relationship, money: matrix.money, bottom: matrix.bottom, top: matrix.top, left: matrix.left, right: matrix.right, lifePath: matrix.lifePath, defaultValue: item.copy }),
     context: t(item.context, { ns: 'matrix', center: matrix.center, relationship: matrix.relationship, money: matrix.money, bottom: matrix.bottom, top: matrix.top, left: matrix.left, right: matrix.right, lifePath: matrix.lifePath, defaultValue: item.context }),
@@ -682,7 +684,7 @@ export const MatrixScreen = ({ navigation, route }: any) => {
   const renderTabRead = () => (
     <View>
       <View style={[styles.summaryStrip, { borderTopColor:dividerColor, borderBottomColor:dividerColor, marginBottom:20 }]}>
-        {((tm('read.summary', { returnObjects: true }) as string[]).map((label, index) => [label, [matrix.center, matrix.relationship, matrix.money, matrix.bottom][index]])).map(([label,value], idx, arr) => (
+        {(((tm('read.summary', { returnObjects: true }) as string[]) || []).map((label, index) => [label, [matrix.center, matrix.relationship, matrix.money, matrix.bottom][index]])).map(([label,value], idx, arr) => (
           <View key={label} style={[styles.summaryMetricCell, idx<arr.length-1 && {borderRightWidth:1, borderRightColor:dividerColor}]}>
             <Typography variant="microLabel" color={accent}>{label}</Typography>
             <Text style={[styles.metricValue, { color:textColor, marginTop:6 }]}>{value}</Text>

@@ -1,4 +1,4 @@
-﻿// @ts-nocheck
+// @ts-nocheck
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, Animated, Pressable, ScrollView, StyleSheet, View, Text } from 'react-native';
@@ -16,6 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { MusicToggleButton } from '../components/MusicToggleButton';
 import { getLocaleCode } from '../core/utils/localeFormat';
+import { useTheme } from '../core/hooks/useTheme';
 
 interface BreathPattern {
   id: string;
@@ -186,14 +187,14 @@ export const BreathworkScreen: React.FC = () => {
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
   const themeName = useAppStore((state) => state.themeName);
-  const theme = getResolvedTheme(themeName);
-  const isLight = theme.background.startsWith('#F');
-
-  const divColor = isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)';
-  const subBg = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)';
-  const sessionBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.09)';
+  const themeMode = useAppStore((state) => state.themeMode);
+  const { currentTheme, isLight } = useTheme();
+  const theme = currentTheme;
+  const divColor = isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)';
+  const subBg = isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.05)';
+  const sessionBg = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.09)';
 
   const breathworkSessions = useAppStore((state) => state.breathworkSessions);
   const deleteBreathworkSession = useAppStore((state) => state.deleteBreathworkSession);
@@ -288,6 +289,7 @@ if (nextPhase !== 'idle') void HapticsService.selection();
 const mountedRef = useRef(true);
   useEffect(() => {
     mountedRef.current = true;
+    void AudioService.preloadBootAudio();
     return () => {
       mountedRef.current = false;
       clearTimer();
@@ -391,7 +393,7 @@ const mountedRef = useRef(true);
                 { label: 'SERIA', value: `${weeklyStreak}d`, sub: 'tygodniowa', color: '#FBBF24' },
                 { label: 'ULUBIONA', value: favTechnique === '—' ? '—' : favTechnique.split(' ')[0], sub: 'technika', color: '#C084FC' },
               ].map((stat) => (
-                <View key={stat.label} style={[styles.statCard, { backgroundColor: stat.color + '0D', borderColor: stat.color + '28' }]}>
+                <View key={stat.label} style={[styles.statCard, { backgroundColor: isLight ? stat.color + '22' : stat.color + '0D', borderColor: isLight ? stat.color + '66' : stat.color + '28' }]}>
                   <Typography variant="microLabel" color={stat.color}>{stat.label}</Typography>
                   <Text style={[styles.statValue, { color: theme.text }]}>{stat.value}</Text>
                   <Typography variant="microLabel" color={theme.textMuted}>{stat.sub}</Typography>
@@ -409,7 +411,7 @@ const mountedRef = useRef(true);
                 { label: 'PEJZAŻ SESJI', value: AMBIENT_LABELS[pattern.ambient] || pattern.ambient },
                 { label: 'EFEKT KOŃCOWY', value: pattern.bestFor[1] || pattern.description },
               ].map((item) => (
-                <View key={item.label} style={[styles.mapTile, { backgroundColor: subBg, borderColor: pattern.color + '28' }]}>
+                <View key={item.label} style={[styles.mapTile, { backgroundColor: subBg, borderColor: isLight ? pattern.color + '66' : pattern.color + '28' }]}>
                   <Typography variant="microLabel" color={pattern.color}>{item.label}</Typography>
                   <Typography variant="bodySmall" style={{ color: theme.text, marginTop: 8 }}>{item.value}</Typography>
                 </View>
@@ -787,7 +789,7 @@ const mountedRef = useRef(true);
               {heatMapDays.map((day, idx) => {
                 const intensity = day.count === 0 ? 0 : day.count === 1 ? 1 : day.count === 2 ? 2 : 3;
                 const bgColor = intensity === 0
-                  ? (isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)')
+                  ? (isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.06)')
                   : intensity === 1
                     ? pattern.color + '44'
                     : intensity === 2
@@ -806,7 +808,7 @@ const mountedRef = useRef(true);
               {[0, 1, 2, 3].map(lv => (
                 <View key={lv} style={[styles.heatMapLegendCell, {
                   backgroundColor: lv === 0
-                    ? (isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)')
+                    ? (isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.06)')
                     : lv === 1 ? pattern.color + '44' : lv === 2 ? pattern.color + '77' : pattern.color,
                 }]} />
               ))}
@@ -858,7 +860,7 @@ const mountedRef = useRef(true);
                 <Pressable
                   key={item.route}
                   onPress={() => navigation.navigate(item.route)}
-                  style={[styles.nextLinkRow, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: item.color + '33' }]}
+                  style={[styles.nextLinkRow, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: item.color + '33' }]}
                 >
                   <View style={[styles.nextLinkIcon, { backgroundColor: item.color + '18' }]}>
                     <Icon color={item.color} size={17} strokeWidth={1.8} />

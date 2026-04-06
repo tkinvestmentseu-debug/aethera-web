@@ -32,7 +32,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { buildAffirmationShareMessage } from '../core/utils/share';
 import { AudioService } from '../core/services/audio.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const SW = Dimensions.get('window').width;
 
 const ACCENT = '#F472B6';
@@ -371,14 +371,19 @@ const RepRing = React.memo(({ count, accent }: { count: number; accent: string }
 export const AffirmationsScreen = ({ navigation, route }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const {
-    themeName, favoriteAffirmations, toggleFavoriteAffirmation, updateDailyProgress,
-    addFavoriteItem, isFavoriteItem, removeFavoriteItem, customAffirmations, addCustomAffirmation, deleteCustomAffirmation,
-    dailyProgress, userData,
-  } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+    const favoriteAffirmations = useAppStore(s => s.favoriteAffirmations);
+  const toggleFavoriteAffirmation = useAppStore(s => s.toggleFavoriteAffirmation);
+  const updateDailyProgress = useAppStore(s => s.updateDailyProgress);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const customAffirmations = useAppStore(s => s.customAffirmations);
+  const addCustomAffirmation = useAppStore(s => s.addCustomAffirmation);
+  const deleteCustomAffirmation = useAppStore(s => s.deleteCustomAffirmation);
+  const dailyProgress = useAppStore(s => s.dailyProgress);
+  const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
   const dailyPlan = useMemo(() => SoulEngineService.generateDailyPlan(), []);
   const initialCategory = route.params?.category || dailyPlan.affirmationGuidance.featured.category;
   const ritualTitle = route.params?.ritualTitle;
@@ -712,7 +717,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
 
           {/* HERO FEATURED */}
           <Animated.View entering={FadeInDown.duration(600)}>
-            <View style={[af.featuredCard, { borderColor: catColor + '66', overflow: 'hidden', shadowColor: catColor, shadowOpacity: 0.38, shadowRadius: 20, shadowOffset: { width: 0, height: 8 }, elevation: 10 }]}>
+            <View style={[af.featuredCard, { borderColor: catColor + '66', overflow: 'hidden', shadowColor: catColor, shadowOpacity: 0.38, shadowRadius: 20, shadowOffset: { width: 0, height: 8 }, elevation: 10, backgroundColor: isLight ? 'rgba(255,255,255,0.92)' : 'rgba(16,10,26,0.82)' }]}>
               <LinearGradient colors={[catColor + '24', catColor + '0C', 'transparent'] as const} start={{ x: 0, y: 0 }} end={{ x: 0.5, y: 1 }} style={StyleSheet.absoluteFill} />
               <LinearGradient colors={['transparent', catColor + 'AA', 'transparent'] as [string,string,string]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1.5 }} pointerEvents="none" />
               <View style={{ position: 'absolute', top: 10, right: 16, width: 9, height: 9, borderTopWidth: 1.8, borderRightWidth: 1.8, borderColor: catColor + '88' }} pointerEvents="none" />
@@ -731,7 +736,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
               <Typography variant="bodySmall" style={af.featuredRationale}>{dailyPlan.affirmationGuidance.rationale}</Typography>
 
               {ritualTitle && (
-                <View style={[af.handoff, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)' }]}>
+                <View style={[af.handoff, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)' }]}>
                   <Typography variant="microLabel" color={catColor}>HANDOFF Z RYTUAŁU</Typography>
                   <Typography variant="bodySmall" style={af.handoffCopy}>Po praktyce "{ritualTitle}" zostań przy jednym zdaniu i powtórz je w ciszy trzy razy.</Typography>
                 </View>
@@ -773,7 +778,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
               <Typography variant="editorialHeader" style={[af.mantraText, { color: isLight ? '#2A200A' : '#FEF3C7' }]}>
                 {weeklyMantra}
               </Typography>
-              <View style={[af.mantraFooter, { borderTopColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(251,191,36,0.14)' }]}>
+              <View style={[af.mantraFooter, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(251,191,36,0.14)' }]}>
                 <Sparkles color="#FBBF24" size={12} />
                 <Typography variant="microLabel" color="#FBBF24" style={{ marginLeft: 6 }}>Nowa mantra każdego tygodnia</Typography>
               </View>
@@ -831,7 +836,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                 }}
                   style={[af.catChip, {
                     borderColor: active ? cat.color : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)'),
-                    backgroundColor: active ? cat.color + '18' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)'),
+                    backgroundColor: active ? cat.color + '18' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)'),
                   }]}>
                   <Icon color={active ? cat.color : currentTheme.textMuted} size={14} strokeWidth={1.8} />
                   <Typography variant="premiumLabel" color={active ? cat.color : currentTheme.textMuted} style={{ marginLeft: 8 }}>{cat.label}</Typography>
@@ -842,7 +847,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
           </ScrollView>
 
           {/* FLOW */}
-          <View style={[af.flowCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(244,114,182,0.14)' }]}>
+          <View style={[af.flowCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(139,100,42,0.45)' : 'rgba(244,114,182,0.14)' }]}>
             <Typography variant="premiumLabel" color={catColor}>Jak działa wsparcie</Typography>
             {FLOW_STEPS.map((s, i) => (
               <View key={s.n} style={[af.flowRow, i > 0 && af.flowBorder]}>
@@ -920,7 +925,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
           <Animated.View entering={FadeInDown.delay(160).duration(600)}>
             <View style={[af.repCard, {
               borderColor: catColor + '44',
-              backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)',
+              backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)',
               overflow: 'hidden',
             }]}>
               <LinearGradient colors={[catColor + '18', 'transparent']} style={StyleSheet.absoluteFill} />
@@ -949,11 +954,11 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                   const reached = repCount >= m.at;
                   return (
                     <View key={m.at} style={[af.repMilestone, {
-                      backgroundColor: reached ? catColor + '20' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)'),
-                      borderColor: reached ? catColor + '55' : (isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)'),
+                      backgroundColor: reached ? catColor + '20' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)'),
+                      borderColor: reached ? catColor + '55' : (isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)'),
                     }]}>
                       {reached && <Check color={catColor} size={10} strokeWidth={2.5} style={{ marginRight: 4 }} />}
-                      <Typography variant="microLabel" color={reached ? catColor : (isLight ? 'rgba(0,0,0,0.40)' : 'rgba(255,255,255,0.40)')} style={{ fontSize: 9 }}>
+                      <Typography variant="microLabel" color={reached ? catColor : (isLight ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.40)')} style={{ fontSize: 9 }}>
                         {m.at} — {m.label.split(' — ')[1] || m.label}
                       </Typography>
                     </View>
@@ -1040,7 +1045,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                 <Pressable
                   onPress={() => audioModeActive ? stopAudioMode() : startAudioMode()}
                   style={[af.audioToggle, {
-                    backgroundColor: audioModeActive ? '#34D399' : (isLight ? 'rgba(0,0,0,0.06)' : 'rgba(52,211,153,0.14)'),
+                    backgroundColor: audioModeActive ? '#34D399' : (isLight ? 'rgba(255,246,230,0.92)' : 'rgba(52,211,153,0.14)'),
                     borderColor: audioModeActive ? '#34D399' : '#34D39933',
                   }]}
                 >
@@ -1087,10 +1092,10 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                       return (
                         <View key={phase} style={[af.breathPhaseChip, {
                           flex: 1,
-                          backgroundColor: isActive ? '#34D39920' : (isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)'),
-                          borderColor: isActive ? '#34D39966' : (isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)'),
+                          backgroundColor: isActive ? '#34D39920' : (isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.04)'),
+                          borderColor: isActive ? '#34D39966' : (isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)'),
                         }]}>
-                          <Typography variant="microLabel" color={isActive ? '#34D399' : (isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)')} style={{ textAlign: 'center', lineHeight: 16 }}>
+                          <Typography variant="microLabel" color={isActive ? '#34D399' : (isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)')} style={{ textAlign: 'center', lineHeight: 16 }}>
                             {labels[i]}
                           </Typography>
                         </View>
@@ -1104,7 +1109,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
 
           {/* SEQUENCE */}
           {supportingAffirmations.length > 0 && (
-            <View style={[af.sequenceCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(244,114,182,0.14)' }]}>
+            <View style={[af.sequenceCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(139,100,42,0.45)' : 'rgba(244,114,182,0.14)' }]}>
               <Typography variant="premiumLabel" color={catColor}>Sekwencja na dziś</Typography>
               {supportingAffirmations.map((text, i) => (
                 <View key={i} style={[af.seqRow, i > 0 && af.flowBorder]}>
@@ -1118,7 +1123,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
           {/* ── MOJE ULUBIONE ────────────────────────────────────── */}
           {savedAffirmationsList.length > 0 && (
             <Animated.View entering={FadeInDown.delay(180).duration(600)}>
-              <View style={[af.favSection, { borderColor: catColor + '33', backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)' }]}>
+              <View style={[af.favSection, { borderColor: catColor + '33', backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)' }]}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 }}>
                   <View style={[af.favIconWrap, { backgroundColor: catColor + '20' }]}>
                     <Bookmark color={catColor} size={16} strokeWidth={1.8} fill={catColor + '44'} />
@@ -1157,8 +1162,8 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
           {/* ── HISTORIA AFIRMACJI (7-day calendar) ─────────────── */}
           <Animated.View entering={FadeInDown.delay(220).duration(600)}>
             <View style={[af.historyCard, {
-              borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(244,114,182,0.18)',
-              backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
+              borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(244,114,182,0.18)',
+              backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)',
             }]}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                 <View style={[af.histIconWrap, { backgroundColor: catColor + '18' }]}>
@@ -1214,7 +1219,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                   <Typography variant="caption" style={{ opacity: 0.70, marginTop: 2 }}>Codziennie przez 3 tygodnie</Typography>
                 </View>
                 <View style={[af.challengeStreakBadge, {
-                  backgroundColor: challengeStreak > 0 ? '#34D39920' : (isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)'),
+                  backgroundColor: challengeStreak > 0 ? '#34D39920' : (isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.06)'),
                   borderColor: challengeStreak > 0 ? '#34D39944' : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)'),
                 }]}>
                   <Typography variant="microLabel" color={challengeStreak > 0 ? '#34D399' : currentTheme.textMuted}>
@@ -1239,13 +1244,13 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                       key={idx}
                       onPress={() => toggleChallengeDay(idx)}
                       style={[af.challengeDay, {
-                        backgroundColor: done ? weekColor + '28' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)'),
+                        backgroundColor: done ? weekColor + '28' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)'),
                         borderColor: done ? weekColor : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)'),
                       }]}
                     >
                       {done
                         ? <Check color={weekColor} size={12} strokeWidth={2.5} />
-                        : <Typography variant="microLabel" style={{ fontSize: 10, color: isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.35)' }}>{dayNum}</Typography>
+                        : <Typography variant="microLabel" style={{ fontSize: 10, color: isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.35)' }}>{dayNum}</Typography>
                       }
                     </Pressable>
                   );
@@ -1288,7 +1293,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
 
           {customAffirmations.filter(a => !a.category || a.category === activeCategory).map((entry, idx) => (
             <Animated.View key={`custom-${entry.id}`} entering={FadeInDown.delay(idx * 40).duration(400)}>
-              <View style={[af.affCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: catColor + '33' }]}>
+              <View style={[af.affCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: catColor + '33' }]}>
                 <View style={[af.affCard, { backgroundColor: catColor }]} />
                 <View style={{ flex: 1, paddingHorizontal: 14 }}>
                   <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: catColor, marginBottom: 6 }}>💫 MOJA AFIRMACJA</Text>
@@ -1360,7 +1365,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
           })}
 
           {/* EKOSYSTEM */}
-          <View style={[af.ecoCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(244,114,182,0.14)' }]}>
+          <View style={[af.ecoCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(139,100,42,0.45)' : 'rgba(244,114,182,0.14)' }]}>
             <Typography variant="premiumLabel" color={catColor}>Ekosystem wsparcia</Typography>
             {[
               { title: 'Dziennik', copy: 'Kiedy potrzebujesz nazwać uczucie własnymi słowami przed działaniem.', onPress: () => navigation.navigate('Journal') },
@@ -1380,7 +1385,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
 
           {/* ── NAUKA O AFIRMACJACH ──────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(320).duration(600)}>
-            <View style={[af.scienceSection, { borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)' }]}>
+            <View style={[af.scienceSection, { borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.08)', backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)' }]}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 }}>
                 <View style={[af.scienceIconWrap, { backgroundColor: '#A78BFA20' }]}>
                   <Brain color="#A78BFA" size={16} strokeWidth={1.8} />
@@ -1395,8 +1400,8 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                     key={fact.title}
                     onPress={() => { void HapticsService.selection(); setExpandedFact(expanded ? null : idx); }}
                     style={[af.scienceFactCard, {
-                      backgroundColor: expanded ? fact.color + '10' : (isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)'),
-                      borderColor: expanded ? fact.color + '40' : (isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)'),
+                      backgroundColor: expanded ? fact.color + '10' : (isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.04)'),
+                      borderColor: expanded ? fact.color + '40' : (isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)'),
                       marginBottom: idx < SCIENCE_FACTS.length - 1 ? 8 : 0,
                     }]}
                   >
@@ -1497,7 +1502,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
               containerStyle={{ marginTop: 8, marginBottom: 16 }}
             />
             <View style={af.addModalActions}>
-              <Pressable onPress={() => { setShowAddModal(false); setNewAffText(''); }} style={[af.addModalSecondary, { borderColor: catColor + '26', backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)' }]}>
+              <Pressable onPress={() => { setShowAddModal(false); setNewAffText(''); }} style={[af.addModalSecondary, { borderColor: catColor + '26', backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)' }]}>
                 <Typography variant="microLabel" color={catColor}>Anuluj</Typography>
               </Pressable>
               <Pressable

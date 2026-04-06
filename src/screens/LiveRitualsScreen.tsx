@@ -25,7 +25,7 @@ import { RitualsService, Ritual as FBRitual } from '../core/services/community/r
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#DC2626';
 const P = layout.padding.screen;
@@ -335,16 +335,13 @@ const TYPE_ICONS: Record<string, any> = {
 export const LiveRitualsScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const themeName = useAppStore(s => s.themeName);
   const userData = useAppStore(s => s.userData);
-  const { currentUser } = useAuthStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+  const { currentTheme, isLight } = useTheme();
+    const currentUser = useAuthStore(s => s.currentUser);
   const textColor = isLight ? '#1A0505' : '#FFF5F5';
   const subColor = isLight ? 'rgba(26,5,5,0.52)' : 'rgba(255,245,245,0.52)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.07)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
   const sheetBg = isLight ? '#FFF5F5' : '#1A0808';
 
   // ── Tab state ─────────────────────────────────────────────────────────────
@@ -381,9 +378,15 @@ export const LiveRitualsScreen = ({ navigation }) => {
   // Firebase real participant counts keyed by ritual ID
   const [fbParticipants, setFbParticipants] = useState<Record<string, number>>({});
 
+  const seededRef = useRef(false);
+  const joinedCheckRef = useRef(false);
+
   useEffect(() => {
     if (!currentUser) return;
-    RitualsService.seedRitualsIfNeeded({ uid: currentUser.uid, displayName: currentUser.displayName }).catch(() => {});
+    if (!seededRef.current) {
+      seededRef.current = true;
+      RitualsService.seedRitualsIfNeeded({ uid: currentUser.uid, displayName: currentUser.displayName }).catch(() => {});
+    }
     const unsub = RitualsService.listenToRituals((fbRituals: FBRitual[]) => {
       const participantMap: Record<string, number> = {};
       fbRituals.forEach(r => { participantMap[r.id] = r.participantCount; });
@@ -399,13 +402,20 @@ export const LiveRitualsScreen = ({ navigation }) => {
         element: r.element, duration: r.duration, maxParticipants: r.maxParticipants,
         isCreated: true,
       })));
-      // Check which rituals user joined
-      fbRituals.forEach(async r => {
-        const isParticipant = await RitualsService.isParticipant(r.id, currentUser.uid);
-        if (isParticipant) setJoinedIds(prev => prev.includes(r.id) ? prev : [...prev, r.id]);
-      });
+      // Check which rituals user joined — only once on first snapshot
+      if (!joinedCheckRef.current) {
+        joinedCheckRef.current = true;
+        Promise.all(fbRituals.map(r => RitualsService.isParticipant(r.id, currentUser.uid).then(yes => yes ? r.id : null)))
+          .then(results => {
+            const joined = results.filter(Boolean) as string[];
+            if (joined.length > 0) {
+              setJoinedIds(joined);
+            }
+          })
+          .catch(() => {});
+      }
     });
-    return () => unsub();
+    return () => { unsub(); };
   }, [currentUser?.uid]);
 
   // ── Modals ────────────────────────────────────────────────────────────────
@@ -505,14 +515,14 @@ export const LiveRitualsScreen = ({ navigation }) => {
 
   // ─── RENDER HELPERS ────────────────────────────────────────────────────────
 
-  const RitualCard = ({ r, index }: { r: any; index: number }) => {
+  const RitualCard = useCallback(({ r, index }: { r: any; index: number }) => {
     const Icon = r.icon;
     const cd = getCountdown(r.id);
     const live = isLive(r.id);
     const parts = getParticipants(r);
     const progress = live ? getLiveProgress(r) : 0;
     return (
-      <Animated.View entering={FadeInDown.delay(index * 60).springify()}>
+      <View>
         <Pressable onPress={() => openDetail(r)}
           style={[styles.ritualCard, { backgroundColor: cardBg, borderColor: live ? ACCENT + '55' : cardBorder },
             live && { shadowColor: ACCENT, shadowOpacity: 0.25, shadowRadius: 12, elevation: 5 }]}>
@@ -567,9 +577,10 @@ export const LiveRitualsScreen = ({ navigation }) => {
             <ChevronRight size={12} color="#FFF" />
           </Pressable>
         </Pressable>
-      </Animated.View>
+      </View>
     );
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cardBg, cardBorder, textColor, subColor, seconds, partDelta, fbParticipants, joinedIds]);
 
   // ─── TABS CONTENT ──────────────────────────────────────────────────────────
 
@@ -1053,7 +1064,9 @@ export const LiveRitualsScreen = ({ navigation }) => {
 
   // ─── MAIN RENDER ───────────────────────────────────────────────────────────
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: currentTheme.background }]} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[styles.safe, {}]} edges={['top']}>
+
       <LinearGradient
         colors={isLight ? ['#FFF1F1', '#FFE4E6', currentTheme.background] : ['#150404', '#1E0505', currentTheme.background]}
         style={StyleSheet.absoluteFill}
@@ -1100,7 +1113,8 @@ export const LiveRitualsScreen = ({ navigation }) => {
 
       <DetailModal />
       <CreateModal />
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

@@ -660,6 +660,13 @@ const IntroSheet = ({
   localDeckId, setLocalDeckId, onDeckPress,
 }: any) => {
   const { isLight } = useTheme();
+
+  const sectionBg = isLight ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.04)';
+  const sectionBorder = isLight ? 'rgba(139,100,180,0.18)' : 'rgba(206,174,114,0.14)';
+  const labelColor = isLight ? 'rgba(90,50,140,0.75)' : GOLD_DIM;
+  const textPrimary = isLight ? '#2D1A50' : '#F5F1EA';
+  const textMuted = isLight ? 'rgba(60,30,100,0.60)' : 'rgba(245,241,234,0.50)';
+
   return (
     <View style={[is.container, { paddingBottom: Math.max((insetsBottom ?? 0) + 16, 28),
       backgroundColor: isLight ? 'rgba(244,238,252,0.97)' : 'rgba(8,3,22,0.97)',
@@ -672,218 +679,239 @@ const IntroSheet = ({
         style={[StyleSheet.absoluteFill, { borderTopLeftRadius: 24, borderTopRightRadius: 24 }]}
       />
       <View style={[is.handle, isLight && { backgroundColor: 'rgba(100,60,160,0.20)' }]} />
+
       {/* Wrap content in ScrollView so button is reachable on small screens */}
       <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled" style={{ flex: 1 }}>
-      <Text style={[is.title, isLight && { color: '#2D1A50' }]}>Rytuał Tarota</Text>
-      <Text style={[is.subtitle, isLight && { color: 'rgba(80,50,120,0.65)' }]}>W co dziś chcesz się wgłębić?</Text>
 
-      {/* ── Energy level selector ── */}
-      <Text style={[is.sectionLabel, { marginBottom: 8 }, isLight && { color: 'rgba(139,100,42,0.70)' }]}>Twoja energia teraz</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
-        <View style={{ flexDirection: 'row', gap: 8, paddingRight: 8 }}>
-          {ENERGY_LEVELS.map(e => (
-            <Pressable
-              key={e.id}
-              onPress={() => { HapticsService.impact('light'); setEnergyLevel(energyLevel === e.id ? null : e.id); }}
-              style={[is.energyChip,
-                isLight
-                  ? { borderColor: 'rgba(100,60,160,0.20)', backgroundColor: 'rgba(255,255,255,0.60)' }
-                  : {},
-                energyLevel === e.id && { borderColor: GOLD, backgroundColor: 'rgba(206,174,114,0.15)' }]}
-            >
-              <Text style={{ fontSize: 16 }}>{e.emoji}</Text>
-              <Text style={[is.energyLabel, { color: energyLevel === e.id ? GOLD : isLight ? 'rgba(60,30,100,0.75)' : 'rgba(245,241,234,0.65)' }]}>{e.label}</Text>
-            </Pressable>
-          ))}
+        {/* Title row */}
+        <View style={{ alignItems: 'center', marginBottom: 20 }}>
+          <Text style={[is.title, { color: textPrimary }]}>Rytuał Tarota</Text>
+          <Text style={[is.subtitle, { color: textMuted }]}>W co dziś chcesz się wgłębić?</Text>
         </View>
-      </ScrollView>
 
-      <View style={is.topicGrid}>
-        {TOPICS.map(t => (
-          <Pressable
-            key={t.id}
-            onPress={() => { HapticsService.impact('light'); setTopicId(t.id); }}
-            style={[is.topicChip,
-              isLight
-                ? { borderColor: 'rgba(100,60,160,0.20)', backgroundColor: 'rgba(255,255,255,0.50)' }
-                : {},
-              topicId === t.id && { borderColor: t.color, backgroundColor: t.color + '18' }]}
-          >
-            <Text style={[is.topicText, { color: topicId === t.id ? t.color : isLight ? 'rgba(60,30,100,0.72)' : 'rgba(245,241,234,0.65)' }]}>{t.label}</Text>
-          </Pressable>
-        ))}
-      </View>
-
-      {/* ── Deck selector ── */}
-      <Text style={[is.sectionLabel, { marginTop: 16, color: isLight ? 'rgba(139,100,42,0.85)' : GOLD }]}>Twoja talia</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
-        <View style={{ flexDirection: 'row', gap: 12, paddingRight: 12 }}>
-          {TAROT_DECKS.map(deck => {
-            const isActive = localDeckId === deck.id;
-            const isPremiumDeck = deck.isPremium === true;
-            return (
-              <Pressable
-                key={deck.id}
-                onPress={() => onDeckPress(deck)}
-                style={{
-                  width: 108, borderRadius: 18,
-                  overflow: 'hidden',
-                  borderWidth: isActive ? 2 : 1,
-                  borderColor: isActive ? deck.accent[0] : isLight ? 'rgba(100,60,160,0.25)' : 'rgba(255,255,255,0.14)',
-                }}
-              >
-                {/* Card back preview area */}
-                <LinearGradient
-                  colors={deck.backGradient as [string, string, string]}
-                  style={{ height: 120, alignItems: 'center', justifyContent: 'center', padding: 10 }}
+        {/* ── Section: Energia ── */}
+        <View style={[is.section, { backgroundColor: sectionBg, borderColor: sectionBorder }]}>
+          <Text style={[is.sectionLabel, { color: labelColor }]}>✦ TWOJA ENERGIA TERAZ</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={{ flexDirection: 'row', gap: 8, paddingRight: 8 }}>
+              {ENERGY_LEVELS.map(e => (
+                <Pressable
+                  key={e.id}
+                  onPress={() => { HapticsService.impact('light'); setEnergyLevel(energyLevel === e.id ? null : e.id); }}
+                  style={[is.energyChip,
+                    isLight
+                      ? { borderColor: 'rgba(100,60,160,0.20)', backgroundColor: 'rgba(255,255,255,0.60)' }
+                      : {},
+                    energyLevel === e.id && { borderColor: GOLD, backgroundColor: 'rgba(206,174,114,0.15)' }]}
                 >
-                  {/* Mini card frame */}
-                  <View style={{
-                    width: 52, height: 80, borderRadius: 8,
-                    borderWidth: 1.5, borderColor: deck.accent[0] + 'AA',
-                    backgroundColor: deck.backGradient[1] + 'CC',
-                    alignItems: 'center', justifyContent: 'center',
-                    shadowColor: deck.accent[0], shadowOpacity: 0.5, shadowRadius: 6,
-                  }}>
-                    <Text style={{ fontSize: 22 }}>
-                      {deck.motif === 'classic' ? '✦' : deck.motif === 'celestial' ? '🌙' : deck.motif === 'mystical' ? '🔮' : deck.motif === 'bw' ? '◈' : '✧'}
-                    </Text>
-                    <Text style={{ color: deck.accent[0], fontSize: 7, fontWeight: '800', letterSpacing: 1, marginTop: 3, textAlign: 'center' }}>
-                      {deck.cardBackLabel?.split('·')[0]?.trim() || deck.id.toUpperCase().slice(0, 5)}
-                    </Text>
-                  </View>
-                  {/* Active glow */}
-                  {isActive && (
-                    <View style={{
-                      position: 'absolute', inset: 0,
-                      backgroundColor: deck.accent[0] + '18',
-                    }} />
-                  )}
-                  {/* Premium badge */}
-                  {isPremiumDeck && (
-                    <View style={{
-                      position: 'absolute', top: 8, left: 8,
-                      paddingHorizontal: 6, paddingVertical: 2,
-                      borderRadius: 6, backgroundColor: 'rgba(0,0,0,0.70)',
-                      borderWidth: 1, borderColor: '#F472B6' + '60',
-                    }}>
-                      <Text style={{ color: '#F472B6', fontSize: 8, fontWeight: '800', letterSpacing: 0.5 }}>PREMIUM</Text>
-                    </View>
-                  )}
-                  {/* Selected check */}
-                  {isActive && (
-                    <View style={{
-                      position: 'absolute', top: 8, right: 8,
-                      width: 20, height: 20, borderRadius: 10,
-                      backgroundColor: deck.accent[0], alignItems: 'center', justifyContent: 'center',
-                    }}>
-                      <Text style={{ color: '#fff', fontSize: 12, fontWeight: '800' }}>✓</Text>
-                    </View>
-                  )}
-                </LinearGradient>
-                {/* Deck name strip */}
-                <View style={{
-                  backgroundColor: isActive ? deck.backGradient[0] : isLight ? 'rgba(240,232,252,0.95)' : 'rgba(10,5,25,0.95)',
-                  paddingHorizontal: 8, paddingVertical: 7, borderTopWidth: 1,
-                  borderTopColor: isActive ? deck.accent[0] + '55' : isLight ? 'rgba(100,60,160,0.12)' : 'rgba(255,255,255,0.06)',
-                }}>
-                  <Text
-                    numberOfLines={2}
+                  <Text style={{ fontSize: 16 }}>{e.emoji}</Text>
+                  <Text style={[is.energyLabel, { color: energyLevel === e.id ? GOLD : textMuted }]}>{e.label}</Text>
+                </Pressable>
+              ))}
+            </View>
+          </ScrollView>
+        </View>
+
+        {/* ── Section: Temat ── */}
+        <View style={[is.section, { backgroundColor: sectionBg, borderColor: sectionBorder }]}>
+          <Text style={[is.sectionLabel, { color: labelColor }]}>◎ TEMAT ODCZYTU</Text>
+          <View style={is.topicGrid}>
+            {TOPICS.map(t => (
+              <Pressable
+                key={t.id}
+                onPress={() => { HapticsService.impact('light'); setTopicId(t.id); }}
+                style={[is.topicChip,
+                  isLight
+                    ? { borderColor: 'rgba(100,60,160,0.20)', backgroundColor: 'rgba(255,255,255,0.50)' }
+                    : {},
+                  topicId === t.id && { borderColor: t.color, backgroundColor: t.color + '18' }]}
+              >
+                <Text style={[is.topicText, { color: topicId === t.id ? t.color : textMuted }]}>{t.label}</Text>
+              </Pressable>
+            ))}
+          </View>
+        </View>
+
+        {/* ── Section: Talia ── */}
+        <View style={[is.section, { backgroundColor: sectionBg, borderColor: sectionBorder }]}>
+          <Text style={[is.sectionLabel, { color: labelColor }]}>✧ TWOJA TALIA</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={{ flexDirection: 'row', gap: 12, paddingRight: 12 }}>
+              {TAROT_DECKS.map(deck => {
+                const isActive = localDeckId === deck.id;
+                const isPremiumDeck = deck.isPremium === true;
+                return (
+                  <Pressable
+                    key={deck.id}
+                    onPress={() => onDeckPress(deck)}
                     style={{
-                      fontSize: 9, fontWeight: '700', textAlign: 'center',
-                      color: isActive ? deck.accent[0] : isLight ? 'rgba(60,30,100,0.80)' : 'rgba(245,241,234,0.80)',
-                      lineHeight: 13, letterSpacing: 0.2,
+                      width: 108, borderRadius: 18,
+                      overflow: 'hidden',
+                      borderWidth: isActive ? 2.5 : 1,
+                      borderColor: isActive ? deck.accent[0] : isLight ? 'rgba(100,60,160,0.22)' : 'rgba(255,255,255,0.14)',
+                      shadowColor: isActive ? deck.accent[0] : 'transparent',
+                      shadowOpacity: isActive ? 0.50 : 0,
+                      shadowRadius: isActive ? 10 : 0,
+                      shadowOffset: { width: 0, height: 0 },
+                      elevation: isActive ? 6 : 0,
                     }}
                   >
-                    {deck.name}
+                    {/* Card back preview area */}
+                    <LinearGradient
+                      colors={deck.backGradient as [string, string, string]}
+                      style={{ height: 120, alignItems: 'center', justifyContent: 'center', padding: 10 }}
+                    >
+                      {/* Mini card frame */}
+                      <View style={{
+                        width: 52, height: 80, borderRadius: 8,
+                        borderWidth: 1.5, borderColor: deck.accent[0] + 'AA',
+                        backgroundColor: deck.backGradient[1] + 'CC',
+                        alignItems: 'center', justifyContent: 'center',
+                        shadowColor: deck.accent[0], shadowOpacity: 0.5, shadowRadius: 6,
+                      }}>
+                        <Text style={{ fontSize: 22 }}>
+                          {deck.motif === 'classic' ? '✦' : deck.motif === 'celestial' ? '🌙' : deck.motif === 'mystical' ? '🔮' : deck.motif === 'bw' ? '◈' : '✧'}
+                        </Text>
+                        <Text style={{ color: deck.accent[0], fontSize: 7, fontWeight: '800', letterSpacing: 1, marginTop: 3, textAlign: 'center' }}>
+                          {deck.cardBackLabel?.split('·')[0]?.trim() || deck.id.toUpperCase().slice(0, 5)}
+                        </Text>
+                      </View>
+                      {/* Active glow overlay */}
+                      {isActive && (
+                        <View style={{ position: 'absolute', inset: 0, backgroundColor: deck.accent[0] + '20' }} />
+                      )}
+                      {/* Premium badge */}
+                      {isPremiumDeck && (
+                        <View style={{
+                          position: 'absolute', top: 8, left: 8,
+                          paddingHorizontal: 6, paddingVertical: 2,
+                          borderRadius: 6, backgroundColor: 'rgba(0,0,0,0.70)',
+                          borderWidth: 1, borderColor: '#F472B660',
+                        }}>
+                          <Text style={{ color: '#F472B6', fontSize: 8, fontWeight: '800', letterSpacing: 0.5 }}>PREMIUM</Text>
+                        </View>
+                      )}
+                      {/* Selected check */}
+                      {isActive && (
+                        <View style={{
+                          position: 'absolute', top: 8, right: 8,
+                          width: 20, height: 20, borderRadius: 10,
+                          backgroundColor: deck.accent[0], alignItems: 'center', justifyContent: 'center',
+                        }}>
+                          <Text style={{ color: '#fff', fontSize: 12, fontWeight: '800' }}>✓</Text>
+                        </View>
+                      )}
+                    </LinearGradient>
+                    {/* Deck name strip */}
+                    <View style={{
+                      backgroundColor: isActive ? deck.backGradient[0] : isLight ? 'rgba(240,232,252,0.95)' : 'rgba(10,5,25,0.95)',
+                      paddingHorizontal: 8, paddingVertical: 7, borderTopWidth: 1,
+                      borderTopColor: isActive ? deck.accent[0] + '55' : isLight ? 'rgba(100,60,160,0.12)' : 'rgba(255,255,255,0.06)',
+                    }}>
+                      <Text numberOfLines={2} style={{ fontSize: 9, fontWeight: '700', textAlign: 'center', color: isActive ? deck.accent[0] : textMuted, lineHeight: 13, letterSpacing: 0.2 }}>
+                        {deck.name}
+                      </Text>
+                      {deck.textureLabel ? (
+                        <Text style={{ color: textMuted, fontSize: 7.5, textAlign: 'center', marginTop: 2, letterSpacing: 0.5 }}>
+                          {deck.textureLabel}
+                        </Text>
+                      ) : null}
+                    </View>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </ScrollView>
+        </View>
+
+        {/* ── Section: Układ kart ── */}
+        <View style={[is.section, { backgroundColor: sectionBg, borderColor: sectionBorder }]}>
+          <Text style={[is.sectionLabel, { color: labelColor }]}>⊕ UKŁAD KART</Text>
+          <View style={{ gap: 8 }}>
+            {SPREADS.map(sp => (
+              <Pressable
+                key={sp.id}
+                onPress={() => { HapticsService.impact('light'); setSpreadId(sp.id); }}
+                style={[is.spreadRow,
+                  isLight ? { borderColor: 'rgba(100,60,160,0.18)' } : {},
+                  spreadId === sp.id && { borderColor: GOLD + '80', backgroundColor: 'rgba(206,174,114,0.08)' }]}
+              >
+                <View style={{ flex: 1 }}>
+                  <Text style={[is.spreadName, { color: spreadId === sp.id ? GOLD : textPrimary }]}>{sp.label}</Text>
+                  <Text style={[is.spreadDesc, { color: textMuted }]}>{sp.desc}</Text>
+                </View>
+                <View style={[{ paddingHorizontal: 10, paddingVertical: 5, borderRadius: 20, borderWidth: 1 },
+                  spreadId === sp.id
+                    ? { backgroundColor: 'rgba(206,174,114,0.18)', borderColor: GOLD + '66' }
+                    : { backgroundColor: 'transparent', borderColor: isLight ? 'rgba(100,60,160,0.15)' : 'rgba(255,255,255,0.10)' }]}>
+                  <Text style={{ color: spreadId === sp.id ? GOLD : textMuted, fontSize: 12, fontWeight: '700' }}>
+                    {sp.count} {sp.count === 1 ? 'karta' : 'karty'}
                   </Text>
-                  {deck.textureLabel ? (
-                    <Text style={{ color: isLight ? 'rgba(60,30,100,0.45)' : 'rgba(245,241,234,0.35)', fontSize: 7.5, textAlign: 'center', marginTop: 2, letterSpacing: 0.5 }}>
-                      {deck.textureLabel}
-                    </Text>
-                  ) : null}
                 </View>
               </Pressable>
-            );
-          })}
+            ))}
+          </View>
         </View>
-      </ScrollView>
 
-      <Text style={[is.sectionLabel, { marginTop: 16 }, isLight && { color: 'rgba(139,100,42,0.70)' }]}>Układ kart</Text>
-      <View style={{ gap: 8 }}>
-        {SPREADS.map(sp => (
+        {/* ── Section: Opcje dodatkowe (reversals + for someone) ── */}
+        <View style={[is.section, { backgroundColor: sectionBg, borderColor: sectionBorder }]}>
+          <Text style={[is.sectionLabel, { color: labelColor }]}>⚙ OPCJE</Text>
+
+          {/* Allow reversals toggle */}
           <Pressable
-            key={sp.id}
-            onPress={() => { HapticsService.impact('light'); setSpreadId(sp.id); }}
-            style={[is.spreadRow,
-              isLight ? { borderColor: 'rgba(100,60,160,0.18)' } : {},
-              spreadId === sp.id && { borderColor: GOLD + '80', backgroundColor: 'rgba(206,174,114,0.08)' }]}
+            onPress={() => { HapticsService.impact('light'); setAllowReversals((v: boolean) => !v); }}
+            style={[is.optionRow, isLight ? { borderColor: 'rgba(100,60,160,0.14)' } : {},
+              allowReversals && { borderColor: GOLD + '50', backgroundColor: 'rgba(206,174,114,0.06)' }]}
           >
             <View style={{ flex: 1 }}>
-              <Text style={[is.spreadName, { color: spreadId === sp.id ? GOLD : isLight ? '#2D1A50' : '#F5F1EA' }]}>{sp.label}</Text>
-              <Text style={[is.spreadDesc, isLight && { color: 'rgba(60,30,100,0.55)' }]}>{sp.desc}</Text>
+              <Text style={{ color: allowReversals ? GOLD : textPrimary, fontSize: 14, fontWeight: '600' }}>
+                Odwrócone karty
+              </Text>
+              <Text style={[is.spreadDesc, { color: textMuted }]}>
+                {allowReversals ? 'Karty mogą pojawiać się odwrócone (25%)' : 'Tylko karty proste — łatwiejszy odczyt'}
+              </Text>
             </View>
-            <Text style={{ color: spreadId === sp.id ? GOLD : isLight ? 'rgba(60,30,100,0.45)' : 'rgba(245,241,234,0.35)', fontSize: 13, fontWeight: '600' }}>
-              {sp.count} {sp.count === 1 ? 'karta' : 'karty'}
-            </Text>
+            <View style={[is.toggleTrack, allowReversals ? { backgroundColor: GOLD } : { backgroundColor: isLight ? 'rgba(100,60,160,0.15)' : 'rgba(255,255,255,0.12)' }]}>
+              <View style={[is.toggleThumb, { alignSelf: allowReversals ? 'flex-end' : 'flex-start' }]} />
+            </View>
           </Pressable>
-        ))}
-      </View>
 
-      <Pressable
-        onPress={() => { HapticsService.impact('light'); setForSomeone(v => !v); }}
-        style={[is.spreadRow, { marginTop: 6 },
-          isLight ? { borderColor: 'rgba(100,60,160,0.18)' } : {},
-          forSomeone && { borderColor: '#A78BFA80', backgroundColor: 'rgba(167,139,250,0.08)' }]}
-      >
-        <Text style={{ color: forSomeone ? '#A78BFA' : isLight ? 'rgba(60,30,100,0.72)' : 'rgba(245,241,234,0.65)', fontSize: 14, flex: 1 }}>
-          Odczyt dla kogoś innego
-        </Text>
-        <View style={[{ width: 22, height: 22, borderRadius: 11, borderWidth: 1.5,
-          alignItems: 'center', justifyContent: 'center' },
-          forSomeone ? { borderColor: '#A78BFA', backgroundColor: '#A78BFA' } : { borderColor: isLight ? 'rgba(100,60,160,0.30)' : 'rgba(245,241,234,0.25)' }]}>
-          {forSomeone && <Text style={{ color: '#fff', fontSize: 13, fontWeight: '700' }}>✓</Text>}
+          {/* For someone toggle */}
+          <Pressable
+            onPress={() => { HapticsService.impact('light'); setForSomeone((v: boolean) => !v); }}
+            style={[is.optionRow, { marginTop: 8 },
+              isLight ? { borderColor: 'rgba(100,60,160,0.14)' } : {},
+              forSomeone && { borderColor: '#A78BFA80', backgroundColor: 'rgba(167,139,250,0.08)' }]}
+          >
+            <Text style={{ color: forSomeone ? '#A78BFA' : textPrimary, fontSize: 14, fontWeight: '600', flex: 1 }}>
+              Odczyt dla kogoś innego
+            </Text>
+            <View style={[{ width: 22, height: 22, borderRadius: 11, borderWidth: 1.5,
+              alignItems: 'center', justifyContent: 'center' },
+              forSomeone ? { borderColor: '#A78BFA', backgroundColor: '#A78BFA' } : { borderColor: isLight ? 'rgba(100,60,160,0.30)' : 'rgba(245,241,234,0.25)' }]}>
+              {forSomeone && <Text style={{ color: '#fff', fontSize: 13, fontWeight: '700' }}>✓</Text>}
+            </View>
+          </Pressable>
+
+          {forSomeone && (
+            <TextInput
+              value={someoneName}
+              onChangeText={setSomeoneName}
+              placeholder="Imię osoby..."
+              placeholderTextColor={isLight ? 'rgba(100,60,160,0.40)' : 'rgba(245,241,234,0.30)'}
+              style={[is.nameInput, isLight && { borderColor: 'rgba(167,139,250,0.40)', color: '#2D1A50', backgroundColor: 'rgba(167,139,250,0.06)' }]}
+            />
+          )}
         </View>
-      </Pressable>
 
-      {forSomeone && (
-        <TextInput
-          value={someoneName}
-          onChangeText={setSomeoneName}
-          placeholder="Imię osoby..."
-          placeholderTextColor={isLight ? 'rgba(100,60,160,0.40)' : 'rgba(245,241,234,0.30)'}
-          style={[is.nameInput, isLight && { borderColor: 'rgba(167,139,250,0.40)', color: '#2D1A50', backgroundColor: 'rgba(167,139,250,0.06)' }]}
-        />
-      )}
+        {/* ── Start button ── */}
+        <Pressable onPress={onStart} style={is.startBtn}>
+          <LinearGradient colors={['#7C3AED', '#5B21B6']} style={is.startBtnGrad}>
+            <Flame size={16} color={GOLD} />
+            <Text style={is.startBtnText}>Zapal świecę · Zacznij odczyt</Text>
+          </LinearGradient>
+        </Pressable>
 
-      {/* ── Reversals toggle ── */}
-      <Pressable
-        onPress={() => { HapticsService.impact('light'); setAllowReversals((v: boolean) => !v); }}
-        style={[is.spreadRow, { marginTop: 6 },
-          isLight ? { borderColor: 'rgba(100,60,160,0.18)' } : {},
-          allowReversals && { borderColor: GOLD + '50', backgroundColor: 'rgba(206,174,114,0.06)' }]}
-      >
-        <View style={{ flex: 1 }}>
-          <Text style={{ color: allowReversals ? GOLD : isLight ? 'rgba(60,30,100,0.72)' : 'rgba(245,241,234,0.65)', fontSize: 14 }}>
-            Odwrócone karty
-          </Text>
-          <Text style={[is.spreadDesc, isLight && { color: 'rgba(60,30,100,0.55)' }]}>
-            {allowReversals ? 'Karty mogą pojawiać się odwrócone (25%)' : 'Tylko karty proste — łatwiejszy odczyt'}
-          </Text>
-        </View>
-        <View style={[{ width: 22, height: 22, borderRadius: 11, borderWidth: 1.5,
-          alignItems: 'center', justifyContent: 'center' },
-          allowReversals ? { borderColor: GOLD, backgroundColor: GOLD } : { borderColor: isLight ? 'rgba(100,60,160,0.30)' : 'rgba(245,241,234,0.25)' }]}>
-          {allowReversals && <Text style={{ color: '#1A0E2E', fontSize: 13, fontWeight: '800' }}>✓</Text>}
-        </View>
-      </Pressable>
-
-      <Pressable onPress={onStart} style={is.startBtn}>
-        <LinearGradient colors={['#7C3AED', '#5B21B6']} style={is.startBtnGrad}>
-          <Flame size={16} color={GOLD} />
-          <Text style={is.startBtnText}>Zapal świecę · Zacznij odczyt</Text>
-        </LinearGradient>
-      </Pressable>
       </ScrollView>
     </View>
   );
@@ -895,26 +923,41 @@ const is = StyleSheet.create({
     backgroundColor: 'rgba(8,3,22,0.97)', borderTopLeftRadius: 24, borderTopRightRadius: 24,
     paddingHorizontal: 20, paddingBottom: 28, paddingTop: 14,
     borderTopWidth: 1, borderColor: 'rgba(206,174,114,0.20)',
+    maxHeight: '92%',
   },
-  handle: { width: 36, height: 3.5, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.18)', alignSelf: 'center', marginBottom: 16 },
+  handle: { width: 36, height: 3.5, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.18)', alignSelf: 'center', marginBottom: 12 },
   title: { fontSize: 22, fontWeight: '800', color: '#F5F1EA', letterSpacing: 0.3, textAlign: 'center', marginBottom: 4 },
-  subtitle: { fontSize: 13, color: 'rgba(245,241,234,0.55)', textAlign: 'center', letterSpacing: 0.3, marginBottom: 18 },
-  sectionLabel: { fontSize: 10, color: GOLD_DIM, letterSpacing: 2.5, fontWeight: '700', marginBottom: 8 },
+  subtitle: { fontSize: 13, color: 'rgba(245,241,234,0.55)', textAlign: 'center', letterSpacing: 0.3, marginBottom: 4 },
+  // ── Section card ──
+  section: {
+    borderRadius: 18, borderWidth: 1, padding: 16, marginBottom: 12,
+    backgroundColor: 'rgba(255,255,255,0.04)', borderColor: 'rgba(206,174,114,0.14)',
+  },
+  sectionLabel: { fontSize: 9, color: GOLD_DIM, letterSpacing: 2.5, fontWeight: '800', marginBottom: 12 },
   topicGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   topicChip: { paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20, borderWidth: 1, borderColor: 'rgba(245,241,234,0.15)' },
   topicText: { fontSize: 13, letterSpacing: 0.2 },
-  spreadRow: { flexDirection: 'row', alignItems: 'center', padding: 12, borderRadius: 12,
+  // ── Spread row ──
+  spreadRow: { flexDirection: 'row', alignItems: 'center', padding: 14, borderRadius: 14,
     borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)', gap: 10 },
   spreadName: { fontSize: 14, fontWeight: '700', marginBottom: 2 },
   spreadDesc: { fontSize: 11, color: 'rgba(245,241,234,0.45)', lineHeight: 16 },
+  // ── Option row (toggles) ──
+  optionRow: { flexDirection: 'row', alignItems: 'center', padding: 14, borderRadius: 14,
+    borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)', gap: 12 },
+  toggleTrack: { width: 42, height: 24, borderRadius: 12, padding: 3, justifyContent: 'center' },
+  toggleThumb: { width: 18, height: 18, borderRadius: 9, backgroundColor: '#FFFFFF' },
+  // ── Name input ──
   nameInput: {
-    marginTop: 8, padding: 12, borderRadius: 10, borderWidth: 1,
+    marginTop: 10, padding: 12, borderRadius: 10, borderWidth: 1,
     borderColor: 'rgba(167,139,250,0.35)', color: '#F5F1EA', fontSize: 14,
     backgroundColor: 'rgba(167,139,250,0.08)',
   },
-  startBtn: { marginTop: 16, borderRadius: 14, overflow: 'hidden' },
-  startBtnGrad: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, paddingVertical: 15, paddingHorizontal: 24 },
-  startBtnText: { color: GOLD, fontSize: 15, fontWeight: '700', letterSpacing: 0.5 },
+  // ── Start button ──
+  startBtn: { marginTop: 4, marginBottom: 8, borderRadius: 16, overflow: 'hidden' },
+  startBtnGrad: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, paddingVertical: 16, paddingHorizontal: 24 },
+  startBtnText: { color: GOLD, fontSize: 16, fontWeight: '800', letterSpacing: 0.5 },
+  // ── Energy chip ──
   energyChip: {
     flexDirection: 'row', alignItems: 'center', gap: 6,
     paddingHorizontal: 12, paddingVertical: 8, borderRadius: 20,

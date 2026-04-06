@@ -42,7 +42,7 @@ import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 const ACCENT = '#818CF8';
 const DURATIONS = [15, 30, 45, 60, 90];
@@ -214,7 +214,7 @@ return (
 
 // ── Body outline SVG ────────────────────────────────────────────
 const BodyOutlineSVG = ({ highlight, isLight }: { highlight: BodyScanStep['bodyRegion']; isLight: boolean }) => {
-  const bodyColor = isLight ? 'rgba(0,0,0,0.18)' : 'rgba(255,255,255,0.22)';
+  const bodyColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.22)';
   const hl = ACCENT;
   const isHead = highlight === 'head';
   const isShoulders = highlight === 'shoulders';
@@ -299,14 +299,17 @@ const BREATH_COLORS: Record<BreathPhase478, string> = {
 export const SleepHelperScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem, userData, experience } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const userData = useAppStore(s => s.userData);
+  const experience = useAppStore(s => s.experience);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A1530' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.50)' : 'rgba(240,235,226,0.45)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(240,235,226,0.45)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
   const cardBorder = isLight ? 'rgba(129,140,248,0.20)' : 'rgba(129,140,248,0.13)';
-  const inputBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)';
+  const inputBg = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)';
   const isFav = isFavoriteItem('SleepHelper');
 
   // ── Timer state ──────────────────────────────────────────────
@@ -344,6 +347,8 @@ export const SleepHelperScreen = ({ navigation }: any) => {
 
   // ── Sleep Hz frequencies ──────────────────────────────────────
   const [activeSleepHz, setActiveSleepHz] = useState<BinauralFrequency | null>(null);
+  // Track whether ambient was running before Hz was selected so we can restore it.
+  const ambientWasRunningRef = useRef(false);
 
   // ── Dream intention ───────────────────────────────────────────
   const [intentionText, setIntentionText] = useState('');
@@ -366,23 +371,41 @@ export const SleepHelperScreen = ({ navigation }: any) => {
   const toggleSleepHz = async (freq: BinauralFrequency) => {
     HapticsService.impact('light');
     setHzError(null);
+
     if (activeSleepHz === freq) {
+      // Deselect: stop binaural. If ambient was playing before Hz was selected,
+      // restore it so the user gets back to ambient-only mode.
       try {
-        await AudioService.stopBinauralTone();
+        // Stop only the binaural player without touching ambient via the low-level path
+        await AudioService.stopBinauralToneOnly();
       } catch (_) {}
       setActiveSleepHz(null);
+      // Restore ambient if it was running before Hz was selected
+      if (ambientWasRunningRef.current) {
+        void AudioService.playAmbientForSession(experience?.ambientSoundscape ?? 'forest');
+      }
       return;
     }
+
+    // Remember whether ambient is currently playing so we can restore it after binaural starts
+    ambientWasRunningRef.current = running; // ambient runs whenever the timer is running
+
     // Show brief loading indicator, auto-clear after 500ms
     setLoadingHz(freq);
     const loadTimer = setTimeout(() => setLoadingHz(null), 500);
     try {
-      // Stop current tone first to prevent overlap/crash
+      // Stop any currently-playing binaural first
       if (activeSleepHz) {
-        await AudioService.stopBinauralTone();
+        await AudioService.stopBinauralToneOnly();
       }
+      // playBinauralTone pauses the ambient registry internally; we re-start
+      // ambient afterwards if it should be co-playing.
       await AudioService.playBinauralTone(freq);
       setActiveSleepHz(freq);
+      // If ambient timer is running, restore ambient layer alongside binaural
+      if (running) {
+        await AudioService.playAmbientForSession(experience?.ambientSoundscape ?? 'forest');
+      }
     } catch (_) {
       setHzError('Nie udało się załadować dźwięku. Spróbuj ponownie.');
       setActiveSleepHz(null);
@@ -683,7 +706,7 @@ return (
                   onPress={() => { if (!running) { setSelectedDuration(min); setRemaining(min * 60); } }}
                   style={[
                     styles.chip, active && styles.chipActive, running && { opacity: 0.4 },
-                    !active && { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.09)' },
+                    !active && { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.06)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.09)' },
                   ]}
                 >
                   <Text style={[styles.chipText, active && styles.chipTextActive, !active && { color: subColor }]}>{min} min</Text>
@@ -737,7 +760,7 @@ return (
                         {
                           backgroundColor: rating > 0
                             ? (rating >= 4 ? '#67D1B2' : rating === 3 ? ACCENT : '#F472B6')
-                            : (isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)'),
+                            : (isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)'),
                           borderColor: isToday ? ACCENT : 'transparent',
                         },
                       ]}>
@@ -831,7 +854,7 @@ return (
                         return next;
                       });
                     }}
-                    style={[styles.checkRow, { borderBottomColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)', borderBottomWidth: i < CHECKLIST_ITEMS.length - 1 ? 1 : 0 }]}
+                    style={[styles.checkRow, { borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)', borderBottomWidth: i < CHECKLIST_ITEMS.length - 1 ? 1 : 0 }]}
                   >
                     <Text style={{ fontSize: 18, width: 26 }}>{item.emoji}</Text>
                     <Text style={[styles.checkText, { color: checked ? textColor : subColor, textDecorationLine: checked ? 'line-through' : 'none', flex: 1 }]}>
@@ -1061,9 +1084,9 @@ return (
                     onPress={() => toggleSleepHz(freq)}
                     style={{
                       borderRadius: 16, marginBottom: 8, overflow: 'hidden',
-                      backgroundColor: isActive ? catColor + '18' : (isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)'),
+                      backgroundColor: isActive ? catColor + '18' : (isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.04)'),
                       borderWidth: isActive ? 1.5 : 1,
-                      borderColor: isActive ? catColor + '88' : (isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)'),
+                      borderColor: isActive ? catColor + '88' : (isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)'),
                     }}
                   >
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14, paddingVertical: 12, paddingHorizontal: 14 }}>
@@ -1080,7 +1103,7 @@ return (
                       <View style={{
                         width: 32, height: 32, borderRadius: 16,
                         alignItems: 'center', justifyContent: 'center',
-                        backgroundColor: isActive ? catColor : (loadingHz === freq ? catColor + '44' : (isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)')),
+                        backgroundColor: isActive ? catColor : (loadingHz === freq ? catColor + '44' : (isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)')),
                       }}>
                         {loadingHz === freq
                           ? <ActivityIndicator size="small" color={catColor} />
@@ -1153,7 +1176,7 @@ return (
                       style={[
                         styles.pastIntentionRow,
                         {
-                          borderBottomColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)',
+                          borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)',
                           borderBottomWidth: i < pastIntentions.length - 1 ? 1 : 0,
                         },
                       ]}
@@ -1215,7 +1238,7 @@ return (
                 const IconComp = item.icon;
               return (
                   <React.Fragment key={item.route}>
-                    {i > 0 && <View style={{ height: 1, backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)', marginHorizontal: -18 }} />}
+                    {i > 0 && <View style={{ height: 1, backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.06)', marginHorizontal: -18 }} />}
                     <Pressable
                       onPress={() => { HapticsService.impact('light'); navigation.navigate(item.route); }}
                       style={({ pressed }) => [styles.codalejRow, { opacity: pressed ? 0.72 : 1 }]}

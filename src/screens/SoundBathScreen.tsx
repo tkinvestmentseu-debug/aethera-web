@@ -46,6 +46,7 @@ import {
   Activity,
   Heart,
   Sun,
+  X,
 } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAudioCleanup } from '../core/hooks/useAudioCleanup';
@@ -58,7 +59,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 import { MusicToggleButton } from '../components/MusicToggleButton';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -354,17 +355,17 @@ export const SoundBathScreen: React.FC = () => {
   const { t } = useTranslation();
   useAudioCleanup();
   const navigation = useNavigation<any>();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   // colours
   const ACCENT       = '#A78BFA';
   const textColor    = isLight ? '#1A1410'              : '#F5F1EA';
   const subColor     = isLight ? '#6A5A48'              : '#B0A393';
-  const cardBg       = isLight ? 'rgba(0,0,0,0.04)'     : 'rgba(255,255,255,0.05)';
-  const cardBorder   = isLight ? 'rgba(0,0,0,0.09)'     : 'rgba(255,255,255,0.12)';
-  const divColor     = isLight ? 'rgba(0,0,0,0.07)'     : 'rgba(255,255,255,0.07)';
+  const cardBg       = isLight ? 'rgba(255,255,255,0.88)'     : 'rgba(255,255,255,0.05)';
+  const cardBorder   = isLight ? 'rgba(100,70,20,0.14)'     : 'rgba(255,255,255,0.12)';
+  const divColor     = isLight ? 'rgba(122,95,54,0.14)'     : 'rgba(255,255,255,0.07)';
 
   // ── Playback state ──
   const [active,  setActive]  = useState<AmbientSoundscape | null>(null);
@@ -389,6 +390,7 @@ export const SoundBathScreen: React.FC = () => {
   const [pendingStop,       setPendingStop]        = useState(false);
   const [soundCategory,     setSoundCategory]      = useState<'wszystkie' | 'natura' | 'ceremonia' | 'mistyczny'>('wszystkie');
   const [timerRemaining,    setTimerRemaining]     = useState<number | null>(null);
+  const [selectedSession,   setSelectedSession]    = useState<SessionHistoryEntry | null>(null);
 
   // ── Refs ──
   const sessionStartRef = useRef<number | null>(null);
@@ -413,6 +415,11 @@ export const SoundBathScreen: React.FC = () => {
   const gradientColors = isLight
     ? (['#F8F4FF', '#EDE6FF', '#E6EEFF'] as const)
     : (['#06070C', '#0E111B', '#141927'] as const);
+
+  // ── Pre-warm all audio on screen mount to eliminate playback delay ──
+  useEffect(() => {
+    void AudioService.preloadBootAudio();
+  }, []);
 
   // ── Session timer ──
   useEffect(() => {
@@ -521,7 +528,9 @@ export const SoundBathScreen: React.FC = () => {
   // ── Render ─────────────────────────────────────────────────────────────────
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: currentTheme.background }]} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[styles.safe, {}]} edges={['top']}>
+
       <LinearGradient colors={gradientColors} style={StyleSheet.absoluteFillObject} />
 
       {/* ── Header ── */}
@@ -980,8 +989,9 @@ export const SoundBathScreen: React.FC = () => {
               const emoji  = entryData?.emoji  ?? '🎵';
               const title  = entryData?.title  ?? entry.id;
               return (
-                <View
+                <Pressable
                   key={`${entry.id}-${entry.date}-${index}`}
+                  onPress={() => setSelectedSession(entry)}
                   style={[
                     styles.historyCard,
                     { backgroundColor: cardBg, borderColor: cardBorder },
@@ -1003,12 +1013,15 @@ export const SoundBathScreen: React.FC = () => {
                       </Text>
                     ) : null}
                   </View>
-                  <View style={[styles.historyAccent, { backgroundColor: accent + '22' }]}>
-                    <Text style={[styles.historyAccentText, { color: accent }]}>
-                      {formatDuration(entry.duration)}
-                    </Text>
+                  <View style={{ alignItems: 'flex-end', gap: 4 }}>
+                    <View style={[styles.historyAccent, { backgroundColor: accent + '22' }]}>
+                      <Text style={[styles.historyAccentText, { color: accent }]}>
+                        {formatDuration(entry.duration)}
+                      </Text>
+                    </View>
+                    <Text style={{ color: accent + 'AA', fontSize: 9, letterSpacing: 0.5 }}>Dotknij</Text>
                   </View>
-                </View>
+                </Pressable>
               );
             })
           )}
@@ -1170,7 +1183,88 @@ export const SoundBathScreen: React.FC = () => {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+
+      {/* ════════════════════════════════════════════════════════
+          MODAL — Session detail
+      ════════════════════════════════════════════════════════ */}
+      <Modal
+        visible={selectedSession !== null}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setSelectedSession(null)}
+      >
+        <View style={styles.modalOverlay}>
+          <Pressable style={StyleSheet.absoluteFillObject} onPress={() => setSelectedSession(null)} />
+          {selectedSession !== null && (() => {
+            const sessData = UNIQUE_SOUNDSCAPES.find((s) => s.id === selectedSession.id);
+            const sessAccent = sessData?.accent ?? ACCENT;
+            const sessEmoji  = sessData?.emoji  ?? '🎵';
+            const sessTitle  = sessData?.title  ?? selectedSession.id;
+            return (
+              <View style={[styles.modalSheet, { backgroundColor: isLight ? '#F8F4FF' : '#0F0C1A' }]}>
+                <View style={[styles.modalHandle, { backgroundColor: isLight ? 'rgba(0,0,0,0.14)' : 'rgba(255,255,255,0.14)' }]} />
+
+                {/* Header */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14, marginBottom: 20 }}>
+                  <View style={{ width: 52, height: 52, borderRadius: 16, backgroundColor: sessAccent + '22', alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 24 }}>{sessEmoji}</Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ color: sessAccent, fontSize: 10, fontWeight: '800', letterSpacing: 2, marginBottom: 2 }}>SZCZEGÓŁY SESJI</Text>
+                    <Text style={{ color: textColor, fontSize: 18, fontWeight: '700' }}>{sessTitle}</Text>
+                  </View>
+                  <Pressable onPress={() => setSelectedSession(null)} hitSlop={12}>
+                    <X color={subColor} size={20} strokeWidth={1.8} />
+                  </Pressable>
+                </View>
+
+                {/* Stats grid */}
+                {[
+                  { label: 'Data',      value: formatRelativeDate(selectedSession.date) },
+                  { label: 'Czas trwania', value: formatDuration(selectedSession.duration) },
+                  { label: 'Intencja',  value: selectedSession.intention ? selectedSession.intention.charAt(0).toUpperCase() + selectedSession.intention.slice(1) : '—' },
+                ].map((row) => (
+                  <View key={row.label} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }}>
+                    <Text style={{ color: subColor, fontSize: 13 }}>{row.label}</Text>
+                    <Text style={{ color: textColor, fontSize: 14, fontWeight: '600' }}>{row.value}</Text>
+                  </View>
+                ))}
+
+                {/* Mood change */}
+                {selectedSession.moodBefore !== undefined && selectedSession.moodAfter !== undefined ? (
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 0.5, borderBottomColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }}>
+                    <Text style={{ color: subColor, fontSize: 13 }}>Zmiana nastroju</Text>
+                    <Text style={{ color: sessAccent, fontSize: 15, fontWeight: '700' }}>
+                      {moodEmoji(selectedSession.moodBefore)} → {moodEmoji(selectedSession.moodAfter)}
+                    </Text>
+                  </View>
+                ) : null}
+
+                {/* Repeat session button */}
+                <Pressable
+                  onPress={() => {
+                    setSelectedSession(null);
+                    toggle(selectedSession.id);
+                    if (selectedSession.intention) setSelectedIntention(selectedSession.intention);
+                  }}
+                  style={{ marginTop: 22, borderRadius: 14, overflow: 'hidden' }}
+                >
+                  <LinearGradient
+                    colors={[sessAccent + 'EE', sessAccent + 'AA']}
+                    style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, paddingVertical: 14 }}
+                  >
+                    <Text style={{ color: '#FFF', fontSize: 15, fontWeight: '700' }}>Powtórz tę sesję</Text>
+                    <ArrowRight color="#FFF" size={16} strokeWidth={2} />
+                  </LinearGradient>
+                </Pressable>
+              </View>
+            );
+          })()}
+        </View>
+      </Modal>
+
+        </SafeAreaView>
+</View>
   );
 };
 

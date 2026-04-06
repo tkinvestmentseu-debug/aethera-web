@@ -25,7 +25,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 import { MusicToggleButton } from '../components/MusicToggleButton';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const VIZ_W = SW - 40;
 const VIZ_H = 160;
@@ -567,13 +567,13 @@ const FreqCard = ({
             isActive
               ? [freq.gradientFrom, freq.gradientTo]
               : isLight
-                ? ['rgba(0,0,0,0.04)', 'rgba(0,0,0,0.02)']
+                ? ['rgba(255,255,255,0.96)', 'rgba(245,240,232,0.92)']
                 : ['rgba(255,255,255,0.04)', 'rgba(255,255,255,0.02)']
           }
           style={[
             styles.card,
             isActive && { borderColor: freq.color + '77', shadowColor: freq.color, shadowOpacity: 0.35, shadowRadius: 18, elevation: 9 },
-            !isActive && { borderColor: isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)' },
+            !isActive && { borderColor: isLight ? 'rgba(139,100,42,0.28)' : 'rgba(255,255,255,0.10)' },
           ]}
         >
           {isActive && (
@@ -593,7 +593,7 @@ const FreqCard = ({
             <View style={[styles.hzPill, { backgroundColor: freq.color + '20', borderColor: freq.color + '50' }]}>
               <Text style={[styles.hzText, { color: freq.color }]}>{freq.hz}</Text>
             </View>
-            <View style={[styles.brainwavePill, { backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)', borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.12)' }]}>
+            <View style={[styles.brainwavePill, { backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.06)', borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.12)' }]}>
               <Text style={[styles.brainwaveText, { color: isLight ? '#555' : '#C0B8B0' }]}>{freq.brainwave}</Text>
               <Text style={[styles.brainwaveRange, { color: isLight ? '#888' : '#807870' }]}>{freq.brainwaveDesc}</Text>
             </View>
@@ -605,18 +605,18 @@ const FreqCard = ({
           <View style={styles.titleRow}>
             <View>
               <Text style={[styles.label, { color: isActive ? freq.color : textColor }]}>{freq.label}</Text>
-              <Text style={[styles.subtitle, { color: subColor }]}>{freq.subtitle}</Text>
+              <Text style={[styles.subtitle, { color: isLight ? 'rgba(0,0,0,0.60)' : subColor }]}>{freq.subtitle}</Text>
             </View>
             <WaveAnimation color={freq.color} active={isActive} />
           </View>
 
           {/* Description */}
-          <Text style={[styles.desc, { color: isActive ? (isLight ? '#3A2E00' : '#C0B8B0') : subColor }]}>{freq.desc}</Text>
+          <Text style={[styles.desc, { color: isActive ? (isLight ? '#2A1800' : '#C0B8B0') : (isLight ? 'rgba(0,0,0,0.70)' : subColor) }]}>{freq.desc}</Text>
 
           {/* Benefits */}
           <View style={styles.benefitsRow}>
             {freq.benefits.map(b => (
-              <View key={b} style={[styles.benefit, { borderColor: freq.color + '40', backgroundColor: freq.color + '10' }]}>
+              <View key={b} style={[styles.benefit, { borderColor: freq.color + (isLight ? '55' : '40'), backgroundColor: freq.color + (isLight ? '18' : '10') }]}>
                 <Text style={[styles.benefitText, { color: freq.color }]}>{b}</Text>
               </View>
             ))}
@@ -624,8 +624,8 @@ const FreqCard = ({
 
           {/* Footer */}
           <View style={styles.cardFooter}>
-            <Text style={[styles.chakraText, { color: subColor }]}>{freq.chakra}</Text>
-            <Text style={[styles.useCaseText, { color: isLight ? '#888' : '#807870' }]}>📌 {freq.useCase}</Text>
+            <Text style={[styles.chakraText, { color: isLight ? 'rgba(0,0,0,0.65)' : subColor }]}>{freq.chakra}</Text>
+            <Text style={[styles.useCaseText, { color: isLight ? 'rgba(0,0,0,0.55)' : '#807870' }]}>📌 {freq.useCase}</Text>
           </View>
 
           {/* EFEKTY FALI toggle */}
@@ -641,23 +641,23 @@ const FreqCard = ({
           </Pressable>
 
           {showEffects && (
-            <View style={[styles.effectsPanel, { borderColor: freq.color + '33', backgroundColor: freq.color + '08' }]}>
+            <View style={[styles.effectsPanel, { borderColor: freq.color + (isLight ? '44' : '33'), backgroundColor: freq.color + (isLight ? '0D' : '08') }]}>
               {/* Brainwave state diagram */}
               <View style={styles.effectsRow}>
                 <Text style={[styles.effectsLabel, { color: freq.color }]}>Stan mózgu</Text>
-                <Text style={[styles.effectsValue, { color: isActive ? (isLight ? '#1A1A1A' : '#F5F1EA') : subColor }]}>{freq.brainwaveState}</Text>
+                <Text style={[styles.effectsValue, { color: isLight ? '#1A1208' : (isActive ? '#F5F1EA' : subColor) }]}>{freq.brainwaveState}</Text>
               </View>
               {/* Scientific description */}
               <View style={[styles.effectsRow, { borderBottomWidth: 0 }]}>
                 <Text style={[styles.effectsLabel, { color: freq.color }]}>Podstawy naukowe</Text>
-                <Text style={[styles.effectsDesc, { color: subColor }]}>{freq.scientificDesc}</Text>
+                <Text style={[styles.effectsDesc, { color: isLight ? 'rgba(0,0,0,0.68)' : subColor }]}>{freq.scientificDesc}</Text>
               </View>
               {/* Recommended activities */}
               <Text style={[styles.effectsLabel, { color: freq.color, marginTop: 10, marginBottom: 8 }]}>Rekomendowane aktywności</Text>
               {freq.recommendedActivities.map((act, ai) => (
                 <View key={ai} style={styles.activityRow}>
                   <View style={[styles.activityDot, { backgroundColor: freq.color }]} />
-                  <Text style={[styles.activityText, { color: subColor }]}>{act}</Text>
+                  <Text style={[styles.activityText, { color: isLight ? 'rgba(0,0,0,0.68)' : subColor }]}>{act}</Text>
                 </View>
               ))}
             </View>
@@ -682,13 +682,14 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
   const { t } = useTranslation();
   useAudioCleanup();
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A1A1A' : '#F5F1EA';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : '#9A8E80';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.045)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : '#9A8E80';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.045)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
   const accentColor = isLight ? '#6D28D9' : '#FFD700';
   const isFav = isFavoriteItem('binaural-beats');
 
@@ -702,9 +703,13 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
   const [isMuted, setIsMuted] = useState(false);
   const toggleMute = useCallback(async () => {
     if (isMuted) {
+      // Un-mute: resume the active tone if one is selected
       if (active) await AudioService.playBinauralTone(active);
     } else {
+      // Mute: stop audio AND clear active so a subsequent tile tap enters the
+      // PLAY branch of toggle() rather than the STOP branch.
       await AudioService.stopBinauralTone();
+      setActive(null);
     }
     setIsMuted((m) => !m);
   }, [isMuted, active]);
@@ -735,6 +740,10 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
 
   // ─── cleanup ──────────────────────────────────────────────────────────────────
   useEffect(() => {
+    // Preload all binaural tones immediately on mount (not waiting for focus)
+    // so the first tap is instant with no audio-load delay.
+    const ALL_FREQS: BinauralFrequency[] = ['40hz', '432hz', '528hz', '174hz', '396hz', '639hz', '741hz', '852hz', '963hz'];
+    void AudioService.warmBinauralTones(ALL_FREQS);
     return () => {
       void AudioService.stopBinauralTone();
       AudioService.clearBinauralCache();
@@ -742,13 +751,15 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
     };
   }, []);
 
-  // ─── preload first 3 binaural tones so first tap has no delay ─────────────────
+  // ─── re-preload all binaural tones on screen focus (after navigating back) ─────
   useFocusEffect(
     useCallback(() => {
-      const PRELOAD_FREQS: BinauralFrequency[] = ['40hz', '432hz', '528hz', '174hz', '396hz', '639hz', '741hz', '852hz', '963hz'];
-      void AudioService.warmBinauralTones(PRELOAD_FREQS);
+      const ALL_FREQS: BinauralFrequency[] = ['40hz', '432hz', '528hz', '174hz', '396hz', '639hz', '741hz', '852hz', '963hz'];
+      void AudioService.warmBinauralTones(ALL_FREQS);
       return () => {
+        void AudioService.stopBinauralTone();
         AudioService.clearBinauralCache();
+        setActive(null);
       };
     }, [])
   );
@@ -767,9 +778,11 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
   const formatSessionTime = (s: number) => `${Math.floor(s / 60).toString().padStart(2, '0')}:${(s % 60).toString().padStart(2, '0')}`;
 
   // ─── toggle playback ──────────────────────────────────────────────────────────
+  // Binaural tones bypass the global isMuted flag — the user explicitly chose
+  // a frequency tile, so we always play regardless of mute state.
   const toggle = useCallback(async (id: BinauralFrequency) => {
-    if (active === id) {
-      // Stop and prompt rating if > 30s
+    if (active === id && !isMuted) {
+      // Second tap on the same active tile → stop
       const completedSeconds = sessionSeconds;
       const freq = FREQS.find(f => f.id === id);
       setLoading(id);
@@ -789,12 +802,14 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
       }
       return;
     }
+    // Always play — binaural intent ignores mute
+    if (isMuted) setIsMuted(false);
     setLoading(id);
     await AudioService.stopBinauralTone();
     await AudioService.playBinauralTone(id);
     setActive(id);
     setLoading(null);
-  }, [active, sessionSeconds]);
+  }, [active, isMuted, sessionSeconds]);
 
   const saveSession = (r: number) => {
     if (!pendingSession) return;
@@ -1043,7 +1058,7 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
                   <Pressable
                     key={tip.title}
                     onPress={() => setExpandedTip(expandedTip === ti ? null : ti)}
-                    style={[styles.tipExpCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: expandedTip === ti ? accentColor + '44' : cardBorder }]}
+                    style={[styles.tipExpCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: expandedTip === ti ? accentColor + '44' : cardBorder }]}
                   >
                     <View style={styles.tipExpHeader}>
                       <Text style={styles.tipExpEmoji}>{tip.emoji}</Text>
@@ -1222,7 +1237,7 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
                     const freq = FREQS.find(f => f.id === sess.freqId);
                     const d = new Date(sess.date);
                     return (
-                      <View key={sess.id} style={[styles.historyItem, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: (freq?.color || accentColor) + '33' }]}>
+                      <View key={sess.id} style={[styles.historyItem, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: (freq?.color || accentColor) + '33' }]}>
                         <View style={[styles.historyDot, { backgroundColor: freq?.color || accentColor }]} />
                         <View style={{ flex: 1 }}>
                           <Text style={[styles.historyLabel, { color: textColor }]}>

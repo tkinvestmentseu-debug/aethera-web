@@ -34,7 +34,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
 import { formatLocaleDate } from '../core/utils/localeFormat';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 const ACCENT = '#818CF8';
 
@@ -168,12 +168,12 @@ const EmotionBar = ({ label, emoji, count, total, color, isLight }: any) => {
   }, [count, total]);
   const barStyle = useAnimatedStyle(() => ({ width: `${sv.value * 100}%` }));
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor  = isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.55)';
+  const subColor  = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 }}>
       <Text style={{ fontSize: 16, width: 24 }}>{emoji}</Text>
       <Text style={{ fontSize: 12, fontWeight: '700', color: textColor, width: 72 }}>{label}</Text>
-      <View style={{ flex: 1, height: 10, borderRadius: 5, backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)', overflow: 'hidden' }}>
+      <View style={{ flex: 1, height: 10, borderRadius: 5, backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)', overflow: 'hidden' }}>
         <Animated.View style={[{ height: 10, borderRadius: 5, backgroundColor: color }, barStyle]} />
       </View>
       <Text style={{ fontSize: 11, color: subColor, width: 22, textAlign: 'right' }}>{count}</Text>
@@ -185,8 +185,8 @@ const EmotionBar = ({ label, emoji, count, total, color, isLight }: any) => {
 const ClaritySlider = ({ value, onChange, accent, isLight }: any) => {
   const { t } = useTranslation(['dreams']);
   const STEPS = [1, 2, 3, 4, 5];
-  const subColor = isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.55)';
-  const labels = t('form.clarityLabels', { ns: 'dreams', returnObjects: true }) as string[];
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
+  const labels = (t('form.clarityLabels', { ns: 'dreams', returnObjects: true }) as string[]) || [];
   return (
     <View>
       <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'space-between' }}>
@@ -222,10 +222,10 @@ const DreamCalendar = ({
   onSelectEntry: (id: string) => void;
 }) => {
   const { t } = useTranslation(['dreams']);
-  const monthNames = t('calendar.monthNames', { ns: 'dreams', returnObjects: true }) as string[];
-  const weekdays = t('calendar.weekdays', { ns: 'dreams', returnObjects: true }) as string[];
-  const calendarStats = t('calendar.stats', { ns: 'dreams', returnObjects: true }) as Array<{ id: string; label: string; icon: string }>;
-  const legendItems = t('calendar.legend', { ns: 'dreams', returnObjects: true }) as Array<{ id: string; label: string }>;
+  const monthNames = (t('calendar.monthNames', { ns: 'dreams', returnObjects: true }) as string[]) || [];
+  const weekdays = (t('calendar.weekdays', { ns: 'dreams', returnObjects: true }) as string[]) || [];
+  const calendarStats = (t('calendar.stats', { ns: 'dreams', returnObjects: true }) as Array<{ id: string; label: string; icon: string }>) || [];
+  const legendItems = (t('calendar.legend', { ns: 'dreams', returnObjects: true }) as Array<{ id: string; label: string }>) || [];
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
 
   const { year, month } = calendarMonth;
@@ -436,22 +436,23 @@ export const DreamsScreen = ({ navigation }: any) => {
   const td = useCallback((key: string, options: any = {}) => t(key, { ns: 'dreams', ...options }), [t]);
   const tc = useCallback((key: string, options: any = {}) => t(key, { ns: 'common', ...options }), [t]);
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, removeFavoriteItem, isFavoriteItem, userData } = useAppStore();
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
   const { entries, addEntry, updateEntry, deleteEntry } = useJournalStore();
-
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
   const isDark = !isLight;
   const textColor  = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor   = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.60)';
+  const subColor   = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.60)';
   const cardBg     = isLight ? 'rgba(255,255,255,0.92)' : 'rgba(96,165,250,0.18)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
-  const dreamsData = useMemo(() => td('data', { returnObjects: true }) as any, [td, i18n.language]);
-  const tabItems = useMemo(() => td('tabs', { returnObjects: true }) as Array<{ id: string; label: string; icon: string }>, [td, i18n.language]);
-  const dreamStats = useMemo(() => td('sections.dreamStats', { returnObjects: true }) as Array<{ id: string; label: string; icon: string }>, [td, i18n.language]);
-  const patternStatsLabels = useMemo(() => td('sections.patternStats', { returnObjects: true }) as Array<{ id: string; label: string; icon: string }>, [td, i18n.language]);
-  const moonStatsLabels = useMemo(() => td('sections.moonStats', { returnObjects: true }) as Array<{ id: string; label: string; icon: string }>, [td, i18n.language]);
-  const lucidStatsLabels = useMemo(() => td('sections.lucidStats', { returnObjects: true }) as Array<{ id: string; label: string; icon: string }>, [td, i18n.language]);
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
+  const dreamsData = useMemo(() => (td('data', { returnObjects: true }) as any) || {}, [td, i18n.language]);
+  const tabItems = useMemo(() => (td('tabs', { returnObjects: true }) as Array<{ id: string; label: string; icon: string }>) || [], [td, i18n.language]);
+  const dreamStats = useMemo(() => (td('sections.dreamStats', { returnObjects: true }) as Array<{ id: string; label: string; icon: string }>) || [], [td, i18n.language]);
+  const patternStatsLabels = useMemo(() => (td('sections.patternStats', { returnObjects: true }) as Array<{ id: string; label: string; icon: string }>) || [], [td, i18n.language]);
+  const moonStatsLabels = useMemo(() => (td('sections.moonStats', { returnObjects: true }) as Array<{ id: string; label: string; icon: string }>) || [], [td, i18n.language]);
+  const lucidStatsLabels = useMemo(() => (td('sections.lucidStats', { returnObjects: true }) as Array<{ id: string; label: string; icon: string }>) || [], [td, i18n.language]);
   const emotionsMeta = dreamsData.emotions || [];
   const dreamTagOptions = dreamsData.dreamTagOptions || [];
   const symbolariumCats = dreamsData.symbolariumCategories || [];
@@ -609,7 +610,7 @@ export const DreamsScreen = ({ navigation }: any) => {
         '',
         td('ai.interpretPrompt.instruction'),
         '',
-        ...(td('ai.interpretPrompt.sectionDescriptions', { returnObjects: true }) as string[]),
+        ...((td('ai.interpretPrompt.sectionDescriptions', { returnObjects: true }) as string[]) || []),
         '',
         td('ai.interpretPrompt.tone'),
       ].filter(Boolean);
@@ -641,7 +642,7 @@ export const DreamsScreen = ({ navigation }: any) => {
         '',
         td('ai.patternPrompt.instruction'),
         '',
-        ...(td('ai.patternPrompt.sectionDescriptions', { returnObjects: true }) as string[]),
+        ...((td('ai.patternPrompt.sectionDescriptions', { returnObjects: true }) as string[]) || []),
         '',
         td('ai.patternPrompt.tone'),
       ].filter(Boolean);
@@ -664,7 +665,7 @@ export const DreamsScreen = ({ navigation }: any) => {
   // ── Parsed AI sections ────────────────────────────────────────────────────
   const parsedAiSections = useMemo(() => {
     if (!aiResult) return [];
-    const sectionKeys = td('ai.interpretSections', { returnObjects: true }) as string[];
+    const sectionKeys = (td('ai.interpretSections', { returnObjects: true }) as string[]) || [];
     const sectionDefs = [
       { key: sectionKeys[0], color: '#60A5FA' },
       { key: sectionKeys[1], color: '#A78BFA' },
@@ -681,7 +682,7 @@ export const DreamsScreen = ({ navigation }: any) => {
 
   const parsedPatternSections = useMemo(() => {
     if (!patternResult) return [];
-    const sectionKeys = td('ai.patternSections', { returnObjects: true }) as string[];
+    const sectionKeys = (td('ai.patternSections', { returnObjects: true }) as string[]) || [];
     const sectionDefs = [
       { key: sectionKeys[0], color: '#FBBF24' },
       { key: sectionKeys[1], color: '#60A5FA' },
@@ -824,12 +825,12 @@ export const DreamsScreen = ({ navigation }: any) => {
                       style={[ds.newDreamCta, { backgroundColor: cardBg, borderColor: ACCENT + '55' }]}
                     >
                       <LinearGradient colors={[ACCENT + '18', 'transparent']} style={StyleSheet.absoluteFillObject} />
-                      <View style={{ width: 40, height: 40, borderRadius: 13, backgroundColor: ACCENT + '22', alignItems: 'center', justifyContent: 'center' }}>
-                        <Feather color={ACCENT} size={20} />
+                      <View style={{ width: 46, height: 46, borderRadius: 14, backgroundColor: ACCENT + '22', alignItems: 'center', justifyContent: 'center' }}>
+                        <Feather color={ACCENT} size={24} />
                       </View>
                       <View style={{ flex: 1 }}>
-                        <Text style={{ color: ACCENT, fontSize: 14, fontWeight: '700' }}>{td('form.ctaTitle')}</Text>
-                        <Text style={{ color: subColor, fontSize: 12, marginTop: 2 }}>{td('form.ctaSubtitle')}</Text>
+                        <Text style={{ color: ACCENT, fontSize: 15, fontWeight: '700' }}>{td('form.ctaTitle')}</Text>
+                        <Text style={{ color: subColor, fontSize: 13, marginTop: 3, lineHeight: 18 }}>{td('form.ctaSubtitle')}</Text>
                       </View>
                       <Plus color={ACCENT} size={22} strokeWidth={1.8} />
                     </Pressable>
@@ -870,7 +871,7 @@ export const DreamsScreen = ({ navigation }: any) => {
                         returnKeyType="done"
                         style={[ds.titleInput, {
                           color: textColor,
-                          backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
+                          backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)',
                           borderColor: cardBorder,
                         }]}
                       />
@@ -887,7 +888,7 @@ export const DreamsScreen = ({ navigation }: any) => {
                         returnKeyType="done"
                         style={[ds.contentInput, {
                           color: textColor,
-                          backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
+                          backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)',
                           borderColor: cardBorder,
                         }]}
                       />
@@ -1122,7 +1123,7 @@ export const DreamsScreen = ({ navigation }: any) => {
                 <Animated.View entering={FadeInDown.delay(25).duration(480)}>
                   <View style={[ds.tipsCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                     <Text style={[ds.eyebrow, { color: ACCENT }]}>{td('archive.tipsTitle')}</Text>
-                    {(td('archive.tips', { returnObjects: true }) as Array<[string, string]>).map(([title, body], i) => (
+                    {((td('archive.tips', { returnObjects: true }) as Array<[string, string]>) || []).map(([title, body], i) => (
                       <View key={title} style={[ds.tipRow, i > 0 && { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: ACCENT + '14' }]}>
                         <View style={[ds.tipNum, { backgroundColor: ACCENT + '18', borderColor: ACCENT + '33' }]}>
                           <Text style={[ds.tipNumText, { color: ACCENT }]}>{i + 1}</Text>
@@ -1471,7 +1472,7 @@ export const DreamsScreen = ({ navigation }: any) => {
                   <View style={[ds.codalejCard, { backgroundColor: cardBg, borderColor: ACCENT + '33' }]}>
                     <LinearGradient colors={[ACCENT + '12', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
                     <Text style={[ds.eyebrow, { color: ACCENT }]}>{td('patterns.exploreTitle')}</Text>
-                    {(td('patterns.nextActions', { returnObjects: true }) as Array<{ id: string; title: string; subtitle?: string }>).map((item, idx, arr) => {
+                    {((td('patterns.nextActions', { returnObjects: true }) as Array<{ id: string; title: string; subtitle?: string }>) || []).map((item, idx, arr) => {
                       const route = item.id === 'shadow' ? 'ShadowWork' : item.id === 'moon' ? DREAMS_ROUTES.lunarCalendar : 'JournalEntry';
                       const params = item.id === 'journal' ? { prompt: item.subtitle } : undefined;
                       const Icon = item.id === 'shadow' ? Eye : item.id === 'moon' ? MoonStar : BookOpen;
@@ -1480,16 +1481,16 @@ export const DreamsScreen = ({ navigation }: any) => {
                         <Pressable
                           key={item.id}
                           onPress={() => navigation?.navigate(route, params)}
-                          style={[ds.codalejRow, idx < arr.length - 1 && { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: ACCENT + '18' }]}
+                          style={[ds.codalejRow, idx < arr.length - 1 && { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: ACCENT + '28' }]}
                         >
                           <View style={[ds.codalejIcon, { backgroundColor: color + '1A' }]}>
-                            <Icon color={color} size={18} strokeWidth={1.6} />
+                            <Icon color={color} size={22} strokeWidth={1.6} />
                           </View>
                           <View style={{ flex: 1, marginLeft: 14 }}>
                             <Text style={[ds.codalejLabel, { color: textColor }]}>{item.title}</Text>
                             <Text style={[ds.codalejSub, { color: subColor }]}>{item.subtitle}</Text>
                           </View>
-                          <ArrowRight color={ACCENT + '88'} size={15} />
+                          <ArrowRight color={ACCENT + 'AA'} size={16} />
                         </Pressable>
                       );
                     })}
@@ -1510,7 +1511,7 @@ export const DreamsScreen = ({ navigation }: any) => {
                     <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 14, marginBottom: 14 }}>
                       <View style={{ alignItems: 'center', gap: 4 }}>
                         <Text style={{ fontSize: 44 }}>{moonDreamData.emoji}</Text>
-                        <Text style={{ fontSize: 10, color: isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.50)', fontWeight: '600' }}>
+                        <Text style={{ fontSize: 10, color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)', fontWeight: '600' }}>
                           {moonPhase.illumination}% iluminacji
                         </Text>
                       </View>
@@ -1625,7 +1626,7 @@ export const DreamsScreen = ({ navigation }: any) => {
                 <Animated.View entering={FadeInDown.delay(320).duration(440)}>
                   <View style={[ds.tipsCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                     <Text style={[ds.eyebrow, { color: ACCENT }]}>{td('moon.lucidTipsTitle')}</Text>
-                    {(td('moon.lucidTips', { returnObjects: true }) as Array<[string, string]>).map(([title, body], i) => (
+                    {((td('moon.lucidTips', { returnObjects: true }) as Array<[string, string]>) || []).map(([title, body], i) => (
                       <View key={title} style={[ds.tipRow, i > 0 && { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: ACCENT + '14' }]}>
                         <View style={[ds.tipNum, { backgroundColor: ACCENT + '18', borderColor: ACCENT + '33' }]}>
                           <Text style={[ds.tipNumText, { color: ACCENT }]}>{i + 1}</Text>
@@ -1698,7 +1699,7 @@ export const DreamsScreen = ({ navigation }: any) => {
                 <Animated.View entering={FadeInDown.delay(25).duration(260)}>
                   <Text style={[ds.sectionLabel, { color: ACCENT }]}>{td('lucid.techniquesTitle')}</Text>
                 </Animated.View>
-                {(td('lucid.techniques', { returnObjects: true }) as Array<{ tag: string; icon: string; difficulty: string; title: string; desc: string; steps: string[] }>).map((tech, i) => (
+                {((td('lucid.techniques', { returnObjects: true }) as Array<{ tag: string; icon: string; difficulty: string; title: string; desc: string; steps: string[] }>) || []).map((tech, i) => (
                   <Animated.View key={tech.tag} entering={FadeInDown.delay(80 + i * 40).duration(250)}>
                     <View style={[ds.symbolCard, { backgroundColor: cardBg, borderColor: tech.color + '44', overflow: 'hidden' }]}>
                       <LinearGradient colors={[tech.color + '14', 'transparent']} style={StyleSheet.absoluteFill} />
@@ -1742,7 +1743,7 @@ export const DreamsScreen = ({ navigation }: any) => {
                     <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 12 }}>
                       {td('lucid.realityChecksBody')}
                     </Text>
-                    {(td('lucid.realityChecks', { returnObjects: true }) as Array<{ icon: string; title: string; desc: string }>).map((rc, i) => (
+                    {((td('lucid.realityChecks', { returnObjects: true }) as Array<{ icon: string; title: string; desc: string }>) || []).map((rc, i) => (
                       <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12, marginBottom: 10 }}>
                         <Text style={{ fontSize: 22, marginTop: 1 }}>{rc.icon}</Text>
                         <View style={{ flex: 1 }}>
@@ -1787,7 +1788,7 @@ export const DreamsScreen = ({ navigation }: any) => {
                   <Text style={[ds.sectionLabel, { color: ACCENT, marginTop: 8 }]}>{td('lucid.tonightIntentionTitle')}</Text>
                   <View style={[ds.symbolCard, { backgroundColor: cardBg, borderColor: '#A78BFA' + '44', overflow: 'hidden' }]}>
                     <LinearGradient colors={['#A78BFA14', 'transparent']} style={StyleSheet.absoluteFill} />
-                    {(td('lucid.tonightBlocks', { returnObjects: true }) as Array<{ title: string; steps: string[] }>).map((block, bi) => (
+                    {((td('lucid.tonightBlocks', { returnObjects: true }) as Array<{ title: string; steps: string[] }>) || []).map((block, bi) => (
                       <View key={bi} style={{ marginBottom: bi === 0 ? 16 : 0 }}>
                         <Text style={{ fontSize: 11, color: '#A78BFA', fontWeight: '700', letterSpacing: 1.2, marginBottom: 8 }}>✦ {block.title.toUpperCase()}</Text>
                         {block.steps.map((s, si) => (
@@ -1902,7 +1903,7 @@ const ds = StyleSheet.create({
   statLabel:{ fontSize: 9, textAlign: 'center', lineHeight: 13 },
 
   // New dream CTA
-  newDreamCta: { flexDirection: 'row', alignItems: 'center', gap: 12, borderRadius: 20, borderWidth: 1, padding: 16, overflow: 'hidden' },
+  newDreamCta: { flexDirection: 'row', alignItems: 'center', gap: 12, borderRadius: 20, borderWidth: 1.2, paddingVertical: 18, paddingHorizontal: 16, overflow: 'hidden' },
 
   // Form
   formCard:     { borderRadius: 24, borderWidth: 1, padding: 18, overflow: 'hidden' },
@@ -1981,11 +1982,11 @@ const ds = StyleSheet.create({
   aiSub:   { fontSize: 12, lineHeight: 18 },
 
   // Explore
-  codalejCard: { borderRadius: 20, borderWidth: 1, padding: 16, overflow: 'hidden' },
-  codalejRow:  { flexDirection: 'row', alignItems: 'center', paddingVertical: 14 },
-  codalejIcon: { width: 42, height: 42, borderRadius: 13, alignItems: 'center', justifyContent: 'center' },
-  codalejLabel:{ fontSize: 14, fontWeight: '600' },
-  codalejSub:  { fontSize: 12, marginTop: 2, lineHeight: 17 },
+  codalejCard: { borderRadius: 20, borderWidth: 1.2, padding: 16, overflow: 'hidden' },
+  codalejRow:  { flexDirection: 'row', alignItems: 'center', paddingVertical: 16 },
+  codalejIcon: { width: 46, height: 46, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
+  codalejLabel:{ fontSize: 15, fontWeight: '700' },
+  codalejSub:  { fontSize: 12, marginTop: 3, lineHeight: 17 },
 
   // Tips
   tipsCard:   { borderRadius: 20, borderWidth: 1, padding: 16, overflow: 'hidden' },

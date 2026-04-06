@@ -15,6 +15,7 @@ import Svg, {
   Polygon, Ellipse, LinearGradient as SvgLinearGradient,
 } from 'react-native-svg';
 import { useAppStore } from '../store/useAppStore';
+import { useJournalStore } from '../store/useJournalStore';
 import { getResolvedTheme } from '../core/theme/tokens';
 import { layout } from '../core/theme/designSystem';
 import { HapticsService } from '../core/services/haptics.service';
@@ -26,7 +27,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
 import { getLocalizedJourneyPhases, type JourneyPhase } from '../features/journeys/data';
-
+import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
@@ -368,9 +370,9 @@ function PhaseCard({
   const phaseSecondaryName = phase.nameEn && phase.nameEn !== phase.name ? phase.nameEn : null;
 
   const cardBg = isLight
-    ? (isCurrent ? `${phase.color}18` : 'rgba(0,0,0,0.04)')
+    ? (isCurrent ? `${phase.color}18` : 'rgba(255,255,255,0.88)')
     : (isCurrent ? `${phase.color}18` : 'rgba(255,255,255,0.05)');
-  const cardBorder = isCurrent ? `${phase.color}60` : (isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)');
+  const cardBorder = isCurrent ? `${phase.color}60` : (isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)');
   const textColor = isLight ? '#2A1A0A' : '#F0EBE2';
   const subColor = isLight ? 'rgba(50,30,10,0.55)' : 'rgba(220,200,160,0.55)';
 
@@ -473,7 +475,7 @@ function PhaseCard({
             </Text>
             {phase.prompts.map((pr, i) => (
               <View key={i} style={{
-                backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)',
+                backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)',
                 borderRadius: 10, padding: 10, marginBottom: 6,
                 borderLeftWidth: 3, borderLeftColor: phase.color,
               }}>
@@ -483,13 +485,13 @@ function PhaseCard({
 
             {/* Associations */}
             <View style={{ flexDirection: 'row', gap: 12, marginTop: 8 }}>
-              <View style={{ flex: 1, backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderRadius: 10, padding: 10 }}>
+              <View style={{ flex: 1, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderRadius: 10, padding: 10 }}>
                 <Text style={{ fontSize: 9, color: subColor, letterSpacing: 1 }}>
                   {t('journeysScreen.phaseCrystal', 'KAMIEŃ', 'CRYSTAL')}
                 </Text>
                 <Text style={{ fontSize: 11, color: textColor, marginTop: 3 }}>{phase.crystalHint}</Text>
               </View>
-              <View style={{ flex: 1, backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderRadius: 10, padding: 10 }}>
+              <View style={{ flex: 1, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderRadius: 10, padding: 10 }}>
                 <Text style={{ fontSize: 9, color: subColor, letterSpacing: 1 }}>
                   {t('journeysScreen.phaseElement', 'ŻYWIOŁ', 'ELEMENT')}
                 </Text>
@@ -511,7 +513,7 @@ function ProgressBar({ value, color, isLight }: { value: number; color: string; 
   }, [value]);
   const barStyle = useAnimatedStyle(() => ({ width: `${anim.value}%` }));
   return (
-    <View style={{ height: 6, backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden' }}>
+    <View style={{ height: 6, backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden' }}>
       <Animated.View style={[{ height: '100%', borderRadius: 3, backgroundColor: color }, barStyle]} />
     </View>
   );
@@ -524,9 +526,9 @@ function StatPill({ icon, value, label, color, isLight }: any) {
   return (
     <View style={{
       flex: 1,
-      backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)',
+      backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)',
       borderRadius: 14, padding: 12, alignItems: 'center',
-      borderWidth: 1, borderColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)',
+      borderWidth: 1, borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)',
     }}>
       <Text style={{ fontSize: 20, marginBottom: 4 }}>{icon}</Text>
       <Text style={{ fontSize: 18, fontWeight: '700', color: textColor }}>{value}</Text>
@@ -551,7 +553,7 @@ function SkeletonLoader({ isLight }: { isLight: boolean }) {
           key={i}
           style={[{
             height: h, borderRadius: 10, marginBottom: 10,
-            backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)',
+            backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)',
           }, shimStyle]}
         />
       ))}
@@ -563,9 +565,13 @@ function SkeletonLoader({ isLight }: { isLight: boolean }) {
 export const JourneysScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem, meditationSessions = [], journalEntries = [] } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const meditationSessions = useAppStore(s => s.meditationSessions) ?? [];
+  const { entries: journalEntries } = useJournalStore();
+  const { currentTheme, isLight } = useTheme();
   const tr = useCallback((key: string, pl: string, en: string, options?: Record<string, unknown>) => (
     t(key, {
       defaultValue: i18n.language?.startsWith('en') ? en : pl,
@@ -576,8 +582,8 @@ export const JourneysScreen = ({ navigation }: any) => {
 
   const textColor = isLight ? '#2A1A0A' : '#F0EBE2';
   const subColor = isLight ? 'rgba(50,30,10,0.55)' : 'rgba(220,200,160,0.55)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
   const goldColor = isLight ? '#8B6914' : '#CEAE72';
 
   // Derive current phase from practice data
@@ -676,14 +682,16 @@ export const JourneysScreen = ({ navigation }: any) => {
     : ['#06040F', '#0B0720', '#06040F'] as const;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <LinearGradient colors={bgColors} style={{ flex: 1 }}>
         {/* ── Header ── */}
         <View style={{
           flexDirection: 'row', alignItems: 'center',
           paddingHorizontal: layout.padding.screen, paddingTop: 8, paddingBottom: 10,
           borderBottomWidth: 1,
-          borderBottomColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)',
+          borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)',
         }}>
           <Pressable
             onPress={() => { if (navigation.canGoBack()) navigation.goBack(); else navigation.navigate('Main'); }}
@@ -1003,9 +1011,10 @@ export const JourneysScreen = ({ navigation }: any) => {
             })}
           </Animated.View>
 
-          <View style={{ height: 40 }} />
+          <EndOfContentSpacer />
         </ScrollView>
       </LinearGradient>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };

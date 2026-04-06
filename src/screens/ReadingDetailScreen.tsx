@@ -78,7 +78,7 @@ import {
   Crown,
 } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 const GOLD = '#D4AF37';
 const CARD_W = SW - layout.padding.screen * 2;
@@ -512,14 +512,14 @@ const EnergyBar = ({
   return (
     <View style={{ gap: 6 }}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Text style={[styles.energyLabel, { color: isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)' }]}>
+        <Text style={[styles.energyLabel, { color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)' }]}>
           {label1}
         </Text>
-        <Text style={[styles.energyLabel, { color: isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)' }]}>
+        <Text style={[styles.energyLabel, { color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)' }]}>
           {label2}
         </Text>
       </View>
-      <View style={[styles.energyTrack, { backgroundColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }]}>
+      <View style={[styles.energyTrack, { backgroundColor: isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)' }]}>
         <Animated.View style={[styles.energyFill, fillStyle, { backgroundColor: color }]} />
       </View>
     </View>
@@ -540,8 +540,8 @@ const AIOracleSection = ({
   const [sections, setSections] = useState<{ title: string; text: string }[]>([]);
 
   const cardBg = isLight ? 'rgba(255,252,245,0.96)' : 'rgba(12,8,22,0.90)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.08)';
-  const subText = isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.50)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
+  const subText = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)';
   const bodyText = isLight ? 'rgba(0,0,0,0.82)' : 'rgba(255,255,255,0.82)';
 
   const parseAIResponse = (text: string) => {
@@ -659,10 +659,11 @@ Bądź poetycki, głęboki i osobisty. Unikaj banalnych sformułowań.`;
 export const ReadingDetailScreen = ({ navigation, route }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, favoriteItems, addFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const favoriteItems = useAppStore(s => s.favoriteItems);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const {
     activeSpread,
     drawnCards,
@@ -765,11 +766,11 @@ export const ReadingDetailScreen = ({ navigation, route }: any) => {
 
   // Theme vars
   const cardBg = isLight ? 'rgba(255,252,245,0.96)' : 'rgba(12,8,22,0.90)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.08)';
-  const subText = isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.50)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
+  const subText = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)';
   const bodyText = isLight ? 'rgba(0,0,0,0.82)' : 'rgba(255,255,255,0.82)';
-  const divColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
-  const inputBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)';
+  const divColor = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)';
+  const inputBg = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)';
 
   const activeTabData = INTERP_TABS.find(t => t.id === activeTab);
 

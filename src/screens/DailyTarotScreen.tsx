@@ -22,7 +22,7 @@ import { AudioService } from '../core/services/audio.service';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Svg, { Circle, Ellipse, G, Path, Line, Polygon, Rect, Defs, RadialGradient as SvgRadialGradient, Stop } from 'react-native-svg';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const SW = Dimensions.get('window').width;
 const ACCENT = '#CEAE72';
 
@@ -350,8 +350,8 @@ const CardBackGeometry = React.memo(({ accent, size }: { accent: string; size: n
 });
 
 // ── 3D flip card component ─────────────────────────────────────────────────────
-const FlipCard3D = React.memo(({ accent, card, deck, isReversed, isFlipped, onFlip }: {
-  accent: string; card: any; deck: any; isReversed: boolean; isFlipped: boolean; onFlip: () => void;
+const FlipCard3D = React.memo(({ accent, card, deck, isReversed, isFlipped, onFlip, isLight }: {
+  accent: string; card: any; deck: any; isReversed: boolean; isFlipped: boolean; onFlip: () => void; isLight?: boolean;
 }) => {
   const rotation = useSharedValue(0);
   const prevFlipped = useRef(false);
@@ -393,7 +393,7 @@ const FlipCard3D = React.memo(({ accent, card, deck, isReversed, isFlipped, onFl
       <View style={{ width: cardW, height: cardH, position: 'relative' }}>
         {/* Back face — sacred geometry */}
         <Animated.View style={[frontStyle, { width: cardW, height: cardH, borderRadius: 18, overflow: 'hidden', alignItems: 'center', justifyContent: 'center', backgroundColor: accent + '12', borderWidth: 1.5, borderColor: accent + '44' }]}>
-          <LinearGradient colors={['#0C0A14', '#181028', '#0F0820']} style={StyleSheet.absoluteFillObject} />
+          <LinearGradient colors={isLight ? ['#FBF5E6', '#F0E6D0', '#E8D8BE'] : ['#0C0A14', '#181028', '#0F0820']} style={StyleSheet.absoluteFillObject} />
           <CardBackGeometry accent={accent} size={cardW * 0.72} />
           <View style={{ position: 'absolute', bottom: 20, alignItems: 'center' }}>
             <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2.5, color: accent + 'AA' }}>DOTKNIJ BY ODSŁONIĆ</Text>
@@ -443,9 +443,11 @@ const TarotPortal3D = React.memo(({ accent }: { accent: string }) => {
 export const DailyTarotScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem, userData } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
   const { dailyDraw, drawDailyCard, clearExpiredDailyDraw, clearDailyDraw, selectedDeckId } = useTarotStore();
   const { entries, addEntry, deleteEntry } = useJournalStore();
   const [didRevealToday, setDidRevealToday] = useState(false);
@@ -463,8 +465,8 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
   const textColor = isLight ? '#1A1410' : '#F0EBE2';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const dividerColor = isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const dividerColor = isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.06)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
 
   useEffect(() => { clearExpiredDailyDraw(); }, []);
 
@@ -548,7 +550,6 @@ export const DailyTarotScreen = ({ navigation }: any) => {
   };
 
   const handleReveal = () => {
-    AudioService.playCardRevealTone();
     drawDailyCard();
     setDidRevealToday(true);
     setTimeout(() => setCardFlipped(true), 400);
@@ -810,16 +811,26 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                 )}
               </View>
 
-              {/* ── 3D Flip card hero ── */}
+              {/* ── 3D Flip card hero with glow ── */}
               <Animated.View entering={FadeIn.delay(100).duration(700)} style={{ alignItems: 'center', marginBottom: 16 }}>
-                <FlipCard3D
-                  accent={ACCENT}
-                  card={activeDraw.card}
-                  deck={deck}
-                  isReversed={showReversed ? !activeDraw.isReversed : activeDraw.isReversed}
-                  isFlipped={cardFlipped}
-                  onFlip={() => setCardFlipped((v) => !v)}
-                />
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  {/* Ambient glow ring */}
+                  {didRevealToday && (
+                    <View style={{ position: 'absolute', width: SW - 60, height: (SW - 60) * 1.6, borderRadius: 22,
+                      shadowColor: ACCENT, shadowOpacity: isLight ? 0.30 : 0.55, shadowRadius: 32, shadowOffset: { width: 0, height: 0 },
+                      elevation: 14, backgroundColor: 'transparent',
+                    }} pointerEvents="none" />
+                  )}
+                  <FlipCard3D
+                    accent={ACCENT}
+                    card={activeDraw.card}
+                    deck={deck}
+                    isReversed={showReversed ? !activeDraw.isReversed : activeDraw.isReversed}
+                    isFlipped={cardFlipped}
+                    onFlip={() => setCardFlipped((v) => !v)}
+                    isLight={isLight}
+                  />
+                </View>
                 <Text style={{ fontSize: 11, color: subColor, marginTop: 12, textAlign: 'center' }}>
                   Dotknij kartę, by {cardFlipped ? 'zobaczyć tył' : 'zobaczyć przód'}
                 </Text>
@@ -899,8 +910,10 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                       ))}
                     </View>
                   </ScrollView>
-                  <View style={{ borderRadius: 16, backgroundColor: cardBg, borderWidth: 1, borderColor: ACCENT + '25', padding: 18 }}>
-                    <LinearGradient colors={[ACCENT + '10', 'transparent']} style={StyleSheet.absoluteFillObject} />
+                  <View style={{ borderRadius: 16, backgroundColor: cardBg, borderWidth: 1, borderColor: isLight ? (ACCENT + '44') : (ACCENT + '25'), padding: 18, overflow: 'hidden',
+                    shadowColor: ACCENT, shadowOpacity: isLight ? 0.12 : 0.08, shadowRadius: 12, shadowOffset: { width: 0, height: 4 }, elevation: isLight ? 4 : 2,
+                  }}>
+                    <LinearGradient colors={[ACCENT + (isLight ? '18' : '10'), 'transparent']} style={StyleSheet.absoluteFillObject} />
                     <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1, color: ACCENT, marginBottom: 10 }}>{activeTab.toUpperCase()}</Text>
                     <Text style={{ fontSize: 14, lineHeight: 24, color: textColor }}>
                       {cardPerspective[activeTab]}
@@ -1170,18 +1183,18 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                       onPress={() => setSelectedWeekDay(selectedWeekDay === idx ? null : idx)}
                       style={{ alignItems: 'center', flex: 1 }}
                     >
-                      <Text style={{ fontSize: 10, fontWeight: '600', color: d.isToday ? ACCENT : (isLight ? 'rgba(0,0,0,0.40)' : 'rgba(255,255,255,0.40)'), marginBottom: 8, letterSpacing: 0.5 }}>{d.label}</Text>
+                      <Text style={{ fontSize: 10, fontWeight: '600', color: d.isToday ? ACCENT : (isLight ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.40)'), marginBottom: 8, letterSpacing: 0.5 }}>{d.label}</Text>
                       <View style={{
                         width: 36,
                         height: 50,
                         borderRadius: 9,
-                        backgroundColor: (selectedWeekDay === idx || d.isToday) ? d.color + '30' : (isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)'),
+                        backgroundColor: (selectedWeekDay === idx || d.isToday) ? d.color + '30' : (isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.06)'),
                         borderWidth: (selectedWeekDay === idx || d.isToday) ? 1.5 : 0.5,
                         borderColor: (selectedWeekDay === idx || d.isToday) ? d.color : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)'),
                         alignItems: 'center',
                         justifyContent: 'center',
                       }}>
-                        <Text style={{ fontSize: 12, fontWeight: '800', color: (selectedWeekDay === idx || d.isToday) ? d.color : (isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.35)') }}>{d.idx}</Text>
+                        <Text style={{ fontSize: 12, fontWeight: '800', color: (selectedWeekDay === idx || d.isToday) ? d.color : (isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.35)') }}>{d.idx}</Text>
                       </View>
                       {d.isToday && (
                         <View style={{ width: 5, height: 5, borderRadius: 2.5, backgroundColor: d.color, marginTop: 5 }} />
@@ -1283,7 +1296,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                       <Text style={{ fontSize: 10, fontWeight: '800', color: ACCENT }}>{i + 1}</Text>
                     </View>
                     <Text style={{ flex: 1, fontSize: 13, lineHeight: 20, color: isLight ? '#2A2018' : '#DDD5C8', fontStyle: 'italic' }}>{q}</Text>
-                    <ArrowRight color={isLight ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.25)'} size={13} />
+                    <ArrowRight color={isLight ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.25)'} size={13} />
                   </Pressable>
                 ))}
               </Animated.View>
@@ -1296,7 +1309,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                   <MessageSquare color={ACCENT} size={14} strokeWidth={1.8} />
                   <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>ZAPYTAJ WYROCZNIĘ O KARTĘ</Text>
                 </View>
-                <View style={{ borderRadius: 16, backgroundColor: cardBg, borderWidth: 1, borderColor: isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)', overflow: 'hidden', marginBottom: 12 }}>
+                <View style={{ borderRadius: 16, backgroundColor: cardBg, borderWidth: 1, borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)', overflow: 'hidden', marginBottom: 12 }}>
                   <TextInput
                     value={aiQuestion}
                     onChangeText={setAiQuestion}
@@ -1414,7 +1427,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                   <PenLine color={ACCENT} size={14} strokeWidth={1.8} />
                   <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>NOTATKA DO KARTY</Text>
                 </View>
-                <View style={{ borderRadius: 16, backgroundColor: cardBg, borderWidth: 1, borderColor: isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)', overflow: 'hidden' }}>
+                <View style={{ borderRadius: 16, backgroundColor: cardBg, borderWidth: 1, borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)', overflow: 'hidden' }}>
                   <TextInput
                     value={cardNote}
                     onChangeText={(t) => { setCardNote(t); setNoteSaved(false); }}
@@ -1494,7 +1507,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                         <Text style={{ fontSize: 13, fontWeight: '600', color: textColor }}>{item.label}</Text>
                         <Text style={{ fontSize: 12, lineHeight: 18, color: subColor, marginTop: 2 }}>{item.sub}</Text>
                       </View>
-                      <ArrowRight color={isLight ? 'rgba(0,0,0,0.30)' : 'rgba(255,255,255,0.30)'} size={14} />
+                      <ArrowRight color={isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.30)'} size={14} />
                     </Pressable>
                   );
                 })}

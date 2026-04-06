@@ -421,7 +421,7 @@ export class AudioService {
       const preferredMusic = this.preferences.backgroundMusicCategory;
       const preferredAmbient = this.preferences.ambientSoundscape;
       const preloadMusic: BackgroundMusicCategory[] = Array.from(new Set<BackgroundMusicCategory>([preferredMusic, 'deepMeditation', 'celestial', 'relaxing', 'nature']));
-      const preloadAmbient: AmbientSoundscape[] = Array.from(new Set<AmbientSoundscape>([preferredAmbient, 'forest', 'rain', 'waves']));
+      const preloadAmbient: AmbientSoundscape[] = Array.from(new Set<AmbientSoundscape>([preferredAmbient, 'forest', 'rain', 'waves', 'fire', 'ritual', 'wind', 'night', 'cave', 'breath']));
 
       const tasks: Promise<unknown>[] = [];
       for (const category of preloadMusic) {
@@ -487,26 +487,23 @@ export class AudioService {
     }
   }
 
-  /** Play background music for a specific screen session, bypassing the global preference check. */
+  /** Play background music for a specific screen session, bypassing the global preference check.
+   *  Does NOT restore the backgroundMusicEnabled pref after playing — the session owns the
+   *  audio until stopSessionAudioImmediately() is called. */
   static async playMusicForSession(category: BackgroundMusicCategory) {
     this.setUserInteracted();
-    const prev = this.preferences.backgroundMusicEnabled;
+    // Temporarily enable music so playBackgroundMusic() doesn't bail out on the guard.
+    // We intentionally leave backgroundMusicEnabled as true for the session lifetime so
+    // that syncPlayback() doesn't silently pause the music mid-session.
     this.preferences = { ...this.preferences, backgroundMusicEnabled: true };
     await this.playBackgroundMusic(category);
-    // Restore only if was disabled so global pref stays consistent
-    if (!prev) {
-      this.preferences = { ...this.preferences, backgroundMusicEnabled: false };
-    }
   }
 
   static async playAmbientForSession(soundscape: AmbientSoundscape) {
     this.setUserInteracted();
-    const prev = this.preferences.ambientEnabled;
+    // Same reasoning as playMusicForSession — leave ambientEnabled true for session.
     this.preferences = { ...this.preferences, ambientEnabled: true };
     await this.playAmbientSound(soundscape);
-    if (!prev) {
-      this.preferences = { ...this.preferences, ambientEnabled: false };
-    }
   }
   private static async warmPlayer(player: NullablePlayer) {
     if (!player?.sound) return;
@@ -567,13 +564,20 @@ export class AudioService {
     ]);
     this.activeMusicCategory = null;
     this.activeAmbientSoundscape = null;
+    // Restore global prefs to disabled so that syncPlayback() does not
+    // auto-resume audio after the session ends (respects user's global setting).
+    this.preferences = {
+      ...this.preferences,
+      backgroundMusicEnabled: false,
+      ambientEnabled: false,
+    };
     this.lastAction = 'Warstwy audio sesji zostały zatrzymane natychmiast.';
   }
 
   static async playBackgroundMusic(category?: BackgroundMusicCategory) {
     const requestId = ++this.musicRequestId;
     await this.ensureInitialized();
-    await this.preloadBootAudio();
+    void this.preloadBootAudio(); // fire in background — don't block playback
     if (category) {
       this.preferences = { ...this.preferences, backgroundMusicCategory: category };
     }
@@ -639,7 +643,7 @@ export class AudioService {
     this.setUserInteracted();
     const requestId = ++this.ambientRequestId;
     await this.ensureInitialized();
-    await this.preloadBootAudio();
+    void this.preloadBootAudio(); // fire in background — don't block playback
     if (soundscape) {
       this.preferences = { ...this.preferences, ambientSoundscape: soundscape };
     }
@@ -866,6 +870,18 @@ export class AudioService {
     this.activeAmbientSoundscape = null;
     this.activeBinauralFreq = null;
     this.lastAction = 'Binaural zatrzymany.';
+  }
+
+  /** Stop only the binaural tone — leaves ambient players untouched.
+   *  Use this when ambient and binaural should be able to co-exist (e.g. SleepHelper). */
+  static async stopBinauralToneOnly(): Promise<void> {
+    this.binauralRequestId += 1;
+    if (this.binauralPlayer) {
+      try { this.binauralPlayer.remove(); } catch {}
+      this.binauralPlayer = null;
+    }
+    this.activeBinauralFreq = null;
+    this.lastAction = 'Binaural zatrzymany (bez dotykania ambientu).';
   }
 
   static getActiveBinauralFreq(): BinauralFrequency | null {

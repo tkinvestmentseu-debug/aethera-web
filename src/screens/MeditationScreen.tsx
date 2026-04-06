@@ -22,7 +22,7 @@ import {
   Clock, Coins, Flame, Flower2, HeartPulse, Layers, MoonStar,
   Music, Pause, PenLine, Play, Shield, Smile, Meh, Frown,
   Sparkles, Star, Stars, Target, TimerReset, TrendingUp, Trophy,
-  Volume2, Waves, Wind, X, Zap, CheckCircle2,
+  Volume2, VolumeX, Waves, Wind, X, Zap, CheckCircle2,
 } from 'lucide-react-native';
 import { Typography } from '../components/Typography';
 import { getResolvedTheme } from '../core/theme/tokens';
@@ -38,7 +38,7 @@ import { AiService } from '../core/services/ai.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { MusicToggleButton } from '../components/MusicToggleButton';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const AnimatedCircle = Reanimated.createAnimatedComponent(Circle);
 
@@ -637,22 +637,23 @@ export const MeditationScreen: React.FC = ({ navigation }) => {
   useAudioCleanup();
   const insets = useSafeAreaInsets();
   const themeName = useAppStore((s) => s.themeName);
-  const theme = getResolvedTheme(themeName);
+  const themeMode = useAppStore((s) => s.themeMode);
   const meditationSessions = useAppStore((s) => s.meditationSessions);
   const addMeditationSession = useAppStore((s) => s.addMeditationSession);
   const addFavoriteItem = useAppStore((s) => s.addFavoriteItem);
   const isFavoriteItem = useAppStore((s) => s.isFavoriteItem);
   const removeFavoriteItem = useAppStore((s) => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
+  const theme = currentTheme;
 
   const accent = '#818CF8';
-  const isLight = theme.background.startsWith('#F');
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const divColor = isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const divColor = isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)';
   const chipBorder = isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.10)';
-  const chipBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)';
-  const sessionBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const chipBg = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)';
+  const sessionBg = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
 
   // ─── Main session state ───
   const [selectedId, setSelectedId] = useState(PROGRAMS[0].id);
@@ -838,10 +839,21 @@ const scrollToSession = useCallback(() => {
 
   const startSession = useCallback(async () => {
     await stopSession();
+    // Ensure mute is off so the session audio is always audible
+    setIsMuted(false);
     setIsRunning(true);
     scrollToSession();
-    if (musicBlend === 'music' || musicBlend === 'immersive') await AudioService.playMusicForSession(selectedMusic);
-    if (musicBlend === 'ambient' || musicBlend === 'immersive') await AudioService.playAmbientForSession(selectedAmbient);
+    // Play music: use playAmbientForSession for ambient-type categories that
+    // bypass the global backgroundMusicEnabled pref. Both session helpers
+    // temporarily enable their respective layer for the duration of the call.
+    if (musicBlend === 'music' || musicBlend === 'immersive') {
+      AudioService.setUserInteracted();
+      await AudioService.playMusicForSession(selectedMusic);
+    }
+    if (musicBlend === 'ambient' || musicBlend === 'immersive') {
+      AudioService.setUserInteracted();
+      await AudioService.playAmbientForSession(selectedAmbient);
+    }
     intervalRef.current = setInterval(() => {
       setElapsed((v) => {
         const next = v + 1;
@@ -1099,7 +1111,7 @@ return (
                     <Text style={[styles.milestoneRemaining, { color: subColor }]}>{Math.max(nextMilestone.days - streak, 0)} dni do celu</Text>
                   </View>
                 </View>
-                <View style={[styles.milestoneTrack, { backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)' }]}>
+                <View style={[styles.milestoneTrack, { backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)' }]}>
                   <View style={[styles.milestoneFill, { width: `${Math.min((streak / nextMilestone.days) * 100, 100)}%`, backgroundColor: nextMilestone.color }]} />
                 </View>
               </View>
@@ -1140,7 +1152,7 @@ return (
             <View style={styles.chartRow}>
               {monthlyData.map((day, i) => (
                 <View key={i} style={styles.chartCol}>
-                  <View style={[styles.chartBarTrack, { backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)' }]}>
+                  <View style={[styles.chartBarTrack, { backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)' }]}>
                     <View style={[styles.chartBar, {
                       height: `${(day.count / maxBarCount) * 100}%`,
                       backgroundColor: day.count > 0 ? accent : 'transparent',
@@ -1216,7 +1228,7 @@ return (
                   >
                     <LinearGradient colors={[qs.color + '18', 'transparent']} style={StyleSheet.absoluteFill} />
                     <View style={[styles.quickIconBadge, { backgroundColor: qs.color + '1A' }]}>
-                      <QI color={qs.color} size={18} strokeWidth={1.8} />
+                      <QI color={qs.color} size={22} strokeWidth={1.8} />
                     </View>
                     <Text style={[styles.quickChipLabel, { color: qs.color }]}>{qs.label}</Text>
                     <Text style={[styles.quickTitle, { color: textColor }]}>{qs.title}</Text>
@@ -1233,8 +1245,8 @@ return (
                     )}
                     <View style={[styles.quickActionBtn, { backgroundColor: isActive ? qs.color + '22' : qs.color }]}>
                       {isActive
-                        ? <><Pause color={qs.color} size={13} /><Text style={[styles.quickBtnText, { color: qs.color }]}>Stop</Text></>
-                        : <><Play color="#fff" size={13} /><Text style={[styles.quickBtnText, { color: '#fff' }]}>Start</Text></>
+                        ? <><Pause color={qs.color} size={14} /><Text style={[styles.quickBtnText, { color: qs.color }]}>Stop</Text></>
+                        : <><Play color="#fff" size={14} /><Text style={[styles.quickBtnText, { color: '#fff' }]}>Start</Text></>
                       }
                     </View>
                   </Pressable>
@@ -1277,7 +1289,7 @@ return (
                     {
                       borderWidth: 1,
                       borderColor: active ? item.color + '66' : (isLight ? 'rgba(0,0,0,0.14)' : 'rgba(255,255,255,0.14)'),
-                      backgroundColor: active ? item.color + '14' : (isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.07)'),
+                      backgroundColor: active ? item.color + '14' : (isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.07)'),
                       borderLeftWidth: active ? 3 : 1,
                       borderLeftColor: active ? item.color : (isLight ? 'rgba(0,0,0,0.14)' : 'rgba(255,255,255,0.14)'),
                     },
@@ -1425,7 +1437,7 @@ return (
 
             {/* Guidance panel */}
             <View style={[styles.guidancePanel, {
-              backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)',
+              backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)',
               borderTopColor: program.color + '22', borderTopWidth: 1,
             }]}>
               <Typography variant="microLabel" color={program.color}>Prowadzenie tej ścieżki</Typography>
@@ -1649,8 +1661,8 @@ return (
           {/* ═══════════════════════════════════════════════════════════════
               PRACTICE TIPS
           ═══════════════════════════════════════════════════════════════ */}
-          <View style={[styles.tipsSection, { borderColor: isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.09)' }]}>
-            <Text style={[styles.tipsHeader, { color: isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)' }]}>💡 {t('meditation.meditationTips').toUpperCase()}</Text>
+          <View style={[styles.tipsSection, { borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.09)' }]}>
+            <Text style={[styles.tipsHeader, { color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)' }]}>💡 {t('meditation.meditationTips').toUpperCase()}</Text>
             {PRACTICE_TIPS.map((tip, i) => {
               const isOpen = expandedTip === i;
                 const fetchMedAi = async () => {
@@ -1837,7 +1849,7 @@ return (
             <Text style={[styles.sheetLabel, { color: subColor }]}>
               Krok {bodyScanStep + 1} z {BODY_SCAN_STEPS.length}
             </Text>
-            <View style={[styles.bodyScanProgress, { backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)' }]}>
+            <View style={[styles.bodyScanProgress, { backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)' }]}>
               <View style={[styles.bodyScanFill, {
                 width: `${((bodyScanStep + 1) / Math.max(BODY_SCAN_STEPS.length, 1)) * 100}%`,
                 backgroundColor: program.color,
@@ -1928,14 +1940,14 @@ const styles = StyleSheet.create({
 
   // Quick sessions
   quickGrid: { flexDirection: 'row', gap: 10, marginTop: 12 },
-  quickCard: { flex: 1, borderRadius: 18, borderWidth: 1, padding: 12, gap: 5, overflow: 'hidden' },
-  quickIconBadge: { width: 36, height: 36, borderRadius: 11, alignItems: 'center', justifyContent: 'center', marginBottom: 2 },
-  quickChipLabel: { fontSize: 9, fontWeight: '700', letterSpacing: 0.7 },
-  quickTitle: { fontSize: 13, fontWeight: '700' },
-  quickDesc: { fontSize: 10, lineHeight: 15 },
+  quickCard: { flex: 1, borderRadius: 18, borderWidth: 1.2, paddingVertical: 14, paddingHorizontal: 12, gap: 5, overflow: 'hidden', minHeight: 142 },
+  quickIconBadge: { width: 44, height: 44, borderRadius: 13, alignItems: 'center', justifyContent: 'center', marginBottom: 4 },
+  quickChipLabel: { fontSize: 10, fontWeight: '700', letterSpacing: 0.7 },
+  quickTitle: { fontSize: 14, fontWeight: '700' },
+  quickDesc: { fontSize: 12, lineHeight: 17 },
   quickTimeLeft: { fontSize: 11, fontWeight: '700', textAlign: 'center', marginTop: 4 },
-  quickActionBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5, borderRadius: 10, paddingVertical: 7, marginTop: 6 },
-  quickBtnText: { fontSize: 11, fontWeight: '700' },
+  quickActionBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5, borderRadius: 10, paddingVertical: 8, marginTop: 6 },
+  quickBtnText: { fontSize: 12, fontWeight: '700' },
 
   // Program selector
   selectorSection: { gap: 0 },

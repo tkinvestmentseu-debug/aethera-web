@@ -23,7 +23,7 @@ import { RITUALS } from '../features/rituals/data';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { MusicToggleButton } from '../components/MusicToggleButton';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#CEAE72';
 
@@ -412,16 +412,21 @@ export const RitualsScreen: React.FC<any> = ({ navigation }: any) => {
   const { t } = useTranslation();
   useAudioCleanup();
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem, dailyProgress, meditationSessions: _meditationSessions, breathworkSessions: _breathworkSessions } = useAppStore();
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const dailyProgress = useAppStore(s => s.dailyProgress);
+  const _meditationSessions = useAppStore(s => s.meditationSessions);
+  const _breathworkSessions = useAppStore(s => s.breathworkSessions);
+  const {currentTheme, isLight} = useTheme();
+  const theme = currentTheme;
   const meditationSessions = _meditationSessions ?? [];
   const breathworkSessions = _breathworkSessions ?? [];
-  const theme = getResolvedTheme(themeName);
-  const isLight = theme.background.startsWith('#F');
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
-  const divColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
+  const divColor = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
 
   // Intention filter state
   const [activeIntention, setActiveIntention] = useState('all');
@@ -610,7 +615,7 @@ return (
                     <View style={[styles.weeklyPill, { backgroundColor: weeklyRitual.color + '28' }]}>
                       <Typography variant="microLabel" color={weeklyRitual.color} style={{ fontSize: 9, letterSpacing: 1 }}>{weeklyRitual.category.toUpperCase()}</Typography>
                     </View>
-                    <View style={[styles.weeklyPill, { backgroundColor: 'rgba(255,255,255,0.08)' }]}>
+                    <View style={[styles.weeklyPill, { backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.08)' }]}>
                       <Clock color={subColor} size={9} strokeWidth={2} />
                       <Typography variant="microLabel" style={{ color: subColor, fontSize: 9, marginLeft: 3 }}>{weeklyRitual.duration}</Typography>
                     </View>
@@ -1040,7 +1045,7 @@ return (
                 const count = RITUALS.filter(r => r.category === cat.id).length;
               return (
                   <Animated.View key={cat.id} entering={FadeInUp.delay(320 + i * 40).duration(400)} style={{ width: tileW }}>
-                    <Pressable style={[styles.catTile, { borderColor: cat.color + '30' }]} onPress={() => handleCategory(cat)}>
+                    <Pressable style={[styles.catTile, { borderColor: cat.color + (isLight ? '55' : '30') }]} onPress={() => handleCategory(cat)}>
                       <LinearGradient
                         colors={[cat.color + '28', cat.color + '08']}
                         style={[StyleSheet.absoluteFillObject as any, { borderRadius: 20 }]}
@@ -1177,7 +1182,7 @@ return (
                             <View style={[styles.cfPill, { backgroundColor: catColor + '22' }]}>
                               <Typography variant="microLabel" style={{ color: catColor, fontSize: 9 }}>{cat?.label || item.category}</Typography>
                             </View>
-                            <View style={[styles.cfPill, { backgroundColor: 'rgba(255,255,255,0.08)' }]}>
+                            <View style={[styles.cfPill, { backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.08)' }]}>
                               <Clock color={subColor} size={9} strokeWidth={2} />
                               <Typography variant="microLabel" style={{ color: subColor, fontSize: 9, marginLeft: 3 }}>{item.duration}</Typography>
                             </View>
@@ -1300,7 +1305,7 @@ return (
                     <View style={{ marginHorizontal: layout.padding.screen, marginTop: 8, marginBottom: 8, borderRadius: 16, backgroundColor: "#CEAE7222", borderWidth: 1, borderColor: "#CEAE72", padding: 16 }}>
             <Text style={{ color: "#CEAE72", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>AI INSPIRACJA RYTUALOWA</Text>
             {ritualsAiInsight ? (
-              <Text style={{ color: "#F0EBE2", fontSize: 14, lineHeight: 22 }}>{ritualsAiInsight}</Text>
+              <Text style={{ color: isLight ? '#1A1208' : '#F0EBE2', fontSize: 14, lineHeight: 22 }}>{ritualsAiInsight}</Text>
             ) : null}
             <Pressable onPress={fetchRitualsAi} disabled={ritualsAiLoading} style={{ marginTop: 12, backgroundColor: "#CEAE72", borderRadius: 10, paddingVertical: 10, alignItems: "center" }}>
               <Text style={{ color: "#1A1008", fontWeight: "700", fontSize: 14 }}>{ritualsAiLoading ? "Inspiruję..." : "Inspiruj"}</Text>
