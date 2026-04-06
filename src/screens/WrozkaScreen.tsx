@@ -521,7 +521,7 @@ const SpreadTable = ({
       {/* Spread label */}
       {phase === 'table' && (
         <View style={{ position: 'absolute', bottom: 8, left: 0, right: 0, alignItems: 'center' }}>
-          <Text style={{ color: GOLD_DIM, fontSize: 9, letterSpacing: 3, fontWeight: '700' }}>
+          <Text style={{ color: GOLD_DIM, fontSize: 9, letterSpacing: 3, fontWeight: '700', opacity: 0.8 }}>
             {spread.label.toUpperCase()} · KARTA {Math.min(nextRevealIndex + 1, spread.count)}/{spread.count}
           </Text>
         </View>
@@ -541,9 +541,12 @@ const InterpretationBlock = ({
   const orientLabel = isReversed ? 'ODWRÓCONA' : 'PROSTA';
 
   return (
-    <Animated.View entering={FadeInUp.delay(100).springify()} style={ib.container}>
+    <Animated.View entering={FadeInUp.delay(100).springify()} style={[ib.container, {
+      backgroundColor: isLight ? 'rgba(255,252,245,0.92)' : 'rgba(30,10,60,0.50)',
+      borderColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(206,174,114,0.15)',
+    }]}>
       <LinearGradient
-        colors={['rgba(255,255,255,0.04)', 'rgba(255,255,255,0.02)']}
+        colors={isLight ? ['rgba(255,252,245,0)', 'rgba(255,252,245,0)'] : ['rgba(255,255,255,0.04)', 'rgba(255,255,255,0.02)']}
         style={[StyleSheet.absoluteFill, { borderRadius: 16 }]}
       />
       <View style={ib.header}>
@@ -555,12 +558,12 @@ const InterpretationBlock = ({
         </View>
         <View style={ib.headerText}>
           <Text style={[ib.slotLabel, { color: accentColor }]}>{slotLabel.toUpperCase()}</Text>
-          <Text style={[ib.cardName, { color: isLight ? '#251D16' : '#F5F1EA' }]}>{cardName}</Text>
+          <Text style={[ib.cardName, { color: isLight ? '#1A0E2E' : '#F5F1EA' }]}>{cardName}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 2 }}>
             <View style={[ib.orientBadge, { backgroundColor: accentColor + '22', borderColor: accentColor + '55' }]}>
               <Text style={[ib.orientText, { color: accentColor }]}>{orientLabel}</Text>
             </View>
-            <Text style={ib.suitLabel}>{card.suit === 'major' ? 'Arcana Większa' : `Arcana Mniejsza · ${card.suit}`}</Text>
+            <Text style={[ib.suitLabel, { color: isLight ? 'rgba(60,30,100,0.45)' : 'rgba(245,241,234,0.35)' }]}>{card.suit === 'major' ? 'Arcana Większa' : `Arcana Mniejsza · ${card.suit}`}</Text>
           </View>
         </View>
       </View>
@@ -568,11 +571,11 @@ const InterpretationBlock = ({
       <View style={ib.divider} />
 
       {interpretation ? (
-        <OracleTypingText text={interpretation} color="rgba(245,241,234,0.88)" />
+        <OracleTypingText text={interpretation} color={isLight ? 'rgba(30,10,60,0.82)' : 'rgba(245,241,234,0.88)'} />
       ) : (
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: accentColor }} />
-          <Text style={{ color: 'rgba(245,241,234,0.4)', fontSize: 13, fontStyle: 'italic' }}>
+          <Text style={{ color: isLight ? 'rgba(60,30,100,0.50)' : 'rgba(245,241,234,0.4)', fontSize: 13, fontStyle: 'italic' }}>
             Wróżka odczytuje kartę...
           </Text>
         </View>
@@ -591,10 +594,10 @@ const ib = StyleSheet.create({
   miniCard: { width: 65, height: 118 }, // kept for TS reference; actual styles are inline above
   headerText: { flex: 1, justifyContent: 'center', gap: 2 },
   slotLabel: { fontSize: 9, letterSpacing: 2.5, fontWeight: '700' },
-  cardName: { fontSize: 18, fontWeight: '700', color: '#F5F1EA', letterSpacing: 0.3 },
+  cardName: { fontSize: 18, fontWeight: '700', letterSpacing: 0.3 },
   orientBadge: { paddingHorizontal: 7, paddingVertical: 2, borderRadius: 4, borderWidth: 1 },
   orientText: { fontSize: 9, fontWeight: '700', letterSpacing: 1.5 },
-  suitLabel: { fontSize: 10, color: 'rgba(245,241,234,0.35)', letterSpacing: 0.5 },
+  suitLabel: { fontSize: 10, letterSpacing: 0.5 },
   divider: { height: 0.5, backgroundColor: 'rgba(206,174,114,0.20)', marginBottom: 12 },
 });
 
@@ -899,7 +902,7 @@ const IntroSheet = ({
               onChangeText={setSomeoneName}
               placeholder="Imię osoby..."
               placeholderTextColor={isLight ? 'rgba(100,60,160,0.40)' : 'rgba(245,241,234,0.30)'}
-              style={[is.nameInput, isLight && { borderColor: 'rgba(167,139,250,0.40)', color: '#2D1A50', backgroundColor: 'rgba(167,139,250,0.06)' }]}
+              style={[is.nameInput, { color: isLight ? '#2D1A50' : '#F5F1EA' }, isLight && { borderColor: 'rgba(167,139,250,0.40)', backgroundColor: 'rgba(167,139,250,0.06)' }]}
             />
           )}
         </View>
@@ -926,8 +929,8 @@ const is = StyleSheet.create({
     maxHeight: '92%',
   },
   handle: { width: 36, height: 3.5, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.18)', alignSelf: 'center', marginBottom: 12 },
-  title: { fontSize: 22, fontWeight: '800', color: '#F5F1EA', letterSpacing: 0.3, textAlign: 'center', marginBottom: 4 },
-  subtitle: { fontSize: 13, color: 'rgba(245,241,234,0.55)', textAlign: 'center', letterSpacing: 0.3, marginBottom: 4 },
+  title: { fontSize: 22, fontWeight: '800', letterSpacing: 0.3, textAlign: 'center', marginBottom: 4 },
+  subtitle: { fontSize: 13, textAlign: 'center', letterSpacing: 0.3, marginBottom: 4 },
   // ── Section card ──
   section: {
     borderRadius: 18, borderWidth: 1, padding: 16, marginBottom: 12,
@@ -950,7 +953,7 @@ const is = StyleSheet.create({
   // ── Name input ──
   nameInput: {
     marginTop: 10, padding: 12, borderRadius: 10, borderWidth: 1,
-    borderColor: 'rgba(167,139,250,0.35)', color: '#F5F1EA', fontSize: 14,
+    borderColor: 'rgba(167,139,250,0.35)', fontSize: 14,
     backgroundColor: 'rgba(167,139,250,0.08)',
   },
   // ── Start button ──
@@ -1399,14 +1402,14 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
   return (
     <View style={{ flex: 1, backgroundColor: isLight ? '#F0E8F8' : '#05030F', paddingTop: insets.top }}>
       {/* Header */}
-      <View style={[wr.header]}>
+      <View style={[wr.header, { borderBottomColor: isLight ? 'rgba(139,100,42,0.15)' : 'rgba(206,174,114,0.15)' }]}>
           <Pressable onPress={() => goBackOrToMainTab(navigation, 'Oracle')} hitSlop={12}>
             <ChevronLeft size={22} color={GOLD} />
           </Pressable>
           <View style={{ alignItems: 'center' }}>
-            <Text style={wr.headerTitle}>WRÓŻKA</Text>
+            <Text style={[wr.headerTitle, { color: isLight ? '#5B21B6' : GOLD }]}>WRÓŻKA</Text>
             {phase !== 'intro' && (
-              <Text style={wr.headerSub}>{topicLabel}{forLabel ? ` · ${forLabel}` : ''}</Text>
+              <Text style={[wr.headerSub, { color: isLight ? 'rgba(60,30,100,0.60)' : 'rgba(245,241,234,0.45)' }]}>{topicLabel}{forLabel ? ` · ${forLabel}` : ''}</Text>
             )}
           </View>
           <View style={{ flexDirection: 'row', gap: 12 }}>
@@ -1474,12 +1477,15 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
               />
 
               {/* Topic context strip */}
-              <View style={wr.contextStrip}>
+              <View style={[wr.contextStrip, {
+                backgroundColor: isLight ? 'rgba(255,255,255,0.70)' : 'rgba(255,255,255,0.04)',
+                borderColor: isLight ? 'rgba(139,100,42,0.18)' : 'rgba(255,255,255,0.08)',
+              }]}>
                 <View style={[wr.topicDot, { backgroundColor: topicColor }]} />
                 <Text style={[wr.contextText, { color: topicColor }]}>{topicLabel}</Text>
-                {forLabel ? <Text style={wr.contextFor}> · {forLabel}</Text> : null}
+                {forLabel ? <Text style={[wr.contextFor, { color: isLight ? 'rgba(60,30,100,0.55)' : 'rgba(245,241,234,0.45)' }]}> · {forLabel}</Text> : null}
                 <View style={{ flex: 1 }} />
-                <Text style={wr.contextDeck}>{spread.label}</Text>
+                <Text style={[wr.contextDeck, { color: isLight ? 'rgba(60,30,100,0.45)' : 'rgba(245,241,234,0.35)' }]}>{spread.label}</Text>
               </View>
 
               {/* Interpretation blocks */}
@@ -1503,9 +1509,12 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
 
               {/* Interpreting indicator */}
               {isInterpreting && (
-                <Animated.View entering={FadeIn} style={wr.interpretingRow}>
+                <Animated.View entering={FadeIn} style={[wr.interpretingRow, {
+                  backgroundColor: isLight ? 'rgba(139,100,42,0.08)' : 'rgba(206,174,114,0.07)',
+                  borderColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(206,174,114,0.20)',
+                }]}>
                   <Sparkles size={12} color={GOLD} />
-                  <Text style={wr.interpretingText}>Wróżka odczytuje kartę...</Text>
+                  <Text style={[wr.interpretingText, { color: isLight ? 'rgba(80,50,20,0.70)' : GOLD_DIM }]}>Wróżka odczytuje kartę...</Text>
                 </Animated.View>
               )}
 
@@ -1524,7 +1533,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                   {/* ── Feature 1: Question category chips ── */}
                   {chatMessages.length <= 1 && (
                     <View style={{ marginHorizontal: 18, marginBottom: 14 }}>
-                      <Text style={{ color: GOLD_DIM, fontSize: 9, letterSpacing: 2.5, fontWeight: '700', marginBottom: 8 }}>
+                      <Text style={{ color: isLight ? 'rgba(100,60,160,0.60)' : GOLD_DIM, fontSize: 9, letterSpacing: 2.5, fontWeight: '700', marginBottom: 8 }}>
                         SZYBKIE PYTANIA
                       </Text>
                       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -18 }} contentContainerStyle={{ paddingHorizontal: 18, gap: 8, flexDirection: 'row' }}>
@@ -1602,12 +1611,15 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                     <Pressable
                       key={i}
                       onPress={() => setExpandedHistoryIdx(expandedHistoryIdx === i ? null : i)}
-                      style={wr.historyCard}
+                      style={[wr.historyCard, {
+                        backgroundColor: isLight ? 'rgba(255,252,245,0.88)' : 'rgba(30,10,60,0.40)',
+                        borderColor: isLight ? 'rgba(139,100,42,0.18)' : 'rgba(206,174,114,0.15)',
+                      }]}
                     >
                       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                         <View style={{ flex: 1 }}>
                           <Text style={wr.historyDate}>{entry.date} · {entry.topicLabel}</Text>
-                          <Text style={wr.historyQuestion} numberOfLines={expandedHistoryIdx === i ? undefined : 2}>
+                          <Text style={[wr.historyQuestion, { color: isLight ? 'rgba(30,10,60,0.80)' : 'rgba(245,241,234,0.75)' }]} numberOfLines={expandedHistoryIdx === i ? undefined : 2}>
                             {entry.question}
                           </Text>
                         </View>
@@ -1619,7 +1631,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                       {expandedHistoryIdx === i && (
                         <Animated.View entering={FadeIn}>
                           <View style={wr.historyDivider} />
-                          <Text style={wr.historyAnswer}>{entry.answer}</Text>
+                          <Text style={[wr.historyAnswer, { color: isLight ? 'rgba(30,10,60,0.72)' : 'rgba(245,241,234,0.70)' }]}>{entry.answer}</Text>
                         </Animated.View>
                       )}
                     </Pressable>
@@ -1630,7 +1642,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
               {/* Next card hint */}
               {!allRevealed && nextRevealIndex < dealedCards.length && (
                 <Animated.View entering={FadeIn.delay(600)} style={wr.nextCardHint}>
-                  <Text style={wr.nextCardHintText}>
+                  <Text style={[wr.nextCardHintText, { color: isLight ? 'rgba(60,30,100,0.45)' : 'rgba(245,241,234,0.35)' }]}>
                     Dotknij następną kartę · {nextRevealIndex + 1}/{spread.count}
                   </Text>
                 </Animated.View>
@@ -1760,33 +1772,35 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
         <View style={wr.sqModalBg}>
           <View style={wr.sqModal}>
             <LinearGradient
-              colors={['#0F0420', '#1A0638']}
+              colors={isLight ? ['#FAF4FF', '#F5EEFF'] : ['#0F0420', '#1A0638']}
               style={[StyleSheet.absoluteFill, { borderTopLeftRadius: 24, borderTopRightRadius: 24 }]}
             />
-            <View style={wr.sqHandle} />
+            <View style={[wr.sqHandle, { backgroundColor: isLight ? 'rgba(100,60,160,0.20)' : 'rgba(255,255,255,0.18)' }]} />
             <View style={wr.sqHeader}>
-              <Text style={wr.sqTitle}>💫 ZAPISANE CYTATY</Text>
+              <Text style={[wr.sqTitle, { color: isLight ? '#5B21B6' : GOLD }]}>💫 ZAPISANE CYTATY</Text>
               <Pressable onPress={() => setShowSavedQuotes(false)} hitSlop={12}>
-                <X size={20} color={GOLD_DIM} />
+                <X size={20} color={isLight ? 'rgba(60,30,100,0.55)' : GOLD_DIM} />
               </Pressable>
             </View>
             {savedQuotes.length === 0 ? (
               <View style={{ alignItems: 'center', paddingVertical: 40 }}>
                 <Text style={{ fontSize: 32, marginBottom: 12 }}>💫</Text>
-                <Text style={{ color: 'rgba(245,241,234,0.45)', fontSize: 14, textAlign: 'center' }}>
+                <Text style={{ color: isLight ? 'rgba(60,30,100,0.55)' : 'rgba(245,241,234,0.45)', fontSize: 14, textAlign: 'center' }}>
                   Nie masz jeszcze zapisanych cytatów.{'\n'}Naciśnij „Zapisz cytat" po odpowiedzi Wróżki.
                 </Text>
               </View>
             ) : (
               <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
                 {savedQuotes.map((q, i) => (
-                  <View key={i} style={wr.sqCard}>
+                  <View key={i} style={[wr.sqCard, {
+                    borderColor: isLight ? 'rgba(100,60,160,0.18)' : 'rgba(206,174,114,0.18)',
+                  }]}>
                     <LinearGradient
-                      colors={['rgba(109,40,217,0.15)', 'rgba(91,33,182,0.08)']}
+                      colors={isLight ? ['rgba(167,139,250,0.08)', 'rgba(139,92,246,0.04)'] : ['rgba(109,40,217,0.15)', 'rgba(91,33,182,0.08)']}
                       style={[StyleSheet.absoluteFill, { borderRadius: 14 }]}
                     />
-                    <Text style={wr.sqCardMeta}>{q.date} · {q.topic}</Text>
-                    <Text style={wr.sqCardText}>"{q.text}"</Text>
+                    <Text style={[wr.sqCardMeta, { color: isLight ? 'rgba(100,60,160,0.60)' : GOLD_DIM }]}>{q.date} · {q.topic}</Text>
+                    <Text style={[wr.sqCardText, { color: isLight ? 'rgba(30,10,60,0.85)' : 'rgba(245,241,234,0.88)' }]}>"{q.text}"</Text>
                   </View>
                 ))}
                 <View style={{ height: 24 }} />

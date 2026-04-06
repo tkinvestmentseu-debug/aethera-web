@@ -2,7 +2,8 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View, Dimensions, ActivityIndicator, InteractionManager } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ArrowRight, Sparkles, Moon, Star, Flame, Droplets, Heart, BookOpen, Layers, Waves, Wind, ChevronRight, Brain, Zap, Eye, Hash, Users, Compass, Sun, Flower2, Calendar, Target, Gem, CheckSquare2 } from 'lucide-react-native';
+import { ArrowRight, Sparkles, Moon, Star, Flame, Droplets, Heart, BookOpen, Layers, Waves, Wind, ChevronRight, Brain, Zap, Eye, Hash, Users, Compass, Sun, Flower2, Calendar, Target, Gem, CheckSquare2, Search } from 'lucide-react-native';
+
 import Svg, { Circle, Path, Line, G, Ellipse, Rect, Defs, RadialGradient, Stop } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useTranslation } from 'react-i18next';
@@ -29,16 +30,154 @@ import { AudioService } from '../core/services/audio.service';
 import Animated, {
   FadeInDown, FadeIn,
   useAnimatedStyle, useSharedValue, withSpring, withTiming,
-  withRepeat, interpolate,
+  interpolate, cancelAnimation, withRepeat, withSequence,
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
+
+// ── TIME-AWARE GREETING ────────────────────────────────────────
+const getTimeGreeting = (name: string): string => {
+  const hour = new Date().getHours();
+  if (hour >= 6 && hour < 12) return `Dobry ranek, ${name} ✦`;
+  if (hour >= 12 && hour < 18) return `Dzień dobry, ${name} ✦`;
+  if (hour >= 18 && hour < 24) return `Dobry wieczór, ${name} ✦`;
+  return `Dobranoc, ${name} ✦`;
+};
+
+// ── CELESTIAL HERO ORB — module-level animated orb with rings ──
+const AnimatedCelestialOrb = React.memo(({ accent, isLight }: { accent: string; isLight: boolean }) => {
+  const ring1 = useSharedValue(0);
+  const ring2 = useSharedValue(0);
+  const ring3 = useSharedValue(0);
+  const pulse = useSharedValue(1);
+
+  useEffect(() => {
+    ring1.value = withRepeat(withTiming(360, { duration: 9000 }), -1, false);
+    ring2.value = withRepeat(withTiming(-360, { duration: 14000 }), -1, false);
+    ring3.value = withRepeat(withTiming(360, { duration: 20000 }), -1, false);
+    pulse.value = withRepeat(withSequence(withTiming(1.08, { duration: 2200 }), withTiming(1.0, { duration: 2200 })), -1, false);
+    return () => {
+      cancelAnimation(ring1);
+      cancelAnimation(ring2);
+      cancelAnimation(ring3);
+      cancelAnimation(pulse);
+    };
+  }, []);
+
+  const ring1Style = useAnimatedStyle(() => ({ transform: [{ rotateZ: `${ring1.value}deg` }] }));
+  const ring2Style = useAnimatedStyle(() => ({ transform: [{ rotateX: '60deg' }, { rotateZ: `${ring2.value}deg` }] }));
+  const ring3Style = useAnimatedStyle(() => ({ transform: [{ rotateX: '30deg' }, { rotateY: '40deg' }, { rotateZ: `${ring3.value}deg` }] }));
+  const pulseStyle = useAnimatedStyle(() => ({ transform: [{ scale: pulse.value }] }));
+
+  const sz = 156;
+
+  return (
+    <View style={{ width: sz, height: sz, alignItems: 'center', justifyContent: 'center' }}>
+      {/* Outer ambient glow */}
+      <View style={{ position: 'absolute', width: sz + 24, height: sz + 24, borderRadius: (sz + 24) / 2, backgroundColor: accent + (isLight ? '14' : '0C') }} />
+      {/* Pulsing core orb */}
+      <Animated.View style={[{ position: 'absolute', width: 70, height: 70, borderRadius: 35, backgroundColor: accent + (isLight ? '28' : '1E'), borderWidth: 1.5, borderColor: accent + (isLight ? '66' : '44') }, pulseStyle]}>
+        <LinearGradient colors={[accent + '55', accent + '18'] as [string, string]} style={{ flex: 1, borderRadius: 35 }} />
+      </Animated.View>
+      {/* Ring 1 — main orbit */}
+      <Animated.View style={[{ position: 'absolute', width: sz - 10, height: sz - 10 }, ring1Style]}>
+        <Svg width={sz - 10} height={sz - 10}>
+          <Circle cx={(sz - 10) / 2} cy={(sz - 10) / 2} r={(sz - 10) / 2 - 2} stroke={accent} strokeWidth={1.2} fill="none" strokeDasharray="5 8" opacity={0.6} />
+          <Circle cx={(sz - 10) / 2 + (sz / 2 - 8)} cy={(sz - 10) / 2} r={4} fill={accent} opacity={0.9} />
+        </Svg>
+      </Animated.View>
+      {/* Ring 2 — tilted inner */}
+      <Animated.View style={[{ position: 'absolute', width: sz - 34, height: sz - 34 }, ring2Style]}>
+        <Svg width={sz - 34} height={sz - 34}>
+          <Ellipse cx={(sz - 34) / 2} cy={(sz - 34) / 2} rx={(sz - 34) / 2 - 2} ry={(sz - 34) / 4} stroke={accent} strokeWidth={1.0} fill="none" strokeDasharray="3 6" opacity={0.5} />
+          <Circle cx={(sz - 34) / 2 + (sz / 2 - 20)} cy={(sz - 34) / 2} r={3} fill={accent + 'CC'} />
+        </Svg>
+      </Animated.View>
+      {/* Ring 3 — outermost slow orbit */}
+      <Animated.View style={[{ position: 'absolute', width: sz, height: sz }, ring3Style]}>
+        <Svg width={sz} height={sz}>
+          <Ellipse cx={sz / 2} cy={sz / 2} rx={sz / 2 - 2} ry={sz / 4} stroke={accent + '88'} strokeWidth={0.8} fill="none" strokeDasharray="2 10" opacity={0.4} />
+        </Svg>
+      </Animated.View>
+      {/* Center star glyph */}
+      <View style={{ position: 'absolute', alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 22, color: accent, opacity: 0.9 }}>✦</Text>
+      </View>
+    </View>
+  );
+});
+
+// ── QUICK ACTION RIBBON — horizontal pill row ──────────────────
+const QUICK_ACTIONS = [
+  { id: 'medytacja', label: 'Medytacja', icon: Brain,     color: '#818CF8', screen: 'Meditation' },
+  { id: 'dziennik',  label: 'Dziennik',  icon: BookOpen,  color: '#34D399', screen: 'JournalEntry' },
+  { id: 'tarot',     label: 'Tarot',     icon: Sparkles,  color: '#F59E0B', screen: 'DailyTarot' },
+  { id: 'rytual',    label: 'Rytuał',    icon: Flame,     color: '#F97316', screen: 'DailyRitualAI' },
+  { id: 'afirmacje', label: 'Afirmacje', icon: Heart,     color: '#F472B6', screen: 'Affirmations' },
+  { id: 'mantra',    label: 'Mantra',    icon: Star,      color: '#A78BFA', screen: 'MantraGenerator' },
+  { id: 'oddech',    label: 'Oddech',    icon: Wind,      color: '#6EE7B7', screen: 'Breathwork' },
+] as const;
+
+const QuickActionPill = React.memo(({ item, navigation, isLight, index }: { item: typeof QUICK_ACTIONS[number]; navigation: any; isLight: boolean; index: number }) => {
+  const scale = useSharedValue(1);
+  const pressStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  const Icon = item.icon;
+  return (
+    <Animated.View entering={FadeIn.delay(index * 60).duration(280)} style={pressStyle}>
+      <Pressable
+        onPress={() => navigation.navigate(item.screen)}
+        onPressIn={() => { scale.value = withSpring(0.92, { damping: 14, stiffness: 400 }); }}
+        onPressOut={() => { scale.value = withSpring(1.0, { damping: 12, stiffness: 200 }); }}
+        style={[
+          qa.pill,
+          {
+            borderColor: item.color + (isLight ? 'CC' : '55'),
+            backgroundColor: item.color + (isLight ? '18' : '14'),
+            shadowColor: item.color,
+            shadowOpacity: isLight ? 0.22 : 0.35,
+            shadowRadius: 10,
+            shadowOffset: { width: 0, height: 3 },
+            elevation: 6,
+          },
+        ]}
+      >
+        <LinearGradient
+          colors={[item.color + '30', item.color + '0C'] as [string, string]}
+          start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+          style={StyleSheet.absoluteFillObject}
+        />
+        {/* Top shimmer */}
+        <LinearGradient
+          colors={isLight ? ['rgba(255,255,255,0.65)', 'rgba(255,255,255,0.0)'] as [string, string] : ['rgba(255,255,255,0.14)', 'rgba(255,255,255,0.0)'] as [string, string]}
+          start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 18, borderTopLeftRadius: 999, borderTopRightRadius: 999 }}
+          pointerEvents="none"
+        />
+        <View style={[qa.iconCircle, { backgroundColor: item.color + (isLight ? '28' : '22'), borderColor: item.color + (isLight ? '88' : '55') }]}>
+          <Icon color={item.color} size={15} strokeWidth={1.8} />
+        </View>
+        <Text style={[qa.label, { color: isLight ? '#1A1008' : '#F0E8D8' }]}>{item.label}</Text>
+      </Pressable>
+    </Animated.View>
+  );
+});
+
+const qa = StyleSheet.create({
+  pill: {
+    flexDirection: 'column', alignItems: 'center', gap: 6,
+    paddingHorizontal: 14, paddingVertical: 11,
+    borderRadius: 999, borderWidth: 1.2, overflow: 'hidden',
+    minWidth: 76,
+  },
+  iconCircle: { width: 32, height: 32, borderRadius: 16, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
+  label: { fontSize: 11, fontWeight: '700', letterSpacing: 0.1 },
+});
 const TILE_W = (SW - 44 - 10) / 2;
 
 // ── WORLD BACKGROUNDS ──────────────────────────────────────────
 
-const TyBackground = () => (
+const TyBackground = React.memo(() => (
   <View style={StyleSheet.absoluteFill} pointerEvents="none">
     <LinearGradient colors={['#0A0807', '#120F0A', '#1A1610']} style={StyleSheet.absoluteFill} />
     <Svg width={SW} height={SW} style={StyleSheet.absoluteFill} opacity={0.13}>
@@ -51,9 +190,9 @@ const TyBackground = () => (
       </G>
     </Svg>
   </View>
-);
+));
 
-const TarotWorldBackground = () => (
+const TarotWorldBackground = React.memo(() => (
   <View style={StyleSheet.absoluteFill} pointerEvents="none">
     <LinearGradient colors={['#0A0705', '#140E08', '#1C1510']} style={StyleSheet.absoluteFill} />
     <Svg width={SW} height={SW} style={StyleSheet.absoluteFill} opacity={0.16}>
@@ -64,9 +203,9 @@ const TarotWorldBackground = () => (
       </G>
     </Svg>
   </View>
-);
+));
 
-const HoroscopeWorldBackground = () => (
+const HoroscopeWorldBackground = React.memo(() => (
   <View style={StyleSheet.absoluteFill} pointerEvents="none">
     <LinearGradient colors={['#07060F', '#0D0A1A', '#141026']} style={StyleSheet.absoluteFill} />
     <Svg width={SW} height={SW} style={StyleSheet.absoluteFill} opacity={0.19}>
@@ -76,9 +215,9 @@ const HoroscopeWorldBackground = () => (
       </G>
     </Svg>
   </View>
-);
+));
 
-const AstrologyWorldBackground = () => {
+const AstrologyWorldBackground = React.memo(() => {
   const stars = [[40,30],[120,25],[210,55],[290,30],[165,75],[75,105],[245,95],[340,45],[390,75],[55,155],[195,135],[325,125],[10,80],[270,160],[400,130]];
   const lines = [[0,2],[2,4],[1,4],[5,6],[6,7],[8,7],[9,10],[10,11],[12,5],[13,14]];
   return (
@@ -92,7 +231,7 @@ const AstrologyWorldBackground = () => {
       </Svg>
     </View>
   );
-};
+});
 
 const SupportWorldBackground = () => (
   <View style={StyleSheet.absoluteFill} pointerEvents="none">
@@ -227,9 +366,9 @@ const WorldPillNav = React.memo(({ surfaces, activeIndex, onSelect, isLight }: {
       {surfaces.map((s, i) => {
         const isActive = i === activeIndex;
         return (
-          <Pressable key={s.id} onPress={() => onSelect(i)} style={[wn.pill, isActive && { backgroundColor: active.accent + '22', borderColor: active.accent + '66' }]}>
+          <Pressable key={s.id} onPress={() => onSelect(i)} style={[wn.pill, isActive ? { backgroundColor: active.accent + '22', borderColor: active.accent + '66' } : { borderColor: isLight ? 'rgba(0,0,0,0.18)' : 'rgba(255,255,255,0.22)' }]}>
             {isActive && <View style={[wn.pillDot, { backgroundColor: active.accent }]} />}
-            <Text style={[wn.pillText, { color: isActive ? active.accent : (isLight ? 'rgba(40,28,16,0.5)' : 'rgba(255,255,255,0.45)') }]}>{s.title}</Text>
+            <Text style={[wn.pillText, { color: isActive ? active.accent : (isLight ? 'rgba(40,28,16,0.68)' : 'rgba(255,255,255,0.45)') }]}>{s.title}</Text>
           </Pressable>
         );
       })}
@@ -243,82 +382,226 @@ const wn = StyleSheet.create({
   pillText: { fontSize: 13, fontWeight: '600', letterSpacing: 0.2 },
 });
 
-// ── ACTION TILE (2-column grid tile, no border box) ───────────
+// ── ACTION TILE — glassy, glowing, rounded ─────────────────────
+// Press glow ring + glass morphism, NO looping animations
 
 const ActionTile = React.memo(({ icon: Icon, label, sublabel, accent, onPress, delay = 0, isLight = false }: { icon: any; label: string; sublabel: string; accent: string; onPress: () => void; delay?: number; isLight?: boolean }) => {
   const scale = useSharedValue(1);
-  const anim = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
-  const tileBg = isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.15)';
-  const labelColor = isLight ? '#1A1206' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(40,26,10,0.55)' : 'rgba(210,200,188,0.68)';
+  const glow = useSharedValue(0);
+
+  useEffect(() => {
+    return () => {
+      cancelAnimation(glow);
+      cancelAnimation(scale);
+    };
+  }, []);
+
+  const tileStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  const glowStyle = useAnimatedStyle(() => ({
+    opacity: interpolate(glow.value, [0, 1], [0, 1]),
+    transform: [{ scale: interpolate(glow.value, [0, 1], [0.88, 1.06]) }],
+  }));
+
+  const tileBg = isLight ? 'rgba(255,255,255,0.97)' : 'rgba(10,8,22,0.88)';
+  const tileBorder = isLight ? accent + 'BB' : accent + '50';
+  const labelColor = isLight ? '#180F04' : '#F5EFE6';
+  const subColor = isLight ? 'rgba(28,18,6,0.56)' : 'rgba(215,205,190,0.56)';
+
   return (
-    <Animated.View entering={FadeIn.delay(delay).duration(280)} style={[at.wrap, { width: TILE_W }]}>
-      <View>
-        <Animated.View style={anim}>
+    <Animated.View entering={FadeIn.delay(delay).duration(300)} style={[at.wrap, { width: TILE_W }]}>
+      {/* Outer glow halo on press */}
+      <Animated.View
+        pointerEvents="none"
+        style={[at.glowRing, { backgroundColor: accent + '22', borderColor: accent + '44' }, glowStyle]}
+      />
+      <Animated.View style={tileStyle}>
         <Pressable
           onPress={onPress}
-          onPressIn={() => { scale.value = withSpring(0.96, { damping: 16, stiffness: 380 }); }}
-          onPressOut={() => { scale.value = withSpring(1, { damping: 14, stiffness: 200 }); }}
-          style={[at.tile, { borderColor: accent + '80', backgroundColor: tileBg }]}
+          onPressIn={() => {
+            scale.value = withSpring(0.94, { damping: 15, stiffness: 420 });
+            glow.value = withTiming(1, { duration: 120 });
+          }}
+          onPressOut={() => {
+            scale.value = withSpring(1.0, { damping: 12, stiffness: 180 });
+            glow.value = withTiming(0, { duration: 350 });
+          }}
+          style={[
+            at.tile,
+            { borderColor: tileBorder, backgroundColor: tileBg },
+            isLight
+              ? { shadowColor: accent, shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.22, shadowRadius: 16, elevation: 8 }
+              : { shadowColor: accent, shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.30, shadowRadius: 20, elevation: 12 },
+          ]}
         >
-          <LinearGradient colors={[accent + '22', accent + '08', 'transparent']} style={StyleSheet.absoluteFillObject} />
-          <LinearGradient colors={['transparent', accent + '88', 'transparent'] as [string,string,string]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1 }} />
-          <View style={[at.iconRing, { backgroundColor: accent + '22', borderColor: accent + '55' }]}>
-            <Icon color={accent} size={20} strokeWidth={1.8} />
+          {/* Diagonal base gradient */}
+          <LinearGradient
+            colors={isLight
+              ? [accent + '22', accent + '0C', 'rgba(255,255,255,0.0)'] as [string,string,string]
+              : [accent + '30', accent + '10', 'rgba(8,6,20,0.0)'] as [string,string,string]}
+            start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+            style={StyleSheet.absoluteFillObject}
+          />
+
+          {/* Frosted glass top highlight */}
+          <LinearGradient
+            colors={isLight
+              ? ['rgba(255,255,255,0.72)', 'rgba(255,255,255,0.0)'] as [string,string]
+              : ['rgba(255,255,255,0.11)', 'rgba(255,255,255,0.0)'] as [string,string]}
+            start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 48, borderTopLeftRadius: 26, borderTopRightRadius: 26 }}
+            pointerEvents="none"
+          />
+
+          {/* Accent top edge line */}
+          <LinearGradient
+            colors={['transparent', accent + 'EE', 'transparent'] as [string,string,string]}
+            start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1.5, opacity: isLight ? 0.9 : 0.7 }}
+            pointerEvents="none"
+          />
+
+          {/* Bottom-right ambient orb */}
+          <View style={[at.cornerOrb, { backgroundColor: accent + (isLight ? '18' : '12') }]} />
+
+          {/* Icon container — glowing ring */}
+          <View style={[at.iconRing, { backgroundColor: accent + (isLight ? '22' : '1C'), borderColor: accent + (isLight ? 'BB' : '70') }]}>
+            <LinearGradient
+              colors={[accent + '44', accent + '14'] as [string,string]}
+              style={[StyleSheet.absoluteFillObject, { borderRadius: 17 }]}
+            />
+            <Icon color={accent} size={23} strokeWidth={1.6} />
           </View>
+
           <Text style={[at.label, { color: labelColor }]} numberOfLines={1}>{label}</Text>
           <Text style={[at.sub, { color: subColor }]} numberOfLines={2}>{sublabel}</Text>
-          <View style={[at.arrow, { borderColor: accent + '44' }]}>
-            <ChevronRight color={accent} size={13} opacity={0.8} />
+
+          {/* Arrow badge */}
+          <View style={[at.arrow, { backgroundColor: accent + (isLight ? '1C' : '14'), borderColor: accent + (isLight ? '88' : '55') }]}>
+            <ChevronRight color={accent} size={11} />
           </View>
         </Pressable>
-        </Animated.View>
-      </View>
+      </Animated.View>
     </Animated.View>
   );
 });
 
 const at = StyleSheet.create({
-  wrap: {},
-  tile: { borderRadius: 20, borderWidth: 1, padding: 16, overflow: 'hidden', minHeight: 120 },
-  iconRing: { width: 42, height: 42, borderRadius: 13, borderWidth: 1, alignItems: 'center', justifyContent: 'center', marginBottom: 10 },
-  label: { fontSize: 14, fontWeight: '700', letterSpacing: -0.1, marginBottom: 4 },
-  sub: { fontSize: 11, lineHeight: 15 },
-  arrow: { position: 'absolute', bottom: 12, right: 12, width: 26, height: 26, borderRadius: 8, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
+  wrap: { position: 'relative' },
+  glowRing: {
+    position: 'absolute',
+    top: -8, left: -8, right: -8, bottom: -8,
+    borderRadius: 36,
+    borderWidth: 1.5,
+    zIndex: 0,
+  },
+  tile: { borderRadius: 26, borderWidth: 1.4, paddingTop: 18, paddingBottom: 16, paddingHorizontal: 15, overflow: 'hidden', minHeight: 148, zIndex: 1 },
+  iconRing: { width: 52, height: 52, borderRadius: 17, borderWidth: 1.2, alignItems: 'center', justifyContent: 'center', marginBottom: 12, overflow: 'hidden' },
+  label: { fontSize: 14, fontWeight: '800', letterSpacing: -0.3, marginBottom: 4 },
+  sub: { fontSize: 12, lineHeight: 17, marginRight: 30 },
+  arrow: { position: 'absolute', bottom: 12, right: 12, width: 28, height: 28, borderRadius: 10, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
+  cornerOrb: { position: 'absolute', bottom: -12, right: -12, width: 78, height: 78, borderRadius: 39 },
 });
 
-// ── EXPLORE ROW (minimal link) ────────────────────────────────
+// ── EXPLORE ROW — Colorful glossy cards ───────────────────────
 
-const ExploreRow = React.memo(({ title, desc, accent, onPress, delay = 0, isLight }: { title: string; desc: string; accent: string; onPress: () => void; delay?: number; isLight?: boolean }) => (
-  <Animated.View entering={FadeInDown.delay(delay).duration(240)}>
-    <Pressable onPress={onPress} style={[er.row, { borderTopColor: accent + '18' }]}>
-      <View style={[er.bar, { backgroundColor: accent }]} />
-      <View style={{ flex: 1 }}>
-        <Text style={[er.title, { color: isLight ? '#2A1F0E' : '#EDE6D8' }]}>{title}</Text>
-        <Text style={[er.desc, { color: isLight ? 'rgba(60,44,26,0.60)' : 'rgba(200,190,178,0.60)' }]} numberOfLines={2}>{desc}</Text>
-      </View>
-      <ChevronRight color={accent} size={15} opacity={0.5} />
-    </Pressable>
-  </Animated.View>
-));
+const ExploreRow = React.memo(({ title, desc, accent, onPress, delay = 0, isLight }: { title: string; desc: string; accent: string; onPress: () => void; delay?: number; isLight?: boolean }) => {
+  const scale = useSharedValue(1);
+  const pressStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  return (
+    <Animated.View entering={FadeInDown.delay(delay).duration(220)}>
+      <Animated.View style={pressStyle}>
+        <Pressable
+          onPress={onPress}
+          onPressIn={() => { scale.value = withSpring(0.975, { damping: 18, stiffness: 400 }); }}
+          onPressOut={() => { scale.value = withSpring(1, { damping: 14, stiffness: 220 }); }}
+          style={[er.card, {
+            borderColor: isLight ? accent + 'CC' : accent + '66',
+            shadowColor: accent,
+            shadowOpacity: isLight ? 0.30 : 0.40,
+            shadowRadius: 16,
+            shadowOffset: { width: 0, height: 5 },
+            elevation: isLight ? 6 : 4,
+          }]}
+        >
+          {/* Colorful gradient background */}
+          <LinearGradient
+            colors={isLight
+              ? [accent + '30', accent + '18', 'rgba(255,255,255,0.88)'] as [string,string,string]
+              : [accent + '44', accent + '22', 'rgba(8,6,20,0.92)'] as [string,string,string]}
+            start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+            style={StyleSheet.absoluteFillObject}
+            pointerEvents="none"
+          />
+          {/* Glossy top highlight */}
+          <LinearGradient
+            colors={isLight
+              ? ['rgba(255,255,255,0.80)', 'rgba(255,255,255,0.0)'] as [string,string]
+              : ['rgba(255,255,255,0.16)', 'rgba(255,255,255,0.0)'] as [string,string]}
+            start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 28, borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
+            pointerEvents="none"
+          />
+          {/* Accent top edge */}
+          <LinearGradient
+            colors={['transparent', accent, 'transparent'] as [string,string,string]}
+            start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1.5, opacity: isLight ? 1.0 : 0.8 }}
+            pointerEvents="none"
+          />
+          {/* Left accent strip */}
+          <LinearGradient
+            colors={[accent, accent + 'AA'] as [string,string]}
+            style={er.strip}
+            start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+          />
+          {/* Text */}
+          <View style={{ flex: 1 }}>
+            <Text style={[er.title, { color: isLight ? '#140C02' : '#F0E8D8' }]}>{title}</Text>
+            <Text style={[er.desc, { color: isLight ? 'rgba(30,18,6,0.75)' : 'rgba(220,210,195,0.78)' }]} numberOfLines={2}>{desc}</Text>
+          </View>
+          {/* Arrow pill */}
+          <View style={[er.arrowPill, { backgroundColor: accent + (isLight ? '2A' : '28'), borderColor: accent + (isLight ? '88' : '66') }]}>
+            <LinearGradient
+              colors={[accent + '55', accent + '22'] as [string,string]}
+              style={[StyleSheet.absoluteFillObject, { borderRadius: 11 }]}
+            />
+            <ChevronRight color={accent} size={14} strokeWidth={2.4} />
+          </View>
+        </Pressable>
+      </Animated.View>
+    </Animated.View>
+  );
+});
 
 const er = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center', gap: 14, paddingVertical: 14, borderTopWidth: StyleSheet.hairlineWidth },
-  bar: { width: 3, height: 38, borderRadius: 2, opacity: 0.8 },
-  title: { fontSize: 14, fontWeight: '600', letterSpacing: 0.05, marginBottom: 3 },
+  card: {
+    flexDirection: 'row', alignItems: 'center', gap: 14,
+    borderRadius: 20, borderWidth: 1.2,
+    paddingVertical: 15, paddingHorizontal: 16,
+    marginBottom: 10, overflow: 'hidden',
+  },
+  strip: { width: 4, height: 48, borderRadius: 3, flexShrink: 0 },
+  title: { fontSize: 15, fontWeight: '800', letterSpacing: -0.2, marginBottom: 3 },
   desc: { fontSize: 12, lineHeight: 17 },
+  arrowPill: {
+    width: 32, height: 32, borderRadius: 11, borderWidth: 1.2,
+    alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden',
+  },
 });
 
 // ── METRICS STRIP ─────────────────────────────────────────────
 
-const MetricsStrip = React.memo(({ items, accent }: { items: { val: string; label: string }[]; accent: string }) => (
+const MetricsStrip = React.memo(({ items, accent, isLight = false }: { items: { val: string; label: string }[]; accent: string; isLight?: boolean }) => (
   <View style={ms.row}>
     {items.map((m, i) => (
       <React.Fragment key={m.label}>
         {i > 0 && <View style={[ms.sep, { backgroundColor: accent + '28' }]} />}
         <View style={ms.cell}>
           <Text style={[ms.val, { color: accent }]}>{m.val}</Text>
-          <Text style={ms.label}>{m.label}</Text>
+          <Text style={[ms.label, { color: isLight ? 'rgba(60,42,14,0.60)' : 'rgba(200,190,178,0.55)' }]}>{m.label}</Text>
         </View>
       </React.Fragment>
     ))}
@@ -329,7 +612,7 @@ const ms = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 14, marginBottom: 4 },
   cell: { flex: 1, alignItems: 'center' },
   val: { fontSize: 16, fontWeight: '700', letterSpacing: -0.3 },
-  label: { fontSize: 10, fontWeight: '600', letterSpacing: 1.2, color: 'rgba(200,190,178,0.55)', marginTop: 3 },
+  label: { fontSize: 10, fontWeight: '600', letterSpacing: 1.2, marginTop: 3 },
   sep: { width: 1, height: 32, marginHorizontal: 4 },
 });
 
@@ -359,6 +642,34 @@ const renderContent = (id: string, navigation: any, dailyPlan: DailySoulPlan, us
 
   if (id === 'ty') return (
     <>
+      {/* ── HERO CARD: DZISIEJSZA PRAKTYKA ── */}
+      {dailyPlan.ritualGuidance?.featured ? (
+        <View style={{ marginBottom: 18, borderRadius: 24, overflow: 'hidden', borderWidth: 1.5, borderColor: ac + '40' }}>
+          <LinearGradient
+            colors={isLight ? ['#FBF0DC', '#EDD8AA'] : ['#1C1130', '#0D0820']}
+            style={{ padding: 22, minHeight: 160 }}
+          >
+            {/* Lewy accent bar */}
+            <View style={{ position: 'absolute', left: 0, top: 20, bottom: 20, width: 3, backgroundColor: ac, borderRadius: 2 }} />
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+              <View style={{ width: 52, height: 52, borderRadius: 16, backgroundColor: ac + '20', borderWidth: 1.5, borderColor: ac + '55', alignItems: 'center', justifyContent: 'center' }}>
+                <Sparkles color={ac} size={32} strokeWidth={1.5} />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2.2, color: ac, marginBottom: 4 }}>DZISIEJSZA PRAKTYKA</Text>
+                <Text style={{ fontSize: 18, fontWeight: '700', letterSpacing: -0.3, color: isLight ? '#2C1A0E' : '#F5F1EA', lineHeight: 24 }}>
+                  {dailyPlan.ritualGuidance?.featured?.title || tr('home.ty.morningRitual', 'Poranny Rytuał', 'Morning Ritual')}
+                </Text>
+              </View>
+            </View>
+            <Text style={{ fontSize: 13, lineHeight: 20, color: isLight ? '#6B4A2A' : 'rgba(245,241,234,0.7)', paddingLeft: 2, paddingRight: 8 }} numberOfLines={3}>
+              {dailyPlan.ritualGuidance?.featured?.category
+                ? `${dailyPlan.ritualGuidance.featured.category} · ${dailyPlan.ritualGuidance.featured.duration}`
+                : tr('home.ty.morningRitualDesc', '5 etapów porannej praktyki: oddech, afirmacja, intencja, mantra i wdzięczność.', 'A 5-step morning practice: breath, affirmation, intention, mantra, and gratitude.')}
+            </Text>
+          </LinearGradient>
+        </View>
+      ) : null}
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginBottom: 16 }}>
         <ActionTile icon={Zap} label={tr('home.ty.energyJournal', 'Dziennik Energii', 'Energy Journal')} sublabel={tr('home.ty.energyJournalSub', 'Śledź przepływ energii przez tydzień', 'Track your energy flow through the week')} accent={ac} onPress={() => navigation.navigate('EnergyJournal')} delay={0} isLight={isLight} />
         <ActionTile icon={BookOpen} label={tr('home.ty.journal', 'Dziennik', 'Journal')} sublabel={tr('home.ty.journalSub', 'Nazwij dzień własnymi słowami', 'Name the day in your own words')} accent={ac} onPress={() => navigation.navigate('JournalEntry')} delay={60} isLight={isLight} />
@@ -368,7 +679,7 @@ const renderContent = (id: string, navigation: any, dailyPlan: DailySoulPlan, us
         <ActionTile icon={Target} label={tr('home.ty.visionBoard', 'Tablica Manifestacji', 'Manifestation Board')} sublabel={tr('home.ty.visionBoardSub', 'Kosmiczna mapa 9 intencji', 'A cosmic map of 9 intentions')} accent={ac} onPress={() => navigation.navigate('VisionBoard')} delay={300} isLight={isLight} />
         <ActionTile icon={CheckSquare2} label={tr('home.ty.habits', 'Nawyki Duchowe', 'Spiritual Habits')} sublabel={tr('home.ty.habitsSub', 'Śledź 12 codziennych praktyk', 'Track 12 daily practices')} accent="#10B981" onPress={() => navigation.navigate('SpiritualHabits')} delay={360} isLight={isLight} />
       </View>
-      <MetricsStrip accent={ac} items={[{ val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') }, { val: dailyPlan.energyScore + '%', label: tr('home.metric.energy', 'ENERGIA', 'ENERGY') }, { val: String(entries.length), label: tr('home.metric.entries', 'WPISY', 'ENTRIES') }, { val: dailyDraw ? '✓' : '○', label: tr('home.metric.card', 'KARTA', 'CARD') }]} />
+      <MetricsStrip accent={ac} isLight={isLight} items={[{ val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') }, { val: dailyPlan.energyScore + '%', label: tr('home.metric.energy', 'ENERGIA', 'ENERGY') }, { val: String(entries.length), label: tr('home.metric.entries', 'WPISY', 'ENTRIES') }, { val: dailyDraw ? '✓' : '○', label: tr('home.metric.card', 'KARTA', 'CARD') }]} />
       <SectionDivider label={tr('home.explore', 'EKSPLORUJ', 'EXPLORE')} accent={ac} />
       <ExploreRow title={tr('home.ty.morningRitual', 'Poranny Rytuał', 'Morning Ritual')} desc={tr('home.ty.morningRitualDesc', '5 etapów porannej praktyki: oddech, afirmacja, intencja, mantra i wdzięczność.', 'A 5-step morning practice: breath, affirmation, intention, mantra, and gratitude.')} accent={ac} onPress={() => navigation.navigate('MorningRitual')} delay={0} isLight={isLight} />
       <ExploreRow title={tr('home.ty.lifeWheel', 'Koło Życia', 'Wheel of Life')} desc={tr('home.ty.lifeWheelDesc', 'Interaktywna mapa 8 obszarów życia — oceń i znajdź nierównowagę.', 'An interactive map of 8 life areas — assess them and spot imbalance.')} accent={ac} onPress={() => navigation.navigate('LifeWheel')} delay={40} isLight={isLight} />
@@ -390,7 +701,7 @@ const renderContent = (id: string, navigation: any, dailyPlan: DailySoulPlan, us
         <ActionTile icon={Moon} label={tr('home.tarot.oracleReader', 'Wróżka', 'Oracle Reader')} sublabel={tr('home.tarot.oracleReaderSub', 'Rytuał z talią i narracją AI', 'A ritual with deck and AI narration')} accent={ac} onPress={() => navigation.navigate('Wrozka')} delay={120} isLight={isLight} />
         <ActionTile icon={Heart} label={tr('home.tarot.relationalTarot', 'Tarot relacyjny', 'Relationship Tarot')} sublabel={tr('home.tarot.relationalTarotSub', 'Ścieżka dla dwojga i więzi', 'A path for two and the bond between you')} accent={ac} onPress={() => navigation.navigate('PartnerTarot')} delay={180} isLight={isLight} />
       </View>
-      <MetricsStrip accent={ac} items={[{ val: String(pastReadings.length), label: tr('home.metric.readings', 'ODCZYTY', 'READINGS') }, { val: dailyDraw ? resolveUserFacingText(dailyDraw.card.name).slice(0,7) : tr('home.metric.waiting', 'Czeka', 'Waiting'), label: tr('home.metric.card', 'KARTA', 'CARD') }, { val: tarotDeck?.name?.slice(0,6) ?? 'Classic', label: tr('home.metric.deck', 'TALIA', 'DECK') }, { val: pastReadings[0]?.spread?.name?.slice(0,5) ?? tr('home.metric.none', 'Brak', 'None'), label: tr('home.metric.last', 'OSTATNI', 'LAST') }]} />
+      <MetricsStrip accent={ac} isLight={isLight} items={[{ val: String(pastReadings.length), label: tr('home.metric.readings', 'ODCZYTY', 'READINGS') }, { val: dailyDraw ? resolveUserFacingText(dailyDraw.card.name).slice(0,7) : tr('home.metric.waiting', 'Czeka', 'Waiting'), label: tr('home.metric.card', 'KARTA', 'CARD') }, { val: tarotDeck?.name?.slice(0,6) ?? 'Classic', label: tr('home.metric.deck', 'TALIA', 'DECK') }, { val: pastReadings[0]?.spread?.name?.slice(0,5) ?? tr('home.metric.none', 'Brak', 'None'), label: tr('home.metric.last', 'OSTATNI', 'LAST') }]} />
       <SectionDivider label={tr('home.tarot.paths', 'ŚCIEŻKI TAROTA', 'TAROT PATHS')} accent={ac} />
       <ExploreRow title={tr('home.tarot.journal', 'Dziennik Odczytów', 'Reading Journal')} desc={tr('home.tarot.journalDesc', 'Wszystkie Twoje odczyty tarota w jednym miejscu — wzorce, refleksje i wglądy AI.', 'All your tarot readings in one place — patterns, reflections, and AI insights.')} accent={ac} onPress={() => navigation.navigate('TarotJournal')} delay={0} isLight={isLight} />
       <ExploreRow title={tr('home.tarot.shadowSpread', 'Spread Cienia', 'Shadow Spread')} desc={tr('home.tarot.shadowSpreadDesc', 'Cztery karty: co blokuje, czego unikasz, co czeka.', 'Four cards: what blocks you, what you avoid, and what awaits.')} accent={ac} onPress={() => navigation.navigate('TarotDeckSelection')} delay={40} isLight={isLight} />
@@ -412,7 +723,7 @@ const renderContent = (id: string, navigation: any, dailyPlan: DailySoulPlan, us
         <ActionTile icon={Users} label={tr('home.horoscope.compatibility', 'Zgodność', 'Compatibility')} sublabel={tr('home.horoscope.compatibilitySub', 'Dynamika przyciągania i napięć', 'Dynamics of attraction and tension')} accent={ac} onPress={() => navigation.navigate('Compatibility')} delay={120} isLight={isLight} />
         <ActionTile icon={Heart} label={tr('home.horoscope.partner', 'Horoskop partnera', 'Partner horoscope')} sublabel={tr('home.horoscope.partnerSub', 'Obraz energetyczny drugiej osoby', 'The energetic portrait of another person')} accent={ac} onPress={() => navigation.navigate('PartnerHoroscope')} delay={180} isLight={isLight} />
       </View>
-      <MetricsStrip accent={ac} items={[{ val: (() => { try { const { getZodiacSign } = require('../features/horoscope/utils/astrology'); return getZodiacSign(userData.birthDate).slice(0,4); } catch { return tr('home.metric.yours', 'Twój', 'Yours'); } })(), label: tr('home.metric.sign', 'ZNAK', 'SIGN') }, { val: dailyPlan.moonPhase?.icon || '🌙', label: tr('home.metric.moon', 'KSIĘŻYC', 'MOON') }, { val: String(pastSessions.length), label: tr('home.metric.sessions', 'SESJI', 'SESSIONS') }, { val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') }]} />
+      <MetricsStrip accent={ac} isLight={isLight} items={[{ val: (() => { try { const { getZodiacSign } = require('../features/horoscope/utils/astrology'); return getZodiacSign(userData.birthDate).slice(0,4); } catch { return tr('home.metric.yours', 'Twój', 'Yours'); } })(), label: tr('home.metric.sign', 'ZNAK', 'SIGN') }, { val: dailyPlan.moonPhase?.icon || '🌙', label: tr('home.metric.moon', 'KSIĘŻYC', 'MOON') }, { val: String(pastSessions.length), label: tr('home.metric.sessions', 'SESJI', 'SESSIONS') }, { val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') }]} />
       <SectionDivider label={tr('home.horoscope.layers', 'WARSTWY NIEBA', 'LAYERS OF THE SKY')} accent={ac} />
       <ExploreRow title={tr('home.horoscope.natal', 'Karta Urodzenia', 'Birth chart')} desc={tr('home.horoscope.natalDesc', 'Mapa nieba z chwili narodzin — planety, znaki i 12 domów astrologicznych.', 'A sky map from the moment of birth — planets, signs, and the 12 astrological houses.')} accent={ac} onPress={() => navigation.navigate('NatalChart')} delay={0} isLight={isLight} />
       <ExploreRow title={tr('home.horoscope.retrogrades', 'Retrogradacje ℞', 'Retrogrades ℞')} desc={tr('home.horoscope.retrogradesDesc', 'Kompletny przewodnik — co robić, czego unikać, kiedy i dlaczego.', 'A complete guide — what to do, what to avoid, when, and why.')} accent={ac} onPress={() => navigation.navigate('Retrogrades')} delay={40} isLight={isLight} />
@@ -433,7 +744,7 @@ const renderContent = (id: string, navigation: any, dailyPlan: DailySoulPlan, us
         <ActionTile icon={Layers} label={tr('home.astrology.matrix', 'Matryca', 'Matrix')} sublabel={tr('home.astrology.matrixSub', 'Wzorce energii urodzeniowej', 'Birth energy patterns')} accent={ac} onPress={() => navigation.navigate('Matrix')} delay={120} isLight={isLight} />
         <ActionTile icon={Zap} label={tr('home.astrology.biorhythm', 'Biorytmy', 'Biorhythms')} sublabel={tr('home.astrology.biorhythmSub', 'Fizyczny, emocjonalny i intelektualny cykl', 'Physical, emotional, and intellectual cycles')} accent={ac} onPress={() => navigation.navigate('Biorhythm')} delay={180} isLight={isLight} />
       </View>
-      <MetricsStrip accent={ac} items={[{ val: tr('home.metric.active', 'Aktywne', 'Active'), label: tr('home.metric.cycles', 'CYKLE', 'CYCLES') }, { val: dailyPlan.moonPhase?.icon || '🌙', label: tr('home.metric.moon', 'KSIĘŻYC', 'MOON') }, { val: tr('home.metric.map', 'Mapa', 'Map'), label: tr('home.metric.transits', 'TRANZYTY', 'TRANSITS') }, { val: tr('home.metric.visible', 'Widoczne', 'Visible'), label: tr('home.metric.patterns', 'WZORCE', 'PATTERNS') }]} />
+      <MetricsStrip accent={ac} isLight={isLight} items={[{ val: tr('home.metric.active', 'Aktywne', 'Active'), label: tr('home.metric.cycles', 'CYKLE', 'CYCLES') }, { val: dailyPlan.moonPhase?.icon || '🌙', label: tr('home.metric.moon', 'KSIĘŻYC', 'MOON') }, { val: tr('home.metric.map', 'Mapa', 'Map'), label: tr('home.metric.transits', 'TRANZYTY', 'TRANSITS') }, { val: tr('home.metric.visible', 'Widoczne', 'Visible'), label: tr('home.metric.patterns', 'WZORCE', 'PATTERNS') }]} />
       <SectionDivider label={tr('home.astrology.layers', 'GŁĘBSZE WARSTWY', 'DEEPER LAYERS')} accent={ac} />
       <ExploreRow title={tr('home.astrology.portals', 'Portale Kosmiczne', 'Cosmic portals')} desc={tr('home.astrology.portalsDesc', 'Aktywne okna energetyczne — portale, progi i naturalne punkty zwrotne w cyklu roku.', 'Active energetic windows — portals, thresholds, and natural turning points in the yearly cycle.')} accent={ac} onPress={() => navigation.navigate('CosmicPortals')} delay={0} isLight={isLight} />
       <ExploreRow title={tr('home.astrology.reports', 'Raporty energetyczne', 'Energy reports')} desc={tr('home.astrology.reportsDesc', 'Historia odczytów i wskaźniki aktywności duchowej.', 'The history of readings and indicators of spiritual activity.')} accent={ac} onPress={() => navigation.navigate('Reports')} delay={40} isLight={isLight} />
@@ -454,7 +765,7 @@ const renderContent = (id: string, navigation: any, dailyPlan: DailySoulPlan, us
         <ActionTile icon={Waves} label={tr('home.support.soundBath', 'Kąpiel dźwiękowa', 'Sound Bath')} sublabel={tr('home.support.soundBathSub', '5 pejzaży dźwiękowych z timerem', '5 soundscapes with a timer')} accent={ac} onPress={() => navigation.navigate('SoundBath')} delay={180} isLight={isLight} />
         <ActionTile icon={Gem} label={tr('home.support.crystals', 'Kryształy', 'Crystals')} sublabel={tr('home.support.crystalsSub', 'Przewodnik i odczyt kryształowy', 'Crystal guide and crystal reading')} accent={ac} onPress={() => navigation.navigate('CrystalGuide')} delay={240} isLight={isLight} />
       </View>
-      <MetricsStrip accent={ac} items={[{ val: String(entries.length), label: tr('home.metric.entries', 'WPISY', 'ENTRIES') }, { val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') }, { val: tr('home.metric.active', 'Aktywne', 'Active'), label: tr('home.metric.affirmations', 'AFIRMACJE', 'AFFIRMATIONS') }, { val: dailyPlan.moonPhase?.icon || '🌙', label: tr('home.metric.moon', 'KSIĘŻYC', 'MOON') }]} />
+      <MetricsStrip accent={ac} isLight={isLight} items={[{ val: String(entries.length), label: tr('home.metric.entries', 'WPISY', 'ENTRIES') }, { val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') }, { val: tr('home.metric.active', 'Aktywne', 'Active'), label: tr('home.metric.affirmations', 'AFIRMACJE', 'AFFIRMATIONS') }, { val: dailyPlan.moonPhase?.icon || '🌙', label: tr('home.metric.moon', 'KSIĘŻYC', 'MOON') }]} />
       <SectionDivider label={tr('home.support.ecosystem', 'EKOSYSTEM WSPARCIA', 'SUPPORT ECOSYSTEM')} accent={ac} />
       <ExploreRow title={tr('home.support.innerChild', 'Wewnętrzne Dziecko', 'Inner Child')} desc={tr('home.support.innerChildDesc', 'Praca z traumą wczesnodziecięcą — dialog, list i uzdrowienie.', 'Work with early childhood trauma — dialogue, letters, and healing.')} accent={ac} onPress={() => navigation.navigate('InnerChild')} delay={0} isLight={isLight} />
       <ExploreRow title={tr('home.support.anxietyRelief', 'Ulga od Lęku', 'Anxiety Relief')} desc={tr('home.support.anxietyReliefDesc', 'Techniki SOS, 5-4-3-2-1, oddech i codzienne nawyki.', 'SOS techniques, 5-4-3-2-1 grounding, breath, and daily habits.')} accent={ac} onPress={() => navigation.navigate('AnxietyRelief')} delay={40} isLight={isLight} />
@@ -475,7 +786,7 @@ const renderContent = (id: string, navigation: any, dailyPlan: DailySoulPlan, us
         <ActionTile icon={Droplets} label={tr('home.cleansing.cleansing', 'Oczyszczanie', 'Cleansing')} sublabel={tr('home.cleansing.cleansingSub', 'Rytuał uwalniania i granic', 'A ritual of release and boundaries')} accent={ac} onPress={() => navigation.navigate('Cleansing')} delay={120} isLight={isLight} />
         <ActionTile icon={Zap} label={tr('home.cleansing.brainwaves', 'Fale mózgowe', 'Brainwaves')} sublabel={tr('home.cleansing.brainwavesSub', 'Reset napięcia i głęboki spokój', 'A reset for tension and deep calm')} accent={ac} onPress={() => navigation.navigate('BinauralBeats')} delay={180} isLight={isLight} />
       </View>
-      <MetricsStrip accent={ac} items={[{ val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') }, { val: dailyPlan.moonPhase?.icon || '🌙', label: tr('home.metric.moon', 'KSIĘŻYC', 'MOON') }, { val: String(entries.length), label: tr('home.metric.entries', 'WPISY', 'ENTRIES') }, { val: dailyPlan.energyScore + '%', label: tr('home.metric.energy', 'ENERGIA', 'ENERGY') }]} />
+      <MetricsStrip accent={ac} isLight={isLight} items={[{ val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') }, { val: dailyPlan.moonPhase?.icon || '🌙', label: tr('home.metric.moon', 'KSIĘŻYC', 'MOON') }, { val: String(entries.length), label: tr('home.metric.entries', 'WPISY', 'ENTRIES') }, { val: dailyPlan.energyScore + '%', label: tr('home.metric.energy', 'ENERGIA', 'ENERGY') }]} />
       <SectionDivider label={tr('home.cleansing.tools', 'NARZĘDZIA UWOLNIENIA', 'TOOLS OF RELEASE')} accent={ac} />
       <ExploreRow title={tr('home.cleansing.protection', 'Rytuał Ochrony', 'Protection Ritual')} desc={tr('home.cleansing.protectionDesc', 'Animowana tarcza 3D, 5-krokowy rytuał ochrony i kryształy.', 'An animated 3D shield, a 5-step protection ritual, and crystals.')} accent={ac} onPress={() => navigation.navigate('ProtectionRitual')} delay={0} isLight={isLight} />
       <ExploreRow title={tr('home.cleansing.saltBath', 'Kąpiel Solna', 'Salt Bath')} desc={tr('home.cleansing.saltBathDesc', '3 protokoły oczyszczająco-uzdrawiające z timerem i intencją.', '3 cleansing and healing protocols with a timer and intention.')} accent={ac} onPress={() => navigation.navigate('SaltBath')} delay={40} isLight={isLight} />
@@ -494,7 +805,7 @@ const renderContent = (id: string, navigation: any, dailyPlan: DailySoulPlan, us
         <ActionTile icon={Star} label={tr('home.rituals.journeys', 'Podróże duchowe', 'Spiritual Journeys')} sublabel={tr('home.rituals.journeysSub', 'Wielodniowe ścieżki transformacji', 'Multi-day paths of transformation')} accent={ac} onPress={() => navigation.navigate('Journeys')} delay={120} isLight={isLight} />
         <ActionTile icon={BookOpen} label={tr('home.rituals.intentionCards', 'Karty Intencji', 'Intention Cards')} sublabel={tr('home.rituals.intentionCardsSub', 'Wizualizuj i zapamiętaj intencję', 'Visualize and remember your intention')} accent={ac} onPress={() => navigation.navigate('IntentionCards')} delay={180} isLight={isLight} />
       </View>
-      <MetricsStrip accent={ac} items={[{ val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') }, { val: dailyPlan.energyScore + '%', label: tr('home.metric.energy', 'ENERGIA', 'ENERGY') }, { val: dailyPlan.ritualGuidance?.featured?.duration || '15m', label: tr('home.metric.time', 'CZAS', 'TIME') }, { val: dailyPlan.ritualGuidance?.featured?.category?.slice(0,5) || tr('home.metric.morning', 'Rano', 'Morning'), label: tr('home.metric.mode', 'TRYB', 'MODE') }]} />
+      <MetricsStrip accent={ac} isLight={isLight} items={[{ val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') }, { val: dailyPlan.energyScore + '%', label: tr('home.metric.energy', 'ENERGIA', 'ENERGY') }, { val: dailyPlan.ritualGuidance?.featured?.duration || '15m', label: tr('home.metric.time', 'CZAS', 'TIME') }, { val: dailyPlan.ritualGuidance?.featured?.category?.slice(0,5) || tr('home.metric.morning', 'Rano', 'Morning'), label: tr('home.metric.mode', 'TRYB', 'MODE') }]} />
       <SectionDivider label={tr('home.rituals.ceremonial', 'PRAKTYKI CEREMONIALNE', 'CEREMONIAL PRACTICES')} accent={ac} />
       <ExploreRow title={tr('home.rituals.fireCeremony', 'Ceremonia Ognia', 'Fire Ceremony')} desc={tr('home.rituals.fireCeremonyDesc', 'Rytuał transformacji z animowanym ogniem — spalaj stare wzorce.', 'A ritual of transformation with animated fire — burn old patterns away.')} accent={ac} onPress={() => navigation.navigate('FireCeremony')} delay={0} isLight={isLight} />
       <ExploreRow title={tr('home.rituals.ancestors', 'Połączenie z Przodkami', 'Ancestral Connection')} desc={tr('home.rituals.ancestorsDesc', 'Drzewo genealogiczne, archetypy przodków i rytuał połączenia.', 'A family tree, ancestral archetypes, and a ritual of connection.')} accent={ac} onPress={() => navigation.navigate('AncestralConnection')} delay={40} isLight={isLight} />
@@ -518,7 +829,7 @@ const renderContent = (id: string, navigation: any, dailyPlan: DailySoulPlan, us
           <ActionTile icon={Sparkles} label={tr('home.dreams.interpreter', 'Interpreter snów', 'Dream Interpreter')} sublabel={tr('home.dreams.interpreterSub', 'Analiza obrazu, emocji i przesłania', 'Analysis of image, emotion, and message')} accent={ac} onPress={() => navigation.navigate('DreamInterpreter')} delay={120} isLight={isLight} />
           <ActionTile icon={Star} label={tr('home.dreams.helper', 'Pomocnik snu', 'Sleep Helper')} sublabel={tr('home.dreams.helperSub', 'Wieczorna rutyna i wsparcie snu', 'Evening routine and sleep support')} accent={ac} onPress={() => navigation.navigate('SleepHelper')} delay={180} isLight={isLight} />
         </View>
-        <MetricsStrip accent={ac} items={[{ val: String(dreamEntries.length), label: tr('home.metric.dreams', 'SNY', 'DREAMS') }, { val: dailyPlan.moonPhase?.icon || '🌙', label: tr('home.metric.moon', 'KSIĘŻYC', 'MOON') }, { val: dreamEntries.length > 0 ? tr('home.metric.active', 'Aktywne', 'Active') : tr('home.metric.waitingPlural', 'Czekają', 'Waiting'), label: tr('home.metric.symbols', 'SYMBOLE', 'SYMBOLS') }, { val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') }]} />
+        <MetricsStrip accent={ac} isLight={isLight} items={[{ val: String(dreamEntries.length), label: tr('home.metric.dreams', 'SNY', 'DREAMS') }, { val: dailyPlan.moonPhase?.icon || '🌙', label: tr('home.metric.moon', 'KSIĘŻYC', 'MOON') }, { val: dreamEntries.length > 0 ? tr('home.metric.active', 'Aktywne', 'Active') : tr('home.metric.waitingPlural', 'Czekają', 'Waiting'), label: tr('home.metric.symbols', 'SYMBOLE', 'SYMBOLS') }, { val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') }]} />
         <SectionDivider label={tr('home.dreams.nightWork', 'NOCNA PRACA', 'NIGHT WORK')} accent={ac} />
         <ExploreRow title={tr('home.dreams.lucid', 'Świadome Śnienie', 'Lucid Dreaming')} desc={tr('home.dreams.lucidDesc', 'Techniki WILD, MILD, WBTB i testy rzeczywistości — wejdź w swój sen.', 'WILD, MILD, WBTB, and reality checks — step inside your dream.')} accent={ac} onPress={() => navigation.navigate('LucidDreaming')} delay={0} isLight={isLight} />
         <ExploreRow title={tr('home.dreams.ritual', 'Rytuał Snu', 'Sleep Ritual')} desc={tr('home.dreams.ritualDesc', '7-krokowy protokół wieczorny, skanowanie ciała i oddech 4-7-8.', 'A 7-step evening protocol, body scan, and 4-7-8 breath.')} accent={ac} onPress={() => navigation.navigate('SleepRitual')} delay={40} isLight={isLight} />
@@ -539,13 +850,13 @@ export const HomeScreen = ({ navigation, route }: any) => {
     t(key, { defaultValue: i18n.language?.startsWith('en') ? en : pl, ...options })
   ), [t]);
   const insets = useSafeAreaInsets();
-  const themeName = useAppStore(s => s.themeName);
   const userData = useAppStore(s => s.userData);
   const streaks = useAppStore(s => s.streaks);
   const experience = useAppStore(s => s.experience);
   const checkInToday = useAppStore(s => s.checkInToday);
   const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
   const setExperience = useAppStore(s => s.setExperience);
+  const { currentTheme, isLight, themeName, themeMode } = useTheme();
   const { entries } = useJournalStore();
   const { pastSessions } = useOracleStore();
   const { isPremium } = usePremiumStore();
@@ -575,10 +886,8 @@ export const HomeScreen = ({ navigation, route }: any) => {
   }, [route?.params?.surface]);
 
   const firstName = userData.name?.trim() || tr('home.fallbackName', 'Wędrowcze', 'Traveler');
-  const currentTheme = useMemo(() => getResolvedTheme(themeName), [themeName]);
-  const isLight = currentTheme.background.startsWith('#F');
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
-  const subColor = isLight ? 'rgba(40,28,16,0.55)' : 'rgba(245,241,234,0.55)';
+  const subColor = isLight ? 'rgba(40,28,16,0.72)' : 'rgba(245,241,234,0.55)';
   const localizedSurfaces = useMemo(() => SURFACES.map((surface) => ({
     ...surface,
     title: ({
@@ -662,11 +971,16 @@ export const HomeScreen = ({ navigation, route }: any) => {
       <SafeAreaView edges={['top']} style={hs.safe}>
         {/* HEADER */}
         <View style={hs.header}>
-          <View>
+          <View style={{ flex: 1, marginRight: 10 }}>
             <Text style={[hs.brand, { color: isLight ? '#A97A39' : '#CEAE72' }]}>✦ AETHERA</Text>
-            <Text style={[hs.greeting, { color: textColor }]}>{tr('home.greeting', 'Witaj,', 'Hello,')} {firstName}</Text>
+            <Text style={[hs.greeting, { color: textColor }]} numberOfLines={1} adjustsFontSizeToFit>
+              {getTimeGreeting(firstName)}
+            </Text>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+            <Pressable onPress={() => navigation.navigate('Search')} hitSlop={8} style={{ padding: 4 }}>
+              <Search size={19} color={isLight ? '#A97A39' : '#CEAE72'} strokeWidth={1.8} />
+            </Pressable>
             <MusicToggleButton color={isLight ? '#A97A39' : '#CEAE72'} size={20} />
             <Pressable onPress={() => navigateToMainTab(navigation, 'Profile')}>
               <ProfileAvatar size={38} fallbackText={firstName.charAt(0).toUpperCase()} primary='#CEAE72' borderColor='rgba(206,174,114,0.35)' backgroundColor={isLight ? 'rgba(206,174,114,0.12)' : 'rgba(206,174,114,0.15)'} textColor='#CEAE72' />
@@ -695,16 +1009,68 @@ export const HomeScreen = ({ navigation, route }: any) => {
             </Animated.View>
           )}
 
-          {/* WORLD HERO */}
-          <Animated.View key={activeSurface.id} entering={FadeIn.duration(250)} style={hs.heroSection}>
-            <WorldOrb accent={activeSurface.accent} surfaceId={activeSurface.id} />
-            <Text style={[hs.heroEyebrow, { color: activeSurface.accent }]}>{activeSurface.eyebrow}</Text>
-            <Text style={[hs.heroTitle, { color: textColor }]}>{activeSurface.title}</Text>
-            <Text style={[hs.heroDesc, { color: subColor }]}>{worldDescs[activeSurface.id]}</Text>
-            <View style={[hs.heroLine, { backgroundColor: activeSurface.accent }]} />
-            {dailyPlan.oracleMessage && activeIndex === 0 && (
-              <Text style={[hs.heroMessage, { color: isLight ? 'rgba(40,28,16,0.72)' : 'rgba(235,228,218,0.72)' }]}>{dailyPlan.oracleMessage}</Text>
-            )}
+          {/* WORLD HERO — Living Portal */}
+          <Animated.View key={activeSurface.id} entering={FadeIn.duration(280)} style={hs.heroSection}>
+            {/* Glassmorphism hero card */}
+            <View style={[hs.heroCard, {
+              borderColor: activeSurface.accent + (isLight ? '44' : '2A'),
+              shadowColor: activeSurface.accent,
+              shadowOpacity: isLight ? 0.18 : 0.28,
+              shadowRadius: 28,
+              shadowOffset: { width: 0, height: 8 },
+              elevation: 14,
+            }]}>
+              <LinearGradient
+                colors={isLight
+                  ? [activeSurface.accent + '14', 'rgba(255,255,255,0.92)', activeSurface.accent + '0A'] as [string,string,string]
+                  : [activeSurface.accent + '18', 'rgba(8,6,22,0.82)', activeSurface.accent + '0C'] as [string,string,string]}
+                start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                style={StyleSheet.absoluteFillObject}
+              />
+              {/* Top shimmer bar */}
+              <LinearGradient
+                colors={['transparent', activeSurface.accent + 'CC', 'transparent'] as [string,string,string]}
+                start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1.5, opacity: isLight ? 1 : 0.7 }}
+                pointerEvents="none"
+              />
+              {/* Frosted top highlight */}
+              <LinearGradient
+                colors={isLight ? ['rgba(255,255,255,0.75)', 'rgba(255,255,255,0.0)'] as [string,string] : ['rgba(255,255,255,0.12)', 'rgba(255,255,255,0.0)'] as [string,string]}
+                start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 44, borderTopLeftRadius: 28, borderTopRightRadius: 28 }}
+                pointerEvents="none"
+              />
+              {/* Animated orb */}
+              <AnimatedCelestialOrb accent={activeSurface.accent} isLight={isLight} />
+              <Text style={[hs.heroEyebrow, { color: activeSurface.accent }]}>{activeSurface.eyebrow}</Text>
+              <Text style={[hs.heroTitle, { color: textColor }]}>{activeSurface.title}</Text>
+              <Text style={[hs.heroDesc, { color: subColor }]}>{worldDescs[activeSurface.id]}</Text>
+              {/* Accent divider */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4, marginBottom: 10 }}>
+                <View style={{ flex: 1, height: 1, backgroundColor: activeSurface.accent + '28' }} />
+                <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: activeSurface.accent, opacity: 0.8 }} />
+                <View style={{ flex: 1, height: 1, backgroundColor: activeSurface.accent + '28' }} />
+              </View>
+              {dailyPlan.oracleMessage && activeIndex === 0 && (
+                <Text style={[hs.heroMessage, { color: isLight ? 'rgba(40,28,16,0.72)' : 'rgba(235,228,218,0.72)' }]}>{dailyPlan.oracleMessage}</Text>
+              )}
+            </View>
+          </Animated.View>
+
+          {/* QUICK ACTION RIBBON */}
+          <Animated.View entering={FadeInDown.delay(120).duration(300)} style={{ marginBottom: 22 }}>
+            <Text style={[hs.ribbonLabel, { color: activeSurface.accent + 'AA' }]}>SZYBKI DOSTĘP</Text>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{ paddingHorizontal: 2, gap: 8, paddingVertical: 4 }}
+              overScrollMode="never"
+            >
+              {QUICK_ACTIONS.map((item, idx) => (
+                <QuickActionPill key={item.id} item={item} navigation={navigation} isLight={isLight} index={idx} />
+              ))}
+            </ScrollView>
           </Animated.View>
 
           {/* PER-WORLD CONTENT */}
@@ -726,14 +1092,19 @@ const hs = StyleSheet.create({
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 22, paddingTop: 6, paddingBottom: 10 },
   musicBtn: { width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center', borderWidth: 1 },
   brand: { fontSize: 11, fontWeight: '800', letterSpacing: 3.5, marginBottom: 2 },
-  greeting: { fontSize: 21, fontWeight: '600', letterSpacing: -0.3 },
+  greeting: { fontSize: 18, fontWeight: '700', letterSpacing: -0.4 },
   scroll: { paddingHorizontal: 22, paddingTop: 12 },
   aiBanner: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, padding: 14, borderRadius: 16, borderWidth: 1, marginBottom: 16 },
   aiBannerText: { fontSize: 13, lineHeight: 20, letterSpacing: 0.1 },
-  heroSection: { alignItems: 'center', paddingVertical: 8, marginBottom: 20 },
-  heroEyebrow: { fontSize: 10, fontWeight: '800', letterSpacing: 2.8, marginBottom: 8 },
-  heroTitle: { fontSize: 42, fontWeight: '200', letterSpacing: -1.5, marginBottom: 8 },
-  heroDesc: { fontSize: 14, lineHeight: 21, textAlign: 'center', paddingHorizontal: 28, marginBottom: 16 },
-  heroLine: { width: 48, height: 2, borderRadius: 1, marginBottom: 14, opacity: 0.8 },
-  heroMessage: { fontSize: 13, lineHeight: 21, fontStyle: 'italic', textAlign: 'center', paddingHorizontal: 28 },
+  heroSection: { alignItems: 'center', paddingVertical: 4, marginBottom: 20 },
+  heroCard: {
+    width: '100%', borderRadius: 28, borderWidth: 1.5, overflow: 'hidden',
+    paddingTop: 22, paddingBottom: 20, paddingHorizontal: 20,
+    alignItems: 'center',
+  },
+  heroEyebrow: { fontSize: 10, fontWeight: '800', letterSpacing: 2.8, marginTop: 10, marginBottom: 6 },
+  heroTitle: { fontSize: 40, fontWeight: '200', letterSpacing: -1.5, marginBottom: 8 },
+  heroDesc: { fontSize: 13, lineHeight: 20, textAlign: 'center', paddingHorizontal: 12, marginBottom: 12 },
+  heroMessage: { fontSize: 13, lineHeight: 21, fontStyle: 'italic', textAlign: 'center', paddingHorizontal: 16, paddingBottom: 4 },
+  ribbonLabel: { fontSize: 9, fontWeight: '800', letterSpacing: 2.4, marginBottom: 10 },
 });
