@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { TarotBackground } from '../components/ThematicBackground';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -28,8 +28,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
 import { formatLocaleDate } from '../core/utils/localeFormat';
 import { MusicToggleButton } from '../components/MusicToggleButton';
-
-
+import { useTheme } from '../core/hooks/useTheme';
 const ACCENT = '#CEAE72';
 
 const MAJOR_ARCANA: { name: string; numeral: string; meaning: string; action: string }[] = [
@@ -158,14 +157,16 @@ export const TarotScreen = ({ navigation, route }: any) => {
   const tr = (key: string, pl: string, en: string, options?: Record<string, unknown>) =>
     t(key, { defaultValue: i18n.language?.startsWith('en') ? en : pl, ...options });
   const insets = useSafeAreaInsets();
-  const { themeName, experience, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const experience = useAppStore(s => s.experience);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const isDark = !isLight;
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.60)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.60)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.10)';
   const accent = ACCENT;
   const {
     activeSpread, drawnCards, userQuestion, moodBefore,
@@ -211,8 +212,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
   const handleDraw = (index: number) => {
     const drawn = drawCard(index);
     if (!drawn) return;
-    void HapticsService.impact('heavy');
-    AudioService.playCardRevealTone();
+    void HapticsService.notify();
     setRevealState({
       slotIndex: index, phase: 'consulting',
       cardName: resolveUserFacingText(drawn.card.name),
@@ -272,7 +272,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
         <TarotGlobe accent={accent} isDark={!isLight} />
         <Typography variant="premiumLabel" color={ACCENT} style={{ letterSpacing: 3, marginTop: 4 }}>✦ TAROT ✦</Typography>
         <Typography variant="heroTitle" style={[ts.hubHeroTitle, { color: isLight ? '#1A1A1A' : '#F0EBE2' }]}>{tr('tarot.chamber', 'Komnata Tarota', 'Tarot Chamber')}</Typography>
-        <Typography variant="bodySmall" style={[ts.hubHeroTagline, { color: isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)' }]}>
+        <Typography variant="bodySmall" style={[ts.hubHeroTagline, { color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)' }]}>
           {tr('tarot.heroCopy', 'Karty nie kłamią — mówią tym, czego jeszcze nie śmiesz powiedzieć na głos.', 'The cards do not lie — they speak what you still do not dare to say aloud.')}
         </Typography>
       </Animated.View>
@@ -322,11 +322,10 @@ export const TarotScreen = ({ navigation, route }: any) => {
             <View style={[ts.hubPrimaryIcon, { backgroundColor: ACCENT + '22' }]}>
               <MoonStar color={ACCENT} size={22} strokeWidth={1.6} />
             </View>
-            <View style={{ flex: 1, marginLeft: 14 }}>
-              <Typography variant="cardTitle" style={{ color: isLight ? '#1A1A1A' : '#F0EBE2', fontSize: 15 }}>{tr('tarot.dailyCardLabel', '🃏 Karta dnia', '🃏 Card of the day')}</Typography>
-              <Typography variant="caption" style={{ color: isLight ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)', marginTop: 2 }}>{tr('tarot.dailyCardSub', 'Jeden symbol, jeden ton', 'One symbol, one tone')}</Typography>
+            <View style={{ gap: 3 }}>
+              <Typography variant="cardTitle" style={{ color: isLight ? '#1A1A1A' : '#F0EBE2', fontSize: 14 }} numberOfLines={2}>{tr('tarot.dailyCardLabel', '🃏 Karta dnia', '🃏 Card of the day')}</Typography>
+              <Typography variant="caption" style={{ color: isLight ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.5)', lineHeight: 17 }} numberOfLines={2}>{tr('tarot.dailyCardSub', 'Jeden symbol, jeden ton', 'One symbol, one tone')}</Typography>
             </View>
-            <ArrowRight color={ACCENT} size={16} />
           </Pressable>
         </Animated.View>
 
@@ -336,11 +335,10 @@ export const TarotScreen = ({ navigation, route }: any) => {
             <View style={[ts.hubPrimaryIcon, { backgroundColor: '#A78BFA22' }]}>
               <Sparkles color="#A78BFA" size={22} strokeWidth={1.6} />
             </View>
-            <View style={{ flex: 1, marginLeft: 14 }}>
-              <Typography variant="cardTitle" style={{ color: isLight ? '#1A1A1A' : '#F0EBE2', fontSize: 15 }}>✨ {t('tarot.newReading')}</Typography>
-              <Typography variant="caption" style={{ color: isLight ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)', marginTop: 2 }}>{t('tarot.chooseSpread')}</Typography>
+            <View style={{ gap: 3 }}>
+              <Typography variant="cardTitle" style={{ color: isLight ? '#1A1A1A' : '#F0EBE2', fontSize: 14 }} numberOfLines={2}>✨ {t('tarot.newReading')}</Typography>
+              <Typography variant="caption" style={{ color: isLight ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.5)', lineHeight: 17 }} numberOfLines={2}>{t('tarot.chooseSpread')}</Typography>
             </View>
-            <ArrowRight color="#A78BFA" size={16} />
           </Pressable>
         </Animated.View>
       </View>
@@ -354,13 +352,13 @@ export const TarotScreen = ({ navigation, route }: any) => {
             const spreadColor = SPREAD_COLORS[item.id] || ACCENT;
             return (
               <Animated.View key={item.id} entering={FadeInUp.delay(index * 60).duration(420)}>
-                <Pressable style={[ts.hubSpreadRow, { borderBottomColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }]} onPress={() => { setShowSpreads(false); startReading(item); }}>
+                <Pressable style={[ts.hubSpreadRow, { borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)' }]} onPress={() => { setShowSpreads(false); startReading(item); }}>
                   <View style={[ts.hubSpreadIcon, { backgroundColor: spreadColor + '20' }]}>
                     <Icon color={spreadColor} size={18} strokeWidth={1.8} />
                   </View>
                   <View style={{ flex: 1, marginLeft: 14 }}>
                     <Typography variant="cardTitle" style={{ color: spreadColor, fontSize: 14 }}>{item.name}</Typography>
-                    <Typography variant="caption" style={{ color: isLight ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)', marginTop: 2 }}>{item.description}</Typography>
+                    <Typography variant="caption" style={{ color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.5)', marginTop: 2 }}>{item.description}</Typography>
                   </View>
                   <View style={[ts.spreadBadge, { backgroundColor: spreadColor + '18', borderColor: spreadColor + '33' }]}>
                     <Typography variant="microLabel" color={spreadColor}>{item.slots.length} kart</Typography>
@@ -384,15 +382,15 @@ export const TarotScreen = ({ navigation, route }: any) => {
           const isLast = index === hubEntries.length - 1;
           return (
             <Animated.View key={entry.id} entering={FadeInUp.delay(200 + index * 70).duration(450)}>
-              <Pressable style={[ts.hubEntryRow, !isLast && { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }]} onPress={entry.onPress}>
+              <Pressable style={[ts.hubEntryRow, !isLast && { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)' }]} onPress={entry.onPress}>
                 <View style={[ts.hubEntryIcon, { backgroundColor: entry.color + '1A' }]}>
                   <Icon color={entry.color} size={20} strokeWidth={1.7} />
                 </View>
                 <View style={{ flex: 1, marginLeft: 16 }}>
                   <Typography variant="cardTitle" style={{ color: isLight ? '#1A1A1A' : '#F0EBE2', fontSize: 15 }}>{entry.label}</Typography>
-                  <Typography variant="caption" style={{ color: isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.50)', marginTop: 3, lineHeight: 18 }}>{entry.desc}</Typography>
+                  <Typography variant="caption" style={{ color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)', marginTop: 3, lineHeight: 18 }}>{entry.desc}</Typography>
                 </View>
-                <ArrowRight color={isLight ? 'rgba(0,0,0,0.30)' : 'rgba(255,255,255,0.30)'} size={16} />
+                <ArrowRight color={isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.30)'} size={16} />
               </Pressable>
             </Animated.View>
           );
@@ -413,7 +411,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
           return (
             <Pressable
               key={item.route + i}
-              style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 14, borderBottomWidth: i < 2 ? StyleSheet.hairlineWidth : 0, borderBottomColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }}
+              style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 14, borderBottomWidth: i < 2 ? StyleSheet.hairlineWidth : 0, borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)' }}
               onPress={() => navigation.navigate(item.route as any, (item as any).params)}
             >
               <View style={{ width: 38, height: 38, borderRadius: 12, backgroundColor: item.color + '1A', alignItems: 'center', justifyContent: 'center', marginRight: 14 }}>
@@ -421,9 +419,9 @@ export const TarotScreen = ({ navigation, route }: any) => {
               </View>
               <View style={{ flex: 1 }}>
                 <Typography variant="cardTitle" style={{ color: isLight ? '#1A1A1A' : '#F0EBE2', fontSize: 14 }}>{item.label}</Typography>
-                <Typography variant="caption" style={{ color: isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.50)', marginTop: 2 }}>{item.sub}</Typography>
+                <Typography variant="caption" style={{ color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)', marginTop: 2 }}>{item.sub}</Typography>
               </View>
-              <ArrowRight color={isLight ? 'rgba(0,0,0,0.30)' : 'rgba(255,255,255,0.30)'} size={15} />
+              <ArrowRight color={isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.30)'} size={15} />
             </Pressable>
           );
         })}
@@ -458,7 +456,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
           colors={(isLight ? ['#F5F0FF', '#EDE6FF', '#E6DCFF'] : ['#1A0A2E', '#0D0618', '#13082A']) as any}
           style={{ borderRadius: 20, paddingVertical: 28, paddingHorizontal: 20, alignItems: 'center', width: '100%' }}
         >
-          <View style={ts.ceremonyHalo}>
+          <View style={[ts.ceremonyHalo, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : '#0F1320', borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(206,174,114,0.25)' }]}>
             <Brain color={ACCENT} size={32} strokeWidth={1.1} />
           </View>
           <Typography variant="editorialHeader" style={ts.ceremonyTitle}>{tr('tarot.ceremony.title', 'Najpierw przyjmij pytanie w ciszy. Potem pozwól talii odpowiedzieć.', 'First receive the question in silence. Then allow the deck to answer.')}</Typography>
@@ -466,7 +464,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
         </LinearGradient>
       </Animated.View>
 
-      <View style={[ts.prepDeckCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', borderWidth: 1, borderRadius: 16 }]}>
+      <View style={[ts.prepDeckCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.08)', borderWidth: 1, borderRadius: 16 }]}>
         <View style={ts.prepDeckRow}>
           <TarotCardVisual deck={deck} faceDown size="small" subtitle="Talia aktywna" />
           <View style={{ flex: 1 }}>
@@ -478,7 +476,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
 
       <View style={ts.inputCard} onLayout={(e) => setInputCardY(e.nativeEvent.layout.y)}>
         <Typography variant="premiumLabel" color={ACCENT}>{tr('tarot.questionOrIntention', 'Pytanie lub intencja', 'Question or intention')}</Typography>
-        <TextInput style={[ts.textInput, { color: currentTheme.text, borderColor: ACCENT + '55', backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)' }]}
+        <TextInput style={[ts.textInput, { color: currentTheme.text, borderColor: ACCENT + '55', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)' }]}
           placeholder={tr('tarot.questionPlaceholder', 'Napisz, co naprawdę chcesz dziś zrozumieć', 'Write what you truly want to understand today')} placeholderTextColor={currentTheme.textMuted}
           multiline value={userQuestion} onChangeText={setUserQuestion}
           onFocus={() => setTimeout(() => scrollRef.current?.scrollTo({ y: Math.max(0, inputCardY - 60), animated: true }), 350)} />
@@ -553,7 +551,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
               <Pressable onPress={() => handleDraw(index)} disabled={!!drawn} style={ts.slotPress}>
                 <View style={[ts.slotCard, drawn
                   ? { backgroundColor: ACCENT + '12', borderColor: ACCENT + '30', borderWidth: 1 }
-                  : { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', borderWidth: 1 }
+                  : { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.08)', borderWidth: 1 }
                 ]}>
                   {drawn ? (
                     <View style={ts.drawnContent}>
@@ -579,7 +577,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
           <View style={[ts.synthesisBlock, { borderColor: ACCENT + '44', backgroundColor: ACCENT + '08' }]}>
             <LinearGradient colors={[ACCENT + '18', 'transparent']} style={StyleSheet.absoluteFillObject as any}/>
             <Typography variant="premiumLabel" color={ACCENT}>SYNTEZA ROZKLADU</Typography>
-            <Typography variant="editorialHeader" style={ts.synthesisTitle}>
+            <Typography variant="editorialHeader" style={[ts.synthesisTitle, { color: isLight ? '#251D16' : '#F5F1EA' }]}>
               {drawnCards.filter(card => card.isReversed).length > 1
                 ? 'Napiecie — kilka kart niesie energie wymagajaca pracy'
                 : drawnCards.filter(card => card.isReversed).length === 1
@@ -693,13 +691,13 @@ export const TarotScreen = ({ navigation, route }: any) => {
             <Typography variant="bodySmall" style={ts.historyIntro}>Historia Twoich odczytów. Usuń, jeśli nie chcesz już trzymać zapisu.</Typography>
             <ScrollView contentContainerStyle={{ gap: 10, paddingTop: 14, paddingBottom: 8 }} showsVerticalScrollIndicator={false}>
               {pastReadings.map((r, idx) => (
-                <View key={r.id} style={[{ padding: 16, borderRadius: 14, backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderWidth: StyleSheet.hairlineWidth, borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)' }]}>
+                <View key={r.id} style={[{ padding: 16, borderRadius: 14, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderWidth: StyleSheet.hairlineWidth, borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.08)' }]}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
                     <View style={{ flex: 1 }}>
                       <Typography variant="premiumLabel" color={ACCENT}>{r.spread.name}</Typography>
                     <Typography variant="bodySmall" style={{ marginTop: 6, opacity: 0.78 }}>{r.question || (i18n.language?.startsWith('en') ? 'Reading without a question' : 'Odczyt bez pytania')} • {formatLocaleDate(r.date)}</Typography>
                     </View>
-                    <Pressable style={ts.deleteBtn} onPress={() => deleteReading(r.id)}>
+                    <Pressable style={[ts.deleteBtn, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)' }]} onPress={() => deleteReading(r.id)}>
                       <Trash2 color={ACCENT} size={15} />
                     </Pressable>
                   </View>
@@ -787,7 +785,7 @@ const ts = StyleSheet.create({
   selectionManifest: { borderRadius: 22, borderWidth: 1, borderColor: 'rgba(206,174,114,0.22)', backgroundColor: 'rgba(206,174,114,0.06)', padding: 18, marginBottom: 16, overflow: 'hidden' },
   selectionManifestGrid: { gap: 10, marginTop: 12 },
   selectionManifestTile: { borderRadius: 16, borderWidth: 1, borderColor: 'rgba(206,174,114,0.16)', backgroundColor: 'rgba(206,174,114,0.05)', padding: 14 },
-  selectionManifestTitle: { fontSize: 15, color: '#F5F1EA' },
+  selectionManifestTitle: { fontSize: 15 }, // color set inline: isLight ? '#251D16' : '#F5F1EA'
   selectionManifestCopy: { marginTop: 6, lineHeight: 20, opacity: 0.82 },
   deckFan: { height: 210, alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 20 },
   fanCard: { position: 'absolute' },
@@ -839,7 +837,7 @@ const ts = StyleSheet.create({
   modalFanItem: { position: 'absolute' },
   acceptReveal: { minHeight: 52, borderRadius: 999, paddingHorizontal: 20, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', marginTop: 20 },
   synthesisBlock: { borderRadius: 24, borderWidth: 1, padding: 22, overflow: 'hidden', marginBottom: 16, shadowColor: '#000', shadowOpacity: 0.16, shadowRadius: 18, shadowOffset: { width: 0, height: 10 }, elevation: 6 },
-  synthesisTitle: { marginTop: 10, lineHeight: 28, color: '#F5F1EA' },
+  synthesisTitle: { marginTop: 10, lineHeight: 28 },
   synthesisCopy: { marginTop: 8, lineHeight: 20, opacity: 0.8, color: 'rgba(245,241,234,0.8)', marginBottom: 14 },
   synthesisStats: { flexDirection: 'row', alignItems: 'center', paddingTop: 14, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: 'rgba(206,174,114,0.2)' },
   synthesisStatItem: { flex: 1, alignItems: 'center', gap: 4 },
@@ -859,9 +857,9 @@ const ts = StyleSheet.create({
   hubToneDnia: { flexDirection: 'row', alignItems: 'center', marginTop: 10, marginBottom: 6 },
   hubToneDivider: { flex: 1, height: 1 },
   hubToneText: { fontSize: 14, lineHeight: 22, marginBottom: 18, fontStyle: 'italic' },
-  hubPrimaryRow: { flexDirection: 'row', gap: 10, marginBottom: 18 },
-  hubPrimaryTile: { flex: 1, flexDirection: 'row', alignItems: 'center', borderRadius: 20, paddingVertical: 16, paddingHorizontal: 14, overflow: 'hidden', borderWidth: 1, borderColor: 'rgba(206,174,114,0.20)' },
-  hubPrimaryIcon: { width: 42, height: 42, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
+  hubPrimaryRow: { flexDirection: 'row', gap: 12, marginBottom: 18 },
+  hubPrimaryTile: { flex: 1, flexDirection: 'column', alignItems: 'flex-start', borderRadius: 20, paddingVertical: 18, paddingHorizontal: 16, overflow: 'hidden', borderWidth: 1, borderColor: 'rgba(206,174,114,0.20)', gap: 10 },
+  hubPrimaryIcon: { width: 44, height: 44, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
   hubSpreadRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 14, borderBottomWidth: StyleSheet.hairlineWidth },
   hubSpreadIcon: { width: 38, height: 38, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
   hubSectionHeader: { paddingVertical: 14, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: 'rgba(206,174,114,0.20)', marginBottom: 4 },

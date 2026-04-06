@@ -337,7 +337,565 @@
     "cardOfDay": "CARTA DEL DÍA",
     "partnerReading": "Tirada para la pareja",
     "forSomeoneTitle": "Tirada para alguien",
-    "enterName": "Ingresa el nombre de la persona"
+    "enterName": "Ingresa el nombre de la persona",
+    "cards": {
+      "major": {
+        "0": {
+          "name": "El Loco",
+          "meaningUpright": "New beginnings, spontaneity, faith in life, innocence",
+          "meaningReversed": "Recklessness, risk-taking, naivety, poor judgment",
+          "description": "The Fool represents pure potential and the willingness to embark on a new journey with an open heart.",
+          "advice": "Trust the process and step forward with courage."
+        },
+        "1": {
+          "name": "El Mago",
+          "meaningUpright": "Will, manifestation, skill, creative power, resourcefulness",
+          "meaningReversed": "Manipulation, blocked energy, trickery, false appearances",
+          "description": "The Magician bridges the spiritual and material realms, transforming thought into reality.",
+          "advice": "You have everything you need. Act decisively and with intention."
+        },
+        "2": {
+          "name": "La Suma Sacerdotisa",
+          "meaningUpright": "Intuition, mystery, inner knowledge, stillness, the subconscious",
+          "meaningReversed": "Secrets, ignoring intuition, disharmony, hidden agendas",
+          "description": "The High Priestess invites you into the world of the subconscious and deep inner wisdom.",
+          "advice": "Listen to your inner wisdom. Silence holds the answers you seek."
+        },
+        "3": {
+          "name": "La Emperatriz",
+          "meaningUpright": "Fertility, abundance, motherhood, nature, creativity",
+          "meaningReversed": "Dependence, stagnation, blocked creativity, smothering",
+          "description": "The Empress embodies divine femininity, life force, and the fertile power of nature.",
+          "advice": "Nurture yourself and others. Abundance is right before you."
+        },
+        "4": {
+          "name": "El Emperador",
+          "meaningUpright": "Authority, structure, stability, leadership, discipline",
+          "meaningReversed": "Domination, rigidity, lack of flexibility, control issues",
+          "description": "The Emperor provides solid foundations and a stable structure for your actions.",
+          "advice": "Build a strong foundation. Act with authority and responsibility."
+        },
+        "5": {
+          "name": "El Hierofante",
+          "meaningUpright": "Tradition, spirituality, guidance, values, institutions",
+          "meaningReversed": "Dogmatism, conformity, rebellion against norms",
+          "description": "The Hierophant bridges the sacred and the mundane as teacher and guide.",
+          "advice": "Seek the wisdom of teachers or your own spiritual path."
+        },
+        "6": {
+          "name": "Los Enamorados",
+          "meaningUpright": "Love, harmony, values, heart choices, relationships",
+          "meaningReversed": "Separation, indecision, conflict of values, misalignment",
+          "description": "The Lovers symbolise union, harmony, and important life choices made from the heart.",
+          "advice": "Make a decision aligned with your deepest values and heart's truth."
+        },
+        "7": {
+          "name": "El Carro",
+          "meaningUpright": "Will, determination, victory, control, triumph",
+          "meaningReversed": "Aggression, lack of control, scattered energy, defeat",
+          "description": "The Chariot is the triumph of will over obstacles through disciplined action.",
+          "advice": "Hold the reins firmly. Your determination will carry you to your goal."
+        },
+        "8": {
+          "name": "La Fuerza",
+          "meaningUpright": "Courage, patience, compassion, inner strength, confidence",
+          "meaningReversed": "Weakness, self-doubt, lack of faith, insecurity",
+          "description": "Strength is the gentle power rooted in love and spiritual courage.",
+          "advice": "Approach the situation with love and calm rather than force."
+        },
+        "9": {
+          "name": "El Ermitaño",
+          "meaningUpright": "Introspection, reflection, wisdom, solitude, inner guidance",
+          "meaningReversed": "Isolation, loneliness, withdrawal, cutting off from the world",
+          "description": "The Hermit illuminates the path to inner truth through silence and contemplation.",
+          "advice": "Step back for a while and seek answers within yourself."
+        },
+        "10": {
+          "name": "La Rueda de la Fortuna",
+          "meaningUpright": "Change, life cycles, karma, fate, turning point",
+          "meaningReversed": "Bad luck, resistance to change, stagnation, breaking cycles",
+          "description": "The Wheel of Fortune reminds us of the constant movement and cyclical nature of all existence.",
+          "advice": "Accept change as part of the cycle. What ends makes way for the new."
+        },
+        "11": {
+          "name": "La Justicia",
+          "meaningUpright": "Truth, balance, fairness, karma, cause and effect",
+          "meaningReversed": "Injustice, imbalance, avoiding truth, dishonesty",
+          "description": "Justice symbolises objective truth and the consequences of our actions.",
+          "advice": "Be honest with yourself and others. Truth always comes to light."
+        },
+        "12": {
+          "name": "El Colgado",
+          "meaningUpright": "Surrender, new perspective, sacrifice, pause, letting go",
+          "meaningReversed": "Resistance to surrender, stagnation, martyrdom, delays",
+          "description": "The Hanged Man pauses us to see the world from a fresh, inverted angle.",
+          "advice": "Release control. Suspension will bring you a new perspective and wisdom."
+        },
+        "13": {
+          "name": "La Muerte",
+          "meaningUpright": "Ending, transformation, transition, rebirth, change",
+          "meaningReversed": "Resistance to change, stagnation, fear of endings",
+          "description": "The Death card does not signify physical death but deep transformation and new beginnings.",
+          "advice": "Allow the old to pass. Transformation opens the door to new life."
+        },
+        "14": {
+          "name": "La Templanza",
+          "meaningUpright": "Harmony, balance, patience, moderation, synthesis",
+          "meaningReversed": "Imbalance, impatience, extremes, excess",
+          "description": "Temperance teaches us the art of balancing and finding the golden mean.",
+          "advice": "Find harmony between extremes. Patience is your strength."
+        },
+        "15": {
+          "name": "El Diablo",
+          "meaningUpright": "Addiction, materialism, illusion, bondage, shadow self",
+          "meaningReversed": "Liberation, release, breaking chains, reclaiming power",
+          "description": "The Devil embodies our addictions and the limitations we impose on ourselves.",
+          "advice": "Recognise your bonds and begin the process of liberation. You have the power to break free."
+        },
+        "16": {
+          "name": "La Torre",
+          "meaningUpright": "Chaos, sudden change, awakening, revelation, upheaval",
+          "meaningReversed": "Avoiding disaster, fear of change, delaying the inevitable",
+          "description": "The Tower shatters old structures to make room for authenticity and truth.",
+          "advice": "Though the change is abrupt, this clearing paves the way for a true foundation."
+        },
+        "17": {
+          "name": "La Estrella",
+          "meaningUpright": "Hope, inspiration, serenity, healing, renewal",
+          "meaningReversed": "Loss of faith, pessimism, hopelessness, discouragement",
+          "description": "The Star brings healing, hope, and renewal after difficult experiences.",
+          "advice": "Have faith. After darkness, starlight always comes."
+        },
+        "18": {
+          "name": "La Luna",
+          "meaningUpright": "Illusion, fear, the subconscious, dreams, uncertainty",
+          "meaningReversed": "Clarity, dispelling confusion, emerging from darkness",
+          "description": "The Moon illuminates our fears and the shadowy corners of the subconscious.",
+          "advice": "Face your own fears. Not everything is as it seems."
+        },
+        "19": {
+          "name": "El Sol",
+          "meaningUpright": "Joy, success, vitality, clarity, positivity, radiance",
+          "meaningReversed": "Naivety, blocked joy, excessive optimism, temporary setbacks",
+          "description": "The Sun brings clarity, vitality, and genuine happiness in every area of life.",
+          "advice": "Shine your full light. This is a time of joy and success."
+        },
+        "20": {
+          "name": "El Juicio",
+          "meaningUpright": "Awakening, absolution, renewal, calling, reckoning",
+          "meaningReversed": "Self-criticism, doubt, fear of judgement, ignoring the call",
+          "description": "Judgement symbolises deep awakening and the answer to a spiritual calling.",
+          "advice": "Answer your higher calling. It is time for renewal and a new chapter."
+        },
+        "21": {
+          "name": "El Mundo",
+          "meaningUpright": "Fulfilment, integration, completion, triumph, wholeness",
+          "meaningReversed": "Incompleteness, lack of closure, procrastination, stagnation",
+          "description": "The World signifies the fullness of experience, completion of a cycle, and celebration of achievement.",
+          "advice": "Celebrate your accomplishments. One cycle ends; a new one begins."
+        }
+      },
+      "cups": {
+        "c1": {
+          "name": "As de Copas",
+          "meaningUpright": "New emotions, love, intuition, emotional abundance, beginnings",
+          "meaningReversed": "Blocked emotions, repressed feelings, loss of connection",
+          "description": "The Ace of Cups symbolises pure love and emotional new beginnings.",
+          "advice": "Open your heart to love and new emotional possibilities."
+        },
+        "c2": {
+          "name": "Dos de Copas",
+          "meaningUpright": "Partnership, harmony, mutual attraction, connection",
+          "meaningReversed": "Separation, imbalance, conflict, disharmony",
+          "description": "The Two of Cups represents the depth of connection and mutual feeling.",
+          "advice": "Nurture your relationships and mutual understanding."
+        },
+        "c3": {
+          "name": "Tres de Copas",
+          "meaningUpright": "Celebration, community, friendship, joy, abundance",
+          "meaningReversed": "Excess, gossip, isolation from friends, over-indulgence",
+          "description": "The Three of Cups is a celebration with loved ones and the joy of community.",
+          "advice": "Celebrate together with others. Shared moments of joy hold great power."
+        },
+        "c4": {
+          "name": "Cuatro de Copas",
+          "meaningUpright": "Meditation, contemplation, boredom, apathy, re-evaluation",
+          "meaningReversed": "New opportunities, new awakening, motivation, openness",
+          "description": "The Four of Cups invites inner reflection and re-evaluation of desires.",
+          "advice": "Pause and consider what you truly want. A new opportunity may be right before you."
+        },
+        "c5": {
+          "name": "Cinco de Copas",
+          "meaningUpright": "Loss, regret, disappointment, grief, sorrow",
+          "meaningReversed": "Acceptance, forgiveness, new perspective, moving on",
+          "description": "The Five of Cups teaches us that after loss something always remains on which we can build.",
+          "advice": "Allow yourself to grieve, but do not forget what you still have."
+        },
+        "c6": {
+          "name": "Seis de Copas",
+          "meaningUpright": "Nostalgia, memories, innocence, the past, simplicity",
+          "meaningReversed": "Stuck in the past, naivety, living in fantasy",
+          "description": "The Six of Cups evokes the beauty of memories and the simplicity of former days.",
+          "advice": "Draw joy from memories, but remember that life moves forward."
+        },
+        "c7": {
+          "name": "Siete de Copas",
+          "meaningUpright": "Fantasy, illusion, many choices, wishful thinking, dreams",
+          "meaningReversed": "Clarity, realism, making the right choice, focus",
+          "description": "The Seven of Cups reveals an abundance of possibilities, though not all are real.",
+          "advice": "Distinguish dream from reality. Focus on what is truly attainable."
+        },
+        "c8": {
+          "name": "Ocho de Copas",
+          "meaningUpright": "Walking away, seeking deeper meaning, withdrawal, letting go",
+          "meaningReversed": "Fear of abandonment, avoiding truth, staying in the wrong situation",
+          "description": "The Eight of Cups symbolises the courage to leave behind what does not fulfil us.",
+          "advice": "Have the courage to walk away from what does not serve your spiritual growth."
+        },
+        "c9": {
+          "name": "Nueve de Copas",
+          "meaningUpright": "Wish fulfilment, satisfaction, happiness, contentment",
+          "meaningReversed": "Materialism, wishful thinking, illusion of happiness, greed",
+          "description": "The Nine of Cups is the card of emotional fulfilment and life satisfaction.",
+          "advice": "Your wishes can come true. Be grateful for what you already have."
+        },
+        "c10": {
+          "name": "Diez de Copas",
+          "meaningUpright": "Family, harmony, happiness, fulfilment, long-term joy",
+          "meaningReversed": "Family conflicts, lack of harmony, broken home, loss of meaning",
+          "description": "The Ten of Cups symbolises ideal family happiness and emotional completeness.",
+          "advice": "Nurture family bonds and close relationships. That is your true treasure."
+        },
+        "c11": {
+          "name": "Sota de Copas",
+          "meaningUpright": "Creativity, intuition, sensitivity, new feelings, imagination",
+          "meaningReversed": "Emotional immaturity, daydreaming, moodiness",
+          "description": "The Page of Cups is an artistic soul full of imagination and emotional sensitivity.",
+          "advice": "Trust your intuition and give expression to the creativity you carry in your heart."
+        },
+        "c12": {
+          "name": "Caballero de Copas",
+          "meaningUpright": "Romance, charm, imagination, following dreams, idealism",
+          "meaningReversed": "Moodiness, unrealistic expectations, disappointment, over-sensitivity",
+          "description": "The Knight of Cups moves forward with a heart full of dreams and romantic ideals.",
+          "advice": "Follow your dreams, but do not lose yourself in illusions. Stay true to yourself."
+        },
+        "c13": {
+          "name": "Reina de Copas",
+          "meaningUpright": "Empathy, intuition, nurturing, emotional wisdom, compassion",
+          "meaningReversed": "Emotional dependency, manipulation, insecurity, moodiness",
+          "description": "The Queen of Cups embodies the depth of emotion and loving wisdom of the heart.",
+          "advice": "Use your intuition and empathy as a guide in your relationships."
+        },
+        "c14": {
+          "name": "Rey de Copas",
+          "meaningUpright": "Emotional maturity, diplomacy, wisdom, calm, balance",
+          "meaningReversed": "Emotional manipulation, repression of feelings, instability",
+          "description": "The King of Cups rules over emotions with wisdom and stability.",
+          "advice": "Be master of your emotions, not their victim. Act with balance and wisdom."
+        }
+      },
+      "wands": {
+        "w1": {
+          "name": "As de Bastos",
+          "meaningUpright": "New beginnings, inspiration, potential, creative energy, spark",
+          "meaningReversed": "Delays, lack of motivation, creative block, missed opportunity",
+          "description": "The Ace of Wands is the spark that ignites the flame of new ventures and passion.",
+          "advice": "Act on this creative energy. Now is the time to begin."
+        },
+        "w2": {
+          "name": "Dos de Bastos",
+          "meaningUpright": "Planning, vision, partnership, future, bold steps",
+          "meaningReversed": "Fear of the unknown, lack of planning, playing it safe",
+          "description": "The Two of Wands invites bold planning and ambitious steps forward.",
+          "advice": "Think long-term and boldly plan your next move."
+        },
+        "w3": {
+          "name": "Tres de Bastos",
+          "meaningUpright": "Expansion, foresight, leadership, progress, enterprise",
+          "meaningReversed": "Obstacles, delays, frustration, lack of foresight",
+          "description": "The Three of Wands symbolises the moment of observing the fruits of your work and planning expansion.",
+          "advice": "Your work is bearing results. It is time to broaden your horizons."
+        },
+        "w4": {
+          "name": "Cuatro de Bastos",
+          "meaningUpright": "Celebration, harmony, home, stability, milestone",
+          "meaningReversed": "Lack of harmony, overload, postponing celebration, conflict at home",
+          "description": "The Four of Wands is a joyful celebration of achievements and a sense of belonging.",
+          "advice": "Celebrate your successes. You have earned a moment of joy and gratitude."
+        },
+        "w5": {
+          "name": "Cinco de Bastos",
+          "meaningUpright": "Conflict, competition, chaos, challenge, struggle",
+          "meaningReversed": "Avoiding conflict, end of struggle, harmony, resolution",
+          "description": "The Five of Wands reveals the dynamic energy of competition and creative chaos.",
+          "advice": "Approach challenges with an open mind. Conflict can lead to growth."
+        },
+        "w6": {
+          "name": "Seis de Bastos",
+          "meaningUpright": "Triumph, victory, recognition, success, public acknowledgement",
+          "meaningReversed": "Arrogance, downfall, uncertainty of success, egotism",
+          "description": "The Six of Wands celebrates public recognition and longed-for victory.",
+          "advice": "Your success deserves recognition. Accept it with grace and humility."
+        },
+        "w7": {
+          "name": "Siete de Bastos",
+          "meaningUpright": "Perseverance, defence, challenge, determination, standing firm",
+          "meaningReversed": "Exhaustion, over-defensiveness, giving up, compromise",
+          "description": "The Seven of Wands demands perseverance in the face of challenges and defending your position.",
+          "advice": "Stand firmly by your convictions. Perseverance is your strength."
+        },
+        "w8": {
+          "name": "Ocho de Bastos",
+          "meaningUpright": "Swift action, movement, news, progress, momentum",
+          "meaningReversed": "Delays, frustration, information chaos, lack of direction",
+          "description": "The Eight of Wands brings rapid changes and an acceleration of events.",
+          "advice": "Act quickly when the opportunity arises. Timing matters."
+        },
+        "w9": {
+          "name": "Nueve de Bastos",
+          "meaningUpright": "Perseverance, resilience, boundaries, strength, near completion",
+          "meaningReversed": "Exhaustion, lack of resilience, excessive caution, burnout",
+          "description": "The Nine of Wands symbolises the strength gained through difficult experiences.",
+          "advice": "You are stronger than you think. One last effort and the goal will be reached."
+        },
+        "w10": {
+          "name": "Diez de Bastos",
+          "meaningUpright": "Burden, overwhelm, duty, responsibility, carrying too much",
+          "meaningReversed": "Delegation, release, simplification, letting go",
+          "description": "The Ten of Wands reveals the weight of excessive obligations and the need to delegate.",
+          "advice": "You do not have to carry everything alone. Share part of the burden with others."
+        },
+        "w11": {
+          "name": "Sota de Bastos",
+          "meaningUpright": "Enthusiasm, exploration, ambition, energy, free spirit",
+          "meaningReversed": "Lack of direction, inconsistency, immaturity, scattered energy",
+          "description": "The Page of Wands is an energetic adventurer ready for new challenges.",
+          "advice": "Be bold and enthusiastic. Your energy is contagious."
+        },
+        "w12": {
+          "name": "Caballero de Bastos",
+          "meaningUpright": "Impulsiveness, adventure, energy, passion, action",
+          "meaningReversed": "Scattered energy, lack of plan, reckless decisions, haste",
+          "description": "The Knight of Wands charges forward with unbridled passion and courage.",
+          "advice": "Channel your energy into concrete actions so as not to fall into chaos."
+        },
+        "w13": {
+          "name": "Reina de Bastos",
+          "meaningUpright": "Confidence, independence, charisma, courage, determination",
+          "meaningReversed": "Jealousy, domination, egocentrism, aggression",
+          "description": "The Queen of Wands embodies powerful femininity, independence, and magnetic charisma.",
+          "advice": "Be yourself without apology. Your authenticity is your greatest strength."
+        },
+        "w14": {
+          "name": "Rey de Bastos",
+          "meaningUpright": "Leadership, vision, entrepreneurship, inspiration, boldness",
+          "meaningReversed": "Impulsiveness, arrogance, tyranny, high expectations",
+          "description": "The King of Wands is a visionary leader who inspires others with passion and determination.",
+          "advice": "Lead with vision and passion. Your leadership can inspire others."
+        }
+      },
+      "swords": {
+        "s1": {
+          "name": "As de Espadas",
+          "meaningUpright": "Mental clarity, truth, breakthrough, new thinking, justice",
+          "meaningReversed": "Confusion of thought, disinformation, brutality, chaos",
+          "description": "The Ace of Swords is the sharpness of intellect and the power of truth that cuts through illusions.",
+          "advice": "Seek truth and speak with clear, precise intention."
+        },
+        "s2": {
+          "name": "Dos de Espadas",
+          "meaningUpright": "Dilemma, blocked decision, stalemate, avoidance",
+          "meaningReversed": "Disorientation, deception, indecision, information overload",
+          "description": "The Two of Swords symbolises a difficult choice and the necessity of looking beyond appearances.",
+          "advice": "Remove the blindfold. The true answer lies within you."
+        },
+        "s3": {
+          "name": "Tres de Espadas",
+          "meaningUpright": "Heartbreak, betrayal, grief, sorrow, pain",
+          "meaningReversed": "Healing, forgiveness, release from pain, recovery",
+          "description": "The Three of Swords reveals the pain of the heart, a necessary stage on the path to healing.",
+          "advice": "Allow yourself to feel the pain. Healing begins with accepting the truth."
+        },
+        "s4": {
+          "name": "Cuatro de Espadas",
+          "meaningUpright": "Rest, recuperation, meditation, contemplation, retreat",
+          "meaningReversed": "Return to action, anxiety, lack of rest, burnout",
+          "description": "The Four of Swords encourages pausing and recuperating after intense effort.",
+          "advice": "Allow yourself to rest. Peace of mind will restore your strength."
+        },
+        "s5": {
+          "name": "Cinco de Espadas",
+          "meaningUpright": "Conflict, defeat, dishonesty, hostility, hollow victory",
+          "meaningReversed": "Reconciliation, resolution, moving past conflict, forgiveness",
+          "description": "The Five of Swords reveals the consequences of battle and the need for wisdom in choosing your fights.",
+          "advice": "Not every battle is worth winning. Wisdom lies in choosing your fights."
+        },
+        "s6": {
+          "name": "Seis de Espadas",
+          "meaningUpright": "Transition, journey, moving toward calm, rite of passage",
+          "meaningReversed": "Resistance to change, stuck in problems, ongoing turbulence",
+          "description": "The Six of Swords symbolises a slow emergence from difficulty toward calmer waters.",
+          "advice": "Move forward. Better times await on the other side."
+        },
+        "s7": {
+          "name": "Siete de Espadas",
+          "meaningUpright": "Deception, strategy, escape, cunning, acting alone",
+          "meaningReversed": "Return to honesty, exposure of deception, confession",
+          "description": "The Seven of Swords points to the need for a considered strategy or warns against deception.",
+          "advice": "Be wary of dishonesty — your own or others'. Strategy requires integrity."
+        },
+        "s8": {
+          "name": "Ocho de Espadas",
+          "meaningUpright": "Imprisonment, restriction, self-limiting beliefs, helplessness",
+          "meaningReversed": "Liberation, new perspective, breaking limitations, empowerment",
+          "description": "The Eight of Swords reveals restrictions that we often impose upon ourselves in the mind.",
+          "advice": "Your bonds are less real than you think. You have the power to free yourself."
+        },
+        "s9": {
+          "name": "Nueve de Espadas",
+          "meaningUpright": "Fear, anxiety, nightmares, worry, mental anguish",
+          "meaningReversed": "Hope, recovery from fear, seeking help, relief",
+          "description": "The Nine of Swords symbolises the suffering of the mind and nocturnal anxieties.",
+          "advice": "You are not alone in your fear. Reach out for support and share your burden."
+        },
+        "s10": {
+          "name": "Diez de Espadas",
+          "meaningUpright": "Ending, pain, defeat, but also a new dawn, rock bottom",
+          "meaningReversed": "Unwanted change, resistance, clinging to pain, inability to let go",
+          "description": "The Ten of Swords marks the end of a cycle which, though painful, opens the door to rebirth.",
+          "advice": "What has ended has ended. Breathe — a new dawn is coming."
+        },
+        "s11": {
+          "name": "Sota de Espadas",
+          "meaningUpright": "Intellectual curiosity, communication, honesty, vigilance",
+          "meaningReversed": "Gossip, superficiality, dishonesty, all talk no action",
+          "description": "The Page of Swords is a sharp, inquisitive intellect hungry for knowledge and truth.",
+          "advice": "Ask, investigate, question. Your mind is your greatest weapon."
+        },
+        "s12": {
+          "name": "Caballero de Espadas",
+          "meaningUpright": "Ambition, swift action, determination, intellect, directness",
+          "meaningReversed": "Impulsiveness, lack of empathy, arrogance, recklessness",
+          "description": "The Knight of Swords charges at a goal with the full force of intellect and determined will.",
+          "advice": "Act decisively, but remember the impact on others."
+        },
+        "s13": {
+          "name": "Reina de Espadas",
+          "meaningUpright": "Independence, clarity of thought, boundaries, perception, truth",
+          "meaningReversed": "Harshness, emotional coldness, bitter experience, cruelty",
+          "description": "The Queen of Swords combines intellectual sharpness with wisdom gained through life experience.",
+          "advice": "Be clear and direct. Your strength flows from truth and healthy boundaries."
+        },
+        "s14": {
+          "name": "Rey de Espadas",
+          "meaningUpright": "Intellectual power, authority, clarity, justice, truth",
+          "meaningReversed": "Tyranny, manipulation, lack of empathy, abuse of power",
+          "description": "The King of Swords rules through the power of intellect and speaks truth without compromise.",
+          "advice": "Act with intellectual authority and clarity. Truth is your strength."
+        }
+      },
+      "pentacles": {
+        "p1": {
+          "name": "As de Pentáculos",
+          "meaningUpright": "Abundance, new financial opportunity, manifestation, prosperity",
+          "meaningReversed": "Lost opportunity, greed, lack of stability, poor planning",
+          "description": "The Ace of Pentacles symbolises the seed of material prosperity and new opportunities.",
+          "advice": "Seize the new financial or material opportunity. The ground beneath your feet is solid."
+        },
+        "p2": {
+          "name": "Dos de Pentáculos",
+          "meaningUpright": "Balance, adaptability, resource management, juggling priorities",
+          "meaningReversed": "Financial chaos, imbalance, overwhelm, disorganisation",
+          "description": "The Two of Pentacles reveals the art of juggling resources while maintaining balance.",
+          "advice": "Be flexible and balance your commitments with wisdom."
+        },
+        "p3": {
+          "name": "Tres de Pentáculos",
+          "meaningUpright": "Craftsmanship, collaboration, learning, quality of work, teamwork",
+          "meaningReversed": "Lack of harmony at work, mediocrity, conflict, poor planning",
+          "description": "The Three of Pentacles celebrates excellence in craft and effective collaboration.",
+          "advice": "Invest in your skills and collaborate with others for better results."
+        },
+        "p4": {
+          "name": "Cuatro de Pentáculos",
+          "meaningUpright": "Security, control, frugality, stability, conservation",
+          "meaningReversed": "Miserliness, greed, fear of loss, hoarding",
+          "description": "The Four of Pentacles symbolises the need for financial security but also the risk of excessive control.",
+          "advice": "Enjoy your security, but do not let fear of loss limit your life."
+        },
+        "p5": {
+          "name": "Cinco de Pentáculos",
+          "meaningUpright": "Financial hardship, poverty, isolation, difficulty, hardship",
+          "meaningReversed": "Return to stability, help arriving, healing, recovery",
+          "description": "The Five of Pentacles reveals material and emotional hardship, yet help is available nearby.",
+          "advice": "Do not be ashamed to ask for help. Support is available — you only need to accept it."
+        },
+        "p6": {
+          "name": "Seis de Pentáculos",
+          "meaningUpright": "Generosity, giving, sharing, balance of exchange",
+          "meaningReversed": "Debts, inequality, conditional giving, strings attached",
+          "description": "The Six of Pentacles teaches that giving and receiving must be in harmony.",
+          "advice": "Give generously where you can, but also attend to your own needs."
+        },
+        "p7": {
+          "name": "Siete de Pentáculos",
+          "meaningUpright": "Patience, assessment, long-term planning, investment, reward",
+          "meaningReversed": "Lack of reward, discouragement, impatience, poor returns",
+          "description": "The Seven of Pentacles encourages assessing the work done so far and patient anticipation of results.",
+          "advice": "Your work is bearing fruit, though slowly. Have patience."
+        },
+        "p8": {
+          "name": "Ocho de Pentáculos",
+          "meaningUpright": "Craftsmanship, diligence, mastery, learning, dedication",
+          "meaningReversed": "Lack of ambition, perfectionism blocking action, mediocrity",
+          "description": "The Eight of Pentacles is a dedication to mastering a craft through persistent work.",
+          "advice": "Be diligent and focused on honing your skills."
+        },
+        "p9": {
+          "name": "Nueve de Pentáculos",
+          "meaningUpright": "Prosperity, independence, luxury, success, self-sufficiency",
+          "meaningReversed": "False prosperity, dependence, superficiality, over-investment",
+          "description": "The Nine of Pentacles symbolises well-earned prosperity and independence.",
+          "advice": "Enjoy the fruits of your labour. You have taken care of yourself and it shows."
+        },
+        "p10": {
+          "name": "Diez de Pentáculos",
+          "meaningUpright": "Wealth, legacy, family, long-term success, inheritance",
+          "meaningReversed": "Family conflicts, loss of legacy, short-sightedness, instability",
+          "description": "The Ten of Pentacles represents the fullness of material prosperity and lasting family happiness.",
+          "advice": "Think about the legacy you are leaving. Build on enduring foundations."
+        },
+        "p11": {
+          "name": "Sota de Pentáculos",
+          "meaningUpright": "Ambition, diligence, realism, learning, practicality",
+          "meaningReversed": "Lack of ambition, daydreaming without action, missed opportunity",
+          "description": "The Page of Pentacles is a persistent student who sets goals and works toward them systematically.",
+          "advice": "Learn and work consistently. Your perseverance will bear fruit."
+        },
+        "p12": {
+          "name": "Caballero de Pentáculos",
+          "meaningUpright": "Responsibility, perseverance, routine, reliability, patience",
+          "meaningReversed": "Stagnation, lack of flexibility, excessive caution, stubbornness",
+          "description": "The Knight of Pentacles moves slowly but surely, focused on the goal.",
+          "advice": "Be perseverant and reliable. Slow, systematic action leads to success."
+        },
+        "p13": {
+          "name": "Reina de Pentáculos",
+          "meaningUpright": "Nurturing, practicality, abundance, groundedness, security",
+          "meaningReversed": "Imbalance, self-neglect, materialism, over-dependence",
+          "description": "The Queen of Pentacles combines warmth with practical wisdom and the ability to create abundance.",
+          "advice": "Care for others with tenderness, but remember your own needs too."
+        },
+        "p14": {
+          "name": "Rey de Pentáculos",
+          "meaningUpright": "Wealth, leadership, security, success, wise management",
+          "meaningReversed": "Greed, corruption, materialism at the expense of relationships, stubbornness",
+          "description": "The King of Pentacles is the embodiment of material success, stability, and wise stewardship.",
+          "advice": "Manage your resources with wisdom and generosity. True success serves others."
+        }
+      }
+    }
   },
   "horoscope": {
     "title": "Horóscopo",
@@ -917,12 +1475,12 @@
     }
   },
   "checkin": {
-    "title": "Registro diario",
+    "title": "Registro",
     "mood": "Estado de ánimo",
     "energy": "Energía",
     "focus": "Enfoque",
-    "save": "Guardar",
-    "particles": "Partículas",
+    "save": "GUARDAR REGISTRO",
+    "particles": "partículas de energía",
     "moods": {
       "joy": "Alegría",
       "peace": "Paz",
@@ -930,7 +1488,7 @@
       "love": "Amor",
       "anxiety": "Ansiedad",
       "sadness": "Tristeza",
-      "anger": "Enojo",
+      "anger": "Ira",
       "confusion": "Confusión",
       "emptiness": "Vacío"
     },
@@ -951,32 +1509,32 @@
     }
   },
   "reports": {
-    "title": "Reportes",
-    "pathAnalysis": "Análisis del camino",
-    "weeklyInsight": "Revelación semanal",
-    "dominantEnergy": "Energía dominante",
-    "frequentArchetypes": "Arquetipos frecuentes",
-    "suggestedFocus": "Enfoque sugerido",
-    "consistencyMastery": "Maestría en constancia",
-    "streakDesc": "Días consecutivos de práctica",
-    "entries": "Entradas",
-    "readings": "Lecturas",
-    "recordDays": "Días registrados",
-    "currentPhase": "Fase actual",
-    "emotionalLandscape": "Paisaje emocional",
-    "moodConstellation": "Constelación anímica",
-    "constellationDesc": "El mapa de tus emociones del período",
-    "practiceDynamics": "Dinámica de práctica",
-    "reflections": "Reflexiones",
-    "tarotInsight": "Revelación del tarot",
-    "calm": "Calma",
+    "title": "Informes",
+    "pathAnalysis": "ANÁLISIS DEL CAMINO",
+    "weeklyInsight": "Perspectiva Semanal",
+    "dominantEnergy": "ENERGÍA DOMINANTE",
+    "frequentArchetypes": "ARQUETIPOS FRECUENTES",
+    "suggestedFocus": "ENFOQUE SUGERIDO",
+    "consistencyMastery": "Maestría en Consistencia",
+    "streakDesc": "Has mantenido contacto con tu interior durante {{days}} días seguidos.",
+    "entries": "ENTRADAS",
+    "readings": "LECTURAS",
+    "recordDays": "DÍAS RÉCORD",
+    "currentPhase": "FASE ACTUAL",
+    "emotionalLandscape": "PAISAJE EMOCIONAL",
+    "moodConstellation": "CONSTELACIÓN DE HUMOR",
+    "constellationDesc": "Visualización de tus estados emocionales como un mapa estelar.",
+    "practiceDynamics": "DINÁMICA DE PRÁCTICA",
+    "reflections": "REFLEXIONES",
+    "tarotInsight": "PERSPECTIVA DEL TAROT",
+    "calm": "Tranquilo",
     "excellent": "Excelente",
-    "good": "Bien",
-    "peaceful": "Apacible",
+    "good": "Bueno",
+    "peaceful": "Pacífico",
     "weak": "Débil",
     "difficult": "Difícil",
-    "soulReports": "Reportes del alma",
-    "trends": "Tendencias",
+    "soulReports": "Informes del Alma",
+    "trends": "Tus tendencias",
     "generating": "Generando informe...",
     "weeklyReport": "Informe Semanal",
     "monthlyReport": "Informe Mensual"
@@ -987,7 +1545,7 @@
     "cycles": "Ciclos",
     "biorhythm": "Biorritmo",
     "stars": "Estrellas",
-    "vedic": "Astrología védica",
+    "vedic": "Astrología Védica",
     "retrograde": "Retrógrado",
     "aspects": "Aspectos",
     "conjunction": "Conjunción",
@@ -996,9 +1554,9 @@
     "square": "Cuadratura",
     "sextile": "Sextil",
     "natalChart": "Carta Natal",
-    "starsMap": "Mapa Estelar",
+    "starsMap": "Mapa del Cielo",
     "currentTransits": "Tránsitos Actuales",
-    "biorhythmCycles": "Ciclos del Biorritmo",
+    "biorhythmCycles": "Ciclos de Biorritmo",
     "physical": "Físico",
     "emotional": "Emocional",
     "intellectual": "Intelectual"
@@ -1006,18 +1564,18 @@
   "notifications": {
     "title": "Notificaciones",
     "reminders": "Recordatorios",
-    "add_reminder": "Agregar recordatorio",
+    "add_reminder": "Añadir Recordatorio",
     "morning": "Mañana",
-    "evening": "Noche",
+    "evening": "Tarde",
     "meditation": "Meditación",
     "ritual": "Ritual",
     "enabled": "Activado",
     "disabled": "Desactivado",
     "time": "Hora",
     "days": "Días",
-    "presets": "Presets",
+    "presets": "Preajustes",
     "customTime": "Hora personalizada",
-    "reminderLabel": "Etiqueta",
+    "reminderLabel": "Etiqueta del recordatorio",
     "saveReminder": "GUARDAR RECORDATORIO",
     "deleteReminder": "Eliminar recordatorio",
     "allDays": "Todos los días",
@@ -1025,64 +1583,64 @@
     "weekends": "Fines de semana"
   },
   "paywall": {
-    "premiumTitle": "Despierta tu potencial completo",
-    "premiumSubtitle": "Acceso ilimitado a todas las herramientas espirituales",
-    "choosePath": "Elige tu camino",
+    "premiumTitle": "Desbloquea la Sabiduría Infinita",
+    "premiumSubtitle": "Tu viaje interior comienza ahora. Únete al círculo de buscadores.",
+    "choosePath": "ELIGE TU CAMINO",
     "monthly": "Mensual",
     "yearly": "Anual",
-    "monthlyDesc": "Acceso completo mes a mes",
-    "yearlyDesc": "El mayor valor para tu viaje espiritual",
-    "bestValue": "Mejor valor",
-    "restore": "Restaurar compra",
-    "feature1Title": "Oráculo ilimitado",
-    "feature1Desc": "Consultas sin límite con tu guía espiritual",
-    "feature2Title": "Lecturas de tarot completas",
-    "feature2Desc": "Todas las tiradas y barajas desbloqueadas",
-    "feature3Title": "Análisis profundo del alma",
-    "feature3Desc": "Reportes detallados de tu camino espiritual",
-    "feature4Title": "Sonidos y rituales premium",
-    "feature4Desc": "Biblioteca completa de prácticas sagradas"
+    "monthlyDesc": "Cancela cuando quieras",
+    "yearlyDesc": "Solo $4.99 / mes",
+    "bestValue": "MEJOR VALOR",
+    "restore": "RESTAURAR COMPRAS",
+    "feature1Title": "Chat Oracle Ilimitado",
+    "feature1Desc": "Chatea con tu guía de IA sin límites en cualquier momento.",
+    "feature2Title": "Tiradas de Tarot Avanzadas",
+    "feature2Desc": "Accede a los 22 arcanos mayores y menores más tiradas especializadas.",
+    "feature3Title": "Perspectivas del Camino del Alma",
+    "feature3Desc": "Análisis profundo de tu Matriz del Destino y tránsitos personales.",
+    "feature4Title": "Biblioteca Sagrada",
+    "feature4Desc": "Un santuario permanente para tus afirmaciones, lecturas y sueños favoritos."
   },
   "compatibility": {
     "title": "Compatibilidad",
-    "relationships": "Relaciones",
+    "relationships": "RELACIONES",
     "synastry": "Sinastría",
-    "addPartnerEnergy": "Agregar energía de pareja",
-    "partnerName": "Nombre de la pareja",
-    "namePlaceholder": "¿Cómo se llama?",
-    "birthDate": "Fecha de nacimiento",
+    "addPartnerEnergy": "AÑADIR ENERGÍA DE PAREJA",
+    "partnerName": "NOMBRE DE LA PAREJA / PERSONA",
+    "namePlaceholder": "Introduce un nombre...",
+    "birthDate": "FECHA DE NACIMIENTO",
     "selectDate": "Seleccionar fecha",
-    "calculateMatch": "Calcular afinidad",
+    "calculateMatch": "CALCULAR COMPATIBILIDAD",
     "you": "Tú",
     "partner": "Pareja",
-    "relationshipEnergy": "Energía de la relación",
+    "relationshipEnergy": "ENERGÍA DE LA RELACIÓN",
     "vibration": "Vibración",
-    "changePartner": "Cambiar pareja",
+    "changePartner": "CAMBIAR PERSONA",
     "compatibilityScore": "Puntuación de compatibilidad",
     "strengths": "Fortalezas",
     "challenges": "Desafíos",
     "advice": "Consejo"
   },
   "journeys": {
-    "title": "Viajes del Alma",
-    "spiritualPrograms": "Programas espirituales",
-    "transformationPaths": "Caminos de transformación",
-    "weeklyFocus": "Enfoque semanal",
-    "dailyPractice": "Práctica diaria",
-    "completedSessions": "Sesiones completadas",
-    "nextStep": "Siguiente paso",
-    "continueJourney": "Continuar el viaje",
-    "startJourney": "Iniciar el viaje",
-    "currentJourney": "Viaje actual",
-    "availableJourneys": "Viajes disponibles",
+    "title": "Viajes",
+    "spiritualPrograms": "Programas Espirituales",
+    "transformationPaths": "Caminos de Transformación",
+    "weeklyFocus": "Enfoque Semanal",
+    "dailyPractice": "Práctica Diaria",
+    "completedSessions": "Sesiones Completadas",
+    "nextStep": "Siguiente Paso",
+    "continueJourney": "Continuar Viaje",
+    "startJourney": "Comenzar Viaje",
+    "currentJourney": "Viaje Actual",
+    "availableJourneys": "Viajes Disponibles",
     "progress": "Progreso",
     "daysLeft": "Días restantes"
   },
   "palmreading": {
-    "title": "Lectura de Mano",
-    "analyze": "ANALIZAR MANO",
-    "upload": "Sube una foto de tu mano",
-    "instructions": "Fotografía el interior de tu mano con buena iluminación",
+    "title": "Quiromancia",
+    "analyze": "ANALIZAR PALMA",
+    "upload": "Subir foto de la palma",
+    "instructions": "Fotografía la palma de tu mano con buena iluminación",
     "lines": {
       "heart": "Línea del Corazón",
       "head": "Línea de la Cabeza",
@@ -1090,26 +1648,26 @@
       "fate": "Línea del Destino",
       "sun": "Línea del Sol"
     },
-    "interpretationTitle": "Interpretación de la Mano",
-    "loading": "Analizando las líneas de tu mano..."
+    "interpretationTitle": "Interpretación de la Palma",
+    "loading": "Analizando las líneas de tu palma..."
   },
   "binauralbeats": {
     "title": "Ondas Cerebrales",
-    "subtitle": "Tonos binaurales",
+    "subtitle": "Latidos binaurales",
     "start": "INICIAR",
     "stop": "DETENER",
     "waves": {
       "delta": "Delta — sueño profundo",
       "theta": "Theta — meditación",
       "alpha": "Alpha — relajación",
-      "beta": "Beta — concentración",
-      "gamma": "Gamma — cognición elevada"
+      "beta": "Beta — enfoque",
+      "gamma": "Gamma — cognición superior"
     },
     "benefits": "Beneficios",
-    "session_complete": "Sesión completada"
+    "session_complete": "Sesión completa"
   },
   "sleephelper": {
-    "title": "Asistente de Sueño",
+    "title": "Ayudante del Sueño",
     "start": "COMENZAR A DORMIR",
     "duration": "Duración",
     "soundscape": "Sonidos",
@@ -1120,12 +1678,12 @@
   "stars": {
     "title": "Estrellas",
     "skyMap": "Mapa del Cielo",
-    "catalogue": "Catálogo de Estrellas",
+    "catalogue": "Catálogo Estelar",
     "constellation": "Constelación",
     "magnitude": "Magnitud",
     "distance": "Distancia",
     "realTimeSky": "Cielo en tiempo real",
-    "yourZenith": "Tu cénit",
+    "yourZenith": "Tu cenit",
     "tabMap": "Mapa",
     "tabCatalogue": "Catálogo",
     "tabInfo": "Info"
@@ -1137,9 +1695,9 @@
     "intellectual": "Intelectual",
     "today": "Hoy",
     "peak": "Pico",
-    "low": "Valle",
+    "low": "Bajo",
     "neutral": "Neutral",
-    "chartTitle": "Gráfico del Biorritmo"
+    "chartTitle": "Gráfico de Biorritmo"
   },
   "knowledge": {
     "title": "Biblioteca",
@@ -1151,27 +1709,27 @@
   },
   "data": {
     "decks": {
-      "classic": "Aurora Dorada",
-      "classicDesc": "La baraja clásica más precisa basada en la tradición Rider-Waite.",
+      "classic": "Golden Dawn",
+      "classicDesc": "El mazo más preciso y clásico basado en la tradición Rider-Waite.",
       "cosmic": "Luz Cósmica",
-      "cosmicDesc": "Interpretación moderna y galáctica de los arquetipos del universo.",
-      "dark": "Sombra del Alma",
-      "darkDesc": "Una baraja profunda para trabajar con la sombra y verdades ocultas."
+      "cosmicDesc": "Una interpretación moderna y galáctica de arquetipos universales.",
+      "dark": "Oscuridad del Alma",
+      "darkDesc": "Un mazo profundo para el trabajo con la sombra y verdades ocultas."
     },
     "rituals": {
       "morning_alignment": {
         "title": "Alineación Matutina",
-        "description": "Breve meditación para establecer la intención del día.",
+        "description": "Una meditación breve para establecer tu intención del día.",
         "duration": "5 min"
       },
       "evening_reflection": {
         "title": "Reflexión Vespertina",
-        "description": "Libera las emociones acumuladas antes de dormir.",
+        "description": "Libera emociones acumuladas antes de dormir.",
         "duration": "10 min"
       },
       "candle_magic": {
-        "title": "Ritual de Vela",
-        "description": "Manifestación de un deseo a través del elemento fuego.",
+        "title": "Magia de Velas",
+        "description": "Manifestar un deseo específico a través del elemento fuego.",
         "duration": "15 min"
       }
     }
@@ -1179,104 +1737,104 @@
   "archetypes": {
     "1": {
       "name": "El Mago",
-      "title": "Maestro de la voluntad"
+      "title": "Creador de Realidad"
     },
     "2": {
-      "name": "La Sacerdotisa",
-      "title": "Guardiana del misterio"
+      "name": "La Suma Sacerdotisa",
+      "title": "Guardiana de Secretos"
     },
     "3": {
       "name": "La Emperatriz",
-      "title": "Madre de la creación"
+      "title": "Gobernante de la Abundancia"
     },
     "4": {
       "name": "El Emperador",
-      "title": "Poder y estructura"
+      "title": "Arquitecto del Orden"
     },
     "5": {
-      "name": "El Sumo Sacerdote",
-      "title": "Sabiduría sagrada"
+      "name": "El Hierofante",
+      "title": "Guardián de la Tradición"
     },
     "6": {
-      "name": "Los Amantes",
-      "title": "Unión y elección"
+      "name": "Los Enamorados",
+      "title": "Armonizador de Energía"
     },
     "7": {
       "name": "El Carro",
-      "title": "Voluntad y victoria"
+      "title": "Conquistador de Metas"
     },
     "8": {
-      "name": "La Fuerza",
-      "title": "Coraje interior"
+      "name": "La Justicia",
+      "title": "Balanza del Karma"
     },
     "9": {
       "name": "El Ermitaño",
-      "title": "Búsqueda de la verdad"
+      "title": "Buscador de Verdad"
     },
     "10": {
-      "name": "La Rueda",
-      "title": "Ciclos del destino"
+      "name": "La Rueda de la Fortuna",
+      "title": "Maestro del Destino"
     },
     "11": {
-      "name": "La Justicia",
-      "title": "Equilibrio y karma"
+      "name": "La Fuerza",
+      "title": "Maestro de las Emociones"
     },
     "12": {
       "name": "El Colgado",
-      "title": "Rendición y perspectiva"
+      "title": "Visionario de la Perspectiva"
     },
     "13": {
       "name": "La Muerte",
-      "title": "Transformación y renacimiento"
+      "title": "Agente de Transformación"
     },
     "14": {
       "name": "La Templanza",
-      "title": "Armonía y moderación"
+      "title": "Alquimista del Equilibrio"
     },
     "15": {
       "name": "El Diablo",
-      "title": "Sombras y liberación"
+      "title": "Explorador de la Sombra"
     },
     "16": {
       "name": "La Torre",
-      "title": "Revelación y cambio"
+      "title": "Destructor de Ilusiones"
     },
     "17": {
       "name": "La Estrella",
-      "title": "Esperanza y guía"
+      "title": "Inspirador de Esperanza"
     },
     "18": {
       "name": "La Luna",
-      "title": "Intuición y misterio"
+      "title": "Viajero del Subconsciente"
     },
     "19": {
       "name": "El Sol",
-      "title": "Alegría y claridad"
+      "title": "Rayo de Claridad"
     },
     "20": {
       "name": "El Juicio",
-      "title": "Despertar y llamado"
+      "title": "Voz del Despertar"
     },
     "21": {
       "name": "El Mundo",
-      "title": "Plenitud y completitud"
+      "title": "Maestro de la Integración"
     },
     "22": {
       "name": "El Loco",
-      "title": "Inicio y libertad"
+      "title": "Espíritu Libre"
     }
   },
   "sleepRitual": {
     "title": "Ritual del Sueño",
     "eyebrow": "MUNDO DE LOS SUEÑOS",
     "tabProtocol": "Protocolo",
-    "tabScan": "Escaneo",
+    "tabScan": "Escaneo Corporal",
     "tabBreath": "Respiración",
     "start": "Comenzar",
-    "done": "Listo"
+    "done": "Hecho"
   },
   "lucidDreaming": {
-    "title": "Sueño Lúcido",
+    "title": "Sueños Lúcidos",
     "eyebrow": "MUNDO DE LOS SUEÑOS",
     "tabTechniques": "Técnicas",
     "tabDiary": "Diario",
@@ -1291,71 +1849,71 @@
   "ancestralConnection": {
     "title": "Conexión Ancestral",
     "eyebrow": "MUNDO DE LOS RITUALES",
-    "askOracle": "Pregunta al Oráculo"
+    "askOracle": "Consultar el Oráculo"
   },
   "protectionRitual": {
     "title": "Escudo de Protección",
-    "eyebrow": "MUNDO DE LA LIMPIEZA",
+    "eyebrow": "MUNDO DE LA PURIFICACIÓN",
     "activate": "Activar protección"
   },
   "saltBath": {
     "title": "Baño de Sal",
-    "eyebrow": "MUNDO DE LA LIMPIEZA",
+    "eyebrow": "MUNDO DE LA PURIFICACIÓN",
     "tabProtocols": "Protocolos",
     "tabSteps": "Pasos",
     "start": "Comenzar"
   },
   "releaseLetters": {
     "title": "Cartas al Fuego",
-    "eyebrow": "MUNDO DE LA LIMPIEZA",
-    "write": "Escribe una carta...",
+    "eyebrow": "MUNDO DE LA PURIFICACIÓN",
+    "write": "Escribir una carta...",
     "release": "Liberar"
   },
   "innerChild": {
     "title": "Niño Interior",
-    "eyebrow": "MUNDO DE APOYO",
-    "askOracle": "Pregunta al Oráculo"
+    "eyebrow": "MUNDO DEL APOYO",
+    "askOracle": "Consultar el Oráculo"
   },
   "anxietyRelief": {
     "title": "Alivio de la Ansiedad",
-    "eyebrow": "MUNDO DE APOYO",
+    "eyebrow": "MUNDO DEL APOYO",
     "sos": "SOS",
     "techniques": "Técnicas",
     "habits": "Hábitos"
   },
   "selfCompassion": {
     "title": "Autocompasión",
-    "eyebrow": "MUNDO DE APOYO",
+    "eyebrow": "MUNDO DEL APOYO",
     "generateLetter": "Generar carta"
   },
   "healingFrequencies": {
-    "title": "Frecuencias Sanadoras",
-    "eyebrow": "MUNDO DE APOYO",
+    "title": "Frecuencias de Sanación",
+    "eyebrow": "MUNDO DEL APOYO",
     "play": "Reproducir",
     "stop": "Detener"
   },
   "emotionalAnchors": {
     "title": "Anclas Emocionales",
-    "eyebrow": "MUNDO DE APOYO",
+    "eyebrow": "MUNDO DEL APOYO",
     "activate": "Activar ancla",
-    "create": "Crear nueva"
+    "create": "Crear nuevo"
   },
   "lifeWheel": {
     "title": "Rueda de la Vida",
-    "eyebrow": "MUNDO DE TI",
+    "eyebrow": "TU MUNDO",
     "score": "Puntuación",
     "yourWheel": "Tu Rueda"
   },
   "soulArchetype": {
     "title": "Arquetipo del Alma",
-    "eyebrow": "MUNDO DE TI",
-    "startQuiz": "Comenzar quiz",
+    "eyebrow": "TU MUNDO",
+    "startQuiz": "Comenzar cuestionario",
     "result": "Tu arquetipo"
   },
   "natalChart": {
     "title": "Carta Natal",
     "eyebrow": "MUNDO DEL HORÓSCOPO",
-    "tabChart": "Mapa",
+    "tabChart": "Carta",
     "tabPlanets": "Planetas",
     "tabHouses": "Casas"
   },

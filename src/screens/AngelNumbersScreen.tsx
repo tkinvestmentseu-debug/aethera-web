@@ -23,7 +23,7 @@ import { AiService } from '../core/services/ai.service';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
 import { formatLocaleDate } from '../core/utils/localeFormat';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#F59E0B';
 
@@ -656,7 +656,7 @@ const SacredGeoBg = ({ color, size = 200 }: { color: string; size?: number }) =>
 };
 
 // ── ANIMATED NUMBER DISPLAY ────────────────────────────────────
-const FloatingNumberDisplay = ({ entry }: { entry: AngelNumber }) => {
+const FloatingNumberDisplay = ({ entry, isLight }: { entry: AngelNumber; isLight?: boolean }) => {
   const floatY = useSharedValue(0);
   const glowOpacity = useSharedValue(0.4);
 
@@ -698,10 +698,10 @@ const FloatingNumberDisplay = ({ entry }: { entry: AngelNumber }) => {
           style={{ width: 150, height: 150, borderRadius: 75, alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: entry.color + 'CC' }}
           start={{ x: 0.2, y: 0 }} end={{ x: 0.8, y: 1 }}
         >
-          <Text style={{ fontSize: entry.number.length > 3 ? 38 : 52, fontWeight: '900', color: '#fff', letterSpacing: -2 }}>
+          <Text style={{ fontSize: entry.number.length > 3 ? 38 : 52, fontWeight: '900', color: isLight ? 'rgba(37,29,22,0.90)' : '#fff', letterSpacing: -2 }}>
             {entry.number}
           </Text>
-          <Text style={{ fontSize: 13, fontWeight: '700', color: 'rgba(255,255,255,0.85)', letterSpacing: 0.5, marginTop: 2 }}>
+          <Text style={{ fontSize: 13, fontWeight: '700', color: isLight ? 'rgba(37,29,22,0.85)' : 'rgba(255,255,255,0.85)', letterSpacing: 0.5, marginTop: 2 }}>
             {entry.title}
           </Text>
         </LinearGradient>
@@ -735,14 +735,16 @@ const PulsingOrb = () => (
 // ── SCREEN ────────────────────────────────────────────────────
 export const AngelNumbersScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
-  const { themeName, addFavoriteItem, removeFavoriteItem, isFavoriteItem, userData } = useAppStore();
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
   const insets = useSafeAreaInsets();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
   const textColor   = isLight ? '#1A1410' : '#F5F1EA';
   const subColor    = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg      = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder  = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const cardBg      = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
+  const cardBorder  = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
   const dividerColor = 'rgba(128,128,128,0.12)';
 
   const [inputNumber, setInputNumber]   = useState('');
@@ -1046,7 +1048,9 @@ Pisz tylko sam przekaz.`;
   ];
 
   return (
-    <SafeAreaView style={[an.root, { backgroundColor: currentTheme.background }]} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[an.root, {}]} edges={['top']}>
+
       <LinearGradient
         colors={isLight
           ? ['#FFFBEB', currentTheme.background, currentTheme.background]
@@ -1100,7 +1104,7 @@ Pisz tylko sam przekaz.`;
             {/* Animated number display when a number is selected */}
             {activeNumber ? (
               <Animated.View entering={FadeInDown.duration(500)}>
-                <FloatingNumberDisplay entry={activeNumber} />
+                <FloatingNumberDisplay entry={activeNumber} isLight={isLight} />
               </Animated.View>
             ) : (
               <View style={{ alignItems: 'center', marginBottom: 20 }}>
@@ -1121,34 +1125,34 @@ Pisz tylko sam przekaz.`;
                 >
                   <View style={an.dayNumberHeader}>
                     <Calendar size={14} color="rgba(255,255,255,0.80)" />
-                    <Text style={an.dayNumberLabel}>
+                    <Text style={[an.dayNumberLabel, isLight && { color: 'rgba(37,29,22,0.72)' }]}>
                       PRZEKAZ DNIA — {today.toLocaleDateString(getLocaleCode(), { day: 'numeric', month: 'long' }).toUpperCase()}
                     </Text>
                   </View>
-                  <Text style={an.dayNumberMain}>{todayNumber}</Text>
-                  <Text style={an.dayNumberTitle}>{todayEntry.title}</Text>
+                  <Text style={[an.dayNumberMain, isLight && { color: 'rgba(37,29,22,0.90)' }]}>{todayNumber}</Text>
+                  <Text style={[an.dayNumberTitle, isLight && { color: 'rgba(37,29,22,0.90)' }]}>{todayEntry.title}</Text>
                   <View style={[an.areaBadge, { backgroundColor: AREA_COLORS[todayEntry.area] + '30', borderColor: AREA_COLORS[todayEntry.area] + '70', alignSelf: 'center', marginBottom: 10 }]}>
                     <Sparkles size={12} color={AREA_COLORS[todayEntry.area]} style={{ marginRight: 4 }} />
                     <Text style={[an.areaBadgeText, { color: AREA_COLORS[todayEntry.area] }]}>{todayEntry.area.toUpperCase()}</Text>
                   </View>
-                  <Text style={an.dayNumberMessage}>{todayEntry.message}</Text>
+                  <Text style={[an.dayNumberMessage, isLight && { color: 'rgba(37,29,22,0.88)' }]}>{todayEntry.message}</Text>
 
                   {/* Action guidance for today */}
                   {todayEntry.actionGuidance && (
-                    <View style={{ backgroundColor: 'rgba(255,255,255,0.12)', borderRadius: 14, padding: 12, width: '100%', marginBottom: 12 }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: 'rgba(255,255,255,0.65)', marginBottom: 5 }}>DZIAŁANIE NA DZIŚ</Text>
-                      <Text style={{ fontSize: 13, lineHeight: 20, color: 'rgba(255,255,255,0.90)' }}>{todayEntry.actionGuidance}</Text>
+                    <View style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.12)', borderRadius: 14, padding: 12, width: '100%', marginBottom: 12 }}>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.60)' : 'rgba(255,255,255,0.65)', marginBottom: 5 }}>DZIAŁANIE NA DZIŚ</Text>
+                      <Text style={{ fontSize: 13, lineHeight: 20, color: isLight ? 'rgba(37,29,22,0.90)' : 'rgba(255,255,255,0.90)' }}>{todayEntry.actionGuidance}</Text>
                     </View>
                   )}
 
                   {/* Chakra connection */}
                   {CHAKRA_MAP[todayNumber] && (
-                    <View style={{ backgroundColor: 'rgba(255,255,255,0.10)', borderRadius: 14, padding: 12, width: '100%', marginBottom: 12, flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                    <View style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.50)' : 'rgba(255,255,255,0.10)', borderRadius: 14, padding: 12, width: '100%', marginBottom: 12, flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                       <View style={{ width: 32, height: 32, borderRadius: 16, backgroundColor: CHAKRA_MAP[todayNumber].color + '44', alignItems: 'center', justifyContent: 'center' }}>
                         <Zap size={14} color={CHAKRA_MAP[todayNumber].color} />
                       </View>
                       <View style={{ flex: 1 }}>
-                        <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: 'rgba(255,255,255,0.65)' }}>CZAKRA</Text>
+                        <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.60)' : 'rgba(255,255,255,0.65)' }}>CZAKRA</Text>
                         <Text style={{ fontSize: 13, fontWeight: '700', color: CHAKRA_MAP[todayNumber].color }}>
                           {CHAKRA_MAP[todayNumber].name} · {CHAKRA_MAP[todayNumber].sanskrit}
                         </Text>
@@ -1156,9 +1160,9 @@ Pisz tylko sam przekaz.`;
                     </View>
                   )}
 
-                  <View style={an.affirmBox}>
-                    <Text style={an.affirmLabel}>AFIRMACJA DNIA</Text>
-                    <Text style={an.affirmText}>"{todayEntry.affirmation}"</Text>
+                  <View style={[an.affirmBox, { backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.12)' }]}>
+                    <Text style={[an.affirmLabel, isLight && { color: 'rgba(37,29,22,0.55)' }]}>AFIRMACJA DNIA</Text>
+                    <Text style={[an.affirmText, isLight && { color: 'rgba(37,29,22,0.90)' }]}>"{todayEntry.affirmation}"</Text>
                   </View>
                 </LinearGradient>
               </Animated.View>
@@ -1205,7 +1209,7 @@ Pisz tylko sam przekaz.`;
                 <Text style={[an.sectionDesc, { color: subColor }]}>
                   Wpisz dowolną liczbę od 1 do 9999 — Aethera zredukuje ją i odczyta jej anielskie przesłanie.
                 </Text>
-                <View style={[an.searchRow, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderColor: cardBorder }]}>
+                <View style={[an.searchRow, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: cardBorder }]}>
                   <Hash size={16} color={ACCENT} style={{ marginRight: 8 }} />
                   <TextInput
                     style={[an.searchInput, { color: textColor, flex: 1 }]}
@@ -1229,14 +1233,14 @@ Pisz tylko sam przekaz.`;
                       start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
                     >
                       {calcResult.original !== calcResult.reduced && (
-                        <Text style={an.calcReduceText}>{calcResult.original} → {calcResult.reduced}</Text>
+                        <Text style={[an.calcReduceText, isLight && { color: 'rgba(37,29,22,0.70)' }]}>{calcResult.original} → {calcResult.reduced}</Text>
                       )}
-                      <Text style={an.calcNumber}>{calcResult.reduced}</Text>
-                      <Text style={an.calcTitle}>{calcResult.entry.title}</Text>
-                      <Text style={an.calcMessage}>{calcResult.entry.message}</Text>
-                      <View style={an.affirmBox}>
-                        <Text style={an.affirmLabel}>AFIRMACJA</Text>
-                        <Text style={an.affirmText}>"{calcResult.entry.affirmation}"</Text>
+                      <Text style={[an.calcNumber, isLight && { color: 'rgba(37,29,22,0.90)' }]}>{calcResult.reduced}</Text>
+                      <Text style={[an.calcTitle, isLight && { color: 'rgba(37,29,22,0.90)' }]}>{calcResult.entry.title}</Text>
+                      <Text style={[an.calcMessage, isLight && { color: 'rgba(37,29,22,0.88)' }]}>{calcResult.entry.message}</Text>
+                      <View style={[an.affirmBox, { backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.12)' }]}>
+                        <Text style={[an.affirmLabel, isLight && { color: 'rgba(37,29,22,0.55)' }]}>AFIRMACJA</Text>
+                        <Text style={[an.affirmText, isLight && { color: 'rgba(37,29,22,0.90)' }]}>"{calcResult.entry.affirmation}"</Text>
                       </View>
                     </LinearGradient>
                   </Animated.View>
@@ -1339,51 +1343,51 @@ Pisz tylko sam przekaz.`;
                   style={[an.resultCard, { borderColor: activeNumber.color + '80' }]}
                   start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
                 >
-                  <Text style={an.resultNumber}>{activeNumber.number}</Text>
-                  <Text style={an.resultTitle}>{activeNumber.title}</Text>
+                  <Text style={[an.resultNumber, isLight && { color: 'rgba(37,29,22,0.90)' }]}>{activeNumber.number}</Text>
+                  <Text style={[an.resultTitle, isLight && { color: 'rgba(37,29,22,0.90)' }]}>{activeNumber.title}</Text>
                   {activeNumber.lifeArea && (
-                    <View style={{ backgroundColor: 'rgba(255,255,255,0.14)', borderRadius: 10, paddingHorizontal: 10, paddingVertical: 4, marginBottom: 10 }}>
-                      <Text style={{ fontSize: 11, color: 'rgba(255,255,255,0.80)', fontWeight: '600' }}>{activeNumber.lifeArea}</Text>
+                    <View style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.14)', borderRadius: 10, paddingHorizontal: 10, paddingVertical: 4, marginBottom: 10 }}>
+                      <Text style={{ fontSize: 11, color: isLight ? 'rgba(37,29,22,0.80)' : 'rgba(255,255,255,0.80)', fontWeight: '600' }}>{activeNumber.lifeArea}</Text>
                     </View>
                   )}
                   <View style={[an.areaBadge, { backgroundColor: AREA_COLORS[activeNumber.area] + '30', borderColor: AREA_COLORS[activeNumber.area] + '70' }]}>
                     <Sparkles size={12} color={AREA_COLORS[activeNumber.area]} style={{ marginRight: 4 }} />
                     <Text style={[an.areaBadgeText, { color: AREA_COLORS[activeNumber.area] }]}>{activeNumber.area.toUpperCase()}</Text>
                   </View>
-                  <Text style={an.resultMessage}>{activeNumber.message}</Text>
+                  <Text style={[an.resultMessage, isLight && { color: 'rgba(37,29,22,0.90)' }]}>{activeNumber.message}</Text>
                   {activeNumber.actionGuidance && (
-                    <View style={{ backgroundColor: 'rgba(255,255,255,0.10)', borderRadius: 12, padding: 12, width: '100%', marginBottom: 12 }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: 'rgba(255,255,255,0.60)', marginBottom: 4 }}>DZIAŁANIE</Text>
-                      <Text style={{ fontSize: 13, lineHeight: 20, color: 'rgba(255,255,255,0.88)' }}>{activeNumber.actionGuidance}</Text>
+                    <View style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.10)', borderRadius: 12, padding: 12, width: '100%', marginBottom: 12 }}>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.55)' : 'rgba(255,255,255,0.60)', marginBottom: 4 }}>DZIAŁANIE</Text>
+                      <Text style={{ fontSize: 13, lineHeight: 20, color: isLight ? 'rgba(37,29,22,0.88)' : 'rgba(255,255,255,0.88)' }}>{activeNumber.actionGuidance}</Text>
                     </View>
                   )}
                   {CHAKRA_MAP[activeNumber.number] && (
-                    <View style={{ backgroundColor: 'rgba(255,255,255,0.10)', borderRadius: 12, padding: 10, width: '100%', marginBottom: 12, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                    <View style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.50)' : 'rgba(255,255,255,0.10)', borderRadius: 12, padding: 10, width: '100%', marginBottom: 12, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                       <Zap size={14} color={CHAKRA_MAP[activeNumber.number].color} />
                       <Text style={{ fontSize: 12, color: CHAKRA_MAP[activeNumber.number].color, fontWeight: '700' }}>
                         Czakra {CHAKRA_MAP[activeNumber.number].name} ({CHAKRA_MAP[activeNumber.number].sanskrit})
                       </Text>
                     </View>
                   )}
-                  <View style={an.affirmBox}>
-                    <Text style={an.affirmLabel}>AFIRMACJA</Text>
-                    <Text style={an.affirmText}>"{activeNumber.affirmation}"</Text>
+                  <View style={[an.affirmBox, { backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.12)' }]}>
+                    <Text style={[an.affirmLabel, isLight && { color: 'rgba(37,29,22,0.55)' }]}>AFIRMACJA</Text>
+                    <Text style={[an.affirmText, isLight && { color: 'rgba(37,29,22,0.90)' }]}>"{activeNumber.affirmation}"</Text>
                   </View>
                   {/* AI Affirmation button */}
                   <Pressable
                     onPress={() => handleAiAffirmation(activeNumber)}
                     disabled={affLoading}
-                    style={{ marginTop: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: 'rgba(255,255,255,0.14)', borderRadius: 12, paddingVertical: 10 }}
+                    style={{ marginTop: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.14)', borderRadius: 12, paddingVertical: 10 }}
                   >
-                    <Sparkles size={13} color="#fff" />
-                    <Text style={{ fontSize: 12, fontWeight: '700', color: '#fff' }}>
+                    <Sparkles size={13} color={isLight ? 'rgba(37,29,22,0.80)' : '#fff'} />
+                    <Text style={{ fontSize: 12, fontWeight: '700', color: isLight ? 'rgba(37,29,22,0.90)' : '#fff' }}>
                       {affLoading && affTarget?.number === activeNumber.number ? 'Generuję afirmację...' : 'Wygeneruj AI afirmację'}
                     </Text>
                   </Pressable>
                   {affResult && affTarget?.number === activeNumber.number && (
-                    <Animated.View entering={FadeInUp.duration(400)} style={{ marginTop: 10, backgroundColor: 'rgba(255,255,255,0.10)', borderRadius: 12, padding: 12, width: '100%' }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: 'rgba(255,255,255,0.60)', marginBottom: 4 }}>TWOJA AI AFIRMACJA</Text>
-                      <Text style={{ fontSize: 14, fontStyle: 'italic', color: '#fff', lineHeight: 22, textAlign: 'center' }}>"{affResult}"</Text>
+                    <Animated.View entering={FadeInUp.duration(400)} style={{ marginTop: 10, backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.10)', borderRadius: 12, padding: 12, width: '100%' }}>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.55)' : 'rgba(255,255,255,0.60)', marginBottom: 4 }}>TWOJA AI AFIRMACJA</Text>
+                      <Text style={{ fontSize: 14, fontStyle: 'italic', color: isLight ? 'rgba(37,29,22,0.90)' : '#fff', lineHeight: 22, textAlign: 'center' }}>"{affResult}"</Text>
                     </Animated.View>
                   )}
                 </LinearGradient>
@@ -1508,13 +1512,23 @@ Pisz tylko sam przekaz.`;
                 <Pressable
                   onPress={() => setExpandedEnc(expandedEnc === item.number ? null : item.number)}
                   style={[an.encCard, {
-                    backgroundColor: expandedEnc === item.number ? item.color + '12' : cardBg,
-                    borderColor: expandedEnc === item.number ? item.color + '55' : cardBorder,
+                    backgroundColor: expandedEnc === item.number ? item.color + '14' : cardBg,
+                    borderColor: expandedEnc === item.number ? item.color + '66' : (isLight ? 'rgba(100,70,20,0.15)' : 'rgba(255,255,255,0.10)'),
+                    shadowColor: item.color,
+                    shadowOffset: { width: 0, height: 2 },
+                    shadowOpacity: expandedEnc === item.number ? 0.18 : 0.06,
+                    shadowRadius: 8,
+                    elevation: expandedEnc === item.number ? 4 : 1,
                   }]}
                 >
+                  <LinearGradient
+                    colors={[item.color + '0C', 'transparent']}
+                    style={StyleSheet.absoluteFill}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                  />
                   {/* Card header row */}
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <View style={[an.encNumBadge, { backgroundColor: item.color + '25', borderColor: item.color + '55' }]}>
+                    <View style={[an.encNumBadge, { backgroundColor: item.color + '28', borderColor: item.color + '66' }]}>
                       <Text style={[an.encNum, { color: item.color }]}>{item.number}</Text>
                     </View>
                     <View style={{ flex: 1, marginLeft: 12 }}>
@@ -1805,27 +1819,27 @@ Pisz tylko sam przekaz.`;
                 >
                   <View style={an.dayNumberHeader}>
                     <User size={14} color="rgba(255,255,255,0.80)" />
-                    <Text style={an.dayNumberLabel}>TWÓJ ANIOŁ STRÓŻ</Text>
+                    <Text style={[an.dayNumberLabel, isLight && { color: 'rgba(37,29,22,0.72)' }]}>TWÓJ ANIOŁ STRÓŻ</Text>
                   </View>
-                  <Text style={an.dayNumberMain}>{guardianNum}</Text>
-                  <Text style={an.dayNumberTitle}>{guardianEntry.title}</Text>
-                  <View style={{ backgroundColor: 'rgba(255,255,255,0.14)', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 6, marginBottom: 12 }}>
-                    <Text style={{ fontSize: 12, color: 'rgba(255,255,255,0.85)', fontWeight: '600', textAlign: 'center' }}>{guardianEntry.power}</Text>
+                  <Text style={[an.dayNumberMain, isLight && { color: 'rgba(37,29,22,0.90)' }]}>{guardianNum}</Text>
+                  <Text style={[an.dayNumberTitle, isLight && { color: 'rgba(37,29,22,0.90)' }]}>{guardianEntry.title}</Text>
+                  <View style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.14)', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 6, marginBottom: 12 }}>
+                    <Text style={{ fontSize: 12, color: isLight ? 'rgba(37,29,22,0.85)' : 'rgba(255,255,255,0.85)', fontWeight: '600', textAlign: 'center' }}>{guardianEntry.power}</Text>
                   </View>
-                  <Text style={an.dayNumberMessage}>{guardianEntry.message}</Text>
+                  <Text style={[an.dayNumberMessage, isLight && { color: 'rgba(37,29,22,0.88)' }]}>{guardianEntry.message}</Text>
                   {personalAiMsg ? (
-                    <Animated.View entering={FadeInUp.duration(500)} style={{ backgroundColor: 'rgba(255,255,255,0.12)', borderRadius: 14, padding: 14, width: '100%', marginBottom: 12 }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: 'rgba(255,255,255,0.60)', marginBottom: 6 }}>OSOBISTY PRZEKAZ</Text>
-                      <Text style={{ fontSize: 14, lineHeight: 23, color: 'rgba(255,255,255,0.92)', fontStyle: 'italic' }}>{personalAiMsg}</Text>
+                    <Animated.View entering={FadeInUp.duration(500)} style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.12)', borderRadius: 14, padding: 14, width: '100%', marginBottom: 12 }}>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.55)' : 'rgba(255,255,255,0.60)', marginBottom: 6 }}>OSOBISTY PRZEKAZ</Text>
+                      <Text style={{ fontSize: 14, lineHeight: 23, color: isLight ? 'rgba(37,29,22,0.90)' : 'rgba(255,255,255,0.92)', fontStyle: 'italic' }}>{personalAiMsg}</Text>
                     </Animated.View>
                   ) : null}
                   <Pressable
                     onPress={handlePersonalAi}
                     disabled={personalAiLoading}
-                    style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, backgroundColor: 'rgba(255,255,255,0.16)', borderRadius: 14, paddingVertical: 12, width: '100%' }}
+                    style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.16)', borderRadius: 14, paddingVertical: 12, width: '100%' }}
                   >
-                    <Sparkles size={14} color="#fff" />
-                    <Text style={{ fontSize: 13, fontWeight: '700', color: '#fff' }}>
+                    <Sparkles size={14} color={isLight ? 'rgba(37,29,22,0.80)' : '#fff'} />
+                    <Text style={{ fontSize: 13, fontWeight: '700', color: isLight ? 'rgba(37,29,22,0.90)' : '#fff' }}>
                       {personalAiLoading ? 'Anioł przemawia...' : personalAiMsg ? 'Nowy przekaz AI' : 'Odbierz przekaz od anioła'}
                     </Text>
                   </Pressable>
@@ -2010,7 +2024,8 @@ Pisz tylko sam przekaz.`;
         </View>
       </Modal>
 
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 
@@ -2133,7 +2148,7 @@ const an = StyleSheet.create({
   patternDesc:      { fontSize: 13, lineHeight: 20 },
 
   // Encyclopedia cards
-  encCard:          { borderRadius: 16, borderWidth: 1, padding: 14, marginBottom: 10 },
+  encCard:          { borderRadius: 18, borderWidth: 1, padding: 15, marginBottom: 10, overflow: 'hidden' },
   encNumBadge:      { width: 52, height: 52, borderRadius: 14, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
   encNum:           { fontSize: 17, fontWeight: '900', letterSpacing: -0.5 },
   encTitle:         { fontSize: 14, fontWeight: '700' },

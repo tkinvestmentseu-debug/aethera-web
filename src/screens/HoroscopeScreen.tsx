@@ -1028,7 +1028,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   <View style={hs.allSignsGrid}>
                     {(['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'] as ZodiacSign[]).map(sign => (
                       <View key={sign}
-                        style={[hs.signChip, sign === zodiac && { backgroundColor: accent + '22', borderColor: accent }]}>
+                        style={[hs.signChip, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)', borderColor: isLight ? 'rgba(139,100,42,0.22)' : 'rgba(169,122,57,0.2)' }, sign === zodiac && { backgroundColor: accent + '22', borderColor: accent }]}>
                         <Text style={[hs.signChipSymbol, { color: sign === zodiac ? accent : '#8A7060' }]}>{ZODIAC_SYMBOLS[sign]}</Text>
                         <Text style={[hs.signChipLabel, { color: sign === zodiac ? accent : '#8A7060' }]}>{ZODIAC_LABELS[sign].slice(0, 4)}</Text>
                       </View>
@@ -1049,7 +1049,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   const active = activeArea === area.key;
                   return (
                     <Pressable key={area.key} onPress={() => setActiveArea(area.key)}
-                      style={[hs.areaTab, active && { backgroundColor: accent, borderColor: accent }]}>
+                      style={[hs.areaTab, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)', borderColor: isLight ? 'rgba(139,100,42,0.22)' : 'rgba(169,122,57,0.22)' }, active && { backgroundColor: accent, borderColor: accent }]}>
                       <Icon color={active ? '#FFF' : accent + 'AA'} size={16} strokeWidth={1.8}/>
                       <Text style={[hs.areaTabText, { color: active ? '#FFF' : accent + 'AA' }]}>{area.label}</Text>
                     </Pressable>

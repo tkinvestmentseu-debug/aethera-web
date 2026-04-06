@@ -900,17 +900,21 @@ const scrollToSession = useCallback(() => {
   }, [isRunning, scrollToSession]);
 
   // ─── Quick sessions ───
-  const startQuickSession = useCallback((id: string) => {
+  const startQuickSession = useCallback(async (id: string) => {
     if (quickIntervalRef.current) { clearInterval(quickIntervalRef.current); quickIntervalRef.current = null; }
     const qs = QUICK_SESSIONS.find((s) => s.id === id);
     if (!qs) return;
     setActiveQuickId(id);
     setQuickElapsed(0);
+    // Play soft ambient for micro-session
+    AudioService.setUserInteracted();
+    await AudioService.playAmbientForSession('forest');
     quickIntervalRef.current = setInterval(() => {
       setQuickElapsed((v) => {
         if (v + 1 >= qs.durationSeconds) {
           clearInterval(quickIntervalRef.current!);
           setActiveQuickId(null);
+          void AudioService.stopSessionAudioImmediately();
           return 0;
         }
         return v + 1;
@@ -922,6 +926,7 @@ const scrollToSession = useCallback(() => {
     if (quickIntervalRef.current) { clearInterval(quickIntervalRef.current); quickIntervalRef.current = null; }
     setActiveQuickId(null);
     setQuickElapsed(0);
+    await AudioService.stopSessionAudioImmediately();
   }, []);
 
   // ─── Body scan ───

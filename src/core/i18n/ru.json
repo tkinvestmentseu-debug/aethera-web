@@ -337,7 +337,565 @@
     "cardOfDay": "КАРТА ДНЯ",
     "partnerReading": "Расклад для партнёра",
     "forSomeoneTitle": "Расклад для кого-то",
-    "enterName": "Введите имя человека"
+    "enterName": "Введите имя человека",
+    "cards": {
+      "major": {
+        "0": {
+          "name": "Шут",
+          "meaningUpright": "New beginnings, spontaneity, faith in life, innocence",
+          "meaningReversed": "Recklessness, risk-taking, naivety, poor judgment",
+          "description": "The Fool represents pure potential and the willingness to embark on a new journey with an open heart.",
+          "advice": "Trust the process and step forward with courage."
+        },
+        "1": {
+          "name": "Маг",
+          "meaningUpright": "Will, manifestation, skill, creative power, resourcefulness",
+          "meaningReversed": "Manipulation, blocked energy, trickery, false appearances",
+          "description": "The Magician bridges the spiritual and material realms, transforming thought into reality.",
+          "advice": "You have everything you need. Act decisively and with intention."
+        },
+        "2": {
+          "name": "Жрица",
+          "meaningUpright": "Intuition, mystery, inner knowledge, stillness, the subconscious",
+          "meaningReversed": "Secrets, ignoring intuition, disharmony, hidden agendas",
+          "description": "The High Priestess invites you into the world of the subconscious and deep inner wisdom.",
+          "advice": "Listen to your inner wisdom. Silence holds the answers you seek."
+        },
+        "3": {
+          "name": "Императрица",
+          "meaningUpright": "Fertility, abundance, motherhood, nature, creativity",
+          "meaningReversed": "Dependence, stagnation, blocked creativity, smothering",
+          "description": "The Empress embodies divine femininity, life force, and the fertile power of nature.",
+          "advice": "Nurture yourself and others. Abundance is right before you."
+        },
+        "4": {
+          "name": "Император",
+          "meaningUpright": "Authority, structure, stability, leadership, discipline",
+          "meaningReversed": "Domination, rigidity, lack of flexibility, control issues",
+          "description": "The Emperor provides solid foundations and a stable structure for your actions.",
+          "advice": "Build a strong foundation. Act with authority and responsibility."
+        },
+        "5": {
+          "name": "Иерофант",
+          "meaningUpright": "Tradition, spirituality, guidance, values, institutions",
+          "meaningReversed": "Dogmatism, conformity, rebellion against norms",
+          "description": "The Hierophant bridges the sacred and the mundane as teacher and guide.",
+          "advice": "Seek the wisdom of teachers or your own spiritual path."
+        },
+        "6": {
+          "name": "Влюблённые",
+          "meaningUpright": "Love, harmony, values, heart choices, relationships",
+          "meaningReversed": "Separation, indecision, conflict of values, misalignment",
+          "description": "The Lovers symbolise union, harmony, and important life choices made from the heart.",
+          "advice": "Make a decision aligned with your deepest values and heart's truth."
+        },
+        "7": {
+          "name": "Колесница",
+          "meaningUpright": "Will, determination, victory, control, triumph",
+          "meaningReversed": "Aggression, lack of control, scattered energy, defeat",
+          "description": "The Chariot is the triumph of will over obstacles through disciplined action.",
+          "advice": "Hold the reins firmly. Your determination will carry you to your goal."
+        },
+        "8": {
+          "name": "Сила",
+          "meaningUpright": "Courage, patience, compassion, inner strength, confidence",
+          "meaningReversed": "Weakness, self-doubt, lack of faith, insecurity",
+          "description": "Strength is the gentle power rooted in love and spiritual courage.",
+          "advice": "Approach the situation with love and calm rather than force."
+        },
+        "9": {
+          "name": "Отшельник",
+          "meaningUpright": "Introspection, reflection, wisdom, solitude, inner guidance",
+          "meaningReversed": "Isolation, loneliness, withdrawal, cutting off from the world",
+          "description": "The Hermit illuminates the path to inner truth through silence and contemplation.",
+          "advice": "Step back for a while and seek answers within yourself."
+        },
+        "10": {
+          "name": "Колесо Фортуны",
+          "meaningUpright": "Change, life cycles, karma, fate, turning point",
+          "meaningReversed": "Bad luck, resistance to change, stagnation, breaking cycles",
+          "description": "The Wheel of Fortune reminds us of the constant movement and cyclical nature of all existence.",
+          "advice": "Accept change as part of the cycle. What ends makes way for the new."
+        },
+        "11": {
+          "name": "Справедливость",
+          "meaningUpright": "Truth, balance, fairness, karma, cause and effect",
+          "meaningReversed": "Injustice, imbalance, avoiding truth, dishonesty",
+          "description": "Justice symbolises objective truth and the consequences of our actions.",
+          "advice": "Be honest with yourself and others. Truth always comes to light."
+        },
+        "12": {
+          "name": "Повешенный",
+          "meaningUpright": "Surrender, new perspective, sacrifice, pause, letting go",
+          "meaningReversed": "Resistance to surrender, stagnation, martyrdom, delays",
+          "description": "The Hanged Man pauses us to see the world from a fresh, inverted angle.",
+          "advice": "Release control. Suspension will bring you a new perspective and wisdom."
+        },
+        "13": {
+          "name": "Смерть",
+          "meaningUpright": "Ending, transformation, transition, rebirth, change",
+          "meaningReversed": "Resistance to change, stagnation, fear of endings",
+          "description": "The Death card does not signify physical death but deep transformation and new beginnings.",
+          "advice": "Allow the old to pass. Transformation opens the door to new life."
+        },
+        "14": {
+          "name": "Умеренность",
+          "meaningUpright": "Harmony, balance, patience, moderation, synthesis",
+          "meaningReversed": "Imbalance, impatience, extremes, excess",
+          "description": "Temperance teaches us the art of balancing and finding the golden mean.",
+          "advice": "Find harmony between extremes. Patience is your strength."
+        },
+        "15": {
+          "name": "Дьявол",
+          "meaningUpright": "Addiction, materialism, illusion, bondage, shadow self",
+          "meaningReversed": "Liberation, release, breaking chains, reclaiming power",
+          "description": "The Devil embodies our addictions and the limitations we impose on ourselves.",
+          "advice": "Recognise your bonds and begin the process of liberation. You have the power to break free."
+        },
+        "16": {
+          "name": "Башня",
+          "meaningUpright": "Chaos, sudden change, awakening, revelation, upheaval",
+          "meaningReversed": "Avoiding disaster, fear of change, delaying the inevitable",
+          "description": "The Tower shatters old structures to make room for authenticity and truth.",
+          "advice": "Though the change is abrupt, this clearing paves the way for a true foundation."
+        },
+        "17": {
+          "name": "Звезда",
+          "meaningUpright": "Hope, inspiration, serenity, healing, renewal",
+          "meaningReversed": "Loss of faith, pessimism, hopelessness, discouragement",
+          "description": "The Star brings healing, hope, and renewal after difficult experiences.",
+          "advice": "Have faith. After darkness, starlight always comes."
+        },
+        "18": {
+          "name": "Луна",
+          "meaningUpright": "Illusion, fear, the subconscious, dreams, uncertainty",
+          "meaningReversed": "Clarity, dispelling confusion, emerging from darkness",
+          "description": "The Moon illuminates our fears and the shadowy corners of the subconscious.",
+          "advice": "Face your own fears. Not everything is as it seems."
+        },
+        "19": {
+          "name": "Солнце",
+          "meaningUpright": "Joy, success, vitality, clarity, positivity, radiance",
+          "meaningReversed": "Naivety, blocked joy, excessive optimism, temporary setbacks",
+          "description": "The Sun brings clarity, vitality, and genuine happiness in every area of life.",
+          "advice": "Shine your full light. This is a time of joy and success."
+        },
+        "20": {
+          "name": "Суд",
+          "meaningUpright": "Awakening, absolution, renewal, calling, reckoning",
+          "meaningReversed": "Self-criticism, doubt, fear of judgement, ignoring the call",
+          "description": "Judgement symbolises deep awakening and the answer to a spiritual calling.",
+          "advice": "Answer your higher calling. It is time for renewal and a new chapter."
+        },
+        "21": {
+          "name": "Мир",
+          "meaningUpright": "Fulfilment, integration, completion, triumph, wholeness",
+          "meaningReversed": "Incompleteness, lack of closure, procrastination, stagnation",
+          "description": "The World signifies the fullness of experience, completion of a cycle, and celebration of achievement.",
+          "advice": "Celebrate your accomplishments. One cycle ends; a new one begins."
+        }
+      },
+      "cups": {
+        "c1": {
+          "name": "Туз Кубков",
+          "meaningUpright": "New emotions, love, intuition, emotional abundance, beginnings",
+          "meaningReversed": "Blocked emotions, repressed feelings, loss of connection",
+          "description": "The Ace of Cups symbolises pure love and emotional new beginnings.",
+          "advice": "Open your heart to love and new emotional possibilities."
+        },
+        "c2": {
+          "name": "Двойка Кубков",
+          "meaningUpright": "Partnership, harmony, mutual attraction, connection",
+          "meaningReversed": "Separation, imbalance, conflict, disharmony",
+          "description": "The Two of Cups represents the depth of connection and mutual feeling.",
+          "advice": "Nurture your relationships and mutual understanding."
+        },
+        "c3": {
+          "name": "Тройка Кубков",
+          "meaningUpright": "Celebration, community, friendship, joy, abundance",
+          "meaningReversed": "Excess, gossip, isolation from friends, over-indulgence",
+          "description": "The Three of Cups is a celebration with loved ones and the joy of community.",
+          "advice": "Celebrate together with others. Shared moments of joy hold great power."
+        },
+        "c4": {
+          "name": "Четвёрка Кубков",
+          "meaningUpright": "Meditation, contemplation, boredom, apathy, re-evaluation",
+          "meaningReversed": "New opportunities, new awakening, motivation, openness",
+          "description": "The Four of Cups invites inner reflection and re-evaluation of desires.",
+          "advice": "Pause and consider what you truly want. A new opportunity may be right before you."
+        },
+        "c5": {
+          "name": "Пятёрка Кубков",
+          "meaningUpright": "Loss, regret, disappointment, grief, sorrow",
+          "meaningReversed": "Acceptance, forgiveness, new perspective, moving on",
+          "description": "The Five of Cups teaches us that after loss something always remains on which we can build.",
+          "advice": "Allow yourself to grieve, but do not forget what you still have."
+        },
+        "c6": {
+          "name": "Шестёрка Кубков",
+          "meaningUpright": "Nostalgia, memories, innocence, the past, simplicity",
+          "meaningReversed": "Stuck in the past, naivety, living in fantasy",
+          "description": "The Six of Cups evokes the beauty of memories and the simplicity of former days.",
+          "advice": "Draw joy from memories, but remember that life moves forward."
+        },
+        "c7": {
+          "name": "Семёрка Кубков",
+          "meaningUpright": "Fantasy, illusion, many choices, wishful thinking, dreams",
+          "meaningReversed": "Clarity, realism, making the right choice, focus",
+          "description": "The Seven of Cups reveals an abundance of possibilities, though not all are real.",
+          "advice": "Distinguish dream from reality. Focus on what is truly attainable."
+        },
+        "c8": {
+          "name": "Восьмёрка Кубков",
+          "meaningUpright": "Walking away, seeking deeper meaning, withdrawal, letting go",
+          "meaningReversed": "Fear of abandonment, avoiding truth, staying in the wrong situation",
+          "description": "The Eight of Cups symbolises the courage to leave behind what does not fulfil us.",
+          "advice": "Have the courage to walk away from what does not serve your spiritual growth."
+        },
+        "c9": {
+          "name": "Девятка Кубков",
+          "meaningUpright": "Wish fulfilment, satisfaction, happiness, contentment",
+          "meaningReversed": "Materialism, wishful thinking, illusion of happiness, greed",
+          "description": "The Nine of Cups is the card of emotional fulfilment and life satisfaction.",
+          "advice": "Your wishes can come true. Be grateful for what you already have."
+        },
+        "c10": {
+          "name": "Десятка Кубков",
+          "meaningUpright": "Family, harmony, happiness, fulfilment, long-term joy",
+          "meaningReversed": "Family conflicts, lack of harmony, broken home, loss of meaning",
+          "description": "The Ten of Cups symbolises ideal family happiness and emotional completeness.",
+          "advice": "Nurture family bonds and close relationships. That is your true treasure."
+        },
+        "c11": {
+          "name": "Паж Кубков",
+          "meaningUpright": "Creativity, intuition, sensitivity, new feelings, imagination",
+          "meaningReversed": "Emotional immaturity, daydreaming, moodiness",
+          "description": "The Page of Cups is an artistic soul full of imagination and emotional sensitivity.",
+          "advice": "Trust your intuition and give expression to the creativity you carry in your heart."
+        },
+        "c12": {
+          "name": "Рыцарь Кубков",
+          "meaningUpright": "Romance, charm, imagination, following dreams, idealism",
+          "meaningReversed": "Moodiness, unrealistic expectations, disappointment, over-sensitivity",
+          "description": "The Knight of Cups moves forward with a heart full of dreams and romantic ideals.",
+          "advice": "Follow your dreams, but do not lose yourself in illusions. Stay true to yourself."
+        },
+        "c13": {
+          "name": "Королева Кубков",
+          "meaningUpright": "Empathy, intuition, nurturing, emotional wisdom, compassion",
+          "meaningReversed": "Emotional dependency, manipulation, insecurity, moodiness",
+          "description": "The Queen of Cups embodies the depth of emotion and loving wisdom of the heart.",
+          "advice": "Use your intuition and empathy as a guide in your relationships."
+        },
+        "c14": {
+          "name": "Король Кубков",
+          "meaningUpright": "Emotional maturity, diplomacy, wisdom, calm, balance",
+          "meaningReversed": "Emotional manipulation, repression of feelings, instability",
+          "description": "The King of Cups rules over emotions with wisdom and stability.",
+          "advice": "Be master of your emotions, not their victim. Act with balance and wisdom."
+        }
+      },
+      "wands": {
+        "w1": {
+          "name": "Туз Жезлов",
+          "meaningUpright": "New beginnings, inspiration, potential, creative energy, spark",
+          "meaningReversed": "Delays, lack of motivation, creative block, missed opportunity",
+          "description": "The Ace of Wands is the spark that ignites the flame of new ventures and passion.",
+          "advice": "Act on this creative energy. Now is the time to begin."
+        },
+        "w2": {
+          "name": "Двойка Жезлов",
+          "meaningUpright": "Planning, vision, partnership, future, bold steps",
+          "meaningReversed": "Fear of the unknown, lack of planning, playing it safe",
+          "description": "The Two of Wands invites bold planning and ambitious steps forward.",
+          "advice": "Think long-term and boldly plan your next move."
+        },
+        "w3": {
+          "name": "Тройка Жезлов",
+          "meaningUpright": "Expansion, foresight, leadership, progress, enterprise",
+          "meaningReversed": "Obstacles, delays, frustration, lack of foresight",
+          "description": "The Three of Wands symbolises the moment of observing the fruits of your work and planning expansion.",
+          "advice": "Your work is bearing results. It is time to broaden your horizons."
+        },
+        "w4": {
+          "name": "Четвёрка Жезлов",
+          "meaningUpright": "Celebration, harmony, home, stability, milestone",
+          "meaningReversed": "Lack of harmony, overload, postponing celebration, conflict at home",
+          "description": "The Four of Wands is a joyful celebration of achievements and a sense of belonging.",
+          "advice": "Celebrate your successes. You have earned a moment of joy and gratitude."
+        },
+        "w5": {
+          "name": "Пятёрка Жезлов",
+          "meaningUpright": "Conflict, competition, chaos, challenge, struggle",
+          "meaningReversed": "Avoiding conflict, end of struggle, harmony, resolution",
+          "description": "The Five of Wands reveals the dynamic energy of competition and creative chaos.",
+          "advice": "Approach challenges with an open mind. Conflict can lead to growth."
+        },
+        "w6": {
+          "name": "Шестёрка Жезлов",
+          "meaningUpright": "Triumph, victory, recognition, success, public acknowledgement",
+          "meaningReversed": "Arrogance, downfall, uncertainty of success, egotism",
+          "description": "The Six of Wands celebrates public recognition and longed-for victory.",
+          "advice": "Your success deserves recognition. Accept it with grace and humility."
+        },
+        "w7": {
+          "name": "Семёрка Жезлов",
+          "meaningUpright": "Perseverance, defence, challenge, determination, standing firm",
+          "meaningReversed": "Exhaustion, over-defensiveness, giving up, compromise",
+          "description": "The Seven of Wands demands perseverance in the face of challenges and defending your position.",
+          "advice": "Stand firmly by your convictions. Perseverance is your strength."
+        },
+        "w8": {
+          "name": "Восьмёрка Жезлов",
+          "meaningUpright": "Swift action, movement, news, progress, momentum",
+          "meaningReversed": "Delays, frustration, information chaos, lack of direction",
+          "description": "The Eight of Wands brings rapid changes and an acceleration of events.",
+          "advice": "Act quickly when the opportunity arises. Timing matters."
+        },
+        "w9": {
+          "name": "Девятка Жезлов",
+          "meaningUpright": "Perseverance, resilience, boundaries, strength, near completion",
+          "meaningReversed": "Exhaustion, lack of resilience, excessive caution, burnout",
+          "description": "The Nine of Wands symbolises the strength gained through difficult experiences.",
+          "advice": "You are stronger than you think. One last effort and the goal will be reached."
+        },
+        "w10": {
+          "name": "Десятка Жезлов",
+          "meaningUpright": "Burden, overwhelm, duty, responsibility, carrying too much",
+          "meaningReversed": "Delegation, release, simplification, letting go",
+          "description": "The Ten of Wands reveals the weight of excessive obligations and the need to delegate.",
+          "advice": "You do not have to carry everything alone. Share part of the burden with others."
+        },
+        "w11": {
+          "name": "Паж Жезлов",
+          "meaningUpright": "Enthusiasm, exploration, ambition, energy, free spirit",
+          "meaningReversed": "Lack of direction, inconsistency, immaturity, scattered energy",
+          "description": "The Page of Wands is an energetic adventurer ready for new challenges.",
+          "advice": "Be bold and enthusiastic. Your energy is contagious."
+        },
+        "w12": {
+          "name": "Рыцарь Жезлов",
+          "meaningUpright": "Impulsiveness, adventure, energy, passion, action",
+          "meaningReversed": "Scattered energy, lack of plan, reckless decisions, haste",
+          "description": "The Knight of Wands charges forward with unbridled passion and courage.",
+          "advice": "Channel your energy into concrete actions so as not to fall into chaos."
+        },
+        "w13": {
+          "name": "Королева Жезлов",
+          "meaningUpright": "Confidence, independence, charisma, courage, determination",
+          "meaningReversed": "Jealousy, domination, egocentrism, aggression",
+          "description": "The Queen of Wands embodies powerful femininity, independence, and magnetic charisma.",
+          "advice": "Be yourself without apology. Your authenticity is your greatest strength."
+        },
+        "w14": {
+          "name": "Король Жезлов",
+          "meaningUpright": "Leadership, vision, entrepreneurship, inspiration, boldness",
+          "meaningReversed": "Impulsiveness, arrogance, tyranny, high expectations",
+          "description": "The King of Wands is a visionary leader who inspires others with passion and determination.",
+          "advice": "Lead with vision and passion. Your leadership can inspire others."
+        }
+      },
+      "swords": {
+        "s1": {
+          "name": "Туз Мечей",
+          "meaningUpright": "Mental clarity, truth, breakthrough, new thinking, justice",
+          "meaningReversed": "Confusion of thought, disinformation, brutality, chaos",
+          "description": "The Ace of Swords is the sharpness of intellect and the power of truth that cuts through illusions.",
+          "advice": "Seek truth and speak with clear, precise intention."
+        },
+        "s2": {
+          "name": "Двойка Мечей",
+          "meaningUpright": "Dilemma, blocked decision, stalemate, avoidance",
+          "meaningReversed": "Disorientation, deception, indecision, information overload",
+          "description": "The Two of Swords symbolises a difficult choice and the necessity of looking beyond appearances.",
+          "advice": "Remove the blindfold. The true answer lies within you."
+        },
+        "s3": {
+          "name": "Тройка Мечей",
+          "meaningUpright": "Heartbreak, betrayal, grief, sorrow, pain",
+          "meaningReversed": "Healing, forgiveness, release from pain, recovery",
+          "description": "The Three of Swords reveals the pain of the heart, a necessary stage on the path to healing.",
+          "advice": "Allow yourself to feel the pain. Healing begins with accepting the truth."
+        },
+        "s4": {
+          "name": "Четвёрка Мечей",
+          "meaningUpright": "Rest, recuperation, meditation, contemplation, retreat",
+          "meaningReversed": "Return to action, anxiety, lack of rest, burnout",
+          "description": "The Four of Swords encourages pausing and recuperating after intense effort.",
+          "advice": "Allow yourself to rest. Peace of mind will restore your strength."
+        },
+        "s5": {
+          "name": "Пятёрка Мечей",
+          "meaningUpright": "Conflict, defeat, dishonesty, hostility, hollow victory",
+          "meaningReversed": "Reconciliation, resolution, moving past conflict, forgiveness",
+          "description": "The Five of Swords reveals the consequences of battle and the need for wisdom in choosing your fights.",
+          "advice": "Not every battle is worth winning. Wisdom lies in choosing your fights."
+        },
+        "s6": {
+          "name": "Шестёрка Мечей",
+          "meaningUpright": "Transition, journey, moving toward calm, rite of passage",
+          "meaningReversed": "Resistance to change, stuck in problems, ongoing turbulence",
+          "description": "The Six of Swords symbolises a slow emergence from difficulty toward calmer waters.",
+          "advice": "Move forward. Better times await on the other side."
+        },
+        "s7": {
+          "name": "Семёрка Мечей",
+          "meaningUpright": "Deception, strategy, escape, cunning, acting alone",
+          "meaningReversed": "Return to honesty, exposure of deception, confession",
+          "description": "The Seven of Swords points to the need for a considered strategy or warns against deception.",
+          "advice": "Be wary of dishonesty — your own or others'. Strategy requires integrity."
+        },
+        "s8": {
+          "name": "Восьмёрка Мечей",
+          "meaningUpright": "Imprisonment, restriction, self-limiting beliefs, helplessness",
+          "meaningReversed": "Liberation, new perspective, breaking limitations, empowerment",
+          "description": "The Eight of Swords reveals restrictions that we often impose upon ourselves in the mind.",
+          "advice": "Your bonds are less real than you think. You have the power to free yourself."
+        },
+        "s9": {
+          "name": "Девятка Мечей",
+          "meaningUpright": "Fear, anxiety, nightmares, worry, mental anguish",
+          "meaningReversed": "Hope, recovery from fear, seeking help, relief",
+          "description": "The Nine of Swords symbolises the suffering of the mind and nocturnal anxieties.",
+          "advice": "You are not alone in your fear. Reach out for support and share your burden."
+        },
+        "s10": {
+          "name": "Десятка Мечей",
+          "meaningUpright": "Ending, pain, defeat, but also a new dawn, rock bottom",
+          "meaningReversed": "Unwanted change, resistance, clinging to pain, inability to let go",
+          "description": "The Ten of Swords marks the end of a cycle which, though painful, opens the door to rebirth.",
+          "advice": "What has ended has ended. Breathe — a new dawn is coming."
+        },
+        "s11": {
+          "name": "Паж Мечей",
+          "meaningUpright": "Intellectual curiosity, communication, honesty, vigilance",
+          "meaningReversed": "Gossip, superficiality, dishonesty, all talk no action",
+          "description": "The Page of Swords is a sharp, inquisitive intellect hungry for knowledge and truth.",
+          "advice": "Ask, investigate, question. Your mind is your greatest weapon."
+        },
+        "s12": {
+          "name": "Рыцарь Мечей",
+          "meaningUpright": "Ambition, swift action, determination, intellect, directness",
+          "meaningReversed": "Impulsiveness, lack of empathy, arrogance, recklessness",
+          "description": "The Knight of Swords charges at a goal with the full force of intellect and determined will.",
+          "advice": "Act decisively, but remember the impact on others."
+        },
+        "s13": {
+          "name": "Королева Мечей",
+          "meaningUpright": "Independence, clarity of thought, boundaries, perception, truth",
+          "meaningReversed": "Harshness, emotional coldness, bitter experience, cruelty",
+          "description": "The Queen of Swords combines intellectual sharpness with wisdom gained through life experience.",
+          "advice": "Be clear and direct. Your strength flows from truth and healthy boundaries."
+        },
+        "s14": {
+          "name": "Король Мечей",
+          "meaningUpright": "Intellectual power, authority, clarity, justice, truth",
+          "meaningReversed": "Tyranny, manipulation, lack of empathy, abuse of power",
+          "description": "The King of Swords rules through the power of intellect and speaks truth without compromise.",
+          "advice": "Act with intellectual authority and clarity. Truth is your strength."
+        }
+      },
+      "pentacles": {
+        "p1": {
+          "name": "Туз Пентаклей",
+          "meaningUpright": "Abundance, new financial opportunity, manifestation, prosperity",
+          "meaningReversed": "Lost opportunity, greed, lack of stability, poor planning",
+          "description": "The Ace of Pentacles symbolises the seed of material prosperity and new opportunities.",
+          "advice": "Seize the new financial or material opportunity. The ground beneath your feet is solid."
+        },
+        "p2": {
+          "name": "Двойка Пентаклей",
+          "meaningUpright": "Balance, adaptability, resource management, juggling priorities",
+          "meaningReversed": "Financial chaos, imbalance, overwhelm, disorganisation",
+          "description": "The Two of Pentacles reveals the art of juggling resources while maintaining balance.",
+          "advice": "Be flexible and balance your commitments with wisdom."
+        },
+        "p3": {
+          "name": "Тройка Пентаклей",
+          "meaningUpright": "Craftsmanship, collaboration, learning, quality of work, teamwork",
+          "meaningReversed": "Lack of harmony at work, mediocrity, conflict, poor planning",
+          "description": "The Three of Pentacles celebrates excellence in craft and effective collaboration.",
+          "advice": "Invest in your skills and collaborate with others for better results."
+        },
+        "p4": {
+          "name": "Четвёрка Пентаклей",
+          "meaningUpright": "Security, control, frugality, stability, conservation",
+          "meaningReversed": "Miserliness, greed, fear of loss, hoarding",
+          "description": "The Four of Pentacles symbolises the need for financial security but also the risk of excessive control.",
+          "advice": "Enjoy your security, but do not let fear of loss limit your life."
+        },
+        "p5": {
+          "name": "Пятёрка Пентаклей",
+          "meaningUpright": "Financial hardship, poverty, isolation, difficulty, hardship",
+          "meaningReversed": "Return to stability, help arriving, healing, recovery",
+          "description": "The Five of Pentacles reveals material and emotional hardship, yet help is available nearby.",
+          "advice": "Do not be ashamed to ask for help. Support is available — you only need to accept it."
+        },
+        "p6": {
+          "name": "Шестёрка Пентаклей",
+          "meaningUpright": "Generosity, giving, sharing, balance of exchange",
+          "meaningReversed": "Debts, inequality, conditional giving, strings attached",
+          "description": "The Six of Pentacles teaches that giving and receiving must be in harmony.",
+          "advice": "Give generously where you can, but also attend to your own needs."
+        },
+        "p7": {
+          "name": "Семёрка Пентаклей",
+          "meaningUpright": "Patience, assessment, long-term planning, investment, reward",
+          "meaningReversed": "Lack of reward, discouragement, impatience, poor returns",
+          "description": "The Seven of Pentacles encourages assessing the work done so far and patient anticipation of results.",
+          "advice": "Your work is bearing fruit, though slowly. Have patience."
+        },
+        "p8": {
+          "name": "Восьмёрка Пентаклей",
+          "meaningUpright": "Craftsmanship, diligence, mastery, learning, dedication",
+          "meaningReversed": "Lack of ambition, perfectionism blocking action, mediocrity",
+          "description": "The Eight of Pentacles is a dedication to mastering a craft through persistent work.",
+          "advice": "Be diligent and focused on honing your skills."
+        },
+        "p9": {
+          "name": "Девятка Пентаклей",
+          "meaningUpright": "Prosperity, independence, luxury, success, self-sufficiency",
+          "meaningReversed": "False prosperity, dependence, superficiality, over-investment",
+          "description": "The Nine of Pentacles symbolises well-earned prosperity and independence.",
+          "advice": "Enjoy the fruits of your labour. You have taken care of yourself and it shows."
+        },
+        "p10": {
+          "name": "Десятка Пентаклей",
+          "meaningUpright": "Wealth, legacy, family, long-term success, inheritance",
+          "meaningReversed": "Family conflicts, loss of legacy, short-sightedness, instability",
+          "description": "The Ten of Pentacles represents the fullness of material prosperity and lasting family happiness.",
+          "advice": "Think about the legacy you are leaving. Build on enduring foundations."
+        },
+        "p11": {
+          "name": "Паж Пентаклей",
+          "meaningUpright": "Ambition, diligence, realism, learning, practicality",
+          "meaningReversed": "Lack of ambition, daydreaming without action, missed opportunity",
+          "description": "The Page of Pentacles is a persistent student who sets goals and works toward them systematically.",
+          "advice": "Learn and work consistently. Your perseverance will bear fruit."
+        },
+        "p12": {
+          "name": "Рыцарь Пентаклей",
+          "meaningUpright": "Responsibility, perseverance, routine, reliability, patience",
+          "meaningReversed": "Stagnation, lack of flexibility, excessive caution, stubbornness",
+          "description": "The Knight of Pentacles moves slowly but surely, focused on the goal.",
+          "advice": "Be perseverant and reliable. Slow, systematic action leads to success."
+        },
+        "p13": {
+          "name": "Королева Пентаклей",
+          "meaningUpright": "Nurturing, practicality, abundance, groundedness, security",
+          "meaningReversed": "Imbalance, self-neglect, materialism, over-dependence",
+          "description": "The Queen of Pentacles combines warmth with practical wisdom and the ability to create abundance.",
+          "advice": "Care for others with tenderness, but remember your own needs too."
+        },
+        "p14": {
+          "name": "Король Пентаклей",
+          "meaningUpright": "Wealth, leadership, security, success, wise management",
+          "meaningReversed": "Greed, corruption, materialism at the expense of relationships, stubbornness",
+          "description": "The King of Pentacles is the embodiment of material success, stability, and wise stewardship.",
+          "advice": "Manage your resources with wisdom and generosity. True success serves others."
+        }
+      }
+    }
   },
   "horoscope": {
     "title": "Гороскоп",
@@ -917,21 +1475,21 @@
     }
   },
   "checkin": {
-    "title": "Самопроверка души",
+    "title": "Отметка",
     "mood": "Настроение",
     "energy": "Энергия",
     "focus": "Фокус",
-    "save": "Сохранить",
-    "particles": "Частицы",
+    "save": "СОХРАНИТЬ ОТМЕТКУ",
+    "particles": "частиц энергии",
     "moods": {
       "joy": "Радость",
       "peace": "Покой",
       "gratitude": "Благодарность",
       "love": "Любовь",
       "anxiety": "Тревога",
-      "sadness": "Печаль",
+      "sadness": "Грусть",
       "anger": "Гнев",
-      "confusion": "Смятение",
+      "confusion": "Замешательство",
       "emptiness": "Пустота"
     },
     "energy_levels": {
@@ -952,34 +1510,34 @@
   },
   "reports": {
     "title": "Отчёты",
-    "pathAnalysis": "Анализ пути",
-    "weeklyInsight": "Еженедельное озарение",
-    "dominantEnergy": "Доминирующая энергия",
-    "frequentArchetypes": "Частые архетипы",
-    "suggestedFocus": "Рекомендуемый фокус",
-    "consistencyMastery": "Мастерство постоянства",
-    "streakDesc": "Дней практики подряд",
-    "entries": "Записи",
-    "readings": "Чтения",
-    "recordDays": "Рекордные дни",
-    "currentPhase": "Текущая фаза",
-    "emotionalLandscape": "Эмоциональный пейзаж",
-    "moodConstellation": "Созвездие настроения",
-    "practiceDynamics": "Динамика практик",
-    "calm": "Спокойно",
-    "excellent": "Отлично",
-    "good": "Хорошо",
-    "peaceful": "Мирно",
-    "weak": "Слабо",
-    "difficult": "Трудно",
-    "soulReports": "Отчёты души",
-    "trends": "Тенденции",
-    "generating": "Формирование отчёта...",
-    "weeklyReport": "Еженедельный отчёт",
-    "monthlyReport": "Ежемесячный отчёт",
-    "constellationDesc": "Визуализация ваших эмоциональных состояний в виде звёздной карты.",
+    "pathAnalysis": "АНАЛИЗ ПУТИ",
+    "weeklyInsight": "Еженедельное Видение",
+    "dominantEnergy": "ДОМИНИРУЮЩАЯ ЭНЕРГИЯ",
+    "frequentArchetypes": "ЧАСТЫЕ АРХЕТИПЫ",
+    "suggestedFocus": "РЕКОМЕНДУЕМЫЙ ФОКУС",
+    "consistencyMastery": "Мастерство Постоянства",
+    "streakDesc": "Вы поддерживали связь с вашим внутренним миром {{days}} дней подряд.",
+    "entries": "ЗАПИСИ",
+    "readings": "ЧТЕНИЯ",
+    "recordDays": "ДНЕЙ РЕКОРД",
+    "currentPhase": "ТЕКУЩАЯ ФАЗА",
+    "emotionalLandscape": "ЭМОЦИОНАЛЬНЫЙ ЛАНДШАФТ",
+    "moodConstellation": "СОЗВЕЗДИЕ НАСТРОЕНИЯ",
+    "practiceDynamics": "ДИНАМИКА ПРАКТИК",
+    "calm": "Спокойный",
+    "excellent": "Отличный",
+    "good": "Хороший",
+    "peaceful": "Мирный",
+    "weak": "Слабый",
+    "difficult": "Трудный",
+    "soulReports": "Отчёты Души",
+    "trends": "Ваши тенденции",
+    "generating": "Создание отчёта...",
+    "weeklyReport": "Еженедельный Отчёт",
+    "monthlyReport": "Ежемесячный Отчёт",
+    "constellationDesc": "Визуализация ваших эмоциональных состояний как звёздной карты.",
     "reflections": "РАЗМЫШЛЕНИЯ",
-    "tarotInsight": "ИНСАЙТ ТАРО"
+    "tarotInsight": "ОТКРОВЕНИЕ ТАРО"
   },
   "astrology": {
     "title": "Астрология",
@@ -987,7 +1545,7 @@
     "cycles": "Циклы",
     "biorhythm": "Биоритм",
     "stars": "Звёзды",
-    "vedic": "Ведическая",
+    "vedic": "Ведическая Астрология",
     "retrograde": "Ретроградный",
     "aspects": "Аспекты",
     "conjunction": "Соединение",
@@ -995,10 +1553,10 @@
     "trine": "Тригон",
     "square": "Квадратура",
     "sextile": "Секстиль",
-    "natalChart": "Натальная карта",
-    "starsMap": "Карта звёздного неба",
-    "currentTransits": "Текущие транзиты",
-    "biorhythmCycles": "Циклы биоритма",
+    "natalChart": "Натальная Карта",
+    "starsMap": "Карта Неба",
+    "currentTransits": "Текущие Транзиты",
+    "biorhythmCycles": "Циклы Биоритма",
     "physical": "Физический",
     "emotional": "Эмоциональный",
     "intellectual": "Интеллектуальный"
@@ -1006,58 +1564,58 @@
   "notifications": {
     "title": "Уведомления",
     "reminders": "Напоминания",
-    "add_reminder": "Добавить напоминание",
+    "add_reminder": "Добавить Напоминание",
     "morning": "Утро",
     "evening": "Вечер",
     "meditation": "Медитация",
     "ritual": "Ритуал",
     "enabled": "Включено",
-    "disabled": "Выключено",
+    "disabled": "Отключено",
     "time": "Время",
     "days": "Дни",
     "presets": "Пресеты",
-    "customTime": "Своё время",
-    "reminderLabel": "Метка",
+    "customTime": "Пользовательское время",
+    "reminderLabel": "Метка напоминания",
     "saveReminder": "СОХРАНИТЬ НАПОМИНАНИЕ",
     "deleteReminder": "Удалить напоминание",
-    "allDays": "Ежедневно",
-    "weekdays": "Будни",
+    "allDays": "Каждый день",
+    "weekdays": "Будние дни",
     "weekends": "Выходные"
   },
   "paywall": {
-    "premiumTitle": "Aethera Премиум",
-    "premiumSubtitle": "Раскройте свою полную духовную трансформацию",
-    "choosePath": "Выберите свой путь",
+    "premiumTitle": "Откройте Бесконечную Мудрость",
+    "premiumSubtitle": "Ваше внутреннее путешествие начинается сейчас. Присоединитесь к элитному кругу искателей.",
+    "choosePath": "ВЫБЕРИТЕ СВОЙ ПУТЬ",
     "monthly": "Ежемесячно",
     "yearly": "Ежегодно",
-    "monthlyDesc": "Полный доступ месяц за месяцем",
-    "yearlyDesc": "Лучшая ценность для вашего годового пути",
-    "bestValue": "Лучшая ценность",
-    "restore": "Восстановить покупки",
-    "feature1Title": "Безлимитный оракул",
-    "feature1Desc": "Неограниченные сессии с ИИ-оракулом",
-    "feature2Title": "Все колоды Таро",
-    "feature2Desc": "Доступ ко всем премиум-колодам",
-    "feature3Title": "Глубокий анализ",
-    "feature3Desc": "Подробные отчёты души и тенденции",
-    "feature4Title": "Премиум аудио-опыт",
-    "feature4Desc": "Эксклюзивные медитации и звуковые ванны"
+    "monthlyDesc": "Отмена в любое время",
+    "yearlyDesc": "Всего $4.99 / месяц",
+    "bestValue": "ЛУЧШАЯ ЦЕННОСТЬ",
+    "restore": "ВОССТАНОВИТЬ ПОКУПКИ",
+    "feature1Title": "Неограниченный Чат Оракула",
+    "feature1Desc": "Общайтесь с вашим ИИ-гидом без ограничений в любое время.",
+    "feature2Title": "Расширенные Расклады Таро",
+    "feature2Desc": "Доступ ко всем 22 старшим и младшим арканам плюс специализированные расклады.",
+    "feature3Title": "Прозрения Пути Души",
+    "feature3Desc": "Глубокий анализ вашей Матрицы Судьбы и личных транзитов.",
+    "feature4Title": "Священная Библиотека",
+    "feature4Desc": "Постоянное святилище для ваших любимых аффирмаций, чтений и снов."
   },
   "compatibility": {
     "title": "Совместимость",
-    "relationships": "Отношения",
+    "relationships": "ОТНОШЕНИЯ",
     "synastry": "Синастрия",
-    "addPartnerEnergy": "Добавить энергию партнёра",
-    "partnerName": "Имя партнёра",
-    "namePlaceholder": "Введите имя",
-    "birthDate": "Дата рождения",
+    "addPartnerEnergy": "ДОБАВИТЬ ЭНЕРГИЮ ПАРТНЁРА",
+    "partnerName": "ИМЯ ПАРТНЁРА / ПЕРСОНЫ",
+    "namePlaceholder": "Введите имя...",
+    "birthDate": "ДАТА РОЖДЕНИЯ",
     "selectDate": "Выбрать дату",
-    "calculateMatch": "Рассчитать совместимость",
+    "calculateMatch": "РАССЧИТАТЬ СОВМЕСТИМОСТЬ",
     "you": "Вы",
     "partner": "Партнёр",
-    "relationshipEnergy": "Энергия отношений",
+    "relationshipEnergy": "ЭНЕРГИЯ ОТНОШЕНИЙ",
     "vibration": "Вибрация",
-    "changePartner": "Сменить партнёра",
+    "changePartner": "СМЕНИТЬ ПЕРСОНУ",
     "compatibilityScore": "Оценка совместимости",
     "strengths": "Сильные стороны",
     "challenges": "Вызовы",
@@ -1065,53 +1623,53 @@
   },
   "journeys": {
     "title": "Путешествия",
-    "spiritualPrograms": "Духовные программы",
-    "transformationPaths": "Пути трансформации",
-    "weeklyFocus": "Еженедельный фокус",
-    "dailyPractice": "Ежедневная практика",
-    "completedSessions": "Завершённые сессии",
-    "nextStep": "Следующий шаг",
-    "continueJourney": "Продолжить путешествие",
-    "startJourney": "Начать путешествие",
-    "currentJourney": "Текущее путешествие",
-    "availableJourneys": "Доступные путешествия",
+    "spiritualPrograms": "Духовные Программы",
+    "transformationPaths": "Пути Трансформации",
+    "weeklyFocus": "Еженедельный Фокус",
+    "dailyPractice": "Ежедневная Практика",
+    "completedSessions": "Завершённые Сессии",
+    "nextStep": "Следующий Шаг",
+    "continueJourney": "Продолжить Путешествие",
+    "startJourney": "Начать Путешествие",
+    "currentJourney": "Текущее Путешествие",
+    "availableJourneys": "Доступные Путешествия",
     "progress": "Прогресс",
-    "daysLeft": "Оставшихся дней"
+    "daysLeft": "Осталось дней"
   },
   "palmreading": {
     "title": "Хиромантия",
-    "analyze": "АНАЛИЗИРОВАТЬ РУКУ",
-    "upload": "Загрузите фото вашей руки",
+    "analyze": "АНАЛИЗИРОВАТЬ ЛАДОНЬ",
+    "upload": "Загрузить фото ладони",
     "instructions": "Сфотографируйте ладонь при хорошем освещении",
     "lines": {
       "heart": "Линия Сердца",
-      "head": "Линия Разума",
+      "head": "Линия Ума",
       "life": "Линия Жизни",
       "fate": "Линия Судьбы",
       "sun": "Линия Солнца"
     },
-    "interpretationTitle": "Интерпретация ладони",
-    "loading": "Анализ линий вашей руки..."
+    "interpretationTitle": "Интерпретация Ладони",
+    "loading": "Анализ линий вашей ладони..."
   },
   "binauralbeats": {
-    "title": "Мозговые волны",
+    "title": "Мозговые Волны",
     "subtitle": "Бинауральные ритмы",
-    "start": "НАЧАТЬ",
-    "stop": "ОСТАНОВИТЬ",
+    "start": "СТАРТ",
+    "stop": "СТОП",
     "waves": {
       "delta": "Дельта — глубокий сон",
       "theta": "Тета — медитация",
       "alpha": "Альфа — расслабление",
-      "beta": "Бета — концентрация",
+      "beta": "Бета — фокус",
       "gamma": "Гамма — высшее познание"
     },
     "benefits": "Преимущества",
     "session_complete": "Сессия завершена"
   },
   "sleephelper": {
-    "title": "Помощник сна",
-    "start": "НАЧАТЬ ЗАСЫПАНИЕ",
-    "duration": "Длительность",
+    "title": "Помощник Сна",
+    "start": "НАЧАТЬ СОН",
+    "duration": "Продолжительность",
     "soundscape": "Звуки",
     "story": "История",
     "meditation": "Медитация для сна",
@@ -1119,10 +1677,10 @@
   },
   "stars": {
     "title": "Звёзды",
-    "skyMap": "Карта неба",
-    "catalogue": "Каталог звёзд",
+    "skyMap": "Карта Неба",
+    "catalogue": "Звёздный Каталог",
     "constellation": "Созвездие",
-    "magnitude": "Яркость",
+    "magnitude": "Magnitude",
     "distance": "Расстояние",
     "realTimeSky": "Небо в реальном времени",
     "yourZenith": "Ваш зенит",
@@ -1137,9 +1695,9 @@
     "intellectual": "Интеллектуальный",
     "today": "Сегодня",
     "peak": "Пик",
-    "low": "Спад",
+    "low": "Минимум",
     "neutral": "Нейтральный",
-    "chartTitle": "График биоритма"
+    "chartTitle": "График Биоритма"
   },
   "knowledge": {
     "title": "Библиотека",
@@ -1147,31 +1705,31 @@
     "categories": "Категории",
     "articles": "Статьи",
     "savedArticles": "Сохранённые статьи",
-    "readMore": "Читать дальше"
+    "readMore": "Читать далее"
   },
   "data": {
     "decks": {
-      "classic": "Золотая Заря",
-      "classicDesc": "Самая точная классическая колода, основанная на традиции Райдера-Уэйта.",
+      "classic": "Golden Dawn",
+      "classicDesc": "Самая точная и классическая колода, основанная на традиции Райдер-Уэйт.",
       "cosmic": "Космический Свет",
-      "cosmicDesc": "Современная, галактическая интерпретация архетипов вселенной.",
-      "dark": "Тень Души",
+      "cosmicDesc": "Современная, галактическая интерпретация универсальных архетипов.",
+      "dark": "Тьма Души",
       "darkDesc": "Глубокая колода для работы с тенью и скрытыми истинами."
     },
     "rituals": {
       "morning_alignment": {
-        "title": "Утреннее выравнивание",
+        "title": "Утреннее Выравнивание",
         "description": "Короткая медитация для установки намерения на день.",
         "duration": "5 мин"
       },
       "evening_reflection": {
-        "title": "Вечерняя рефлексия",
+        "title": "Вечерняя Рефлексия",
         "description": "Отпустите накопленные эмоции перед сном.",
         "duration": "10 мин"
       },
       "candle_magic": {
-        "title": "Ритуал свечи",
-        "description": "Манифестация желания через стихию огня.",
+        "title": "Магия Свечи",
+        "description": "Проявление конкретного желания через элемент огня.",
         "duration": "15 мин"
       }
     }
@@ -1179,98 +1737,98 @@
   "archetypes": {
     "1": {
       "name": "Маг",
-      "title": "Мастер воли"
+      "title": "Творец Реальности"
     },
     "2": {
       "name": "Жрица",
-      "title": "Хранительница тайн"
+      "title": "Хранительница Тайн"
     },
     "3": {
       "name": "Императрица",
-      "title": "Изобилие природы"
+      "title": "Владычица Изобилия"
     },
     "4": {
       "name": "Император",
-      "title": "Структура и власть"
+      "title": "Архитектор Порядка"
     },
     "5": {
       "name": "Иерофант",
-      "title": "Духовный наставник"
+      "title": "Страж Традиций"
     },
     "6": {
       "name": "Влюблённые",
-      "title": "Союз и выбор"
+      "title": "Гармонизатор Энергии"
     },
     "7": {
       "name": "Колесница",
-      "title": "Победоносная воля"
+      "title": "Покоритель Целей"
     },
     "8": {
       "name": "Справедливость",
-      "title": "Равновесие и истина"
+      "title": "Весы Кармы"
     },
     "9": {
       "name": "Отшельник",
-      "title": "Внутренняя мудрость"
+      "title": "Искатель Истины"
     },
     "10": {
       "name": "Колесо Фортуны",
-      "title": "Циклы судьбы"
+      "title": "Повелитель Судьбы"
     },
     "11": {
       "name": "Сила",
-      "title": "Внутреннее мужество"
+      "title": "Мастер Эмоций"
     },
     "12": {
       "name": "Повешенный",
-      "title": "Смирение и перспектива"
+      "title": "Провидец Перспективы"
     },
     "13": {
       "name": "Смерть",
-      "title": "Трансформация и возрождение"
+      "title": "Агент Трансформации"
     },
     "14": {
       "name": "Умеренность",
-      "title": "Гармония и мера"
+      "title": "Алхимик Равновесия"
     },
     "15": {
       "name": "Дьявол",
-      "title": "Освобождение от оков"
+      "title": "Исследователь Тени"
     },
     "16": {
       "name": "Башня",
-      "title": "Внезапное откровение"
+      "title": "Разрушитель Иллюзий"
     },
     "17": {
       "name": "Звезда",
-      "title": "Надежда и вдохновение"
+      "title": "Вдохновитель Надежды"
     },
     "18": {
       "name": "Луна",
-      "title": "Иллюзия и интуиция"
+      "title": "Путешественник Подсознания"
     },
     "19": {
       "name": "Солнце",
-      "title": "Радость и жизненная сила"
+      "title": "Луч Ясности"
     },
     "20": {
       "name": "Суд",
-      "title": "Пробуждение и искупление"
+      "title": "Голос Пробуждения"
     },
     "21": {
       "name": "Мир",
-      "title": "Завершение и целостность"
+      "title": "Мастер Интеграции"
     },
     "22": {
       "name": "Шут",
-      "title": "Начало и бесконечный потенциал"
+      "title": "Свободный Дух"
     }
   },
   "sleepRitual": {
     "title": "Ритуал Сна",
     "eyebrow": "МИР СНОВ",
     "tabProtocol": "Протокол",
-    "tabScan": "Сканирование",
+    "tabScan": "Сканирование Тела",
     "tabBreath": "Дыхание",
     "start": "Начать",
     "done": "Готово"
@@ -1285,16 +1843,16 @@
   "fireCeremony": {
     "title": "Огненная Церемония",
     "eyebrow": "МИР РИТУАЛОВ",
-    "writeIntention": "Напишите намерение...",
+    "writeIntention": "Запишите своё намерение...",
     "burn": "Сжечь"
   },
   "ancestralConnection": {
     "title": "Связь с Предками",
     "eyebrow": "МИР РИТУАЛОВ",
-    "askOracle": "Спросить Оракула"
+    "askOracle": "Спросить Оракул"
   },
   "protectionRitual": {
-    "title": "Защитный Щит",
+    "title": "Щит Защиты",
     "eyebrow": "МИР ОЧИЩЕНИЯ",
     "activate": "Активировать защиту"
   },
@@ -1306,18 +1864,18 @@
     "start": "Начать"
   },
   "releaseLetters": {
-    "title": "Письма в Огонь",
+    "title": "Письма Огню",
     "eyebrow": "МИР ОЧИЩЕНИЯ",
-    "write": "Пишите письмо...",
-    "release": "Освободить"
+    "write": "Написать письмо...",
+    "release": "Отпустить"
   },
   "innerChild": {
     "title": "Внутренний Ребёнок",
     "eyebrow": "МИР ПОДДЕРЖКИ",
-    "askOracle": "Спросить Оракула"
+    "askOracle": "Спросить Оракул"
   },
   "anxietyRelief": {
-    "title": "Облегчение Тревоги",
+    "title": "Снятие Тревоги",
     "eyebrow": "МИР ПОДДЕРЖКИ",
     "sos": "SOS",
     "techniques": "Техники",
@@ -1342,15 +1900,15 @@
   },
   "lifeWheel": {
     "title": "Колесо Жизни",
-    "eyebrow": "МИР ТЕБЯ",
+    "eyebrow": "ВАШЕ МИРЕ",
     "score": "Оценка",
-    "yourWheel": "Твоё Колесо"
+    "yourWheel": "Ваше Колесо"
   },
   "soulArchetype": {
     "title": "Архетип Души",
-    "eyebrow": "МИР ТЕБЯ",
+    "eyebrow": "ВАШЕ МИРЕ",
     "startQuiz": "Начать тест",
-    "result": "Твой архетип"
+    "result": "Ваш архетип"
   },
   "natalChart": {
     "title": "Натальная Карта",

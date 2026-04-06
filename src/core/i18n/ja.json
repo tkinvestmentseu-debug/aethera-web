@@ -337,6 +337,564 @@
       "cosmicDesc": "普遍的なアーキタイプの現代的な銀河系的解釈。",
       "dark": "魂の闇",
       "darkDesc": "シャドウワークと隠れた真実のための深いデッキ。"
+    },
+    "cards": {
+      "major": {
+        "0": {
+          "name": "愚者",
+          "meaningUpright": "New beginnings, spontaneity, faith in life, innocence",
+          "meaningReversed": "Recklessness, risk-taking, naivety, poor judgment",
+          "description": "The Fool represents pure potential and the willingness to embark on a new journey with an open heart.",
+          "advice": "Trust the process and step forward with courage."
+        },
+        "1": {
+          "name": "魔術師",
+          "meaningUpright": "Will, manifestation, skill, creative power, resourcefulness",
+          "meaningReversed": "Manipulation, blocked energy, trickery, false appearances",
+          "description": "The Magician bridges the spiritual and material realms, transforming thought into reality.",
+          "advice": "You have everything you need. Act decisively and with intention."
+        },
+        "2": {
+          "name": "女教皇",
+          "meaningUpright": "Intuition, mystery, inner knowledge, stillness, the subconscious",
+          "meaningReversed": "Secrets, ignoring intuition, disharmony, hidden agendas",
+          "description": "The High Priestess invites you into the world of the subconscious and deep inner wisdom.",
+          "advice": "Listen to your inner wisdom. Silence holds the answers you seek."
+        },
+        "3": {
+          "name": "女帝",
+          "meaningUpright": "Fertility, abundance, motherhood, nature, creativity",
+          "meaningReversed": "Dependence, stagnation, blocked creativity, smothering",
+          "description": "The Empress embodies divine femininity, life force, and the fertile power of nature.",
+          "advice": "Nurture yourself and others. Abundance is right before you."
+        },
+        "4": {
+          "name": "皇帝",
+          "meaningUpright": "Authority, structure, stability, leadership, discipline",
+          "meaningReversed": "Domination, rigidity, lack of flexibility, control issues",
+          "description": "The Emperor provides solid foundations and a stable structure for your actions.",
+          "advice": "Build a strong foundation. Act with authority and responsibility."
+        },
+        "5": {
+          "name": "法王",
+          "meaningUpright": "Tradition, spirituality, guidance, values, institutions",
+          "meaningReversed": "Dogmatism, conformity, rebellion against norms",
+          "description": "The Hierophant bridges the sacred and the mundane as teacher and guide.",
+          "advice": "Seek the wisdom of teachers or your own spiritual path."
+        },
+        "6": {
+          "name": "恋人",
+          "meaningUpright": "Love, harmony, values, heart choices, relationships",
+          "meaningReversed": "Separation, indecision, conflict of values, misalignment",
+          "description": "The Lovers symbolise union, harmony, and important life choices made from the heart.",
+          "advice": "Make a decision aligned with your deepest values and heart's truth."
+        },
+        "7": {
+          "name": "戦車",
+          "meaningUpright": "Will, determination, victory, control, triumph",
+          "meaningReversed": "Aggression, lack of control, scattered energy, defeat",
+          "description": "The Chariot is the triumph of will over obstacles through disciplined action.",
+          "advice": "Hold the reins firmly. Your determination will carry you to your goal."
+        },
+        "8": {
+          "name": "力",
+          "meaningUpright": "Courage, patience, compassion, inner strength, confidence",
+          "meaningReversed": "Weakness, self-doubt, lack of faith, insecurity",
+          "description": "Strength is the gentle power rooted in love and spiritual courage.",
+          "advice": "Approach the situation with love and calm rather than force."
+        },
+        "9": {
+          "name": "隠者",
+          "meaningUpright": "Introspection, reflection, wisdom, solitude, inner guidance",
+          "meaningReversed": "Isolation, loneliness, withdrawal, cutting off from the world",
+          "description": "The Hermit illuminates the path to inner truth through silence and contemplation.",
+          "advice": "Step back for a while and seek answers within yourself."
+        },
+        "10": {
+          "name": "運命の輪",
+          "meaningUpright": "Change, life cycles, karma, fate, turning point",
+          "meaningReversed": "Bad luck, resistance to change, stagnation, breaking cycles",
+          "description": "The Wheel of Fortune reminds us of the constant movement and cyclical nature of all existence.",
+          "advice": "Accept change as part of the cycle. What ends makes way for the new."
+        },
+        "11": {
+          "name": "正義",
+          "meaningUpright": "Truth, balance, fairness, karma, cause and effect",
+          "meaningReversed": "Injustice, imbalance, avoiding truth, dishonesty",
+          "description": "Justice symbolises objective truth and the consequences of our actions.",
+          "advice": "Be honest with yourself and others. Truth always comes to light."
+        },
+        "12": {
+          "name": "吊るされた男",
+          "meaningUpright": "Surrender, new perspective, sacrifice, pause, letting go",
+          "meaningReversed": "Resistance to surrender, stagnation, martyrdom, delays",
+          "description": "The Hanged Man pauses us to see the world from a fresh, inverted angle.",
+          "advice": "Release control. Suspension will bring you a new perspective and wisdom."
+        },
+        "13": {
+          "name": "死神",
+          "meaningUpright": "Ending, transformation, transition, rebirth, change",
+          "meaningReversed": "Resistance to change, stagnation, fear of endings",
+          "description": "The Death card does not signify physical death but deep transformation and new beginnings.",
+          "advice": "Allow the old to pass. Transformation opens the door to new life."
+        },
+        "14": {
+          "name": "節制",
+          "meaningUpright": "Harmony, balance, patience, moderation, synthesis",
+          "meaningReversed": "Imbalance, impatience, extremes, excess",
+          "description": "Temperance teaches us the art of balancing and finding the golden mean.",
+          "advice": "Find harmony between extremes. Patience is your strength."
+        },
+        "15": {
+          "name": "悪魔",
+          "meaningUpright": "Addiction, materialism, illusion, bondage, shadow self",
+          "meaningReversed": "Liberation, release, breaking chains, reclaiming power",
+          "description": "The Devil embodies our addictions and the limitations we impose on ourselves.",
+          "advice": "Recognise your bonds and begin the process of liberation. You have the power to break free."
+        },
+        "16": {
+          "name": "塔",
+          "meaningUpright": "Chaos, sudden change, awakening, revelation, upheaval",
+          "meaningReversed": "Avoiding disaster, fear of change, delaying the inevitable",
+          "description": "The Tower shatters old structures to make room for authenticity and truth.",
+          "advice": "Though the change is abrupt, this clearing paves the way for a true foundation."
+        },
+        "17": {
+          "name": "星",
+          "meaningUpright": "Hope, inspiration, serenity, healing, renewal",
+          "meaningReversed": "Loss of faith, pessimism, hopelessness, discouragement",
+          "description": "The Star brings healing, hope, and renewal after difficult experiences.",
+          "advice": "Have faith. After darkness, starlight always comes."
+        },
+        "18": {
+          "name": "月",
+          "meaningUpright": "Illusion, fear, the subconscious, dreams, uncertainty",
+          "meaningReversed": "Clarity, dispelling confusion, emerging from darkness",
+          "description": "The Moon illuminates our fears and the shadowy corners of the subconscious.",
+          "advice": "Face your own fears. Not everything is as it seems."
+        },
+        "19": {
+          "name": "太陽",
+          "meaningUpright": "Joy, success, vitality, clarity, positivity, radiance",
+          "meaningReversed": "Naivety, blocked joy, excessive optimism, temporary setbacks",
+          "description": "The Sun brings clarity, vitality, and genuine happiness in every area of life.",
+          "advice": "Shine your full light. This is a time of joy and success."
+        },
+        "20": {
+          "name": "審判",
+          "meaningUpright": "Awakening, absolution, renewal, calling, reckoning",
+          "meaningReversed": "Self-criticism, doubt, fear of judgement, ignoring the call",
+          "description": "Judgement symbolises deep awakening and the answer to a spiritual calling.",
+          "advice": "Answer your higher calling. It is time for renewal and a new chapter."
+        },
+        "21": {
+          "name": "世界",
+          "meaningUpright": "Fulfilment, integration, completion, triumph, wholeness",
+          "meaningReversed": "Incompleteness, lack of closure, procrastination, stagnation",
+          "description": "The World signifies the fullness of experience, completion of a cycle, and celebration of achievement.",
+          "advice": "Celebrate your accomplishments. One cycle ends; a new one begins."
+        }
+      },
+      "cups": {
+        "c1": {
+          "name": "カップのエース",
+          "meaningUpright": "New emotions, love, intuition, emotional abundance, beginnings",
+          "meaningReversed": "Blocked emotions, repressed feelings, loss of connection",
+          "description": "The Ace of Cups symbolises pure love and emotional new beginnings.",
+          "advice": "Open your heart to love and new emotional possibilities."
+        },
+        "c2": {
+          "name": "カップの2",
+          "meaningUpright": "Partnership, harmony, mutual attraction, connection",
+          "meaningReversed": "Separation, imbalance, conflict, disharmony",
+          "description": "The Two of Cups represents the depth of connection and mutual feeling.",
+          "advice": "Nurture your relationships and mutual understanding."
+        },
+        "c3": {
+          "name": "カップの3",
+          "meaningUpright": "Celebration, community, friendship, joy, abundance",
+          "meaningReversed": "Excess, gossip, isolation from friends, over-indulgence",
+          "description": "The Three of Cups is a celebration with loved ones and the joy of community.",
+          "advice": "Celebrate together with others. Shared moments of joy hold great power."
+        },
+        "c4": {
+          "name": "カップの4",
+          "meaningUpright": "Meditation, contemplation, boredom, apathy, re-evaluation",
+          "meaningReversed": "New opportunities, new awakening, motivation, openness",
+          "description": "The Four of Cups invites inner reflection and re-evaluation of desires.",
+          "advice": "Pause and consider what you truly want. A new opportunity may be right before you."
+        },
+        "c5": {
+          "name": "カップの5",
+          "meaningUpright": "Loss, regret, disappointment, grief, sorrow",
+          "meaningReversed": "Acceptance, forgiveness, new perspective, moving on",
+          "description": "The Five of Cups teaches us that after loss something always remains on which we can build.",
+          "advice": "Allow yourself to grieve, but do not forget what you still have."
+        },
+        "c6": {
+          "name": "カップの6",
+          "meaningUpright": "Nostalgia, memories, innocence, the past, simplicity",
+          "meaningReversed": "Stuck in the past, naivety, living in fantasy",
+          "description": "The Six of Cups evokes the beauty of memories and the simplicity of former days.",
+          "advice": "Draw joy from memories, but remember that life moves forward."
+        },
+        "c7": {
+          "name": "カップの7",
+          "meaningUpright": "Fantasy, illusion, many choices, wishful thinking, dreams",
+          "meaningReversed": "Clarity, realism, making the right choice, focus",
+          "description": "The Seven of Cups reveals an abundance of possibilities, though not all are real.",
+          "advice": "Distinguish dream from reality. Focus on what is truly attainable."
+        },
+        "c8": {
+          "name": "カップの8",
+          "meaningUpright": "Walking away, seeking deeper meaning, withdrawal, letting go",
+          "meaningReversed": "Fear of abandonment, avoiding truth, staying in the wrong situation",
+          "description": "The Eight of Cups symbolises the courage to leave behind what does not fulfil us.",
+          "advice": "Have the courage to walk away from what does not serve your spiritual growth."
+        },
+        "c9": {
+          "name": "カップの9",
+          "meaningUpright": "Wish fulfilment, satisfaction, happiness, contentment",
+          "meaningReversed": "Materialism, wishful thinking, illusion of happiness, greed",
+          "description": "The Nine of Cups is the card of emotional fulfilment and life satisfaction.",
+          "advice": "Your wishes can come true. Be grateful for what you already have."
+        },
+        "c10": {
+          "name": "カップの10",
+          "meaningUpright": "Family, harmony, happiness, fulfilment, long-term joy",
+          "meaningReversed": "Family conflicts, lack of harmony, broken home, loss of meaning",
+          "description": "The Ten of Cups symbolises ideal family happiness and emotional completeness.",
+          "advice": "Nurture family bonds and close relationships. That is your true treasure."
+        },
+        "c11": {
+          "name": "カップのペイジ",
+          "meaningUpright": "Creativity, intuition, sensitivity, new feelings, imagination",
+          "meaningReversed": "Emotional immaturity, daydreaming, moodiness",
+          "description": "The Page of Cups is an artistic soul full of imagination and emotional sensitivity.",
+          "advice": "Trust your intuition and give expression to the creativity you carry in your heart."
+        },
+        "c12": {
+          "name": "カップのナイト",
+          "meaningUpright": "Romance, charm, imagination, following dreams, idealism",
+          "meaningReversed": "Moodiness, unrealistic expectations, disappointment, over-sensitivity",
+          "description": "The Knight of Cups moves forward with a heart full of dreams and romantic ideals.",
+          "advice": "Follow your dreams, but do not lose yourself in illusions. Stay true to yourself."
+        },
+        "c13": {
+          "name": "カップのクイーン",
+          "meaningUpright": "Empathy, intuition, nurturing, emotional wisdom, compassion",
+          "meaningReversed": "Emotional dependency, manipulation, insecurity, moodiness",
+          "description": "The Queen of Cups embodies the depth of emotion and loving wisdom of the heart.",
+          "advice": "Use your intuition and empathy as a guide in your relationships."
+        },
+        "c14": {
+          "name": "カップのキング",
+          "meaningUpright": "Emotional maturity, diplomacy, wisdom, calm, balance",
+          "meaningReversed": "Emotional manipulation, repression of feelings, instability",
+          "description": "The King of Cups rules over emotions with wisdom and stability.",
+          "advice": "Be master of your emotions, not their victim. Act with balance and wisdom."
+        }
+      },
+      "wands": {
+        "w1": {
+          "name": "ワンドのエース",
+          "meaningUpright": "New beginnings, inspiration, potential, creative energy, spark",
+          "meaningReversed": "Delays, lack of motivation, creative block, missed opportunity",
+          "description": "The Ace of Wands is the spark that ignites the flame of new ventures and passion.",
+          "advice": "Act on this creative energy. Now is the time to begin."
+        },
+        "w2": {
+          "name": "ワンドの2",
+          "meaningUpright": "Planning, vision, partnership, future, bold steps",
+          "meaningReversed": "Fear of the unknown, lack of planning, playing it safe",
+          "description": "The Two of Wands invites bold planning and ambitious steps forward.",
+          "advice": "Think long-term and boldly plan your next move."
+        },
+        "w3": {
+          "name": "ワンドの3",
+          "meaningUpright": "Expansion, foresight, leadership, progress, enterprise",
+          "meaningReversed": "Obstacles, delays, frustration, lack of foresight",
+          "description": "The Three of Wands symbolises the moment of observing the fruits of your work and planning expansion.",
+          "advice": "Your work is bearing results. It is time to broaden your horizons."
+        },
+        "w4": {
+          "name": "ワンドの4",
+          "meaningUpright": "Celebration, harmony, home, stability, milestone",
+          "meaningReversed": "Lack of harmony, overload, postponing celebration, conflict at home",
+          "description": "The Four of Wands is a joyful celebration of achievements and a sense of belonging.",
+          "advice": "Celebrate your successes. You have earned a moment of joy and gratitude."
+        },
+        "w5": {
+          "name": "ワンドの5",
+          "meaningUpright": "Conflict, competition, chaos, challenge, struggle",
+          "meaningReversed": "Avoiding conflict, end of struggle, harmony, resolution",
+          "description": "The Five of Wands reveals the dynamic energy of competition and creative chaos.",
+          "advice": "Approach challenges with an open mind. Conflict can lead to growth."
+        },
+        "w6": {
+          "name": "ワンドの6",
+          "meaningUpright": "Triumph, victory, recognition, success, public acknowledgement",
+          "meaningReversed": "Arrogance, downfall, uncertainty of success, egotism",
+          "description": "The Six of Wands celebrates public recognition and longed-for victory.",
+          "advice": "Your success deserves recognition. Accept it with grace and humility."
+        },
+        "w7": {
+          "name": "ワンドの7",
+          "meaningUpright": "Perseverance, defence, challenge, determination, standing firm",
+          "meaningReversed": "Exhaustion, over-defensiveness, giving up, compromise",
+          "description": "The Seven of Wands demands perseverance in the face of challenges and defending your position.",
+          "advice": "Stand firmly by your convictions. Perseverance is your strength."
+        },
+        "w8": {
+          "name": "ワンドの8",
+          "meaningUpright": "Swift action, movement, news, progress, momentum",
+          "meaningReversed": "Delays, frustration, information chaos, lack of direction",
+          "description": "The Eight of Wands brings rapid changes and an acceleration of events.",
+          "advice": "Act quickly when the opportunity arises. Timing matters."
+        },
+        "w9": {
+          "name": "ワンドの9",
+          "meaningUpright": "Perseverance, resilience, boundaries, strength, near completion",
+          "meaningReversed": "Exhaustion, lack of resilience, excessive caution, burnout",
+          "description": "The Nine of Wands symbolises the strength gained through difficult experiences.",
+          "advice": "You are stronger than you think. One last effort and the goal will be reached."
+        },
+        "w10": {
+          "name": "ワンドの10",
+          "meaningUpright": "Burden, overwhelm, duty, responsibility, carrying too much",
+          "meaningReversed": "Delegation, release, simplification, letting go",
+          "description": "The Ten of Wands reveals the weight of excessive obligations and the need to delegate.",
+          "advice": "You do not have to carry everything alone. Share part of the burden with others."
+        },
+        "w11": {
+          "name": "ワンドのペイジ",
+          "meaningUpright": "Enthusiasm, exploration, ambition, energy, free spirit",
+          "meaningReversed": "Lack of direction, inconsistency, immaturity, scattered energy",
+          "description": "The Page of Wands is an energetic adventurer ready for new challenges.",
+          "advice": "Be bold and enthusiastic. Your energy is contagious."
+        },
+        "w12": {
+          "name": "ワンドのナイト",
+          "meaningUpright": "Impulsiveness, adventure, energy, passion, action",
+          "meaningReversed": "Scattered energy, lack of plan, reckless decisions, haste",
+          "description": "The Knight of Wands charges forward with unbridled passion and courage.",
+          "advice": "Channel your energy into concrete actions so as not to fall into chaos."
+        },
+        "w13": {
+          "name": "ワンドのクイーン",
+          "meaningUpright": "Confidence, independence, charisma, courage, determination",
+          "meaningReversed": "Jealousy, domination, egocentrism, aggression",
+          "description": "The Queen of Wands embodies powerful femininity, independence, and magnetic charisma.",
+          "advice": "Be yourself without apology. Your authenticity is your greatest strength."
+        },
+        "w14": {
+          "name": "ワンドのキング",
+          "meaningUpright": "Leadership, vision, entrepreneurship, inspiration, boldness",
+          "meaningReversed": "Impulsiveness, arrogance, tyranny, high expectations",
+          "description": "The King of Wands is a visionary leader who inspires others with passion and determination.",
+          "advice": "Lead with vision and passion. Your leadership can inspire others."
+        }
+      },
+      "swords": {
+        "s1": {
+          "name": "ソードのエース",
+          "meaningUpright": "Mental clarity, truth, breakthrough, new thinking, justice",
+          "meaningReversed": "Confusion of thought, disinformation, brutality, chaos",
+          "description": "The Ace of Swords is the sharpness of intellect and the power of truth that cuts through illusions.",
+          "advice": "Seek truth and speak with clear, precise intention."
+        },
+        "s2": {
+          "name": "ソードの2",
+          "meaningUpright": "Dilemma, blocked decision, stalemate, avoidance",
+          "meaningReversed": "Disorientation, deception, indecision, information overload",
+          "description": "The Two of Swords symbolises a difficult choice and the necessity of looking beyond appearances.",
+          "advice": "Remove the blindfold. The true answer lies within you."
+        },
+        "s3": {
+          "name": "ソードの3",
+          "meaningUpright": "Heartbreak, betrayal, grief, sorrow, pain",
+          "meaningReversed": "Healing, forgiveness, release from pain, recovery",
+          "description": "The Three of Swords reveals the pain of the heart, a necessary stage on the path to healing.",
+          "advice": "Allow yourself to feel the pain. Healing begins with accepting the truth."
+        },
+        "s4": {
+          "name": "ソードの4",
+          "meaningUpright": "Rest, recuperation, meditation, contemplation, retreat",
+          "meaningReversed": "Return to action, anxiety, lack of rest, burnout",
+          "description": "The Four of Swords encourages pausing and recuperating after intense effort.",
+          "advice": "Allow yourself to rest. Peace of mind will restore your strength."
+        },
+        "s5": {
+          "name": "ソードの5",
+          "meaningUpright": "Conflict, defeat, dishonesty, hostility, hollow victory",
+          "meaningReversed": "Reconciliation, resolution, moving past conflict, forgiveness",
+          "description": "The Five of Swords reveals the consequences of battle and the need for wisdom in choosing your fights.",
+          "advice": "Not every battle is worth winning. Wisdom lies in choosing your fights."
+        },
+        "s6": {
+          "name": "ソードの6",
+          "meaningUpright": "Transition, journey, moving toward calm, rite of passage",
+          "meaningReversed": "Resistance to change, stuck in problems, ongoing turbulence",
+          "description": "The Six of Swords symbolises a slow emergence from difficulty toward calmer waters.",
+          "advice": "Move forward. Better times await on the other side."
+        },
+        "s7": {
+          "name": "ソードの7",
+          "meaningUpright": "Deception, strategy, escape, cunning, acting alone",
+          "meaningReversed": "Return to honesty, exposure of deception, confession",
+          "description": "The Seven of Swords points to the need for a considered strategy or warns against deception.",
+          "advice": "Be wary of dishonesty — your own or others'. Strategy requires integrity."
+        },
+        "s8": {
+          "name": "ソードの8",
+          "meaningUpright": "Imprisonment, restriction, self-limiting beliefs, helplessness",
+          "meaningReversed": "Liberation, new perspective, breaking limitations, empowerment",
+          "description": "The Eight of Swords reveals restrictions that we often impose upon ourselves in the mind.",
+          "advice": "Your bonds are less real than you think. You have the power to free yourself."
+        },
+        "s9": {
+          "name": "ソードの9",
+          "meaningUpright": "Fear, anxiety, nightmares, worry, mental anguish",
+          "meaningReversed": "Hope, recovery from fear, seeking help, relief",
+          "description": "The Nine of Swords symbolises the suffering of the mind and nocturnal anxieties.",
+          "advice": "You are not alone in your fear. Reach out for support and share your burden."
+        },
+        "s10": {
+          "name": "ソードの10",
+          "meaningUpright": "Ending, pain, defeat, but also a new dawn, rock bottom",
+          "meaningReversed": "Unwanted change, resistance, clinging to pain, inability to let go",
+          "description": "The Ten of Swords marks the end of a cycle which, though painful, opens the door to rebirth.",
+          "advice": "What has ended has ended. Breathe — a new dawn is coming."
+        },
+        "s11": {
+          "name": "ソードのペイジ",
+          "meaningUpright": "Intellectual curiosity, communication, honesty, vigilance",
+          "meaningReversed": "Gossip, superficiality, dishonesty, all talk no action",
+          "description": "The Page of Swords is a sharp, inquisitive intellect hungry for knowledge and truth.",
+          "advice": "Ask, investigate, question. Your mind is your greatest weapon."
+        },
+        "s12": {
+          "name": "ソードのナイト",
+          "meaningUpright": "Ambition, swift action, determination, intellect, directness",
+          "meaningReversed": "Impulsiveness, lack of empathy, arrogance, recklessness",
+          "description": "The Knight of Swords charges at a goal with the full force of intellect and determined will.",
+          "advice": "Act decisively, but remember the impact on others."
+        },
+        "s13": {
+          "name": "ソードのクイーン",
+          "meaningUpright": "Independence, clarity of thought, boundaries, perception, truth",
+          "meaningReversed": "Harshness, emotional coldness, bitter experience, cruelty",
+          "description": "The Queen of Swords combines intellectual sharpness with wisdom gained through life experience.",
+          "advice": "Be clear and direct. Your strength flows from truth and healthy boundaries."
+        },
+        "s14": {
+          "name": "ソードのキング",
+          "meaningUpright": "Intellectual power, authority, clarity, justice, truth",
+          "meaningReversed": "Tyranny, manipulation, lack of empathy, abuse of power",
+          "description": "The King of Swords rules through the power of intellect and speaks truth without compromise.",
+          "advice": "Act with intellectual authority and clarity. Truth is your strength."
+        }
+      },
+      "pentacles": {
+        "p1": {
+          "name": "ペンタクルのエース",
+          "meaningUpright": "Abundance, new financial opportunity, manifestation, prosperity",
+          "meaningReversed": "Lost opportunity, greed, lack of stability, poor planning",
+          "description": "The Ace of Pentacles symbolises the seed of material prosperity and new opportunities.",
+          "advice": "Seize the new financial or material opportunity. The ground beneath your feet is solid."
+        },
+        "p2": {
+          "name": "ペンタクルの2",
+          "meaningUpright": "Balance, adaptability, resource management, juggling priorities",
+          "meaningReversed": "Financial chaos, imbalance, overwhelm, disorganisation",
+          "description": "The Two of Pentacles reveals the art of juggling resources while maintaining balance.",
+          "advice": "Be flexible and balance your commitments with wisdom."
+        },
+        "p3": {
+          "name": "ペンタクルの3",
+          "meaningUpright": "Craftsmanship, collaboration, learning, quality of work, teamwork",
+          "meaningReversed": "Lack of harmony at work, mediocrity, conflict, poor planning",
+          "description": "The Three of Pentacles celebrates excellence in craft and effective collaboration.",
+          "advice": "Invest in your skills and collaborate with others for better results."
+        },
+        "p4": {
+          "name": "ペンタクルの4",
+          "meaningUpright": "Security, control, frugality, stability, conservation",
+          "meaningReversed": "Miserliness, greed, fear of loss, hoarding",
+          "description": "The Four of Pentacles symbolises the need for financial security but also the risk of excessive control.",
+          "advice": "Enjoy your security, but do not let fear of loss limit your life."
+        },
+        "p5": {
+          "name": "ペンタクルの5",
+          "meaningUpright": "Financial hardship, poverty, isolation, difficulty, hardship",
+          "meaningReversed": "Return to stability, help arriving, healing, recovery",
+          "description": "The Five of Pentacles reveals material and emotional hardship, yet help is available nearby.",
+          "advice": "Do not be ashamed to ask for help. Support is available — you only need to accept it."
+        },
+        "p6": {
+          "name": "ペンタクルの6",
+          "meaningUpright": "Generosity, giving, sharing, balance of exchange",
+          "meaningReversed": "Debts, inequality, conditional giving, strings attached",
+          "description": "The Six of Pentacles teaches that giving and receiving must be in harmony.",
+          "advice": "Give generously where you can, but also attend to your own needs."
+        },
+        "p7": {
+          "name": "ペンタクルの7",
+          "meaningUpright": "Patience, assessment, long-term planning, investment, reward",
+          "meaningReversed": "Lack of reward, discouragement, impatience, poor returns",
+          "description": "The Seven of Pentacles encourages assessing the work done so far and patient anticipation of results.",
+          "advice": "Your work is bearing fruit, though slowly. Have patience."
+        },
+        "p8": {
+          "name": "ペンタクルの8",
+          "meaningUpright": "Craftsmanship, diligence, mastery, learning, dedication",
+          "meaningReversed": "Lack of ambition, perfectionism blocking action, mediocrity",
+          "description": "The Eight of Pentacles is a dedication to mastering a craft through persistent work.",
+          "advice": "Be diligent and focused on honing your skills."
+        },
+        "p9": {
+          "name": "ペンタクルの9",
+          "meaningUpright": "Prosperity, independence, luxury, success, self-sufficiency",
+          "meaningReversed": "False prosperity, dependence, superficiality, over-investment",
+          "description": "The Nine of Pentacles symbolises well-earned prosperity and independence.",
+          "advice": "Enjoy the fruits of your labour. You have taken care of yourself and it shows."
+        },
+        "p10": {
+          "name": "ペンタクルの10",
+          "meaningUpright": "Wealth, legacy, family, long-term success, inheritance",
+          "meaningReversed": "Family conflicts, loss of legacy, short-sightedness, instability",
+          "description": "The Ten of Pentacles represents the fullness of material prosperity and lasting family happiness.",
+          "advice": "Think about the legacy you are leaving. Build on enduring foundations."
+        },
+        "p11": {
+          "name": "ペンタクルのペイジ",
+          "meaningUpright": "Ambition, diligence, realism, learning, practicality",
+          "meaningReversed": "Lack of ambition, daydreaming without action, missed opportunity",
+          "description": "The Page of Pentacles is a persistent student who sets goals and works toward them systematically.",
+          "advice": "Learn and work consistently. Your perseverance will bear fruit."
+        },
+        "p12": {
+          "name": "ペンタクルのナイト",
+          "meaningUpright": "Responsibility, perseverance, routine, reliability, patience",
+          "meaningReversed": "Stagnation, lack of flexibility, excessive caution, stubbornness",
+          "description": "The Knight of Pentacles moves slowly but surely, focused on the goal.",
+          "advice": "Be perseverant and reliable. Slow, systematic action leads to success."
+        },
+        "p13": {
+          "name": "ペンタクルのクイーン",
+          "meaningUpright": "Nurturing, practicality, abundance, groundedness, security",
+          "meaningReversed": "Imbalance, self-neglect, materialism, over-dependence",
+          "description": "The Queen of Pentacles combines warmth with practical wisdom and the ability to create abundance.",
+          "advice": "Care for others with tenderness, but remember your own needs too."
+        },
+        "p14": {
+          "name": "ペンタクルのキング",
+          "meaningUpright": "Wealth, leadership, security, success, wise management",
+          "meaningReversed": "Greed, corruption, materialism at the expense of relationships, stubbornness",
+          "description": "The King of Pentacles is the embodiment of material success, stability, and wise stewardship.",
+          "advice": "Manage your resources with wisdom and generosity. True success serves others."
+        }
+      }
     }
   },
   "horoscope": {
@@ -945,101 +1503,101 @@
       "health": "健康",
       "spirituality": "スピリチュアリティ",
       "creativity": "創造性",
-      "healing": "癒やし"
+      "healing": "癒し"
     },
-    "save": "チェックインを保存する",
+    "save": "チェックインを保存",
     "particles": "エネルギー粒子"
   },
   "reports": {
     "title": "レポート",
-    "pathAnalysis": "道の分析",
-    "weeklyInsight": "週間の洞察",
-    "dominantEnergy": "支配的エネルギー",
-    "frequentArchetypes": "頻出アーキタイプ",
-    "suggestedFocus": "おすすめのフォーカス",
-    "consistencyMastery": "継続の習熟",
-    "streakDesc": "あなたは{{days}}日連続で内なる自己と接触を維持しています。",
-    "entries": "記録",
+    "pathAnalysis": "パス分析",
+    "weeklyInsight": "週次インサイト",
+    "dominantEnergy": "優勢なエネルギー",
+    "frequentArchetypes": "頻繁なアーキタイプ",
+    "suggestedFocus": "推奨フォーカス",
+    "consistencyMastery": "一貫性の習熟",
+    "streakDesc": "{{days}}日連続で内なる自己と繋がり続けています。",
+    "entries": "エントリー",
     "readings": "リーディング",
     "recordDays": "記録日数",
     "currentPhase": "現在のフェーズ",
     "emotionalLandscape": "感情の風景",
     "moodConstellation": "気分の星座",
-    "constellationDesc": "感情状態を星図として可視化したもの。",
-    "practiceDynamics": "実践のダイナミクス",
+    "constellationDesc": "あなたの感情状態を星図として視覚化。",
+    "practiceDynamics": "修行のダイナミクス",
     "reflections": "内省",
-    "tarotInsight": "タロットの洞察",
+    "tarotInsight": "タロットのインサイト",
     "calm": "穏やか",
-    "excellent": "素晴らしい",
+    "excellent": "優秀",
     "good": "良い",
-    "peaceful": "平和",
+    "peaceful": "平和的",
     "weak": "弱い",
     "difficult": "困難",
     "soulReports": "魂のレポート",
     "trends": "あなたのトレンド",
     "generating": "レポートを生成中...",
-    "weeklyReport": "週間レポート",
-    "monthlyReport": "月間レポート"
+    "weeklyReport": "週次レポート",
+    "monthlyReport": "月次レポート"
   },
   "astrology": {
     "title": "占星術",
     "transits": "トランジット",
     "cycles": "サイクル",
     "biorhythm": "バイオリズム",
-    "stars": "星々",
+    "stars": "星",
     "vedic": "ヴェーダ占星術",
     "retrograde": "逆行",
     "aspects": "アスペクト",
-    "conjunction": "合",
-    "opposition": "対向",
-    "trine": "三角",
-    "square": "四角",
-    "sextile": "六角",
+    "conjunction": "コンジャンクション",
+    "opposition": "オポジション",
+    "trine": "トライン",
+    "square": "スクエア",
+    "sextile": "セクスタイル",
     "natalChart": "出生図",
     "starsMap": "星空マップ",
     "currentTransits": "現在のトランジット",
     "biorhythmCycles": "バイオリズムサイクル",
-    "physical": "身体的",
+    "physical": "肉体的",
     "emotional": "感情的",
     "intellectual": "知的"
   },
   "notifications": {
     "title": "通知",
     "reminders": "リマインダー",
-    "add_reminder": "リマインダーを追加する",
+    "add_reminder": "リマインダーを追加",
     "morning": "朝",
     "evening": "夜",
     "meditation": "瞑想",
     "ritual": "儀式",
     "enabled": "有効",
     "disabled": "無効",
-    "time": "時刻",
-    "days": "曜日",
+    "time": "時間",
+    "days": "日",
     "presets": "プリセット",
-    "customTime": "カスタム時刻",
-    "reminderLabel": "リマインダーのラベル",
-    "saveReminder": "リマインダーを保存する",
-    "deleteReminder": "リマインダーを削除する",
+    "customTime": "カスタム時間",
+    "reminderLabel": "リマインダーラベル",
+    "saveReminder": "リマインダーを保存",
+    "deleteReminder": "リマインダーを削除",
     "allDays": "毎日",
     "weekdays": "平日",
     "weekends": "週末"
   },
   "paywall": {
-    "premiumTitle": "無限の叡智を解放する",
-    "premiumSubtitle": "内なる旅が今ここから始まります。選ばれし探求者のサークルに加わりましょう。",
-    "choosePath": "あなたの道を選ぶ",
-    "monthly": "月額",
-    "yearly": "年額",
+    "premiumTitle": "無限の知恵を解き放て",
+    "premiumSubtitle": "内なる旅が今始まります。求道者の精鋭サークルに参加しよう。",
+    "choosePath": "あなたの道を選んでください",
+    "monthly": "月間",
+    "yearly": "年間",
     "monthlyDesc": "いつでもキャンセル可能",
-    "yearlyDesc": "月額わずか¥750",
-    "bestValue": "最もお得",
-    "restore": "購入を復元する",
-    "feature1Title": "無制限の神託チャット",
-    "feature1Desc": "いつでも制限なくAIガイドとチャットできます。",
+    "yearlyDesc": "わずか$4.99 / 月",
+    "bestValue": "最良の価値",
+    "restore": "購入を復元",
+    "feature1Title": "無制限オラクルチャット",
+    "feature1Desc": "いつでもAIガイドと無制限でチャット。",
     "feature2Title": "高度なタロットスプレッド",
-    "feature2Desc": "22の大アルカナと小アルカナ、および専門的なスプレッドにアクセスできます。",
-    "feature3Title": "魂の道の洞察",
-    "feature3Desc": "運命のマトリクスと個人のトランジットの詳細分析。",
+    "feature2Desc": "22の大アルカナと小アルカナすべてに加え、専門スプレッドにアクセス。",
+    "feature3Title": "魂のパスの洞察",
+    "feature3Desc": "運命のマトリックスと個人的なトランジットの深い分析。",
     "feature4Title": "聖なる図書館",
     "feature4Desc": "お気に入りのアファメーション、リーディング、夢の永続的な聖域。"
   },
@@ -1047,28 +1605,28 @@
     "title": "相性",
     "relationships": "関係",
     "synastry": "シナストリー",
-    "addPartnerEnergy": "パートナーエネルギーを追加する",
-    "partnerName": "パートナーの名前 / 人物",
-    "namePlaceholder": "名前を入力してください...",
+    "addPartnerEnergy": "パートナーのエネルギーを追加",
+    "partnerName": "パートナー / 人物の名前",
+    "namePlaceholder": "名前を入力...",
     "birthDate": "生年月日",
-    "selectDate": "日付を選ぶ",
-    "calculateMatch": "相性を計算する",
+    "selectDate": "日付を選択",
+    "calculateMatch": "相性を計算",
     "you": "あなた",
     "partner": "パートナー",
     "relationshipEnergy": "関係のエネルギー",
-    "vibration": "バイブレーション",
-    "changePartner": "人物を変更する",
+    "vibration": "波動",
+    "changePartner": "人物を変更",
     "compatibilityScore": "相性スコア",
     "strengths": "強み",
     "challenges": "課題",
     "advice": "アドバイス"
   },
   "journeys": {
-    "title": "旅",
+    "title": "ジャーニー",
     "spiritualPrograms": "スピリチュアルプログラム",
     "transformationPaths": "変容の道",
-    "weeklyFocus": "週間フォーカス",
-    "dailyPractice": "日々の実践",
+    "weeklyFocus": "週次フォーカス",
+    "dailyPractice": "日課",
     "completedSessions": "完了セッション",
     "nextStep": "次のステップ",
     "continueJourney": "旅を続ける",
@@ -1080,37 +1638,37 @@
   },
   "palmreading": {
     "title": "手相占い",
-    "analyze": "手相を分析する",
-    "upload": "手のひらの写真をアップロードする",
-    "instructions": "明るい光の下で手のひらを撮影してください",
+    "analyze": "手のひらを分析",
+    "upload": "手のひら写真をアップロード",
+    "instructions": "良い光の中で手のひらを撮影してください",
     "lines": {
       "heart": "感情線",
-      "head": "知能線",
+      "head": "頭脳線",
       "life": "生命線",
       "fate": "運命線",
       "sun": "太陽線"
     },
-    "interpretationTitle": "手相の解釈",
-    "loading": "手のひらの線を分析しています..."
+    "interpretationTitle": "手のひら解釈",
+    "loading": "手のひらの線を分析中..."
   },
   "binauralbeats": {
     "title": "脳波",
     "subtitle": "バイノーラルビート",
-    "start": "始める",
-    "stop": "止める",
+    "start": "スタート",
+    "stop": "ストップ",
     "waves": {
-      "delta": "デルタ波 — 深い睡眠",
-      "theta": "シータ波 — 瞑想",
-      "alpha": "アルファ波 — リラクゼーション",
-      "beta": "ベータ波 — 集中",
-      "gamma": "ガンマ波 — 高次認知"
+      "delta": "デルタ — 深い睡眠",
+      "theta": "シータ — 瞑想",
+      "alpha": "アルファ — リラクゼーション",
+      "beta": "ベータ — 集中",
+      "gamma": "ガンマ — 高次認知"
     },
     "benefits": "効果",
     "session_complete": "セッション完了"
   },
   "sleephelper": {
     "title": "睡眠サポート",
-    "start": "眠りに就く",
+    "start": "睡眠を開始",
     "duration": "時間",
     "soundscape": "サウンド",
     "story": "ストーリー",
@@ -1118,7 +1676,7 @@
     "goodnight": "おやすみなさい、魂よ"
   },
   "stars": {
-    "title": "星々",
+    "title": "星",
     "skyMap": "星空マップ",
     "catalogue": "星カタログ",
     "constellation": "星座",
@@ -1132,41 +1690,41 @@
   },
   "biorhythm": {
     "title": "バイオリズム",
-    "physical": "身体的",
+    "physical": "肉体的",
     "emotional": "感情的",
     "intellectual": "知的",
     "today": "今日",
     "peak": "ピーク",
     "low": "低",
-    "neutral": "中立",
+    "neutral": "ニュートラル",
     "chartTitle": "バイオリズムチャート"
   },
   "knowledge": {
     "title": "ライブラリ",
     "search": "知識を検索...",
-    "categories": "カテゴリー",
+    "categories": "カテゴリ",
     "articles": "記事",
-    "savedArticles": "保存した記事",
-    "readMore": "もっと読む"
+    "savedArticles": "保存済み記事",
+    "readMore": "続きを読む"
   },
   "data": {
     "decks": {
-      "classic": "ゴールデンドーン",
-      "classicDesc": "ライダー・ウェイト伝統に基づく、最も精密でクラシックなデッキ。",
+      "classic": "Golden Dawn",
+      "classicDesc": "ライダー=ウェイト伝統に基づく最も正確でクラシックなデッキ。",
       "cosmic": "コズミックライト",
-      "cosmicDesc": "普遍的なアーキタイプの現代的な銀河系的解釈。",
-      "dark": "魂の闇",
-      "darkDesc": "シャドウワークと隠れた真実のための深いデッキ。"
+      "cosmicDesc": "普遍的なアーキタイプの現代的で銀河的な解釈。",
+      "dark": "魂の暗闇",
+      "darkDesc": "シャドウワークと隠された真実のための深いデッキ。"
     },
     "rituals": {
       "morning_alignment": {
-        "title": "朝の調整",
+        "title": "朝の整列",
         "description": "一日の意図を設定するための短い瞑想。",
         "duration": "5分"
       },
       "evening_reflection": {
-        "title": "夜の内省",
-        "description": "眠る前に蓄積された感情を解放する。",
+        "title": "夜の反省",
+        "description": "眠る前に蓄積した感情を解放する。",
         "duration": "10分"
       },
       "candle_magic": {
@@ -1195,10 +1753,10 @@
     },
     "5": {
       "name": "法王",
-      "title": "伝統の番人"
+      "title": "伝統の守護者"
     },
     "6": {
-      "name": "恋人たち",
+      "name": "恋人",
       "title": "エネルギーの調和者"
     },
     "7": {
@@ -1207,7 +1765,7 @@
     },
     "8": {
       "name": "正義",
-      "title": "カルマのバランス"
+      "title": "カルマの天秤"
     },
     "9": {
       "name": "隠者",
@@ -1215,23 +1773,23 @@
     },
     "10": {
       "name": "運命の輪",
-      "title": "運命の主"
+      "title": "運命の主人"
     },
     "11": {
       "name": "力",
-      "title": "感情の達人"
+      "title": "感情の主人"
     },
     "12": {
-      "name": "吊られた男",
-      "title": "視点の先見者"
+      "name": "吊るされた男",
+      "title": "視点のビジョナリー"
     },
     "13": {
       "name": "死神",
-      "title": "変容の代理人"
+      "title": "変容のエージェント"
     },
     "14": {
       "name": "節制",
-      "title": "バランスの錬金術師"
+      "title": "均衡の錬金術師"
     },
     "15": {
       "name": "悪魔",
@@ -1247,11 +1805,11 @@
     },
     "18": {
       "name": "月",
-      "title": "潜在意識の航海者"
+      "title": "潜在意識の旅人"
     },
     "19": {
       "name": "太陽",
-      "title": "明晰さの光"
+      "title": "明晰のひかり"
     },
     "20": {
       "name": "審判",
@@ -1259,7 +1817,7 @@
     },
     "21": {
       "name": "世界",
-      "title": "統合の達人"
+      "title": "統合の主人"
     },
     "22": {
       "name": "愚者",
@@ -1289,14 +1847,14 @@
     "burn": "燃やす"
   },
   "ancestralConnection": {
-    "title": "先祖とのつながり",
+    "title": "先祖との繋がり",
     "eyebrow": "儀式の世界",
     "askOracle": "オラクルに聞く"
   },
   "protectionRitual": {
-    "title": "守護の盾",
+    "title": "保護の盾",
     "eyebrow": "浄化の世界",
-    "activate": "守護を起動"
+    "activate": "保護を起動"
   },
   "saltBath": {
     "title": "塩風呂",
@@ -1306,7 +1864,7 @@
     "start": "開始"
   },
   "releaseLetters": {
-    "title": "炎への手紙",
+    "title": "火への手紙",
     "eyebrow": "浄化の世界",
     "write": "手紙を書く...",
     "release": "解放する"
@@ -1317,14 +1875,14 @@
     "askOracle": "オラクルに聞く"
   },
   "anxietyRelief": {
-    "title": "不安の解消",
+    "title": "不安の緩和",
     "eyebrow": "サポートの世界",
     "sos": "SOS",
     "techniques": "テクニック",
     "habits": "習慣"
   },
   "selfCompassion": {
-    "title": "自己への思いやり",
+    "title": "自己慈悲",
     "eyebrow": "サポートの世界",
     "generateLetter": "手紙を生成"
   },
@@ -1353,7 +1911,7 @@
     "result": "あなたのアーキタイプ"
   },
   "natalChart": {
-    "title": "出生チャート",
+    "title": "出生図",
     "eyebrow": "ホロスコープの世界",
     "tabChart": "チャート",
     "tabPlanets": "惑星",
@@ -1365,7 +1923,7 @@
     "survivalGuide": "サバイバルガイド ℞"
   },
   "signMeditation": {
-    "title": "サインの瞑想",
+    "title": "星座の瞑想",
     "eyebrow": "ホロスコープの世界",
     "tabMeditation": "瞑想",
     "tabAffirmations": "アファメーション",
