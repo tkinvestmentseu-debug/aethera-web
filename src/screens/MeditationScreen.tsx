@@ -964,7 +964,7 @@ const scrollToSession = useCallback(() => {
 return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       <LinearGradient
-        colors={isLight ? ['#FDF8F1', '#F6ECDE', '#EFE2D2'] : ['#04060D', '#0B1220', '#121C31']}
+        colors={isLight ? ['#FBF7FF', '#F6ECDE', '#EFE2D2'] : ['#07041A', '#0B1220', '#121C31']}
         style={StyleSheet.absoluteFill}
       />
       <LinearGradient

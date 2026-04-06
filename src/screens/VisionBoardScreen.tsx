@@ -27,7 +27,7 @@ import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
 import { resolveUserFacingText } from '../core/utils/contentResolver';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const GOLD = '#F59E0B';
 const CELL_W = (SW - layout.padding.screen * 2 - 16) / 3;
@@ -101,7 +101,7 @@ const ProgressRing = ({ filled, total, isLight }: { filled: number; total: numbe
     <View style={{ alignItems: 'center', marginVertical: 16 }}>
       <View style={{ width: 110, height: 110, alignItems: 'center', justifyContent: 'center' }}>
         <Svg width={110} height={110} viewBox="0 0 110 110">
-          <SvgCircle cx={55} cy={55} r={R} stroke={isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)'} strokeWidth={8} fill="none" />
+          <SvgCircle cx={55} cy={55} r={R} stroke={isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)'} strokeWidth={8} fill="none" />
           <SvgCircle
             cx={55} cy={55} r={R}
             stroke={GOLD}
@@ -128,10 +128,14 @@ const ProgressRing = ({ filled, total, isLight }: { filled: number; total: numbe
 export function VisionBoardScreen({ navigation }: any) {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem, visionBoardIntentions, setVisionBoardIntention, clearVisionBoardIntention } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const visionBoardIntentions = useAppStore(s => s.visionBoardIntentions);
+  const setVisionBoardIntention = useAppStore(s => s.setVisionBoardIntention);
+  const clearVisionBoardIntention = useAppStore(s => s.clearVisionBoardIntention);
+  const { currentTheme, isLight } = useTheme();
   // modal state
   const [modalArea, setModalArea] = useState<typeof AREAS[0] | null>(null);
   const [intentionText, setIntentionText] = useState('');
@@ -281,7 +285,9 @@ export function VisionBoardScreen({ navigation }: any) {
 
   // ── render ──────────────────────────────────────────────────────────────────
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+
       <VisionBoardBg isLight={isLight} />
 
       {/* Header */}
@@ -542,7 +548,7 @@ export function VisionBoardScreen({ navigation }: any) {
             <TextInput
               style={[styles.modalInput, {
                 color: isLight ? '#1A1410' : '#F0EAF8',
-                backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)',
+                backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)',
                 borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.14)',
               }]}
               placeholder="Wpisz swoją intencję..."
@@ -559,7 +565,7 @@ export function VisionBoardScreen({ navigation }: any) {
             <TextInput
               style={[styles.modalInput, { minHeight: 48,
                 color: isLight ? '#1A1410' : '#F0EAF8',
-                backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)',
+                backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)',
                 borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.14)',
               }]}
               placeholder="Już mam/jestem..."
@@ -612,7 +618,8 @@ export function VisionBoardScreen({ navigation }: any) {
         </View>
         </KeyboardAvoidingView>
       </Modal>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 }
 

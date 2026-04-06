@@ -29,13 +29,13 @@ import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
 import * as Haptics from 'expo-haptics';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-
+import { useTheme } from '../core/hooks/useTheme';
 const ACCENT = '#FBBF24';
 
 const GratitudeBg = ({ isDark }: { isDark: boolean }) => (
   <View style={StyleSheet.absoluteFill} pointerEvents="none">
     <LinearGradient
-      colors={isDark ? ['#0A0804', '#120E06', '#1A1408'] : ['#FFFBEB', '#FEFCE8', '#FFF9E6']}
+      colors={isDark ? ['#0C0712', '#120E06', '#1A1408'] : ['#FDF8FF', '#FEFCE8', '#FFF9E6']}
       style={StyleSheet.absoluteFill}
     />
   </View>
@@ -185,14 +185,19 @@ const DEEP_PROMPTS = [
 export const GratitudeScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, gratitudeEntries, addGratitudeEntry, deleteGratitudeEntry, addFavoriteItem, isFavoriteItem, removeFavoriteItem, userData } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const gratitudeEntries = useAppStore(s => s.gratitudeEntries);
+  const addGratitudeEntry = useAppStore(s => s.addGratitudeEntry);
+  const deleteGratitudeEntry = useAppStore(s => s.deleteGratitudeEntry);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
   const isDark = !isLight;
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor  = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.60)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const subColor  = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.60)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
   const aiAvailable = AiService.isLaunchAvailable();
   const aiState = AiService.getLaunchAvailabilityState();
 
@@ -608,7 +613,7 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
                     style={[
                       gr.challengeCell,
                       {
-                        backgroundColor: day.done ? ACCENT : (isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)'),
+                        backgroundColor: day.done ? ACCENT : (isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)'),
                         borderColor: day.done ? ACCENT : (isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.12)'),
                       },
                     ]}

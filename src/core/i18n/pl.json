@@ -337,6 +337,564 @@
       "cosmicDesc": "Nowoczesna, galaktyczna interpretacja archetypów wszechświata.",
       "dark": "Mrok Duszy",
       "darkDesc": "Głęboka talia do pracy z cieniem i ukrytymi prawdami."
+    },
+    "cards": {
+      "major": {
+        "0": {
+          "name": "Głupiec",
+          "meaningUpright": "Nowe początki, spontaniczność, wiara w życie",
+          "meaningReversed": "Lekkomyślność, ryzyko, naiwność",
+          "description": "Głupiec symbolizuje czysty potencjał i gotowość do nowej podróży z otwartym sercem.",
+          "advice": "Ufaj procesowi i rusz naprzód z odwagą."
+        },
+        "1": {
+          "name": "Mag",
+          "meaningUpright": "Wola, manifestacja, umiejętności, moc twórcza",
+          "meaningReversed": "Manipulacja, blokada energii, fałszywe pozory",
+          "description": "Mag łączy sfery ducha i materii, przekształcając myśl w rzeczywistość.",
+          "advice": "Masz wszystko, czego potrzebujesz. Działaj zdecydowanie."
+        },
+        "2": {
+          "name": "Kapłanka",
+          "meaningUpright": "Intuicja, tajemnica, wiedza wewnętrzna, cisza",
+          "meaningReversed": "Sekrety, ignorowanie intuicji, dysharmonia",
+          "description": "Kapłanka zaprasza do świata podświadomości i głębokiej wiedzy.",
+          "advice": "Słuchaj swojej wewnętrznej mądrości. Cisza przynosi odpowiedzi."
+        },
+        "3": {
+          "name": "Cesarzowa",
+          "meaningUpright": "Płodność, obfitość, macierzyństwo, natura",
+          "meaningReversed": "Zależność, stagnacja, blokada kreatywności",
+          "description": "Cesarzowa ucieleśnia boską kobiecość, życie i żyzną moc natury.",
+          "advice": "Pielęgnuj siebie i innych. Obfitość jest tuż przed tobą."
+        },
+        "4": {
+          "name": "Cesarz",
+          "meaningUpright": "Autorytet, struktura, stabilność, przywództwo",
+          "meaningReversed": "Dominacja, sztywność, brak elastyczności",
+          "description": "Cesarz zapewnia solidne podstawy i stabilną strukturę dla twoich działań.",
+          "advice": "Zbuduj mocny fundament. Działaj z autorytetem i odpowiedzialnością."
+        },
+        "5": {
+          "name": "Hierarcha",
+          "meaningUpright": "Tradycja, duchowość, przewodnictwo, wartości",
+          "meaningReversed": "Dogmatyzm, konformizm, bunt przeciw normom",
+          "description": "Hierarcha jest mostem między sacrum a profanum, nauczycielem i przewodnikiem.",
+          "advice": "Szukaj mądrości nauczycieli lub własnej duchowej ścieżki."
+        },
+        "6": {
+          "name": "Kochankowie",
+          "meaningUpright": "Miłość, harmonia, wartości, wybory serca",
+          "meaningReversed": "Rozłąka, niezdecydowanie, konflikty wartości",
+          "description": "Kochankowie symbolizują związek, harmonię oraz kluczowe wybory życiowe.",
+          "advice": "Podejmij decyzję zgodną z głębokimi wartościami serca."
+        },
+        "7": {
+          "name": "Rydwan",
+          "meaningUpright": "Wola, determinacja, zwycięstwo, kontrola",
+          "meaningReversed": "Agresja, brak kontroli, rozproszenie",
+          "description": "Rydwan to triumf woli nad przeszkodami poprzez zdyscyplinowane działanie.",
+          "advice": "Trzymaj lejce mocno. Twoja determinacja zaprowadzi cię do celu."
+        },
+        "8": {
+          "name": "Siła",
+          "meaningUpright": "Odwaga, cierpliwość, współczucie, wewnętrzna siła",
+          "meaningReversed": "Słabość, zwątpienie w siebie, brak wiary",
+          "description": "Siła to łagodna moc oparta na miłości i odwadze ducha.",
+          "advice": "Podejdź do sytuacji z miłością i spokojem, a nie siłą."
+        },
+        "9": {
+          "name": "Pustelnik",
+          "meaningUpright": "Poszukiwanie, refleksja, mądrość, odosobnienie",
+          "meaningReversed": "Izolacja, samotność, odcięcie od świata",
+          "description": "Pustelnik oświetla drogę do wewnętrznej prawdy poprzez ciszę i kontemplację.",
+          "advice": "Wycofaj się na chwilę i szukaj odpowiedzi wewnątrz siebie."
+        },
+        "10": {
+          "name": "Koło Fortuny",
+          "meaningUpright": "Zmiany, cykle życia, karma, los",
+          "meaningReversed": "Pech, opór wobec zmian, stagnacja cyklu",
+          "description": "Koło Fortuny przypomina o nieustannym ruchu i cykliczności wszelkiego istnienia.",
+          "advice": "Zaakceptuj zmiany jako część cyklu. To co się kończy, toruje drogę nowemu."
+        },
+        "11": {
+          "name": "Sprawiedliwość",
+          "meaningUpright": "Prawda, równowaga, uczciwość, karma",
+          "meaningReversed": "Niesprawiedliwość, nierównowaga, unikanie prawdy",
+          "description": "Sprawiedliwość symbolizuje obiektywną prawdę i konsekwencje naszych działań.",
+          "advice": "Bądź uczciwy wobec siebie i innych. Prawda zawsze wychodzi na jaw."
+        },
+        "12": {
+          "name": "Wisielec",
+          "meaningUpright": "Poddanie, nowa perspektywa, ofiara, pauza",
+          "meaningReversed": "Opór przed poddaniem się, stagnacja, martyologia",
+          "description": "Wisielec zatrzymuje nas, by spojrzeć na świat z nowego, odwróconego kąta.",
+          "advice": "Puść kontrolę. Zawieszenie przyniesie ci nową perspektywę i mądrość."
+        },
+        "13": {
+          "name": "Śmierć",
+          "meaningUpright": "Koniec, transformacja, przejście, odrodzenie",
+          "meaningReversed": "Opór przed zmianą, stagnacja, strach przed końcem",
+          "description": "Karta Śmierci nie oznacza fizycznej śmierci, lecz głęboką transformację i nowy początek.",
+          "advice": "Pozwól staremu odejść. Transformacja otwiera drzwi do nowego życia."
+        },
+        "14": {
+          "name": "Umiarkowanie",
+          "meaningUpright": "Harmonia, równowaga, cierpliwość, synteza",
+          "meaningReversed": "Brak umiaru, niecierpliwość, ekstremy",
+          "description": "Umiarkowanie uczy nas sztuki balansowania i znajdowania złotego środka.",
+          "advice": "Znajdź harmonię między skrajnościami. Cierpliwość jest twoją siłą."
+        },
+        "15": {
+          "name": "Diabeł",
+          "meaningUpright": "Uzależnienia, materializm, iluzja, więzy",
+          "meaningReversed": "Uwolnienie, wyzwolenie, przełamanie łańcuchów",
+          "description": "Diabeł uosabia nasze uzależnienia i ograniczenia, których sami sobie narzucamy.",
+          "advice": "Rozpoznaj swoje więzy i zacznij proces wyzwolenia. Masz moc, by się uwolnić."
+        },
+        "16": {
+          "name": "Wieża",
+          "meaningUpright": "Chaos, nagłe zmiany, przebudzenie, rewelacja",
+          "meaningReversed": "Unikanie katastrofy, strach przed zmianą",
+          "description": "Wieża burzy stare struktury, by zrobić miejsce dla autentyczności i prawdy.",
+          "advice": "Choć zmiany są gwałtowne, to oczyszczenie toruje drogę do prawdziwego fundamentu."
+        },
+        "17": {
+          "name": "Gwiazda",
+          "meaningUpright": "Nadzieja, inspiracja, spokój, uzdrowienie",
+          "meaningReversed": "Utrata wiary, pesymizm, brak nadziei",
+          "description": "Gwiazda przynosi uzdrowienie, nadzieję i odnowę po trudnych doświadczeniach.",
+          "advice": "Miej wiarę. Po ciemności zawsze nadchodzi gwiezdne światło."
+        },
+        "18": {
+          "name": "Księżyc",
+          "meaningUpright": "Iluzja, strach, podświadomość, sny",
+          "meaningReversed": "Jasność, rozproszenie konfuzji, wyjście z mroku",
+          "description": "Księżyc oświetla nasze lęki i mroczne zakamarki podświadomości.",
+          "advice": "Zmierz się z własnymi lękami. Nie wszystko jest takim, jakim się wydaje."
+        },
+        "19": {
+          "name": "Słońce",
+          "meaningUpright": "Radość, sukces, energia życiowa, jasność",
+          "meaningReversed": "Naiwność, blokada radości, przesadny optymizm",
+          "description": "Słońce przynosi jasność, vitality i szczere szczęście w każdej dziedzinie życia.",
+          "advice": "Świeć pełnym blaskiem. To czas radości i sukcesu."
+        },
+        "20": {
+          "name": "Sąd",
+          "meaningUpright": "Przebudzenie, absolution, odnowa, powołanie",
+          "meaningReversed": "Samokrytycyzm, wątpliwości, strach przed oceną",
+          "description": "Sąd symbolizuje głębokie przebudzenie i odpowiedź na duchowe powołanie.",
+          "advice": "Odpowiedz na swoje wyższe powołanie. Czas na odnowę i nowy rozdział."
+        },
+        "21": {
+          "name": "Świat",
+          "meaningUpright": "Spełnienie, integracja, zakończenie, triumf",
+          "meaningReversed": "Niekompletność, brak zamknięcia, odwlekanie",
+          "description": "Świat oznacza pełnię doświadczenia, zakończenie cyklu i celebrację osiągnięć.",
+          "advice": "Świętuj swoje dokonania. Jeden cykl się kończy, nowy się zaczyna."
+        }
+      },
+      "cups": {
+        "c1": {
+          "name": "As Kielichów",
+          "meaningUpright": "Nowe emocje, miłość, intuicja, obfitość uczuć",
+          "meaningReversed": "Blokada emocji, tłumione uczucia, utrata połączenia",
+          "description": "As Kielichów symbolizuje czystą miłość i emocjonalne nowe początki.",
+          "advice": "Otwórz serce na miłość i nowe emocjonalne możliwości."
+        },
+        "c2": {
+          "name": "Dwójka Kielichów",
+          "meaningUpright": "Partnerstwo, harmonia, wzajemne przyciąganie",
+          "meaningReversed": "Rozłąka, brak równowagi, konflikty",
+          "description": "Dwójka Kielichów reprezentuje głębię połączenia i wzajemne uczucie.",
+          "advice": "Pielęgnuj swoje relacje i wzajemne zrozumienie."
+        },
+        "c3": {
+          "name": "Trójka Kielichów",
+          "meaningUpright": "Celebracja, wspólnota, przyjaźń, radość",
+          "meaningReversed": "Nadmiar, plotki, izolacja od przyjaciół",
+          "description": "Trójka Kielichów to świętowanie z bliskimi i radość wspólnoty.",
+          "advice": "Celebruj razem z innymi. Wspólne chwile radości mają wielką moc."
+        },
+        "c4": {
+          "name": "Czwórka Kielichów",
+          "meaningUpright": "Medytacja, kontemplacja, nuda, apatia",
+          "meaningReversed": "Nowe możliwości, nowe przebudzenie, motywacja",
+          "description": "Czwórka Kielichów zaprasza do wewnętrznej refleksji i ponownej oceny pragnień.",
+          "advice": "Zatrzymaj się i rozważ, co naprawdę chcesz. Nowa okazja może być tuż przed tobą."
+        },
+        "c5": {
+          "name": "Piątka Kielichów",
+          "meaningUpright": "Strata, żal, rozczarowanie, smutek",
+          "meaningReversed": "Akceptacja, przebaczenie, nowa perspektywa",
+          "description": "Piątka Kielichów uczy nas, że po stracie zawsze pozostaje coś, na czym można budować.",
+          "advice": "Pozwól sobie przeżyć żal, ale nie zapominaj o tym, co nadal masz."
+        },
+        "c6": {
+          "name": "Szóstka Kielichów",
+          "meaningUpright": "Nostalgia, wspomnienia, niewinność, przeszłość",
+          "meaningReversed": "Tkwienie w przeszłości, naiwność, oderwanie",
+          "description": "Szóstka Kielichów przywołuje piękno wspomnień i prostotę dawnych dni.",
+          "advice": "Czerpij radość ze wspomnień, ale pamiętaj, że życie toczy się do przodu."
+        },
+        "c7": {
+          "name": "Siódemka Kielichów",
+          "meaningUpright": "Fantazja, iluzja, możliwości, marzenia",
+          "meaningReversed": "Jasność, realizm, właściwy wybór",
+          "description": "Siódemka Kielichów ukazuje bogactwo możliwości, choć nie wszystkie są realne.",
+          "advice": "Rozróżnij marzenie od rzeczywistości. Skoncentruj się na tym, co prawdziwe."
+        },
+        "c8": {
+          "name": "Ósemka Kielichów",
+          "meaningUpright": "Odejście, szukanie głębszego sensu, wycofanie",
+          "meaningReversed": "Strach przed porzuceniem, unikanie prawdy",
+          "description": "Ósemka Kielichów symbolizuje odwagę porzucenia tego, co nas nie spełnia.",
+          "advice": "Miej odwagę odejść od tego, co nie służy twojemu duchowemu wzrostowi."
+        },
+        "c9": {
+          "name": "Dziewiątka Kielichów",
+          "meaningUpright": "Spełnienie marzeń, satysfakcja, szczęście",
+          "meaningReversed": "Materializm, pobożne życzenia, iluzja szczęścia",
+          "description": "Dziewiątka Kielichów to karta spełnienia emocjonalnego i satysfakcji z życia.",
+          "advice": "Twoje życzenia mogą się spełnić. Bądź wdzięczny za to, co już masz."
+        },
+        "c10": {
+          "name": "Dziesiątka Kielichów",
+          "meaningUpright": "Rodzina, harmonia, szczęście, spełnienie",
+          "meaningReversed": "Konflikty rodzinne, brak harmonii, utrata sensu",
+          "description": "Dziesiątka Kielichów symbolizuje idealne szczęście rodzinne i pełnię emocjonalną.",
+          "advice": "Pielęgnuj więzi rodzinne i bliskie relacje. To jest twój prawdziwy skarb."
+        },
+        "c11": {
+          "name": "Paź Kielichów",
+          "meaningUpright": "Kreatywność, intuicja, wrażliwość, nowe uczucia",
+          "meaningReversed": "Niedojrzałość emocjonalna, marzycielstwo",
+          "description": "Paź Kielichów to artystyczna dusza pełna wyobraźni i emocjonalnej wrażliwości.",
+          "advice": "Ufaj swojej intuicji i daj wyraz twórczości, którą nosisz w sercu."
+        },
+        "c12": {
+          "name": "Rycerz Kielichów",
+          "meaningUpright": "Romantyzm, szarm, wyobraźnia, podążanie za marzeniami",
+          "meaningReversed": "Kapryśność, nierealizm, rozczarowanie",
+          "description": "Rycerz Kielichów kroczy naprzód z sercem pełnym marzeń i romantycznych ideałów.",
+          "advice": "Podążaj za marzeniami, ale nie zatracaj się w iluzjach. Bądź wierny sobie."
+        },
+        "c13": {
+          "name": "Królowa Kielichów",
+          "meaningUpright": "Empatia, intuicja, opiekuńczość, mądrość emocjonalna",
+          "meaningReversed": "Zależność emocjonalna, manipulacja, niepewność",
+          "description": "Królowa Kielichów uosabia głębię emocji i pełną miłości mądrość serca.",
+          "advice": "Korzystaj ze swojej intuicji i empatii jako przewodnika w relacjach."
+        },
+        "c14": {
+          "name": "Król Kielichów",
+          "meaningUpright": "Dojrzałość emocjonalna, dyplomacja, mądrość, spokój",
+          "meaningReversed": "Emocjonalne manipulowanie, represja uczuć",
+          "description": "Król Kielichów panuje nad emocjami z mądrością i stabilnością.",
+          "advice": "Bądź mistrzem swoich emocji, nie ich ofiarą. Działaj z równowagą i mądrością."
+        }
+      },
+      "wands": {
+        "w1": {
+          "name": "As Różdżek",
+          "meaningUpright": "Nowe początki, inspiracja, potencjał, energia twórcza",
+          "meaningReversed": "Opóźnienia, brak motywacji, blokada kreatywna",
+          "description": "As Różdżek to iskra, która zapala płomień nowych przedsięwzięć i pasji.",
+          "advice": "Działaj na tę twórczą energię. Teraz jest czas, by zacząć."
+        },
+        "w2": {
+          "name": "Dwójka Różdżek",
+          "meaningUpright": "Planowanie, wizja, partnerstwo, przyszłość",
+          "meaningReversed": "Strach przed nieznanym, brak planowania",
+          "description": "Dwójka Różdżek zaprasza do planowania ambitnych kroków naprzód.",
+          "advice": "Myśl długoterminowo i śmiało planuj swój następny ruch."
+        },
+        "w3": {
+          "name": "Trójka Różdżek",
+          "meaningUpright": "Ekspansja, foresight, przywództwo, postęp",
+          "meaningReversed": "Przeszkody, opóźnienia, frustracja",
+          "description": "Trójka Różdżek symbolizuje moment obserwacji owoców swojej pracy i planowania ekspansji.",
+          "advice": "Twoja praca przynosi rezultaty. Czas rozszerzyć horyzonty."
+        },
+        "w4": {
+          "name": "Czwórka Różdżek",
+          "meaningUpright": "Celebracja, harmonia, dom, stabilność",
+          "meaningReversed": "Brak harmonii, przeciążenie, odkładanie świętowania",
+          "description": "Czwórka Różdżek to radosna celebracja osiągnięć i poczucie zadomowienia.",
+          "advice": "Świętuj swoje sukcesy. Zasłużyłeś na chwilę radości i wdzięczności."
+        },
+        "w5": {
+          "name": "Piątka Różdżek",
+          "meaningUpright": "Konflikt, rywalizacja, chaos, wyzwania",
+          "meaningReversed": "Unikanie konfliktu, koniec walki, harmonia",
+          "description": "Piątka Różdżek ukazuje dynamiczną energię rywalizacji i twórczego chaosu.",
+          "advice": "Podejdź do wyzwań z otwartą głową. Konflikt może prowadzić do wzrostu."
+        },
+        "w6": {
+          "name": "Szóstka Różdżek",
+          "meaningUpright": "Triumf, zwycięstwo, uznanie, sukces",
+          "meaningReversed": "Arogancja, upadek, niepewność sukcesu",
+          "description": "Szóstka Różdżek celebruje publiczne uznanie i upragnione zwycięstwo.",
+          "advice": "Twój sukces zasługuje na uznanie. Przyjmij go z gracją i pokorą."
+        },
+        "w7": {
+          "name": "Siódemka Różdżek",
+          "meaningUpright": "Wytrwałość, obrona, wyzwanie, determinacja",
+          "meaningReversed": "Wyczerpanie, nadmierna obrona, ustępstwo",
+          "description": "Siódemka Różdżek wymaga wytrwałości wobec wyzwań i obrony swojej pozycji.",
+          "advice": "Stój mocno przy swoich przekonaniach. Wytrwałość jest twoją siłą."
+        },
+        "w8": {
+          "name": "Ósemka Różdżek",
+          "meaningUpright": "Szybkie działanie, ruch, wiadomości, postęp",
+          "meaningReversed": "Opóźnienia, frustracja, chaos informacyjny",
+          "description": "Ósemka Różdżek przynosi szybkie zmiany i przyspieszenie wydarzeń.",
+          "advice": "Działaj szybko, gdy nadejdzie okazja. Czas ma znaczenie."
+        },
+        "w9": {
+          "name": "Dziewiątka Różdżek",
+          "meaningUpright": "Wytrwałość, odporność, granice, siła",
+          "meaningReversed": "Wyczerpanie, brak odporności, nadmierna ostrożność",
+          "description": "Dziewiątka Różdżek symbolizuje siłę zdobytą przez trudne doświadczenia.",
+          "advice": "Jesteś silniejszy niż myślisz. Jeden ostatni wysiłek i cel będzie osiągnięty."
+        },
+        "w10": {
+          "name": "Dziesiątka Różdżek",
+          "meaningUpright": "Ciężar, przytłoczenie, obowiązek, odpowiedzialność",
+          "meaningReversed": "Delegowanie, uwolnienie, uproszczenie",
+          "description": "Dziesiątka Różdżek ukazuje ciężar nadmiernych zobowiązań i potrzebę delegowania.",
+          "advice": "Nie musisz nieść wszystkiego sam. Oddaj część ciężaru innym."
+        },
+        "w11": {
+          "name": "Paź Różdżek",
+          "meaningUpright": "Entuzjazm, odkrywanie, ambicja, energia",
+          "meaningReversed": "Brak kierunku, niestałość, niedojrzałość",
+          "description": "Paź Różdżek to pełen energii poszukiwacz przygód gotowy na nowe wyzwania.",
+          "advice": "Bądź śmiały i entuzjastyczny. Twoja energia jest zarażająca."
+        },
+        "w12": {
+          "name": "Rycerz Różdżek",
+          "meaningUpright": "Impulsywność, przygoda, energia, pasja",
+          "meaningReversed": "Rozproszenie, brak planu, ryzykowne decyzje",
+          "description": "Rycerz Różdżek pędzi naprzód z nieokiełznaną pasją i odwagą.",
+          "advice": "Kanalizuj swoją energię w konkretne działania, by nie popaść w chaos."
+        },
+        "w13": {
+          "name": "Królowa Różdżek",
+          "meaningUpright": "Pewność siebie, niezależność, charyzma, odwaga",
+          "meaningReversed": "Zazdrosność, dominacja, egocentryzm",
+          "description": "Królowa Różdżek uosabia mocarną kobiecość, niezależność i magnetyczną charyzmę.",
+          "advice": "Bądź sobą bez przeprosin. Twoja autentyczność jest twoją największą siłą."
+        },
+        "w14": {
+          "name": "Król Różdżek",
+          "meaningUpright": "Przywództwo, wizja, przedsiębiorczość, inspiracja",
+          "meaningReversed": "Impulsywność, arogancja, tyranizowanie",
+          "description": "Król Różdżek jest wizjonerskim liderem inspirującym innych swoją pasją i determinacją.",
+          "advice": "Przewodź z wizją i pasją. Twoje przywództwo może inspirować innych."
+        }
+      },
+      "swords": {
+        "s1": {
+          "name": "As Mieczy",
+          "meaningUpright": "Jasność umysłu, prawda, przełom, nowe myślenie",
+          "meaningReversed": "Chaos myśli, dezinformacja, brutalność",
+          "description": "As Mieczy to ostrość intelektu i moc prawdy, które przecinają iluzje.",
+          "advice": "Szukaj prawdy i mów z jasną, precyzyjną intencją."
+        },
+        "s2": {
+          "name": "Dwójka Mieczy",
+          "meaningUpright": "Dylemat, blokada, podejmowanie decyzji",
+          "meaningReversed": "Dezorientacja, kłamstwo, niezdecydowanie",
+          "description": "Dwójka Mieczy symbolizuje trudny wybór i konieczność spojrzenia poza pozory.",
+          "advice": "Zdejmij opaskę z oczu. Prawdziwa odpowiedź leży wewnątrz ciebie."
+        },
+        "s3": {
+          "name": "Trójka Mieczy",
+          "meaningUpright": "Ból, zdrada, smutek, strata",
+          "meaningReversed": "Uzdrowienie, przebaczenie, wyjście z bólu",
+          "description": "Trójka Mieczy ukazuje ból serca, który jest etapem koniecznym do wyleczenia.",
+          "advice": "Pozwól sobie przeżyć ból. Uzdrowienie zaczyna się od przyjęcia prawdy."
+        },
+        "s4": {
+          "name": "Czwórka Mieczy",
+          "meaningUpright": "Odpoczynek, regeneracja, medytacja, kontemplacja",
+          "meaningReversed": "Powrót do działania, niepokój, brak odpoczynku",
+          "description": "Czwórka Mieczy zachęca do zatrzymania się i regeneracji po intensywnym wysiłku.",
+          "advice": "Pozwól sobie odpocząć. Spokój umysłu przywróci twoją siłę."
+        },
+        "s5": {
+          "name": "Piątka Mieczy",
+          "meaningUpright": "Konflikt, porażka, nieuczciwość, zmiana",
+          "meaningReversed": "Pojednanie, wyjście z konfliktu, przebaczenie",
+          "description": "Piątka Mieczy ukazuje konsekwencje walki i potrzebę mądrości w wyborze bitew.",
+          "advice": "Nie każda bitwa jest warta wygrania. Mądrość tkwi w wyborze swoich walk."
+        },
+        "s6": {
+          "name": "Szóstka Mieczy",
+          "meaningUpright": "Przejście, podróż, ruch ku spokojowi",
+          "meaningReversed": "Opór przed zmianą, tkwienie w problemach",
+          "description": "Szóstka Mieczy symbolizuje powolne wychodzenie z trudności ku spokojniejszym wodom.",
+          "advice": "Ruszaj naprzód. Lepsze czasy czekają po drugiej stronie."
+        },
+        "s7": {
+          "name": "Siódemka Mieczy",
+          "meaningUpright": "Oszustwo, strategia, ucieczka, taktyka",
+          "meaningReversed": "Powrót do uczciwości, wyjście z kłamstwa",
+          "description": "Siódemka Mieczy wskazuje na potrzebę przemyślanej strategii lub ostrzega przed oszustwem.",
+          "advice": "Bądź ostrożny wobec nieuczciwości — własnej lub innych. Strategia wymaga uczciwości."
+        },
+        "s8": {
+          "name": "Ósemka Mieczy",
+          "meaningUpright": "Uwięzienie, ograniczenia, samozaprzeczenie",
+          "meaningReversed": "Uwolnienie, nowa perspektywa, przełamanie ograniczeń",
+          "description": "Ósemka Mieczy ukazuje ograniczenia, które często sami sobie narzucamy w umyśle.",
+          "advice": "Twoje więzy są mniej realne niż myślisz. Masz moc, by się uwolnić."
+        },
+        "s9": {
+          "name": "Dziewiątka Mieczy",
+          "meaningUpright": "Lęk, niepokój, koszmary, zamartwianie się",
+          "meaningReversed": "Nadzieja, wyzdrowienie z lęku, proszenie o pomoc",
+          "description": "Dziewiątka Mieczy symbolizuje cierpienie umysłu i nocne niepokoje.",
+          "advice": "Nie jesteś sam w swoim lęku. Sięgnij po wsparcie i podziel się ciężarem."
+        },
+        "s10": {
+          "name": "Dziesiątka Mieczy",
+          "meaningUpright": "Koniec, ból, klęska, ale i nowy świt",
+          "meaningReversed": "Niechciane zmiany, opór, przetrzymywanie bólu",
+          "description": "Dziesiątka Mieczy oznacza koniec cyklu i choć bolesny, otwiera drzwi do odrodzenia.",
+          "advice": "To, co się skończyło, skończyło się. Odetchnij — nowy świt nadchodzi."
+        },
+        "s11": {
+          "name": "Paź Mieczy",
+          "meaningUpright": "Ciekawość intelektualna, komunikacja, szczerość",
+          "meaningReversed": "Plotki, powierzchowność, nieuczciwość",
+          "description": "Paź Mieczy to bystra, dociekliwa umysłowość spragniona wiedzy i prawdy.",
+          "advice": "Pytaj, badaj, kwestionuj. Twój umysł jest twoją największą bronią."
+        },
+        "s12": {
+          "name": "Rycerz Mieczy",
+          "meaningUpright": "Ambicja, działanie, determinacja, intelekt",
+          "meaningReversed": "Impulsywność, brak empatii, arogancja",
+          "description": "Rycerz Mieczy atakuje cel z pełną mocą intelektu i zdecydowaną wolą.",
+          "advice": "Działaj zdecydowanie, ale pamiętaj o wpływie na innych."
+        },
+        "s13": {
+          "name": "Królowa Mieczy",
+          "meaningUpright": "Niezależność, klarowność myśli, granice",
+          "meaningReversed": "Surowość, chłód emocjonalny, gorzkie doświadczenia",
+          "description": "Królowa Mieczy łączy intelektualną ostrość z mądrością zdobytą przez życiowe doświadczenia.",
+          "advice": "Bądź jasna i bezpośrednia. Twoja siła płynie z prawdy i granic."
+        },
+        "s14": {
+          "name": "Król Mieczy",
+          "meaningUpright": "Intelektualna moc, autorytet, przejrzystość, sprawiedliwość",
+          "meaningReversed": "Tyrania, manipulacja, brak empatii",
+          "description": "Król Mieczy rządzi siłą intelektu i wypowiada prawdę bez ogródek.",
+          "advice": "Działaj z intelektualnym autorytetem i przejrzystością. Prawda jest twoją siłą."
+        }
+      },
+      "pentacles": {
+        "p1": {
+          "name": "As Pentakli",
+          "meaningUpright": "Dostatek, nowe możliwości finansowe, manifestacja",
+          "meaningReversed": "Utrata możliwości, chciwość, brak stabilności",
+          "description": "As Pentakli symbolizuje nasienie materialnego dobrobytu i nowych możliwości.",
+          "advice": "Uchwyć nową okazję finansową lub materialną. Grunt pod stopami jest solidny."
+        },
+        "p2": {
+          "name": "Dwójka Pentakli",
+          "meaningUpright": "Równowaga, adaptacja, zarządzanie zasobami",
+          "meaningReversed": "Chaos finansowy, brak równowagi, przytłoczenie",
+          "description": "Dwójka Pentakli ukazuje sztukę żonglowania zasobami i utrzymania równowagi.",
+          "advice": "Bądź elastyczny i równoważ swoje zobowiązania z mądrością."
+        },
+        "p3": {
+          "name": "Trójka Pentakli",
+          "meaningUpright": "Rzemiosło, współpraca, nauka, jakość pracy",
+          "meaningReversed": "Brak harmonii w pracy, przeciętność, konflikty",
+          "description": "Trójka Pentakli celebruje doskonałość rzemiosła i efektywną współpracę.",
+          "advice": "Inwestuj w swoje umiejętności i współpracuj z innymi dla lepszych rezultatów."
+        },
+        "p4": {
+          "name": "Czwórka Pentakli",
+          "meaningUpright": "Bezpieczeństwo, kontrola, oszczędność, stabilność",
+          "meaningReversed": "Skąpstwo, chciwość, strach przed stratą",
+          "description": "Czwórka Pentakli symbolizuje potrzebę bezpieczeństwa finansowego, ale i ryzyko nadmiernej kontroli.",
+          "advice": "Ciesz się bezpieczeństwem, ale nie dopuść, by strach przed stratą ograniczał twoje życie."
+        },
+        "p5": {
+          "name": "Piątka Pentakli",
+          "meaningUpright": "Trudności finansowe, bieda, izolacja, trudności",
+          "meaningReversed": "Powrót do stabilności, pomoc, uzdrowienie",
+          "description": "Piątka Pentakli ukazuje trudności materialne i emocjonalne, ale i dostępność pomocy.",
+          "advice": "Nie wstydzij się prosić o pomoc. Wsparcie jest dostępne — wystarczy je przyjąć."
+        },
+        "p6": {
+          "name": "Szóstka Pentakli",
+          "meaningUpright": "Hojność, dawanie, dzielenie się, równowaga",
+          "meaningReversed": "Długi, nierówność, warunkowe dawanie",
+          "description": "Szóstka Pentakli naucza, że dawanie i branie muszą być w harmonii.",
+          "advice": "Dawaj hojnie tam, gdzie możesz, ale zadbaj też o własne potrzeby."
+        },
+        "p7": {
+          "name": "Siódemka Pentakli",
+          "meaningUpright": "Cierpliwość, ocena, długoterminowe planowanie",
+          "meaningReversed": "Brak nagrody, zniechęcenie, niecierpliwość",
+          "description": "Siódemka Pentakli zachęca do oceny dotychczasowej pracy i cierpliwości w oczekiwaniu na owoce.",
+          "advice": "Twoja praca przynosi owoce, choć powoli. Miej cierpliwość."
+        },
+        "p8": {
+          "name": "Ósemka Pentakli",
+          "meaningUpright": "Rzemiosło, pracowitość, mistrzostwo, nauka",
+          "meaningReversed": "Brak ambicji, perfekcjonizm blokujący działanie",
+          "description": "Ósemka Pentakli to dedykacja doskonaleniu rzemiosła poprzez wytrwałą pracę.",
+          "advice": "Bądź pracowity i skupiony na doskonaleniu swoich umiejętności."
+        },
+        "p9": {
+          "name": "Dziewiątka Pentakli",
+          "meaningUpright": "Dobrobyt, niezależność, luksus, sukces",
+          "meaningReversed": "Fałszywy dobrobyt, zależność, powierzchowność",
+          "description": "Dziewiątka Pentakli symbolizuje dobrze zasłużony dobrobyt i niezależność.",
+          "advice": "Ciesz się owocami swojej pracy. Zadbałeś o siebie i to widać."
+        },
+        "p10": {
+          "name": "Dziesiątka Pentakli",
+          "meaningUpright": "Bogactwo, dziedzictwo, rodzina, długoterminowy sukces",
+          "meaningReversed": "Konflikty rodzinne, utrata dziedzictwa, krótkowzroczność",
+          "description": "Dziesiątka Pentakli to pełnia materialnego dobrobytu i trwałe rodzinne szczęście.",
+          "advice": "Myśl o dziedzictwie, które zostawiasz. Buduj na trwałych fundamentach."
+        },
+        "p11": {
+          "name": "Paź Pentakli",
+          "meaningUpright": "Ambicja, pracowitość, realizm, nauka",
+          "meaningReversed": "Brak ambicji, marzycielstwo bez działania",
+          "description": "Paź Pentakli jest wytrwałym uczniem, który wyznacza cele i systematycznie do nich dąży.",
+          "advice": "Ucz się i pracuj systematycznie. Twoja wytrwałość da owoce."
+        },
+        "p12": {
+          "name": "Rycerz Pentakli",
+          "meaningUpright": "Odpowiedzialność, wytrwałość, rutyna, niezawodność",
+          "meaningReversed": "Stagnacja, brak elastyczności, nadmierna ostrożność",
+          "description": "Rycerz Pentakli kroczy powoli, ale pewnie, skupiony na swoim celu.",
+          "advice": "Bądź wytrwały i niezawodny. Powolne, systematyczne działania prowadzą do sukcesu."
+        },
+        "p13": {
+          "name": "Królowa Pentakli",
+          "meaningUpright": "Troska, praktyczność, obfitość, zaziemienie",
+          "meaningReversed": "Brak równowagi, zaniedbanie siebie, materializm",
+          "description": "Królowa Pentakli łączy serdeczność z praktyczną mądrością i umiejętnością tworzenia obfitości.",
+          "advice": "Dbaj o innych z troską, ale pamiętaj też o swoich potrzebach."
+        },
+        "p14": {
+          "name": "Król Pentakli",
+          "meaningUpright": "Zamożność, przywództwo, bezpieczeństwo, sukces",
+          "meaningReversed": "Chciwość, korupcja, materializm kosztem relacji",
+          "description": "Król Pentakli jest wcieleniem materialnego sukcesu, stabilności i mądrego zarządzania.",
+          "advice": "Zarządzaj swoimi zasobami z mądrością i hojnością. Prawdziwy sukces służy innym."
+        }
+      }
     }
   },
   "horoscope": {

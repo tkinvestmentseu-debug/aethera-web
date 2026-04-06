@@ -48,7 +48,7 @@ import { AiService } from '../core/services/ai.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Path, Circle, Ellipse, G, Defs, RadialGradient, Stop, Line } from 'react-native-svg';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 
 // ─── Writing Prompts carousel ───────────────────────────────────────────────
@@ -178,8 +178,8 @@ const JournalBg = ({ isLight, accent }: { isLight: boolean; accent: string }) =>
     <LinearGradient
       colors={
         isLight
-          ? (['#F2FAF5', '#EBF6EF', '#E3F0EA'] as const)
-          : (['#020A07', '#04110A', '#061510'] as const)
+          ? (['#F4F2FA', '#EBF6EF', '#E3F0EA'] as const)
+          : (['#060214', '#04110A', '#061510'] as const)
       }
       style={StyleSheet.absoluteFill}
     />
@@ -263,9 +263,10 @@ const MOOD_EMOJI: Record<string, string> = {
 export const JournalScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const aiAvailable = AiService.isLaunchAvailable();
 
   const { entries, deleteEntry, toggleFavorite } = useJournalStore();
@@ -279,14 +280,14 @@ export const JournalScreen = ({ navigation }: any) => {
   // ── Color system ───────────────────────────────────────────────────────────
   const ACCENT = isLight ? '#16A34A' : '#4ADE80';
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.50)';
-  const dividerColor = isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.09)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)';
+  const dividerColor = isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.06)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.09)';
   const chipActive = ACCENT + '1A';
   const chipActiveBorder = ACCENT + '44';
-  const chipInactive = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const chipInactiveBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const chipInactive = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
+  const chipInactiveBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
 
   // ── Derived data ──────────────────────────────────────────────────────────
   const weeklyInsight = useMemo(() => PatternInsightService.generateWeeklyInsight(), [entries]);
@@ -427,7 +428,7 @@ export const JournalScreen = ({ navigation }: any) => {
             <View style={s.entryActions}>
               <Pressable
                 onPress={() => toggleFavorite(item.id)}
-                style={[s.actionBtn, { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)' }]}
+                style={[s.actionBtn, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)' }]}
                 hitSlop={6}
               >
                 <Heart
@@ -438,7 +439,7 @@ export const JournalScreen = ({ navigation }: any) => {
               </Pressable>
               <Pressable
                 onPress={() => handleDeleteEntry(item.id, item.title)}
-                style={[s.actionBtn, { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)' }]}
+                style={[s.actionBtn, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)' }]}
                 hitSlop={6}
               >
                 <Trash2 color={currentTheme.textMuted} size={15} />
@@ -607,7 +608,7 @@ export const JournalScreen = ({ navigation }: any) => {
                 {item.desc}
               </Typography>
             </View>
-            <ArrowRight color={isLight ? 'rgba(0,0,0,0.22)' : 'rgba(255,255,255,0.22)'} size={14} />
+            <ArrowRight color={isLight ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.22)'} size={14} />
           </Pressable>
         ))}
       </View>
@@ -836,7 +837,7 @@ export const JournalScreen = ({ navigation }: any) => {
   ];
   const CoDalej = (
     <Animated.View entering={FadeInDown.delay(60).duration(440)}>
-      <View style={[s.coDalejCard, { borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.09)' }]}>
+      <View style={[s.coDalejCard, { borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.09)' }]}>
         <View style={s.pytanieLabelRow}>
           <Sparkles color={ACCENT} size={13} strokeWidth={1.8} />
           <Typography variant="premiumLabel" color={ACCENT} style={{ marginLeft: 7, letterSpacing: 2 }}>
@@ -850,7 +851,7 @@ export const JournalScreen = ({ navigation }: any) => {
               s.coDalejRow,
               {
                 borderTopWidth: idx === 0 ? 0 : StyleSheet.hairlineWidth,
-                borderTopColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)',
+                borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)',
               },
             ]}
             onPress={() => navigation.navigate(item.route as any)}
@@ -862,7 +863,7 @@ export const JournalScreen = ({ navigation }: any) => {
               <Typography variant="cardTitle" style={{ color: textColor, fontSize: 14 }}>{item.label}</Typography>
               <Typography variant="caption" style={{ color: subColor, marginTop: 2 }}>{item.desc}</Typography>
             </View>
-            <ArrowRight color={isLight ? 'rgba(0,0,0,0.22)' : 'rgba(255,255,255,0.22)'} size={14} />
+            <ArrowRight color={isLight ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.22)'} size={14} />
           </Pressable>
         ))}
       </View>

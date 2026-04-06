@@ -73,7 +73,7 @@ const getCurrentMoonDreamData = (phaseName: string, moonDreamData: any[]) => {
 const DreamsHeroBg = React.memo(({ isDark }: { isDark: boolean }) => (
   <View style={StyleSheet.absoluteFill} pointerEvents="none">
     <LinearGradient
-      colors={isDark ? ['#010208', '#030412', '#06081A'] : ['#F0F0FB', '#E8E4F8', '#DDD8F5']}
+      colors={isDark ? ['#04010E', '#060318', '#0A0720'] : ['#F0EEF8', '#E8E4F8', '#DDD8F5']}
       style={StyleSheet.absoluteFill}
     />
     <Svg width={SW} height={SH} style={StyleSheet.absoluteFill} opacity={isDark ? 0.26 : 0.14}>

@@ -26,7 +26,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
 import { formatLocaleDate } from '../core/utils/localeFormat';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 
 // ── ZODIAC SVG ────────────────────────────────────────────────
@@ -429,9 +429,11 @@ const ZodiacWheel3D = React.memo(({ activeSign, accent, onSignPress }: {
 export const HoroscopeScreen = ({ navigation, route }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const aiAvailable = AiService.isLaunchAvailable();
   const aiState = AiService.getLaunchAvailabilityState();
   const dailyPlan = useMemo(() => SoulEngineService.generateDailyPlan(), []);
@@ -464,7 +466,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
   const bgColor = isLight ? zodiacColors.bg : (zodiacColors.darkBg || '#0A0608');
   const textColor = isLight ? '#1A1410' : '#F0EBE4';
   const subColor = isLight ? '#6A5A48' : '#9A8E80';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.06)';
 
   // Losowe ale deterministyczne score na podstawie dnia i znaku
   const dayScore = useMemo(() => {
@@ -543,7 +545,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
       <LinearGradient
         colors={isLight
           ? [zodiacColors.bg, zodiacColors.bg + 'EE', '#F0E8DE']
-          : [bgColor, accent + '12', '#000000']}
+          : [bgColor, accent + '12', '#020814']}
         style={StyleSheet.absoluteFill}/>
 
       <SafeAreaView edges={['top']} style={hs.safeArea}>
@@ -702,7 +704,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                 ].map((item, idx, arr) => {
                   const Icon = item.icon;
                   return (
-                    <Pressable key={item.label} style={[hs.hubRow, { borderBottomWidth: idx < arr.length - 1 ? StyleSheet.hairlineWidth : 0, borderBottomColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }]} onPress={item.onPress}>
+                    <Pressable key={item.label} style={[hs.hubRow, { borderBottomWidth: idx < arr.length - 1 ? StyleSheet.hairlineWidth : 0, borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)' }]} onPress={item.onPress}>
                       <View style={[hs.hubRowIcon, { backgroundColor: item.color + '1A' }]}>
                         <Icon color={item.color} size={19} strokeWidth={1.7} />
                       </View>
@@ -997,7 +999,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   const ElemIcon = ELEMENT_ICON[elemName] ?? Flame;
                   const elemColor = ELEMENT_COLOR[elemName] ?? accent;
                   return (
-                    <View style={[hs.card, { borderColor: elemColor + '44', backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)' }]}>
+                    <View style={[hs.card, { borderColor: elemColor + '44', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)' }]}>
                       <LinearGradient colors={[elemColor + '18', 'transparent']} style={StyleSheet.absoluteFill} />
                       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 12 }}>
                         <View style={{ width: 36, height: 36, borderRadius: 12, backgroundColor: elemColor + '22', alignItems: 'center', justifyContent: 'center' }}>
@@ -1224,7 +1226,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   <Animated.View key={item.route} entering={FadeInDown.delay(400 + i * 60).duration(400)}>
                     <Pressable
                       onPress={() => navigation.navigate(item.route)}
-                      style={[hs.codalejRow, { borderColor: item.color + '33', backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)' }]}
+                      style={[hs.codalejRow, { borderColor: item.color + '33', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)' }]}
                     >
                       <View style={[hs.codalejIcon, { backgroundColor: item.color + '1A' }]}>
                         <Icon color={item.color} size={20} strokeWidth={1.8} />
@@ -1267,7 +1269,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   key={sign}
                   onPress={() => setFsSignInput(sign)}
                   style={[hs.fsSignChip, {
-                    backgroundColor: fsSignInput === sign ? accent + '22' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)'),
+                    backgroundColor: fsSignInput === sign ? accent + '22' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)'),
                     borderColor: fsSignInput === sign ? accent : accent + '33',
                   }]}
                 >

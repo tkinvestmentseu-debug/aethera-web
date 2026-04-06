@@ -30,7 +30,7 @@ import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
 import { formatLocaleDate } from '../core/utils/localeFormat';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#F59E0B';
 
@@ -98,6 +98,11 @@ const GoldenSpiralWidget = ({ accent }: { accent: string }) => {
       withSequence(withTiming(1.06, { duration: 2400 }), withTiming(0.92, { duration: 2400 })),
       -1, false
     );
+    return () => {
+      cancelAnimation(rot1);
+      cancelAnimation(rot2);
+      cancelAnimation(pulse);
+    };
   }, []);
 
   const pan = Gesture.Pan()
@@ -406,14 +411,15 @@ const AnimatedPath = Animated.createAnimatedComponent(Path);
 export default function ManifestationScreen({ navigation }: any) {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, favoriteItems, addFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const favoriteItems = useAppStore(s => s.favoriteItems);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : 'rgba(255,255,255,0.68)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.10)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.16)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.10)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.16)';
   const accent = ACCENT;
 
   // Favorites
@@ -464,6 +470,7 @@ export default function ManifestationScreen({ navigation }: any) {
 
   useEffect(() => {
     progressAnim.value = withTiming(moonProgress, { duration: 1800, easing: Easing.out(Easing.cubic) });
+    return () => { cancelAnimation(progressAnim); };
   }, [moonProgress]);
 
   // Techniques modal
@@ -520,7 +527,9 @@ export default function ManifestationScreen({ navigation }: any) {
 
   // ── RENDER ────────────────────────────────────────────────────
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <ManifestBg isLight={isLight} />
 
       {/* Header */}
@@ -554,7 +563,7 @@ export default function ManifestationScreen({ navigation }: any) {
                 <View style={{ alignItems: 'center', justifyContent: 'center', width: 130, height: 130 }}>
                   <Svg width={130} height={130} viewBox="0 0 130 130">
                     <Circle cx={65} cy={65} r={RING_R} fill="none"
-                      stroke={isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.16)'} strokeWidth={8} />
+                      stroke={isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.16)'} strokeWidth={8} />
                     <AnimatedCircle
                       cx={65} cy={65} r={RING_R}
                       fill="none" stroke={accent} strokeWidth={8}
@@ -814,7 +823,7 @@ export default function ManifestationScreen({ navigation }: any) {
                 placeholderTextColor={subColor + '88'}
                 style={[styles.journalInput, {
                   color: textColor,
-                  backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.10)',
+                  backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.10)',
                   borderColor: cardBorder,
                 }]}
                 multiline
@@ -884,7 +893,7 @@ export default function ManifestationScreen({ navigation }: any) {
                 placeholderTextColor={subColor + '88'}
                 style={[styles.oracleInput, {
                   color: textColor,
-                  backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.10)',
+                  backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.10)',
                   borderColor: cardBorder,
                 }]}
                 multiline
@@ -979,7 +988,8 @@ export default function ManifestationScreen({ navigation }: any) {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 }
 

@@ -4,7 +4,7 @@ import i18n from '../core/i18n';
 import { KeyboardAvoidingView, Keyboard, Platform, Pressable, ScrollView, StyleSheet, View, Dimensions, Text, TextInput, Alert, Modal } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-import Svg, { Circle, Path, G, Line, Ellipse, Circle as DkCircle, Line as DkLine } from 'react-native-svg';
+import Svg, { Circle, Path, G, Line, Ellipse, Circle as DkCircle, Line as DkLine, Defs, RadialGradient as SvgRadialGradient, Stop } from 'react-native-svg';
 import Animated, { FadeInDown, FadeInUp, useSharedValue, useAnimatedStyle, withRepeat, withTiming, withSequence, Easing, cancelAnimation } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { ChevronLeft, Star, BookOpen, EyeOff, Clock, Brain, Sparkles, Gem, ShieldAlert, ArrowRight, Wand2, Wind, CheckSquare, Square, Heart, Zap, Shield, X, ChevronDown, ChevronUp, Users, Baby, TrendingUp, Trash2 } from 'lucide-react-native';
@@ -19,92 +19,220 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
 import * as Haptics from 'expo-haptics';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#8B5CF6';
 
-// ── DARK SIGIL 3D ─────────────────────────────────────────────
-const SIGIL_STARS = [
-  { x: 71.6, y: 16.2, r: 1.0, op: 0.35 }, { x: 22.4, y: -79.3, r: 0.8, op: 0.25 },
-  { x: -61.8, y: -46.3, r: 1.2, op: 0.45 }, { x: -82.5, y: 18.8, r: 0.7, op: 0.30 },
-  { x: -35.7, y: 76.4, r: 1.0, op: 0.40 }, { x: 49.2, y: -68.4, r: 0.9, op: 0.28 },
-  { x: 83.1, y: -26.7, r: 0.8, op: 0.22 }, { x: 12.5, y: 84.2, r: 1.1, op: 0.38 },
-  { x: -74.3, y: 43.6, r: 0.7, op: 0.32 }, { x: 54.7, y: 64.1, r: 0.9, op: 0.42 },
-  { x: -18.4, y: -84.7, r: 1.0, op: 0.27 }, { x: 77.2, y: -51.3, r: 0.8, op: 0.35 },
-  { x: -55.6, y: -67.8, r: 1.2, op: 0.48 }, { x: -84.9, y: -12.4, r: 0.7, op: 0.24 },
-  { x: 31.8, y: 81.5, r: 1.0, op: 0.37 }, { x: 68.3, y: 37.9, r: 0.9, op: 0.31 },
+// ── SHADOW ORB 3D — Premium mystical orb ──────────────────────
+const ORB_SIZE = 260;
+const ORB_C = ORB_SIZE / 2; // 130
+
+// Particle field — scattered stars around the orb
+const ORB_PARTICLES = [
+  { x: 108, y: 24, r: 1.2, op: 0.55 }, { x: 32, y: -112, r: 0.9, op: 0.38 },
+  { x: -92, y: -66, r: 1.4, op: 0.62 }, { x: -118, y: 26, r: 0.8, op: 0.44 },
+  { x: -50, y: 108, r: 1.1, op: 0.52 }, { x: 70, y: -98, r: 1.0, op: 0.40 },
+  { x: 120, y: -38, r: 0.9, op: 0.34 }, { x: 18, y: 120, r: 1.3, op: 0.50 },
+  { x: -106, y: 62, r: 0.8, op: 0.46 }, { x: 78, y: 92, r: 1.0, op: 0.58 },
+  { x: -26, y: -120, r: 1.1, op: 0.36 }, { x: 110, y: -72, r: 0.9, op: 0.48 },
+  { x: -80, y: -96, r: 1.3, op: 0.60 }, { x: -122, y: -18, r: 0.7, op: 0.30 },
+  { x: 46, y: 116, r: 1.1, op: 0.50 }, { x: 98, y: 54, r: 0.9, op: 0.42 },
+  { x: -62, y: 102, r: 1.2, op: 0.56 }, { x: 56, y: -106, r: 0.8, op: 0.32 },
+  { x: -114, y: -44, r: 1.0, op: 0.38 }, { x: 88, y: -82, r: 1.2, op: 0.46 },
 ];
-const SIGIL_OUTER = Array.from({ length: 8 }, (_, i) => {
-  const a = (i / 8) * Math.PI * 2;
-  return { x: 88 * Math.cos(a), y: 88 * Math.sin(a) };
+
+// Outer ring connector dots (8-fold symmetry)
+const ORB_RING_DOTS_A = Array.from({ length: 8 }, (_, i) => {
+  const a = (i / 8) * Math.PI * 2 - Math.PI / 8;
+  return { x: 108 * Math.cos(a), y: 108 * Math.sin(a) };
 });
-const SIGIL_INNER = Array.from({ length: 6 }, (_, i) => {
+// Inner ring connector dots (6-fold symmetry)
+const ORB_RING_DOTS_B = Array.from({ length: 6 }, (_, i) => {
   const a = (i / 6) * Math.PI * 2;
-  return { x: 60 * Math.cos(a), y: 60 * Math.sin(a) };
+  return { x: 74 * Math.cos(a), y: 74 * Math.sin(a) };
+});
+// Gold accent ring dots (12-fold)
+const ORB_GOLD_DOTS = Array.from({ length: 12 }, (_, i) => {
+  const a = (i / 12) * Math.PI * 2;
+  return { x: 92 * Math.cos(a), y: 92 * Math.sin(a) };
 });
 
 const DarkSigil3D = ({ accent }: { accent: string }) => {
-  const rot1  = useSharedValue(0);
-  const rot2  = useSharedValue(360);
-  const pulse = useSharedValue(0.9);
-  const tiltX = useSharedValue(-8);
-  const tiltY = useSharedValue(0);
+  const rot1   = useSharedValue(0);
+  const rot2   = useSharedValue(360);
+  const rot3   = useSharedValue(0);
+  const rot4   = useSharedValue(180);
+  const pulse  = useSharedValue(0.88);
+  const glow   = useSharedValue(0.55);
+  const tiltX  = useSharedValue(-8);
+  const tiltY  = useSharedValue(0);
 
   useEffect(() => {
-    rot1.value  = withRepeat(withTiming(360, { duration: 20000, easing: Easing.linear }), -1, false);
-    rot2.value  = withRepeat(withTiming(0,   { duration: 14000, easing: Easing.linear }), -1, false);
-    pulse.value = withRepeat(withSequence(withTiming(1.05, { duration: 3000 }), withTiming(0.9, { duration: 3000 })), -1, false);
+    // Four rings rotating at different speeds and directions
+    rot1.value = withRepeat(withTiming(360,  { duration: 22000, easing: Easing.linear }), -1, false);
+    rot2.value = withRepeat(withTiming(0,    { duration: 16000, easing: Easing.linear }), -1, false);
+    rot3.value = withRepeat(withTiming(360,  { duration: 30000, easing: Easing.linear }), -1, false);
+    rot4.value = withRepeat(withTiming(180 + 360, { duration: 11000, easing: Easing.linear }), -1, false);
+    // Orb scale pulse — slow, deep breathing
+    pulse.value = withRepeat(withSequence(
+      withTiming(1.06, { duration: 2800, easing: Easing.inOut(Easing.sin) }),
+      withTiming(0.88, { duration: 3200, easing: Easing.inOut(Easing.sin) }),
+    ), -1, false);
+    // Inner glow opacity pulse (offset from scale)
+    glow.value = withRepeat(withSequence(
+      withTiming(0.85, { duration: 3600, easing: Easing.inOut(Easing.sin) }),
+      withTiming(0.40, { duration: 2400, easing: Easing.inOut(Easing.sin) }),
+    ), -1, false);
   }, []);
 
   const pan = Gesture.Pan()
     .onUpdate((e) => {
-      tiltX.value = Math.max(-22, Math.min(22, -8 + e.translationY * 0.15));
-      tiltY.value = Math.max(-22, Math.min(22, e.translationX * 0.15));
+      tiltX.value = Math.max(-25, Math.min(25, -8 + e.translationY * 0.14));
+      tiltY.value = Math.max(-25, Math.min(25, e.translationX * 0.14));
     })
     .onEnd(() => {
-      tiltX.value = withTiming(-8, { duration: 800 });
-      tiltY.value = withTiming(0, { duration: 800 });
+      tiltX.value = withTiming(-8, { duration: 900 });
+      tiltY.value = withTiming(0, { duration: 900 });
     });
 
   const outerStyle = useAnimatedStyle(() => ({
-    transform: [{ perspective: 560 }, { rotateX: `${tiltX.value}deg` }, { rotateY: `${tiltY.value}deg` }, { scale: pulse.value }],
+    transform: [
+      { perspective: 700 },
+      { rotateX: `${tiltX.value}deg` },
+      { rotateY: `${tiltY.value}deg` },
+      { scale: pulse.value },
+    ],
   }));
   const ring1Style = useAnimatedStyle(() => ({ transform: [{ rotateZ: `${rot1.value}deg` }] }));
   const ring2Style = useAnimatedStyle(() => ({ transform: [{ rotateZ: `${rot2.value}deg` }] }));
+  const ring3Style = useAnimatedStyle(() => ({ transform: [{ rotateZ: `${rot3.value}deg` }] }));
+  const ring4Style = useAnimatedStyle(() => ({ transform: [{ rotateZ: `${rot4.value}deg` }] }));
+  const glowStyle  = useAnimatedStyle(() => ({ opacity: glow.value }));
 
-
-
+  const GOLD = '#D97706';
+  const VIOLET = '#7C3AED';
 
   return (
-    <View style={{ alignItems: 'center', marginVertical: 16 }}>
+    <View style={{ alignItems: 'center', marginVertical: 12, overflow: 'visible' }}>
       <GestureDetector gesture={pan}>
-        <Animated.View style={[{ width: 220, height: 220, alignItems: 'center', justifyContent: 'center' }, outerStyle]}>
-          <Svg width={220} height={220} viewBox="-110 -110 220 220" style={StyleSheet.absoluteFill}>
-            <DkCircle r={85} fill="#000" opacity={0.5} />
-            {SIGIL_STARS.map((s, i) => (
-              <DkCircle key={`s${i}`} cx={s.x} cy={s.y} r={s.r} fill="#fff" opacity={s.op} />
+        <Animated.View style={[{ width: ORB_SIZE, height: ORB_SIZE, alignItems: 'center', justifyContent: 'center' }, outerStyle]}>
+
+          {/* ── Base layer: deep space + particle field ── */}
+          <Svg width={ORB_SIZE} height={ORB_SIZE} viewBox={`-${ORB_C} -${ORB_C} ${ORB_SIZE} ${ORB_SIZE}`} style={StyleSheet.absoluteFill}>
+            <Defs>
+              {/* Sphere gradient: deep purple core → violet midtone → transparent edge */}
+              <SvgRadialGradient id="orbCore" cx="42%" cy="38%" r="58%">
+                <Stop offset="0%"   stopColor="#C4B5FD" stopOpacity="0.95" />
+                <Stop offset="22%"  stopColor={VIOLET}  stopOpacity="0.88" />
+                <Stop offset="52%"  stopColor="#4C1D95" stopOpacity="0.82" />
+                <Stop offset="80%"  stopColor="#1E0A3C" stopOpacity="0.90" />
+                <Stop offset="100%" stopColor="#0A0318" stopOpacity="1.00" />
+              </SvgRadialGradient>
+              {/* Inner specular highlight */}
+              <SvgRadialGradient id="orbSpecular" cx="36%" cy="28%" r="30%">
+                <Stop offset="0%"   stopColor="#EDE9FE" stopOpacity="0.70" />
+                <Stop offset="55%"  stopColor="#DDD6FE" stopOpacity="0.15" />
+                <Stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.00" />
+              </SvgRadialGradient>
+              {/* Outer glow halo */}
+              <SvgRadialGradient id="orbHalo" cx="50%" cy="50%" r="50%">
+                <Stop offset="55%"  stopColor={VIOLET}  stopOpacity="0.00" />
+                <Stop offset="75%"  stopColor={VIOLET}  stopOpacity="0.12" />
+                <Stop offset="88%"  stopColor={accent}  stopOpacity="0.22" />
+                <Stop offset="100%" stopColor={accent}  stopOpacity="0.00" />
+              </SvgRadialGradient>
+            </Defs>
+
+            {/* Halo glow behind orb */}
+            <DkCircle r={124} fill="url(#orbHalo)" />
+
+            {/* Particle star field */}
+            {ORB_PARTICLES.map((s, i) => (
+              <DkCircle key={`p${i}`} cx={s.x} cy={s.y} r={s.r} fill="#C4B5FD" opacity={s.op} />
             ))}
-            <Path d="M 0,-45 L 39,22 L -39,22 Z" fill="none" stroke={accent + '55'} strokeWidth={1} />
-            <Ellipse cx={0} cy={0} rx={22} ry={14} fill={accent + '33'} stroke={accent} strokeWidth={1.5} />
-            <DkCircle r={8} fill={accent} opacity={0.8} />
-            <DkCircle r={3} fill="#000" />
+
+            {/* Orb sphere body */}
+            <DkCircle r={88} fill="url(#orbCore)" />
+            {/* Specular highlight overlay */}
+            <DkCircle r={88} fill="url(#orbSpecular)" />
+
+            {/* Inner depth rings */}
+            <DkCircle r={66} fill="none" stroke={VIOLET + '44'} strokeWidth={1.0} />
+            <DkCircle r={44} fill="none" stroke={accent + '55'} strokeWidth={0.8} />
+            <DkCircle r={26} fill="none" stroke="#A78BFA66"     strokeWidth={0.6} />
+
+            {/* Sigil triangle — inner sacred geometry */}
+            <Path d="M 0,-50 L 43,25 L -43,25 Z" fill="none" stroke={accent + '66'} strokeWidth={1.2} />
+            <Path d="M 0,50 L 43,-25 L -43,-25 Z" fill="none" stroke={GOLD + '44'}  strokeWidth={0.8} />
+
+            {/* Ellipse — eye of the abyss */}
+            <Ellipse cx={0} cy={0} rx={24} ry={15} fill={accent + '3A'} stroke={accent + 'AA'} strokeWidth={1.6} />
+
+            {/* Core orb center */}
+            <DkCircle r={10} fill={VIOLET} opacity={0.9} />
+            <DkCircle r={5}  fill="#C4B5FD" opacity={0.95} />
+            <DkCircle r={2}  fill="#FFFFFF" opacity={1} />
           </Svg>
+
+          {/* ── Pulsing inner glow layer ── */}
+          <Animated.View style={[StyleSheet.absoluteFill, { alignItems: 'center', justifyContent: 'center' }, glowStyle]}>
+            <Svg width={ORB_SIZE} height={ORB_SIZE} viewBox={`-${ORB_C} -${ORB_C} ${ORB_SIZE} ${ORB_SIZE}`}>
+              <Defs>
+                <SvgRadialGradient id="pulseGlow" cx="50%" cy="50%" r="50%">
+                  <Stop offset="0%"   stopColor={accent}  stopOpacity="0.50" />
+                  <Stop offset="40%"  stopColor={VIOLET}  stopOpacity="0.28" />
+                  <Stop offset="70%"  stopColor={accent}  stopOpacity="0.08" />
+                  <Stop offset="100%" stopColor="#000000" stopOpacity="0.00" />
+                </SvgRadialGradient>
+              </Defs>
+              <DkCircle r={88} fill="url(#pulseGlow)" />
+            </Svg>
+          </Animated.View>
+
+          {/* ── Ring 1: outer dashed violet (slow CW) ── */}
           <Animated.View style={[StyleSheet.absoluteFill, { alignItems: 'center', justifyContent: 'center' }, ring1Style]}>
-            <Svg width={220} height={220} viewBox="-110 -110 220 220">
-              <DkCircle r={88} fill="none" stroke={accent + '55'} strokeWidth={1} strokeDasharray="4 8" />
-              {SIGIL_OUTER.map((m, i) => (
-                <DkCircle key={`om${i}`} cx={m.x} cy={m.y} r={3} fill={accent} opacity={0.7} />
+            <Svg width={ORB_SIZE} height={ORB_SIZE} viewBox={`-${ORB_C} -${ORB_C} ${ORB_SIZE} ${ORB_SIZE}`}>
+              <DkCircle r={108} fill="none" stroke={accent + '55'} strokeWidth={1.2} strokeDasharray="5 9" />
+              {ORB_RING_DOTS_A.map((m, i) => (
+                <DkCircle key={`ra${i}`} cx={m.x} cy={m.y} r={3.2} fill={accent} opacity={0.75} />
               ))}
             </Svg>
           </Animated.View>
+
+          {/* ── Ring 2: inner dashed purple (medium CCW) ── */}
           <Animated.View style={[StyleSheet.absoluteFill, { alignItems: 'center', justifyContent: 'center' }, ring2Style]}>
-            <Svg width={220} height={220} viewBox="-110 -110 220 220">
-              <DkCircle r={60} fill="none" stroke={accent + '66'} strokeWidth={1.2} strokeDasharray="2 6" />
-              {SIGIL_INNER.map((ln, i) => (
-                <DkLine key={`il${i}`} x1={0} y1={0} x2={ln.x} y2={ln.y} stroke={accent + '44'} strokeWidth={0.8} />
+            <Svg width={ORB_SIZE} height={ORB_SIZE} viewBox={`-${ORB_C} -${ORB_C} ${ORB_SIZE} ${ORB_SIZE}`}>
+              <DkCircle r={74} fill="none" stroke={VIOLET + '77'} strokeWidth={1.4} strokeDasharray="3 7" />
+              {ORB_RING_DOTS_B.map((m, i) => (
+                <DkLine key={`rb${i}`} x1={0} y1={0} x2={m.x} y2={m.y} stroke={accent + '50'} strokeWidth={0.9} />
+              ))}
+              {ORB_RING_DOTS_B.map((m, i) => (
+                <DkCircle key={`rbd${i}`} cx={m.x} cy={m.y} r={2.2} fill={VIOLET} opacity={0.80} />
               ))}
             </Svg>
           </Animated.View>
+
+          {/* ── Ring 3: wide gold accent (very slow CW) ── */}
+          <Animated.View style={[StyleSheet.absoluteFill, { alignItems: 'center', justifyContent: 'center' }, ring3Style]}>
+            <Svg width={ORB_SIZE} height={ORB_SIZE} viewBox={`-${ORB_C} -${ORB_C} ${ORB_SIZE} ${ORB_SIZE}`}>
+              <DkCircle r={120} fill="none" stroke={GOLD + '44'} strokeWidth={1.0} strokeDasharray="2 14" />
+              {ORB_GOLD_DOTS.map((m, i) => (
+                <DkCircle key={`rg${i}`} cx={m.x} cy={m.y} r={i % 3 === 0 ? 2.8 : 1.4} fill={GOLD} opacity={i % 3 === 0 ? 0.72 : 0.38} />
+              ))}
+            </Svg>
+          </Animated.View>
+
+          {/* ── Ring 4: mid-radius spoked frame (fast CCW) ── */}
+          <Animated.View style={[StyleSheet.absoluteFill, { alignItems: 'center', justifyContent: 'center' }, ring4Style]}>
+            <Svg width={ORB_SIZE} height={ORB_SIZE} viewBox={`-${ORB_C} -${ORB_C} ${ORB_SIZE} ${ORB_SIZE}`}>
+              <DkCircle r={92} fill="none" stroke={GOLD + '55'} strokeWidth={0.8} strokeDasharray="1 8" />
+              {Array.from({ length: 4 }, (_, i) => {
+                const a = (i / 4) * Math.PI * 2;
+                return <DkLine key={`rs${i}`} x1={92 * Math.cos(a)} y1={92 * Math.sin(a)} x2={108 * Math.cos(a)} y2={108 * Math.sin(a)} stroke={GOLD + '88'} strokeWidth={1.5} />;
+              })}
+            </Svg>
+          </Animated.View>
+
         </Animated.View>
       </GestureDetector>
     </View>
@@ -115,7 +243,7 @@ const DarkSigil3D = ({ accent }: { accent: string }) => {
 const ShadowBg = () => (
   <View style={StyleSheet.absoluteFill} pointerEvents="none">
     <LinearGradient
-      colors={['#06030F', '#0A051A', '#0F0720', '#140A28']}
+      colors={['#06030F', '#0C0520', '#110722', '#180C2C']}
       style={StyleSheet.absoluteFill}
     />
     <Svg width={SW} height={500} style={StyleSheet.absoluteFill} opacity={0.22}>
@@ -392,13 +520,19 @@ export const ShadowWorkScreen = ({ navigation }: any) => {
   const insets = useSafeAreaInsets();
   const { addEntry, deleteEntry, entries: _journalEntries } = useJournalStore();
   const journalEntries = _journalEntries ?? [];
-  const { themeName, shadowWorkSessions: _shadowWorkSessions, addShadowSession, deleteShadowSession, addFavoriteItem, isFavoriteItem, removeFavoriteItem, userData } = useAppStore();
+    const _shadowWorkSessions = useAppStore(s => s.shadowWorkSessions);
+  const addShadowSession = useAppStore(s => s.addShadowSession);
+  const deleteShadowSession = useAppStore(s => s.deleteShadowSession);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
   const shadowWorkSessions = _shadowWorkSessions ?? [];
-  // Always dark aesthetic
-  const textColor = '#F0E8FF';
-  const subColor = 'rgba(255,255,255,0.50)';
-  const cardBg = 'rgba(255,255,255,0.05)';
-  const inputBg = 'rgba(255,255,255,0.07)';
+  const textColor = isLight ? '#1C1008' : '#F0E8FF';
+  const subColor = isLight ? 'rgba(28,16,8,0.55)' : 'rgba(255,255,255,0.50)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const inputBg = isLight ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.07)';
 
   const [activeArea, setActiveArea] = useState<ShadowArea | null>(null);
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -501,8 +635,8 @@ Pisz w języku użytkownika.`,
   };
 
   return (
-    <View style={[sw.container, { backgroundColor: '#06030F' }]}>
-      <ShadowBg />
+    <View style={[sw.container, { backgroundColor: currentTheme.background }]}>
+      {!isLight && <ShadowBg />}
       <SafeAreaView edges={['top']} style={sw.safe}>
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
           {/* HEADER */}
@@ -554,8 +688,8 @@ Pisz w języku użytkownika.`,
                     <Text style={[sw.guideBadgeText, { color: ACCENT }]}>{tip.n}</Text>
                   </View>
                   <View style={{ flex: 1 }}>
-                    <Text style={[sw.guideTipTitle, { color: '#E0D4FF' }]}>{tip.title}</Text>
-                    <Text style={[sw.guideTipDesc, { color: 'rgba(255,255,255,0.50)' }]}>{tip.desc}</Text>
+                    <Text style={[sw.guideTipTitle, { color: isLight ? '#251D16' : '#E0D4FF' }]}>{tip.title}</Text>
+                    <Text style={[sw.guideTipDesc, { color: isLight ? 'rgba(37,29,22,0.5)' : 'rgba(255,255,255,0.50)' }]}>{tip.desc}</Text>
                   </View>
                 </View>
               ))}
@@ -624,7 +758,7 @@ Pisz w języku użytkownika.`,
                     <Text style={[sw.prevDate, { color: subColor }]}>{last.date}</Text>
                   </View>
                   {preview && (
-                    <Text style={[sw.prevSnippet, { color: 'rgba(255,255,255,0.45)' }]} numberOfLines={2}>{preview}…</Text>
+                    <Text style={[sw.prevSnippet, { color: isLight ? 'rgba(37,29,22,0.45)' : 'rgba(255,255,255,0.45)' }]} numberOfLines={2}>{preview}…</Text>
                   )}
                 </Animated.View>
               );
@@ -770,10 +904,10 @@ Pisz w języku użytkownika.`,
                     {item.icon}
                   </View>
                   <View style={{ flex: 1 }}>
-                    <Text style={[sw.nextLabel, { color: '#E0D4FF' }]}>{item.label}</Text>
-                    <Text style={[sw.nextSub, { color: 'rgba(255,255,255,0.45)' }]} numberOfLines={2}>{item.sub}</Text>
+                    <Text style={[sw.nextLabel, { color: isLight ? '#251D16' : '#E0D4FF' }]}>{item.label}</Text>
+                    <Text style={[sw.nextSub, { color: isLight ? 'rgba(37,29,22,0.45)' : 'rgba(255,255,255,0.45)' }]} numberOfLines={2}>{item.sub}</Text>
                   </View>
-                  <ArrowRight color={'rgba(255,255,255,0.30)'} size={16} strokeWidth={1.8} />
+                  <ArrowRight color={isLight ? 'rgba(37,29,22,0.3)' : 'rgba(255,255,255,0.30)'} size={16} strokeWidth={1.8} />
                 </Pressable>
               ))}
             </Animated.View>

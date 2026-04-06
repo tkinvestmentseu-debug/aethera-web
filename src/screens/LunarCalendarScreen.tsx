@@ -23,7 +23,7 @@ import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
 import * as Haptics from 'expo-haptics';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 // ── ANIMOWANA SCENA KSIĘŻYCA ─────────────────────────────────
 const LunarOrbScene = ({ phase, accent }: { phase: number; accent: string }) => {
   const moonAngle = useSharedValue(0);
@@ -389,7 +389,7 @@ const COLLECTIVE_RITUALS = [
 const LunarBg = ({ isDark }: { isDark: boolean }) => (
   <View style={StyleSheet.absoluteFill} pointerEvents="none">
     <LinearGradient
-      colors={isDark ? ['#040310', '#07051A', '#0A0820'] : ['#F5F3FF', '#F8F6FF', '#FBFAFF']}
+      colors={isDark ? ['#040414', '#07071E', '#0A0C28'] : ['#EEF3FF', '#F2F6FF', '#F8FAFF']}
       style={StyleSheet.absoluteFill}
     />
     <Svg width={SW} height={500} style={StyleSheet.absoluteFill} opacity={isDark ? 0.2 : 0.12}>
@@ -775,15 +775,19 @@ function get3MonthCycles(baseYear: number, baseMonth: number): Array<{ year: num
 
 export const LunarCalendarScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
+  const { currentTheme, isLight } = useTheme();
   const insets = useSafeAreaInsets();
-  const { themeName, lunarIntentions, addLunarIntent, deleteLunarIntent, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const lunarIntentions = useAppStore(s => s.lunarIntentions);
+  const addLunarIntent = useAppStore(s => s.addLunarIntent);
+  const deleteLunarIntent = useAppStore(s => s.deleteLunarIntent);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
   const isDark = !isLight;
   const textColor = isLight ? '#1A1A1A' : '#F0F0F0';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.60)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.08)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.60)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.08)';
 
   const nowDate = new Date();
   const [viewYear, setViewYear] = useState(nowDate.getFullYear());
@@ -1064,7 +1068,7 @@ return (
             <Text style={[lc.sectionTitle, { color: subColor }]}>🌊 RYTM LUNARNY</Text>
             <View style={lc.rhythmGrid}>
               {LUNAR_RHYTHM_PHASES.map((phase, i) => (
-                <View key={i} style={[lc.rhythmCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.05)', borderColor: phase.color + '33' }]}>
+                <View key={i} style={[lc.rhythmCard, { backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.05)', borderColor: phase.color + '33' }]}>
                   <LinearGradient colors={[phase.color + '14', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
                   <Text style={lc.rhythmIcon}>{phase.icon}</Text>
                   <Text style={[lc.rhythmName, { color: phase.color }]}>{phase.name}</Text>
@@ -1420,7 +1424,7 @@ return (
               {/* Energy bar */}
               <View style={lc.heroEnergyBar}>
                 <Text style={[lc.heroEnergyLabel, { color: subColor }]}>ENERGIA CYKLU</Text>
-                <View style={[lc.heroEnergyTrack, { backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)' }]}>
+                <View style={[lc.heroEnergyTrack, { backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)' }]}>
                   <View style={[lc.heroEnergyFill, { width: `${todayIllumination}%` as any, backgroundColor: ACCENT }]} />
                 </View>
               </View>
@@ -1532,7 +1536,7 @@ return (
               {moonSignEmotional && (
                 <>
                   <Text style={[lc.zodiacMoonEmotionText, { color: textColor }]}>{moonSignEmotional.emotion}</Text>
-                  <View style={[lc.zodiacMoonBox, { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)' }]}>
+                  <View style={[lc.zodiacMoonBox, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.05)' }]}>
                     <Text style={[lc.zodiacMoonBoxLabel, { color: todayMoonSign.color }]}>WSKAZÓWKA DNIA</Text>
                     <Text style={[lc.zodiacMoonBoxText, { color: textColor }]}>{moonSignEmotional.guidance}</Text>
                   </View>
@@ -1775,7 +1779,7 @@ return (
                 <Pressable
                   key={i}
                   onPress={() => { setJournalPhase(prompt); setJournalText(''); setJournalEmotion(3); setShowJournalModal(true); }}
-                  style={[lc.journalPromptRow, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderColor: ACCENT + '22' }]}
+                  style={[lc.journalPromptRow, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: ACCENT + '22' }]}
                 >
                   <View style={[lc.journalPromptNum, { backgroundColor: ACCENT + '22' }]}>
                     <Text style={[lc.journalPromptNumText, { color: ACCENT }]}>{i + 1}</Text>
@@ -1837,7 +1841,7 @@ return (
               <Pressable
                 key={i}
                 onPress={item.onPress}
-                style={[lc.nextCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.04)', borderColor: item.color + '28' }]}
+                style={[lc.nextCard, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.04)', borderColor: item.color + '28' }]}
               >
                 <LinearGradient colors={[item.color + '10', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
                 <View style={[lc.nextIconBox, { backgroundColor: item.color + '18', borderColor: item.color + '33' }]}>

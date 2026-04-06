@@ -37,7 +37,7 @@ import { buildNumerologyShareMessage } from '../core/utils/share';
 import { useTranslation } from 'react-i18next';
 import { formatLocaleDate } from '../core/utils/localeFormat';
 import { HapticsService } from '../core/services/haptics.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 const SW = Dimensions.get('window').width;
 const SH = Dimensions.get('window').height;
 
@@ -134,7 +134,7 @@ const NumerologyBackground = ({ isLight }: { isLight: boolean }) => {
     <View style={StyleSheet.absoluteFill} pointerEvents="none">
       {/* Deep dark base */}
       <LinearGradient
-        colors={['#030209', '#07040F', '#0A0616']}
+        colors={['#030414', '#07060F', '#0A0A1E']}
         style={StyleSheet.absoluteFill}
       />
 
@@ -692,9 +692,9 @@ const NumberCard = ({ label, value, meta, eyebrow, isLight, sublabel }: {
   label: string; value: number; meta: typeof NUMBER_META[1]; eyebrow: string; isLight: boolean; sublabel?: string;
 }) => {
   const [expanded, setExpanded] = useState(false);
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.07)';
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.60)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.60)';
   const isMaster = value === 11 || value === 22 || value === 33;
   const goldColor = '#F5C842';
   const accentColor = isMaster ? goldColor : meta.color;
@@ -783,13 +783,13 @@ const CompactNumberCard = ({ label, value, color, desc, isLight }: {
   label: string; value: number; color: string; desc: string; isLight: boolean;
 }) => {
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
   const isMaster = value === 11 || value === 22 || value === 33;
   const goldColor = '#F5C842';
   const accentColor = isMaster ? goldColor : color;
   return (
     <View style={{ flex: 1, borderRadius: 16, padding: 14, overflow: 'hidden',
-      backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)',
+      backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)',
       borderWidth: 1, borderColor: accentColor + '44',
       borderTopWidth: 2.5, borderTopColor: accentColor }}>
       <LinearGradient colors={[accentColor + '1A', 'transparent']} style={StyleSheet.absoluteFillObject} />
@@ -879,7 +879,7 @@ const NumberMatrix3D = ({ lifePathNumber, accent }: { lifePathNumber: number; ac
 // ── Letter Analysis Row ─────────────────────────────────────
 const LetterRow = ({ name, isLight }: { name: string; isLight: boolean }) => {
   const letters = name.toUpperCase().replace(/[^A-Z ]/g, '').split('');
-  const subColor = isLight ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.5)';
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 6, paddingVertical: 4 }}>
       {letters.map((ch, i) => {
@@ -908,7 +908,7 @@ const PinnacleTimeline = ({ pinnacles, birthDate, accent, isLight }: {
   pinnacles: ReturnType<typeof calcPinnacles>; birthDate: string; accent: string; isLight: boolean;
 }) => {
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.60)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.60)';
   const birthYear = new Date(birthDate).getFullYear();
   const currentAge = new Date().getFullYear() - birthYear;
 
@@ -941,7 +941,7 @@ const PinnacleTimeline = ({ pinnacles, birthDate, accent, isLight }: {
             </View>
             <View style={{
               flex: 1, padding: 14, borderRadius: 14,
-              backgroundColor: isActive ? accentColor + '18' : isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)',
+              backgroundColor: isActive ? accentColor + '18' : isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)',
               borderWidth: isActive ? 1.5 : StyleSheet.hairlineWidth,
               borderColor: isActive ? accentColor + '66' : accentColor + '33',
               marginBottom: 4,
@@ -972,7 +972,7 @@ const PinnacleTimeline = ({ pinnacles, birthDate, accent, isLight }: {
 
 // ── Kosmogram Grid ─────────────────────────────────────────
 const KosmogramGrid = ({ birthDate, accent, isLight }: { birthDate: string; accent: string; isLight: boolean }) => {
-  const subColor = isLight ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.5)';
   const digitCounts = useMemo(() => {
     const digits = birthDate.replace(/\D/g, '').split('').map(Number).filter(d => d >= 1 && d <= 9);
     const counts: Record<number, number> = {};
@@ -1045,10 +1045,10 @@ const SectionTabBar = ({ active, onSelect, accent, isLight }: {
   active: string; onSelect: (k: string) => void; accent: string; isLight: boolean;
 }) => {
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)';
+  const subColor = isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)';
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: layout.padding.screen, gap: 6, marginBottom: 20 }}>
-      <View style={{ flexDirection: 'row', backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)', borderRadius: 18, padding: 4, gap: 4 }}>
+      <View style={{ flexDirection: 'row', backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.06)', borderRadius: 18, padding: 4, gap: 4 }}>
         {SECTIONS.map(({ key, label, icon: Icon }) => {
           const isActive = active === key;
           return (
@@ -1087,10 +1087,10 @@ const AiInsightCard = ({ insight, loading, accent, isLight, onRequest }: {
   insight: string; loading: boolean; accent: string; isLight: boolean; onRequest: () => void;
 }) => {
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.60)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.60)';
   return (
     <View style={{ borderRadius: 18, padding: 18, overflow: 'hidden',
-      backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)',
+      backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)',
       borderWidth: 1, borderColor: accent + '44' }}>
       <LinearGradient colors={[accent + '18', 'transparent']} style={StyleSheet.absoluteFillObject} />
       <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
@@ -1129,13 +1129,15 @@ export const NumerologyScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.60)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.08)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.60)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.08)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
 
   // Active section tab
   const [activeSection, setActiveSection] = useState('rdzen');
@@ -1304,7 +1306,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
       <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 6 }}>
         <View style={{ flexDirection: 'row', gap: 10 }}>
           <View style={{ flex: 1, borderRadius: 16, padding: 14, overflow: 'hidden',
-            backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)',
+            backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)',
             borderWidth: 1, borderColor: udMeta.color + '44', borderTopWidth: 3, borderTopColor: udMeta.color }}>
             <LinearGradient colors={[udMeta.color + '18', 'transparent']} style={StyleSheet.absoluteFillObject} />
             <Text style={{ fontSize: 8, color: udMeta.color, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>☀ DZIEŃ UNIWERSALNY</Text>
@@ -1318,7 +1320,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
             <Text style={{ fontSize: 10, color: subColor, marginTop: 8, lineHeight: 16 }} numberOfLines={2}>{getCycleInfo(universalDay).day}</Text>
           </View>
           <View style={{ flex: 1, borderRadius: 16, padding: 14, overflow: 'hidden',
-            backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)',
+            backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)',
             borderWidth: 1, borderColor: pdMeta.color + '44', borderTopWidth: 3, borderTopColor: pdMeta.color }}>
             <LinearGradient colors={[pdMeta.color + '18', 'transparent']} style={StyleSheet.absoluteFillObject} />
             <Text style={{ fontSize: 8, color: pdMeta.color, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>🌙 DZIEŃ OSOBISTY</Text>
@@ -1394,7 +1396,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
               { label: 'Droga Życia ↔ Dusza', value: bridges.lpSoul, desc: 'Napięcie między drogą a głębokim pragnieniem serca.' },
               ...(expressionNum > 0 && soulUrge > 0 ? [{ label: 'Wyraz ↔ Dusza', value: bridges.exprSoul, desc: 'Napięcie między talentami a wewnętrzną tęsknotą.' }] : []),
             ].map(({ label, value, desc }, i, arr) => (
-              <View key={label} style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, borderBottomWidth: i < arr.length - 1 ? StyleSheet.hairlineWidth : 0, borderBottomColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }}>
+              <View key={label} style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 10, borderBottomWidth: i < arr.length - 1 ? StyleSheet.hairlineWidth : 0, borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)' }}>
                 <View style={{ width: 38, height: 38, borderRadius: 19, backgroundColor: currentTheme.primary + '28', alignItems: 'center', justifyContent: 'center', marginRight: 14 }}>
                   <Text style={{ fontSize: 17, fontWeight: '800', color: currentTheme.primary }}>{value}</Text>
                 </View>
@@ -1674,7 +1676,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14 }}>
                   <View style={{ flex: 1 }}>
                     <Text style={{ fontSize: 11, color: '#F472B6', fontWeight: '700', letterSpacing: 1.2, marginBottom: 5 }}>ZGODNOŚĆ DRÓG ŻYCIA</Text>
-                    <View style={{ height: 8, borderRadius: 4, backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)', marginBottom: 5 }}>
+                    <View style={{ height: 8, borderRadius: 4, backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)', marginBottom: 5 }}>
                       <View style={{ height: 8, borderRadius: 4, width: `${soulCompat.score}%`, backgroundColor: soulCompat.color }} />
                     </View>
                     <Text style={{ fontSize: 11, color: subColor }}>Twoja {lifePath} + {partnerName.trim() || 'partner'} {calcLifePath(partnerBirthDate)}</Text>
@@ -1690,7 +1692,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                     { label: 'Centrum', you: matrix?.center || 0, them: partnerMatrix.center },
                     { label: 'Relacje', you: matrix?.relationship || 0, them: partnerMatrix.relationship },
                   ].map(({ label, you, them }) => (
-                    <View key={label} style={{ flex: 1, padding: 10, borderRadius: 10, backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)', alignItems: 'center' }}>
+                    <View key={label} style={{ flex: 1, padding: 10, borderRadius: 10, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)', alignItems: 'center' }}>
                       <Text style={{ fontSize: 9, color: subColor, marginBottom: 5, textAlign: 'center' }}>{label}</Text>
                       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                         <Text style={{ fontSize: 14, fontWeight: '800', color: currentTheme.primary }}>{you}</Text>
@@ -1726,7 +1728,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                       <Text style={{ fontSize: 12, color: textColor, fontWeight: '600' }}>{pair.desc}</Text>
                       <Text style={{ fontSize: 11, color: pair.color, fontWeight: '700' }}>{pair.score}%</Text>
                     </View>
-                    <View style={{ height: 5, borderRadius: 3, backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)' }}>
+                    <View style={{ height: 5, borderRadius: 3, backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)' }}>
                       <View style={{ height: 5, borderRadius: 3, width: `${pair.score}%`, backgroundColor: pair.color }} />
                     </View>
                   </View>
@@ -1807,7 +1809,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
           </View>
 
           {/* Actions + Avoid */}
-          <View style={{ borderRadius: 18, padding: 16, overflow: 'hidden', marginBottom: 16, backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)', borderWidth: 1, borderColor: pyColor + '33' }}>
+          <View style={{ borderRadius: 18, padding: 16, overflow: 'hidden', marginBottom: 16, backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.05)', borderWidth: 1, borderColor: pyColor + '33' }}>
             <Text style={{ fontSize: 9, color: pyColor, fontWeight: '700', letterSpacing: 1.5, marginBottom: 12 }}>✦ PRIORYTETY ROKU</Text>
             {actionGuide.actions.map((a, i) => (
               <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 8, gap: 10 }}>
@@ -1817,14 +1819,14 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                 <Text style={{ fontSize: 13, color: isLight ? '#2A2A2A' : '#E0D8D0', lineHeight: 20, flex: 1 }}>{a}</Text>
               </View>
             ))}
-            <View style={{ marginTop: 8, borderTopWidth: 1, borderTopColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)', paddingTop: 10 }}>
+            <View style={{ marginTop: 8, borderTopWidth: 1, borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)', paddingTop: 10 }}>
               <Text style={{ fontSize: 9, color: '#F87171', fontWeight: '700', letterSpacing: 1.5, marginBottom: 4 }}>⚠ UNIKAJ</Text>
               <Text style={{ fontSize: 12, color: isLight ? '#666' : '#B0A393', lineHeight: 18 }}>{actionGuide.avoid}</Text>
             </View>
           </View>
 
           {/* Affirmation */}
-          <View style={{ borderRadius: 16, padding: 16, marginBottom: 20, overflow: 'hidden', backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)', borderWidth: 1, borderColor: pyColor + '33' }}>
+          <View style={{ borderRadius: 16, padding: 16, marginBottom: 20, overflow: 'hidden', backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)', borderWidth: 1, borderColor: pyColor + '33' }}>
             <LinearGradient colors={[pyColor + '14', 'transparent']} style={StyleSheet.absoluteFillObject} />
             <Text style={{ fontSize: 9, color: pyColor, fontWeight: '700', letterSpacing: 1.8, marginBottom: 8 }}>✦ AFIRMACJA ROKU</Text>
             <Text style={{ fontSize: 14, color: isLight ? '#1A1A1A' : '#F0EBE2', lineHeight: 22, fontStyle: 'italic' }}>"{actionGuide.affirmation}"</Text>
@@ -1834,15 +1836,15 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
         {/* 9-year cycle */}
         <Divider label="✦ CYKL 9-LETNI" color="#A78BFA" isLight={isLight} />
         <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 20 }}>
-          <Text style={{ fontSize: 12, color: isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)', lineHeight: 18, marginBottom: 14 }}>
+          <Text style={{ fontSize: 12, color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)', lineHeight: 18, marginBottom: 14 }}>
             Każdy cykl numerologiczny trwa 9 lat. Każdy rok niesie inną energię i lekcję — razem tworzą pełną spiralę wzrostu.
           </Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingBottom: 4 }}>
             {nineYears.map(({ year, pyN, color, isCurrent }) => (
               <View key={year} style={{ width: 72, borderRadius: 16, padding: 12, alignItems: 'center', overflow: 'hidden',
-                backgroundColor: isCurrent ? color + '22' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)'),
+                backgroundColor: isCurrent ? color + '22' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)'),
                 borderWidth: isCurrent ? 2 : 1,
-                borderColor: isCurrent ? color : (isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)'),
+                borderColor: isCurrent ? color : (isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)'),
               }}>
                 {isCurrent && <LinearGradient colors={[color + '30', 'transparent']} style={StyleSheet.absoluteFillObject} />}
                 <Text style={{ fontSize: 22, fontWeight: '900', color }}>{pyN}</Text>
@@ -1859,9 +1861,9 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
           {fullMonthlyForecast.map((fc, i) => (
             <Animated.View key={fc.month} entering={FadeInDown.delay(i * 30).duration(380)}>
               <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 10, padding: 14, borderRadius: 16, overflow: 'hidden',
-                backgroundColor: fc.isNow ? (fc.color + '18') : (fc.isPast ? (isLight ? 'rgba(0,0,0,0.02)' : 'rgba(255,255,255,0.03)') : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)')),
+                backgroundColor: fc.isNow ? (fc.color + '18') : (fc.isPast ? (isLight ? 'rgba(0,0,0,0.02)' : 'rgba(255,255,255,0.03)') : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)')),
                 borderWidth: fc.isNow ? 1.5 : 1,
-                borderColor: fc.isNow ? fc.color : (isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)'),
+                borderColor: fc.isNow ? fc.color : (isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)'),
               }}>
                 {fc.isNow && <LinearGradient colors={[fc.color + '18', 'transparent']} style={StyleSheet.absoluteFillObject} />}
                 <View style={{ width: 44, height: 44, borderRadius: 14, backgroundColor: fc.color + (fc.isPast ? '14' : '22'), alignItems: 'center', justifyContent: 'center', marginRight: 12 }}>
@@ -1902,7 +1904,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
             <>
               <Divider label="✦ WŁADCA PLANETARNY ROKU" color={ruler.color} isLight={isLight} />
               <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 20 }}>
-                <View style={{ borderRadius: 20, padding: 18, overflow: 'hidden', borderWidth: 1.5, borderColor: ruler.color + '55', backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)' }}>
+                <View style={{ borderRadius: 20, padding: 18, overflow: 'hidden', borderWidth: 1.5, borderColor: ruler.color + '55', backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)' }}>
                   <LinearGradient colors={[ruler.color + '22', 'transparent']} style={StyleSheet.absoluteFillObject} />
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14, marginBottom: 14 }}>
                     <View style={{ width: 64, height: 64, borderRadius: 20, backgroundColor: ruler.color + '22', borderWidth: 2, borderColor: ruler.color + '55', alignItems: 'center', justifyContent: 'center' }}>
@@ -1985,7 +1987,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                   {powerDays.map((pd, i) => (
                     <Animated.View key={i} entering={FadeInDown.delay(i * 40).duration(380)}>
                       <View style={{ flexDirection: 'row', alignItems: 'center', padding: 14, borderRadius: 16, overflow: 'hidden',
-                        backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)',
+                        backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)',
                         borderWidth: 1, borderColor: pd.energy + '44' }}>
                         <LinearGradient colors={[pd.energy + '14', 'transparent']} style={StyleSheet.absoluteFillObject} />
                         <View style={{ width: 50, height: 50, borderRadius: 14, backgroundColor: pd.energy + '22', borderWidth: 2, borderColor: pd.energy + '55', alignItems: 'center', justifyContent: 'center', marginRight: 12 }}>
@@ -2032,7 +2034,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                   {areas.map((a, i) => (
                     <Animated.View key={a.area} entering={FadeInDown.delay(i * 60).duration(400)}>
                       <View style={{ borderRadius: 18, padding: 16, overflow: 'hidden', borderWidth: 1, borderColor: AREA_COLORS[i] + '44',
-                        backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)' }}>
+                        backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)' }}>
                         <LinearGradient colors={[AREA_COLORS[i] + '18', 'transparent']} style={StyleSheet.absoluteFillObject} />
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 10 }}>
                           <View style={{ width: 32, height: 32, borderRadius: 10, backgroundColor: AREA_COLORS[i] + '22', borderWidth: 1.5, borderColor: AREA_COLORS[i] + '55', alignItems: 'center', justifyContent: 'center' }}>
@@ -2044,7 +2046,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                           <Text style={{ fontSize: 9, color: AREA_COLORS[i], fontWeight: '700', letterSpacing: 1.2, marginBottom: 4 }}>✦ DZIAŁAJ</Text>
                           <Text style={{ fontSize: 13, color: isLight ? '#2A2A2A' : '#E0D8D0', lineHeight: 20 }}>{a.focus}</Text>
                         </View>
-                        <View style={{ borderTopWidth: 1, borderTopColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)', paddingTop: 8 }}>
+                        <View style={{ borderTopWidth: 1, borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)', paddingTop: 8 }}>
                           <Text style={{ fontSize: 9, color: '#F87171', fontWeight: '700', letterSpacing: 1.2, marginBottom: 4 }}>⚠ BLOKADA</Text>
                           <Text style={{ fontSize: 12, color: subColor, lineHeight: 18 }}>{a.block}</Text>
                         </View>
@@ -2081,7 +2083,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
           <Text style={{ fontSize: 11, color: subColor, lineHeight: 18, marginBottom: 12 }}>
             Każda litera Twojego imienia niesie liczbę Pitagorasa (V=samogłoska, C=spółgłoska). Suma samogłosek = Poryw Duszy. Suma spółgłosek = Osobowość.
           </Text>
-          <View style={[styles.nameInput, { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)', borderColor: '#34D39944', marginBottom: 12 }]}>
+          <View style={[styles.nameInput, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)', borderColor: '#34D39944', marginBottom: 12 }]}>
             <Hash color="#34D399" size={16} strokeWidth={1.8} style={{ marginRight: 10 }} />
             <TextInput
               value={analysisName}
@@ -2126,7 +2128,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
             { label: 'Pinnakl', copy: 'Aktualny sezon duszy — dominująca energia etapu życia.' },
             { label: 'Rok osobisty', copy: 'Ton roku — ekspansja, integracja lub zamknięcie cyklu.' },
           ].map(({ label, copy }, i, arr) => (
-            <View key={label} style={{ flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 10, borderBottomWidth: i < arr.length - 1 ? StyleSheet.hairlineWidth : 0, borderBottomColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }}>
+            <View key={label} style={{ flexDirection: 'row', alignItems: 'flex-start', paddingVertical: 10, borderBottomWidth: i < arr.length - 1 ? StyleSheet.hairlineWidth : 0, borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)' }}>
               <View style={{ width: 96 }}>
                 <Typography variant="microLabel" color={currentTheme.primary}>{label}</Typography>
               </View>
@@ -2136,7 +2138,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
         </View>
 
         {/* Next steps */}
-        <View style={{ height: 1, backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)', marginVertical: 16 }} />
+        <View style={{ height: 1, backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.06)', marginVertical: 16 }} />
         <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 8 }}>🌿 NASTĘPNE KROKI</Typography>
         {[
           { icon: Brain, color: '#60A5FA', label: 'Notatka refleksyjna', desc: 'Zapisz, która liczba pracuje dziś najmocniej', onPress: () => navigation.navigate('JournalEntry', { prompt: `Moja droga życia to ${lifePath}. Aktywny pinnakl: ${activePinnacle?.number || '?'}. Co teraz pracuje u mnie najmocniej?`, type: 'reflection' }) },
@@ -2148,7 +2150,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
             paddingVertical: 14,
             opacity: pressed ? 0.7 : 1,
             borderBottomWidth: idx < arr.length - 1 ? StyleSheet.hairlineWidth : 0,
-            borderBottomColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)',
+            borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)',
           })}>
             <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: color + '22', alignItems: 'center', justifyContent: 'center', marginRight: 14 }}>
               <Icon color={color} size={18} strokeWidth={1.8} />
@@ -2253,7 +2255,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                   paddingVertical: 13, paddingHorizontal: layout.padding.screen,
                   opacity: pressed ? 0.7 : 1,
                   borderBottomWidth: idx < arr.length - 1 ? StyleSheet.hairlineWidth : 0,
-                  borderBottomColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)',
+                  borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)',
                 })}>
                   <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: color + '22', alignItems: 'center', justifyContent: 'center', marginRight: 12 }}>
                     <Icon color={color} size={18} strokeWidth={1.8} />
@@ -2267,7 +2269,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
               ))}
             </View>
 
-            <View style={{ height: 1, backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)', marginBottom: 20 }} />
+            <View style={{ height: 1, backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.06)', marginBottom: 20 }} />
 
             {/* ── Section tabs ─────────────────────────────── */}
             <SectionTabBar active={activeSection} onSelect={setActiveSection} accent={currentTheme.primary} isLight={isLight} />

@@ -28,7 +28,7 @@ import { AiService } from '../core/services/ai.service';
 import { navigateToDashboardSurface } from '../navigation/navigationFallbacks';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 const ACCENT = '#60A5FA';
 
@@ -44,7 +44,7 @@ const AstrologyHeroBg = ({ isDark }: { isDark: boolean }) => {
     <View style={StyleSheet.absoluteFill} pointerEvents="none">
       <LinearGradient
         colors={isDark
-          ? ['#020810', '#050F1E', '#081426']
+          ? ['#020C18', '#050F1E', '#081C34']
           : ['#EEF4FA', '#E4EEF8', '#D8E8F5']}
         style={StyleSheet.absoluteFill}
       />
@@ -440,9 +440,10 @@ export const StarsScreen = ({ navigation }: any) => {
   const tr = (key: string, pl: string, en: string, options?: Record<string, unknown>) =>
     t(key, { defaultValue: i18n.language?.startsWith('en') ? en : pl, ...options });
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, removeFavoriteItem, isFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const { isLight } = useTheme();
   const isDark = !isLight;
   const aiAvailable = AiService.isLaunchAvailable();
   const dailyPlan = useMemo(() => SoulEngineService.generateDailyPlan(), []);
@@ -1356,4 +1357,3 @@ const ss = StyleSheet.create({
   wisdomRow: { paddingTop: 8, marginTop: 6, borderTopWidth: StyleSheet.hairlineWidth },
   wisdomText: { fontSize: 12, lineHeight: 19, fontStyle: 'italic' },
 });
-

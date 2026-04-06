@@ -565,14 +565,16 @@ const FreqCard = ({
         <LinearGradient
           colors={
             isActive
-              ? [freq.gradientFrom, freq.gradientTo]
+              ? isLight
+                ? [freq.color + '18', freq.color + '0A']
+                : [freq.gradientFrom, freq.gradientTo]
               : isLight
                 ? ['rgba(255,255,255,0.96)', 'rgba(245,240,232,0.92)']
                 : ['rgba(255,255,255,0.04)', 'rgba(255,255,255,0.02)']
           }
           style={[
             styles.card,
-            isActive && { borderColor: freq.color + '77', shadowColor: freq.color, shadowOpacity: 0.35, shadowRadius: 18, elevation: 9 },
+            isActive && { borderColor: freq.color + (isLight ? '99' : '77'), shadowColor: freq.color, shadowOpacity: isLight ? 0.22 : 0.35, shadowRadius: 18, elevation: 9 },
             !isActive && { borderColor: isLight ? 'rgba(139,100,42,0.28)' : 'rgba(255,255,255,0.10)' },
           ]}
         >
@@ -604,14 +606,14 @@ const FreqCard = ({
           {/* Title */}
           <View style={styles.titleRow}>
             <View>
-              <Text style={[styles.label, { color: isActive ? freq.color : textColor }]}>{freq.label}</Text>
-              <Text style={[styles.subtitle, { color: isLight ? 'rgba(0,0,0,0.60)' : subColor }]}>{freq.subtitle}</Text>
+              <Text style={[styles.label, { color: isActive ? (isLight ? '#1A1208' : freq.color) : textColor }]}>{freq.label}</Text>
+              <Text style={[styles.subtitle, { color: isLight ? 'rgba(0,0,0,0.62)' : subColor }]}>{freq.subtitle}</Text>
             </View>
             <WaveAnimation color={freq.color} active={isActive} />
           </View>
 
           {/* Description */}
-          <Text style={[styles.desc, { color: isActive ? (isLight ? '#2A1800' : '#C0B8B0') : (isLight ? 'rgba(0,0,0,0.70)' : subColor) }]}>{freq.desc}</Text>
+          <Text style={[styles.desc, { color: isLight ? 'rgba(0,0,0,0.72)' : (isActive ? '#C0B8B0' : subColor) }]}>{freq.desc}</Text>
 
           {/* Benefits */}
           <View style={styles.benefitsRow}>

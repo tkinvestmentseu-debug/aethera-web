@@ -25,13 +25,13 @@ import {
 } from 'lucide-react-native';
 import { getResolvedTheme } from '../core/theme/tokens';
 import { layout } from '../core/theme/designSystem';
+import { useTheme } from '../core/hooks/useTheme';
 import { useAppStore } from '../store/useAppStore';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
 import { AudioService } from '../core/services/audio.service';
 import { AiService } from '../core/services/ai.service';
-
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#7C3AED';
 const ACCENT_LIGHT = '#DDD6FE';
@@ -69,6 +69,13 @@ const DreamPortal3D = () => {
       withTiming(1, { duration: 2000 }),
       withTiming(0, { duration: 2000 }),
     ), -1, false);
+    return () => {
+      cancelAnimation(rot1);
+      cancelAnimation(rot2);
+      cancelAnimation(rot3);
+      cancelAnimation(pulse);
+      cancelAnimation(glow);
+    };
   }, []);
 
   const pan = Gesture.Pan()
@@ -368,9 +375,12 @@ const RealityCheckCard = ({ item }: { item: typeof REALITY_CHECKS[0] }) => {
 // ── MAIN SCREEN ───────────────────────────────────────────────────────────────
 export const LucidDreamingScreen = ({ navigation }: any) => {
   const insets    = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, removeFavoriteItem, isFavoriteItem, shadowWorkSessions } = useAppStore();
+  const { currentTheme, isLight } = useTheme();
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const shadowWorkSessions = useAppStore(s => s.shadowWorkSessions);
   const safeShadowWorkSessions = shadowWorkSessions ?? [];
-  const theme     = getResolvedTheme(themeName);
   const { t } = useTranslation();
 
   const [intention, setIntention]   = useState('');
@@ -426,7 +436,9 @@ export const LucidDreamingScreen = ({ navigation }: any) => {
   const todayDate    = new Date().toLocaleDateString(getLocaleCode(), { weekday: 'long', day: 'numeric', month: 'long' });
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#0D0A1A' }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: isLight ? currentTheme.background : '#0D0A1A' }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <DreamBg />
 
       {/* Header */}
@@ -609,6 +621,7 @@ export const LucidDreamingScreen = ({ navigation }: any) => {
 
         <EndOfContentSpacer />
       </ScrollView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };

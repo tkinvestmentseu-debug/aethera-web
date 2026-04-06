@@ -28,8 +28,9 @@ import { Typography } from '../components/Typography';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
+import { AudioService } from '../core/services/audio.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 
 // ─── COLOR THERAPY DATA ──────────────────────────────────────────────────────
@@ -515,7 +516,7 @@ const ColorMandala = React.memo(() => {
 
   return (
     <GestureDetector gesture={pan}>
-      <Animated.View style={[outerStyle, { width: MANDALA_SIZE, height: MANDALA_SIZE, alignSelf: 'center' }]}>
+      <Animated.View style={[outerStyle, { width: MANDALA_SIZE, height: MANDALA_SIZE, alignSelf: 'center', overflow: 'visible' }]}>
         <Svg width={MANDALA_SIZE} height={MANDALA_SIZE}>
           <Defs>
             <SvgRadialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
@@ -656,18 +657,18 @@ interface ColorJournalEntry {
 
 export function ColorTherapyScreen({ navigation }) {
   const { t } = useTranslation();
-  const { themeName, userData, toggleFavoriteAffirmation, favoriteItems } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
+    const userData = useAppStore(s => s.userData);
+  const toggleFavoriteAffirmation = useAppStore(s => s.toggleFavoriteAffirmation);
+  const favoriteItems = useAppStore(s => s.favoriteItems);
+  const { currentTheme, isLight } = useTheme();
   const insets = useSafeAreaInsets();
   const scrollRef = useRef(null);
-
-  const isLight = currentTheme.background.startsWith('#F');
   const isDark = !isLight;
   const accent   = '#A855F7';
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor  = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg    = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg    = isLight ? 'rgba(255,255,255,0.98)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
 
   const today = useMemo(() => new Date(), []);
   const todayColor = useMemo(() => getHealingColorForDate(today), []);
@@ -863,7 +864,9 @@ export function ColorTherapyScreen({ navigation }) {
   ];
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: currentTheme.background }]} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[styles.safe, {}]} edges={['top']}>
+
       <ColorTherapyBg isDark={!isLight} />
 
       {/* HEADER */}
@@ -1142,7 +1145,12 @@ export function ColorTherapyScreen({ navigation }) {
                   <View style={styles.meditationControls}>
                     {!isMeditating ? (
                       <Pressable
-                        onPress={() => { HapticsService.notify(); setIsMeditating(true); setMeditationStep(0); }}
+                        onPress={() => {
+                          HapticsService.notify();
+                          setIsMeditating(true);
+                          setMeditationStep(0);
+                          void AudioService.playAmbientForSession('forest');
+                        }}
                         style={[styles.meditationBtn, { backgroundColor: selectedMeditationColor.hex }]}
                       >
                         <Text style={{ color: '#fff', fontSize: 14, fontWeight: '700' }}>Rozpocznij Medytację</Text>
@@ -1166,7 +1174,12 @@ export function ColorTherapyScreen({ navigation }) {
                           </Pressable>
                         ) : (
                           <Pressable
-                            onPress={() => { HapticsService.notify(); setIsMeditating(false); setMeditationStep(0); }}
+                            onPress={() => {
+                              HapticsService.notify();
+                              setIsMeditating(false);
+                              setMeditationStep(0);
+                              void AudioService.stopSessionAudioImmediately();
+                            }}
                             style={[styles.meditationBtnSmall, { backgroundColor: selectedMeditationColor.hex }]}
                           >
                             <Text style={{ color: '#fff', fontSize: 13, fontWeight: '700' }}>✓ Zakończ</Text>
@@ -1358,7 +1371,7 @@ export function ColorTherapyScreen({ navigation }) {
                     multiline
                     style={[styles.journalInput, {
                       color: textColor,
-                      backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)',
+                      backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.05)',
                       borderColor: journalColor.hex + '40',
                     }]}
                   />
@@ -1406,7 +1419,7 @@ export function ColorTherapyScreen({ navigation }) {
                   <SectionLabel label="KOLORY W POMIESZCZENIACH" color={accent} />
                   {ENV_ROOMS.map((room, i) => (
                     <Animated.View key={room.room} entering={FadeInDown.duration(280).delay(i * 50)}>
-                      <View style={[styles.roomCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)', borderColor: cardBorder }]}>
+                      <View style={[styles.roomCard, { backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)', borderColor: cardBorder }]}>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                           <Text style={[styles.roomName, { color: textColor }]}>{room.room}</Text>
                           <View style={{ flexDirection: 'row', gap: 5 }}>
@@ -1506,7 +1519,8 @@ export function ColorTherapyScreen({ navigation }) {
 
         <EndOfContentSpacer size="standard" />
       </ScrollView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 }
 
@@ -1545,8 +1559,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     padding: 18,
+    paddingTop: 14,
     marginBottom: 16,
     alignItems: 'center',
+    overflow: 'visible',
   },
   mandalaHint: {
     fontSize: 10,
