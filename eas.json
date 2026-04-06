@@ -8,7 +8,12 @@
     },
     "preview": {
       "distribution": "internal",
-      "android": { "buildType": "apk" }
+      "android": { "buildType": "apk" },
+      "prebuildCommand": "npx expo prebuild --platform android --no-install && sed -i 's/gradle-8\\.10\\.2-bin\\.zip/gradle-8.13-bin.zip/g; s/gradle-8\\.10\\.[0-9]*-bin\\.zip/gradle-8.13-bin.zip/g' android/gradle/wrapper/gradle-wrapper.properties && sed -i 's/-Xmx[0-9]*m/-Xmx4096m/g' android/gradle.properties && sed -i 's/reactNativeArchitectures=.*/reactNativeArchitectures=arm64-v8a/' android/gradle.properties && echo 'Gradle patched: 8.13, 4GB heap, arm64-v8a only'"
+    },
+    "testflight": {
+      "distribution": "store",
+      "ios": { "resourceClass": "m-medium" }
     },
     "production": {
       "distribution": "store",
