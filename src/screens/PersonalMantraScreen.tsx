@@ -35,6 +35,7 @@ import Animated, {
   FadeInDown,
   FadeInUp,
   interpolate,
+  cancelAnimation,
 } from 'react-native-reanimated';
 import {
   ChevronLeft,
@@ -61,7 +62,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const ACCENT = '#F59E0B';
@@ -216,6 +217,11 @@ const MantraOrb = ({
     scale.value   = withRepeat(withSequence(withTiming(1.0, { duration: 2600 }), withTiming(0.92, { duration: 2600 })), -1, false);
     opacity.value = withRepeat(withSequence(withTiming(0.80, { duration: 2600 }), withTiming(0.55, { duration: 2600 })), -1, false);
     rot.value     = withRepeat(withTiming(360, { duration: 18000, easing: Easing.linear }), -1, false);
+    return () => {
+      cancelAnimation(scale);
+      cancelAnimation(opacity);
+      cancelAnimation(rot);
+    };
   }, []);
 
   const pan = Gesture.Pan()
@@ -372,6 +378,7 @@ const ProgressRing = ({ count, total, color }: { count: number; total: number; c
 
   useEffect(() => {
     progress.value = withTiming(count / total, { duration: 400 });
+    return () => { cancelAnimation(progress); };
   }, [count]);
 
   const ringProps = useAnimatedProps(() => ({
@@ -424,6 +431,10 @@ const TapRipple = ({ color }: { color: string }) => {
   useEffect(() => {
     scale.value   = withRepeat(withSequence(withTiming(1.4, { duration: 900 }), withTiming(0.6, { duration: 0 })), -1, false);
     opacity.value = withRepeat(withSequence(withTiming(0, { duration: 900 }), withTiming(0.5, { duration: 0 })), -1, false);
+    return () => {
+      cancelAnimation(scale);
+      cancelAnimation(opacity);
+    };
   }, []);
 
   const style = useAnimatedStyle(() => ({
@@ -471,15 +482,16 @@ const DEMO_SAVED: SavedMantra[] = [
 export const PersonalMantraScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets       = useSafeAreaInsets();
-  const { themeName, userData, favoriteItems, addFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight      = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const favoriteItems = useAppStore(s => s.favoriteItems);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const textColor  = isLight ? '#1C1917' : '#F5F3EF';
   const subColor   = isLight ? '#78716C' : '#A8A097';
-  const cardBg     = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
-  const inputBg    = isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)';
+  const cardBg     = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
+  const inputBg    = isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.07)';
 
   // ─ State ──────────────────────────────────────────────────────────────────
   const [selectedCategory, setSelectedCategory] = useState<string>('clarity');
@@ -641,7 +653,9 @@ ZASADY:
 
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+
       <MantraBg isLight={isLight} />
 
       {/* ── Header ── */}
@@ -873,9 +887,9 @@ ZASADY:
                 multiline
                 numberOfLines={3}
                 textAlignVertical="top"
-              />
                 returnKeyType="done"
                 onSubmitEditing={generateMantra}
+              />
 
               <Pressable
                 onPress={generateMantra}
@@ -1139,7 +1153,8 @@ ZASADY:
           <EndOfContentSpacer />
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

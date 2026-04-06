@@ -16,7 +16,7 @@ import { getLocaleCode } from '../core/utils/localeFormat';
 import Animated, {
   FadeInDown, FadeInUp, useSharedValue, useAnimatedStyle,
   withRepeat, withTiming, withSequence, withDelay, Easing,
-  interpolate, useAnimatedProps,
+  interpolate, useAnimatedProps, cancelAnimation,
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Svg, { Polygon, Circle as SvgGemCircle, Line as SvgGemLine, Circle as SvgCircle, G, Defs, LinearGradient as SvgLinearGradient, Stop } from 'react-native-svg';
@@ -271,6 +271,10 @@ const CrystalGem3D = React.memo(({ accent }: { accent: string }) => {
   useEffect(() => {
     rot.value  = withRepeat(withTiming(360, { duration: 14000, easing: Easing.linear }), -1, false);
     glow.value = withRepeat(withSequence(withTiming(1, { duration: 2000 }), withTiming(0.3, { duration: 2000 })), -1, false);
+    return () => {
+      cancelAnimation(rot);
+      cancelAnimation(glow);
+    };
   }, []);
 
   const pan = Gesture.Pan()
@@ -412,6 +416,23 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
   const [repElapsed, setRepElapsed] = useState(0); // seconds
   const repTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const repCelebrateScale = useSharedValue(1);
+
+  // ── FEATURED HERO SHIMMER ───────────────────────────────────────────────────
+  const shimmerX = useSharedValue(-SW);
+  useEffect(() => {
+    shimmerX.value = withRepeat(
+      withSequence(
+        withTiming(-SW, { duration: 0 }),
+        withDelay(1800, withTiming(SW * 1.5, { duration: 900, easing: Easing.out(Easing.quad) })),
+      ),
+      -1,
+      false,
+    );
+    return () => { cancelAnimation(shimmerX); };
+  }, []);
+  const shimmerStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: shimmerX.value }],
+  }));
 
   // ── VOICE GUIDE / AUDIO MODE STATE ─────────────────────────────────────────
   const [audioModeActive, setAudioModeActive] = useState(false);
@@ -717,39 +738,89 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
 
           {/* HERO FEATURED */}
           <Animated.View entering={FadeInDown.duration(600)}>
-            <View style={[af.featuredCard, { borderColor: catColor + '66', overflow: 'hidden', shadowColor: catColor, shadowOpacity: 0.38, shadowRadius: 20, shadowOffset: { width: 0, height: 8 }, elevation: 10, backgroundColor: isLight ? 'rgba(255,255,255,0.92)' : 'rgba(16,10,26,0.82)' }]}>
-              <LinearGradient colors={[catColor + '24', catColor + '0C', 'transparent'] as const} start={{ x: 0, y: 0 }} end={{ x: 0.5, y: 1 }} style={StyleSheet.absoluteFill} />
-              <LinearGradient colors={['transparent', catColor + 'AA', 'transparent'] as [string,string,string]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1.5 }} pointerEvents="none" />
-              <View style={{ position: 'absolute', top: 10, right: 16, width: 9, height: 9, borderTopWidth: 1.8, borderRightWidth: 1.8, borderColor: catColor + '88' }} pointerEvents="none" />
-              <View style={{ position: 'absolute', bottom: 10, left: 16, width: 9, height: 9, borderBottomWidth: 1.8, borderLeftWidth: 1.8, borderColor: catColor + '55' }} pointerEvents="none" />
-              <View style={af.featuredTop}>
-                <View style={{ flex: 1 }}>
-                  <Typography variant="premiumLabel" color={catColor}>{source === 'ritual' ? 'PO RYTUALE' : forSomeone ? `AFIRMACJA DLA: ${fsName.toUpperCase()}` : 'AFIRMACJA DNIA'}</Typography>
-                  <Typography variant="editorialHeader" style={[af.featuredText, { color: isLight ? '#2A1A30' : '#FFE8F4' }]}>
-                    {dailyPlan.affirmationGuidance.featured.text}
-                  </Typography>
+            <View style={[af.featuredCard, {
+              borderColor: catColor + '55',
+              overflow: 'hidden',
+              shadowColor: catColor,
+              shadowOpacity: 0.45,
+              shadowRadius: 28,
+              shadowOffset: { width: 0, height: 12 },
+              elevation: 14,
+              backgroundColor: isLight ? 'rgba(255,255,255,0.96)' : 'rgba(16,10,26,0.88)',
+            }]}>
+              {/* Diagonal gradient background */}
+              <LinearGradient
+                colors={[catColor + '40', catColor + '18', 'transparent', catColor + '10'] as const}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={StyleSheet.absoluteFill}
+              />
+              {/* Top highlight line */}
+              <LinearGradient
+                colors={['transparent', catColor + 'CC', 'transparent'] as [string,string,string]}
+                start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2 }}
+                pointerEvents="none"
+              />
+              {/* Shimmer sweep */}
+              <Animated.View
+                style={[
+                  { position: 'absolute', top: 0, bottom: 0, width: 80 },
+                  shimmerStyle,
+                ]}
+                pointerEvents="none"
+              >
+                <LinearGradient
+                  colors={['transparent', isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.12)', 'transparent']}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                  style={{ flex: 1 }}
+                />
+              </Animated.View>
+              {/* Corner bracket accents */}
+              <View style={{ position: 'absolute', top: 12, right: 18, width: 10, height: 10, borderTopWidth: 2, borderRightWidth: 2, borderColor: catColor + '99' }} pointerEvents="none" />
+              <View style={{ position: 'absolute', bottom: 12, left: 18, width: 10, height: 10, borderBottomWidth: 2, borderLeftWidth: 2, borderColor: catColor + '66' }} pointerEvents="none" />
+
+              {/* Category pill badge */}
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                <View style={[af.heroCatPill, { backgroundColor: catColor + '28', borderColor: catColor + '55' }]}>
+                  {React.createElement(activeCatMeta.icon, { color: catColor, size: 11, strokeWidth: 2 })}
+                  <Text style={{ color: catColor, fontSize: 9, fontWeight: '800', letterSpacing: 2, marginLeft: 5 }}>
+                    {source === 'ritual' ? 'PO RYTUALE' : forSomeone ? `DLA: ${fsName.toUpperCase()}` : activeCatMeta.label.toUpperCase()}
+                  </Text>
                 </View>
                 <Pressable onPress={() => handleSave(dailyPlan.affirmationGuidance.featured.id)} hitSlop={16} style={af.bookmarkBtn}>
                   <Bookmark color={featuredSaved ? catColor : currentTheme.textMuted} fill={featuredSaved ? catColor : 'transparent'} size={20} />
                 </Pressable>
               </View>
-              <Typography variant="bodySmall" style={af.featuredRationale}>{dailyPlan.affirmationGuidance.rationale}</Typography>
+
+              {/* Big hero affirmation text */}
+              <Typography variant="editorialHeader" style={[af.featuredText, {
+                fontSize: 22,
+                lineHeight: 33,
+                textAlign: 'center',
+                color: isLight ? '#1A0E26' : '#FFE8F4',
+                marginBottom: 18,
+              }]}>
+                {dailyPlan.affirmationGuidance.featured.text}
+              </Typography>
+
+              <Typography variant="bodySmall" style={[af.featuredRationale, { textAlign: 'center' }]}>{dailyPlan.affirmationGuidance.rationale}</Typography>
 
               {ritualTitle && (
-                <View style={[af.handoff, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)' }]}>
+                <View style={[af.handoff, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', marginTop: 16 }]}>
                   <Typography variant="microLabel" color={catColor}>HANDOFF Z RYTUAŁU</Typography>
                   <Typography variant="bodySmall" style={af.handoffCopy}>Po praktyce "{ritualTitle}" zostań przy jednym zdaniu i powtórz je w ciszy trzy razy.</Typography>
                 </View>
               )}
 
-              <View style={af.featuredMeta}>
-                <View style={[af.metaPill, { borderColor: catColor + '33' }]}>
+              <View style={[af.featuredMeta, { justifyContent: 'center' }]}>
+                <View style={[af.metaPill, { borderColor: catColor + '44', backgroundColor: catColor + '12' }]}>
                   <Sparkles color={catColor} size={12} />
                   <Typography variant="caption" style={[af.metaText, { marginLeft: 6 }]}>{dailyPlan.affirmationGuidance.bestMoment}</Typography>
                 </View>
               </View>
 
-              <Pressable style={af.shareRow} onPress={() => handleShare(dailyPlan.affirmationGuidance.featured.text, dailyPlan.affirmationGuidance.rationale)}>
+              <Pressable style={[af.shareRow, { justifyContent: 'center', marginTop: 14 }]} onPress={() => handleShare(dailyPlan.affirmationGuidance.featured.text, dailyPlan.affirmationGuidance.rationale)}>
                 <Typography variant="microLabel" color={catColor}>Udostępnij afirmację</Typography>
                 <ArrowRight color={catColor} size={13} />
               </Pressable>
@@ -830,14 +901,34 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
               return (
                 <Pressable key={cat.id} onPress={() => {
                   void HapticsService.selection(); AudioService.playTouchTone(); setActiveCategory(cat.id);
-                  const chipW = 110;
+                  const chipW = 120;
                   const offset = Math.max(0, catIdx * chipW - layout.window.width / 2 + chipW / 2);
                   catScrollRef.current?.scrollTo({ x: offset, animated: true });
                 }}
                   style={[af.catChip, {
                     borderColor: active ? cat.color : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)'),
-                    backgroundColor: active ? cat.color + '18' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)'),
+                    backgroundColor: 'transparent',
+                    // glow shadow for active
+                    shadowColor: active ? cat.color : 'transparent',
+                    shadowOpacity: active ? 0.55 : 0,
+                    shadowRadius: active ? 10 : 0,
+                    shadowOffset: { width: 0, height: 0 },
+                    elevation: active ? 6 : 0,
+                    overflow: 'hidden',
                   }]}>
+                  {/* Active gradient fill */}
+                  {active && (
+                    <LinearGradient
+                      colors={[cat.color + '30', cat.color + '16'] as [string,string]}
+                      start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                      style={StyleSheet.absoluteFill}
+                    />
+                  )}
+                  {!active && (
+                    <View style={[StyleSheet.absoluteFill, {
+                      backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)',
+                    }]} />
+                  )}
                   <Icon color={active ? cat.color : currentTheme.textMuted} size={14} strokeWidth={1.8} />
                   <Typography variant="premiumLabel" color={active ? cat.color : currentTheme.textMuted} style={{ marginLeft: 8 }}>{cat.label}</Typography>
                   {active && <View style={[af.catDot, { backgroundColor: cat.color }]} />}
@@ -1282,7 +1373,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
           </Animated.View>
 
           {/* LIBRARY */}
-          <Typography variant="premiumLabel" color={catColor} style={af.libLabel}>Biblioteka — {activeCatMeta.label}</Typography>
+          <Text style={[af.sectionHeaderLabel, { color: catColor }]}>BIBLIOTEKA — {activeCatMeta.label.toUpperCase()}</Text>
 
           <Pressable
             onPress={() => setShowAddModal(true)}
@@ -1293,18 +1384,30 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
 
           {customAffirmations.filter(a => !a.category || a.category === activeCategory).map((entry, idx) => (
             <Animated.View key={`custom-${entry.id}`} entering={FadeInDown.delay(idx * 40).duration(400)}>
-              <View style={[af.affCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: catColor + '33' }]}>
-                <View style={[af.affCard, { backgroundColor: catColor }]} />
-                <View style={{ flex: 1, paddingHorizontal: 14 }}>
-                  <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: catColor, marginBottom: 6 }}>💫 MOJA AFIRMACJA</Text>
-                  <Text style={[af.affText, { color: isLight ? '#1A1410' : '#F0EBE2' }]}>{entry.text}</Text>
+              <View style={[af.affCard, {
+                borderColor: catColor + '44',
+                flexDirection: 'row',
+                padding: 0,
+              }]}>
+                <LinearGradient
+                  colors={[isLight ? 'rgba(255,255,255,0.97)' : catColor + '10', isLight ? catColor + '08' : catColor + '05'] as [string,string]}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                  style={StyleSheet.absoluteFill}
+                />
+                {/* Left accent bar */}
+                <View style={{ width: 4, alignSelf: 'stretch', borderTopLeftRadius: 20, borderBottomLeftRadius: 20, backgroundColor: catColor, opacity: 0.85, flexShrink: 0 }} />
+                <View style={{ flex: 1, paddingHorizontal: 16, paddingVertical: 18, flexDirection: 'row', alignItems: 'center' }}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2, color: catColor, marginBottom: 6, textTransform: 'uppercase' }}>💫 Moja afirmacja</Text>
+                    <Text style={[af.affText, { color: isLight ? '#1A1410' : '#F0EBE2', fontSize: 16 }]}>{entry.text}</Text>
+                  </View>
+                  <Pressable hitSlop={10} style={{ padding: 8 }} onPress={() => Alert.alert('Usuń afirmację', 'Czy na pewno chcesz usunąć tę afirmację?', [
+                    { text: 'Anuluj', style: 'cancel' },
+                    { text: 'Usuń', style: 'destructive', onPress: () => deleteCustomAffirmation(entry.id) },
+                  ])}>
+                    <Trash2 size={15} color={'#EF4444'} strokeWidth={1.6} />
+                  </Pressable>
                 </View>
-                <Pressable hitSlop={10} style={{ padding: 8 }} onPress={() => Alert.alert('Usuń afirmację', 'Czy na pewno chcesz usunąć tę afirmację?', [
-                  { text: 'Anuluj', style: 'cancel' },
-                  { text: 'Usuń', style: 'destructive', onPress: () => deleteCustomAffirmation(entry.id) },
-                ])}>
-                  <Trash2 size={15} color={'#EF4444'} strokeWidth={1.6} />
-                </Pressable>
               </View>
             </Animated.View>
           ))}
@@ -1315,49 +1418,95 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
             return (
               <Animated.View key={entry.id} entering={FadeInUp.delay(idx * 80).duration(600)}>
                 <View style={[af.affCard, {
-                  borderColor: isSaved ? catColor + '66' : catColor + '44',
+                  borderColor: isSaved ? catColor + '77' : catColor + '33',
                   overflow: 'hidden',
                   shadowColor: catColor,
-                  shadowOpacity: isSaved ? 0.32 : 0.20,
-                  shadowRadius: 14,
-                  shadowOffset: { width: 0, height: 5 },
-                  elevation: isSaved ? 7 : 5,
+                  shadowOpacity: isSaved ? 0.40 : 0.18,
+                  shadowRadius: isSaved ? 18 : 12,
+                  shadowOffset: { width: 0, height: isSaved ? 8 : 4 },
+                  elevation: isSaved ? 9 : 5,
+                  flexDirection: 'row',
+                  padding: 0,
                 }]}>
-                  <LinearGradient colors={[catColor + '18', 'transparent', catColor + '08'] as const} start={{ x: 0, y: 0 }} end={{ x: 0.3, y: 1 }} style={StyleSheet.absoluteFill} />
-                  <LinearGradient colors={['transparent', catColor + '88', 'transparent'] as [string,string,string]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1 }} pointerEvents="none" />
-                  <View style={{ position: 'absolute', top: 10, right: 14, width: 7, height: 7, borderTopWidth: 1.5, borderRightWidth: 1.5, borderColor: catColor + '77' }} pointerEvents="none" />
-                  <View style={af.affTop}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-                      <View style={[af.quoteWrap, { backgroundColor: catColor + '14' }]}>
-                        <Quote color={catColor} size={16} opacity={0.9} />
+                  {/* Gradient bg */}
+                  <LinearGradient
+                    colors={[
+                      isLight ? 'rgba(255,255,255,0.97)' : catColor + '10',
+                      isLight ? catColor + '08' : catColor + '06',
+                    ] as [string,string]}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                    style={StyleSheet.absoluteFill}
+                  />
+                  {/* Top shimmer line */}
+                  <LinearGradient
+                    colors={['transparent', catColor + '66', 'transparent'] as [string,string,string]}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                    style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1 }}
+                    pointerEvents="none"
+                  />
+                  {/* Left accent bar */}
+                  <View style={{
+                    width: 4,
+                    alignSelf: 'stretch',
+                    borderTopLeftRadius: 20,
+                    borderBottomLeftRadius: 20,
+                    backgroundColor: catColor,
+                    opacity: 0.85,
+                    flexShrink: 0,
+                  }} />
+
+                  {/* Main content */}
+                  <View style={{ flex: 1, padding: 20 }}>
+                    <View style={af.affTop}>
+                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                        <View style={[af.quoteWrap, { backgroundColor: catColor + '18' }]}>
+                          <Quote color={catColor} size={15} opacity={0.9} />
+                        </View>
+                        <View style={[af.catBadge, { backgroundColor: catColor + '20', borderColor: catColor + '40' }]}>
+                          <Text style={[af.catBadgeText, { color: catColor }]}>{activeCatMeta.label.toUpperCase()}</Text>
+                        </View>
                       </View>
-                      <View style={[af.catBadge, { backgroundColor: catColor + '22', borderColor: catColor + '44' }]}>
-                        <Text style={[af.catBadgeText, { color: catColor }]}>{activeCatMeta.label.toUpperCase()}</Text>
+                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                        <Text style={[af.catBadgeText, { color: catColor, opacity: 0.55 }]}>{idx + 1}/{categoryAffirmations.length}</Text>
+                        {/* Glowing star favorite */}
+                        <Pressable
+                          onPress={() => handleSave(entry.id)}
+                          hitSlop={14}
+                          style={[
+                            af.starFavBtn,
+                            isSaved && {
+                              backgroundColor: catColor + '22',
+                              shadowColor: catColor,
+                              shadowOpacity: 0.6,
+                              shadowRadius: 8,
+                              elevation: 4,
+                            },
+                          ]}
+                        >
+                          <Star
+                            color={isSaved ? catColor : currentTheme.textMuted}
+                            fill={isSaved ? catColor : 'none'}
+                            size={18}
+                            strokeWidth={isSaved ? 1.5 : 1.8}
+                          />
+                        </Pressable>
                       </View>
                     </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-                      <Text style={[af.catBadgeText, { color: catColor, opacity: 0.6 }]}>{idx + 1}/{categoryAffirmations.length}</Text>
-                      <Pressable onPress={() => handleSave(entry.id)} hitSlop={14}>
-                        <Bookmark color={isSaved ? catColor : currentTheme.textMuted} fill={isSaved ? catColor : 'transparent'} size={18} />
+                    <Typography variant="editorialHeader" style={[af.affText, { color: currentTheme.text, marginTop: 4 }]}>{translated}</Typography>
+                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 8 }}>
+                      <SpeakButton text={translated} color={catColor} compact />
+                    </View>
+                    <Typography variant="caption" style={af.affSupport}>Powtórz trzy razy powoli i sprawdź, gdzie w ciele pojawia się ulga.</Typography>
+                    <View style={af.affFooter}>
+                      <View style={af.affFooterLeft}>
+                        <MoonStar color={catColor} size={12} />
+                        <Typography variant="microLabel" color={catColor} style={{ marginLeft: 6 }}>Czytaj jak wers, nie jak notatkę</Typography>
+                      </View>
+                      <Pressable onPress={() => handleShare(translated)} style={af.affShare}>
+                        <Typography variant="microLabel" color={catColor}>Udostępnij</Typography>
+                        <ArrowRight color={catColor} size={12} />
                       </Pressable>
                     </View>
-                  </View>
-                  <View>
-                  <Typography variant="editorialHeader" style={[af.affText, { color: currentTheme.text }]}>{translated}</Typography>
-                  <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 8 }}>
-                    <SpeakButton text={translated} color={catColor} compact />
-                  </View>
-                </View>
-                  <Typography variant="caption" style={af.affSupport}>Powtórz trzy razy powoli i sprawdź, gdzie w ciele pojawia się ulga.</Typography>
-                  <View style={af.affFooter}>
-                    <View style={af.affFooterLeft}>
-                      <MoonStar color={catColor} size={12} />
-                      <Typography variant="microLabel" color={catColor} style={{ marginLeft: 6 }}>Czytaj jak wers, nie jak notatkę</Typography>
-                    </View>
-                    <Pressable onPress={() => handleShare(translated)} style={af.affShare}>
-                      <Typography variant="microLabel" color={catColor}>Udostępnij</Typography>
-                      <ArrowRight color={catColor} size={12} />
-                    </Pressable>
                   </View>
                 </View>
               </Animated.View>
@@ -1536,7 +1685,7 @@ const af = StyleSheet.create({
   headerCenter: { flex: 1, alignItems: 'center' },
   scroll: { flexGrow: 1, paddingHorizontal: layout.padding.screen, paddingTop: 4 },
 
-  featuredCard: { borderRadius: 28, borderWidth: 1.5, padding: 24, overflow: 'hidden', marginBottom: 22, backgroundColor: 'rgba(16,10,26,0.82)', shadowColor: '#F472B6', shadowOpacity: 0.32, shadowRadius: 26, shadowOffset: { width: 0, height: 14 }, elevation: 10 },
+  featuredCard: { borderRadius: 28, borderWidth: 1.5, padding: 26, overflow: 'hidden', marginBottom: 22, backgroundColor: 'rgba(16,10,26,0.82)', shadowColor: '#F472B6', shadowOpacity: 0.38, shadowRadius: 30, shadowOffset: { width: 0, height: 16 }, elevation: 12 },
   featuredTop: { flexDirection: 'row', alignItems: 'flex-start', gap: 14 },
   featuredText: { marginTop: 12, fontSize: 20, lineHeight: 30, fontStyle: 'italic' },
   featuredRationale: { marginTop: 14, lineHeight: 22, opacity: 0.82 },
@@ -1556,8 +1705,10 @@ const af = StyleSheet.create({
 
   catWrap: { marginBottom: 20 },
   catScroll: { gap: 10, paddingRight: 10 },
-  catChip: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 11, borderRadius: 24, borderWidth: 1, gap: 4 },
+  catChip: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 10, borderRadius: 24, borderWidth: 1, gap: 4 },
   catDot: { width: 6, height: 6, borderRadius: 3, marginLeft: 6 },
+  heroCatPill: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20, borderWidth: 1 },
+  starFavBtn: { width: 32, height: 32, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
 
   flowCard: { padding: 20, marginBottom: 18, borderRadius: 20, borderWidth: 1 },
   flowRow: { flexDirection: 'row', gap: 14, paddingVertical: 12, alignItems: 'flex-start' },
@@ -1605,8 +1756,9 @@ const af = StyleSheet.create({
   challengeCompleteBanner: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: 14, borderRadius: 14, borderWidth: 1, marginTop: 14 },
 
   libLabel: { marginBottom: 14, marginTop: 4 },
+  sectionHeaderLabel: { fontSize: 11, fontWeight: '800', letterSpacing: 3, textTransform: 'uppercase', marginBottom: 14, marginTop: 4 },
 
-  affCard: { borderRadius: 24, borderWidth: 1.2, padding: 22, marginBottom: 16, overflow: 'hidden', shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 18, shadowOffset: { width: 0, height: 12 }, elevation: 6 },
+  affCard: { borderRadius: 20, borderWidth: 1.2, marginBottom: 16, overflow: 'hidden', shadowColor: '#000', shadowOpacity: 0.18, shadowRadius: 18, shadowOffset: { width: 0, height: 8 }, elevation: 6 },
   affTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 },
   quoteWrap: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
   catBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 20, borderWidth: 1 },
