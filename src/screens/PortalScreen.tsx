@@ -5,25 +5,26 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import i18n from '../core/i18n';
 import { getLocaleCode } from '../core/utils/localeFormat';
 import {
-  Share, Dimensions, Pressable, ScrollView, StyleSheet, Text, View,
+  ActivityIndicator, Share, Dimensions, Pressable, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   BookOpen, ChevronRight, Compass, Eye, EyeOff,
   Flame, Heart, Layers, Moon, MoonStar, Sparkles, Star, Sun, Waves, Wind, X,
-  Zap, Clock, CheckCircle2, Settings, Wand2, Globe2,
+  Zap, Clock, CheckCircle2, Settings, Wand2, Globe2, Crown,
   Droplets, Brain, Feather, Music, Leaf, Cpu, Coffee,
-  Gem, Music2, CalendarDays, Target, Calendar, Users, CheckSquare2,
+  Gem, Music2, CalendarDays, Target, Calendar, Users, CheckSquare2, Search,
 } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
   FadeInDown, FadeInUp,
   useAnimatedStyle, useSharedValue,
-  withRepeat, withSequence, withTiming, withSpring, Easing,
+  withRepeat, withSequence, withTiming, withSpring, Easing, interpolate,
 } from 'react-native-reanimated';
 import { useAppStore, GratitudeEntry } from '../store/useAppStore';
 import { useJournalStore } from '../store/useJournalStore';
 import { useTarotStore } from '../features/tarot/store/useTarotStore';
+import { usePremiumStore } from '../store/usePremiumStore';
 import { getResolvedTheme } from '../core/theme/tokens';
 import { layout, screenContracts, shadows } from '../core/theme/designSystem';
 import { SoulEngineService } from '../core/services/soulEngine.service';
@@ -31,9 +32,75 @@ import { getDailyAffirmation, CATEGORY_COLORS, CATEGORY_LABELS } from '../featur
 import { FavoriteItem, PortalWidget, WIDGET_META, WidgetId } from '../features/portal/types';
 import { resolveUserFacingText } from '../core/utils/contentResolver';
 import { HapticsService } from '../core/services/haptics.service';
+import { generateDailyContent, isTodayContentFresh } from '../core/services/dailyContent.service';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Svg, { Circle, Ellipse, Line, Path, Defs, RadialGradient, Stop, G, Rect } from 'react-native-svg';
 import { MusicToggleButton } from '../components/MusicToggleButton';
+import { useTheme } from '../core/hooks/useTheme';
+
+// ── Animated widget glow wrapper ──────────────────────────────
+const AnimatedWidgetGlow = React.memo(({ color, children, style }: { color: string; children: React.ReactNode; style?: any }) => {
+  const glow = useSharedValue(0.5);
+  useEffect(() => {
+    glow.value = withRepeat(
+      withSequence(
+        withTiming(1, { duration: 2400, easing: Easing.inOut(Easing.sin) }),
+        withTiming(0.3, { duration: 2400, easing: Easing.inOut(Easing.sin) }),
+      ), -1, false,
+    );
+  }, []);
+  const glowStyle = useAnimatedStyle(() => ({
+    shadowOpacity: interpolate(glow.value, [0, 1], [0.12, 0.55]),
+    shadowRadius: interpolate(glow.value, [0, 1], [10, 26]),
+  }));
+  return (
+    <Animated.View style={[{ borderRadius: 20, shadowColor: color, shadowOffset: { width: 0, height: 6 }, elevation: 14 }, glowStyle, style]}>
+      {children}
+    </Animated.View>
+  );
+});
+
+// ── Shimmer bar ───────────────────────────────────────────────
+const ShimmerBar = React.memo(({ colors }: { colors: [string, string, string] }) => {
+  const shimX = useSharedValue(-1);
+  useEffect(() => {
+    shimX.value = withRepeat(
+      withSequence(
+        withTiming(1, { duration: 2200, easing: Easing.inOut(Easing.sin) }),
+        withTiming(-1, { duration: 0 }),
+        withTiming(-1, { duration: 1800 }),
+      ), -1, false,
+    );
+  }, []);
+  const barStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: interpolate(shimX.value, [-1, 1], [-100, 100]) }],
+  }));
+  return (
+    <View style={{ height: 3, overflow: 'hidden' }}>
+      <LinearGradient colors={colors} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 3 }} />
+      <Animated.View style={[{ position: 'absolute', top: 0, bottom: 0, width: 60, backgroundColor: 'rgba(255,255,255,0.5)' }, barStyle]} />
+    </View>
+  );
+});
+
+// ── Pulsing number badge ──────────────────────────────────────
+const PulsingNumber = React.memo(({ num, color }: { num: number; color: string }) => {
+  const scale = useSharedValue(1);
+  useEffect(() => {
+    scale.value = withRepeat(
+      withSequence(
+        withTiming(1.08, { duration: 1400, easing: Easing.inOut(Easing.sin) }),
+        withTiming(0.95, { duration: 1400, easing: Easing.inOut(Easing.sin) }),
+      ), -1, false,
+    );
+  }, [num]);
+  const s = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
+  return (
+    <Animated.View style={[{ width: 56, height: 56, borderRadius: 20, backgroundColor: color + '22', borderWidth: 2, borderColor: color + '55', alignItems: 'center', justifyContent: 'center' }, s]}>
+      <Text style={{ fontSize: 32, fontWeight: '900', color, letterSpacing: -2 }}>{num}</Text>
+    </Animated.View>
+  );
+});
 
 const { width: SW, height: SH } = Dimensions.get('window');
 const ACCENT_DEFAULT = '#CEAE72';
@@ -324,14 +391,23 @@ const ICON_MAP: Record<string, React.ComponentType<any>> = {
 const FavTile = React.memo(({ item, onPress, onRemove }: { item: FavoriteItem; onPress: () => void; onRemove: () => void }) => {
   const Icon = ICON_MAP[item.icon] ?? Star;
   const [removing, setRemoving] = useState(false);
+    const { isLight } = useTheme();
 
   return (
     <Pressable
       onPress={onPress}
       onLongPress={() => { setRemoving(true); }}
-      style={[ps.favTile, { borderColor: item.color + '66', backgroundColor: item.color + '10', shadowColor: item.color, shadowOpacity: 0.30, shadowRadius: 12, shadowOffset: { width: 0, height: 4 }, elevation: 6 }]}
+      style={[ps.favTile, {
+        borderColor: item.color + (isLight ? 'AA' : '66'),
+        backgroundColor: isLight ? 'rgba(255,255,255,0.96)' : item.color + '10',
+        shadowColor: item.color,
+        shadowOpacity: isLight ? 0.16 : 0.30,
+        shadowRadius: isLight ? 8 : 12,
+        shadowOffset: { width: 0, height: isLight ? 3 : 4 },
+        elevation: isLight ? 4 : 6,
+      }]}
     >
-      <LinearGradient colors={[item.color + '28', 'transparent']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={StyleSheet.absoluteFill} />
+      <LinearGradient colors={isLight ? [item.color + '18', 'rgba(255,255,255,0)'] : [item.color + '28', 'transparent']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={StyleSheet.absoluteFill} />
       <LinearGradient colors={['transparent', item.color + '99', 'transparent'] as [string,string,string]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1 }} pointerEvents="none" />
       <View style={[ps.favIcon, { backgroundColor: item.color + '28' }]}>
         <Icon color={item.color} size={18} strokeWidth={1.8} />
@@ -1004,7 +1080,6 @@ const MiniStatCard = React.memo(({ item, cardBg, textColor }: { item: { id: stri
 // Main screen component
 // ─────────────────────────────────────────────────────────────────────────────
 export const PortalScreen = ({ navigation }: any) => {
-  const themeName = useAppStore(s => s.themeName);
   const userData = useAppStore(s => s.userData);
   const streaks = useAppStore(s => s.streaks);
   const dailyProgress = useAppStore(s => s.dailyProgress);
@@ -1017,24 +1092,27 @@ export const PortalScreen = ({ navigation }: any) => {
   const todayGratitude = gratitudeEntries.filter((e: GratitudeEntry) => e.date === new Date().toISOString().split('T')[0]);
   const breathworkSessions = useAppStore(s => s.breathworkSessions);
   const updateDailyProgress = useAppStore(s => s.updateDailyProgress);
+  const dailyAiContent = useAppStore(s => s.dailyAiContent);
+  const setDailyAiContent = useAppStore(s => s.setDailyAiContent);
+  const { currentTheme, isLight, themeName, themeMode } = useTheme();
   const { entries } = useJournalStore();
   const { dailyDraw } = useTarotStore();
+  const { isPremium } = usePremiumStore();
   const { t } = useTranslation();
   const tr = useCallback((key: string, pl: string, en: string, options?: Record<string, unknown>) => (
     t(key, { defaultValue: i18n.language?.startsWith('en') ? en : pl, ...options })
   ), [t]);
   const insets = useSafeAreaInsets();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
   const accentColor = currentTheme.primary || ACCENT_DEFAULT;
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
-  const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.06)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const subColor = isLight ? '#5A3E22' : '#B0A393';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.06)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
 
   const [dailyPlan] = useState(() => SoulEngineService.generateDailyPlan());
   const [copiedAffirmation, setCopiedAffirmation] = useState(false);
   const [affirmationIndex, setAffirmationIndex] = useState(0);
+  const [aiContentLoading, setAiContentLoading] = useState(false);
   const copiedAffirmationTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -1061,6 +1139,13 @@ export const PortalScreen = ({ navigation }: any) => {
     const nextDate = new Date(todayDate.getTime() + offset * 86400000);
     return getDailyAffirmation(nextDate.toISOString().split('T')[0]);
   }, [baseAffirmation, affirmationIndex, today]);
+  const displayAffirmation = useMemo(() => {
+    if (affirmationIndex === 0 && dailyAiContent?.date === new Date().toISOString().split('T')[0] &&
+        dailyAiContent?.zodiacSign === zodiacSign && dailyAiContent.affirmation) {
+      return { ...baseAffirmation, text: dailyAiContent.affirmation };
+    }
+    return affirmation;
+  }, [affirmation, affirmationIndex, dailyAiContent, zodiacSign, baseAffirmation]);
   const catColor = CATEGORY_COLORS[affirmation.category] || accentColor;
   const categoryLabels = useMemo<Record<string, string>>(() => ({
     love: tr('portal.affirmationCategory.love', CATEGORY_LABELS.love, 'Love'),
@@ -1158,6 +1243,19 @@ export const PortalScreen = ({ navigation }: any) => {
     } catch { return 'aries'; }
   }, [userData.birthDate]);
 
+  useEffect(() => {
+    if (!zodiacSign) return;
+    if (isTodayContentFresh(zodiacSign)) return;
+    let cancelled = false;
+    setAiContentLoading(true);
+    generateDailyContent(zodiacSign).then(content => {
+      if (cancelled) return;
+      if (content) setDailyAiContent(content);
+      setAiContentLoading(false);
+    });
+    return () => { cancelled = true; };
+  }, [zodiacSign]);
+
   const zodiacLabel = useMemo(() => {
     const labels: Record<string, string> = {
       aries: tr('portal.zodiac.aries', 'Baran', 'Aries'),
@@ -1197,11 +1295,17 @@ export const PortalScreen = ({ navigation }: any) => {
   };
 
   const dailyHoroscope = useMemo(() => {
+    // Use AI content if available and fresh for today
+    if (dailyAiContent?.date === new Date().toISOString().split('T')[0] &&
+        dailyAiContent?.zodiacSign === zodiacSign &&
+        dailyAiContent.horoscope) {
+      return dailyAiContent.horoscope;
+    }
     if (i18n.language?.startsWith('en')) {
       return (localizedZodiacInsight[zodiacSign as keyof typeof localizedZodiacInsight] || localizedZodiacInsight.Aries).advice;
     }
     return getDailyHoroscope(zodiacSign, dayOfYear);
-  }, [zodiacSign, dayOfYear, localizedZodiacInsight]);
+  }, [zodiacSign, dayOfYear, localizedZodiacInsight, dailyAiContent]);
 
   // Moon phase
   const moonPhase = useMemo(() => getMoonPhase(todayDate), [today]);
@@ -1344,12 +1448,12 @@ export const PortalScreen = ({ navigation }: any) => {
   const recentEntries = useMemo(() => entries.slice(-3).reverse(), [entries]);
 
   const handleCopyAffirmation = useCallback(() => {
-    Share.share({ message: affirmation.text });
+    Share.share({ message: displayAffirmation.text });
     setCopiedAffirmation(true);
     void HapticsService.selection();
     if (copiedAffirmationTimerRef.current) clearTimeout(copiedAffirmationTimerRef.current);
     copiedAffirmationTimerRef.current = setTimeout(() => setCopiedAffirmation(false), 2000);
-  }, [affirmation.text]);
+  }, [displayAffirmation.text]);
 
   const handleNextAffirmation = useCallback(() => {
     void HapticsService.selection();
@@ -1377,7 +1481,7 @@ export const PortalScreen = ({ navigation }: any) => {
             <View style={{ flex: 1 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
                 <Text style={{ color: planet.color, fontSize: 15, fontWeight: '700' }}>{planet.name}</Text>
-                <Text style={{ color: isLight ? '#7C6A56' : '#C4B5AA', fontSize: 13, fontWeight: '500' }}>
+                <Text style={{ color: isLight ? '#5A3E22' : '#C4B5AA', fontSize: 13, fontWeight: '500' }}>
                   w
                 </Text>
                 <Text style={{ color: planet.color + 'CC', fontSize: 13, fontWeight: '600' }}>
@@ -1389,7 +1493,7 @@ export const PortalScreen = ({ navigation }: any) => {
                   </View>
                 )}
               </View>
-              <Text style={{ color: isLight ? '#7A6858' : 'rgba(245,241,234,0.55)', fontSize: 11, lineHeight: 16, marginTop: 2 }} numberOfLines={1}>{planet.influence}</Text>
+              <Text style={{ color: isLight ? '#5A3E22' : 'rgba(245,241,234,0.55)', fontSize: 11, lineHeight: 16, marginTop: 2 }} numberOfLines={1}>{planet.influence}</Text>
             </View>
           </View>
         ))}
@@ -1405,7 +1509,7 @@ export const PortalScreen = ({ navigation }: any) => {
     <View style={{ gap: 8 }}>
       {upcomingAstroEvents.length === 0 ? (
         <View style={[ps.wCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-          <Text style={{ color: isLight ? '#6A5A48' : 'rgba(245,241,234,0.55)', fontSize: 13, textAlign: 'center' }}>
+          <Text style={{ color: isLight ? '#5A3E22' : 'rgba(245,241,234,0.55)', fontSize: 13, textAlign: 'center' }}>
             {tr('portal.astroEvents.empty', 'Brak wydarzeń w ciągu najbliższych 90 dni', 'No events in the next 90 days')}
           </Text>
         </View>
@@ -1431,12 +1535,12 @@ export const PortalScreen = ({ navigation }: any) => {
                         : tr('portal.astroEvents.inDays', 'ZA {{count}} DNI', 'IN {{count}} DAYS', { count: event.daysUntil })}
                   </Text>
                 </View>
-                <Text style={{ color: isLight ? '#7A6858' : 'rgba(245,241,234,0.45)', fontSize: 10 }}>
+                <Text style={{ color: isLight ? '#5A3E22' : 'rgba(245,241,234,0.45)', fontSize: 10 }}>
                   {new Date(event.date).toLocaleDateString(getLocaleCode(), { day: 'numeric', month: 'long' })}
                 </Text>
               </View>
               <Text style={{ color: textColor, fontSize: 14, fontWeight: '700', marginBottom: 2 }}>{event.title}</Text>
-              <Text style={{ color: isLight ? '#7A6858' : 'rgba(245,241,234,0.60)', fontSize: 12, lineHeight: 17 }}>{event.subtitle}</Text>
+              <Text style={{ color: isLight ? '#5A3E22' : 'rgba(245,241,234,0.60)', fontSize: 12, lineHeight: 17 }}>{event.subtitle}</Text>
             </View>
           </View>
         </Animated.View>
@@ -1453,7 +1557,7 @@ export const PortalScreen = ({ navigation }: any) => {
         </View>
         <Text style={[ps.affEyebrow, { color: catColor }]}>💫 AFIRMACJA DNIA</Text>
       </View>
-      <Text style={[ps.affText, { color: textColor }]}>{affirmation.text}</Text>
+      <Text style={[ps.affText, { color: textColor }]}>{displayAffirmation.text}</Text>
       <View style={ps.affFooter}>
         <Pressable onPress={handleCopyAffirmation} style={[ps.affBtn, { borderColor: catColor + '44', backgroundColor: catColor + '14' }]}>
           <Text style={{ color: catColor, fontSize: 12, fontWeight: '700' }}>
@@ -1902,7 +2006,39 @@ export const PortalScreen = ({ navigation }: any) => {
             DuniAI & Oracle · Twój portal
           </Text>
           <View style={{ marginLeft: 'auto', flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <Pressable
+              onPress={() => navigation.navigate('Search')}
+              hitSlop={8}
+              style={{ padding: 4, borderRadius: 8 }}
+            >
+              <Search size={18} color={isLight ? '#A97A39' : '#CEAE72'} strokeWidth={1.8} />
+            </Pressable>
             <MusicToggleButton color={isLight ? '#A97A39' : '#CEAE72'} size={18} />
+            {!isPremium && (
+              <Pressable
+                onPress={() => navigation.navigate('Paywall')}
+                style={{
+                  flexDirection: 'row', alignItems: 'center', gap: 4,
+                  paddingHorizontal: 10, paddingVertical: 5, borderRadius: 20,
+                  backgroundColor: 'rgba(206,174,114,0.12)',
+                  borderWidth: 1, borderColor: 'rgba(206,174,114,0.35)',
+                }}
+              >
+                <Crown size={13} color="#CEAE72" strokeWidth={1.8} />
+                <Text style={{ fontSize: 11, fontWeight: '700', color: '#CEAE72', letterSpacing: 0.3 }}>Premium</Text>
+              </Pressable>
+            )}
+            {isPremium && (
+              <Pressable onPress={() => navigation.navigate('Paywall')} style={{
+                flexDirection: 'row', alignItems: 'center', gap: 4,
+                paddingHorizontal: 10, paddingVertical: 5, borderRadius: 20,
+                backgroundColor: 'rgba(206,174,114,0.12)',
+                borderWidth: 1, borderColor: 'rgba(206,174,114,0.35)',
+              }}>
+                <Crown size={12} color="#CEAE72" strokeWidth={2} />
+                <Text style={{ fontSize: 11, fontWeight: '700', color: '#CEAE72', letterSpacing: 0.2 }}>Mistrz</Text>
+              </Pressable>
+            )}
             <Pressable onPress={() => navigation.navigate('Profile')} style={{ padding: 4 }}>
               <Settings size={18} color={subColor} strokeWidth={1.8} />
             </Pressable>
@@ -1918,7 +2054,7 @@ export const PortalScreen = ({ navigation }: any) => {
         </Animated.View>
 
         {/* Page tabs */}
-        <View style={[ps.pageTabs, { borderBottomColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)' }]}>
+        <View style={[ps.pageTabs, { borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)' }]}>
           <Pressable onPress={() => goToPage(0)} style={[ps.pageTab, { borderBottomColor: activePage === 0 ? accentColor : 'transparent' }]}>
             <Text style={[ps.pageTabText, { color: activePage === 0 ? accentColor : subColor }]}>✦ Twój Portal</Text>
           </Pressable>
@@ -1983,34 +2119,47 @@ export const PortalScreen = ({ navigation }: any) => {
 
           {/* ✦ HOROSKOP DNIA — Premium Blue/Indigo Card */}
           <Animated.View entering={FadeInDown.delay(110).duration(320)} style={{ marginBottom: 10 }}>
-            <Pressable onPress={() => navigation.navigate('Horoscope')} style={{ borderRadius: 20, overflow: 'hidden', shadowColor: '#3B82F6', shadowOpacity: isLight ? 0.18 : 0.45, shadowRadius: 18, shadowOffset: { width: 0, height: 7 }, elevation: 14 }}>
+            <AnimatedWidgetGlow color="#3B82F6">
+            <Pressable onPress={() => navigation.navigate('Horoscope')} style={{ borderRadius: 20, overflow: 'hidden' }}>
               <LinearGradient colors={isLight ? ['#EFF6FF', '#EDE9FE'] : ['#0C1A3D', '#0D1127', '#080B18']} style={{ borderRadius: 20 }}>
-                <LinearGradient colors={['#3B82F6', '#6366F1', '#8B5CF6']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 3 }} />
+                <ShimmerBar colors={['#3B82F6', '#6366F1', '#8B5CF6']} />
                 <Text style={{ position: 'absolute', right: 10, top: 10, fontSize: 80, opacity: isLight ? 0.04 : 0.06, color: '#60A5FA', lineHeight: 80 }} pointerEvents="none">{ZODIAC_SYMBOLS[zodiacSign] || '♈'}</Text>
                 <View style={{ padding: 16 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: '#3B82F620', borderRadius: 20, paddingHorizontal: 12, paddingVertical: 5, borderWidth: 1, borderColor: '#3B82F635' }}>
-                      <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 2.2, color: '#60A5FA' }}>{tr('portal.horoscope.eyebrow', '✦ HOROSKOP DNIA', '✦ DAILY HOROSCOPE')}</Text>
+                      <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 2.2, color: '#60A5FA' }}>
+                        {tr('portal.horoscope.eyebrow', '✦ HOROSKOP DNIA', '✦ DAILY HOROSCOPE')}
+                        {dailyAiContent?.date === new Date().toISOString().split('T')[0] && ' · AI'}
+                      </Text>
                     </View>
                     <View style={{ flex: 1 }} />
                     <Text style={{ fontSize: 22 }}>{ZODIAC_SYMBOLS[zodiacSign] || '♈'}</Text>
                     <Text style={{ fontSize: 13, fontWeight: '700', color: isLight ? '#3B82F6' : '#93C5FD', letterSpacing: 0.5 }}>{zodiacLabel}</Text>
                   </View>
                   <LinearGradient colors={['#3B82F6BB', '#6366F155', 'transparent']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 1, marginBottom: 14 }} />
-                  <Text style={{ fontSize: 14, lineHeight: 22, color: isLight ? '#1E3A5F' : 'rgba(214,230,254,0.9)', fontWeight: '400', letterSpacing: 0.1 }}>{dailyHoroscope}</Text>
+                  {aiContentLoading ? (
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                      <ActivityIndicator size="small" color="#60A5FA" />
+                      <Text style={{ fontSize: 12, color: '#60A5FA', opacity: 0.7 }}>Pobieranie świeżego horoskopu...</Text>
+                    </View>
+                  ) : (
+                    <Text style={{ fontSize: 14, lineHeight: 22, color: isLight ? '#1E3A5F' : 'rgba(214,230,254,0.9)', fontWeight: '400', letterSpacing: 0.1 }}>{dailyHoroscope}</Text>
+                  )}
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 16, gap: 6 }}>
                     <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 1.8, color: '#60A5FA', opacity: 0.75 }}>{tr('portal.horoscope.full', 'PEŁNY HOROSKOP →', 'FULL HOROSCOPE →')}</Text>
                   </View>
                 </View>
               </LinearGradient>
             </Pressable>
+            </AnimatedWidgetGlow>
           </Animated.View>
 
           {/* ✦ AFIRMACJA DNIA — Premium Purple Card */}
           <Animated.View entering={FadeInDown.delay(145).duration(320)} style={{ marginBottom: 10 }}>
-            <Pressable onPress={() => navigation.navigate('Affirmations')} style={{ borderRadius: 20, overflow: 'hidden', shadowColor: catColor, shadowOpacity: isLight ? 0.18 : 0.45, shadowRadius: 18, shadowOffset: { width: 0, height: 7 }, elevation: 14 }}>
+            <AnimatedWidgetGlow color={catColor}>
+            <Pressable onPress={() => navigation.navigate('Affirmations')} style={{ borderRadius: 20, overflow: 'hidden' }}>
               <LinearGradient colors={isLight ? ['#FAF5FF', '#FDF4FF'] : ['#1A0D35', '#110A25', '#08060F']} style={{ borderRadius: 20 }}>
-                <LinearGradient colors={[catColor, catColor + 'AA', catColor + '44']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 3 }} />
+                <ShimmerBar colors={[catColor as string, (catColor + 'AA') as string, (catColor + '44') as string]} />
                 <Text style={{ position: 'absolute', right: 14, top: 4, fontSize: 90, opacity: isLight ? 0.04 : 0.06, color: catColor, fontWeight: '900', lineHeight: 90 }} pointerEvents="none">❝</Text>
                 <View style={{ padding: 16 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16, gap: 8 }}>
@@ -2022,7 +2171,7 @@ export const PortalScreen = ({ navigation }: any) => {
                       <Text style={{ color: catColor, fontSize: 16, fontWeight: '700' }}>↻</Text>
                     </Pressable>
                   </View>
-                  <Text style={{ fontSize: 16, lineHeight: 26, fontStyle: 'italic', fontWeight: '600', color: isLight ? '#3B1F5E' : 'rgba(233,222,255,0.95)', letterSpacing: -0.2, marginBottom: 16 }}>"{affirmation.text}"</Text>
+                  <Text style={{ fontSize: 16, lineHeight: 26, fontStyle: 'italic', fontWeight: '600', color: isLight ? '#3B1F5E' : 'rgba(233,222,255,0.95)', letterSpacing: -0.2, marginBottom: 16 }}>"{displayAffirmation.text}"</Text>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                     <View style={{ backgroundColor: catColor + '22', borderRadius: 12, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1, borderColor: catColor + '44' }}>
             <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 1.5, color: catColor }}>{categoryLabels[affirmation.category] || CATEGORY_LABELS[affirmation.category]}</Text>
@@ -2031,13 +2180,15 @@ export const PortalScreen = ({ navigation }: any) => {
                 </View>
               </LinearGradient>
             </Pressable>
+            </AnimatedWidgetGlow>
           </Animated.View>
 
           {/* ✦ FAZA KSIĘŻYCA — Premium Midnight Card */}
           <Animated.View entering={FadeInDown.delay(110).duration(320)} style={{ marginBottom: 10 }}>
-            <View style={{ borderRadius: 20, overflow: 'hidden', shadowColor: '#818CF8', shadowOpacity: isLight ? 0.18 : 0.45, shadowRadius: 18, shadowOffset: { width: 0, height: 7 }, elevation: 14 }}>
+            <AnimatedWidgetGlow color="#6366F1">
+            <View style={{ borderRadius: 20, overflow: 'hidden' }}>
               <LinearGradient colors={isLight ? ['#F0F4FF', '#EEF2FF'] : ['#0A0D22', '#0D1035', '#060710']} style={{ borderRadius: 20 }}>
-                <LinearGradient colors={['#6366F1', '#818CF8', '#A5B4FC']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 3 }} />
+                <ShimmerBar colors={['#6366F1', '#818CF8', '#A5B4FC']} />
                 <Text style={{ position: 'absolute', right: 10, top: 6, fontSize: 70, opacity: isLight ? 0.05 : 0.08, lineHeight: 70 }} pointerEvents="none">{moonPhase.emoji}</Text>
                 <View style={{ padding: 16 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
@@ -2057,13 +2208,15 @@ export const PortalScreen = ({ navigation }: any) => {
                 </View>
               </LinearGradient>
             </View>
+            </AnimatedWidgetGlow>
           </Animated.View>
 
           {/* ✦ WIBRACJA DNIA — Premium Gold Card */}
           <Animated.View entering={FadeInDown.delay(215).duration(320)} style={{ marginBottom: 10 }}>
-            <View style={{ borderRadius: 20, overflow: 'hidden', shadowColor: accentColor, shadowOpacity: isLight ? 0.20 : 0.50, shadowRadius: 18, shadowOffset: { width: 0, height: 7 }, elevation: 14 }}>
+            <AnimatedWidgetGlow color={accentColor}>
+            <View style={{ borderRadius: 20, overflow: 'hidden' }}>
               <LinearGradient colors={isLight ? ['#FFFBEB', '#FEF3C7'] : ['#1C1400', '#160F00', '#0E0900']} style={{ borderRadius: 20 }}>
-                <LinearGradient colors={['#D97706', '#CEAE72', '#F59E0B']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 3 }} />
+                <ShimmerBar colors={['#D97706', '#CEAE72', '#F59E0B']} />
                 <Text style={{ position: 'absolute', right: -4, top: -16, fontSize: 100, opacity: isLight ? 0.05 : 0.07, color: accentColor, fontWeight: '900', lineHeight: 100 }} pointerEvents="none">{personalDay.num}</Text>
                 <View style={{ padding: 16 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
@@ -2074,22 +2227,22 @@ export const PortalScreen = ({ navigation }: any) => {
                     <Text style={{ fontSize: 11, fontWeight: '600', color: isLight ? '#92400E' : accentColor + 'CC' }}>{tr('portal.vibration.personalNumber', 'Liczba osobista', 'Personal number')}</Text>
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16, marginBottom: 14 }}>
-                    <View style={{ width: 56, height: 56, borderRadius: 20, backgroundColor: accentColor + '22', borderWidth: 2, borderColor: accentColor + '55', alignItems: 'center', justifyContent: 'center', shadowColor: accentColor, shadowOpacity: 0.4, shadowRadius: 12 }}>
-                      <Text style={{ fontSize: 32, fontWeight: '900', color: accentColor, letterSpacing: -2 }}>{personalDay.num}</Text>
-                    </View>
+                    <PulsingNumber num={personalDay.num} color={accentColor} />
                     <LinearGradient colors={[accentColor + 'BB', accentColor + '33', 'transparent']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} style={{ width: 2, height: 60, borderRadius: 1 }} />
                     <Text style={{ flex: 1, fontSize: 14, lineHeight: 22, color: isLight ? '#92400E' : 'rgba(253,230,138,0.85)', fontWeight: '500' }}>{personalDay.meaning}</Text>
                   </View>
                 </View>
               </LinearGradient>
             </View>
+            </AnimatedWidgetGlow>
           </Animated.View>
 
           {/* ✦ KARTA TAROTA — Premium Teal/Gold Card */}
           <Animated.View entering={FadeInDown.delay(250).duration(320)} style={{ marginBottom: 10 }}>
-            <Pressable onPress={() => navigation.navigate('DailyTarot')} style={{ borderRadius: 20, overflow: 'hidden', shadowColor: '#CEAE72', shadowOpacity: isLight ? 0.18 : 0.40, shadowRadius: 18, shadowOffset: { width: 0, height: 7 }, elevation: 14 }}>
+            <AnimatedWidgetGlow color="#CEAE72">
+            <Pressable onPress={() => navigation.navigate('DailyTarot')} style={{ borderRadius: 20, overflow: 'hidden' }}>
               <LinearGradient colors={isLight ? ['#F0FDF4', '#ECFDF5'] : ['#0A1A14', '#0D1610', '#060E09']} style={{ borderRadius: 20 }}>
-                <LinearGradient colors={['#059669', '#CEAE72', '#F59E0B']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 3 }} />
+                <ShimmerBar colors={['#059669', '#CEAE72', '#F59E0B']} />
                 <Text style={{ position: 'absolute', right: 16, top: 8, fontSize: 63, opacity: isLight ? 0.05 : 0.08, lineHeight: 63 }} pointerEvents="none">🃏</Text>
                 <View style={{ padding: 16 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
@@ -2121,6 +2274,7 @@ export const PortalScreen = ({ navigation }: any) => {
                 </View>
               </LinearGradient>
             </Pressable>
+            </AnimatedWidgetGlow>
           </Animated.View>
 
           {/* ── TWÓJ STAN DZIŚ — Premium Stats ── */}

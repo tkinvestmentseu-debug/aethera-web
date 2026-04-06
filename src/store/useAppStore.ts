@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { themes, ThemeName, ThemeMode } from '../core/theme/tokens';
+import { themes, ThemeName, ThemeMode, setActiveThemeMode, syncAutoThemePalette } from '../core/theme/tokens';
 import i18n from '../core/i18n';
 import { AmbientSoundscape, AudioRuntimeState, AudioService, BackgroundMusicCategory } from '../core/services/audio.service';
 import { HapticsRuntimeState, HapticsService } from '../core/services/haptics.service';
@@ -95,10 +95,21 @@ export interface NightSymbolFavorite {
   id: string;
   addedAt: string;
 }
+
+export interface DailyAiContent {
+  date: string;        // ISO date string 'YYYY-MM-DD'
+  zodiacSign: string;  // e.g. 'Aquarius'
+  horoscope: string;   // AI-generated horoscope text
+  affirmation: string; // AI-generated affirmation
+  ritualTip: string;   // short daily ritual tip
+  generatedAt: number; // timestamp
+}
+
 interface AppState {
   themeName: ThemeName;
   themeMode: ThemeMode;
   language: string;
+  languageChosen: boolean;
   isOnboarded: boolean;
   experience: {
     hapticsEnabled: boolean;
@@ -278,6 +289,19 @@ interface AppState {
   addEmotionalAnchor: (text: string) => void;
   removeEmotionalAnchor: (text: string) => void;
 
+  // Interrupted session state (for "Continue?" prompt on re-entry)
+  savedWrozkaSession: {
+    dealedCards: any[];
+    interpretations: Record<number, string>;
+    chatMessages: any[];
+    spreadId: string;
+    topicId: string;
+    phase: 'intro' | 'table' | 'complete';
+    savedAt: number;
+  } | null;
+  saveWrozkaSession: (s: NonNullable<AppState['savedWrozkaSession']>) => void;
+  clearWrozkaSession: () => void;
+
   // Auth & Sync Infrastructure
   session: any | null;
   isSyncing: boolean;
@@ -310,6 +334,10 @@ interface AppState {
   removeReminder: (id: string) => void;
   updateReminder: (id: string, updates: Partial<ReminderConfig>) => void;
 
+  // Daily AI Content
+  dailyAiContent: DailyAiContent | null;
+  setDailyAiContent: (content: DailyAiContent) => void;
+
   // Auth methods
   setAuthSession: (session: any | null) => void;
   setSyncing: (isSyncing: boolean) => void;
@@ -321,6 +349,7 @@ export const useAppStore = create<AppState>()(
       themeName: 'auto',
       themeMode: 'dark',
       language: 'pl',
+      languageChosen: false,
       isOnboarded: true,
       experience: {
         hapticsEnabled: true,
@@ -341,6 +370,9 @@ export const useAppStore = create<AppState>()(
         textScale: 1.0,
       },
       
+      // Interrupted session state
+      savedWrozkaSession: null,
+
       // Auth default state
       session: null,
       isSyncing: false,
@@ -408,13 +440,24 @@ export const useAppStore = create<AppState>()(
       visionBoardIntentions: {},
       releaseLetters: [],
       emotionalAnchors: [],
+      dailyAiContent: null,
+      saveWrozkaSession: (s) => set({ savedWrozkaSession: s }),
+      clearWrozkaSession: () => set({ savedWrozkaSession: null }),
+
       setAuthSession: (session) => set({ session }),
       setSyncing: (isSyncing) => set({ isSyncing }),
       setTheme: (name) => set({ themeName: name }),
-      setThemeMode: (mode) => set({ themeMode: mode }),
+      setThemeMode: (mode) => {
+        // Sync module-level _activeThemeMode BEFORE setting store state so
+        // all components get the correct theme during the re-render triggered
+        // by the store update (useEffect fires AFTER render — too late).
+        setActiveThemeMode(mode);
+        if (mode === 'auto') syncAutoThemePalette();
+        set({ themeMode: mode });
+      },
       setLanguage: (lang) => {
         i18n.changeLanguage(lang);
-        set({ language: lang });
+        set({ language: lang, languageChosen: true });
       },
       setOnboarded: (value) => set({ isOnboarded: value }),
       setUserData: (data) => set((state) => ({ userData: { ...state.userData, ...data } })),
@@ -638,6 +681,7 @@ export const useAppStore = create<AppState>()(
       clearReleaseLetters: () => set({ releaseLetters: [] }),
       addEmotionalAnchor: (text) => set(s => ({ emotionalAnchors: s.emotionalAnchors.includes(text) ? s.emotionalAnchors : [...s.emotionalAnchors, text] })),
       removeEmotionalAnchor: (text) => set(s => ({ emotionalAnchors: s.emotionalAnchors.filter(a => a !== text) })),
+      setDailyAiContent: (content) => set({ dailyAiContent: content }),
     }),
     {
       name: 'aethera-storage',

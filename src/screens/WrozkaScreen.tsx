@@ -1,10 +1,11 @@
 // @ts-nocheck
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   Dimensions, Keyboard, Modal, Platform, Pressable,
-  ScrollView, StyleSheet, Text, TextInput, View, SafeAreaView as RNSafeAreaView,
+  ScrollView, StyleSheet, Text, TextInput, View,
 } from 'react-native';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Circle, Defs, Ellipse, G, Line, Path, RadialGradient, Stop, Rect } from 'react-native-svg';
 import Animated, {
@@ -12,10 +13,12 @@ import Animated, {
   useAnimatedStyle, useSharedValue, withDelay,
   withRepeat, withSequence, withSpring, withTiming,
 } from 'react-native-reanimated';
-import { Bookmark, ChevronLeft, ChevronDown, ChevronUp, Flame, MessageCircle, RefreshCw, Sparkles, Star, X, RotateCcw, BookOpen, Zap } from 'lucide-react-native';
+import { Bookmark, ChevronLeft, ChevronDown, ChevronUp, Flame, Lock, MessageCircle, RefreshCw, Sparkles, Star, X, RotateCcw, BookOpen, Zap } from 'lucide-react-native';
 import { ALL_CARDS } from '../features/tarot/data/cards';
-import { getTarotDeckById } from '../features/tarot/data/decks';
+import { getTarotDeckById, TAROT_DECKS } from '../features/tarot/data/decks';
 import { TarotCardVisual } from '../features/tarot/components/TarotCardVisual';
+import { useTarotStore } from '../features/tarot/store/useTarotStore';
+import { usePremiumStore } from '../store/usePremiumStore';
 import { useAppStore } from '../store/useAppStore';
 import { getResolvedTheme } from '../core/theme/tokens';
 import { HapticsService } from '../core/services/haptics.service';
@@ -25,7 +28,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -190,6 +193,7 @@ const AnimatedCandle = ({ x, y, delay = 0 }: { x: number; y: number; delay?: num
 
 // ─── Tarot Table SVG Background ──────────────────────────────────────────────
 const TarotTableScene = ({ phase }: { phase: string }) => {
+  const { isLight } = useTheme();
   const glow = useSharedValue(0.5);
   useEffect(() => {
     glow.value = withRepeat(
@@ -206,31 +210,37 @@ const TarotTableScene = ({ phase }: { phase: string }) => {
 
   return (
     <View style={{ width: SW, height: TABLE_H, overflow: 'hidden' }}>
-      {/* Deep space background */}
+      {/* Background */}
       <LinearGradient
-        colors={['#05030F', '#0A0618', '#0F0825', '#0A0618']}
+        colors={isLight
+          ? ['#F0E8F8', '#E8DCF5', '#EEE4F8', '#E8DCF5']
+          : ['#05030F', '#0A0618', '#0F0825', '#0A0618']}
         style={StyleSheet.absoluteFill}
       />
       <Svg width={SW} height={TABLE_H} style={StyleSheet.absoluteFill}>
-        {/* Stars */}
+        {/* Stars / sparkles */}
         {STAR_POSITIONS.map(([sx, sy, sr, so], i) => (
-          <Circle key={i} cx={sx} cy={sy} r={sr} fill="white" opacity={so} />
+          <Circle key={i} cx={sx} cy={sy} r={sr}
+            fill={isLight ? '#7C3AED' : 'white'}
+            opacity={isLight ? so * 0.25 : so} />
         ))}
         {/* Constellation lines */}
         {CONSTELLATION_LINES.map(([x1, y1, x2, y2], i) => (
-          <Line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="rgba(255,255,255,0.08)" strokeWidth={0.5} />
+          <Line key={i} x1={x1} y1={y1} x2={x2} y2={y2}
+            stroke={isLight ? 'rgba(100,60,180,0.10)' : 'rgba(255,255,255,0.08)'}
+            strokeWidth={0.5} />
         ))}
         {/* Table outer glow */}
         <Defs>
           <RadialGradient id="tglow" cx="50%" cy="50%" rx="55%" ry="55%">
-            <Stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.20" />
-            <Stop offset="60%" stopColor="#6D28D9" stopOpacity="0.10" />
+            <Stop offset="0%" stopColor="#8B5CF6" stopOpacity={isLight ? '0.18' : '0.20'} />
+            <Stop offset="60%" stopColor="#6D28D9" stopOpacity={isLight ? '0.08' : '0.10'} />
             <Stop offset="100%" stopColor="#4C1D95" stopOpacity="0" />
           </RadialGradient>
           <RadialGradient id="cloth" cx="50%" cy="50%" rx="50%" ry="50%">
-            <Stop offset="0%" stopColor="#1E0A3C" stopOpacity="0.95" />
-            <Stop offset="70%" stopColor="#150728" stopOpacity="0.97" />
-            <Stop offset="100%" stopColor="#0C0418" stopOpacity="1" />
+            <Stop offset="0%" stopColor={isLight ? '#DDD0F0' : '#1E0A3C'} stopOpacity={isLight ? '0.85' : '0.95'} />
+            <Stop offset="70%" stopColor={isLight ? '#D4C4EC' : '#150728'} stopOpacity={isLight ? '0.80' : '0.97'} />
+            <Stop offset="100%" stopColor={isLight ? '#C8B8E8' : '#0C0418'} stopOpacity={isLight ? '0.75' : '1'} />
           </RadialGradient>
           <RadialGradient id="cglow" cx="50%" cy="50%" rx="50%" ry="50%">
             <Stop offset="0%" stopColor={GOLD} stopOpacity="0.18" />
@@ -265,7 +275,7 @@ const TarotTableScene = ({ phase }: { phase: string }) => {
       {/* Animated central glow */}
       <Animated.View style={[glowStyle, {
         position: 'absolute', left: cx - 80, top: cy - 80, width: 160, height: 160,
-        borderRadius: 80, backgroundColor: 'rgba(139,92,246,0.12)',
+        borderRadius: 80, backgroundColor: isLight ? 'rgba(139,92,246,0.08)' : 'rgba(139,92,246,0.12)',
       }]} />
 
       {/* Candles */}
@@ -290,7 +300,7 @@ const TarotTableScene = ({ phase }: { phase: string }) => {
       {/* Phase label */}
       {phase === 'intro' && (
         <View style={{ position: 'absolute', bottom: 18, left: 0, right: 0, alignItems: 'center' }}>
-          <Text style={{ color: GOLD_DIM, fontSize: 10, letterSpacing: 3.5, fontWeight: '600' }}>
+          <Text style={{ color: isLight ? 'rgba(139,100,42,0.55)' : GOLD_DIM, fontSize: 10, letterSpacing: 3.5, fontWeight: '600' }}>
             ZAPAL ŚWIECĘ
           </Text>
         </View>
@@ -522,10 +532,10 @@ const SpreadTable = ({
 
 // ─── Revealed Card Interpretation Block ──────────────────────────────────────
 const InterpretationBlock = ({
-  card, isReversed, slotLabel, interpretation, deckId, accentColor, index,
+  card, isReversed, slotLabel, interpretation, deckId, accentColor, index, isLight,
 }: {
   card: any; isReversed: boolean; slotLabel: string; interpretation: string;
-  deckId: string; accentColor: string; index: number;
+  deckId: string; accentColor: string; index: number; isLight?: boolean;
 }) => {
   const cardName = resolveUserFacingText(card.name);
   const orientLabel = isReversed ? 'ODWRÓCONA' : 'PROSTA';
@@ -545,7 +555,7 @@ const InterpretationBlock = ({
         </View>
         <View style={ib.headerText}>
           <Text style={[ib.slotLabel, { color: accentColor }]}>{slotLabel.toUpperCase()}</Text>
-          <Text style={ib.cardName}>{cardName}</Text>
+          <Text style={[ib.cardName, { color: isLight ? '#251D16' : '#F5F1EA' }]}>{cardName}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 2 }}>
             <View style={[ib.orientBadge, { backgroundColor: accentColor + '22', borderColor: accentColor + '55' }]}>
               <Text style={[ib.orientText, { color: accentColor }]}>{orientLabel}</Text>
@@ -597,8 +607,19 @@ interface ChatMsg {
 
 const ChatMessage = ({ msg, deckId, accentColor }: { msg: ChatMsg; deckId: string; accentColor: string }) => {
   const isOracle = msg.role === 'oracle';
+  const { isLight } = useTheme();
+  const oracleBg = isLight ? 'rgba(100,60,200,0.10)' : 'rgba(109,40,217,0.18)';
+  const userBg = isLight ? 'rgba(80,50,150,0.07)' : 'rgba(255,255,255,0.06)';
+  const oracleBorder = isLight ? 'rgba(100,60,200,0.20)' : 'rgba(206,174,114,0.20)';
+  const userBorder = isLight ? 'rgba(80,50,150,0.15)' : 'rgba(255,255,255,0.10)';
+  const oracleTextColor = isLight ? '#2D1A50' : 'rgba(245,241,234,0.90)';
+  const userTextColor = isLight ? '#3D2060' : 'rgba(245,241,234,0.75)';
   return (
-    <Animated.View entering={FadeInUp.springify()} style={[cm.bubble, isOracle ? cm.oracleBubble : cm.userBubble]}>
+    <Animated.View entering={FadeInUp.springify()} style={[cm.bubble, {
+      backgroundColor: isOracle ? oracleBg : userBg,
+      borderColor: isOracle ? oracleBorder : userBorder,
+      marginLeft: isOracle ? 0 : 40,
+    }]}>
       {isOracle && (
         <View style={cm.oracleLabel}>
           <Sparkles size={10} color={GOLD} />
@@ -613,63 +634,65 @@ const ChatMessage = ({ msg, deckId, accentColor }: { msg: ChatMsg; deckId: strin
           </View>
           <View style={{ flex: 1 }}>
             <Text style={{ color: GOLD, fontSize: 9, letterSpacing: 2, marginBottom: 2 }}>{msg.extraCard.label.toUpperCase()}</Text>
-            <Text style={{ color: '#F5F1EA', fontSize: 14, fontWeight: '700' }}>
+            <Text style={{ color: isLight ? '#251D16' : '#F5F1EA', fontSize: 14, fontWeight: '700' }}>
               {resolveUserFacingText(msg.extraCard.card.name)}
             </Text>
           </View>
         </View>
       )}
-      <Text style={[cm.text, isOracle ? cm.oracleText : cm.userText]}>{msg.content}</Text>
+      <Text style={[cm.text, { color: isOracle ? oracleTextColor : userTextColor }]}>{msg.content}</Text>
     </Animated.View>
   );
 };
 
 const cm = StyleSheet.create({
-  bubble: { marginHorizontal: 18, marginBottom: 12, padding: 14, borderRadius: 14 },
-  oracleBubble: {
-    backgroundColor: 'rgba(109,40,217,0.18)', borderWidth: 1,
-    borderColor: 'rgba(206,174,114,0.20)', borderRadius: 14,
-  },
-  userBubble: {
-    backgroundColor: 'rgba(255,255,255,0.06)', borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.10)', marginLeft: 40, borderRadius: 14,
-  },
+  bubble: { marginHorizontal: 18, marginBottom: 12, padding: 14, borderRadius: 14, borderWidth: 1 },
   oracleLabel: { flexDirection: 'row', alignItems: 'center', marginBottom: 6 },
   text: { fontSize: 14, lineHeight: 22 },
-  oracleText: { color: 'rgba(245,241,234,0.90)' },
-  userText: { color: 'rgba(245,241,234,0.75)' },
 });
 
 // ─── Intro Sheet ──────────────────────────────────────────────────────────────
 const IntroSheet = ({
   onStart, spreadId, setSpreadId, topicId, setTopicId,
   forSomeone, setForSomeone, someoneName, setSomeoneName,
+  allowReversals, setAllowReversals,
   energyLevel, setEnergyLevel, insetsBottom,
+  localDeckId, setLocalDeckId, onDeckPress,
 }: any) => {
+  const { isLight } = useTheme();
   return (
-    <View style={[is.container, { paddingBottom: Math.max((insetsBottom ?? 0) + 16, 28) }]}>
+    <View style={[is.container, { paddingBottom: Math.max((insetsBottom ?? 0) + 16, 28),
+      backgroundColor: isLight ? 'rgba(244,238,252,0.97)' : 'rgba(8,3,22,0.97)',
+      borderColor: isLight ? 'rgba(139,100,180,0.25)' : 'rgba(206,174,114,0.20)',
+    }]}>
       <LinearGradient
-        colors={['rgba(10,4,32,0.97)', 'rgba(15,8,37,0.99)']}
+        colors={isLight
+          ? ['rgba(244,238,252,0.97)', 'rgba(238,228,250,0.99)']
+          : ['rgba(10,4,32,0.97)', 'rgba(15,8,37,0.99)']}
         style={[StyleSheet.absoluteFill, { borderTopLeftRadius: 24, borderTopRightRadius: 24 }]}
       />
-      <View style={is.handle} />
+      <View style={[is.handle, isLight && { backgroundColor: 'rgba(100,60,160,0.20)' }]} />
       {/* Wrap content in ScrollView so button is reachable on small screens */}
       <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled" style={{ flex: 1 }}>
-      <Text style={is.title}>Rytuał Tarota</Text>
-      <Text style={is.subtitle}>W co dziś chcesz się wgłębić?</Text>
+      <Text style={[is.title, isLight && { color: '#2D1A50' }]}>Rytuał Tarota</Text>
+      <Text style={[is.subtitle, isLight && { color: 'rgba(80,50,120,0.65)' }]}>W co dziś chcesz się wgłębić?</Text>
 
       {/* ── Energy level selector ── */}
-      <Text style={[is.sectionLabel, { marginBottom: 8 }]}>Twoja energia teraz</Text>
+      <Text style={[is.sectionLabel, { marginBottom: 8 }, isLight && { color: 'rgba(139,100,42,0.70)' }]}>Twoja energia teraz</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
         <View style={{ flexDirection: 'row', gap: 8, paddingRight: 8 }}>
           {ENERGY_LEVELS.map(e => (
             <Pressable
               key={e.id}
               onPress={() => { HapticsService.impact('light'); setEnergyLevel(energyLevel === e.id ? null : e.id); }}
-              style={[is.energyChip, energyLevel === e.id && { borderColor: GOLD, backgroundColor: 'rgba(206,174,114,0.15)' }]}
+              style={[is.energyChip,
+                isLight
+                  ? { borderColor: 'rgba(100,60,160,0.20)', backgroundColor: 'rgba(255,255,255,0.60)' }
+                  : {},
+                energyLevel === e.id && { borderColor: GOLD, backgroundColor: 'rgba(206,174,114,0.15)' }]}
             >
               <Text style={{ fontSize: 16 }}>{e.emoji}</Text>
-              <Text style={[is.energyLabel, { color: energyLevel === e.id ? GOLD : 'rgba(245,241,234,0.65)' }]}>{e.label}</Text>
+              <Text style={[is.energyLabel, { color: energyLevel === e.id ? GOLD : isLight ? 'rgba(60,30,100,0.75)' : 'rgba(245,241,234,0.65)' }]}>{e.label}</Text>
             </Pressable>
           ))}
         </View>
@@ -680,26 +703,127 @@ const IntroSheet = ({
           <Pressable
             key={t.id}
             onPress={() => { HapticsService.impact('light'); setTopicId(t.id); }}
-            style={[is.topicChip, topicId === t.id && { borderColor: t.color, backgroundColor: t.color + '18' }]}
+            style={[is.topicChip,
+              isLight
+                ? { borderColor: 'rgba(100,60,160,0.20)', backgroundColor: 'rgba(255,255,255,0.50)' }
+                : {},
+              topicId === t.id && { borderColor: t.color, backgroundColor: t.color + '18' }]}
           >
-            <Text style={[is.topicText, { color: topicId === t.id ? t.color : 'rgba(245,241,234,0.65)' }]}>{t.label}</Text>
+            <Text style={[is.topicText, { color: topicId === t.id ? t.color : isLight ? 'rgba(60,30,100,0.72)' : 'rgba(245,241,234,0.65)' }]}>{t.label}</Text>
           </Pressable>
         ))}
       </View>
 
-      <Text style={[is.sectionLabel, { marginTop: 16 }]}>Układ kart</Text>
+      {/* ── Deck selector ── */}
+      <Text style={[is.sectionLabel, { marginTop: 16, color: isLight ? 'rgba(139,100,42,0.85)' : GOLD }]}>Twoja talia</Text>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
+        <View style={{ flexDirection: 'row', gap: 12, paddingRight: 12 }}>
+          {TAROT_DECKS.map(deck => {
+            const isActive = localDeckId === deck.id;
+            const isPremiumDeck = deck.isPremium === true;
+            return (
+              <Pressable
+                key={deck.id}
+                onPress={() => onDeckPress(deck)}
+                style={{
+                  width: 108, borderRadius: 18,
+                  overflow: 'hidden',
+                  borderWidth: isActive ? 2 : 1,
+                  borderColor: isActive ? deck.accent[0] : isLight ? 'rgba(100,60,160,0.25)' : 'rgba(255,255,255,0.14)',
+                }}
+              >
+                {/* Card back preview area */}
+                <LinearGradient
+                  colors={deck.backGradient as [string, string, string]}
+                  style={{ height: 120, alignItems: 'center', justifyContent: 'center', padding: 10 }}
+                >
+                  {/* Mini card frame */}
+                  <View style={{
+                    width: 52, height: 80, borderRadius: 8,
+                    borderWidth: 1.5, borderColor: deck.accent[0] + 'AA',
+                    backgroundColor: deck.backGradient[1] + 'CC',
+                    alignItems: 'center', justifyContent: 'center',
+                    shadowColor: deck.accent[0], shadowOpacity: 0.5, shadowRadius: 6,
+                  }}>
+                    <Text style={{ fontSize: 22 }}>
+                      {deck.motif === 'classic' ? '✦' : deck.motif === 'celestial' ? '🌙' : deck.motif === 'mystical' ? '🔮' : deck.motif === 'bw' ? '◈' : '✧'}
+                    </Text>
+                    <Text style={{ color: deck.accent[0], fontSize: 7, fontWeight: '800', letterSpacing: 1, marginTop: 3, textAlign: 'center' }}>
+                      {deck.cardBackLabel?.split('·')[0]?.trim() || deck.id.toUpperCase().slice(0, 5)}
+                    </Text>
+                  </View>
+                  {/* Active glow */}
+                  {isActive && (
+                    <View style={{
+                      position: 'absolute', inset: 0,
+                      backgroundColor: deck.accent[0] + '18',
+                    }} />
+                  )}
+                  {/* Premium badge */}
+                  {isPremiumDeck && (
+                    <View style={{
+                      position: 'absolute', top: 8, left: 8,
+                      paddingHorizontal: 6, paddingVertical: 2,
+                      borderRadius: 6, backgroundColor: 'rgba(0,0,0,0.70)',
+                      borderWidth: 1, borderColor: '#F472B6' + '60',
+                    }}>
+                      <Text style={{ color: '#F472B6', fontSize: 8, fontWeight: '800', letterSpacing: 0.5 }}>PREMIUM</Text>
+                    </View>
+                  )}
+                  {/* Selected check */}
+                  {isActive && (
+                    <View style={{
+                      position: 'absolute', top: 8, right: 8,
+                      width: 20, height: 20, borderRadius: 10,
+                      backgroundColor: deck.accent[0], alignItems: 'center', justifyContent: 'center',
+                    }}>
+                      <Text style={{ color: '#fff', fontSize: 12, fontWeight: '800' }}>✓</Text>
+                    </View>
+                  )}
+                </LinearGradient>
+                {/* Deck name strip */}
+                <View style={{
+                  backgroundColor: isActive ? deck.backGradient[0] : isLight ? 'rgba(240,232,252,0.95)' : 'rgba(10,5,25,0.95)',
+                  paddingHorizontal: 8, paddingVertical: 7, borderTopWidth: 1,
+                  borderTopColor: isActive ? deck.accent[0] + '55' : isLight ? 'rgba(100,60,160,0.12)' : 'rgba(255,255,255,0.06)',
+                }}>
+                  <Text
+                    numberOfLines={2}
+                    style={{
+                      fontSize: 9, fontWeight: '700', textAlign: 'center',
+                      color: isActive ? deck.accent[0] : isLight ? 'rgba(60,30,100,0.80)' : 'rgba(245,241,234,0.80)',
+                      lineHeight: 13, letterSpacing: 0.2,
+                    }}
+                  >
+                    {deck.name}
+                  </Text>
+                  {deck.textureLabel ? (
+                    <Text style={{ color: isLight ? 'rgba(60,30,100,0.45)' : 'rgba(245,241,234,0.35)', fontSize: 7.5, textAlign: 'center', marginTop: 2, letterSpacing: 0.5 }}>
+                      {deck.textureLabel}
+                    </Text>
+                  ) : null}
+                </View>
+              </Pressable>
+            );
+          })}
+        </View>
+      </ScrollView>
+
+      <Text style={[is.sectionLabel, { marginTop: 16 }, isLight && { color: 'rgba(139,100,42,0.70)' }]}>Układ kart</Text>
       <View style={{ gap: 8 }}>
         {SPREADS.map(sp => (
           <Pressable
             key={sp.id}
             onPress={() => { HapticsService.impact('light'); setSpreadId(sp.id); }}
-            style={[is.spreadRow, spreadId === sp.id && { borderColor: GOLD + '80', backgroundColor: 'rgba(206,174,114,0.08)' }]}
+            style={[is.spreadRow,
+              isLight ? { borderColor: 'rgba(100,60,160,0.18)' } : {},
+              spreadId === sp.id && { borderColor: GOLD + '80', backgroundColor: 'rgba(206,174,114,0.08)' }]}
           >
             <View style={{ flex: 1 }}>
-              <Text style={[is.spreadName, { color: spreadId === sp.id ? GOLD : '#F5F1EA' }]}>{sp.label}</Text>
-              <Text style={is.spreadDesc}>{sp.desc}</Text>
+              <Text style={[is.spreadName, { color: spreadId === sp.id ? GOLD : isLight ? '#2D1A50' : '#F5F1EA' }]}>{sp.label}</Text>
+              <Text style={[is.spreadDesc, isLight && { color: 'rgba(60,30,100,0.55)' }]}>{sp.desc}</Text>
             </View>
-            <Text style={{ color: spreadId === sp.id ? GOLD : 'rgba(245,241,234,0.35)', fontSize: 13, fontWeight: '600' }}>
+            <Text style={{ color: spreadId === sp.id ? GOLD : isLight ? 'rgba(60,30,100,0.45)' : 'rgba(245,241,234,0.35)', fontSize: 13, fontWeight: '600' }}>
               {sp.count} {sp.count === 1 ? 'karta' : 'karty'}
             </Text>
           </Pressable>
@@ -708,14 +832,16 @@ const IntroSheet = ({
 
       <Pressable
         onPress={() => { HapticsService.impact('light'); setForSomeone(v => !v); }}
-        style={[is.spreadRow, { marginTop: 6 }, forSomeone && { borderColor: '#A78BFA80', backgroundColor: 'rgba(167,139,250,0.08)' }]}
+        style={[is.spreadRow, { marginTop: 6 },
+          isLight ? { borderColor: 'rgba(100,60,160,0.18)' } : {},
+          forSomeone && { borderColor: '#A78BFA80', backgroundColor: 'rgba(167,139,250,0.08)' }]}
       >
-        <Text style={{ color: forSomeone ? '#A78BFA' : 'rgba(245,241,234,0.65)', fontSize: 14, flex: 1 }}>
+        <Text style={{ color: forSomeone ? '#A78BFA' : isLight ? 'rgba(60,30,100,0.72)' : 'rgba(245,241,234,0.65)', fontSize: 14, flex: 1 }}>
           Odczyt dla kogoś innego
         </Text>
         <View style={[{ width: 22, height: 22, borderRadius: 11, borderWidth: 1.5,
           alignItems: 'center', justifyContent: 'center' },
-          forSomeone ? { borderColor: '#A78BFA', backgroundColor: '#A78BFA' } : { borderColor: 'rgba(245,241,234,0.25)' }]}>
+          forSomeone ? { borderColor: '#A78BFA', backgroundColor: '#A78BFA' } : { borderColor: isLight ? 'rgba(100,60,160,0.30)' : 'rgba(245,241,234,0.25)' }]}>
           {forSomeone && <Text style={{ color: '#fff', fontSize: 13, fontWeight: '700' }}>✓</Text>}
         </View>
       </Pressable>
@@ -725,10 +851,32 @@ const IntroSheet = ({
           value={someoneName}
           onChangeText={setSomeoneName}
           placeholder="Imię osoby..."
-          placeholderTextColor="rgba(245,241,234,0.30)"
-          style={is.nameInput}
+          placeholderTextColor={isLight ? 'rgba(100,60,160,0.40)' : 'rgba(245,241,234,0.30)'}
+          style={[is.nameInput, isLight && { borderColor: 'rgba(167,139,250,0.40)', color: '#2D1A50', backgroundColor: 'rgba(167,139,250,0.06)' }]}
         />
       )}
+
+      {/* ── Reversals toggle ── */}
+      <Pressable
+        onPress={() => { HapticsService.impact('light'); setAllowReversals((v: boolean) => !v); }}
+        style={[is.spreadRow, { marginTop: 6 },
+          isLight ? { borderColor: 'rgba(100,60,160,0.18)' } : {},
+          allowReversals && { borderColor: GOLD + '50', backgroundColor: 'rgba(206,174,114,0.06)' }]}
+      >
+        <View style={{ flex: 1 }}>
+          <Text style={{ color: allowReversals ? GOLD : isLight ? 'rgba(60,30,100,0.72)' : 'rgba(245,241,234,0.65)', fontSize: 14 }}>
+            Odwrócone karty
+          </Text>
+          <Text style={[is.spreadDesc, isLight && { color: 'rgba(60,30,100,0.55)' }]}>
+            {allowReversals ? 'Karty mogą pojawiać się odwrócone (25%)' : 'Tylko karty proste — łatwiejszy odczyt'}
+          </Text>
+        </View>
+        <View style={[{ width: 22, height: 22, borderRadius: 11, borderWidth: 1.5,
+          alignItems: 'center', justifyContent: 'center' },
+          allowReversals ? { borderColor: GOLD, backgroundColor: GOLD } : { borderColor: isLight ? 'rgba(100,60,160,0.30)' : 'rgba(245,241,234,0.25)' }]}>
+          {allowReversals && <Text style={{ color: '#1A0E2E', fontSize: 13, fontWeight: '800' }}>✓</Text>}
+        </View>
+      </Pressable>
 
       <Pressable onPress={onStart} style={is.startBtn}>
         <LinearGradient colors={['#7C3AED', '#5B21B6']} style={is.startBtnGrad}>
@@ -780,7 +928,16 @@ const is = StyleSheet.create({
 export const WrozkaScreen = ({ navigation, route }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem, selectedDeck } = useAppStore();
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const savedWrozkaSession = useAppStore(s => s.savedWrozkaSession);
+  const saveWrozkaSession = useAppStore(s => s.saveWrozkaSession);
+  const clearWrozkaSession = useAppStore(s => s.clearWrozkaSession);
+  const { isLight, themeName, currentTheme } = useTheme();
+  const { selectedDeckId, setSelectedDeck } = useTarotStore();
+  const { isPremium } = usePremiumStore();
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
   const [keyboardHeight, setKeyboardHeight] = useState(0);
@@ -802,7 +959,9 @@ export const WrozkaScreen = ({ navigation, route }: any) => {
   const [topicId, setTopicId] = useState('general');
   const [forSomeone, setForSomeone] = useState(false);
   const [someoneName, setSomeoneName] = useState('');
+  const [allowReversals, setAllowReversals] = useState(true);
   const [showIntro, setShowIntro] = useState(true);
+  const [showContinuePrompt, setShowContinuePrompt] = useState(false);
 
   // Table state
   const [dealedCards, setDealedCards] = useState<any[]>([]);
@@ -844,8 +1003,20 @@ export const WrozkaScreen = ({ navigation, route }: any) => {
   // State
   const [phase, setPhase] = useState<'intro' | 'table' | 'complete'>('intro');
 
+  const [localDeckId, setLocalDeckId] = useState(selectedDeckId || 'classic');
+
+  const handleDeckPress = useCallback((deck: any) => {
+    if (deck.isPremium && !isPremium) {
+      navigation.navigate('Paywall');
+      return;
+    }
+    HapticsService.impact('light');
+    setLocalDeckId(deck.id);
+    setSelectedDeck(deck.id);
+  }, [isPremium, navigation, setSelectedDeck]);
+
   const spread = SPREADS.find(s => s.id === spreadId) || SPREADS[1];
-  const deckId = selectedDeck || 'classic';
+  const deckId = localDeckId || 'classic';
   const allRevealed = nextRevealIndex >= spread.count;
 
   // Build seeded deck
@@ -858,9 +1029,56 @@ export const WrozkaScreen = ({ navigation, route }: any) => {
   const topicColor = TOPICS.find(t => t.id === topicId)?.color || GOLD;
   const forLabel = forSomeone && someoneName ? `dla ${someoneName}` : '';
 
+  // ── Session continuation: check for saved session on focus ──
+  useFocusEffect(useCallback(() => {
+    if (savedWrozkaSession && savedWrozkaSession.dealedCards?.length > 0) {
+      const ageMs = Date.now() - (savedWrozkaSession.savedAt || 0);
+      // Only offer to continue if session is less than 4 hours old
+      if (ageMs < 4 * 60 * 60 * 1000) {
+        setShowContinuePrompt(true);
+      } else {
+        clearWrozkaSession();
+      }
+    }
+  }, [savedWrozkaSession, clearWrozkaSession]));
+
+  // ── Save session when navigating away mid-reading ──
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('beforeRemove', () => {
+      if (dealedCards.length > 0 && phase !== 'intro') {
+        saveWrozkaSession({
+          dealedCards,
+          interpretations,
+          chatMessages,
+          spreadId,
+          topicId,
+          phase,
+          savedAt: Date.now(),
+        });
+      }
+    });
+    return unsubscribe;
+  }, [navigation, dealedCards, interpretations, chatMessages, spreadId, topicId, phase, saveWrozkaSession]);
+
+  const restoreSession = () => {
+    if (!savedWrozkaSession) return;
+    setDealedCards(savedWrozkaSession.dealedCards);
+    setInterpretations(savedWrozkaSession.interpretations);
+    setChatMessages(savedWrozkaSession.chatMessages);
+    setSpreadId(savedWrozkaSession.spreadId);
+    setTopicId(savedWrozkaSession.topicId);
+    setPhase(savedWrozkaSession.phase);
+    setNextRevealIndex(savedWrozkaSession.dealedCards.length);
+    setShowIntro(false);
+    setShowChat(savedWrozkaSession.phase === 'complete');
+    clearWrozkaSession();
+    setShowContinuePrompt(false);
+  };
+
   const startReading = () => {
     HapticsService.impact('light');
-    const cards = dailyDeck.slice(0, spread.count);
+    const raw = dailyDeck.slice(0, spread.count);
+    const cards = allowReversals ? raw : raw.map(c => ({ ...c, isReversed: false }));
     setDealedCards(cards);
     setNextRevealIndex(0);
     setInterpretations({});
@@ -877,12 +1095,17 @@ export const WrozkaScreen = ({ navigation, route }: any) => {
     const energyCtx = energyLevel
       ? `\nEnergia osoby teraz: ${ENERGY_LEVELS.find(e => e.id === energyLevel)?.context || ''}`
       : '';
-    const defaultPrompt = `Jesteś mądrą Wróżką Tarota — głęboką, poetycką, precyzyjną. Prowadzisz ${personName} przez rytuał tarota.
+    const defaultPrompt = `Jesteś mądrą Wróżką Tarota — przenikliwą, osobistą, precyzyjną. Prowadzisz ${personName} przez rytuał tarota.
 Temat odczytu: ${topicLabel}. Rozkład: ${spread.label} (${spread.count} ${spread.count === 1 ? 'karta' : 'kart'}).
 ${forSomeone ? `Ten odczyt jest ${readingFor}.` : ''}${energyCtx}
-Mów zawsze w języku użytkownika. Każda interpretacja jest unikalna dla tej osoby i tego momentu.
-Bądź precyzyjna — każde zdanie odnosi się do KONKRETNEJ karty i jej pozycji. Nie używaj ogólników.
-Pisz poetycko lecz jasno. Nie zaczynaj od imienia. Nie pisz "Karta X mówi..." — po prostu interpretuj bezpośrednio.`;
+ZASADY INTERPRETACJI:
+- Mów ZAWSZE o tym co karta OZNACZA dla tej osoby i jej sytuacji — NIE opisuj wyglądu karty ani symboli wizualnych.
+- Każde zdanie to bezpośrednie przesłanie: "Coś się w Tobie otwiera...", "Ten czas wymaga od Ciebie...", "Twoja energia mówi..."
+- Odnoś się do kontekstu pytania (${topicLabel}) — konkretne rady, ostrzeżenia, kierunek zmiany w życiu tej osoby.
+- Bądź przenikliwa i bezpośrednia. Pisz do osoby, nie o kartach.
+- Odpowiadaj w języku, w którym pisze do Ciebie osoba.
+- Nie zaczynaj od "Karta mówi..." ani od imienia. Mów wprost: "Stoisz teraz przed...", "Coś w Tobie czeka..."`;
+
     return t('wrozka.oracle.systemPrompt', {
       defaultValue: defaultPrompt,
       personName,
@@ -956,6 +1179,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
     const userMsg: ChatMsg = { role: 'user', content: msg };
     setChatMessages(prev => [...prev, userMsg]);
     setIsChatLoading(true);
+    setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 100);
 
     // Check if user wants a new card
     const wantsCard = /kart[aę]|wyjm|wyłóż|pokaż|rzu[ćc]|daj.*kart/i.test(msg);
@@ -1024,10 +1248,11 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
       });
     }
     setIsChatLoading(false);
-    setTimeout(() => scrollRef.current?.scrollTo({ y: 9999, animated: true }), 300);
+    setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 300);
   };
 
   const resetReading = () => {
+    clearWrozkaSession();
     setPhase('intro');
     setShowIntro(true);
     setDealedCards([]);
@@ -1098,7 +1323,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
       });
     }
     setIsChatLoading(false);
-    setTimeout(() => scrollRef.current?.scrollTo({ y: 9999, animated: true }), 300);
+    setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 300);
   }, [isChatLoading, MAJOR_ARCANA, dealedCards, spreadId, chatMessages, buildSystemPrompt]);
 
   // ── Feature: Save quote ──
@@ -1129,10 +1354,9 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#05030F' }}>
-      <SafeAreaView edges={['top']} style={{ flex: 1 }}>
-        {/* Header */}
-        <View style={wr.header}>
+    <View style={{ flex: 1, backgroundColor: isLight ? '#F0E8F8' : '#05030F', paddingTop: insets.top }}>
+      {/* Header */}
+      <View style={[wr.header]}>
           <Pressable onPress={() => goBackOrToMainTab(navigation, 'Oracle')} hitSlop={12}>
             <ChevronLeft size={22} color={GOLD} />
           </Pressable>
@@ -1164,10 +1388,10 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
             <TarotTableScene phase="intro" />
             {/* Tagline */}
             <View style={{ alignItems: 'center', paddingTop: 14, paddingBottom: 10 }}>
-              <Text style={{ color: GOLD_DIM, fontSize: 11, letterSpacing: 3, fontWeight: '700' }}>
+              <Text style={{ color: isLight ? 'rgba(139,100,42,0.70)' : GOLD_DIM, fontSize: 11, letterSpacing: 3, fontWeight: '700' }}>
                 RYTUAŁ TAROTA
               </Text>
-              <Text style={{ color: 'rgba(245,241,234,0.45)', fontSize: 12, marginTop: 4, letterSpacing: 0.3 }}>
+              <Text style={{ color: isLight ? 'rgba(80,50,120,0.55)' : 'rgba(245,241,234,0.45)', fontSize: 12, marginTop: 4, letterSpacing: 0.3 }}>
                 Talia zostanie przetasowana tylko dla Ciebie
               </Text>
             </View>
@@ -1177,8 +1401,11 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
               topicId={topicId} setTopicId={setTopicId}
               forSomeone={forSomeone} setForSomeone={setForSomeone}
               someoneName={someoneName} setSomeoneName={setSomeoneName}
+              allowReversals={allowReversals} setAllowReversals={setAllowReversals}
               energyLevel={energyLevel} setEnergyLevel={setEnergyLevel}
               insetsBottom={insets.bottom}
+              localDeckId={localDeckId} setLocalDeckId={setLocalDeckId}
+              onDeckPress={handleDeckPress}
             />
           </View>
         )}
@@ -1191,7 +1418,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
               style={{ flex: 1 }}
               showsVerticalScrollIndicator={false}
               keyboardShouldPersistTaps="handled"
-              contentContainerStyle={{ paddingBottom: showChat ? (keyboardHeight > 0 ? keyboardHeight + 120 : insets.bottom + 120) : insets.bottom + 80 }}
+              contentContainerStyle={{ paddingBottom: showChat ? (keyboardHeight > 0 ? keyboardHeight + 160 : insets.bottom + 160) : insets.bottom + 80 }}
             >
               {/* Spread Table */}
               <SpreadTable
@@ -1226,6 +1453,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                     deckId={deckId}
                     accentColor={topicColor}
                     index={i}
+                    isLight={isLight}
                   />
                 );
               })}
@@ -1256,7 +1484,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                       <Text style={{ color: GOLD_DIM, fontSize: 9, letterSpacing: 2.5, fontWeight: '700', marginBottom: 8 }}>
                         SZYBKIE PYTANIA
                       </Text>
-                      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 7 }}>
+                      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -18 }} contentContainerStyle={{ paddingHorizontal: 18, gap: 8, flexDirection: 'row' }}>
                         {QUESTION_CATEGORIES.map(cat => (
                           <Pressable
                             key={cat.id}
@@ -1271,7 +1499,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                             <Text style={[wr.qCatChipText, { color: cat.color }]}>{cat.label}</Text>
                           </Pressable>
                         ))}
-                      </View>
+                      </ScrollView>
                     </View>
                   )}
 
@@ -1304,9 +1532,13 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                     </View>
                   ))}
                   {isChatLoading && (
-                    <View style={[cm.bubble, cm.oracleBubble, { flexDirection: 'row', gap: 8, alignItems: 'center' }]}>
+                    <View style={[cm.bubble, {
+                      flexDirection: 'row', gap: 8, alignItems: 'center', marginHorizontal: 18,
+                      backgroundColor: isLight ? 'rgba(100,60,200,0.10)' : 'rgba(109,40,217,0.18)',
+                      borderColor: isLight ? 'rgba(100,60,200,0.20)' : 'rgba(206,174,114,0.20)',
+                    }]}>
                       <Sparkles size={12} color={GOLD} />
-                      <Text style={{ color: GOLD_DIM, fontSize: 13, fontStyle: 'italic' }}>Wróżka myśli...</Text>
+                      <Text style={{ color: isLight ? '#5B21B6' : GOLD_DIM, fontSize: 13, fontStyle: 'italic' }}>Wróżka odpowiada...</Text>
                     </View>
                   )}
                 </Animated.View>
@@ -1369,15 +1601,24 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
               <View style={[wr.chatInputContainer, {
                 bottom: keyboardHeight > 0 ? keyboardHeight : 0,
                 paddingBottom: keyboardHeight > 0 ? 8 : Math.max(insets.bottom + 8, 12),
+                backgroundColor: isLight ? 'rgba(244,238,252,0.97)' : 'rgba(5,3,15,0.92)',
+                borderTopWidth: 1,
+                borderTopColor: isLight ? 'rgba(100,60,200,0.15)' : 'rgba(206,174,114,0.15)',
               }]}>
-                <View style={wr.chatInputRow}>
+                <View style={[wr.chatInputRow, {
+                  borderColor: isLight ? 'rgba(100,60,200,0.20)' : 'rgba(206,174,114,0.25)',
+                }]}>
                   <TextInput
                     ref={inputRef}
                     value={chatInput}
                     onChangeText={setChatInput}
                     placeholder="Zapytaj wróżkę... lub poproś o kolejną kartę"
-                    placeholderTextColor="rgba(245,241,234,0.28)"
-                    style={wr.chatInput}
+                    placeholderTextColor={isLight ? 'rgba(60,30,100,0.40)' : 'rgba(245,241,234,0.28)'}
+                    style={[wr.chatInput, {
+                      color: isLight ? '#2D1A50' : '#F5F1EA',
+                      backgroundColor: isLight ? 'rgba(255,255,255,0.90)' : 'rgba(20,12,40,0.96)',
+                      borderColor: isLight ? 'rgba(100,60,200,0.20)' : 'rgba(255,255,255,0.12)',
+                    }]}
                     multiline
                     onFocus={() => setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 350)}
                     onSubmitEditing={sendChatMessage}
@@ -1394,14 +1635,39 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                     </LinearGradient>
                   </Pressable>
                 </View>
-                <Text style={wr.chatHint}>
+                <Text style={[wr.chatHint, { color: isLight ? 'rgba(80,50,120,0.55)' : 'rgba(245,241,234,0.30)' }]}>
                   Możesz poprosić o kolejne karty wpisując „wyłóż kartę" lub zadając pytanie
                 </Text>
               </View>
             )}
           </View>
         )}
-      </SafeAreaView>
+      {/* ── Session Continuation Modal ── */}
+      <Modal visible={showContinuePrompt} transparent animationType="fade">
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.65)', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+          <View style={{ backgroundColor: isLight ? '#FAF6FF' : '#0F0625', borderRadius: 20, padding: 24, width: '100%', maxWidth: 340, borderWidth: 1, borderColor: isLight ? 'rgba(100,60,200,0.25)' : 'rgba(206,174,114,0.30)' }}>
+            <Text style={{ fontSize: 22, textAlign: 'center', marginBottom: 6 }}>✦</Text>
+            <Text style={{ color: isLight ? '#2D1A50' : '#F5F1EA', fontSize: 17, fontWeight: '900', textAlign: 'center', marginBottom: 8 }}>
+              Masz niedokończony odczyt
+            </Text>
+            <Text style={{ color: isLight ? 'rgba(60,30,100,0.65)' : 'rgba(245,241,234,0.60)', fontSize: 14, textAlign: 'center', lineHeight: 20, marginBottom: 22 }}>
+              Czy chcesz kontynuować poprzednią sesję z Wróżką?
+            </Text>
+            <Pressable
+              onPress={restoreSession}
+              style={{ backgroundColor: '#7C3AED', borderRadius: 14, padding: 14, alignItems: 'center', marginBottom: 10 }}
+            >
+              <Text style={{ color: '#fff', fontWeight: '900', fontSize: 15 }}>✦ Kontynuuj sesję</Text>
+            </Pressable>
+            <Pressable
+              onPress={() => { clearWrozkaSession(); setShowContinuePrompt(false); }}
+              style={{ padding: 12, alignItems: 'center' }}
+            >
+              <Text style={{ color: isLight ? 'rgba(60,30,100,0.55)' : 'rgba(245,241,234,0.45)', fontSize: 14 }}>Zacznij od nowa</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
 
       {/* ── Feature 3: Drawn Card Modal ── */}
       <Modal

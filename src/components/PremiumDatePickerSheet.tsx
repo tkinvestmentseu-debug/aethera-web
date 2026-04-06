@@ -4,9 +4,10 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Typography } from './Typography';
 import { layout } from '../core/theme/designSystem';
-import { getResolvedTheme } from '../core/theme/tokens';
+import { getResolvedTheme, isLightBg } from '../core/theme/tokens';
 import { useAppStore } from '../store/useAppStore';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../core/hooks/useTheme';
 
 interface PremiumDatePickerSheetProps {
   visible: boolean;
@@ -32,12 +33,11 @@ export const PremiumDatePickerSheet = ({
   onConfirm,
 }: PremiumDatePickerSheetProps) => {
   const { t } = useTranslation();
+  const { currentTheme, isLight } = useTheme();
   const insets = useSafeAreaInsets();
-  const { themeName, language } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const { language } = useAppStore();
+  const cardBg = isLight ? 'rgba(255,255,255,0.98)' : 'rgba(15,12,28,0.97)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.22)' : 'rgba(255,255,255,0.12)';
   const [draftValue, setDraftValue] = useState(value);
   const pickerLocale = language === 'pl' ? 'pl-PL' : undefined;
   const summary = mode === 'date'
@@ -52,7 +52,7 @@ export const PremiumDatePickerSheet = ({
 
   return (
     <Modal visible={visible} transparent animationType="fade" statusBarTranslucent onRequestClose={onCancel}>
-      <View style={styles.overlay}>
+      <View style={[styles.overlay, { backgroundColor: isLight ? 'rgba(0,0,0,0.45)' : 'rgba(3, 5, 11, 0.74)' }]}>
         <SafeAreaView style={[styles.safeArea, { paddingTop: insets.top + 12, paddingBottom: insets.bottom + 12 }]}>
           <Pressable style={styles.dismissLayer} onPress={onCancel} />
           <View style={[styles.sheet, { backgroundColor: cardBg, borderColor: cardBorder, borderWidth: StyleSheet.hairlineWidth, borderRadius: 24 }]}>
@@ -73,7 +73,7 @@ export const PremiumDatePickerSheet = ({
               style={[
                 styles.pickerShell,
                 {
-                  backgroundColor: currentTheme.backgroundElevated,
+                  backgroundColor: isLight ? '#FFFFFF' : '#0A0A14',
                   borderColor: currentTheme.glassBorder,
                 },
               ]}
@@ -90,8 +90,9 @@ export const PremiumDatePickerSheet = ({
                     setDraftValue(nextValue);
                   }
                 }}
-                themeVariant={currentTheme.background.startsWith('#F') ? 'light' : 'dark'}
+                themeVariant={isLight ? 'light' : 'dark'}
                 accentColor={currentTheme.primary}
+                textColor={isLight ? '#1A1410' : '#F0EBE2'}
                 {...(pickerLocale ? ({ locale: pickerLocale } as any) : {})}
               />
             </View>

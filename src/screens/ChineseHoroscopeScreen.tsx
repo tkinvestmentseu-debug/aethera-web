@@ -79,7 +79,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
 import { DateWheelPicker } from '../components/DateWheelPicker';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
@@ -841,7 +841,7 @@ const ElementsPentagon = React.memo(({ userElementId, accent }: { userElementId:
 });
 
 // ─── ANIMATED ARC ────────────────────────────────────────────────────────────
-const AnimatedArc = React.memo(({ score, color, size = 120 }: { score: number; color: string; size?: number }) => {
+const AnimatedArc = React.memo(({ score, color, size = 120, isLight }: { score: number; color: string; size?: number; isLight?: boolean }) => {
   const progress = useSharedValue(0);
   useEffect(() => {
     progress.value = withTiming(score / 100, { duration: 1200 });
@@ -870,7 +870,7 @@ const AnimatedArc = React.memo(({ score, color, size = 120 }: { score: number; c
       </Svg>
       <View style={{ position: 'absolute', alignItems: 'center' }}>
         <Typography variant="heading" style={{ fontSize: 22, fontWeight: '700', color }}>{score}%</Typography>
-        <Typography variant="micro" style={{ color: 'rgba(255,255,255,0.6)', fontSize: 10 }}>zgodność</Typography>
+        <Typography variant="micro" style={{ color: isLight ? 'rgba(37,29,22,0.6)' : 'rgba(255,255,255,0.6)', fontSize: 10 }}>zgodność</Typography>
       </View>
     </View>
   );
@@ -895,15 +895,18 @@ const LoShuGrid = React.memo(({ accent }: { accent: string }) => (
 // ─── MAIN SCREEN ─────────────────────────────────────────────────────────────
 export const ChineseHoroscopeScreen = ({ navigation, route }: any) => {
   const { t } = useTranslation();
-  const { themeName, userData, addFavoriteItem, removeFavoriteItem, isFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F') || currentTheme.background.startsWith('#E') || currentTheme.background.startsWith('#fff');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const { currentTheme, isLight, themeName: currentThemeName } = useTheme();
+  const theme = currentTheme;
 
   const textColor = isLight ? '#1A1A2E' : '#F5EDD8';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(245,237,216,0.6)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(245,237,216,0.6)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.07)';
   const cardBorder = isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)';
-  const inputBg = isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.08)';
+  const inputBg = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.08)';
 
   // Tab state
   const [activeTab, setActiveTab] = useState<'animal' | 'elements' | 'year' | 'compat' | 'wisdom'>('animal');
@@ -1082,9 +1085,10 @@ Write in English, deep and wise, around 150 words.`,
         {forSomeone && (
           <Animated.View entering={FadeInDown.duration(300)} style={[ch.fsBanner, { backgroundColor: ACCENT + '22', borderColor: ACCENT + '60' }]}>
             <Users size={14} color={ACCENT} />
-            <Typography variant="body" style={{ color: ACCENT, fontSize: 13, flex: 1, marginLeft: 8 }}>
-              Przeglądasz dla: <Typography variant="body" style={{ fontWeight: '700', color: ACCENT }}>{fsName}</Typography>
-            </Typography>
+            <View style={{ flex: 1, marginLeft: 8, flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: 4 }}>
+              <Typography variant="body" style={{ color: ACCENT, fontSize: 13 }}>Przeglądasz dla:</Typography>
+              <Typography variant="body" style={{ fontWeight: '700', color: ACCENT, fontSize: 13 }}>{fsName}</Typography>
+            </View>
             <Pressable onPress={clearForSomeone} hitSlop={12}>
               <X size={16} color={ACCENT} />
             </Pressable>
@@ -1641,7 +1645,7 @@ Write in English, deep and wise, around 150 words.`,
                 colors={[ACCENT + '25', DEEP_RED + '15']}
                 style={[ch.card, { borderColor: ACCENT + '60', alignItems: 'center' }]}
               >
-                <AnimatedArc score={overallScore} color={GOLD} size={130} />
+                <AnimatedArc score={overallScore} color={GOLD} size={130} isLight={isLight} />
                 <Typography variant="heading" style={{ color: textColor, fontSize: 17, fontWeight: '700', marginTop: 8 }}>
                   {activeAnimal?.pl} & {partnerAnimal.pl}
                 </Typography>
@@ -2130,11 +2134,11 @@ FINANSE:
         colors={isLight ? ['#FFF8EE', '#FEF3E0', '#FFF8EE'] : ['#0C0608', '#180C14', '#0A0810']}
         style={StyleSheet.absoluteFill}
       />
-      <CelestialBackdrop themeName={themeName} />
+      <CelestialBackdrop themeName={currentThemeName} />
     <SafeAreaView edges={['top']} style={{ flex: 1 }}>
 
       {/* Header */}
-      <View style={[ch.header, { borderBottomColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)' }]}>
+      <View style={[ch.header, { borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)' }]}>
         <Pressable onPress={() => goBackOrToMainTab(navigation, 'Horoscope')} style={ch.headerBtn} hitSlop={16}>
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
@@ -2157,7 +2161,7 @@ FINANSE:
       </View>
 
       {/* Tab bar */}
-      <View style={[ch.tabBar, { borderBottomColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)' }]}>
+      <View style={[ch.tabBar, { borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)' }]}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 12, gap: 4 }}>
           {TABS.map(tab => {
             const isActive = activeTab === tab.id;
@@ -2194,14 +2198,11 @@ FINANSE:
       {/* "Dla kogoś" Modal */}
       <Modal visible={showFsModal} transparent animationType="slide" onRequestClose={() => setShowFsModal(false)}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }} keyboardVerticalOffset={0}>
-          <Pressable style={ch.fsOverlay} onPress={() => setShowFsModal(false)}>
-            <View style={ch.fsOverlayBg} />
-          </Pressable>
-          <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
-            <LinearGradient
-              colors={isLight ? ['#FFFFFF', '#F5F0E8'] : ['#1A0A0A', '#140610']}
-              style={[ch.fsSheet, { borderTopColor: ACCENT + '40' }]}
-            >
+          <Pressable style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)' }} onPress={() => setShowFsModal(false)} />
+          <LinearGradient
+            colors={isLight ? ['#FFFFFF', '#F5F0E8'] : ['#1A0A0A', '#140610']}
+            style={[ch.fsSheet, { borderTopColor: ACCENT + '40' }]}
+          >
               <View style={ch.fsHandle} />
               <ScrollView
                 keyboardShouldPersistTaps="handled"
@@ -2263,7 +2264,6 @@ FINANSE:
                 )}
               </ScrollView>
             </LinearGradient>
-          </View>
         </KeyboardAvoidingView>
       </Modal>
     </SafeAreaView>

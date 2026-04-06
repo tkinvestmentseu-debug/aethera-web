@@ -1,4 +1,4 @@
-﻿// @ts-nocheck
+// @ts-nocheck
 import { AMBIENT_SOUND_OPTIONS, AudioService, BACKGROUND_MUSIC_OPTIONS } from '../core/services/audio.service';
 import { TTSService } from '../core/services/tts.service';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -10,6 +10,7 @@ import {
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useAppStore } from '../store/useAppStore';
+import { useAuthStore } from '../store/useAuthStore';
 import { useJournalStore } from '../store/useJournalStore';
 import { useOracleStore } from '../store/useOracleStore';
 import { usePremiumStore } from '../store/usePremiumStore';
@@ -27,7 +28,7 @@ import {
   Crown, Archive, Settings2, User, Feather, Music, Eye,
   ChevronDown, Check, Zap, Calendar, Compass, Sun, MessageCircle, BookOpen
 } from 'lucide-react-native';
-import Animated, { FadeInDown, FadeIn, ZoomIn } from 'react-native-reanimated';
+import Animated, { FadeInDown, FadeIn, ZoomIn, useSharedValue, useAnimatedStyle, withRepeat, withTiming, withSequence, interpolate, Easing } from 'react-native-reanimated';
 import { resolveUserFacingText } from '../core/utils/contentResolver';
 import { LANGUAGE_OPTIONS } from '../core/i18n/languageOptions';
 import { useTranslation } from 'react-i18next';
@@ -39,10 +40,14 @@ import { TAROT_DECKS, getTarotDeckById } from '../features/tarot/data/decks';
 import { AiService } from '../core/services/ai.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import * as Haptics from 'expo-haptics';
+import { useTheme } from '../core/hooks/useTheme';
+const { width: SW, height: SH } = Dimensions.get('window');
 
-const { width: SW } = Dimensions.get('window');
+// ── Animated components at MODULE LEVEL ──────────────────────
+const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-
+// ── Data constants ─────────────────────────────────────────────
 const THEME_OPTIONS: { id: ThemeName; label: string; sub: string }[] = [
   { id: 'goldenRitual', label: 'Złoty rytuał', sub: 'Intensywne złoto na głębokiej czerni' },
   { id: 'moonMist', label: 'Księżycowa mgła', sub: 'Srebrne fiolety i chłodny błękit' },
@@ -95,43 +100,48 @@ const MUSIC_CATEGORY_OPTIONS = [
   { id: 'celestial',  label: 'Kosmiczny', emoji: '✨' },
 ];
 
-// ── Pomocnicze komponenty ─────────────────────────────────────
+const PARTICLE_COUNT = 14;
 
-const SectionHeader = React.memo(({ icon: Icon, label, color }: { icon: any; label: string; color: string }) => (
-  <View style={sStyles.sectionHeader}>
-    <View style={[sStyles.sectionIconWrap, { backgroundColor: color + '18', borderColor: color + '33' }]}>
-      <Icon color={color} size={17} strokeWidth={1.8} />
-    </View>
-    <Text style={[sStyles.sectionHeaderText, { color }]}>{label.toUpperCase()}</Text>
-  </View>
-));
+// ── Floating particle component ────────────────────────────────
+const FloatingParticle = React.memo(({ index, accent }: { index: number; accent: string }) => {
+  const progress = useSharedValue(0);
+  const size = 2 + (index % 3);
+  const startX = (SW * (index / PARTICLE_COUNT));
+  const startY = Math.random() * SH * 0.6;
+  const duration = 6000 + index * 800;
 
-const EntryRow = React.memo(({
-  icon: Icon, label, value, onPress, accent, last = false, badge, textColor = '#1A1410', subColor = '#8A7060'
-}: {
-  icon: any; label: string; value?: string; onPress?: () => void;
-  accent: string; last?: boolean; badge?: string; textColor?: string; subColor?: string;
-}) => (
-  <Pressable
-    onPress={onPress}
-    style={[sStyles.entryRow, !last && sStyles.entryRowBorder]}
-  >
-    <View style={[sStyles.entryIcon, { backgroundColor: accent + '14', borderColor: accent + '28' }]}>
-      <Icon color={accent} size={16} strokeWidth={1.8} />
-    </View>
-    <View style={sStyles.entryText}>
-      <Text style={[sStyles.entryLabel, { color: textColor }]}>{label}</Text>
-      {value ? <Text style={[sStyles.entryValue, { color: subColor }]} numberOfLines={1}>{value}</Text> : null}
-    </View>
-    {badge ? (
-      <View style={[sStyles.badge, { backgroundColor: accent + '22', borderColor: accent + '44' }]}>
-        <Text style={[sStyles.badgeText, { color: accent }]}>{badge}</Text>
-      </View>
-    ) : null}
-    {onPress ? <ChevronRight color={accent} size={16} strokeWidth={1.6} opacity={0.6} /> : null}
-  </Pressable>
-));
+  useEffect(() => {
+    progress.value = withRepeat(
+      withTiming(1, { duration, easing: Easing.linear }),
+      -1,
+      false,
+    );
+  }, []);
 
+  const animStyle = useAnimatedStyle(() => ({
+    opacity: interpolate(progress.value, [0, 0.3, 0.7, 1], [0, 0.6, 0.6, 0]),
+    transform: [
+      { translateY: interpolate(progress.value, [0, 1], [0, -120]) },
+      { translateX: interpolate(progress.value, [0, 0.5, 1], [0, (index % 2 === 0 ? 1 : -1) * 20, 0]) },
+    ],
+  }));
+
+  return (
+    <Animated.View
+      style={[{
+        position: 'absolute',
+        left: startX,
+        top: startY,
+        width: size,
+        height: size,
+        borderRadius: size / 2,
+        backgroundColor: accent,
+      }, animStyle]}
+    />
+  );
+});
+
+// ── Custom Toggle ──────────────────────────────────────────────
 const CustomToggle = React.memo(({ value, onToggle, accent }: { value: boolean; onToggle: () => void; accent: string }) => {
   const anim = useRef(new RNAnimated.Value(value ? 1 : 0)).current;
   useEffect(() => {
@@ -147,29 +157,202 @@ const CustomToggle = React.memo(({ value, onToggle, accent }: { value: boolean; 
   );
 });
 
+// ── Avatar Pulse Ring ──────────────────────────────────────────
+const AvatarPulseRing = React.memo(({ accent }: { accent: string }) => {
+  const scale = useSharedValue(1);
+  const opacity = useSharedValue(0.7);
+
+  useEffect(() => {
+    scale.value = withRepeat(
+      withSequence(
+        withTiming(1.12, { duration: 1600, easing: Easing.out(Easing.ease) }),
+        withTiming(1, { duration: 1600, easing: Easing.in(Easing.ease) }),
+      ),
+      -1,
+      false,
+    );
+    opacity.value = withRepeat(
+      withSequence(
+        withTiming(0.2, { duration: 1600 }),
+        withTiming(0.7, { duration: 1600 }),
+      ),
+      -1,
+      false,
+    );
+  }, []);
+
+  const ringStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+    opacity: opacity.value,
+  }));
+
+  return (
+    <Animated.View
+      style={[{
+        position: 'absolute',
+        width: 130,
+        height: 130,
+        borderRadius: 65,
+        borderWidth: 2,
+        borderColor: accent,
+      }, ringStyle]}
+    />
+  );
+});
+
+// ── Premium badge shimmer ──────────────────────────────────────
+const ShimmerBadge = React.memo(({ label, accent }: { label: string; accent: string }) => {
+  const shimmer = useSharedValue(0);
+  useEffect(() => {
+    shimmer.value = withRepeat(withTiming(1, { duration: 2200, easing: Easing.linear }), -1, false);
+  }, []);
+  const shimmerStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: interpolate(shimmer.value, [0, 1], [-80, 80]) }],
+    opacity: interpolate(shimmer.value, [0, 0.4, 0.6, 1], [0, 0.4, 0.4, 0]),
+  }));
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20, backgroundColor: 'rgba(206,174,114,0.12)', borderWidth: 1, borderColor: 'rgba(206,174,114,0.35)', overflow: 'hidden' }}>
+      <Animated.View style={[{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, width: 60, backgroundColor: 'rgba(255,255,255,0.18)', transform: [{ skewX: '-20deg' }] }, shimmerStyle]} />
+      <Crown color="#CEAE72" size={13} strokeWidth={1.8} />
+      <Text style={{ fontSize: 11, fontWeight: '700', color: '#CEAE72', letterSpacing: 0.5 }}>{label}</Text>
+    </View>
+  );
+});
+
+// ── Logout Button ──────────────────────────────────────────────
+const LogoutButton = React.memo(({ accent, isLight }: { accent: string; isLight: boolean }) => {
+    const logout = useAuthStore(s => s.logout);
+  const [confirming, setConfirming] = React.useState(false);
+
+  const handlePress = () => {
+    if (!confirming) { setConfirming(true); return; }
+    logout();
+  };
+
+  React.useEffect(() => {
+    if (!confirming) return;
+    const t = setTimeout(() => setConfirming(false), 3000);
+    return () => clearTimeout(t);
+  }, [confirming]);
+
+  return (
+    <View style={{ paddingHorizontal: 18, marginTop: 24, marginBottom: 4 }}>
+      <Pressable
+        onPress={handlePress}
+        style={({ pressed }) => ({
+          flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10,
+          paddingVertical: 15, borderRadius: 18,
+          backgroundColor: confirming ? 'rgba(239,68,68,0.10)' : isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.04)',
+          borderWidth: 1,
+          borderColor: confirming ? 'rgba(239,68,68,0.45)' : isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)',
+          opacity: pressed ? 0.75 : 1,
+        })}
+      >
+        <Text style={{ fontSize: 16 }}>🚪</Text>
+        <Text style={{
+          fontSize: 14, fontWeight: '600', letterSpacing: 0.3,
+          color: confirming ? '#EF4444' : isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.40)',
+        }}>
+          {confirming ? 'Naciśnij ponownie, aby wylogować' : 'Wyloguj się'}
+        </Text>
+      </Pressable>
+    </View>
+  );
+});
+
+// ── Premium Card (glass) ───────────────────────────────────────
+const PremiumCard = React.memo(({
+  children, accent, isLight, style, delay = 0
+}: { children: React.ReactNode; accent: string; isLight: boolean; style?: any; delay?: number }) => (
+  <Animated.View
+    entering={FadeInDown.delay(delay).duration(500)}
+    style={[{
+      marginHorizontal: 18,
+      marginBottom: 10,
+      borderRadius: 22,
+      overflow: 'hidden',
+      borderWidth: 1,
+      borderLeftWidth: 3,
+      borderLeftColor: accent + 'CC',
+      borderColor: isLight ? 'rgba(169,122,57,0.18)' : 'rgba(255,255,255,0.10)',
+      backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)',
+      shadowColor: accent,
+      shadowOpacity: 0.12,
+      shadowRadius: 14,
+      shadowOffset: { width: 0, height: 6 },
+      elevation: 8,
+    }, style]}
+  >
+    {/* Top gradient strip */}
+    <LinearGradient
+      colors={[accent + '44', 'transparent']}
+      start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+      style={{ height: 2, width: '100%' }}
+    />
+    {children}
+  </Animated.View>
+));
+
+// ── Section Header (premium) ───────────────────────────────────
+const SectionHeader = React.memo(({ icon: Icon, label, color, delay = 0 }: { icon: any; label: string; color: string; delay?: number }) => (
+  <Animated.View entering={FadeInDown.delay(delay).duration(400)} style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 22, paddingTop: 26, paddingBottom: 10 }}>
+    <LinearGradient
+      colors={[color + '33', color + '18']}
+      style={{ width: 36, height: 36, borderRadius: 12, borderWidth: 1, borderColor: color + '44', alignItems: 'center', justifyContent: 'center' }}
+    >
+      <Icon color={color} size={17} strokeWidth={1.8} />
+    </LinearGradient>
+    <Text style={{ fontSize: 11, fontWeight: '800', letterSpacing: 2.0, color, textTransform: 'uppercase' }}>{label}</Text>
+  </Animated.View>
+));
+
+// ── Entry Row ──────────────────────────────────────────────────
+const EntryRow = React.memo(({
+  icon: Icon, label, value, onPress, accent, last = false, badge, textColor = '#1A1410', subColor = '#6B5B4E'
+}: {
+  icon: any; label: string; value?: string; onPress?: () => void;
+  accent: string; last?: boolean; badge?: string; textColor?: string; subColor?: string;
+}) => (
+  <Pressable
+    onPress={onPress}
+    style={({ pressed }) => [pStyles.entryRow, !last && pStyles.entryRowBorder, { opacity: pressed ? 0.78 : 1 }]}
+  >
+    <View style={[pStyles.entryIcon, { backgroundColor: accent + '14', borderColor: accent + '28' }]}>
+      <Icon color={accent} size={16} strokeWidth={1.8} />
+    </View>
+    <View style={pStyles.entryText}>
+      <Text style={[pStyles.entryLabel, { color: textColor }]}>{label}</Text>
+      {value ? <Text style={[pStyles.entryValue, { color: subColor }]} numberOfLines={1}>{value}</Text> : null}
+    </View>
+    {badge ? (
+      <View style={[pStyles.badge, { backgroundColor: accent + '22', borderColor: accent + '44' }]}>
+        <Text style={[pStyles.badgeText, { color: accent }]}>{badge}</Text>
+      </View>
+    ) : null}
+    {onPress ? <ChevronRight color={accent} size={15} strokeWidth={1.6} opacity={0.5} /> : null}
+  </Pressable>
+));
+
+// ── Toggle Row ─────────────────────────────────────────────────
 const ToggleRow = React.memo(({
   icon: Icon, label, value, onToggle, accent, last = false, textColor = '#1A1410', subColor = '#8A7060'
 }: {
   icon: any; label: string; value: boolean; onToggle: () => void;
   accent: string; last?: boolean; textColor?: string; subColor?: string;
 }) => (
-  <View style={[sStyles.entryRow, !last && sStyles.entryRowBorder]}>
-    <View style={[sStyles.entryIcon, { backgroundColor: accent + '14', borderColor: accent + '28' }]}>
+  <View style={[pStyles.entryRow, !last && pStyles.entryRowBorder]}>
+    <View style={[pStyles.entryIcon, { backgroundColor: accent + '14', borderColor: accent + '28' }]}>
       <Icon color={accent} size={16} strokeWidth={1.8} />
     </View>
-    <View style={sStyles.entryText}>
-      <Text style={[sStyles.entryLabel, { color: textColor }]}>{label}</Text>
-      <Text style={[sStyles.entryValue, { color: subColor }]}>{value ? 'Włączone' : 'Wyłączone'}</Text>
+    <View style={pStyles.entryText}>
+      <Text style={[pStyles.entryLabel, { color: textColor }]}>{label}</Text>
+      <Text style={[pStyles.entryValue, { color: subColor }]}>{value ? 'Włączone' : 'Wyłączone'}</Text>
     </View>
     <CustomToggle value={value} onToggle={onToggle} accent={accent} />
   </View>
 ));
 
-const SectionCard = React.memo(({ children, style, isLight = true }: { children: React.ReactNode; style?: any; isLight?: boolean }) => (
-  <View style={[sStyles.sectionCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.07)', borderColor: isLight ? 'rgba(169,122,57,0.20)' : 'rgba(255,255,255,0.12)' }, style]}>{children}</View>
-));
-
-// ── Modal bazowy ──────────────────────────────────────────────
+// ── Bottom Modal ───────────────────────────────────────────────
 const BottomModal = ({
   visible, onClose, title, children, accent
 }: {
@@ -179,11 +362,11 @@ const BottomModal = ({
   const insets = useSafeAreaInsets();
   return (
     <Modal visible={visible} transparent animationType="slide" statusBarTranslucent onRequestClose={onClose}>
-      <Pressable style={sStyles.modalBg} onPress={onClose} />
-      <View style={[sStyles.modalSheet, { paddingBottom: Math.max(insets.bottom, 20) }]}>
-        <View style={sStyles.modalHandle} />
-        <View style={sStyles.modalTitleRow}>
-          <Text style={sStyles.modalTitle}>{title}</Text>
+      <Pressable style={pStyles.modalBg} onPress={onClose} />
+      <View style={[pStyles.modalSheet, { paddingBottom: Math.max(insets.bottom, 20) }]}>
+        <View style={pStyles.modalHandle} />
+        <View style={pStyles.modalTitleRow}>
+          <Text style={pStyles.modalTitle}>{title}</Text>
           <Pressable onPress={onClose} hitSlop={12}>
             <X color="#8A7A6A" size={22} />
           </Pressable>
@@ -196,6 +379,7 @@ const BottomModal = ({
   );
 };
 
+// ── Helpers ────────────────────────────────────────────────────
 const reduceToSingle = (n: number): number => {
   let v = n;
   while (v > 9 && v !== 11 && v !== 22) {
@@ -204,7 +388,9 @@ const reduceToSingle = (n: number): number => {
   return v;
 };
 
-// ── Glowny ekran ──────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+// MAIN SCREEN
+// ══════════════════════════════════════════════════════════════
 export const ProfileScreen = ({ navigation, route }: any) => {
   const musicVolume = useAppStore((s) => s.experience?.musicVolume ?? 0.5);
   const ambientVolume = useAppStore((s) => s.experience?.ambientVolume ?? 0.5);
@@ -219,31 +405,36 @@ export const ProfileScreen = ({ navigation, route }: any) => {
     setExperience({ ambientVolume: v });
     AudioService.setUserInteracted(); AudioService.setAmbientVolume(v);
   }, [setExperience]);
+
   const { t } = useTranslation();
   const tr = useCallback((key: string, pl: string, en: string, options?: Record<string, unknown>) => (
     t(key, { defaultValue: i18n.language?.startsWith('en') ? en : pl, ...options })
   ), [t]);
+
   const insets = useSafeAreaInsets();
-  const {
-    themeName, themeMode, setTheme, setThemeMode, userData, setLanguage, setUserData,
-    streaks, language, experience,
-    ambientSoundEnabled, setAmbientSoundEnabled,
-    audioRuntimeState, hapticsRuntimeState,
-    meditationSessions, breathworkSessions,
-  } = useAppStore();
+    const setTheme = useAppStore(s => s.setTheme);
+  const setThemeMode = useAppStore(s => s.setThemeMode);
+  const userData = useAppStore(s => s.userData);
+  const setLanguage = useAppStore(s => s.setLanguage);
+  const setUserData = useAppStore(s => s.setUserData);
+  const streaks = useAppStore(s => s.streaks);
+  const language = useAppStore(s => s.language);
+  const experience = useAppStore(s => s.experience);
+  const ambientSoundEnabled = useAppStore(s => s.ambientSoundEnabled);
+  const setAmbientSoundEnabled = useAppStore(s => s.setAmbientSoundEnabled);
+  const audioRuntimeState = useAppStore(s => s.audioRuntimeState);
+  const hapticsRuntimeState = useAppStore(s => s.hapticsRuntimeState);
+  const meditationSessions = useAppStore(s => s.meditationSessions);
+  const breathworkSessions = useAppStore(s => s.breathworkSessions);
+  const { currentTheme, isLight, themeName, themeMode } = useTheme();
   const { entries } = useJournalStore();
   const { pastSessions } = useOracleStore();
-  const { isPremium } = usePremiumStore();
+  const { isPremium, subscriptionPlan } = usePremiumStore();
   const { selectedDeckId, setSelectedDeck } = useTarotStore();
-  const currentTheme = useMemo(() => getResolvedTheme(themeName), [themeName]);
-  const isLight = currentTheme.background.startsWith('#F');
   const accent = currentTheme.primary;
   const rowTextColor = isLight ? '#1A1410' : '#F0EBE2';
-  const rowSubColor = isLight ? '#8A7060' : '#A09080';
-  const aiAvailable = AiService.isLaunchAvailable();
-  const aiState = AiService.getLaunchAvailabilityState();
+  const rowSubColor = isLight ? '#5A4A3A' : '#A09080';
   const audioDiagnostic = AudioService.getDiagnosticSnapshot();
-  const aiDiagnostic = AiService.getProviderDiagnostic();
   const activeMusicLabel = MUSIC_CATEGORY_OPTIONS.find((opt) => opt.id === audioDiagnostic.activeMusicCategory)?.label || 'Brak aktywnej ścieżki';
   const activeAmbientLabel = SOUNDSCAPE_OPTIONS.find((opt) => opt.id === audioDiagnostic.activeAmbientSoundscape)?.label || 'Brak aktywnego krajobrazu';
 
@@ -289,8 +480,8 @@ export const ProfileScreen = ({ navigation, route }: any) => {
   const handlePickAvatar = useCallback(async () => {
     setAvatarBusy(true);
     try {
-    const result = await AvatarService.pickAvatarFromLibrary();
-    if (result.kind === 'success' && result.uri) { setUserData({ avatarUri: result.uri }); setShowAvatarModal(false); }
+      const result = await AvatarService.pickAvatarFromLibrary();
+      if (result.kind === 'success' && result.uri) { setUserData({ avatarUri: result.uri }); setShowAvatarModal(false); }
     } catch {}
     setAvatarBusy(false);
   }, [setUserData]);
@@ -300,723 +491,596 @@ export const ProfileScreen = ({ navigation, route }: any) => {
     setShowAvatarModal(false);
   }, [setUserData]);
 
+  // Particle data (stable across renders)
+  const particles = useMemo(() => Array.from({ length: PARTICLE_COUNT }, (_, i) => i), []);
+
   return (
-    <View style={[sStyles.container, { backgroundColor: isLight ? '#F7F1E8' : '#06070C' }]}>
+    <View style={[pStyles.container, { backgroundColor: isLight ? '#F5EFE6' : '#07080E' }]}>
       <CelestialBackdrop intensity="soft" />
-      <SafeAreaView edges={['top']} style={sStyles.safeArea}>
-        {/* ══ SCREEN HEADER ══ */}
-        <Animated.View entering={FadeInDown.duration(300)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 6, paddingBottom: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: isLight ? 'rgba(169,122,57,0.14)' : 'rgba(206,174,114,0.12)' }}>
-          <View>
-            <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2.5, color: accent }}>✦ AETHERA</Text>
-            <Text style={{ fontSize: 22, fontWeight: '700', letterSpacing: -0.4, color: isLight ? '#1A1410' : '#F0EBE2', marginTop: 2 }}>{tr('profile.title', 'Profil i Ustawienia', 'Profile & Settings')}</Text>
-          </View>
-          <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
-            <Pressable
-              onPress={() => navigation.navigate('Achievements')}
-              style={{ width: 38, height: 38, borderRadius: 19, backgroundColor: accent + '18', borderWidth: 1, borderColor: accent + '33', alignItems: 'center', justifyContent: 'center' }}
-            >
-              <Crown color={accent} size={17} strokeWidth={1.8} />
-            </Pressable>
-            <Pressable
-              onPress={() => navigation.navigate('NotificationsDetail')}
-              style={{ width: 38, height: 38, borderRadius: 19, backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)', borderWidth: 1, borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)', alignItems: 'center', justifyContent: 'center' }}
-            >
-              <Settings2 color={rowSubColor} size={17} strokeWidth={1.8} />
-            </Pressable>
-          </View>
-        </Animated.View>
+
+      {/* ── FLOATING PARTICLES ── */}
+      <View style={pStyles.particlesLayer} pointerEvents="none">
+        {particles.map((i) => (
+          <FloatingParticle key={i} index={i} accent={accent} />
+        ))}
+      </View>
+
+      <SafeAreaView edges={['top']} style={pStyles.safeArea}>
 
         <ScrollView
-          contentContainerStyle={[sStyles.scroll, { paddingBottom: screenContracts.bottomInset(insets.bottom, 'airy') }]}
+          style={{ flex: 1 }}
+          contentContainerStyle={{ paddingBottom: screenContracts.bottomInset(insets.bottom, 'airy') }}
           showsVerticalScrollIndicator={false}
         >
 
-          {/* ══ HERO — profil uzytkownika ══ */}
-          <Animated.View entering={FadeInDown.duration(600)}>
-            <View style={sStyles.heroWrap}>
-              <LinearGradient
-                colors={isLight ? ['#FBF6EE', '#F5ECD8'] : ['#0E1521', '#141A26']}
-                style={sStyles.heroBg}
-              />
-              <View style={{ height: 3, backgroundColor: accent, borderRadius: 2, marginBottom: 12 }} />
+        {/* ══ HERO HEADER ══ */}
+        <View>
+          <Animated.View entering={FadeIn.duration(600)}>
+            <LinearGradient
+              colors={isLight
+                ? ['#FBF5E8', '#F5E8D0', '#EEE0C4', '#F5E8D0']
+                : ['#0A0B14', '#0E1020', '#121628', '#0E1020']
+              }
+              style={{ paddingBottom: 0 }}
+            >
+              {/* Decorative radial glow behind avatar */}
+              <View style={{
+                position: 'absolute', top: 0, left: 0, right: 0, height: 340,
+                alignItems: 'center', justifyContent: 'flex-start', overflow: 'hidden',
+              }} pointerEvents="none">
+                <View style={{
+                  width: 280, height: 280, borderRadius: 140, marginTop: -40,
+                  backgroundColor: accent + (isLight ? '22' : '18'),
+                  shadowColor: accent, shadowOpacity: isLight ? 0.22 : 0.35,
+                  shadowRadius: 60, elevation: 0,
+                }} />
+              </View>
 
-              {/* Avatar */}
-              <Pressable onPress={() => setShowAvatarModal(true)} style={sStyles.avatarWrap}>
-                <ProfileAvatar
-                  uri={userData.avatarUri}
-                  name={firstName}
-                  fallbackText={firstName.charAt(0).toUpperCase()}
-                  size={96}
-                  primary={accent}
-                  borderColor={accent + '55'}
-                  backgroundColor={isLight ? '#FFF8EE' : '#1A2236'}
-                  textColor={accent}
-                />
-                <View style={[sStyles.avatarEditBadge, { backgroundColor: accent, borderColor: isLight ? '#F7F1E8' : '#06070C' }]}>
-                  <Feather color="#FFF" size={11} strokeWidth={2.5} />
+              {/* Title bar */}
+              <View style={{ paddingHorizontal: layout.padding.screen, paddingTop: 6, paddingBottom: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Animated.View entering={FadeInDown.delay(50).duration(400)}>
+                  <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 3.2, color: accent + 'CC', marginBottom: 2 }}>✦ AETHERA</Text>
+                  <Text style={{ fontSize: 22, fontWeight: '800', letterSpacing: -0.6, color: isLight ? '#1A1410' : '#F0EBE2' }}>
+                    {tr('profile.title', 'Profil i Ustawienia', 'Profile & Settings')}
+                  </Text>
+                </Animated.View>
+                <Animated.View entering={FadeInDown.delay(100).duration(400)} style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
+                  <Pressable
+                    onPress={() => { HapticsService.impact('light'); navigation.navigate('Paywall'); }}
+                  >
+                    {isPremium
+                      ? <ShimmerBadge label={subscriptionPlan === 'lifetime' ? 'Lifetime' : 'Premium'} accent={accent} />
+                      : (
+                        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20, backgroundColor: 'rgba(206,174,114,0.12)', borderWidth: 1, borderColor: 'rgba(206,174,114,0.38)' }}>
+                          <Crown color="#CEAE72" size={13} strokeWidth={1.8} />
+                          <Text style={{ fontSize: 11, fontWeight: '700', color: '#CEAE72', letterSpacing: 0.3 }}>Premium</Text>
+                        </View>
+                      )
+                    }
+                  </Pressable>
+                  <Pressable
+                    onPress={() => navigation.navigate('NotificationsDetail')}
+                    style={[pStyles.iconBtn, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)', borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.10)' }]}
+                  >
+                    <Settings2 color={rowSubColor} size={17} strokeWidth={1.8} />
+                  </Pressable>
+                </Animated.View>
+              </View>
+
+              {/* ── AVATAR + INFO ── */}
+              <Animated.View entering={FadeInDown.delay(120).duration(600)} style={{ alignItems: 'center', paddingTop: 8, paddingBottom: 6 }}>
+                <View style={{ alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
+                  {/* Dual ring glow */}
+                  <View style={{ width: 136, height: 136, alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{ position: 'absolute', width: 136, height: 136, borderRadius: 68, backgroundColor: 'transparent', borderWidth: 1.5, borderColor: accent + '30' }} />
+                    <View style={{ position: 'absolute', width: 148, height: 148, borderRadius: 74, backgroundColor: 'transparent', borderWidth: 1, borderColor: accent + '18' }} />
+                    <View style={{ position: 'absolute', width: 132, height: 132, borderRadius: 66, backgroundColor: accent + '14', shadowColor: accent, shadowOpacity: 0.60, shadowRadius: 26, elevation: 20 }} />
+                    <AvatarPulseRing accent={accent} />
+                    <Pressable onPress={() => setShowAvatarModal(true)} style={{ position: 'relative' }}>
+                      <ProfileAvatar
+                        uri={userData.avatarUri}
+                        name={firstName}
+                        fallbackText={firstName.charAt(0).toUpperCase()}
+                        size={114}
+                        primary={accent}
+                        borderColor={accent + '90'}
+                        backgroundColor={isLight ? '#FFF8EE' : '#151B2C'}
+                        textColor={accent}
+                      />
+                      <View style={{
+                        position: 'absolute', bottom: 3, right: 3,
+                        width: 30, height: 30, borderRadius: 15,
+                        backgroundColor: accent,
+                        borderColor: isLight ? '#F5EFE6' : '#0A0B14', borderWidth: 2.5,
+                        alignItems: 'center', justifyContent: 'center',
+                        shadowColor: accent, shadowOpacity: 0.65, shadowRadius: 10, elevation: 8,
+                      }}>
+                        <Feather color="#FFF" size={11} strokeWidth={2.5} />
+                      </View>
+                    </Pressable>
+                  </View>
                 </View>
-              </Pressable>
 
-              <View style={sStyles.heroInfo}>
-                <Text style={[sStyles.heroName, { color: isLight ? '#1A1410' : '#F5F1EA' }]}>{firstName}</Text>
-                {userData.birthDate ? (
-                  <View style={[sStyles.heroBadge, { backgroundColor: accent + '14', borderColor: accent + '33' }]}>
-                    <Text style={[sStyles.heroSign, { color: accent }]}>
-                      {ZODIAC_SYMBOLS[sign! as keyof typeof ZODIAC_SYMBOLS] || ''} {ZODIAC_LABELS[sign!] || sign}
-                    </Text>
-                    {archetype ? (
-                      <Text style={sStyles.heroArchetype}>· {resolveUserFacingText(archetype.title)}</Text>
-                    ) : null}
-                  </View>
-                ) : null}
-                <Text style={[sStyles.heroSub, { color: isLight ? '#8A7060' : '#9A8E80' }]}>
-                  {userData.birthPlace || 'Dodaj miejsce urodzenia'}
+                {/* Name + streak inline */}
+                <Text style={{ fontSize: 30, fontWeight: '800', letterSpacing: -0.8, color: isLight ? '#1A1410' : '#F5F1EA', marginBottom: 4 }}>
+                  {firstName}
                 </Text>
-              </View>
-
-              {/* Stats strip */}
-              <View style={[sStyles.statsStrip, { borderTopColor: isLight ? 'rgba(169,122,57,0.12)' : 'rgba(255,255,255,0.12)' }]}>
-                {[
-                  { val: String(streaks.current), label: t('common.streak'), icon: Flame },
-                  { val: String(entries.length), label: 'Ślady', icon: Book },
-                  { val: String(pastSessions.length), label: 'Podróże', icon: MessageCircle },
-                  { val: String(practiceCount), label: t('profile.practiceCount'), icon: Waves },
-                ].map((s, i) => {
-                  const Icon = s.icon;
-                  return (
-                    <View key={s.label} style={[sStyles.statItem, { backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.06)', borderRadius: 12, paddingVertical: 8 }, i < 3 && { borderRightWidth: 1, borderRightColor: isLight ? 'rgba(169,122,57,0.12)' : 'rgba(255,255,255,0.12)' }]}>
-                      <View style={[{ marginBottom: 6, width: 32, height: 32, borderRadius: 10, alignItems: 'center', justifyContent: 'center', backgroundColor: accent + '18' }]}><Icon color={accent} size={16} strokeWidth={1.8} /></View>
-                      <Text style={[sStyles.statVal, { color: accent }]}>{s.val}</Text>
-                      <Text style={sStyles.statLabel}>{s.label}</Text>
+                {streaks.current > 0 && (
+                  <Animated.View entering={ZoomIn.delay(350).duration(400)} style={{ marginBottom: 10 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 14, paddingVertical: 6, borderRadius: 20, backgroundColor: isLight ? 'rgba(251,146,60,0.12)' : 'rgba(251,146,60,0.15)', borderWidth: 1, borderColor: 'rgba(251,146,60,0.38)' }}>
+                      <Flame size={13} color="#FB923C" strokeWidth={2.2} />
+                      <Text style={{ fontSize: 12, fontWeight: '800', color: '#FB923C', letterSpacing: 0.4 }}>
+                        {streaks.current} dni passy
+                      </Text>
                     </View>
-                  );
-                })}
-              </View>
-            </View>
-          </Animated.View>
+                  </Animated.View>
+                )}
 
-          {/* ══ QUICK ACCESS TILES ══ */}
-          <Animated.View entering={FadeInDown.delay(30).duration(480)} style={{ marginTop: 16, marginBottom: 4 }}>
-            <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.8, color: rowSubColor, paddingHorizontal: layout.padding.screen, marginBottom: 12 }}>SZYBKI DOSTĘP</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: layout.padding.screen, gap: 10, paddingRight: layout.padding.screen + 4 }}>
-              {([
-                { emoji: '🎨', label: t('profile.theme'),    color: accent,      onPress: () => setShowThemeModal(true) },
-                { emoji: '🌐', label: t('profile.language'),    color: '#60A5FA',   onPress: () => setShowLanguageModal(true) },
-                { emoji: '🃏', label: 'Talia',    color: '#F472B6',   onPress: () => setShowTarotDeckModal(true) },
-                { emoji: '🖼', label: 'Tło',      color: '#A78BFA',   onPress: () => setShowBgModal(true) },
-                { emoji: '✨', label: 'Animacje', color: '#34D399',   onPress: () => setShowMotionModal(true) },
-                { emoji: '🧭', label: 'Prowadzenie', color: '#FB923C', onPress: () => setShowGuidanceModal(true) },
-                { emoji: '📊', label: 'Raport',   color: '#60A5FA',   onPress: () => navigation.navigate('Reports') },
-                { emoji: '🏆', label: 'Osiąg.',   color: '#FBBF24',   onPress: () => navigation.navigate('Achievements') },
-              ]).map((item) => (
-                <Pressable
-                  key={item.label}
-                  onPress={() => { void HapticsService.selection(); item.onPress(); }}
-                  style={({ pressed }) => ({
-                    width: 76, alignItems: 'center', padding: 12,
-                    borderRadius: 18, borderWidth: 1,
-                    borderColor: item.color + '33', backgroundColor: isLight ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.05)',
-                    opacity: pressed ? 0.8 : 1,
-                    gap: 8,
-                  })}
-                >
-                  <View style={{ width: 40, height: 40, borderRadius: 14, backgroundColor: item.color + '18', alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{ fontSize: 20 }}>{item.emoji}</Text>
-                  </View>
-                  <Text style={{ fontSize: 10, fontWeight: '700', color: item.color, letterSpacing: 0.3, textAlign: 'center' }}>{item.label}</Text>
-                </Pressable>
-              ))}
-            </ScrollView>
-          </Animated.View>
+                {/* Zodiac + archetype + premium pills */}
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap', justifyContent: 'center', paddingHorizontal: 20, marginBottom: 6 }}>
+                  {userData.birthDate && sign && (
+                    <LinearGradient
+                      colors={[accent + '30', accent + '14']}
+                      style={{ flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 14, paddingVertical: 7, borderRadius: 20, borderWidth: 1, borderColor: accent + '50' }}
+                    >
+                      <Text style={{ fontSize: 14 }}>{ZODIAC_SYMBOLS[sign] || '✦'}</Text>
+                      <Text style={{ fontSize: 13, fontWeight: '700', color: accent }}>
+                        {ZODIAC_LABELS[sign] || sign}
+                      </Text>
+                    </LinearGradient>
+                  )}
+                  {archetype && (
+                    <View style={{ paddingHorizontal: 13, paddingVertical: 7, borderRadius: 20, backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.09)', borderWidth: 1, borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.14)' }}>
+                      <Text style={{ fontSize: 12, fontWeight: '700', color: rowSubColor }}>
+                        {resolveUserFacingText(archetype.title)}
+                      </Text>
+                    </View>
+                  )}
+                  {isPremium && (
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, paddingHorizontal: 11, paddingVertical: 6, borderRadius: 20, backgroundColor: 'rgba(206,174,114,0.15)', borderWidth: 1, borderColor: 'rgba(206,174,114,0.36)' }}>
+                      <Crown size={11} color="#CEAE72" strokeWidth={2.2} />
+                      <Text style={{ fontSize: 11, fontWeight: '800', color: '#CEAE72', letterSpacing: 0.4 }}>
+                        {subscriptionPlan === 'lifetime' ? 'Lifetime' : subscriptionPlan === 'yearly' ? 'Mistrz' : 'Dusza'}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+              </Animated.View>
 
-          {/* ══ ROK OSOBISTY ══ */}
-          <Animated.View entering={FadeInDown.delay(40).duration(500)}>
-            <SectionHeader icon={Calendar} label="Mój rok osobisty" color={accent} />
-            <SectionCard isLight={isLight}>
-              <EntryRow icon={Star} label="Rok osobisty" value={personalYear ? `Cykl ${personalYear} · ${personalYear === 1 ? 'Nowe początki' : personalYear === 2 ? 'Partnerstwo' : personalYear === 3 ? 'Ekspresja' : personalYear === 4 ? 'Praca' : personalYear === 5 ? 'Zmiana' : personalYear === 6 ? 'Miłość' : personalYear === 7 ? 'Duchowość' : personalYear === 8 ? 'Moc' : 'Spełnienie'}` : 'Uzupełnij datę'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-              <EntryRow icon={Compass} label="Miesięczna wibracja" value={monthlyVibration ? `Cykl ${monthlyVibration} · aktywna` : 'Brak daty'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-              <EntryRow icon={Sun} label="Dzień osobisty" value={personalDay ? `Cykl ${personalDay} · dziś` : '—'} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
-            </SectionCard>
-          </Animated.View>
-
-          {/* ══ 1. OSOBISTE SANKTUARIUM ══ */}
-          <Animated.View entering={FadeInDown.delay(80).duration(500)}>
-            <SectionHeader icon={User} label="Osobiste sanktuarium" color={accent} />
-            <SectionCard isLight={isLight}>
-              <EntryRow icon={User} label="Imie i profil" value={firstName} onPress={() => navigation.navigate('IdentitySetup')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-              <EntryRow icon={Star} label="Znak zodiaku" value={sign ? (ZODIAC_LABELS[sign] || sign) : 'Uzupełnij datę urodzenia'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-              <EntryRow icon={Sparkles} label="Archetyp dnia" value={archetype ? resolveUserFacingText(archetype.title) : 'Obliczany...'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-              <EntryRow icon={Flame} label="Talia tarota" value={selectedDeck?.name || 'Klasyczna'} onPress={() => setShowTarotDeckModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
-            </SectionCard>
-          </Animated.View>
-
-          {/* ══ 2. WYGLAD I ATMOSFERA ══ */}
-          <Animated.View entering={FadeInDown.delay(140).duration(500)}>
-            <SectionHeader icon={Palette} label="Wygląd i atmosfera" color={accent} />
-            {/* Display mode tile */}
-            <SectionCard isLight={isLight} style={{ marginBottom: 10 }}>
-              <View style={{ paddingHorizontal: 16, paddingTop: 14, paddingBottom: 12 }}>
-                <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: rowSubColor, marginBottom: 10 }}>TRYB WYŚWIETLANIA</Text>
-                <View style={{ flexDirection: 'row', gap: 8 }}>
-                  {([
-                    { id: 'auto' as ThemeMode, label: 'Auto', Icon: RotateCcw },
-                    { id: 'light' as ThemeMode, label: 'Jasny', Icon: Sun },
-                    { id: 'dark' as ThemeMode, label: 'Ciemny', Icon: Moon },
-                  ]).map(({ id, label, Icon }) => {
-                    const active = themeMode === id;
+              {/* ── STATS ROW ── */}
+              <Animated.View entering={FadeInDown.delay(200).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 6, marginBottom: 22 }}>
+                {/* Divider with gradient */}
+                <LinearGradient colors={['transparent', accent + '40', 'transparent']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 1, marginBottom: 16 }} />
+                <View style={{ flexDirection: 'row', gap: 10 }}>
+                  {[
+                    { val: String(pastSessions.length), label: 'Sesje Oracle', icon: MessageCircle, color: accent, emoji: '🔮' },
+                    { val: String(entries.length), label: 'Wpisy', icon: Book, color: accent, emoji: '📖' },
+                    { val: String(practiceCount), label: 'Praktyki', icon: Waves, color: accent, emoji: '🌊' },
+                  ].map((s) => {
+                    const Icon = s.icon;
                     return (
-                      <Pressable
-                        key={id}
-                        onPress={() => { setThemeMode(id); HapticsService.selection(); }}
-                        style={{
-                          flex: 1, paddingVertical: 10, borderRadius: 14, alignItems: 'center',
-                          gap: 5, borderWidth: 1,
-                          backgroundColor: active ? accent + '1E' : 'transparent',
-                          borderColor: active ? accent + '66' : (isLight ? 'rgba(0,0,0,0.11)' : 'rgba(255,255,255,0.11)'),
-                        }}
-                      >
-                        <Icon color={active ? accent : rowSubColor} size={17} strokeWidth={active ? 2.2 : 1.6} />
-                        <Text style={{ fontSize: 11, fontWeight: active ? '700' : '500', color: active ? accent : rowSubColor }}>
-                          {label}
-                        </Text>
-                      </Pressable>
+                      <View key={s.label} style={{ flex: 1, alignItems: 'center', paddingVertical: 16, paddingHorizontal: 6, borderRadius: 20, backgroundColor: isLight ? 'rgba(255,255,255,0.80)' : 'rgba(255,255,255,0.06)', borderWidth: 1, borderColor: isLight ? 'rgba(169,122,57,0.20)' : 'rgba(255,255,255,0.10)', shadowColor: accent, shadowOpacity: isLight ? 0.12 : 0.10, shadowRadius: 10, shadowOffset: { width: 0, height: 4 }, elevation: 4 }}>
+                        <Text style={{ fontSize: 18, marginBottom: 5 }}>{s.emoji}</Text>
+                        <Text style={{ fontSize: 24, fontWeight: '800', color: accent, letterSpacing: -1 }}>{s.val}</Text>
+                        <Text style={{ fontSize: 10, color: rowSubColor, fontWeight: '700', letterSpacing: 0.3, marginTop: 3, textAlign: 'center' }}>{s.label}</Text>
+                      </View>
                     );
                   })}
                 </View>
-              </View>
-            </SectionCard>
-            {/* Inline theme grid */}
-            <View style={{ marginHorizontal: 18, marginBottom: 10 }}>
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: rowSubColor }}>MOTYW STYLU</Text>
-                {themeMode === 'auto' && (
-                  <Text style={{ fontSize: 10, color: accent, fontWeight: '600' }}>Tryb auto aktywny</Text>
-                )}
-              </View>
-              <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
-                {THEMES_LIST.map((themeId) => {
-                  const opt = THEME_OPTIONS.find(t => t.id === themeId);
-                  const resolved = getResolvedTheme(themeId);
-                  const active = themeName === themeId;
-                  const cardW = Math.floor((SW - 36 - 10) / 2);
-                  return (
-                    <Pressable
-                      key={themeId}
-                      onPress={() => { setTheme(themeId); HapticsService.selection(); }}
-                      style={{
-                        width: cardW, borderRadius: 20, overflow: 'hidden',
-                        borderWidth: active ? 2 : 1,
-                        borderColor: active ? resolved.primary : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)'),
-                        shadowColor: active ? resolved.primary : '#000',
-                        shadowOpacity: active ? 0.35 : 0.08,
-                        shadowRadius: active ? 14 : 8,
-                        shadowOffset: { width: 0, height: 4 },
-                        elevation: active ? 8 : 2,
-                      }}
-                    >
-                      {/* Gradient area */}
-                      <LinearGradient
-                        colors={resolved.gradientHero}
-                        start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-                        style={{ height: 96, padding: 12 }}
-                      >
-                        {/* Top shimmer */}
-                        <LinearGradient
-                          colors={['transparent', resolved.primary + '88', 'transparent'] as [string,string,string]}
-                          start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-                          style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1.5 }}
-                          pointerEvents="none"
-                        />
-                        {/* Active badge / primary dot */}
-                        <View style={{
-                          width: 28, height: 28, borderRadius: 14,
-                          backgroundColor: active ? resolved.primary : resolved.primary + '55',
-                          alignItems: 'center', justifyContent: 'center',
-                          shadowColor: resolved.primary, shadowOpacity: 0.6, shadowRadius: 8, elevation: 4,
-                        }}>
-                          {active
-                            ? <Check color={resolved.background} size={13} strokeWidth={3} />
-                            : <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: resolved.primary + 'BB' }} />
-                          }
-                        </View>
-                        {/* Color dots at bottom-right */}
-                        <View style={{ position: 'absolute', bottom: 10, right: 12, flexDirection: 'row', gap: 4 }}>
-                          {[resolved.primary, resolved.secondary, resolved.primaryLight || resolved.backgroundElevated].map((c, ci) => (
-                            <View key={ci} style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: c, borderWidth: 0.5, borderColor: 'rgba(0,0,0,0.20)' }} />
-                          ))}
-                        </View>
-                      </LinearGradient>
-                      {/* Label area */}
-                      <View style={{
-                        paddingHorizontal: 12, paddingVertical: 10,
-                        backgroundColor: isLight ? 'rgba(255,255,255,0.96)' : 'rgba(14,12,22,0.96)',
-                        borderTopWidth: 1,
-                        borderTopColor: active ? resolved.primary + '44' : (isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)'),
-                      }}>
-                        <Text style={{ fontSize: 12, fontWeight: '800', color: active ? resolved.primary : rowTextColor, letterSpacing: -0.1, marginBottom: 2 }} numberOfLines={1}>
-                          {opt?.label || themeId}
-                        </Text>
-                        <Text style={{ fontSize: 10, color: rowSubColor, lineHeight: 14 }} numberOfLines={1}>
-                          {opt?.sub || ''}
-                        </Text>
-                      </View>
-                    </Pressable>
-                  );
-                })}
-              </View>
+              </Animated.View>
+            </LinearGradient>
+          </Animated.View>
+        </View>
+
+          {/* ── QUICK ACCESS TILES ── */}
+          <Animated.View entering={FadeInDown.delay(60).duration(500)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 20, marginBottom: 6 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2.2, color: rowSubColor }}>SZYBKI DOSTĘP</Text>
+              <View style={{ width: 32, height: 1, backgroundColor: accent + '40' }} />
             </View>
-            {/* Background style */}
-            <SectionCard isLight={isLight}>
-              <EntryRow
-                icon={Eye}
-                label="Tło sanktuarium"
-                value={BACKGROUND_OPTIONS.find(b => b.id === experience.backgroundStyle)?.label || 'Subtelne niebo'}
-                onPress={() => setShowBgModal(true)}
-                accent={accent}
-                last
-                textColor={rowTextColor}
-                subColor={rowSubColor}
-              />
-            </SectionCard>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
+              {([
+                { emoji: '🎨', label: 'Motyw',       color: accent,      onPress: () => setShowThemeModal(true) },
+                { emoji: '🌐', label: 'Język',        color: '#60A5FA',   onPress: () => setShowLanguageModal(true) },
+                { emoji: '🃏', label: 'Talia',        color: '#F472B6',   onPress: () => setShowTarotDeckModal(true) },
+                { emoji: '🖼',  label: 'Tło',          color: '#A78BFA',   onPress: () => setShowBgModal(true) },
+                { emoji: '✨', label: 'Animacje',     color: '#34D399',   onPress: () => setShowMotionModal(true) },
+                { emoji: '🧭', label: 'Prowadzenie',  color: '#FB923C',   onPress: () => setShowGuidanceModal(true) },
+                { emoji: '📊', label: 'Raport',       color: '#60A5FA',   onPress: () => navigation.navigate('Reports') },
+                { emoji: '🏆', label: 'Osiągnięcia',  color: '#FBBF24',   onPress: () => navigation.navigate('Achievements') },
+              ]).map((item) => {
+                const tileW = Math.floor((SW - layout.padding.screen * 2 - 30) / 4);
+                return (
+                  <Pressable
+                    key={item.label}
+                    onPress={() => { void HapticsService.selection(); item.onPress(); }}
+                    style={({ pressed }) => ({
+                      width: tileW, alignItems: 'center', paddingVertical: 15, paddingHorizontal: 4,
+                      borderRadius: 22, borderWidth: 1,
+                      borderColor: isLight ? item.color + '28' : item.color + '30',
+                      backgroundColor: isLight ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.055)',
+                      opacity: pressed ? 0.75 : 1,
+                      gap: 8,
+                      shadowColor: item.color,
+                      shadowOpacity: pressed ? 0.04 : isLight ? 0.14 : 0.12,
+                      shadowRadius: 10, shadowOffset: { width: 0, height: 4 },
+                      elevation: 4,
+                    })}
+                  >
+                    <LinearGradient
+                      colors={[item.color + '28', item.color + '10']}
+                      style={{ width: 44, height: 44, borderRadius: 16, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: item.color + '22' }}
+                    >
+                      <Text style={{ fontSize: 22 }}>{item.emoji}</Text>
+                    </LinearGradient>
+                    <Text style={{ fontSize: 9, fontWeight: '800', color: isLight ? '#3A2A1A' : item.color + 'EE', letterSpacing: 0.2, textAlign: 'center' }}>{item.label}</Text>
+                  </Pressable>
+                );
+              })}
+            </View>
           </Animated.View>
 
-          {/* ══ 3. DZWIEK I HAPTYKA ══ */}
-          <Animated.View entering={FadeInDown.delay(200).duration(500)}>
-            <SectionHeader icon={Music} label="Dźwięk i haptyka" color={accent} />
-            {/* Runtime status */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8, marginTop: -4, paddingHorizontal: 22 }}>
-              <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: audioRuntimeState === 'ready' ? '#34D399' : audioRuntimeState === 'failed' ? '#F87171' : '#FBBF24' }} />
-              <Text style={{ fontSize: 11, color: audioRuntimeState === 'ready' ? '#34D399' : audioRuntimeState === 'failed' ? '#F87171' : '#FBBF24', fontWeight: '600', letterSpacing: 0.5 }}>
-                {audioRuntimeState === 'ready' ? 'AUDIO AKTYWNE' : audioRuntimeState === 'failed' ? 'AUDIO BŁĄD' : audioRuntimeState === 'initializing' ? 'ŁADOWANIE...' : 'AUDIO NIEAKTYWNE'}
-              </Text>
-            </View>
-                        <View style={{ marginHorizontal: 18, marginBottom: 10, borderRadius: 20, borderWidth: 1, borderColor: accent + '28', backgroundColor: isLight ? accent + '0D' : accent + '12', padding: 16, overflow: 'hidden' }}>
-              <LinearGradient colors={[accent + '18', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
-              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.8, color: accent, marginBottom: 8 }}>STUDIO DOŚWIADCZENIA</Text>
-              <Text style={{ fontSize: 15, lineHeight: 23, color: rowTextColor, fontWeight: '600' }}>Tu ustawiasz nie tylko głośność. Budujesz atmosferę całej aplikacji: muzykę, pejzaż tła, sygnały dotyku i poziom ceremonialności kontaktu.</Text>
-              <View style={{ flexDirection: 'row', gap: 8, marginTop: 14, flexWrap: 'wrap' }}>
-                {['muzyka', 'ambient', 'dotyk i sygnały'].map((chip) => (
-                  <View key={chip} style={{ paddingHorizontal: 12, paddingVertical: 7, borderRadius: 999, borderWidth: 1, borderColor: accent + '30', backgroundColor: accent + '10' }}>
-                    <Text style={{ fontSize: 11, fontWeight: '700', color: accent, letterSpacing: 0.5 }}>{chip}</Text>
+          {/* ── MEMBERSHIP CARD ── always navigates to Paywall */}
+          <Animated.View entering={FadeInDown.delay(80).duration(500)} style={{ paddingHorizontal: 18, marginBottom: 6, marginTop: 10 }}>
+            <Pressable
+              onPress={() => { HapticsService.impact('light'); navigation.navigate('Paywall'); }}
+              style={({ pressed }) => ({
+                borderRadius: 24, overflow: 'hidden',
+                borderWidth: 1.5, borderColor: isPremium ? 'rgba(206,174,114,0.45)' : 'rgba(206,174,114,0.40)',
+                shadowColor: '#CEAE72',
+                shadowOpacity: pressed ? 0.08 : (isLight ? 0.18 : 0.38),
+                shadowRadius: 22, shadowOffset: { width: 0, height: 8 }, elevation: 14,
+                opacity: pressed ? 0.94 : 1,
+              })}
+            >
+              {isPremium ? (
+                <LinearGradient
+                  colors={isLight ? ['rgba(253,244,224,0.98)', 'rgba(243,222,172,0.80)', 'rgba(251,240,218,0.95)'] : ['#1F1208', '#341B09', '#1F1208']}
+                  style={{ padding: 22 }}
+                >
+                  {/* Top shimmer line */}
+                  <LinearGradient colors={['transparent', '#CEAE72', '#E8C87A', 'transparent']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 1.5, marginBottom: 20 }} />
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14, marginBottom: 18 }}>
+                    <View style={{ width: 58, height: 58, borderRadius: 29, backgroundColor: 'rgba(206,174,114,0.22)', borderWidth: 2, borderColor: 'rgba(206,174,114,0.55)', alignItems: 'center', justifyContent: 'center', shadowColor: '#CEAE72', shadowOpacity: 0.55, shadowRadius: 16, elevation: 10 }}>
+                      <Crown size={28} color="#CEAE72" strokeWidth={1.4} />
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Text style={{ fontSize: 19, fontWeight: '800', color: isLight ? '#3A2610' : '#F5EDD8', letterSpacing: 0.3 }}>
+                        {subscriptionPlan === 'lifetime' ? '👑 Mistrz Lifetime' : subscriptionPlan === 'yearly' ? '⭐ Plan Mistrz' : '✨ Plan Dusza'}
+                      </Text>
+                      <Text style={{ fontSize: 12, color: isLight ? '#7A5222' : 'rgba(206,174,114,0.72)', marginTop: 3 }}>Aktywne członkostwo Premium</Text>
+                    </View>
+                    <View style={{ paddingHorizontal: 10, paddingVertical: 5, backgroundColor: 'rgba(206,174,114,0.15)', borderRadius: 20, borderWidth: 1, borderColor: 'rgba(206,174,114,0.35)' }}>
+                      <ChevronRight size={14} color="#CEAE72" strokeWidth={2.5} />
+                    </View>
                   </View>
-                ))}
-              </View>
-              <View style={{ marginTop: 16, gap: 10 }}>
-                <View style={{ borderRadius: 18, borderWidth: 1, borderColor: accent + '24', backgroundColor: isLight ? 'rgba(255,255,255,0.72)' : 'rgba(255,255,255,0.04)', padding: 14 }}>
+                  <View style={{ flexDirection: 'row', gap: 10, marginBottom: 16 }}>
+                    {[{ label: 'Oracle', val: '∞', emoji: '🔮' }, { label: 'Tarot', val: '∞', emoji: '🃏' }, { label: 'Rytuały', val: 'AI', emoji: '✨' }].map((s) => (
+                      <View key={s.label} style={{ flex: 1, alignItems: 'center', paddingVertical: 12, backgroundColor: isLight ? 'rgba(206,174,114,0.12)' : 'rgba(206,174,114,0.09)', borderRadius: 16, borderWidth: 1, borderColor: 'rgba(206,174,114,0.28)' }}>
+                        <Text style={{ fontSize: 14, marginBottom: 3 }}>{s.emoji}</Text>
+                        <Text style={{ fontSize: 20, fontWeight: '800', color: '#CEAE72', letterSpacing: -0.5 }}>{s.val}</Text>
+                        <Text style={{ fontSize: 10, color: isLight ? '#7A5222' : 'rgba(206,174,114,0.68)', marginTop: 2, fontWeight: '600' }}>{s.label}</Text>
+                      </View>
+                    ))}
+                  </View>
+                  <LinearGradient colors={['rgba(206,174,114,0.08)', 'rgba(206,174,114,0.15)']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ borderRadius: 14, paddingVertical: 11, paddingHorizontal: 18, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: 'rgba(206,174,114,0.22)' }}>
+                    <Text style={{ fontSize: 12, fontWeight: '700', color: isLight ? '#7A5222' : 'rgba(206,174,114,0.80)', letterSpacing: 0.3 }}>Zarządzaj pakietem · uaktualnij plan</Text>
+                    <ChevronRight size={14} color="#CEAE72" strokeWidth={2.2} />
+                  </LinearGradient>
+                </LinearGradient>
+              ) : (
+                <LinearGradient
+                  colors={isLight ? ['rgba(253,244,222,0.97)', 'rgba(243,225,175,0.78)', 'rgba(250,238,210,0.96)'] : ['#1C0F04', '#321807', '#1C0F04']}
+                  style={{ padding: 22 }}
+                >
+                  <LinearGradient colors={['transparent', '#CEAE72', 'transparent']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 1, marginBottom: 20 }} />
+                  {/* ODBLOKUJ badge */}
+                  <View style={{ position: 'absolute', top: 18, right: 18, backgroundColor: isLight ? 'rgba(206,174,114,0.25)' : 'rgba(206,174,114,0.20)', borderWidth: 1, borderColor: 'rgba(206,174,114,0.50)', borderRadius: 20, paddingHorizontal: 12, paddingVertical: 5 }}>
+                    <Text style={{ fontSize: 10, fontWeight: '800', color: '#CEAE72', letterSpacing: 1 }}>✦ ODBLOKUJ</Text>
+                  </View>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14, marginBottom: 18 }}>
+                    <View style={{ width: 58, height: 58, borderRadius: 29, backgroundColor: 'rgba(206,174,114,0.18)', borderWidth: 2, borderColor: 'rgba(206,174,114,0.45)', alignItems: 'center', justifyContent: 'center', shadowColor: '#CEAE72', shadowOpacity: 0.40, shadowRadius: 14, elevation: 8 }}>
+                      <Crown size={28} color="#CEAE72" strokeWidth={1.4} />
+                    </View>
+                    <View style={{ flex: 1, paddingRight: 64 }}>
+                      <Text style={{ fontSize: 18, fontWeight: '800', color: isLight ? '#3A2610' : '#F5EDD8', letterSpacing: 0.3 }}>Aethera Premium</Text>
+                      <Text style={{ fontSize: 12, color: isLight ? '#7A5222' : 'rgba(206,174,114,0.68)', marginTop: 3, lineHeight: 17 }}>
+                        Pełne sanktuarium duszy — bez limitów
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 20 }}>
+                    {['🔮 ∞ Oracle', '🌙 Analiza snów', '✨ Rytuały AI', '🎵 Sound Bath', '🌌 Matryca AI', '🃏 Tarot'].map((f) => (
+                      <View key={f} style={{ paddingHorizontal: 11, paddingVertical: 6, borderRadius: 20, backgroundColor: isLight ? 'rgba(206,174,114,0.14)' : 'rgba(206,174,114,0.10)', borderWidth: 1, borderColor: 'rgba(206,174,114,0.28)' }}>
+                        <Text style={{ fontSize: 11, fontWeight: '700', color: isLight ? '#7A5520' : 'rgba(206,174,114,0.88)' }}>{f}</Text>
+                      </View>
+                    ))}
+                  </View>
+                  <LinearGradient colors={['#8A6818', '#CEAE72', '#E8C87A', '#CEAE72']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ borderRadius: 16, paddingVertical: 15, alignItems: 'center', shadowColor: '#CEAE72', shadowOpacity: 0.50, shadowRadius: 12, elevation: 8 }}>
+                    <Text style={{ fontSize: 14, fontWeight: '800', color: '#1A0E04', letterSpacing: 0.5 }}>✦ Odkryj plany Premium</Text>
+                  </LinearGradient>
+                </LinearGradient>
+              )}
+            </Pressable>
+          </Animated.View>
+
+          {/* ── ROK OSOBISTY ── */}
+          <SectionHeader icon={Calendar} label="Mój rok osobisty" color={accent} delay={100} />
+          <PremiumCard accent={accent} isLight={isLight} delay={110}>
+            <EntryRow icon={Star} label="Rok osobisty" value={personalYear ? `Cykl ${personalYear} · ${personalYear === 1 ? 'Nowe początki' : personalYear === 2 ? 'Partnerstwo' : personalYear === 3 ? 'Ekspresja' : personalYear === 4 ? 'Praca' : personalYear === 5 ? 'Zmiana' : personalYear === 6 ? 'Miłość' : personalYear === 7 ? 'Duchowość' : personalYear === 8 ? 'Moc' : 'Spełnienie'}` : 'Uzupełnij datę'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Compass} label="Miesięczna wibracja" value={monthlyVibration ? `Cykl ${monthlyVibration} · aktywna` : 'Brak daty'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Sun} label="Dzień osobisty" value={personalDay ? `Cykl ${personalDay} · dziś` : '—'} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
+          </PremiumCard>
+
+          {/* ── 1. TOŻSAMOŚĆ ── */}
+          <SectionHeader icon={User} label="Tożsamość" color={accent} delay={140} />
+          <PremiumCard accent={accent} isLight={isLight} delay={150}>
+            <EntryRow icon={User} label="Imię i profil" value={firstName} onPress={() => navigation.navigate('IdentitySetup')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Star} label="Znak zodiaku" value={sign ? (ZODIAC_LABELS[sign] || sign) : 'Uzupełnij datę urodzenia'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Sparkles} label="Archetyp dnia" value={archetype ? resolveUserFacingText(archetype.title) : 'Obliczany...'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Flame} label="Talia tarota" value={selectedDeck?.name || 'Klasyczna'} onPress={() => setShowTarotDeckModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
+          </PremiumCard>
+
+          {/* ── 2. DOSTROJENIE ORACLE ── */}
+          <SectionHeader icon={Sparkles} label="Dostrojenie Oracle" color={accent} delay={180} />
+          <PremiumCard accent={accent} isLight={isLight} delay={190}>
+            <EntryRow icon={Globe} label={tr('profile.languageLabel', 'Język', 'Language')} value={LANGUAGE_OPTIONS.find(o => o.id === language)?.native || 'Polski'} onPress={() => setShowLanguageModal(true)} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Sparkles} label="Nurt guidance" value={GUIDANCE_OPTIONS.find(o => o.id === userData.primaryGuidanceMode)?.label || 'Mieszane'} onPress={() => setShowGuidanceModal(true)} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Flame} label="Talia tarota" value={selectedDeck?.name || 'Klasyczna'} onPress={() => setShowTarotDeckModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
+          </PremiumCard>
+
+          {/* ── 3. DŹWIĘK & AURA ── */}
+          <SectionHeader icon={Music} label="Dźwięk i aura" color={accent} delay={220} />
+          {/* Audio runtime status */}
+          <Animated.View entering={FadeInDown.delay(225).duration(400)} style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 6, paddingHorizontal: 22 }}>
+            <View style={{ width: 7, height: 7, borderRadius: 3.5, backgroundColor: audioRuntimeState === 'ready' ? '#34D399' : audioRuntimeState === 'failed' ? '#F87171' : '#FBBF24' }} />
+            <Text style={{ fontSize: 10, color: audioRuntimeState === 'ready' ? '#34D399' : audioRuntimeState === 'failed' ? '#F87171' : '#FBBF24', fontWeight: '700', letterSpacing: 0.8 }}>
+              {audioRuntimeState === 'ready' ? 'AUDIO AKTYWNE' : audioRuntimeState === 'failed' ? 'AUDIO BŁĄD' : audioRuntimeState === 'initializing' ? 'ŁADOWANIE...' : 'AUDIO NIEAKTYWNE'}
+            </Text>
+          </Animated.View>
+
+          {/* Studio doswiadczenia */}
+          <Animated.View entering={FadeInDown.delay(230).duration(500)} style={{ marginHorizontal: 18, marginBottom: 10, borderRadius: 22, borderWidth: 1, borderColor: accent + '28', overflow: 'hidden' }}>
+            <LinearGradient colors={[accent + '18', accent + '06', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
+            <View style={{ borderLeftWidth: 3, borderLeftColor: accent + 'CC' }}>
+              <LinearGradient colors={[accent + '44', 'transparent']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 2 }} />
+              <View style={{ padding: 18 }}>
+                <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2.0, color: accent, marginBottom: 8 }}>STUDIO DOŚWIADCZENIA</Text>
+                <Text style={{ fontSize: 14, lineHeight: 22, color: rowTextColor, fontWeight: '600' }}>Tu ustawiasz nie tylko głośność. Budujesz atmosferę całej aplikacji: muzykę, pejzaż tła, sygnały dotyku i poziom ceremonialności kontaktu.</Text>
+                <View style={{ flexDirection: 'row', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
+                  {['muzyka', 'ambient', 'dotyk i sygnały'].map((chip) => (
+                    <View key={chip} style={{ paddingHorizontal: 11, paddingVertical: 6, borderRadius: 999, borderWidth: 1, borderColor: accent + '30', backgroundColor: accent + '10' }}>
+                      <Text style={{ fontSize: 11, fontWeight: '700', color: accent, letterSpacing: 0.5 }}>{chip}</Text>
+                    </View>
+                  ))}
+                </View>
+                {/* Live status */}
+                <View style={{ marginTop: 16, borderRadius: 16, borderWidth: 1, borderColor: accent + '24', backgroundColor: isLight ? 'rgba(255,255,255,0.65)' : 'rgba(255,255,255,0.04)', padding: 14 }}>
                   <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.5, color: accent, marginBottom: 10 }}>LIVE STATUS</Text>
                   <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
                     {['PRELOAD ' + (audioDiagnostic.preloadReady ? 'GOTOWY' : 'W TOKU'), 'MUZYKA ' + activeMusicLabel.toUpperCase(), 'AMBIENT ' + activeAmbientLabel.toUpperCase()].map((item) => (
-                      <View key={item} style={{ paddingHorizontal: 10, paddingVertical: 7, borderRadius: 12, borderWidth: 1, borderColor: accent + '28', backgroundColor: accent + '0E' }}>
+                      <View key={item} style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 12, borderWidth: 1, borderColor: accent + '28', backgroundColor: accent + '0E' }}>
                         <Text style={{ fontSize: 10, fontWeight: '700', color: rowTextColor, letterSpacing: 0.4 }}>{item}</Text>
                       </View>
                     ))}
                   </View>
                   <Text style={{ fontSize: 12, lineHeight: 19, color: rowSubColor, marginTop: 10 }}>{audioDiagnostic.lastAction || 'System audio czeka na pierwszą interakcję użytkownika.'}</Text>
                 </View>
-                <View style={{ borderRadius: 18, borderWidth: 1, borderColor: accent + '22', backgroundColor: isLight ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.04)', padding: 14 }}>
-                  <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.5, color: accent, marginBottom: 10 }}>STATUS AI</Text>
-                  <Text style={{ fontSize: 14, lineHeight: 22, color: rowTextColor, fontWeight: '600' }}>Provider: {aiDiagnostic.activeProvider || 'brak aktywnego providera'}</Text>
-                  <Text style={{ fontSize: 12, lineHeight: 19, color: rowSubColor, marginTop: 6 }}>Skonfigurowane klucze: {Object.entries(aiDiagnostic.hasKeys).filter(([, ok]) => ok).map(([key]) => key).join(', ') || 'brak'}.</Text>
-                  <Text style={{ fontSize: 12, lineHeight: 19, color: rowSubColor, marginTop: 4 }}>Ostatnia ścieżka rozpoznania: {(aiDiagnostic.attemptedProviders || []).join(' -> ') || 'brak prób w tej sesji'}.</Text>
-                </View>
               </View>
             </View>
-<SectionCard isLight={isLight}>
-              <ToggleRow
-                icon={Music}
-                label="Muzyka tła"
-                value={experience.backgroundMusicEnabled}
-                onToggle={() => {
-                  setExperience({ backgroundMusicEnabled: !experience.backgroundMusicEnabled });
-                }}
-                accent={accent}
-                textColor={rowTextColor}
-                subColor={rowSubColor}
-              />
-              {/* Music volume slider */}
-              <View style={{ paddingHorizontal: 18, paddingBottom: 8, opacity: experience.backgroundMusicEnabled ? 1 : 0.4 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
-                  <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.2, color: currentTheme.textSoft }}>{t('profile.music_volume')}</Text>
-                  <Text style={{ fontSize: 11, fontWeight: '600', color: accent }}>{Math.round(musicVolume * 100)}%</Text>
-                </View>
-                <Slider
-                  style={{ width: '100%', height: 36 }}
-                  minimumValue={0} maximumValue={1} step={0.01}
-                  value={musicVolume}
-                  onValueChange={handleMusicVolume}
-                  minimumTrackTintColor={accent}
-                  maximumTrackTintColor={isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.15)'}
-                  thumbTintColor={accent}
-                />
-              </View>
-              {/* Music category selector */}
-              <View style={{ marginTop: 4, marginBottom: 4, opacity: experience.backgroundMusicEnabled ? 1 : 0.45, paddingHorizontal: 18 }}>
-                <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: currentTheme.textSoft, marginBottom: 8 }}>STYL MUZYKI</Text>
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-                  {MUSIC_CATEGORY_OPTIONS.map(opt => (
-                    <Pressable
-                      key={opt.id}
-                      onPress={() => {
-                      if (experience.backgroundMusicCategory === opt.id && experience.backgroundMusicEnabled) {
-                        setExperience({ backgroundMusicEnabled: false });
-                        void AudioService.pauseBackgroundMusic();
-                      } else {
-                        setExperience({ backgroundMusicEnabled: true, backgroundMusicCategory: opt.id as any });
-                        void AudioService.playBackgroundMusic(opt.id as any);
-                      }
-                      HapticsService.selection();
-                    }}
-                      style={{
-                        flexDirection: 'row', alignItems: 'center', gap: 5,
-                        paddingHorizontal: 12, paddingVertical: 7, borderRadius: 12, borderWidth: 1,
-                        borderColor: (experience.backgroundMusicCategory === opt.id && experience.backgroundMusicEnabled) ? currentTheme.primary + '88' : currentTheme.borderLight,
-                        backgroundColor: (experience.backgroundMusicCategory === opt.id && experience.backgroundMusicEnabled) ? currentTheme.primary + '18' : 'transparent',
-                      }}>
-                      <Text style={{ fontSize: 14 }}>{opt.emoji}</Text>
-                      <Text style={{ fontSize: 12, fontWeight: '600', color: (experience.backgroundMusicCategory === opt.id && experience.backgroundMusicEnabled) ? currentTheme.primary : currentTheme.textSoft }}>{opt.label}</Text>
-                    </Pressable>
-                  ))}
-                </View>
-              </View>
-              <ToggleRow
-                icon={Waves}
-                label="Ambient rytuałów"
-                value={ambientSoundEnabled}
-                onToggle={() => { setAmbientSoundEnabled(!ambientSoundEnabled); }}
-                accent={accent}
-                textColor={rowTextColor}
-                subColor={rowSubColor}
-              />
-              {/* Ambient volume slider */}
-              <View style={{ paddingHorizontal: 18, paddingBottom: 8, opacity: ambientSoundEnabled ? 1 : 0.4 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
-                  <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.2, color: currentTheme.textSoft }}>{t('profile.ambient_volume')}</Text>
-                  <Text style={{ fontSize: 11, fontWeight: '600', color: accent }}>{Math.round(ambientVolume * 100)}%</Text>
-                </View>
-                <Slider
-                  style={{ width: '100%', height: 36 }}
-                  minimumValue={0} maximumValue={1} step={0.01}
-                  value={ambientVolume}
-                  onValueChange={handleAmbientVolume}
-                  minimumTrackTintColor={accent}
-                  maximumTrackTintColor={isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.15)'}
-                  thumbTintColor={accent}
-                />
-              </View>
-              {/* Soundscape selector */}
-              <View style={{ marginTop: 4, marginBottom: 4, opacity: ambientSoundEnabled ? 1 : 0.45, paddingHorizontal: 18 }}>
-                <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: currentTheme.textSoft, marginBottom: 8 }}>KRAJOBRAZ DŹWIĘKOWY</Text>
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
-                  {SOUNDSCAPE_OPTIONS.map(opt => (
-                    <Pressable
-                      key={opt.id}
-                      onPress={() => {
-                      if (experience.ambientSoundscape === opt.id && ambientSoundEnabled) {
-                        setAmbientSoundEnabled(false);
-                        void AudioService.pauseAmbientSound();
-                      } else {
-                        setAmbientSoundEnabled(true);
-                        setExperience({ ambientSoundscape: opt.id as any });
-                        void AudioService.playAmbientSound(opt.id as any);
-                      }
-                      HapticsService.selection();
-                    }}
-                      style={{
-                        flexDirection: 'row', alignItems: 'center', gap: 5,
-                        paddingHorizontal: 12, paddingVertical: 7, borderRadius: 12, borderWidth: 1,
-                        borderColor: (experience.ambientSoundscape === opt.id && ambientSoundEnabled) ? currentTheme.primary + '88' : currentTheme.borderLight,
-                        backgroundColor: (experience.ambientSoundscape === opt.id && ambientSoundEnabled) ? currentTheme.primary + '18' : 'transparent',
-                      }}>
-                      <Text style={{ fontSize: 14 }}>{opt.emoji}</Text>
-                      <Text style={{ fontSize: 12, fontWeight: '600', color: (experience.ambientSoundscape === opt.id && ambientSoundEnabled) ? currentTheme.primary : currentTheme.textSoft }}>{opt.label}</Text>
-                    </Pressable>
-                  ))}
-                </View>
-              </View>
-              <ToggleRow
-                icon={Sparkles}
-                label="Dźwięki dotyku"
-                value={experience.touchSoundEnabled}
-                onToggle={() => setExperience({ touchSoundEnabled: !experience.touchSoundEnabled })}
-                accent={accent}
-                textColor={rowTextColor}
-                subColor={rowSubColor}
-              />
-              <ToggleRow
-                icon={RotateCcw}
-                label="Sygnał domknięcia rytuału"
-                value={experience.ritualCompletionSoundEnabled}
-                onToggle={() => setExperience({ ritualCompletionSoundEnabled: !experience.ritualCompletionSoundEnabled })}
-                accent={accent}
-                textColor={rowTextColor}
-                subColor={rowSubColor}
-              />
-              <ToggleRow
-                icon={Vibrate}
-                label="Haptyka"
-                value={experience.hapticsEnabled}
-                onToggle={() => setExperience({ hapticsEnabled: !experience.hapticsEnabled })}
-                accent={accent}
-                textColor={rowTextColor}
-                subColor={rowSubColor}
-              />
-              <View style={{ flexDirection: 'row', gap: 8, marginTop: 8, paddingHorizontal: 2 }}>
-                <Pressable
-                  onPress={() => { HapticsService.impact('medium'); }}
-                  style={{
-                    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                    gap: 6, paddingVertical: 10, borderRadius: 12, borderWidth: 1,
-                    borderColor: currentTheme.primary + '44', backgroundColor: currentTheme.primary + '12',
-                  }}>
-                  <Text style={{ fontSize: 11, fontWeight: '700', color: currentTheme.primary, letterSpacing: 0.5 }}>{tr('profile.testHaptics', 'TESTUJ HAPTYKĘ', 'TEST HAPTICS')}</Text>
-                </Pressable>
-                <Pressable
-                  onPress={() => { void AudioService.playRitualCompletionTone(); }}
-                  style={{
-                    flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                    gap: 6, paddingVertical: 10, borderRadius: 12, borderWidth: 1,
-                    borderColor: currentTheme.primary + '44', backgroundColor: currentTheme.primary + '12',
-                  }}>
-                  <Text style={{ fontSize: 11, fontWeight: '700', color: currentTheme.primary, letterSpacing: 0.5 }}>{tr('profile.testSound', 'TESTUJ DŹWIĘK', 'TEST SOUND')}</Text>
-                </Pressable>
-              </View>
-              {/* ── Narrator voice selector ── */}
-              <View style={{ paddingHorizontal: 2, paddingTop: 12, paddingBottom: 4 }}>
-                <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: currentTheme.textSoft, marginBottom: 4 }}>{tr('profile.voiceHeading', 'GŁOS LEKTORA', 'VOICE GUIDE')}</Text>
-                <Text style={{ fontSize: 10, color: rowSubColor, marginBottom: 10 }}>Azure Neural TTS — naturalny ludzki głos</Text>
-                <View style={{ flexDirection: 'row', gap: 10 }}>
-                  {[
-                    { id: 'nova', label: '🎙 Zofia', sub: 'Damski · Neural' },
-                    { id: 'onyx', label: '🎙 Marek', sub: 'Męski · Neural' },
-                  ].map((opt) => {
-                    const active = (experience.narratorVoice ?? 'nova') === opt.id;
-                    return (
-                      <Pressable
-                        key={opt.id}
-                        onPress={() => {
-                          setExperience({ narratorVoice: opt.id as any });
-                          TTSService.setVoice(opt.id as any);
-                          HapticsService.selection();
-                        }}
-                        style={{
-                          flex: 1, paddingVertical: 12, paddingHorizontal: 10, borderRadius: 14, borderWidth: 1,
-                          borderColor: active ? accent + 'AA' : currentTheme.borderLight,
-                          backgroundColor: active ? accent + '18' : 'transparent',
-                          alignItems: 'center', gap: 3,
-                        }}>
-                        <Text style={{ fontSize: 15 }}>{opt.label.split(' ')[0]}</Text>
-                        <Text style={{ fontSize: 13, fontWeight: '700', color: active ? accent : rowTextColor }}>{opt.label.split(' ').slice(1).join(' ')}</Text>
-                        <Text style={{ fontSize: 10, color: rowSubColor }}>{opt.sub}</Text>
-                      </Pressable>
-                    );
-                  })}
-                </View>
-                <Pressable
-                  onPress={() => {
-                    const voice = experience.narratorVoice ?? 'nova';
-                    TTSService.setVoice(voice);
-                    void TTSService.speak('Witaj w Aetherze. Jestem Twoim duchowym przewodnikiem.', undefined, undefined, voice);
-                    HapticsService.impact('light');
-                  }}
-                  style={{
-                    marginTop: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',
-                    gap: 6, paddingVertical: 10, borderRadius: 12, borderWidth: 1,
-                    borderColor: accent + '44', backgroundColor: accent + '0E',
-                  }}>
-                  <Text style={{ fontSize: 11, fontWeight: '700', color: accent, letterSpacing: 0.5 }}>▶ POSŁUCHAJ PRÓBKI</Text>
-                </Pressable>
-              </View>
-              {/* ── Text scale selector ── */}
-              <View style={{ paddingHorizontal: 2, paddingTop: 12, paddingBottom: 8, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: currentTheme.borderLight, marginTop: 4 }}>
-                <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: currentTheme.textSoft, marginBottom: 10 }}>{tr('profile.textSizeHeading', 'ROZMIAR TEKSTU', 'TEXT SIZE')}</Text>
-                <View style={{ flexDirection: 'row', gap: 8 }}>
-                  {[
-                    { id: 0.85, label: 'A-', sub: 'Mały' },
-                    { id: 1.0,  label: 'A',  sub: 'Standardowy' },
-                    { id: 1.15, label: 'A+', sub: 'Duży' },
-                  ].map((opt) => {
-                    const active = (experience.textScale ?? 1.0) === opt.id;
-                    return (
-                      <Pressable
-                        key={opt.id}
-                        onPress={() => { setExperience({ textScale: opt.id }); HapticsService.selection(); }}
-                        style={{
-                          flex: 1, paddingVertical: 12, borderRadius: 14, borderWidth: 1,
-                          borderColor: active ? accent + 'AA' : currentTheme.borderLight,
-                          backgroundColor: active ? accent + '18' : 'transparent',
-                          alignItems: 'center', gap: 2,
-                        }}>
-                        <Text style={{ fontSize: active ? 17 : 14, fontWeight: '700', color: active ? accent : rowTextColor }}>{opt.label}</Text>
-                        <Text style={{ fontSize: 9, color: rowSubColor, letterSpacing: 0.4 }}>{opt.sub.toUpperCase()}</Text>
-                      </Pressable>
-                    );
-                  })}
-                </View>
-              </View>
-              <EntryRow
-                icon={SlidersHorizontal}
-                label="Tryb ruchu"
-                value={MOTION_OPTIONS.find(m => m.id === experience.motionStyle)?.label || 'Wywazone'}
-                onPress={() => setShowMotionModal(true)}
-                accent={accent}
-                last
-                textColor={rowTextColor}
-                subColor={rowSubColor}
-              />
-            </SectionCard>
           </Animated.View>
 
-          {/* ══ 4. JĘZYK I PROWADZENIE ══ */}
-          <Animated.View entering={FadeInDown.delay(260).duration(500)}>
-            <SectionHeader icon={Globe} label={tr('profile.languageSection', 'Język i prowadzenie', 'Language & guidance')} color={accent} />
-            <SectionCard isLight={isLight}>
-              <EntryRow
-                icon={Globe}
-                label={tr('profile.languageLabel', 'Język', 'Language')}
-                value={LANGUAGE_OPTIONS.find(o => o.id === language)?.native || tr('profile.languagePolish', 'Polski', 'Polish')}
-                onPress={() => setShowLanguageModal(true)}
-                accent={accent}
-                textColor={rowTextColor}
-                subColor={rowSubColor}
-              />
-              <EntryRow
-                icon={Sparkles}
-                label="Nurt guidance"
-                value={GUIDANCE_OPTIONS.find(o => o.id === userData.primaryGuidanceMode)?.label || 'Mieszane'}
-                onPress={() => setShowGuidanceModal(true)}
-                accent={accent}
-                last
-                textColor={rowTextColor}
-                subColor={rowSubColor}
-              />
-            </SectionCard>
-          </Animated.View>
-
-          {/* ══ 5. PAMIEC I ARCHIWA ══ */}
-          <Animated.View entering={FadeInDown.delay(320).duration(500)}>
-            <SectionHeader icon={Archive} label={tr('profile.memorySection', 'Pamięć i archiwa', 'Memory & archives')} color={accent} />
-            <SectionCard isLight={isLight}>
-              {entries.length === 0 ? (
-                <Pressable
-                  onPress={() => navigation.navigate('JournalEntry', { type: 'reflection' })}
-                  style={{ marginBottom: 6, padding: 16, borderRadius: 16, backgroundColor: accent + '08', borderWidth: 1, borderColor: accent + '22', alignItems: 'center', gap: 8 }}
-                >
-                  <BookOpen color={accent} size={28} strokeWidth={1.5} />
-                  <Typography variant="label" color={accent} style={{ textAlign: 'center' }}>Zacznij swoją podróż</Typography>
-                  <Typography variant="caption" style={{ textAlign: 'center', opacity: 0.80, lineHeight: 18 }}>
-                    {'Każdy wpis to ślad Twojej duszy.\nNapisz swój pierwszy wpis.'}
-                  </Typography>
-                  <View style={{ marginTop: 4, paddingVertical: 8, paddingHorizontal: 16, borderRadius: 12, backgroundColor: accent + '18', borderWidth: 1, borderColor: accent + '44' }}>
-                    <Typography variant="microLabel" color={accent}>Napisz teraz →</Typography>
-                  </View>
-                </Pressable>
-              ) : (
-                <EntryRow icon={Book} label="Archiwum dziennika" value={`${entries.length} wpisów`} onPress={() => navigation.navigate('Journal')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-              )}
-              <EntryRow icon={BarChart2} label="Raport duszy" value="Wzory i podsumowania" onPress={() => navigation.navigate('Reports')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-              <EntryRow icon={Star} label="Ulubione wglady" value={favoriteEntries === 0 ? 'Nic jeszcze nie zapisano' : `${favoriteEntries} zapisanych`} onPress={() => navigation.navigate('Journal')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-              <EntryRow icon={BookOpen} label="Biblioteka wiedzy" value="Symbole i święta tradycja" onPress={() => navigation.navigate('Knowledge')} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
-            </SectionCard>
-          </Animated.View>
-
-          {/* ══ 6. CZLONKOSTWO ══ */}
-          <Animated.View entering={FadeInDown.delay(380).duration(500)}>
-            <SectionHeader icon={Crown} label="Członkostwo" color={accent} />
-            <SectionCard isLight={isLight}>
-              {isPremium ? (
-                <View style={[sStyles.premiumBanner, { backgroundColor: accent + '14', borderColor: accent + '33' }]}>
-                  <Crown color={accent} size={20} strokeWidth={1.8} />
-                  <View style={{ flex: 1, marginLeft: 14 }}>
-                    <Text style={[sStyles.premiumBannerTitle, { color: accent }]}>Członkostwo Premium aktywne</Text>
-                    <Text style={sStyles.premiumBannerSub}>Pełny dostęp do wszystkich światów i Oracle</Text>
-                  </View>
-                </View>
-              ) : (
-                <Pressable
-                  onPress={() => navigation.navigate('Paywall')}
-                  style={[sStyles.premiumBanner, sStyles.premiumBannerCta, { backgroundColor: accent + '18', borderColor: accent + '44', shadowColor: accent, shadowOpacity: 0.25, shadowRadius: 12, shadowOffset: { width: 0, height: 4 } }]}
-                >
-                  <LinearGradient colors={[accent + '28', accent + '10']} style={StyleSheet.absoluteFill} />
-                  <Crown color={accent} size={20} strokeWidth={1.8} />
-                  <View style={{ flex: 1, marginLeft: 14 }}>
-                    <Text style={[sStyles.premiumBannerTitle, { color: accent }]}>Odblokuj Premium</Text>
-                    <Text style={sStyles.premiumBannerSub}>Głębsze sesje Oracle, bogatsze odczyty, pełna pamięć</Text>
-                  </View>
-                  <ChevronRight color={accent} size={18} />
-                </Pressable>
-              )}
-            </SectionCard>
-          </Animated.View>
-
-          {/* ══ 7. POMOC I PRYWATNOSC ══ */}
-          <Animated.View entering={FadeInDown.delay(440).duration(500)}>
-            <SectionHeader icon={Shield} label="Pomoc i prywatność" color={accent} />
-            <SectionCard isLight={isLight}>
-              <EntryRow icon={HelpCircle} label="Przewodnik po Aetherze" value="Jak korzystać" onPress={() => setShowGuideModal(true)} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-              <EntryRow
-                icon={ScrollText}
-                label="Kolejny krok"
-                value="Zapisz kierunek"
-                onPress={() =>
-                  navigation.navigate('JournalEntry', {
-                    prompt: 'Jaki jest teraz mój najlepszy następny krok w Aetherze i czego naprawdę potrzebuję: ukojenia, wglądu, rytuału czy działania?',
-                    type: 'reflection',
-                  })
-                }
-                accent={accent}
-                last
-                textColor={rowTextColor}
-                subColor={rowSubColor}
-              />
-            </SectionCard>
-          </Animated.View>
-
-          {/* STYL ODPOWIEDZI AI */}
-              <View style={[sStyles.sectionCard, { marginTop: 8, marginBottom: 4 }]}>
-                <Text style={[{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, marginBottom: 12, paddingHorizontal: 18, paddingTop: 14 }, { color: accent }]}>STYL ODPOWIEDZI AI</Text>
-                <View style={{ paddingHorizontal: 14, paddingBottom: 14 }}>
-                {([
-                  { val: 'short', label: 'Krotko i konkretnie', desc: 'Zwiezle, szybki wglad' },
-                  { val: 'medium', label: 'Wywazone', desc: 'Balans glebi i skrotowosci' },
-                  { val: 'deep', label: 'Gleboko i szczegolowo', desc: 'Pelne interpretacje z kontekstem' },
-                ] as const).map((opt) => {
-                  const isAct = (experience.aiResponseLength ?? 'medium') === opt.val;
+          <PremiumCard accent={accent} isLight={isLight} delay={240}>
+            <ToggleRow icon={Music} label="Muzyka tła" value={experience.backgroundMusicEnabled} onToggle={() => { setExperience({ backgroundMusicEnabled: !experience.backgroundMusicEnabled }); }} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            {/* Music volume */}
+            <View style={{ paddingHorizontal: 18, paddingBottom: 8, opacity: experience.backgroundMusicEnabled ? 1 : 0.4 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.2, color: currentTheme.textSoft }}>{t('profile.music_volume')}</Text>
+                <Text style={{ fontSize: 11, fontWeight: '600', color: accent }}>{Math.round(musicVolume * 100)}%</Text>
+              </View>
+              <Slider style={{ width: '100%', height: 36 }} minimumValue={0} maximumValue={1} step={0.01} value={musicVolume} onValueChange={handleMusicVolume} minimumTrackTintColor={accent} maximumTrackTintColor={isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.15)'} thumbTintColor={accent} />
+            </View>
+            {/* Music category */}
+            <View style={{ marginTop: 4, marginBottom: 4, opacity: experience.backgroundMusicEnabled ? 1 : 0.45, paddingHorizontal: 18 }}>
+              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: currentTheme.textSoft, marginBottom: 8 }}>STYL MUZYKI</Text>
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+                {MUSIC_CATEGORY_OPTIONS.map(opt => (
+                  <Pressable key={opt.id} onPress={() => {
+                    if (experience.backgroundMusicCategory === opt.id && experience.backgroundMusicEnabled) { setExperience({ backgroundMusicEnabled: false }); void AudioService.pauseBackgroundMusic(); }
+                    else { setExperience({ backgroundMusicEnabled: true, backgroundMusicCategory: opt.id as any }); void AudioService.playBackgroundMusic(opt.id as any); }
+                    HapticsService.selection();
+                  }} style={{ flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 12, paddingVertical: 7, borderRadius: 12, borderWidth: 1, borderColor: (experience.backgroundMusicCategory === opt.id && experience.backgroundMusicEnabled) ? currentTheme.primary + '88' : currentTheme.borderLight, backgroundColor: (experience.backgroundMusicCategory === opt.id && experience.backgroundMusicEnabled) ? currentTheme.primary + '18' : 'transparent' }}>
+                    <Text style={{ fontSize: 14 }}>{opt.emoji}</Text>
+                    <Text style={{ fontSize: 12, fontWeight: '600', color: (experience.backgroundMusicCategory === opt.id && experience.backgroundMusicEnabled) ? currentTheme.primary : currentTheme.textSoft }}>{opt.label}</Text>
+                  </Pressable>
+                ))}
+              </View>
+            </View>
+            <ToggleRow icon={Waves} label="Ambient rytuałów" value={ambientSoundEnabled} onToggle={() => { setAmbientSoundEnabled(!ambientSoundEnabled); }} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            {/* Ambient volume */}
+            <View style={{ paddingHorizontal: 18, paddingBottom: 8, opacity: ambientSoundEnabled ? 1 : 0.4 }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.2, color: currentTheme.textSoft }}>{t('profile.ambient_volume')}</Text>
+                <Text style={{ fontSize: 11, fontWeight: '600', color: accent }}>{Math.round(ambientVolume * 100)}%</Text>
+              </View>
+              <Slider style={{ width: '100%', height: 36 }} minimumValue={0} maximumValue={1} step={0.01} value={ambientVolume} onValueChange={handleAmbientVolume} minimumTrackTintColor={accent} maximumTrackTintColor={isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.15)'} thumbTintColor={accent} />
+            </View>
+            {/* Soundscape */}
+            <View style={{ marginTop: 4, marginBottom: 4, opacity: ambientSoundEnabled ? 1 : 0.45, paddingHorizontal: 18 }}>
+              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: currentTheme.textSoft, marginBottom: 8 }}>KRAJOBRAZ DŹWIĘKOWY</Text>
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+                {SOUNDSCAPE_OPTIONS.map(opt => (
+                  <Pressable key={opt.id} onPress={() => {
+                    if (experience.ambientSoundscape === opt.id && ambientSoundEnabled) { setAmbientSoundEnabled(false); void AudioService.pauseAmbientSound(); }
+                    else { setAmbientSoundEnabled(true); setExperience({ ambientSoundscape: opt.id as any }); void AudioService.playAmbientSound(opt.id as any); }
+                    HapticsService.selection();
+                  }} style={{ flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 12, paddingVertical: 7, borderRadius: 12, borderWidth: 1, borderColor: (experience.ambientSoundscape === opt.id && ambientSoundEnabled) ? currentTheme.primary + '88' : currentTheme.borderLight, backgroundColor: (experience.ambientSoundscape === opt.id && ambientSoundEnabled) ? currentTheme.primary + '18' : 'transparent' }}>
+                    <Text style={{ fontSize: 14 }}>{opt.emoji}</Text>
+                    <Text style={{ fontSize: 12, fontWeight: '600', color: (experience.ambientSoundscape === opt.id && ambientSoundEnabled) ? currentTheme.primary : currentTheme.textSoft }}>{opt.label}</Text>
+                  </Pressable>
+                ))}
+              </View>
+            </View>
+            <ToggleRow icon={Sparkles} label="Dźwięki dotyku" value={experience.touchSoundEnabled} onToggle={() => setExperience({ touchSoundEnabled: !experience.touchSoundEnabled })} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <ToggleRow icon={RotateCcw} label="Sygnał domknięcia rytuału" value={experience.ritualCompletionSoundEnabled} onToggle={() => setExperience({ ritualCompletionSoundEnabled: !experience.ritualCompletionSoundEnabled })} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <ToggleRow icon={Vibrate} label="Haptyka" value={experience.hapticsEnabled} onToggle={() => setExperience({ hapticsEnabled: !experience.hapticsEnabled })} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            {/* Test buttons */}
+            <View style={{ flexDirection: 'row', gap: 8, paddingHorizontal: 16, paddingBottom: 12, paddingTop: 4 }}>
+              <Pressable onPress={() => { HapticsService.impact('medium'); }} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingVertical: 11, borderRadius: 14, borderWidth: 1, borderColor: currentTheme.primary + '44', backgroundColor: currentTheme.primary + '12' }}>
+                <Text style={{ fontSize: 11, fontWeight: '700', color: currentTheme.primary, letterSpacing: 0.5 }}>{tr('profile.testHaptics', 'TESTUJ HAPTYKĘ', 'TEST HAPTICS')}</Text>
+              </Pressable>
+              <Pressable onPress={() => { void AudioService.playRitualCompletionTone(); }} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingVertical: 11, borderRadius: 14, borderWidth: 1, borderColor: currentTheme.primary + '44', backgroundColor: currentTheme.primary + '12' }}>
+                <Text style={{ fontSize: 11, fontWeight: '700', color: currentTheme.primary, letterSpacing: 0.5 }}>{tr('profile.testSound', 'TESTUJ DŹWIĘK', 'TEST SOUND')}</Text>
+              </Pressable>
+            </View>
+            {/* Voice */}
+            <View style={{ paddingHorizontal: 16, paddingBottom: 14, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: currentTheme.borderLight }}>
+              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.5, color: accent, marginBottom: 4, marginTop: 12 }}>{tr('profile.voiceHeading', 'GŁOS LEKTORA', 'VOICE GUIDE')}</Text>
+              <Text style={{ fontSize: 10, color: rowSubColor, marginBottom: 10 }}>Azure Neural TTS — naturalny ludzki głos</Text>
+              <View style={{ flexDirection: 'row', gap: 10 }}>
+                {[{ id: 'nova', label: '🎙 Zofia', sub: 'Damski · Neural' }, { id: 'onyx', label: '🎙 Marek', sub: 'Męski · Neural' }].map((opt) => {
+                  const active = (experience.narratorVoice ?? 'nova') === opt.id;
                   return (
-                    <Pressable
-                      key={opt.val}
-                      onPress={() => setExperience({ aiResponseLength: opt.val })}
-                      style={[sStyles.aiLengthOption, {
-                        borderColor: isAct ? accent : accent + '22',
-                        backgroundColor: isAct ? accent + '12' : 'transparent',
-                        marginBottom: 8,
-                      }]}
-                    >
-                      <View style={{ flex: 1 }}>
-                        <Text style={[sStyles.aiLengthLabel, { color: isAct ? accent : rowTextColor }]}>{opt.label}</Text>
-                        <Text style={[sStyles.aiLengthDesc, { color: rowSubColor }]}>{opt.desc}</Text>
-                      </View>
-                      {isAct && <View style={[sStyles.aiLengthDot, { backgroundColor: accent }]} />}
+                    <Pressable key={opt.id} onPress={() => { setExperience({ narratorVoice: opt.id as any }); TTSService.setVoice(opt.id as any); HapticsService.selection(); }} style={{ flex: 1, paddingVertical: 12, paddingHorizontal: 10, borderRadius: 16, borderWidth: 1, borderColor: active ? accent + 'AA' : currentTheme.borderLight, backgroundColor: active ? accent + '18' : 'transparent', alignItems: 'center', gap: 3 }}>
+                      <Text style={{ fontSize: 15 }}>{opt.label.split(' ')[0]}</Text>
+                      <Text style={{ fontSize: 13, fontWeight: '700', color: active ? accent : rowTextColor }}>{opt.label.split(' ').slice(1).join(' ')}</Text>
+                      <Text style={{ fontSize: 10, color: rowSubColor }}>{opt.sub}</Text>
                     </Pressable>
                   );
                 })}
-                </View>
               </View>
+              <Pressable onPress={() => { const voice = experience.narratorVoice ?? 'nova'; TTSService.setVoice(voice); void TTSService.speak('Witaj w Aetherze. Jestem Twoim duchowym przewodnikiem.', undefined, undefined, voice); HapticsService.impact('light'); }} style={{ marginTop: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingVertical: 11, borderRadius: 14, borderWidth: 1, borderColor: accent + '44', backgroundColor: accent + '0E' }}>
+                <Text style={{ fontSize: 11, fontWeight: '700', color: accent, letterSpacing: 0.5 }}>▶ POSŁUCHAJ PRÓBKI</Text>
+              </Pressable>
+            </View>
+            {/* Text scale */}
+            <View style={{ paddingHorizontal: 16, paddingBottom: 14, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: currentTheme.borderLight }}>
+              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.5, color: accent, marginBottom: 10, marginTop: 12 }}>{tr('profile.textSizeHeading', 'ROZMIAR TEKSTU', 'TEXT SIZE')}</Text>
+              <View style={{ flexDirection: 'row', gap: 8 }}>
+                {[{ id: 0.85, label: 'A-', sub: 'Mały' }, { id: 1.0, label: 'A', sub: 'Standardowy' }, { id: 1.15, label: 'A+', sub: 'Duży' }].map((opt) => {
+                  const active = (experience.textScale ?? 1.0) === opt.id;
+                  return (
+                    <Pressable key={opt.id} onPress={() => { setExperience({ textScale: opt.id }); HapticsService.selection(); }} style={{ flex: 1, paddingVertical: 12, borderRadius: 14, borderWidth: 1, borderColor: active ? accent + 'AA' : currentTheme.borderLight, backgroundColor: active ? accent + '18' : 'transparent', alignItems: 'center', gap: 2 }}>
+                      <Text style={{ fontSize: active ? 17 : 14, fontWeight: '700', color: active ? accent : rowTextColor }}>{opt.label}</Text>
+                      <Text style={{ fontSize: 9, color: rowSubColor, letterSpacing: 0.4 }}>{opt.sub.toUpperCase()}</Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </View>
+            <EntryRow icon={SlidersHorizontal} label="Tryb ruchu" value={MOTION_OPTIONS.find(m => m.id === experience.motionStyle)?.label || 'Wywazone'} onPress={() => setShowMotionModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
+          </PremiumCard>
+
+          {/* ── 4. MOTYW & WYGLĄD ── */}
+          <SectionHeader icon={Palette} label="Motyw i wygląd" color={accent} delay={280} />
+          {/* Display mode */}
+          <PremiumCard accent={accent} isLight={isLight} delay={290} style={{ marginBottom: 12 }}>
+            <View style={{ padding: 16 }}>
+              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.6, color: accent, marginBottom: 12 }}>TRYB WYŚWIETLANIA</Text>
+              <View style={{ flexDirection: 'row', gap: 8 }}>
+                {([{ id: 'auto' as ThemeMode, label: 'Auto', Icon: RotateCcw }, { id: 'light' as ThemeMode, label: 'Jasny', Icon: Sun }, { id: 'dark' as ThemeMode, label: 'Ciemny', Icon: Moon }]).map(({ id, label, Icon }) => {
+                  const active = themeMode === id;
+                  return (
+                    <Pressable key={id} onPress={() => { setThemeMode(id); HapticsService.selection(); }} style={{ flex: 1, paddingVertical: 11, borderRadius: 16, alignItems: 'center', gap: 5, borderWidth: 1, backgroundColor: active ? accent + '1E' : 'transparent', borderColor: active ? accent + '66' : (isLight ? 'rgba(0,0,0,0.11)' : 'rgba(255,255,255,0.11)') }}>
+                      <Icon color={active ? accent : rowSubColor} size={17} strokeWidth={active ? 2.2 : 1.6} />
+                      <Text style={{ fontSize: 11, fontWeight: active ? '700' : '500', color: active ? accent : rowSubColor }}>{label}</Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </View>
+          </PremiumCard>
+
+          {/* Theme grid */}
+          <Animated.View entering={FadeInDown.delay(310).duration(500)} style={{ marginHorizontal: 18, marginBottom: 12 }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.8, color: rowSubColor }}>MOTYW STYLU</Text>
+              {themeMode === 'auto' && <Text style={{ fontSize: 10, color: accent, fontWeight: '600' }}>Tryb auto aktywny</Text>}
+            </View>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
+              {THEMES_LIST.map((themeId) => {
+                const opt = THEME_OPTIONS.find(t => t.id === themeId);
+                const resolved = getResolvedTheme(themeId);
+                const active = themeName === themeId;
+                const cardW = Math.floor((SW - 36 - 10) / 2);
+                return (
+                  <Pressable key={themeId} onPress={() => { setTheme(themeId); HapticsService.selection(); }} style={{ width: cardW, borderRadius: 22, overflow: 'hidden', borderWidth: active ? 2 : 1, borderColor: active ? resolved.primary : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)'), shadowColor: active ? resolved.primary : '#000', shadowOpacity: active ? 0.40 : 0.06, shadowRadius: active ? 18 : 8, shadowOffset: { width: 0, height: 4 }, elevation: active ? 10 : 2 }}>
+                    <LinearGradient colors={resolved.gradientHero} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ height: 100, padding: 12 }}>
+                      <LinearGradient colors={['transparent', resolved.primary + '88', 'transparent'] as [string,string,string]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2 }} pointerEvents="none" />
+                      <View style={{ width: 30, height: 30, borderRadius: 15, backgroundColor: active ? resolved.primary : resolved.primary + '55', alignItems: 'center', justifyContent: 'center', shadowColor: resolved.primary, shadowOpacity: 0.6, shadowRadius: 8, elevation: 4 }}>
+                        {active ? <Check color={resolved.background} size={13} strokeWidth={3} /> : <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: resolved.primary + 'BB' }} />}
+                      </View>
+                      <View style={{ position: 'absolute', bottom: 10, right: 12, flexDirection: 'row', gap: 4 }}>
+                        {[resolved.primary, resolved.secondary, resolved.primaryLight || resolved.backgroundElevated].map((c, ci) => (
+                          <View key={ci} style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: c, borderWidth: 0.5, borderColor: 'rgba(0,0,0,0.20)' }} />
+                        ))}
+                      </View>
+                    </LinearGradient>
+                    <View style={{ paddingHorizontal: 12, paddingVertical: 10, backgroundColor: isLight ? 'rgba(255,255,255,0.96)' : 'rgba(12,10,20,0.96)', borderTopWidth: 1, borderTopColor: active ? resolved.primary + '44' : (isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.06)') }}>
+                      <Text style={{ fontSize: 12, fontWeight: '800', color: active ? resolved.primary : rowTextColor, letterSpacing: -0.1, marginBottom: 2 }} numberOfLines={1}>{opt?.label || themeId}</Text>
+                      <Text style={{ fontSize: 10, color: rowSubColor, lineHeight: 14 }} numberOfLines={1}>{opt?.sub || ''}</Text>
+                    </View>
+                  </Pressable>
+                );
+              })}
+            </View>
+          </Animated.View>
+
+          <PremiumCard accent={accent} isLight={isLight} delay={330}>
+            <EntryRow icon={Eye} label="Tło sanktuarium" value={BACKGROUND_OPTIONS.find(b => b.id === experience.backgroundStyle)?.label || 'Subtelne niebo'} onPress={() => setShowBgModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
+          </PremiumCard>
+
+          {/* ── 5. APLIKACJA ── */}
+          <SectionHeader icon={Settings2} label="Aplikacja" color={accent} delay={360} />
+          <PremiumCard accent={accent} isLight={isLight} delay={370}>
+            {/* AI response length */}
+            <View style={{ paddingHorizontal: 16, paddingTop: 14, paddingBottom: 12 }}>
+              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.8, color: accent, marginBottom: 12 }}>STYL ODPOWIEDZI AI</Text>
+              {([
+                { val: 'short', label: 'Krótko i konkretnie', desc: 'Zwięzłe, szybki wgląd' },
+                { val: 'medium', label: 'Wyważone', desc: 'Balans głębi i skrótowości' },
+                { val: 'deep', label: 'Głęboko i szczegółowo', desc: 'Pełne interpretacje z kontekstem' },
+              ] as const).map((opt) => {
+                const isAct = (experience.aiResponseLength ?? 'medium') === opt.val;
+                return (
+                  <Pressable key={opt.val} onPress={() => setExperience({ aiResponseLength: opt.val })} style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 12, paddingHorizontal: 14, borderRadius: 14, borderWidth: 1, marginBottom: 8, borderColor: isAct ? accent : accent + '22', backgroundColor: isAct ? accent + '12' : 'transparent' }}>
+                    <View style={{ flex: 1 }}>
+                      <Text style={{ fontSize: 14, fontWeight: '600', marginBottom: 2, color: isAct ? accent : rowTextColor }}>{opt.label}</Text>
+                      <Text style={{ fontSize: 12, color: rowSubColor }}>{opt.desc}</Text>
+                    </View>
+                    {isAct && <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: accent }} />}
+                  </Pressable>
+                );
+              })}
+            </View>
+          </PremiumCard>
+
+          {/* ── 6. KONTO ── */}
+          <SectionHeader icon={Shield} label="Konto" color={accent} delay={400} />
+          <PremiumCard accent={accent} isLight={isLight} delay={410}>
+            <EntryRow icon={HelpCircle} label="Przewodnik po Aetherze" value="Jak korzystać" onPress={() => setShowGuideModal(true)} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={BarChart2} label="Raport duszy" value="Wzory i podsumowania" onPress={() => navigation.navigate('Reports')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Star} label="Ulubione wglądy" value={favoriteEntries === 0 ? 'Nic jeszcze nie zapisano' : `${favoriteEntries} zapisanych`} onPress={() => navigation.navigate('Journal')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={BookOpen} label="Biblioteka wiedzy" value="Symbole i święta tradycja" onPress={() => navigation.navigate('Knowledge')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={ScrollText} label="Kolejny krok" value="Zapisz kierunek" onPress={() => navigation.navigate('JournalEntry', { prompt: 'Jaki jest teraz mój najlepszy następny krok w Aetherze i czego naprawdę potrzebuję: ukojenia, wglądu, rytuału czy działania?', type: 'reflection' })} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
+          </PremiumCard>
+
+          {/* ── WYLOGUJ ── */}
+          <LogoutButton accent={accent} isLight={isLight} />
+
           <EndOfContentSpacer size="standard" />
-        
-              </ScrollView>
+        </ScrollView>
       </SafeAreaView>
 
       {/* ══ MODALS ══ */}
 
-
-      {/* Tlo */}
+      {/* Tło */}
       <BottomModal visible={showBgModal} onClose={() => setShowBgModal(false)} title="Tło sanktuarium" accent={accent}>
         {BACKGROUND_OPTIONS.map(opt => {
           const active = experience.backgroundStyle === opt.id;
           return (
-            <Pressable key={opt.id} onPress={() => { setExperience({ backgroundStyle: opt.id }); setShowBgModal(false); }}
-              style={[sStyles.modalOption, active && { borderColor: accent + '66', backgroundColor: accent + '10' }]}>
-              <Text style={[sStyles.modalOptionLabel, { flex: 1 }, active && { color: accent }]}>{opt.label}</Text>
+            <Pressable key={opt.id} onPress={() => { setExperience({ backgroundStyle: opt.id }); setShowBgModal(false); }} style={[pStyles.modalOption, active && { borderColor: accent + '66', backgroundColor: accent + '10' }]}>
+              <Text style={[pStyles.modalOptionLabel, { flex: 1 }, active && { color: accent }]}>{opt.label}</Text>
               {active && <Check color={accent} size={18} />}
             </Pressable>
           );
@@ -1028,11 +1092,10 @@ export const ProfileScreen = ({ navigation, route }: any) => {
         {MOTION_OPTIONS.map(opt => {
           const active = experience.motionStyle === opt.id;
           return (
-            <Pressable key={opt.id} onPress={() => { setExperience({ motionStyle: opt.id as any }); setShowMotionModal(false); }}
-              style={[sStyles.modalOption, active && { borderColor: accent + '66', backgroundColor: accent + '10' }]}>
+            <Pressable key={opt.id} onPress={() => { setExperience({ motionStyle: opt.id as any }); setShowMotionModal(false); }} style={[pStyles.modalOption, active && { borderColor: accent + '66', backgroundColor: accent + '10' }]}>
               <View style={{ flex: 1 }}>
-                <Text style={[sStyles.modalOptionLabel, active && { color: accent }]}>{opt.label}</Text>
-                <Text style={sStyles.modalOptionSub}>{opt.sub}</Text>
+                <Text style={[pStyles.modalOptionLabel, active && { color: accent }]}>{opt.label}</Text>
+                <Text style={pStyles.modalOptionSub}>{opt.sub}</Text>
               </View>
               {active && <Check color={accent} size={18} />}
             </Pressable>
@@ -1040,14 +1103,13 @@ export const ProfileScreen = ({ navigation, route }: any) => {
         })}
       </BottomModal>
 
-      {/* Jezyk */}
+      {/* Język */}
       <BottomModal visible={showLanguageModal} onClose={() => setShowLanguageModal(false)} title="Język" accent={accent}>
         {LANGUAGE_OPTIONS.map(opt => {
           const active = language === opt.id;
           return (
-            <Pressable key={opt.id} onPress={() => { setLanguage(opt.id); setShowLanguageModal(false); }}
-              style={[sStyles.modalOption, active && { borderColor: accent + '66', backgroundColor: accent + '10' }]}>
-              <Text style={[sStyles.modalOptionLabel, { flex: 1 }, active && { color: accent }]}>{opt.native}</Text>
+            <Pressable key={opt.id} onPress={() => { setLanguage(opt.id); setShowLanguageModal(false); }} style={[pStyles.modalOption, active && { borderColor: accent + '66', backgroundColor: accent + '10' }]}>
+              <Text style={[pStyles.modalOptionLabel, { flex: 1 }, active && { color: accent }]}>{opt.native}</Text>
               {active && <Check color={accent} size={18} />}
             </Pressable>
           );
@@ -1059,11 +1121,10 @@ export const ProfileScreen = ({ navigation, route }: any) => {
         {GUIDANCE_OPTIONS.map(opt => {
           const active = userData.primaryGuidanceMode === opt.id;
           return (
-            <Pressable key={opt.id} onPress={() => { setUserData({ primaryGuidanceMode: opt.id as any }); setShowGuidanceModal(false); }}
-              style={[sStyles.modalOption, active && { borderColor: accent + '66', backgroundColor: accent + '10' }]}>
+            <Pressable key={opt.id} onPress={() => { setUserData({ primaryGuidanceMode: opt.id as any }); setShowGuidanceModal(false); }} style={[pStyles.modalOption, active && { borderColor: accent + '66', backgroundColor: accent + '10' }]}>
               <View style={{ flex: 1 }}>
-                <Text style={[sStyles.modalOptionLabel, active && { color: accent }]}>{opt.label}</Text>
-                <Text style={sStyles.modalOptionSub}>{opt.sub}</Text>
+                <Text style={[pStyles.modalOptionLabel, active && { color: accent }]}>{opt.label}</Text>
+                <Text style={pStyles.modalOptionSub}>{opt.sub}</Text>
               </View>
               {active && <Check color={accent} size={18} />}
             </Pressable>
@@ -1076,11 +1137,10 @@ export const ProfileScreen = ({ navigation, route }: any) => {
         {TAROT_DECKS.map(deck => {
           const active = selectedDeckId === deck.id;
           return (
-            <Pressable key={deck.id} onPress={() => { setSelectedDeck(deck.id); setShowTarotDeckModal(false); }}
-              style={[sStyles.modalOption, active && { borderColor: accent + '66', backgroundColor: accent + '10' }]}>
+            <Pressable key={deck.id} onPress={() => { setSelectedDeck(deck.id); setShowTarotDeckModal(false); }} style={[pStyles.modalOption, active && { borderColor: accent + '66', backgroundColor: accent + '10' }]}>
               <View style={{ flex: 1 }}>
-                <Text style={[sStyles.modalOptionLabel, active && { color: accent }]}>{deck.name}</Text>
-                {deck.description ? <Text style={sStyles.modalOptionSub} numberOfLines={1}>{deck.description}</Text> : null}
+                <Text style={[pStyles.modalOptionLabel, active && { color: accent }]}>{deck.name}</Text>
+                {deck.description ? <Text style={pStyles.modalOptionSub} numberOfLines={1}>{deck.description}</Text> : null}
               </View>
               {active && <Check color={accent} size={18} />}
             </Pressable>
@@ -1090,93 +1150,93 @@ export const ProfileScreen = ({ navigation, route }: any) => {
 
       {/* Avatar */}
       <BottomModal visible={showAvatarModal} onClose={() => setShowAvatarModal(false)} title="Portret sanktuarium" accent={accent}>
-        <View style={sStyles.avatarPreview}>
-          <ProfileAvatar
-            uri={userData.avatarUri}
-            name={firstName}
-            fallbackText={firstName.charAt(0).toUpperCase()}
-            size={90}
-            primary={accent}
-            borderColor={accent + '44'}
-            backgroundColor={isLight ? '#FFF8EE' : '#1A2236'}
-            textColor={accent}
-          />
+        <View style={{ alignItems: 'center', paddingVertical: 20 }}>
+          <ProfileAvatar uri={userData.avatarUri} name={firstName} fallbackText={firstName.charAt(0).toUpperCase()} size={90} primary={accent} borderColor={accent + '44'} backgroundColor={isLight ? '#FFF8EE' : '#1A2236'} textColor={accent} />
         </View>
-        <Pressable onPress={handlePickAvatar} disabled={avatarBusy}
-          style={[sStyles.modalOption, { borderColor: accent + '44', backgroundColor: accent + '10' }]}>
+        <Pressable onPress={handlePickAvatar} disabled={avatarBusy} style={[pStyles.modalOption, { borderColor: accent + '44', backgroundColor: accent + '10' }]}>
           <ImagePlus color={accent} size={18} strokeWidth={1.8} />
-          <Text style={[sStyles.modalOptionLabel, { flex: 1, marginLeft: 14, color: accent }]}>
-            {hasAvatar ? 'Zmień zdjęcie' : 'Wybierz zdjęcie'}
-          </Text>
+          <Text style={[pStyles.modalOptionLabel, { flex: 1, marginLeft: 14, color: accent }]}>{hasAvatar ? 'Zmień zdjęcie' : 'Wybierz zdjęcie'}</Text>
         </Pressable>
         {hasAvatar && (
-          <Pressable onPress={handleRemoveAvatar}
-            style={[sStyles.modalOption, { borderColor: 'rgba(200,100,90,0.3)', backgroundColor: 'rgba(200,100,90,0.06)' }]}>
-            <Text style={[sStyles.modalOptionLabel, { flex: 1, color: '#C66961' }]}>Usuń portret</Text>
+          <Pressable onPress={handleRemoveAvatar} style={[pStyles.modalOption, { borderColor: 'rgba(200,100,90,0.3)', backgroundColor: 'rgba(200,100,90,0.06)' }]}>
+            <Text style={[pStyles.modalOptionLabel, { flex: 1, color: '#C66961' }]}>Usuń portret</Text>
           </Pressable>
         )}
       </BottomModal>
 
       {/* Przewodnik */}
       <BottomModal visible={showGuideModal} onClose={() => setShowGuideModal(false)} title="Przewodnik po Aetherze" accent={accent}>
-        {[
-          ['Dzisiaj', 'Twój osobisty pulpit dnia z energią, tonem i dwoma ruchami.'],
-          ['Światy', 'Osiem domen: Tarot, Horoskop, Astrologia, Rytuał, Oczyszczanie, Wsparcie, Oracle, Sen.'],
-          ['Oracle', 'Inteligentna rozmowa prowadząca do konkretnego kroku.'],
-          ['Profil', 'Centrum ustawień, archiwów i pamięci sanktuarium.'],
-        ].map(([title, copy]) => (
-          <View key={title} style={[sStyles.guideRow, { borderBottomColor: isLight ? 'rgba(169,122,57,0.1)' : 'rgba(255,255,255,0.12)' }]}>
-            <Text style={[sStyles.guideTitle, { color: accent }]}>{title}</Text>
-            <Text style={sStyles.guideCopy}>{copy}</Text>
-          </View>
-        ))}
+        <View style={{ paddingHorizontal: 18, paddingTop: 8, paddingBottom: 16 }}>
+          {[
+            {
+              emoji: '🏠', title: 'Portal — centrum dnia',
+              body: 'Główna scena Twojego sanktuarium. Zawiera widget astralny, horoskop dnia, afirmację, kartę tarota i szybkie akcje. Personalizuj widżety przeciągając je.'
+            },
+            {
+              emoji: '🌍', title: 'Światy — osiem domen',
+              body: 'Tarot · Horoskop · Astrologia · Rytuały · Oczyszczanie · Wsparcie · Oracle · Sny. Każdy świat to oddzielna przestrzeń z własnymi narzędziami i energią.'
+            },
+            {
+              emoji: '🔮', title: 'Oracle — AI prowadzący',
+              body: 'Twój duchowy asystent oparty na AI. Zadaj pytanie, wybierz kontekst — Oracle odpowie z głębią i symboliką dostosowaną do Twojego profilu.'
+            },
+            {
+              emoji: '🃏', title: 'Tarot i Wróżka',
+              body: 'Karta dnia jest losowana deterministycznie — ta sama na dany dzień dla zachowania rytmu. Wróżka to pełna ceremonia z rozkładem kart i interpretacją AI.'
+            },
+            {
+              emoji: '⭐', title: 'Horoskop i Astrologia',
+              body: 'Horoskop zmienia się każdego dnia. W sekcji Astrologia znajdziesz tranzyty planet, biorytmy, numerologię i matrycę karmiczną opartą na Twojej dacie urodzenia.'
+            },
+            {
+              emoji: '🕯', title: 'Rytuały i Oczyszczanie',
+              body: 'Biblioteka 15+ praktyk ceremonialnych. Rytuał dnia jest dopasowany do aktualnej fazy księżyca i Twojej energii. Oczyszczanie to oddech, listy i uwolnienie.'
+            },
+            {
+              emoji: '📔', title: 'Dziennik i Wspomnienia',
+              body: 'Zapisuj sny, refleksje i odczyty. Zakładka Profil → Ulubione wglądy zestawia to, co oznaczyłeś gwiazdką. Wpisy budują Twój duchowy archiwum.'
+            },
+            {
+              emoji: '⚙️', title: 'Ustawienia Profilu',
+              body: 'Zmień motyw, język, talię tarota, głos lektora i dźwięki. Data urodzenia zasila astrologię — warto ją uzupełnić dla pełniejszych wskazówek.'
+            },
+          ].map((item, i) => (
+            <View key={i} style={{
+              marginBottom: 16, padding: 16, borderRadius: 18, borderWidth: 1,
+              borderColor: accent + '28', backgroundColor: isLight ? 'rgba(255,255,255,0.82)' : 'rgba(255,255,255,0.04)',
+            }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 6 }}>
+                <Text style={{ fontSize: 22 }}>{item.emoji}</Text>
+                <Text style={{ fontSize: 14, fontWeight: '700', color: accent, flex: 1 }}>{item.title}</Text>
+              </View>
+              <Text style={{ fontSize: 13, lineHeight: 20, color: isLight ? '#4A3520' : 'rgba(245,241,234,0.78)' }}>{item.body}</Text>
+            </View>
+          ))}
+        </View>
       </BottomModal>
 
     </View>
   );
 };
 
-// ── Style ─────────────────────────────────────────────────────
-const sStyles = StyleSheet.create({
-  sectionLabel: { fontSize: 10, fontWeight: '700', letterSpacing: 1.8, marginBottom: 10 },
-  sectionBlock: { marginBottom: 24 },
-  aiLengthOption: {
-    flexDirection: 'row', alignItems: 'center', paddingVertical: 12, paddingHorizontal: 14,
-    borderRadius: 12, borderWidth: 1, marginBottom: 8,
-  },
-  aiLengthLabel: { fontSize: 14, fontWeight: '600', marginBottom: 2 },
-  aiLengthDesc: { fontSize: 12 },
-  aiLengthDot: { width: 8, height: 8, borderRadius: 4, marginLeft: 8 },
-  sectionDesc: { fontSize: 12, lineHeight: 18 },
+// ── Styles ─────────────────────────────────────────────────────
+const pStyles = StyleSheet.create({
   container: { flex: 1 },
   safeArea: { flex: 1 },
-  scroll: { paddingHorizontal: 0, gap: 0 },
+  particlesLayer: { ...StyleSheet.absoluteFillObject, zIndex: 0 },
 
-  // Hero
-  heroWrap: { marginBottom: 16, overflow: 'hidden' },
-  heroBg: { ...StyleSheet.absoluteFillObject },
-  avatarWrap: { alignSelf: 'center', marginTop: 36, marginBottom: 18, position: 'relative' },
-  avatarEditBadge: { position: 'absolute', bottom: 0, right: 0, width: 30, height: 30, borderRadius: 15, alignItems: 'center', justifyContent: 'center', borderWidth: 2.5, shadowColor: '#000', shadowOpacity: 0.2, shadowRadius: 4, elevation: 4 },
-  heroInfo: { alignItems: 'center', paddingHorizontal: 24, gap: 6, paddingBottom: 4 },
-  heroName: { fontSize: 30, fontWeight: '300', letterSpacing: -0.8, lineHeight: 36 },
-  heroMeta: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 2 },
-  heroBadge: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 14, paddingVertical: 7, borderRadius: 20, borderWidth: 1, marginTop: 8 },
-  heroSign: { fontSize: 15, fontWeight: '600', letterSpacing: 0.4 },
-  heroArchetype: { fontSize: 13, opacity: 0.88 },
-  heroSub: { fontSize: 13, marginTop: 4, opacity: 0.82, letterSpacing: 0.1 },
-  statsStrip: { flexDirection: 'row', marginTop: 24, borderTopWidth: 1, paddingTop: 18, paddingBottom: 22, paddingHorizontal: 12, gap: 4 },
-  statItem: { flex: 1, alignItems: 'center', gap: 3, paddingVertical: 8, borderRadius: 12 },
-  statVal: { fontSize: 22, fontWeight: '700', letterSpacing: -0.5 },
-  statLabel: { fontSize: 11, opacity: 0.85, letterSpacing: 0.4 },
+  heroGradientBg: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 0,
+  },
 
-  // Section
-  sectionHeader: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 22, paddingTop: 28, paddingBottom: 12 },
-  sectionIconWrap: { width: 34, height: 34, borderRadius: 11, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
-  sectionHeaderText: { fontSize: 12, fontWeight: '700', letterSpacing: 1.8 },
-  sectionCard: { marginHorizontal: 18, marginBottom: 4, borderRadius: 20, borderWidth: 1, shadowColor: '#000', shadowOpacity: 0.14, shadowRadius: 22, shadowOffset: { width: 0, height: 8 }, elevation: 8, overflow: 'hidden' },
+  iconBtn: {
+    width: 38, height: 38, borderRadius: 19,
+    borderWidth: 1, alignItems: 'center', justifyContent: 'center',
+  },
 
-  // Entry row
-  entryRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 18, paddingVertical: 14, minHeight: 60 },
+  // Entry rows
+  entryRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 18, paddingVertical: 14, minHeight: 62 },
   entryRowBorder: { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: 'rgba(169,122,57,0.08)' },
   entryIcon: { width: 38, height: 38, borderRadius: 12, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
   entryText: { flex: 1, marginLeft: 14 },
@@ -1185,42 +1245,26 @@ const sStyles = StyleSheet.create({
   badge: { paddingHorizontal: 9, paddingVertical: 4, borderRadius: 999, borderWidth: 1, marginRight: 8 },
   badgeText: { fontSize: 11, fontWeight: '700', letterSpacing: 0.3 },
 
-  // Premium banner
-  premiumBanner: { flexDirection: 'row', alignItems: 'center', margin: 4, padding: 20, borderRadius: 18, borderWidth: 1 },
-  premiumBannerCta: {},
-  premiumBannerTitle: { fontSize: 16, fontWeight: '700', letterSpacing: -0.2 },
-  premiumBannerSub: { fontSize: 12, color: '#8A7060', marginTop: 3 },
-
   // Modal
-  modalBg: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' },
+  modalBg: { flex: 1, backgroundColor: 'rgba(0,0,0,0.75)' },
   modalSheet: {
     backgroundColor: '#FAF6EE',
-    borderTopLeftRadius: 28, borderTopRightRadius: 28,
+    borderTopLeftRadius: 30, borderTopRightRadius: 30,
     paddingHorizontal: 22, paddingTop: 12,
     maxHeight: '85%',
-    shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 30, shadowOffset: { width: 0, height: -8 },
+    shadowColor: '#000', shadowOpacity: 0.35, shadowRadius: 32, shadowOffset: { width: 0, height: -10 },
   },
-  modalHandle: { width: 40, height: 4, borderRadius: 999, backgroundColor: 'rgba(0,0,0,0.12)', alignSelf: 'center', marginBottom: 16 },
+  modalHandle: { width: 42, height: 4, borderRadius: 999, backgroundColor: 'rgba(0,0,0,0.12)', alignSelf: 'center', marginBottom: 16 },
   modalTitleRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 },
-  modalTitle: { fontSize: 18, fontWeight: '600', color: '#1A1410', letterSpacing: -0.2 },
+  modalTitle: { fontSize: 18, fontWeight: '700', color: '#1A1410', letterSpacing: -0.2 },
   modalOption: {
     flexDirection: 'row', alignItems: 'center',
     paddingHorizontal: 16, paddingVertical: 16,
-    borderRadius: 14, borderWidth: 1,
+    borderRadius: 16, borderWidth: 1,
     borderColor: 'rgba(169,122,57,0.15)',
-    backgroundColor: 'rgba(255,255,255,0.8)',
+    backgroundColor: 'rgba(255,255,255,0.82)',
     marginBottom: 10,
   },
   modalOptionLabel: { fontSize: 15, fontWeight: '500', color: '#1A1410' },
   modalOptionSub: { fontSize: 12, color: '#8A7060', marginTop: 3 },
-  themeSwatches: { flexDirection: 'row', gap: 4 },
-  swatch: { width: 18, height: 18, borderRadius: 9, borderWidth: 0.5, borderColor: 'rgba(0,0,0,0.08)' },
-
-  // Avatar modal
-  avatarPreview: { alignItems: 'center', paddingVertical: 20 },
-
-  // Guide
-  guideRow: { paddingVertical: 16, borderBottomWidth: 1 },
-  guideTitle: { fontSize: 14, fontWeight: '700', letterSpacing: 0.3, marginBottom: 4 },
-  guideCopy: { fontSize: 14, color: '#5A4A38', lineHeight: 21 },
 });
