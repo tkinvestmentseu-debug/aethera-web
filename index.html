@@ -1385,6 +1385,7 @@ html[lang="ar"] { direction: rtl; }
         <li><a href="mailto:contact@aethera.pl">contact@aethera.pl</a></li>
         <li><a href="#team">Tomasz Klimczyk — CEO</a></li>
         <li><a href="#contact">Formularz kontaktowy</a></li>
+        <li><a href="#" onclick="event.preventDefault();openResetModal();">Zapomniałem hasła</a></li>
         <li><a href="https://aethera.pl">aethera.pl</a></li>
       </ul>
     </div>
@@ -2850,7 +2851,7 @@ function closeCookieBanner() {
 }
 
 /* ── CONFIG ── */
-var AETHERA_API = '/api'; // Vercel Functions (relative path — works on any domain)
+var AETHERA_API = 'https://aethera.pl/api'; // Vercel Functions (absolute — works from www.aethera.pl too)
 
 /* ── AUTOFILL DARK FIX ── */
 var autofillFix = document.createElement('style');
@@ -2947,6 +2948,37 @@ async function submitContact() {
 }
 </script>
 
+<!-- PASSWORD RESET MODAL -->
+<div id="reset-modal" role="dialog" aria-modal="true" aria-labelledby="reset-heading" style="display:none;position:fixed;inset:0;z-index:10000;align-items:center;justify-content:center;">
+  <div class="modal-backdrop" onclick="closeResetModal()" style="position:absolute;inset:0;background:rgba(4,2,12,0.85);backdrop-filter:blur(8px);"></div>
+  <div class="modal-box" style="position:relative;z-index:1;max-width:440px;width:90%;background:linear-gradient(160deg,#0e0820,#1a0d32);border:1px solid rgba(139,92,246,0.35);border-radius:24px;padding:40px 32px;text-align:center;">
+    <button class="modal-close" onclick="closeResetModal()" aria-label="Zamknij" style="position:absolute;top:14px;right:16px;background:none;border:none;color:var(--text-muted);font-size:20px;cursor:pointer;line-height:1;">&#10005;</button>
+    <div id="reset-form-fields">
+      <span style="font-size:48px;display:block;margin-bottom:16px;">🔑</span>
+      <h2 style="font-family:var(--font-heading);font-size:22px;color:var(--gold);margin-bottom:8px;" id="reset-heading">Odzyskaj dostęp</h2>
+      <p style="color:var(--text-muted);font-size:14px;margin-bottom:28px;line-height:1.6;">Podaj adres email użyty podczas rejestracji.<br>Wyślemy link do ustawienia nowego hasła.</p>
+      <div class="form-group" style="text-align:left;margin-bottom:20px;">
+        <label style="font-size:12px;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-bottom:8px;">Adres email</label>
+        <input type="email" id="r-email" placeholder="twoj@email.com" autocomplete="email"
+          style="width:100%;padding:13px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(139,92,246,0.25);border-radius:12px;color:var(--text);font-size:15px;outline:none;transition:border-color 0.2s;"
+          onkeydown="if(event.key==='Enter')sendPasswordReset()">
+        <span id="r-email-err" style="display:none;color:var(--red);font-size:12px;margin-top:5px;display:block"></span>
+      </div>
+      <div id="r-global-err" style="display:none;color:var(--red);font-size:13px;margin-bottom:16px;padding:10px 14px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:10px;"></div>
+      <button id="r-submit" onclick="sendPasswordReset()"
+        style="width:100%;padding:15px;background:linear-gradient(135deg,var(--purple),var(--gold));border:none;border-radius:14px;color:#fff;font-family:var(--font-heading);font-size:15px;letter-spacing:0.05em;cursor:pointer;transition:opacity 0.2s;">
+        ✦ Wyślij link resetujący
+      </button>
+    </div>
+    <div id="reset-success" style="display:none;">
+      <span style="font-size:52px;display:block;margin-bottom:16px;">✉️</span>
+      <div style="font-family:var(--font-heading);font-size:20px;color:var(--gold);margin-bottom:12px;">Link wysłany!</div>
+      <p style="color:var(--text-muted);font-size:14px;line-height:1.7;">Sprawdź swoją skrzynkę email.<br>Kliknij link w wiadomości, aby ustawić nowe hasło.<br><br><span style="font-size:12px;opacity:0.7;">Nie widzisz? Sprawdź folder SPAM.</span></p>
+      <button onclick="closeResetModal()" style="margin-top:24px;padding:12px 28px;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:12px;color:var(--purple-l);font-size:14px;cursor:pointer;">Zamknij</button>
+    </div>
+  </div>
+</div>
+
 <!-- SIGNUP MODAL -->
 <div id="signup-modal" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
   <div class="modal-backdrop" onclick="closeSignupModal()"></div>
@@ -2972,6 +3004,7 @@ async function submitContact() {
       <div id="s-global-err" style="display:none;color:var(--red);font-size:13px;margin-bottom:12px;padding:10px 14px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:10px"></div>
       <button class="btn-modal" id="s-submit" onclick="submitSignup()">✦ Join Aethera</button>
       <p class="modal-terms">By registering you accept our <a href="#legal" onclick="closeSignupModal();showLegalTab('terms')">Terms of Service</a> and <a href="#legal" onclick="closeSignupModal();showLegalTab('privacy')">Privacy Policy</a>.</p>
+      <p style="text-align:center;margin-top:14px;font-size:13px;color:var(--text-dim);">Masz już konto? <a href="#" onclick="event.preventDefault();closeSignupModal();openResetModal();" style="color:var(--purple-l);text-decoration:none;border-bottom:1px solid rgba(167,139,250,0.3);">Zapomniałem hasła →</a></p>
     </div>
     <div class="modal-success" id="signup-success">
       <span class="modal-success-icon">✦</span>
@@ -2981,6 +3014,77 @@ async function submitContact() {
     </div>
   </div>
 </div>
+
+<!-- FIREBASE AUTH SDK (for password reset) -->
+<script type="module">
+import { initializeApp, getApps, getApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+const _fbCfg = {
+  apiKey: "AIzaSyCxFmYnCniJjpuHSnRJhJkLy6K5ShAjsoc",
+  authDomain: "aethera-duniai.firebaseapp.com",
+  projectId: "aethera-duniai",
+  appId: "1:179102407050:web:664b807f69c41ee5325073"
+};
+const _fbApp = getApps().length ? getApp() : initializeApp(_fbCfg);
+const _fbAuth = getAuth(_fbApp);
+
+window._sendPasswordReset = async function() {
+  var emailEl = document.getElementById('r-email');
+  var errEl   = document.getElementById('r-email-err');
+  var gErrEl  = document.getElementById('r-global-err');
+  var btn     = document.getElementById('r-submit');
+  if(errEl)  { errEl.textContent = ''; errEl.style.display = 'none'; }
+  if(gErrEl) { gErrEl.style.display = 'none'; }
+
+  var email = emailEl ? emailEl.value.trim() : '';
+  if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    if(emailEl) { emailEl.style.borderColor = 'var(--red)'; }
+    if(errEl)   { errEl.textContent = 'Podaj poprawny adres email.'; errEl.style.display = 'block'; }
+    return;
+  }
+  if(btn) { btn.textContent = 'Wysyłanie…'; btn.disabled = true; btn.style.opacity = '0.7'; }
+  try {
+    await sendPasswordResetEmail(_fbAuth, email, { url: 'https://aethera.pl' });
+    document.getElementById('reset-form-fields').style.display = 'none';
+    document.getElementById('reset-success').style.display = 'block';
+  } catch(e) {
+    if(btn) { btn.textContent = '✦ Wyślij link resetujący'; btn.disabled = false; btn.style.opacity = '1'; }
+    var msg = 'Coś poszło nie tak. Napisz na contact@aethera.pl';
+    if(e.code === 'auth/user-not-found')    msg = 'Nie znaleziono konta z tym adresem email.';
+    if(e.code === 'auth/invalid-email')     msg = 'Nieprawidłowy format adresu email.';
+    if(e.code === 'auth/too-many-requests') msg = 'Zbyt wiele prób. Poczekaj chwilę i spróbuj ponownie.';
+    if(gErrEl) { gErrEl.textContent = msg; gErrEl.style.display = 'block'; }
+  }
+};
+</script>
+
+<script>
+function openResetModal() {
+  var m = document.getElementById('reset-modal');
+  if(!m) return;
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  document.getElementById('reset-form-fields').style.display = 'block';
+  document.getElementById('reset-success').style.display = 'none';
+  var e = document.getElementById('r-email');
+  if(e) { e.value = ''; e.style.borderColor = ''; }
+  var er = document.getElementById('r-email-err');
+  if(er) er.style.display = 'none';
+  var ge = document.getElementById('r-global-err');
+  if(ge) ge.style.display = 'none';
+  var btn = document.getElementById('r-submit');
+  if(btn) { btn.textContent = '✦ Wyślij link resetujący'; btn.disabled = false; btn.style.opacity = '1'; }
+}
+function closeResetModal() {
+  var m = document.getElementById('reset-modal');
+  if(m) { m.style.display = 'none'; document.body.style.overflow = ''; }
+}
+function sendPasswordReset() {
+  if(window._sendPasswordReset) window._sendPasswordReset();
+}
+document.addEventListener('keydown', function(e) { if(e.key === 'Escape') closeResetModal(); });
+</script>
 
 </body>
 </html>
