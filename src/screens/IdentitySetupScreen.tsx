@@ -3,6 +3,7 @@ import React, { useState, useRef, useCallback, useMemo } from 'react';
 import {
   Dimensions,
   KeyboardAvoidingView,
+  Modal,
   Platform,
   Pressable,
   ScrollView,
@@ -23,9 +24,14 @@ import Animated, {
 } from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { MapPin, ChevronLeft, ChevronRight, Sparkles, Star } from 'lucide-react-native';
+import { MapPin, ChevronLeft, ChevronRight, Sparkles, Star, CornerDownLeft } from 'lucide-react-native';
 import { useAppStore } from '../store/useAppStore';
+import { useAuthStore } from '../store/useAuthStore';
+import { calcZodiacSign, calcLifePath, calcAscendant } from '../core/utils/astroCalculations';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../core/hooks/useTheme';
+import { PremiumDatePickerSheet } from '../components/PremiumDatePickerSheet';
+import { LinearGradient as LG } from 'expo-linear-gradient';
 
 const { width: SW, height: SH } = Dimensions.get('window');
 
@@ -249,6 +255,11 @@ const StyledInput = ({
         multiline={multiline}
         selectionColor={ACCENT}
       />
+      {onSubmitEditing && (
+        <Pressable onPress={onSubmitEditing} style={{ paddingLeft: 8, paddingRight: 4, paddingVertical: 4 }} hitSlop={8}>
+          <CornerDownLeft color="rgba(206,174,114,0.45)" size={16} strokeWidth={1.5} />
+        </Pressable>
+      )}
     </View>
   );
 };
@@ -291,11 +302,12 @@ const BackBtn = ({ onPress }: { onPress: () => void }) => (
 // ─── Energy Badge ─────────────────────────────────────────────────────────────
 
 const EnergyBadge = ({ value }: { value: number }) => {
+  const { isLight } = useTheme();
   if (!value) return null;
   return (
     <Animated.View entering={FadeIn.duration(400)} style={styles.energyBadge}>
       <Text style={styles.energyNumber}>{value}</Text>
-      <Text style={styles.energyLabel}>{ENERGY_LABELS[value] ?? 'Energia imienia'}</Text>
+      <Text style={[styles.energyLabel, isLight && { color: 'rgba(0,0,0,0.60)' }]}>{ENERGY_LABELS[value] ?? 'Energia imienia'}</Text>
     </Animated.View>
   );
 };
@@ -332,6 +344,7 @@ interface PickerRowProps {
 
 const PickerRow = ({ label, value, options, onSelect }: PickerRowProps) => {
   const [open, setOpen] = useState(false);
+  const { isLight } = useTheme();
   return (
     <View style={styles.pickerGroup}>
       <Text style={styles.pickerLabel}>{label}</Text>
@@ -339,7 +352,11 @@ const PickerRow = ({ label, value, options, onSelect }: PickerRowProps) => {
         style={[styles.pickerBtn, open && styles.pickerBtnOpen]}
         onPress={() => setOpen((o) => !o)}
       >
-        <Text style={value ? styles.pickerValue : styles.pickerPlaceholder}>
+        <Text
+          style={[value ? styles.pickerValue : styles.pickerPlaceholder, isLight && !value && { color: 'rgba(0,0,0,0.30)' }]}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
           {value || 'Wybierz...'}
         </Text>
         <ChevronRight
@@ -349,7 +366,7 @@ const PickerRow = ({ label, value, options, onSelect }: PickerRowProps) => {
         />
       </Pressable>
       {open && (
-        <Animated.View entering={FadeInDown.duration(200)} style={styles.pickerDropdown}>
+        <Animated.View entering={FadeInDown.duration(200)} style={[styles.pickerDropdown, { backgroundColor: isLight ? '#FFFFFF' : '#0E0B22' }]}>
           <ScrollView nestedScrollEnabled style={{ maxHeight: 180 }}>
             {options.map((opt, idx) => (
               <Pressable
@@ -450,6 +467,21 @@ const Step2 = ({
     return null;
   }, [day, month]);
 
+  const [showTimePicker, setShowTimePicker] = useState(false);
+
+  // Build a Date from birthTime string (HH:MM) for the picker initial value
+  const timePickerValue = useMemo(() => {
+    if (birthTime && /^\d{1,2}:\d{2}$/.test(birthTime)) {
+      const [h, m] = birthTime.split(':').map(Number);
+      const d = new Date();
+      d.setHours(h, m, 0, 0);
+      return d;
+    }
+    const d = new Date();
+    d.setHours(12, 0, 0, 0);
+    return d;
+  }, [birthTime]);
+
   return (
     <Animated.View entering={FadeInDown.springify().damping(18)} style={styles.stepContainer}>
       <View style={styles.stepHeader}>
@@ -494,16 +526,61 @@ const Step2 = ({
 
       <View style={{ marginTop: 20 }}>
         <Text style={styles.optionalLabel}>Godzina urodzenia (opcjonalnie)</Text>
-        <StyledInput
-          value={birthTime}
-          onChangeText={setBirthTime}
-          placeholder="GG:MM — np. 14:35"
-          keyboardType="numeric"
-          autoCapitalize="none"
-        />
+        <Pressable
+          onPress={() => setShowTimePicker(true)}
+          style={({ pressed }) => ({
+            flexDirection: 'row',
+            alignItems: 'center',
+            backgroundColor: pressed ? 'rgba(206,174,114,0.12)' : CARD_BG,
+            borderWidth: 1,
+            borderColor: birthTime ? CARD_BORDER_ACTIVE : CARD_BORDER,
+            borderRadius: 14,
+            paddingHorizontal: 16,
+            paddingVertical: 15,
+            marginTop: 6,
+          })}
+        >
+          <Text style={{ fontSize: 18, marginRight: 10 }}>🕐</Text>
+          <Text style={{
+            flex: 1,
+            fontSize: 16,
+            color: birthTime ? TEXT_PRIMARY : TEXT_SUB,
+            fontWeight: birthTime ? '600' : '400',
+            letterSpacing: birthTime ? 1.5 : 0,
+          }}>
+            {birthTime || 'Wybierz godzinę...'}
+          </Text>
+          {birthTime ? (
+            <Pressable
+              onPress={(e) => { e.stopPropagation(); setBirthTime(''); }}
+              hitSlop={10}
+              style={{ paddingLeft: 8 }}
+            >
+              <Text style={{ color: TEXT_SUB, fontSize: 18 }}>×</Text>
+            </Pressable>
+          ) : (
+            <ChevronRight size={18} color={ACCENT_DIM} />
+          )}
+        </Pressable>
+
         <Text style={styles.optionalHint}>
           Godzina urodzenia pozwala wyliczyć Twój ascendent i wykreślić pełny horoskop natywny.
         </Text>
+
+        <PremiumDatePickerSheet
+          visible={showTimePicker}
+          mode="time"
+          title="Godzina urodzenia"
+          description="Wybierz godzinę i minutę urodzenia"
+          value={timePickerValue}
+          onCancel={() => setShowTimePicker(false)}
+          onConfirm={(date) => {
+            const h = String(date.getHours()).padStart(2, '0');
+            const m = String(date.getMinutes()).padStart(2, '0');
+            setBirthTime(`${h}:${m}`);
+            setShowTimePicker(false);
+          }}
+        />
       </View>
     </Animated.View>
   );
@@ -532,6 +609,7 @@ const Step3 = ({
       onChangeText={setBirthPlace}
       placeholder="Miasto, kraj — np. Kraków, Polska"
       autoFocus
+      autoCapitalize="words"
       icon={<MapPin size={17} color={ACCENT_DIM} />}
     />
 
@@ -613,26 +691,44 @@ const Step4 = ({
 export const IdentitySetupScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { setUserData } = useAppStore();
+  const setUserData = useAppStore(s => s.setUserData);
+  const isOnboarded = useAppStore(s => s.isOnboarded);
+  const storedUserData = useAppStore(s => s.userData);
+  const currentUser = useAuthStore(s => s.currentUser);
+
+  // Prefer appStore data, fall back to auth user data
+  const prefillName = storedUserData?.name || (currentUser?.displayName ?? '').split(' ')[0] || '';
+  const prefillLastName = storedUserData?.lastName || (currentUser?.displayName ?? '').split(' ').slice(1).join(' ') || '';
+  const prefillBirthDate = storedUserData?.birthDate || currentUser?.birthDate || '';
+  const prefillBirthPlace = storedUserData?.birthPlace || currentUser?.birthPlace || '';
+
+  const parseBirthDatePart = (dateStr: string, part: 'day' | 'month' | 'year') => {
+    if (!dateStr) return '';
+    const parts = dateStr.split('-');
+    if (part === 'year') return parts[0] ?? '';
+    if (part === 'month') return parts[1] ? String(parseInt(parts[1])) : '';
+    if (part === 'day') return parts[2] ? String(parseInt(parts[2])) : '';
+    return '';
+  };
 
   // Step state
   const [step, setStep] = useState(0);
 
-  // Step 1
-  const [name, setName] = useState('');
-  const [lastName, setLastName] = useState('');
+  // Step 1 — pre-fill from store/auth
+  const [name, setName] = useState(() => prefillName);
+  const [lastName, setLastName] = useState(() => prefillLastName);
 
-  // Step 2
-  const [day, setDay] = useState('');
-  const [month, setMonth] = useState('');
-  const [year, setYear] = useState('');
-  const [birthTime, setBirthTime] = useState('');
+  // Step 2 — pre-fill birth date
+  const [day, setDay] = useState(() => parseBirthDatePart(prefillBirthDate, 'day'));
+  const [month, setMonth] = useState(() => parseBirthDatePart(prefillBirthDate, 'month'));
+  const [year, setYear] = useState(() => parseBirthDatePart(prefillBirthDate, 'year'));
+  const [birthTime, setBirthTime] = useState(() => storedUserData?.birthTime ?? '');
 
   // Step 3
-  const [birthPlace, setBirthPlace] = useState('');
+  const [birthPlace, setBirthPlace] = useState(() => prefillBirthPlace);
 
   // Step 4
-  const [experienceLevel, setExperienceLevel] = useState<'beginner' | 'intermediate' | 'advanced' | ''>('');
+  const [experienceLevel, setExperienceLevel] = useState<'beginner' | 'intermediate' | 'advanced' | ''>(() => storedUserData?.experienceLevel ?? '');
 
   // ── Validation ──
   const canContinue = useMemo(() => {
@@ -654,6 +750,12 @@ export const IdentitySetupScreen = ({ navigation }: any) => {
     const birthDate = year && month && day
       ? `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
       : '';
+
+    // Auto-compute spiritual profile from birth data
+    const zodiacInfo = calcZodiacSign(birthDate);
+    const lifePathInfo = calcLifePath(birthDate);
+    const ascInfo = birthTime ? calcAscendant(birthDate, birthTime.trim()) : null;
+
     setUserData({
       name: name.trim(),
       lastName: lastName.trim(),
@@ -661,9 +763,22 @@ export const IdentitySetupScreen = ({ navigation }: any) => {
       birthTime: birthTime.trim(),
       birthPlace: birthPlace.trim(),
       experienceLevel: experienceLevel as 'beginner' | 'intermediate' | 'advanced',
+      // Computed spiritual profile
+      zodiacSign: zodiacInfo?.sign ?? '',
+      zodiacEmoji: zodiacInfo?.emoji ?? '⭐',
+      zodiacElement: zodiacInfo?.element ?? '',
+      lifePathNumber: lifePathInfo?.number ?? undefined,
+      ascendant: ascInfo?.sign ?? '',
+      ascendantEmoji: ascInfo?.emoji ?? '',
+      profileRevealSeen: isOnboarded ? true : false, // existing users skip reveal
     });
-    navigation.navigate('MagicEntry');
-  }, [canContinue, step, name, lastName, day, month, year, birthTime, birthPlace, experienceLevel, setUserData, navigation]);
+
+    if (isOnboarded) {
+      navigation.goBack();
+    } else {
+      navigation.navigate('SpiritualProfileReveal');
+    }
+  }, [canContinue, step, name, lastName, day, month, year, birthTime, birthPlace, experienceLevel, setUserData, navigation, isOnboarded]);
 
   const goBack = useCallback(() => {
     if (step > 0) setStep((s) => s - 1);
@@ -686,15 +801,16 @@ export const IdentitySetupScreen = ({ navigation }: any) => {
         </View>
 
         <KeyboardAvoidingView
-          style={{ flex: 1 }}
+          style={styles.flex}
           behavior="padding"
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? insets.top + 60 : 24}
         >
           <ScrollView
             style={{ flex: 1 }}
-            contentContainerStyle={[styles.scroll, { paddingBottom: insets.bottom + 100 }]}
+            contentContainerStyle={[styles.scroll, { paddingBottom: insets.bottom + 32 }]}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
+            automaticallyAdjustKeyboardInsets
           >
             {step === 0 && (
               <Step1
@@ -744,6 +860,9 @@ export const IdentitySetupScreen = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  flex: {
     flex: 1,
   },
   glowTop: {

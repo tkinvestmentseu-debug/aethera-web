@@ -21,7 +21,7 @@ import { goBackOrToMainTab, navigateToDashboardSurface } from '../navigation/nav
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Svg, { Circle, Ellipse, Line, Path, G, Text as SvgText } from 'react-native-svg';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 // ─── RUNE SYMBOLS for orbiting decoration ────────────────────────────────────
 const RUNE_CHARS = ['ᚠ', 'ᚢ', 'ᚦ', 'ᚨ', 'ᚱ', 'ᚲ', 'ᚷ', 'ᚹ'];
 
@@ -74,7 +74,7 @@ const RuneOrb3D = ({ accent, isLight }: { accent: string; isLight: boolean }) =>
 
           {/* Core orb */}
           <Svg width={sz} height={sz}>
-            <Circle cx={cx} cy={cx} r={56} fill={isLight ? 'rgba(0,0,0,0.03)' : accent + '06'} stroke={accent + '22'} strokeWidth={0.8} />
+            <Circle cx={cx} cy={cx} r={56} fill={isLight ? 'rgba(240,228,210,0.90)' : accent + '06'} stroke={accent + '22'} strokeWidth={0.8} />
             <Circle cx={cx} cy={cx} r={R} fill={isLight ? accent + '18' : accent + '14'} stroke={accent + '55'} strokeWidth={1.4} />
             <Ellipse cx={cx} cy={cx} rx={R} ry={R * 0.28} fill="none" stroke={accent + '44'} strokeWidth={0.8} />
             <Ellipse cx={cx} cy={cx} rx={R * 0.5} ry={R} fill="none" stroke={accent + '30'} strokeWidth={0.8} />
@@ -446,13 +446,15 @@ const getTodayQuiz = () => {
 export const KnowledgeScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem, userData } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.60)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.60)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
 
   // Search / category filter
   const [searchQuery, setSearchQuery] = useState('');
@@ -653,7 +655,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
             const concept = getTodayConcept();
             return (
               <Animated.View entering={FadeInDown.delay(40).duration(500)}>
-                <View style={{ marginBottom: 14, borderRadius: 16, padding: 18, backgroundColor: cardBg, borderLeftWidth: 3, borderLeftColor: concept.color, borderTopWidth: StyleSheet.hairlineWidth, borderRightWidth: StyleSheet.hairlineWidth, borderBottomWidth: StyleSheet.hairlineWidth, borderTopColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', borderRightColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', borderBottomColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)' }}>
+                <View style={{ marginBottom: 14, borderRadius: 16, padding: 18, backgroundColor: cardBg, borderLeftWidth: 3, borderLeftColor: concept.color, borderTopWidth: StyleSheet.hairlineWidth, borderRightWidth: StyleSheet.hairlineWidth, borderBottomWidth: StyleSheet.hairlineWidth, borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)', borderRightColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)', borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)' }}>
                   <Typography variant="microLabel" color={concept.color} style={{ letterSpacing: 1.5, marginBottom: 8 }}>📖 POJĘCIE DNIA</Typography>
                   <Typography variant="cardTitle" style={{ color: textColor, fontSize: 20, fontWeight: '700', marginBottom: 8 }}>{concept.term}</Typography>
                   <Typography variant="bodySmall" style={{ color: subColor, lineHeight: 21 }}>{concept.desc}</Typography>
@@ -963,9 +965,9 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
                       width: '47%',
                       padding: 16,
                       borderRadius: 16,
-                      backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : currentTheme.primary + '0E',
+                      backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : currentTheme.primary + '0E',
                       borderWidth: StyleSheet.hairlineWidth,
-                      borderColor: isLight ? 'rgba(0,0,0,0.08)' : currentTheme.primary + '22',
+                      borderColor: isLight ? 'rgba(139,100,42,0.30)' : currentTheme.primary + '22',
                       opacity: pressed ? 0.75 : 1,
                     })}
                   >
@@ -994,9 +996,9 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
               <Animated.View key={block.id} entering={FadeInDown.delay(index * 80).duration(400)}>
                 <View style={{
                   borderRadius: 16,
-                  backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
+                  backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)',
                   borderWidth: StyleSheet.hairlineWidth,
-                  borderColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)',
+                  borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)',
                   marginBottom: 10,
                   overflow: 'hidden',
                 }}>
@@ -1088,7 +1090,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
                 paddingVertical: 14,
                 opacity: pressed ? 0.7 : 1,
                 borderBottomWidth: idx < arr.length - 1 ? StyleSheet.hairlineWidth : 0,
-                borderBottomColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)',
+                borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)',
               })}
             >
               <View style={{ width: 42, height: 42, borderRadius: 13, backgroundColor: color + '22', alignItems: 'center', justifyContent: 'center', marginRight: 14 }}>
@@ -1115,7 +1117,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
               </View>
             ) : filteredConcepts.slice(0, searchQuery || activeCategory ? filteredConcepts.length : 6).map((item, i, arr) => (
               <Animated.View key={item.term} entering={FadeInDown.delay(i * 40).duration(380)}>
-                <View style={{ paddingVertical: 13, borderBottomWidth: i < arr.length - 1 ? StyleSheet.hairlineWidth : 0, borderBottomColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)', flexDirection: 'row', alignItems: 'flex-start', gap: 12 }}>
+                <View style={{ paddingVertical: 13, borderBottomWidth: i < arr.length - 1 ? StyleSheet.hairlineWidth : 0, borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)', flexDirection: 'row', alignItems: 'flex-start', gap: 12 }}>
                   <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: item.color, marginTop: 7 }} />
                   <View style={{ flex: 1 }}>
                     <Typography variant="label" style={{ fontWeight: '700', color: textColor, marginBottom: 3 }}>{item.term}</Typography>

@@ -61,7 +61,7 @@ import { HapticsService } from '../core/services/haptics.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 // ── Constants ───────────────────────────────────────────────────
 const ACCENT = '#A078FF';
 const ACCENT_DIM = 'rgba(160,120,255,0.18)';
@@ -375,7 +375,7 @@ const ProgressRing = React.memo(({ progress, color, size = 130 }: { progress: nu
 });
 
 // ── Breathing Guide ─────────────────────────────────────────────
-const BreathingGuide = React.memo(({ step, color }: { step: RitualStep; color: string }) => {
+const BreathingGuide = React.memo(({ step, color, isLight }: { step: RitualStep; color: string; isLight?: boolean }) => {
   const [phase, setPhase] = useState<'inhale' | 'hold' | 'exhale'>('inhale');
   const scale = useSharedValue(0.85);
   const opacity = useSharedValue(0.7);
@@ -422,7 +422,7 @@ const BreathingGuide = React.memo(({ step, color }: { step: RitualStep; color: s
         <View style={[breathStyles.innerCircle, { backgroundColor: color + '44' }]} />
       </Animated.View>
       <Text style={[breathStyles.phaseLabel, { color }]}>{PHASE_LABELS[phase]}</Text>
-      <Text style={breathStyles.hint}>
+      <Text style={[breathStyles.hint, { color: isLight ? 'rgba(37,29,22,0.45)' : 'rgba(255,255,255,0.45)' }]}>
         Wdech {bg.inhale}s · Zatrzymanie {bg.hold}s · Wydech {bg.exhale}s
       </Text>
     </View>
@@ -434,7 +434,7 @@ const breathStyles = StyleSheet.create({
   circle:      { width: 90, height: 90, borderRadius: 45, borderWidth: 2, alignItems: 'center', justifyContent: 'center', marginBottom: 12 },
   innerCircle: { width: 40, height: 40, borderRadius: 20 },
   phaseLabel:  { fontSize: 16, fontWeight: '700', letterSpacing: 0.8, marginBottom: 4 },
-  hint:        { fontSize: 12, color: 'rgba(255,255,255,0.45)', letterSpacing: 0.3 },
+  hint:        { fontSize: 12, color: 'rgba(255,255,255,0.45)', letterSpacing: 0.3 }, // override inline with isLight where used
 });
 
 // ── Confetti Particles ──────────────────────────────────────────
@@ -476,14 +476,12 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
   const { t } = useTranslation();
   useAudioCleanup();
   const insets = useSafeAreaInsets();
-  const { themeName } = useAppStore();
-  const { addMeditationSession, meditationSessions } = useAppStore();
-
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+      const addMeditationSession = useAppStore(s => s.addMeditationSession);
+  const meditationSessions = useAppStore(s => s.meditationSessions);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A1018' : '#F5F0FF';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
   const cardBorder = isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)';
 
   // Phase state
@@ -835,7 +833,7 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
 
             {/* Breathing guide for steps with breathGuide */}
             {currentStep.breathGuide && step === 0 && (
-              <BreathingGuide step={currentStep} color={config.color} />
+              <BreathingGuide step={currentStep} color={config.color} isLight={isLight} />
             )}
           </Animated.View>
 
@@ -880,7 +878,9 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
   // RENDER: SUMMARY PHASE
   // ═══════════════════════════════════════════════════════════════
   return (
-    <SafeAreaView style={[s.safe, { backgroundColor: currentTheme.background }]} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[s.safe, {}]} edges={['top']}>
+
       <SacredBackground ritualType={ritualType} isLight={isLight} />
 
       {/* Confetti */}
@@ -1051,7 +1051,8 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
           <EndOfContentSpacer size="standard" />
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

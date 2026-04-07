@@ -1,1 +1,834 @@
-{}
+{
+  "tabs": {
+    "hero": "Map",
+    "read": "Reading",
+    "deep": "Deeper",
+    "practice": "Practical experience",
+    "daily": "Daily"
+  },
+  "header": {
+    "eyebrow": "The Matrix of Life",
+    "titleOwn": "A Map of Energy and Destiny",
+    "titleOther": "Source: {{name}}",
+    "banner": "Template for: {{name}}",
+    "favoriteLabel": "The Matrix of Life"
+  },
+  "empty": {
+    "eyebrow": "The path of life",
+    "title": "The reading begins with the date of birth",
+    "description": "Enter your date of birth to reveal your energy map.",
+    "body": "In this space, Aether will reveal your path number, your relationship field, the rhythm of your agency, and the key lesson that keeps recurring in your important decisions.",
+    "listLabel": "What you’ll see once you’ve activated it",
+    "items": [
+      "The source of your energy and the place where you find peace.",
+      "The practical significance of numbers in relationships, work and intuition.",
+      "A question for Oracle that will shed further light on this."
+    ],
+    "cta": "Please complete the details at the sanctuary"
+  },
+  "hero": {
+    "titleOwn": "Your map of energy and destiny",
+    "titleOther": "Soul Matrix: {{name}}",
+    "description": "Eight numbers. Each one is a living model — in relationships, work, the body and intuition. The key insights are at the centre of the diagram.",
+    "mainEnergies": "The four main energies",
+    "chartTitle": "Matrix diagram — tap and rotate",
+    "chartNodes": {
+      "center": "Centre",
+      "top": "Top — Power",
+      "bottom": "Down — Lesson",
+      "left": "Left — Personality",
+      "right": "Law — Materialisation"
+    },
+    "personalYearTitle": "{{year}}'s personal year",
+    "personalYearEyebrow": "PERSONAL YEAR",
+    "badges": {
+      "growth": "increase",
+      "reflection": "reflection",
+      "agency": "agency"
+    },
+    "forecastTitle": "Energy forecast — {{date}}",
+    "forecastEyebrow": "ACTIVE POSITION OF THE DAY",
+    "forecastBadge": "active today",
+    "forecastIntention": "Today’s intention: Observe how the energy of ‘{{name}}’ manifests itself in your decisions, conversations and feelings.",
+    "affirmationTitle": "Matrix affirmation",
+    "affirmationEyebrow": "{{value}} CENTRE · {{type}}"
+  },
+  "share": {
+    "summary": "The Centre {{center}} is the axis of this map. The connections are driven by the energy {{relationship}}, the agency {{money}}, and the lesson returns via {{bottom}}.",
+    "highlights": {
+      "comfort": "Comfort for the Soul {{value}}: {{meaning}}",
+      "relationships": "{{value}}’s coverage: {{meaning}}",
+      "power": "{{value}}'s personal website: {{meaning}}"
+    }
+  },
+  "directionBadges": {
+    "incoming": "is coming",
+    "outgoing": "is coming out",
+    "left": "left line",
+    "right": "legal line",
+    "balanced": "centre"
+  },
+  "positions": {
+    "1": {
+      "name": "The Soul's Mission",
+      "desc": "Your main purpose and calling in this lifetime. The heart of your journey."
+    },
+    "2": {
+      "name": "Personal Energy",
+      "desc": "How you act and how others perceive you. Your natural strength."
+    },
+    "3": {
+      "name": "Challenges",
+      "desc": "Karmic lessons and areas requiring work and attention."
+    },
+    "4": {
+      "name": "Reports",
+      "desc": "Your relationship patterns and what you attract in your loved ones."
+    },
+    "5": {
+      "name": "Health",
+      "desc": "Physical energy and areas to focus on for the care of body and mind."
+    },
+    "6": {
+      "name": "Finance",
+      "desc": "Your attitude towards money and abundance in this life."
+    },
+    "7": {
+      "name": "Food of the Ancestors",
+      "desc": "Patterns from your family lineage that you have come to work through."
+    },
+    "8": {
+      "name": "Potential",
+      "desc": "The greatest potential available to you in this lifetime."
+    },
+    "9": {
+      "name": "Summary",
+      "desc": "How all these energies come together to form your unique path."
+    }
+  },
+  "yearArchetypes": {
+    "1": "Initiator",
+    "2": "Diplomat",
+    "3": "Creator",
+    "4": "Builder",
+    "5": "The Explorer",
+    "6": "Carer",
+    "7": "Mystic",
+    "8": "Leader",
+    "9": "Closing",
+    "11": "Visionary",
+    "22": "Champion"
+  },
+  "yearDisplayNames": {
+    "1": "The Initiator's Year",
+    "2": "Year of the Diplomat",
+    "3": "Year of the Creator",
+    "4": "The Year of the Builder",
+    "5": "Year of the Explorer",
+    "6": "Year of the Guardian",
+    "7": "The Year of Mysticism",
+    "8": "Year of the Leader",
+    "9": "Year of Closure",
+    "11": "The Year of the Visionary",
+    "22": "The Year of the Champion"
+  },
+  "read": {
+    "summary": [
+      "The road",
+      "Reports",
+      "Agency",
+      "Lesson"
+    ],
+    "axesTitle": "The three main pillars",
+    "axes": [
+      {
+        "key": "core",
+        "label": "Core",
+        "copy": "The place where it’s easiest to restore harmony."
+      },
+      {
+        "key": "relationships",
+        "label": "Reports",
+        "copy": "A style characterised by connection, attraction and tension."
+      },
+      {
+        "key": "abundance",
+        "label": "Abundance",
+        "copy": "How agency and materialisation work."
+      }
+    ],
+    "positionsTitle": "Interpretations of 9 items",
+    "energyMapTitle": "Map of energy flows",
+    "lifeAreasTitle": "How does it work in real life?",
+    "lifeAreas": [
+      {
+        "key": "love",
+        "title": "Love and relationships",
+        "body": "{{value}}'s energy reveals how you form connections and where you need more courage, reciprocity or boundaries."
+      },
+      {
+        "key": "bag",
+        "title": "Work and materialisation",
+        "body": "{{value}}’s energy reveals where the flow of agency is natural, and where it begins to stall due to fear or overload."
+      },
+      {
+        "key": "intuition",
+        "title": "Intuition and development",
+        "body": "{{value}}’s Centre is a place where you can reconnect with your true self. It is here that you can most easily discern what truly belongs to you."
+      }
+    ],
+    "coreReadingTitle": "The core of the matrix — a deeper insight",
+    "coreReading": [
+      {
+        "key": "comfort",
+        "title": "Comfort for the soul • {{value}}"
+      },
+      {
+        "key": "power",
+        "title": "Personal Power • {{value}}"
+      },
+      {
+        "key": "lesson",
+        "title": "A karmic lesson • {{value}}"
+      },
+      {
+        "key": "relationships",
+        "title": "Relationship field • {{value}}"
+      }
+    ],
+    "karmicTitle": "Karmic lessons — missing numbers ({{count}})",
+    "karmicNone": "Your matrix contains all the numbers from 1 to 9. There are no obvious karmic gaps — you are focusing on deepening the existing energies.",
+    "karmicIntro": "The numbers missing from your matrix indicate areas that require conscious effort in this life. These are not weaknesses — they are areas for growth.",
+    "karmicEyebrow": "A KARMA LESSON",
+    "compatibilityTitle": "Soul compatibility — type: {{type}}",
+    "compatibilitySoulType": "SOUL TYPE",
+    "compatibilityRows": [
+      {
+        "key": "resonator",
+        "label": "Kindred spirits"
+      },
+      {
+        "key": "tension",
+        "label": "Moments of tension"
+      },
+      {
+        "key": "gift",
+        "label": "Your gift to others"
+      }
+    ],
+    "compatibilityActiveBanner": "\"For someone\" mode is active — you can compare the matrices in the 'Deeper' tab.",
+    "compatibilityInactiveBanner": "Enable \"For someone\" mode to see a full comparison of the two matrices.",
+    "compatibilityAdd": "Add a person to the comparison",
+    "compatibilityChange": "Change to: {{name}}",
+    "energyMap": {
+      "center": {
+        "dir": "Centre",
+        "desc": "An anchor of identity. The place you left and the place you return to."
+      },
+      "top": {
+        "dir": "Top ↑",
+        "desc": "Energy reaching for its full potential. Aspirations and willpower."
+      },
+      "bottom": {
+        "dir": "Down ↓",
+        "desc": "Energy arriving as a lesson. Karma and patterns requiring integration."
+      },
+      "left": {
+        "dir": "Left ◀",
+        "desc": "The maternal line. Personality, instinct, inner drive."
+      },
+      "right": {
+        "dir": "Law ▶",
+        "desc": "The paternal line. Manifestation, influence on the outside world."
+      }
+    }
+  },
+  "deep": {
+    "ancestorTitle": "Ancestral programmes",
+    "ancestorIntro": "The matrix encodes not only your energy, but also patterns passed down through the generations. The right-hand side represents the father’s line, the left-hand side the mother’s, and the bottom represents the collective karma of the family.",
+    "ancestorItems": [
+      {
+        "key": "father",
+        "title": "Father’s Line Programme",
+        "desc": "The energy in the '{{value}}' position on the right reflects patterns passed down through the paternal line: attitudes towards work, authority, money and boundaries."
+      },
+      {
+        "key": "mother",
+        "title": "The Mother's Line Programme",
+        "desc": "The energy of the {{value}}, when in the left position, carries maternal patterns: care, emotionality, boundaries in relationships, and the way intimacy is experienced."
+      },
+      {
+        "key": "family",
+        "title": "Family food",
+        "desc": "{{value}}’s energy often appears in the stories of grandparents or great-grandparents as a karmic lesson. It is a pattern that your soul has taken on in order to bring it to a close — not to repeat it."
+      },
+      {
+        "key": "gift",
+        "title": "A gift passed on",
+        "desc": "{{value}}’s Centre is the energy that you can pass on to future generations in a transformed form. Once you have worked through the patterns on the left and right, the centre becomes the point of healing for the entire lineage."
+      }
+    ],
+    "decadesTitle": "A journey through the decades",
+    "decadesIntro": "Each decade of life is imbued with a specific numerical energy. The active decade indicates the main theme you are working on during this phase.",
+    "ageRange": "{{start}}–{{end}} • {{startYear}}–{{endYear}}",
+    "past": "PAST",
+    "energyPrefix": "Energy",
+    "lifePathTitle": "The path of life",
+    "lifePathEyebrow": "THE NUMBER OF THE WAY OF LIFE",
+    "lifePathRows": [
+      {
+        "key": "centre",
+        "label": "The path of life and the centre",
+        "desc": "When the energy of the life path {{lifePath}} meets the centre {{center}}, the synergy number {{interaction}} is formed. This is your main energy flow."
+      },
+      {
+        "key": "lesson",
+        "label": "The path of life and a lesson",
+        "desc": "The tension between the path {{lifePath}} and the lesson {{bottom}} yields the number {{interaction}} — the area where the potential encounters the greatest resistance."
+      },
+      {
+        "key": "relationships",
+        "label": "The path of life and relationships",
+        "desc": "The combination of {{lifePath}} and {{relationship}} produces the number {{interaction}}, which describes the quality of your close relationships."
+      }
+    ],
+    "timelineTitle": "Activation timeline (9-year cycle)",
+    "timelineIntro": "Each year of life activates a different position in the 9-year cycle.",
+    "timelineAge": "{{age}}'s age",
+    "relationshipInactiveTitle": "Relational matrix — for two",
+    "relationshipInactiveBody": "Activate \"For Someone\" mode to see how your energy field resonates with another person’s. The analysis covers the points of contact, tensions and synergies between the two fields.",
+    "relationshipActiveTitle": "Relational matrix — {{name}}",
+    "relationshipCenterTitle": "CENTRUM DUSZY — {{name}}",
+    "relationshipCenterMeta": "The Way of Life {{lifePath}} · Relationships {{relationship}} · Lesson {{bottom}}",
+    "relationshipRows": [
+      {
+        "key": "synergy",
+        "label": "Synergy between centres",
+        "desc": "When these two centres come together, a space called ‘{{result}}’ is created. It is an energy in which you both feel most like yourselves and complement each other."
+      },
+      {
+        "key": "tension",
+        "label": "The intensity of the lesson",
+        "desc": "The two karmic lessons, {{a}} and {{b}}, create a dynamic {{result}}. This is where the greatest challenges lie, and at the same time, where we learn deeply from one another."
+      },
+      {
+        "key": "rhythm",
+        "label": "The rhythm of the relationship",
+        "desc": "The relational fields of both matrices merge in a rhythm of {{result}}. This energy describes the kind of intimacy you both need."
+      }
+    ],
+    "moneyTitle": "Financial and prosperity programmes",
+    "moneyRows": [
+      {
+        "key": "main",
+        "title": "Main financial programme",
+        "desc": "{{value}}'s energy describes your fundamental physical pattern.",
+        "practiceType": "meaning"
+      },
+      {
+        "key": "pet food",
+        "title": "Resource feed",
+        "desc": "{{value}}’s Centre reveals where your deep-seated sense of deserving comes from.",
+        "practice": "Affirmation: \"My centre {{value}} allows me to receive abundance without feeling guilty.\""
+      },
+      {
+        "key": "block",
+        "title": "Blockage of abundance",
+        "desc": "The karmic lesson associated with the number {{value}} often manifests in financial matters as a recurring pattern: a lack of money or a fear of losing it.",
+        "practice": "Question: \"In what way does the '{{value}}' lesson hinder my financial progress?\""
+      },
+      {
+        "key": "potential",
+        "title": "The potential for realisation",
+        "desc": "The right-hand side of the matrix {{value}} represents your ability to transform energy into form.",
+        "practiceType": "meaning"
+      }
+    ],
+    "missionTitle": "Mission vs comfort zone",
+    "missionIntro": "The centre of the matrix is your comfort zone. The top represents your mission — the direction in which you grow when you act boldly.",
+    "missionRows": [
+      {
+        "key": "comfort",
+        "label": "Comfort zone",
+        "desc": "{{value}} Centre: your safe haven. You feel safe here. {{meaning}}"
+      },
+      {
+        "key": "calling",
+        "label": "Mission and vocation",
+        "desc": "{{value}} Mountain: a symbol of aspiration and growth. It takes courage to venture out from the centre. {{meaning}}"
+      },
+      {
+        "key": "tension",
+        "label": "Growth spurt",
+        "desc": "The tension between purpose and comfort: {{value}}. This is where real growth happens."
+      }
+    ],
+    "aiTitle": "Deep AI sensor reading",
+    "aiRows": [
+      {
+        "key": "ancestors",
+        "title": "Ancestral patterns and liberation",
+        "copy": "Oracle identifies which family patterns are encoded in the matrix."
+      },
+      {
+        "key": "synthesis",
+        "title": "A synthesis of finance, health and relationships",
+        "copy": "Oracle brings together all three areas of life through the lens of a matrix."
+      }
+    ],
+    "aiContexts": {
+      "ancestors": "I am analysing my ancestors’ charts:\n- Father’s line (right): {{right}}\n- Mother’s line (left): {{left}}\n- Family karma (bottom): {{bottom}}\n- Centre: {{center}}\n- Life path: {{lifePath}}\n\nWhat family patterns are encoded in these numbers? Please suggest a specific step for transforming the energy {{bottom}}.",
+      "synthesis": "Summary by Matryca:\nFINANCE:{{money}}\n\n,{{right}}\n\n,{{center}}\n\n\nHEALTH:{{lifePath}}\n\n,{{bottom}}\n\n,{{center}}\n\n\nRELATIONSHIPS:{{relationship}}\n\n,{{left}}\n\n,{{bottom}}\n\nWhat is the common thread? Suggest one action that will unblock the flow in all these areas at once."
+    }
+  },
+  "practice": {
+    "aiTitle": "An interview with AI Matrix",
+    "aiPrompts": [
+      {
+        "key": "core",
+        "title": "Ask about the core of the soul",
+        "copy": "Ask the AI to break down the {{center}} website into daily decisions, relationships and emotional well-being.",
+        "context": "I am on the Soul Matrix screen. My centre is {{center}}, relationships are {{relationship}}, money energy is {{money}}, and the karmic lesson is {{bottom}}. Please explain the core of this matrix to me and show me how it works in everyday life."
+      },
+      {
+        "key": "shadow",
+        "title": "Ask about the lock and the shadow",
+        "copy": "Let AI explain how the ‘{{bottom}}’ lesson undermines the movement and what it really aims to teach.",
+        "context": "I am analysing my Soul Matrix. My karmic lesson is {{bottom}}, my personal power is {{top}}, and my centre is {{center}}. Show me how my shadow works and what gentle movement will truly unblock me."
+      },
+      {
+        "key": "full",
+        "title": "A full reading of all 8 items",
+        "copy": "Oracle analyses the entire matrix and identifies one dominant pattern at present.",
+        "context": "Perform a full reading of the Destiny Matrix.\nCentre:{{center}}\n\n\nTop:{{top}}\n\n\nBottom:{{bottom}}\n\n\nLeft:{{left}}\n\n\nRight:{{right}}\n\n\nRelationships:{{relationship}}\n\n\nMoney:{{money}}\n\n\nLife Path:{{lifePath}}\n\nAnalyse tensions and synergies. Identify one dominant pattern. Conclude with a question for reflection."
+      }
+    ],
+    "meditationTitle": "Matrix meditation — 6 steps",
+    "meditationRows": [
+      {
+        "num": "01",
+        "title": "Inhalation",
+        "body": "Sit comfortably and close your eyes. Take three deep breaths. Visualise a golden geometric grid — your Matrix."
+      },
+      {
+        "num": "02",
+        "title": "{{center}} Centre",
+        "body": "Visualise the number {{center}} as a glowing point in the centre of your chest. Feel its warmth. Let it pulsate rhythmically."
+      },
+      {
+        "num": "03",
+        "title": "Vertical axis",
+        "body": "A vertical axis rises from the centre. Upwards — the number {{top}}, your power. Downwards — the number {{bottom}}, your lesson and the earth."
+      },
+      {
+        "num": "04",
+        "title": "Horizontal axis",
+        "body": "Draw a horizontal axis. On the left is the number {{left}}, representing your personality. On the right is the number {{right}}, representing your material circumstances."
+      },
+      {
+        "num": "05",
+        "title": "The purpose of the field",
+        "body": "Sitting at the centre of the cross, ask yourself: which energy is demanding my attention today? Wait for an impulse; don’t overthink it."
+      },
+      {
+        "num": "06",
+        "title": "Closing",
+        "body": "Take three final breaths. Give thanks to each energy. Open your eyes and write down a single number or image that came to mind during the silence."
+      }
+    ],
+    "meditationCta": "Go to the meditation practice",
+    "tipsTitle": "Practical tips",
+    "tipsRows": [
+      {
+        "key": "meditation",
+        "title": "Matrix meditation",
+        "desc": "Close your eyes and visualise a grid of numbers. Each number is a light within your energy field."
+      },
+      {
+        "key": "journal",
+        "title": "The Number Diary",
+        "desc": "For 9 days, note down one discovery about each row of the matrix. Look for patterns."
+      },
+      {
+        "key": "intention",
+        "title": "Purpose of the item",
+        "desc": "Choose one item from the grid each day and set an intention for it for the whole day."
+      }
+    ],
+    "guideTitle": "If you want to get something out of it",
+    "guideSteps": [
+      "1. Choose the number that causes you the greatest resistance or relief.",
+      "2. Treat it as the topic of the week, not as a theory to be memorised.",
+      "3. If anything is still unclear, just ask about that one point."
+    ],
+    "integrationTitle": "Integration by matrix",
+    "integrationBody": "Take the figures from the matrix and use them to reflect on relationships, work, intuition and the next practical step.",
+    "integrationPrompt": "My matrix shows the centre {{center}}, relationships {{relationship}} and the energy of money {{money}}. How does this pattern translate today into relationships, work and the next important step?",
+    "nextTitle": "What next?",
+    "nextRows": [
+      {
+        "key": "note",
+        "label": "Note on the template",
+        "desc": "Write down the one number that moves you the most today."
+      },
+      {
+        "key": "numerology",
+        "label": "Advanced numerology",
+        "desc": "Move on to a broader perspective on life and your personal year."
+      },
+      {
+        "key": "relationship",
+        "label": "The matrix in the relationship",
+        "desc": "See how your relationship number matches up with another person’s."
+      },
+      {
+        "key": "partner",
+        "label": "Partner matrix",
+        "desc": "Go to a separate relational path with a full foreground."
+      },
+      {
+        "key": "share",
+        "label": "Share the matrix shortcut",
+        "desc": "Send a concise summary of the key points."
+      }
+    ],
+    "nextPrompt": "The centre of my matrix is {{center}}, relationships are {{relationship}}, and the energy of money is {{money}}. Which of these numbers is working the hardest today, and why?"
+  },
+  "daily": {
+    "activeTitle": "Today's active energy",
+    "activeEyebrow": "MATRIX POSITION · {{date}}",
+    "affirmationEyebrow": "✦ AFFIRMATION OF THE DAY",
+    "crystalEyebrow": "SUPPORTING CRYSTAL",
+    "reflectionEyebrow": "✦ A QUESTION FOR REFLECTION TODAY",
+    "journalCta": "Write down your thoughts in your diary",
+    "personalYearTitle": "{{year}}'s personal year",
+    "yearEyebrow": "YEAR{{archetype}}",
+    "ruler": "Ruler: {{name}}",
+    "element": "Website: {{element}}",
+    "mantraEyebrow": "MANTRA OF THE YEAR",
+    "compatibilityTitle": "Soul compatibility",
+    "compatibilityAttracts": "YOU ATTRACT ENERGY",
+    "compatibilityTension": "VOLTAGE RANGE",
+    "compatibilityGift": "YOUR GIFT TO OTHERS",
+    "quickTitle": "Quick transitions",
+    "quickRows": [
+      {
+        "key": "numerology",
+        "label": "Numerology — year and month",
+        "desc": "A Personal Year, a monthly publication, a 9-year cycle"
+      },
+      {
+        "key": "compatibility",
+        "label": "Compatibility as a couple",
+        "desc": "How does your matrix resonate with your partner?"
+      },
+      {
+        "key": "Oracle",
+        "label": "Oracle matrix",
+        "desc": "Ask the AI about today through the lens of the matrix"
+      }
+    ],
+    "oraclePrompt": "Today’s active matrix position is {{dailyName}} (energy {{dailyEnergy}}). My personal year is {{personalYear}} — year {{yearArchetype}}. The centre of the matrix is {{center}}. How do these energies interact on this day, and what should I take into account now?",
+    "journalPrompt": "Today’s question from the matrix:\n{{todayQuestion}}\n\nMy matrix: centre {{center}}, relationships {{relationship}}, power {{top}}, lesson {{bottom}}."
+  },
+  "forSomeone": {
+    "title": "Who is this session for?",
+    "body": "Enter the details of the person for whom you are taking the fingerprint scan.",
+    "placeholder": "The person's name...",
+    "disable": "Turn off \"For someone\" mode",
+    "centerEyebrow": "{{name}} — THE CENTRE OF THE SOUL",
+    "centerMeta": "Link: {{lifePath}} · Reports: {{relationship}} · Lesson: {{bottom}}"
+  },
+  "dailyCrystal": {
+    "1": {
+      "name": "Carnelian",
+      "color": "#F97316",
+      "use": "It boosts initiative and the courage to take the first step"
+    },
+    "2": {
+      "name": "Moonstone",
+      "color": "#A5B4FC",
+      "use": "It calms emotions and deepens intuition in relationships"
+    },
+    "3": {
+      "name": "Citrine",
+      "color": "#FCD34D",
+      "use": "It inspires the joy of creation and a sense of ease in self-expression"
+    },
+    "4": {
+      "name": "Green jasper",
+      "color": "#4ADE80",
+      "use": "It instils and reinforces a sense of regularity"
+    },
+    "5": {
+      "name": "Aquamarine",
+      "color": "#38BDF8",
+      "use": "Promotes flexibility and openness to change"
+    },
+    "6": {
+      "name": "Rose quartz",
+      "color": "#F9A8D4",
+      "use": "It opens the heart and brings harmony to relationships"
+    },
+    "7": {
+      "name": "Amethyst",
+      "color": "#A78BFA",
+      "use": "It deepens reflection and connection with higher wisdom"
+    },
+    "8": {
+      "name": "Tiger's eye",
+      "color": "#FBBF24",
+      "use": "It fosters agency and a leadership mindset"
+    },
+    "9": {
+      "name": "Labradorite",
+      "color": "#60A5FA",
+      "use": "Supports cycle closure and transformation"
+    },
+    "10": {
+      "name": "Obsidian",
+      "color": "#6B7280",
+      "use": "It conserves energy and clears past patterns"
+    },
+    "11": {
+      "name": "Selenite",
+      "color": "#C4B5FD",
+      "use": "It clears the space and enhances the flow of energy"
+    },
+    "22": {
+      "name": "Golden obsidian",
+      "color": "#D97706",
+      "use": "It brings grand visions to life and builds lasting structures"
+    }
+  },
+  "soulCompatibility": {
+    "1": {
+      "type": "Initiator",
+      "attracts": "Souls 2, 9 — the sensitivity and wisdom of withdrawal complement your strength of entry",
+      "tension": "Souls 1, 8 — the struggle for leadership and agency",
+      "gift": "You give others the courage to take that first step."
+    },
+    "2": {
+      "type": "Scheduler",
+      "attracts": "Souls 1, 11 — initiative and masterful intuition carry you forward",
+      "tension": "souls 5, 9 — the pace of change and closures can be overwhelming",
+      "gift": "Your presence has a calming effect and brings the space together."
+    },
+    "3": {
+      "type": "Wizard",
+      "attracts": "souls 6, 9 — care and wisdom create space for your self-expression",
+      "tension": "souls 4, 7 — constraints and silence stifle your voice",
+      "gift": "You inspire others to be creative."
+    },
+    "4": {
+      "type": "Builder",
+      "attracts": "Souls 8, 22 — agency and mastery co-create enduring structures",
+      "tension": "Souls 3 and 5 — spontaneity and chaos are throwing you off balance",
+      "gift": "You give others a sense of stability and security."
+    },
+    "5": {
+      "type": "The Explorer",
+      "attracts": "Souls 1 and 3 — initiative and self-expression support your freedom",
+      "tension": "Souls 4, 6 — obligations and routine slow down your flow",
+      "gift": "You inspire others to embrace change and new opportunities."
+    },
+    "6": {
+      "type": "Carer",
+      "attracts": "Souls 2, 9 — sensitivity and introversion resonate with your caring nature",
+      "tension": "Souls 5, 11 — freedom and hypersensitivity are draining your resources",
+      "gift": "Your love heals the space around you."
+    },
+    "7": {
+      "type": "Mystic",
+      "attracts": "Souls 11, 2 — intuition and subtlety deepen your understanding",
+      "tension": "souls 1, 8 — action and materiality may seem superficial",
+      "gift": "You bring depth and meaning to others in the darkness."
+    },
+    "8": {
+      "type": "Leader",
+      "attracts": "Psalms 4:22 — Structure and mastery support your agency",
+      "tension": "Souls 2, 7 — gentleness and reserve may hinder your progress",
+      "gift": "You are opening the door to financial freedom for others."
+    },
+    "9": {
+      "type": "The Sage",
+      "attracts": "Souls 3, 6 — creativity and the heart resonate with your wisdom",
+      "tension": "Souls 1, 8 — your ego and ambition clash with your devotion",
+      "gift": "Your presence teaches others how to let go without pain."
+    },
+    "10": {
+      "type": "Transformer",
+      "attracts": "Souls 5, 13 — change and transformation form a common axis",
+      "tension": "Souls 4 and 6 — stability and habit are holding back your evolution",
+      "gift": "You give others the courage to make a complete U-turn."
+    },
+    "11": {
+      "type": "Channel of Light",
+      "attracts": "Souls 2 and 7 — sensitivity and depth resonate with your intuition",
+      "tension": "souls 4, 8 — materialism and structure can be mundane",
+      "gift": "Your presence awakens others’ intuition."
+    },
+    "22": {
+      "type": "Master of Form",
+      "attracts": "Souls 4, 8 — builders and leaders are shaping a vision of the future together with you",
+      "tension": "Souls 3, 5 — chaos and change are destabilising your grand structures",
+      "gift": "You make a reality what others can only dream of."
+    }
+  },
+  "yearGuidance": {
+    "1": "The Year of the One is a time for new beginnings and bold initiatives. Sow the seeds of what you wish to reap in the coming cycle.",
+    "2": "The Year of the Two brings partnerships, patience and diplomacy. Listen more than you speak — the answer will come from your relationships.",
+    "3": "The Year of the Three brings with it expression, creativity and the joy of communication. Everything you create now carries an energy of lightness.",
+    "4": "The Year of the Four lays the foundations. Consistent effort yields lasting results — avoid wasting your energy.",
+    "5": "The Year of the Five is about change, freedom and new experiences. Be ready to let go of what holds you back and embrace what helps you grow.",
+    "6": "The Year of the Six focuses on home, family and responsibility. Harmony in your relationships is your greatest asset.",
+    "7": "The Year of the Seven encourages deeper reflection, spirituality and inner exploration. Silence and solitude are now more rewarding than activity.",
+    "8": "The year of the Eight fosters initiative, achievement and leadership. Your power is transformed into tangible, measurable results.",
+    "9": "The year of the Nine brings the cycle to a close. Let go of the past — relationships, projects, beliefs — to make room for the new.",
+    "11": "The year of the 11 brings masterful intuition and spiritual awakening. Your intuition outweighs your rationality — trust it.",
+    "22": "The year 2022 is the year of the Master Materialist. The potential for building something great and lasting is exceptionally high right now."
+  },
+  "decadeThemes": {
+    "1": "Building identity and laying the foundations",
+    "2": "Relationships, intuition and the search for harmony",
+    "3": "Expression, creativity and discovering one’s voice",
+    "4": "Structure, operation and a solid foundation",
+    "5": "Change, freedom and broad horizons",
+    "6": "Home, family and mature responsibility",
+    "7": "Reflection, spirituality and inner exploration",
+    "8": "Agency, leadership and materialisation",
+    "9": "Wisdom, conclusions and passing on",
+    "10": "A change of direction",
+    "11": "Mystical awakening and higher-order intuition",
+    "12": "Letting go of control and profound renewal",
+    "13": "Fundamental transformation and letting go of burdens",
+    "14": "Balancing extremes and alchemy",
+    "15": "Coming to terms with attachments and patterns",
+    "16": "A turning point and rebuilding on new foundations",
+    "17": "Hope, inspiration and renewal",
+    "18": "Working with the subconscious and one’s inner shadows",
+    "19": "Complete visibility and mature self-confidence",
+    "20": "Awakening and coming to terms with the past",
+    "21": "Integration and wholeness of all parts of oneself",
+    "22": "Excellence and building a lasting legacy"
+  },
+  "affirmations": {
+    "1": "I am the architect of my own life. My will is enough to get started.",
+    "2": "My sensitivity is my strength. I listen, I feel, and I build bridges of love.",
+    "3": "I express myself without apology. My voice and my work have value.",
+    "4": "I’m building a solid foundation, step by step. Consistency is my superpower.",
+    "5": "I am free to change and grow. New experiences make me stronger.",
+    "6": "I look after others out of love, not fear. Harmony begins with me.",
+    "7": "My depth and reflection are a treasure. Silence leads me to the truth.",
+    "8": "I act with strength and responsibility. I manifest what I truly want.",
+    "9": "I let go of the past with gratitude. My closures make room for the new.",
+    "10": "I am ready for a transformation. Every turning point in my life matters.",
+    "11": "My intuition is spot on. I trust what I feel deep in my heart.",
+    "22": "I bring grand visions to life. I build something lasting and meaningful for the future."
+  },
+  "karmicLessons": {
+    "1": "Lack of initiative — you learn to take the lead, make decisions and venture into the unknown without a roadmap.",
+    "2": "Lack of patience — you learn to wait, listen and build relationships at a more gentle pace.",
+    "3": "Lack of self-expression — you’re learning to speak your truth, to create and to show yourself to the world.",
+    "4": "Lack of discipline — you learn about structure, routine and keeping the promises you make to yourself.",
+    "5": "A lack of adaptability — you learn to find the courage to embrace change, to travel and to step outside your comfort zone.",
+    "6": "A lack of care — you learn responsibility for relationships, the home and mutuality in intimacy.",
+    "7": "A lack of reflection — you learn to pause, analyse and develop a deeper connection with your inner self.",
+    "8": "A lack of agency — you learn about leadership, resource management and moving beyond the role of an observer.",
+    "9": "Unfinished business — you learn to draw conclusions, gain wisdom from experience, and let go of the past."
+  },
+  "dailyQuestions": {
+    "center": "Where do you feel most like yourself these days? What helps you feel centred again?",
+    "top": "What do you want to bring to the space around you today? What power within you is calling out to be expressed?",
+    "bottom": "What requires patience or acceptance today? What is your lesson for the day?",
+    "left": "How do you react instinctively today? What does your inner self need right now?",
+    "right": "What do you want to bring to life today? How do you make your presence felt in the world?",
+    "relationship": "How are your relationships today? Who needs your attention or presence the most today?",
+    "money": "How are you doing with your agency today? What is blocking or facilitating the flow of material energy?",
+    "lifePath": "Are today’s decisions in line with your deeper path? What does your life’s path suggest today?"
+  },
+  "yearMantras": {
+    "1": "I’m getting started. I’m making a decision. I’m taking action.",
+    "2": "I listen. I feel. I connect.",
+    "3": "I create. I express myself. I shine.",
+    "4": "I build. I organise. I persevere.",
+    "5": "I’m changing. I’m experimenting. I’m taking the plunge.",
+    "6": "I care. I bring harmony. I take responsibility.",
+    "7": "I reflect. I meditate. I understand.",
+    "8": "I act. I manifest. I bring about.",
+    "9": "I let go. I release. I give up.",
+    "11": "I feel. I channel. I inspire.",
+    "22": "I see big things. I make lasting things a reality. I build for the future."
+  },
+  "planetRulers": {
+    "1": {
+      "name": "The Sun",
+      "element": "Fire"
+    },
+    "2": {
+      "name": "The Moon",
+      "element": "Water"
+    },
+    "3": {
+      "name": "Jupiter",
+      "element": "Fire"
+    },
+    "4": {
+      "name": "Uranium",
+      "element": "Air"
+    },
+    "5": {
+      "name": "Mercury",
+      "element": "Air"
+    },
+    "6": {
+      "name": "Venus",
+      "element": "Earth"
+    },
+    "7": {
+      "name": "Neptune",
+      "element": "Water"
+    },
+    "8": {
+      "name": "Saturn",
+      "element": "Earth"
+    },
+    "9": {
+      "name": "Mars",
+      "element": "Fire"
+    },
+    "11": {
+      "name": "Uranus/Neptune",
+      "element": "Ether"
+    },
+    "22": {
+      "name": "Platoon",
+      "element": "Ether"
+    }
+  },
+  "energyMeanings": {
+    "1": "The energy of initiation. It teaches courage, self-determination and taking the first step without waiting for the perfect moment.",
+    "2": "The energy of sensitivity and empathy. It enhances intuition, our perception of relationships, and the need for a more subtle pace.",
+    "3": "The energy of expression. It demands a voice, creativity, communication and the courage to be seen.",
+    "4": "The energy of structure. It reminds us of boundaries, discipline and building something that stands the test of time.",
+    "5": "The energy of change. It stirs what has become stagnant and tests whether you can remain true to yourself whilst in motion.",
+    "6": "The energy of the heart and responsibility. It concerns bonds, care, harmony and being there for others in a mature way without losing oneself.",
+    "7": "The energy of the search for meaning. It leads us deeper, towards knowledge, spirituality and questions that cannot be dismissed with a superficial answer.",
+    "8": "The energy of agency. It combines manifestation, influence, ambition and the art of handling power responsibly.",
+    "9": "The energy of closure. It reflects the wisdom that comes from experience, compassion and a willingness to bring a cycle to an end.",
+    "10": "The energy of a change of fortune. It teaches us that a change of direction can be a blessing, provided you don’t cling desperately to the old narrative.",
+    "11": "The energy of inner strength. It works through self-control, dignity and a deep connection with one’s core.",
+    "12": "The energy of coming to a halt and gaining a new perspective. It is a lesson in letting go of control and finding meaning where there was previously only a sense of being stuck.",
+    "13": "The energy of transformation. It does not take away without reason; rather, it paves the way for a more authentic way of life.",
+    "14": "The energy of alchemy. It teaches balance, patience and the art of blending opposites into a more mature whole.",
+    "15": "The energy of attachment and desire. It reveals where you are giving in to fear, temptation or a compulsive need for control.",
+    "16": "The energy of a turning point. It breaks down what can no longer stand on its old foundations.",
+    "17": "The energy of hope and inspiration. It reminds us of the light that returns after a difficult period and leads to renewal.",
+    "18": "The energy of the shadow and the subconscious. It brings dreams, premonitions, fears, and matters that require a more delicate approach to interpretation.",
+    "19": "The energy of visibility. It fosters confidence, clarity and the courage to step out of the shadows and into a fuller life.",
+    "20": "The energy of awakening. It calls for coming to terms with the past and consciously moving into the next phase.",
+    "21": "The energy of integration. It demonstrates maturity, wholeness and the ability to bring together different parts of oneself into a single, coherent path.",
+    "22": "The energy of freedom and trust. It holds the promise of a fresh start, without the need to have all the answers straight away.",
+    "fallback": "This energy points to an active area of your life that requires closer examination in the context of your current path."
+  }
+}

@@ -26,7 +26,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
 import * as Haptics from 'expo-haptics';
-
+import { useTheme } from '../core/hooks/useTheme';
 const ACCENT = '#EC4899';
 const BG_GRAD = ['#0E0709', '#160B0F', '#1C1016'] as const;
 
@@ -177,14 +177,15 @@ const SectionHeader = ({ label, accent }: { label: string; accent: string }) => 
 // ── MAIN SCREEN ──────────────────────────────────────────────────────────────
 export const InnerChildScreen = ({ navigation }: any) => {
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { isLight } = useTheme();
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.58)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.58)';
   const { t } = useTranslation();
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
 
   const scrollRef = useRef<ScrollView>(null);
   const [selectedNeed, setSelectedNeed] = useState<string | null>(null);
@@ -240,7 +241,9 @@ Bądź ciepły, łagodny i konkretny. 3-4 zdania w języku użytkownika.`,
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: isLight ? '#FFF0F6' : BG_GRAD[0] }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: isLight ? '#FFF0F6' : BG_GRAD[0] }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <LinearGradient colors={isLight ? ['#FFF0F6', '#FFE4F0', '#FFF'] : BG_GRAD} style={StyleSheet.absoluteFill} />
 
       {/* Header */}
@@ -290,7 +293,7 @@ Bądź ciepły, łagodny i konkretny. 3-4 zdania w języku użytkownika.`,
             })}
           </View>
           {selectedNeed && (
-            <View style={[styles.card, { borderColor: (NEEDS.find(n => n.id === selectedNeed)?.color ?? ACCENT) + '40', marginTop: 12 }]}>
+            <View style={[styles.card, { backgroundColor: cardBg, borderColor: (NEEDS.find(n => n.id === selectedNeed)?.color ?? ACCENT) + '40', marginTop: 12 }]}>
               <Text style={{ color: subColor, fontSize: 13, lineHeight: 20 }}>
                 {selectedNeed === 'safety' && 'Twoje wewnętrzne dziecko potrzebuje bezpieczeństwa — pewności, że ktoś się nim zaopiekuje. Dziś bądź tą osobą dla siebie.'}
                 {selectedNeed === 'love' && 'Miłość bezwarunkowa — bez zasług, bez warunków. Powiedz sobie dziś: „Kocham cię takim/taką, jakim/jaką jesteś."'}
@@ -305,7 +308,7 @@ Bądź ciepły, łagodny i konkretny. 3-4 zdania w języku użytkownika.`,
         {/* LETTER */}
         <SectionHeader label="LIST DO WEWNĘTRZNEGO DZIECKA" accent={ACCENT} />
         <Animated.View entering={FadeInDown.delay(200).springify()}>
-          <View style={[styles.card, { borderColor: ACCENT + '30' }]}>
+          <View style={[styles.card, { backgroundColor: cardBg, borderColor: ACCENT + '30' }]}>
             <Text style={{ color: subColor, fontSize: 12, marginBottom: 8 }}>
               Napisz do siebie — do małego Ciebie. Co chcesz mu/jej powiedzieć?
             </Text>
@@ -328,7 +331,7 @@ Bądź ciepły, łagodny i konkretny. 3-4 zdania w języku użytkownika.`,
             </Pressable>
           )}
           {showHistory && letterHistory.map(l => (
-            <View key={l.id} style={[styles.card, { borderColor: ACCENT + '25', marginTop: 8 }]}>
+            <View key={l.id} style={[styles.card, { backgroundColor: cardBg, borderColor: ACCENT + '25', marginTop: 8 }]}>
               <Text style={{ color: subColor, fontSize: 11, marginBottom: 4 }}>{l.date}</Text>
               <Text style={{ color: textColor, fontSize: 13, lineHeight: 20 }}>{l.text}</Text>
             </View>
@@ -339,7 +342,7 @@ Bądź ciepły, łagodny i konkretny. 3-4 zdania w języku użytkownika.`,
         <SectionHeader label="ĆWICZENIA REPARENTINGOWE" accent={ACCENT} />
         {EXERCISES.map((ex, i) => (
           <Animated.View key={ex.id} entering={FadeInDown.delay(240 + i * 50).springify()}>
-            <View style={[styles.card, { borderColor: ex.color + '40', borderLeftWidth: 3, borderLeftColor: ex.color }]}>
+            <View style={[styles.card, { backgroundColor: cardBg, borderColor: ex.color + '40', borderLeftWidth: 3, borderLeftColor: ex.color }]}>
               <Text style={{ color: ex.color, fontSize: 11, fontWeight: '700', letterSpacing: 1, marginBottom: 4 }}>ĆWICZENIE {i + 1}</Text>
               <Text style={{ color: textColor, fontSize: 14, fontWeight: '600', marginBottom: 6 }}>{ex.title}</Text>
               <Text style={{ color: subColor, fontSize: 13, lineHeight: 20 }}>{ex.desc}</Text>
@@ -352,7 +355,7 @@ Bądź ciepły, łagodny i konkretny. 3-4 zdania w języku użytkownika.`,
         {QUESTIONS.map((q, i) => (
           <Animated.View key={i} entering={FadeInDown.delay(300 + i * 40).springify()}>
             <Pressable onPress={() => { void HapticsService.impact(); setExpandedQ(expandedQ === i ? null : i); }}
-              style={[styles.card, { borderColor: expandedQ === i ? ACCENT + '60' : cardBorder }]}>
+              style={[styles.card, { backgroundColor: cardBg, borderColor: expandedQ === i ? ACCENT + '60' : cardBorder }]}>
               <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Text style={{ color: textColor, fontSize: 13, flex: 1, lineHeight: 20 }}>{q}</Text>
                 <Text style={{ color: ACCENT, fontSize: 18 }}>{expandedQ === i ? '−' : '+'}</Text>
@@ -374,7 +377,7 @@ Bądź ciepły, łagodny i konkretny. 3-4 zdania w języku użytkownika.`,
         {/* AI ORACLE */}
         <SectionHeader label="ZAPYTAJ WYROCZNIĘ" accent={ACCENT} />
         <Animated.View entering={FadeInDown.delay(400).springify()}>
-          <View style={[styles.card, { borderColor: ACCENT + '40' }]}>
+          <View style={[styles.card, { backgroundColor: cardBg, borderColor: ACCENT + '40' }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8 }}>
               <Sparkles size={16} color={ACCENT} />
               <Text style={{ color: ACCENT, fontSize: 12, fontWeight: '700' }}>WYROCZNIA WEWNĘTRZNEGO DZIECKA</Text>
@@ -400,7 +403,8 @@ Bądź ciepły, łagodny i konkretny. 3-4 zdania w języku użytkownika.`,
 
         <EndOfContentSpacer />
       </ScrollView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 
@@ -418,7 +422,6 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     padding: 14,
     marginBottom: 10,
-    backgroundColor: 'rgba(255,255,255,0.04)',
   },
   needCard: {
     width: '30%',

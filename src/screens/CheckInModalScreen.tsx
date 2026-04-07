@@ -7,7 +7,8 @@ import { useTranslation } from 'react-i18next';
 export const CheckInModalScreen = ({ navigation, route }: any) => {
   const { t } = useTranslation();
   const type  = route?.params?.type || 'morning';
-  const { updateDailyProgress, addGratitudeEntry } = useAppStore();
+    const updateDailyProgress = useAppStore(s => s.updateDailyProgress);
+  const addGratitudeEntry = useAppStore(s => s.addGratitudeEntry);
 
   const handleComplete = (data: { mood: string; energy: number; note?: string }) => {
     const today = new Date().toISOString().split('T')[0];

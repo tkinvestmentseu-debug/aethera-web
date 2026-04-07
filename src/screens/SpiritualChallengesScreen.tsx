@@ -14,7 +14,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../store/useAuthStore';
 import { ChallengesService, Challenge as FBChallenge } from '../core/services/community/challenges.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#F97316';
 
@@ -52,14 +52,15 @@ const RANKING = [
 
 export const SpiritualChallengesScreen = ({ navigation }) => {
   const { t } = useTranslation();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const { currentUser } = useAuthStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
+    const currentUser = useAuthStore(s => s.currentUser);
   const tc = isLight ? '#1A1008' : '#F0ECE4';
-  const sc = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
+  const sc = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
   const cb = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
-  const cbr = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
+  const cbr = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)';
 
   const [joinedIds, setJoinedIds] = useState<string[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -78,20 +79,22 @@ export const SpiritualChallengesScreen = ({ navigation }) => {
       setFbChallenges(chs);
       // Restore joined state from Firebase
       if (currentUser) {
-        chs.forEach(async c => {
-          const prog = await ChallengesService.getProgress(c.id, currentUser.uid);
-          if (prog) {
-            // Map Firebase title to local static ID by index
+        const uid = currentUser.uid;
+        Promise.all(chs.map(c => ChallengesService.getProgress(c.id, uid).then(prog => ({ c, prog })))).then(results => {
+          const today = new Date().toISOString().split('T')[0];
+          const newJoined: string[] = [];
+          const newCheckedIn: string[] = [];
+          for (const { c, prog } of results) {
+            if (!prog) continue;
             const idx = CHALLENGES.findIndex(lc => lc.title.toLowerCase().includes(c.title.split(' ')[0].toLowerCase()));
             if (idx >= 0) {
-              setJoinedIds(prev => prev.includes(CHALLENGES[idx].id) ? prev : [...prev, CHALLENGES[idx].id]);
-              const today = new Date().toISOString().split('T')[0];
-              if (prog.completedDays?.includes(today)) {
-                setCheckedInIds(prev => prev.includes(CHALLENGES[idx].id) ? prev : [...prev, CHALLENGES[idx].id]);
-              }
+              newJoined.push(CHALLENGES[idx].id);
+              if (prog.completedDays?.includes(today)) newCheckedIn.push(CHALLENGES[idx].id);
             }
           }
-        });
+          if (newJoined.length > 0) setJoinedIds(prev => [...new Set([...prev, ...newJoined])]);
+          if (newCheckedIn.length > 0) setCheckedInIds(prev => [...new Set([...prev, ...newCheckedIn])]);
+        }).catch(() => {});
       }
     });
     return () => { unsub(); if (createSentTimerRef.current) clearTimeout(createSentTimerRef.current); };
@@ -142,7 +145,9 @@ export const SpiritualChallengesScreen = ({ navigation }) => {
     : CHALLENGES.reduce((sum, c) => sum + c.participants, 0);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <LinearGradient
         colors={isLight ? ['#FFF7ED', '#FFEDD5', currentTheme.background] : ['#0E0601', '#1A0A02', currentTheme.background]}
         style={StyleSheet.absoluteFill} pointerEvents="none"
@@ -288,7 +293,8 @@ export const SpiritualChallengesScreen = ({ navigation }) => {
           <EndOfContentSpacer />
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

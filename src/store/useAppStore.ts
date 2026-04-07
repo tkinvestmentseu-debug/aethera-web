@@ -150,6 +150,14 @@ interface AppState {
     preferredRitualCategory?: string;
     primaryGuidanceMode?: 'western_astrology' | 'chinese_astrology' | 'tarot' | 'mixed';
     soulPathState?: 'awakening' | 'healing' | 'manifesting' | 'protecting' | 'reflecting';
+    // Auto-computed spiritual profile
+    zodiacSign?: string;
+    zodiacEmoji?: string;
+    zodiacElement?: string;
+    lifePathNumber?: number;
+    ascendant?: string;
+    ascendantEmoji?: string;
+    profileRevealSeen?: boolean;
   };
   partnerData: {
     name: string;
@@ -168,12 +176,16 @@ interface AppState {
       completedRituals?: string[];
       affirmationRead?: boolean;
       energyLevel?: number;
+      energyScore?: number;
       mood?: string;
       gratitudeWritten?: boolean;
       checkInShownMorning?: boolean;
       checkInShownEvening?: boolean;
       mantraGenerated?: boolean;
       crystalGuideVisited?: boolean;
+      habits?: Record<string, boolean>;
+      morningRituals?: Record<string, boolean>;
+      eveningRituals?: Record<string, boolean>;
     };
   };
   favoriteAffirmations: string[]; // IDs

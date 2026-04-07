@@ -30,7 +30,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 import { formatLocaleDate } from '../core/utils/localeFormat';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#34D399';
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
@@ -765,13 +765,15 @@ type TabId = 'quiz' | 'profile' | 'totem' | 'connect' | 'journal';
 export const SpiritAnimalScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.09)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.09)';
 
   const [activeTab, setActiveTab] = useState<TabId>('quiz');
   const [quizStep, setQuizStep] = useState(0);
@@ -1164,7 +1166,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                       <Text style={{ fontSize: 16, fontWeight: '700', color: textColor }}>{tt.label}</Text>
                     </View>
                     <Text style={{ fontSize: 14, color: textColor, lineHeight: 21, marginBottom: 10 }}>{tt.desc}</Text>
-                    <View style={{ padding: 12, borderRadius: 12, backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)', borderWidth: 1, borderColor: cardBorder }}>
+                    <View style={{ padding: 12, borderRadius: 12, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)', borderWidth: 1, borderColor: cardBorder }}>
                       <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: ACCENT, marginBottom: 4 }}>PRZYKŁAD</Text>
                       <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, fontStyle: 'italic' }}>{tt.example}</Text>
                     </View>

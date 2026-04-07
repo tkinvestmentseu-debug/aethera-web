@@ -503,7 +503,7 @@ const mountedRef = useRef(true);
 
             <View style={styles.phaseBoard}>
               <Animated.View style={[styles.phaseGlow, { backgroundColor: pattern.color, transform: [{ scale: sphere }] }]} />
-              <Animated.View style={[styles.phaseCore, { borderColor: pattern.color + '55', transform: [{ scale: sphere }] }]}>
+              <Animated.View style={[styles.phaseCore, { borderColor: pattern.color + '55', backgroundColor: isLight ? 'rgba(255,248,235,0.88)' : 'rgba(255,255,255,0.10)', transform: [{ scale: sphere }] }]}>
                 <Typography variant="premiumLabel" color={pattern.color}>{PHASE_LABELS[phase]}</Typography>
                 <Typography variant="heroTitle" style={{ color: theme.text, fontSize: 38, lineHeight: 44 }}>{formatBreath(phaseSeconds)}</Typography>
                 <Typography variant="bodySmall" style={{ color: theme.textMuted }}>cykl {cycleCount}/{pattern.cyclesTarget}</Typography>

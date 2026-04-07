@@ -1,88 +1,252 @@
-﻿// @ts-nocheck
-import React, { useMemo, useRef, useState } from 'react';
+// @ts-nocheck
+import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import Animated, { FadeInDown, FadeInUp, ZoomIn } from 'react-native-reanimated';
+import Animated, { FadeIn, FadeInDown, FadeInUp, ZoomIn } from 'react-native-reanimated';
 import {
   View, StyleSheet, ScrollView, TextInput,
-  KeyboardAvoidingView, Platform, Pressable, Text, Keyboard
+  KeyboardAvoidingView, Platform, Pressable, Keyboard,
+  Animated as RNAnimated, Easing as RNEasing, Dimensions,
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Sparkles, Star, Moon, Eye, Compass, BookOpen, Check } from 'lucide-react-native';
+import {
+  Sparkles, Star, Moon, Eye, Compass, BookOpen,
+  Check, User, MapPin, Calendar, Zap, Heart, Sun,
+} from 'lucide-react-native';
 import { useAppStore } from '../../../store/useAppStore';
 import { CelestialBackdrop } from '../../../components/CelestialBackdrop';
 import { PremiumButton } from '../../../components/PremiumButton';
 import { layout } from '../../../core/theme/designSystem';
 import { themes, ThemeName } from '../../../core/theme/tokens';
 import { PremiumDatePickerSheet } from '../../../components/PremiumDatePickerSheet';
+import { Typography } from '../../../components/Typography';
 
-type BirthDateState = { day: number; month: number; year: number };
+const { width: W, height: H } = Dimensions.get('window');
+
+// ── Palette (always dark luxury for onboarding) ────────────────────────────────
+const GOLD        = '#D4A843';
+const GOLD_SOFT   = '#F0C96A';
+const GOLD_GLOW   = 'rgba(212,168,67,0.18)';
+const PURPLE_CORE = '#7C3AED';
+const PURPLE_SOFT = '#A78BFA';
+const WHITE_HIGH  = 'rgba(255,255,255,0.92)';
+const WHITE_MED   = 'rgba(255,255,255,0.58)';
+const WHITE_LOW   = 'rgba(255,255,255,0.30)';
+const GLASS_BG    = 'rgba(255,255,255,0.06)';
+const GLASS_BORDER= 'rgba(255,255,255,0.12)';
+
+// ── Step meta: icon, gradient colors, accent ─────────────────────────────────
 type OnboardingStep = 'welcome' | 'identity' | 'gender' | 'birth' | 'birth_place' | 'experience' | 'entry';
 const STEPS: OnboardingStep[] = ['welcome', 'identity', 'gender', 'birth', 'birth_place', 'experience', 'entry'];
 
+const STEP_META: Record<OnboardingStep, {
+  icon: any; gradColors: [string, string, string]; accent: string; gradLoc: [number, number, number];
+}> = {
+  welcome:     { icon: Sparkles, gradColors: ['#10082A', '#0D1535', '#08071A'], accent: GOLD,        gradLoc: [0, 0.55, 1] },
+  identity:    { icon: User,     gradColors: ['#0D0B22', '#120A30', '#08071A'], accent: PURPLE_SOFT, gradLoc: [0, 0.5, 1] },
+  gender:      { icon: Heart,    gradColors: ['#0F0820', '#1A0930', '#08071A'], accent: '#F9A8D4',   gradLoc: [0, 0.5, 1] },
+  birth:       { icon: Moon,     gradColors: ['#070B22', '#0C1438', '#08071A'], accent: '#93C5FD',   gradLoc: [0, 0.5, 1] },
+  birth_place: { icon: MapPin,   gradColors: ['#0A1020', '#0D1530', '#08071A'], accent: '#6EE7B7',   gradLoc: [0, 0.5, 1] },
+  experience:  { icon: Zap,      gradColors: ['#120820', '#1A0A2E', '#08071A'], accent: GOLD,        gradLoc: [0, 0.5, 1] },
+  entry:       { icon: Sun,      gradColors: ['#12090A', '#1A0B10', '#08071A'], accent: GOLD,        gradLoc: [0, 0.5, 1] },
+};
+
+const STEP_NOTES: Record<OnboardingStep, string> = {
+  welcome:     'Wejście zajmuje mniej niż 2 minuty.',
+  identity:    'Imię pojawi się w centrum dnia i sesjach Oracle.',
+  gender:      'Płeć wpływa na sposób, w jaki Oracle się do Ciebie zwraca.',
+  birth:       'Data zasila astrologię i osobisty archetyp dnia.',
+  birth_place: 'Miasto domknie głębszą warstwę astrologii.',
+  experience:  'Ustawia głębię języka i rytm prowadzenia.',
+  entry:       'Wszystko można zmienić w Profilu w dowolnym momencie.',
+};
+
+const KEYBOARD_STEPS: OnboardingStep[] = ['identity', 'birth_place'];
+
+// ── Data ──────────────────────────────────────────────────────────────────────
 const GENDER_OPTIONS = [
-  { id: 'woman',      label: 'Kobieta',          sub: 'Oracle zwróci się do Ciebie: Pani / Ty' },
-  { id: 'man',        label: 'Mężczyzna',        sub: 'Oracle zwróci się do Ciebie: Pan / Ty' },
-  { id: 'prefer_not', label: 'Wolę nie podawać', sub: 'Oracle używa formy neutralnej' },
+  { id: 'woman',      label: 'Kobieta',          sub: 'Oracle zwróci się do Ciebie: Pani / Ty', icon: '✦' },
+  { id: 'man',        label: 'Mężczyzna',        sub: 'Oracle zwróci się do Ciebie: Pan / Ty',  icon: '✦' },
+  { id: 'prefer_not', label: 'Wolę nie podawać', sub: 'Oracle używa formy neutralnej',           icon: '◈' },
 ];
 
 const EXPERIENCE_OPTIONS = [
-  { id: 'beginner', icon: Star, title: 'Dopiero wchodzę', description: 'Chcę prostego języka i spokojnego prowadzenia.' },
-  { id: 'intermediate', icon: Moon, title: 'Już praktykuję', description: 'Szukam równowagi między intuicją i symboliczną głębią.' },
-  { id: 'advanced', icon: Sparkles, title: 'Jestem głęboko w temacie', description: 'Potrzebuję bogatszych warstw i dojrzałego guidance.' },
+  { id: 'beginner',     icon: Star,     title: 'Dopiero wchodzę',         description: 'Chcę prostego języka i spokojnego prowadzenia.',        accent: '#6EE7B7' },
+  { id: 'intermediate', icon: Moon,     title: 'Już praktykuję',          description: 'Szukam równowagi między intuicją i symboliczną głębią.', accent: PURPLE_SOFT },
+  { id: 'advanced',     icon: Sparkles, title: 'Jestem głęboko w temacie',description: 'Potrzebuję bogatszych warstw i dojrzałego guidance.',    accent: GOLD },
 ];
 
 const WORLDS_PREVIEW = [
-  { icon: Compass, title: 'Dzisiaj', copy: 'Osobisty ton dnia i kolejne ruchy.' },
-  { icon: Star, title: 'Światy', copy: 'Tarot, Horoskop, Rytuał i więcej.' },
-  { icon: Eye, title: 'Oracle', copy: 'AI prowadzacy do konkretnego kroku.' },
-  { icon: BookOpen, title: 'Profil', copy: 'Centrum ustawien i pamieci.' },
+  { icon: Compass,  title: 'Dzisiaj',  copy: 'Osobisty ton dnia i kolejne ruchy.', accent: GOLD },
+  { icon: Star,     title: 'Światy',   copy: 'Tarot, Horoskop, Rytuał i więcej.',  accent: PURPLE_SOFT },
+  { icon: Eye,      title: 'Oracle',   copy: 'AI prowadzący do konkretnego kroku.',accent: '#93C5FD' },
+  { icon: BookOpen, title: 'Profil',   copy: 'Centrum ustawień i pamięci.',         accent: '#6EE7B7' },
 ];
 
-const STEP_NOTES: Record<OnboardingStep, string> = {
-  welcome: 'Wejście zajmuje mniej niż 2 minuty.',
-  identity: 'Imię pojawi się w centrum dnia i sesjach Oracle.',
-  gender: 'Płeć wpływa na sposób, w jaki Oracle się do Ciebie zwraca.',
-  birth: 'Data zasila astrologię i osobisty archetyp dnia.',
-  birth_place: 'Miasto domknie głębszą warstwę astrologii.',
-  experience: 'Ustawia głębię języka i rytm prowadzenia.',
-  entry: 'Wszystko można zmienić w Profilu w dowolnym momencie.',
+// ── Glow Input (glassmorphism) ────────────────────────────────────────────────
+const GlowInput = ({ focused, icon: Icon, accent, children }) => {
+  const anim = useRef(new RNAnimated.Value(0)).current;
+  useEffect(() => {
+    RNAnimated.timing(anim, { toValue: focused ? 1 : 0, duration: 260, useNativeDriver: false }).start();
+  }, [focused]);
+  const borderColor = anim.interpolate({
+    inputRange:  [0, 1],
+    outputRange: ['rgba(255,255,255,0.12)', accent + 'BB'],
+  });
+  const bgColor = anim.interpolate({
+    inputRange:  [0, 1],
+    outputRange: [GLASS_BG, accent + '0D'],
+  });
+  return (
+    <RNAnimated.View style={[ob.inputWrapper, { borderColor, backgroundColor: bgColor }]}>
+      {Icon && (
+        <View style={ob.inputIcon}>
+          <Icon color={focused ? accent : WHITE_LOW} size={16} strokeWidth={1.6} />
+        </View>
+      )}
+      {children}
+    </RNAnimated.View>
+  );
 };
 
-// Kroki z klawiatura — footer musi byc bezposrednio nad nia
-const KEYBOARD_STEPS: OnboardingStep[] = ['identity', 'birth_place'];
+// ── Premium gradient progress bar ────────────────────────────────────────────
+const GradientProgressBar = ({ progress, accent }) => {
+  const anim = useRef(new RNAnimated.Value(progress)).current;
+  useEffect(() => {
+    RNAnimated.timing(anim, {
+      toValue: progress,
+      duration: 500,
+      easing: RNEasing.out(RNEasing.cubic),
+      useNativeDriver: false,
+    }).start();
+  }, [progress]);
+  const width = anim.interpolate({ inputRange: [0, 100], outputRange: ['0%', '100%'] });
 
+  return (
+    <View style={ob.progressTrack}>
+      <RNAnimated.View style={[ob.progressFill, { width }]}>
+        <LinearGradient
+          colors={[GOLD_SOFT, GOLD, accent, PURPLE_SOFT]}
+          start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0.5 }}
+          style={StyleSheet.absoluteFillObject}
+        />
+        {/* Shimmer dot */}
+        <View style={ob.progressShimmer} />
+      </RNAnimated.View>
+    </View>
+  );
+};
+
+// ── Hero icon with glow ───────────────────────────────────────────────────────
+const HeroIcon = ({ icon: Icon, accent, size = 64 }) => {
+  const pulseScale = useRef(new RNAnimated.Value(1)).current;
+  const glowOp     = useRef(new RNAnimated.Value(0.4)).current;
+
+  useEffect(() => {
+    RNAnimated.loop(RNAnimated.sequence([
+      RNAnimated.timing(pulseScale, { toValue: 1.08, duration: 1800, useNativeDriver: true }),
+      RNAnimated.timing(pulseScale, { toValue: 0.95, duration: 1800, useNativeDriver: true }),
+    ])).start();
+    RNAnimated.loop(RNAnimated.sequence([
+      RNAnimated.timing(glowOp, { toValue: 0.85, duration: 2000, useNativeDriver: true }),
+      RNAnimated.timing(glowOp, { toValue: 0.25, duration: 2000, useNativeDriver: true }),
+    ])).start();
+  }, []);
+
+  return (
+    <View style={ob.heroIconWrapper}>
+      <RNAnimated.View style={[ob.heroIconGlowOuter, { borderColor: accent + '30', transform: [{ scale: pulseScale }] }]} />
+      <RNAnimated.View style={[ob.heroIconGlowInner, { borderColor: accent + '55', transform: [{ scale: pulseScale }] }]} />
+      <View style={[ob.heroIconCore, { borderColor: accent + '70', backgroundColor: accent + '14' }]}>
+        <LinearGradient
+          colors={[accent + '28', accent + '0A', 'transparent']}
+          style={StyleSheet.absoluteFillObject}
+        />
+        <RNAnimated.View style={[ob.heroIconGlowFill, { backgroundColor: accent + '20', opacity: glowOp }]} />
+        <Icon color={accent} size={size * 0.55} strokeWidth={1.3} />
+      </View>
+    </View>
+  );
+};
+
+// ── Confetti star (entry step) ────────────────────────────────────────────────
+const ConfettiStar = ({ x, delay, color }) => {
+  const y       = useRef(new RNAnimated.Value(-10)).current;
+  const opacity = useRef(new RNAnimated.Value(0)).current;
+  const rotate  = useRef(new RNAnimated.Value(0)).current;
+
+  useEffect(() => {
+    RNAnimated.loop(
+      RNAnimated.sequence([
+        RNAnimated.delay(delay),
+        RNAnimated.parallel([
+          RNAnimated.timing(y,       { toValue: H * 0.6, duration: 4000, easing: RNEasing.linear, useNativeDriver: true }),
+          RNAnimated.timing(rotate,  { toValue: 360,     duration: 4000, easing: RNEasing.linear, useNativeDriver: true }),
+          RNAnimated.sequence([
+            RNAnimated.timing(opacity, { toValue: 0.9, duration: 400, useNativeDriver: true }),
+            RNAnimated.timing(opacity, { toValue: 0.9, duration: 3200, useNativeDriver: true }),
+            RNAnimated.timing(opacity, { toValue: 0,   duration: 400, useNativeDriver: true }),
+          ]),
+        ]),
+        RNAnimated.parallel([
+          RNAnimated.timing(y,       { toValue: -10, duration: 0, useNativeDriver: true }),
+          RNAnimated.timing(rotate,  { toValue: 0,   duration: 0, useNativeDriver: true }),
+          RNAnimated.timing(opacity, { toValue: 0,   duration: 0, useNativeDriver: true }),
+        ]),
+      ])
+    ).start();
+  }, []);
+
+  return (
+    <RNAnimated.View style={{
+      position: 'absolute', left: x,
+      transform: [{ translateY: y }, { rotate: rotate.interpolate({ inputRange: [0, 360], outputRange: ['0deg', '360deg'] }) }],
+      opacity,
+    }}>
+      <Typography style={{ fontSize: 12, color }}>✦</Typography>
+    </RNAnimated.View>
+  );
+};
+
+const CONFETTI = [
+  { x: W * 0.08, delay: 0,    color: GOLD },
+  { x: W * 0.20, delay: 400,  color: PURPLE_SOFT },
+  { x: W * 0.35, delay: 800,  color: GOLD_SOFT },
+  { x: W * 0.50, delay: 200,  color: '#F9A8D4' },
+  { x: W * 0.65, delay: 600,  color: GOLD },
+  { x: W * 0.80, delay: 1000, color: PURPLE_SOFT },
+  { x: W * 0.92, delay: 300,  color: GOLD_SOFT },
+];
+
+// ── Main Component ────────────────────────────────────────────────────────────
 export const OnboardingScreen = () => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { setOnboarded, setUserData, themeName } = useAppStore();
-  const theme = themes[themeName as ThemeName] || themes['dark'];
-  const accent = theme.primary;
-  const isLight = theme.background.startsWith('#F');
-  const textPrimary = isLight ? '#1A1410' : '#F0EBE2';
-  const textSecondary = isLight ? '#6A5A48' : 'rgba(240,235,226,0.68)';
-  const textHint = isLight ? '#8A7060' : 'rgba(240,235,226,0.50)';
-  const cardBgLow = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)';
-  const cardBgMid = isLight ? 'rgba(255,255,255,0.72)' : 'rgba(255,255,255,0.06)';
-  const cardBgHigh = isLight ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.08)';
-  const optionBgActive = isLight ? 'rgba(255,255,255,0.96)' : 'rgba(255,255,255,0.12)';
-  const checkBorder = isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.25)';
-  const progressTrackColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.12)';
-  const inputBgColor = isLight ? 'rgba(255,255,255,0.60)' : 'rgba(255,255,255,0.06)';
-  const nameInputRef = useRef<TextInput>(null);
-  const placeInputRef = useRef<TextInput>(null);
+    const setOnboarded = useAppStore(s => s.setOnboarded);
+  const setUserData = useAppStore(s => s.setUserData);
+  const themeName = useAppStore(s => s.themeName);
+  const theme  = themes[themeName as ThemeName] || themes['dark'];
+  const nameInputRef  = useRef(null);
+  const placeInputRef = useRef(null);
 
   const [stepIndex, setStepIndex] = useState(0);
-  const [name, setName] = useState('');
-  const [gender, setGender] = useState('');
+  const [name, setName]           = useState('');
+  const [nameFocused, setNameFocused] = useState(false);
+  const [gender, setGender]       = useState('');
   const [birthPlace, setBirthPlace] = useState('');
-  const [birthDate, setBirthDate] = useState<BirthDateState>({ day: 1, month: 1, year: 1996 });
-  const [experienceLevel, setExperienceLevel] = useState<'beginner' | 'intermediate' | 'advanced' | ''>('');
+  const [placeFocused, setPlaceFocused] = useState(false);
+  const [birthDate, setBirthDate] = useState({ day: 1, month: 1, year: 1996 });
+  const [experienceLevel, setExperienceLevel] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  // Step transition
+  const slideX = useRef(new RNAnimated.Value(0)).current;
+  const fadeV  = useRef(new RNAnimated.Value(1)).current;
 
   const currentStep = STEPS[stepIndex];
-  const progress = ((stepIndex + 1) / STEPS.length) * 100;
+  const meta        = STEP_META[currentStep];
+  const accent      = meta.accent;
+  const progress    = ((stepIndex + 1) / STEPS.length) * 100;
   const isKeyboardStep = KEYBOARD_STEPS.includes(currentStep);
 
   const formattedBirthDate = `${birthDate.year.toString().padStart(4,'0')}-${birthDate.month.toString().padStart(2,'0')}-${birthDate.day.toString().padStart(2,'0')}`;
@@ -93,93 +257,124 @@ export const OnboardingScreen = () => {
   }, [birthDate.day, birthDate.month, birthDate.year]);
 
   const birthDateParts = useMemo(() => ({
-    day: birthDateValue.toLocaleDateString('pl-PL', { day: '2-digit' }),
+    day:   birthDateValue.toLocaleDateString('pl-PL', { day: '2-digit' }),
     month: birthDateValue.toLocaleDateString('pl-PL', { month: 'long' }),
-    year: birthDateValue.toLocaleDateString('pl-PL', { year: 'numeric' }),
+    year:  birthDateValue.toLocaleDateString('pl-PL', { year: 'numeric' }),
   }), [birthDateValue]);
 
   const canContinue = useMemo(() => {
     switch (currentStep) {
-      case 'welcome': return true;
-      case 'identity': return name.trim().length >= 2;
-      case 'gender': return Boolean(gender);
-      case 'birth': return birthDate.year >= 1900;
+      case 'welcome':     return true;
+      case 'identity':    return name.trim().length >= 2;
+      case 'gender':      return Boolean(gender);
+      case 'birth':       return birthDate.year >= 1900;
       case 'birth_place': return birthPlace.trim().length >= 2;
-      case 'experience': return Boolean(experienceLevel);
-      case 'entry': return true;
-      default: return false;
+      case 'experience':  return Boolean(experienceLevel);
+      case 'entry':       return true;
+      default:            return false;
     }
   }, [birthDate.year, birthPlace, currentStep, experienceLevel, gender, name]);
 
   const finishOnboarding = () => {
     setUserData({
       name: name.trim(), gender, birthDate: formattedBirthDate, birthPlace: birthPlace.trim(),
-      experienceLevel, primaryIntention: experienceLevel === 'advanced' ? 'Rozwój' : 'Spokój',
-      currentFocus: experienceLevel === 'advanced' ? 'Orientacja symboliczna' : 'Spokojne wejście',
-      spiritualGoals: ['Poznanie siebie'], preferredTone: experienceLevel === 'advanced' ? 'reflective' : 'gentle',
-      preferredRitualCategory: 'Cleansing', soulPathState: experienceLevel === 'advanced' ? 'awakening' : 'reflecting',
+      experienceLevel,
+      primaryIntention: experienceLevel === 'advanced' ? 'Rozwój' : 'Spokój',
+      currentFocus:     experienceLevel === 'advanced' ? 'Orientacja symboliczna' : 'Spokojne wejście',
+      spiritualGoals:   ['Poznanie siebie'],
+      preferredTone:    experienceLevel === 'advanced' ? 'reflective' : 'gentle',
+      preferredRitualCategory: 'Cleansing',
+      soulPathState:    experienceLevel === 'advanced' ? 'awakening' : 'reflecting',
     });
     setOnboarded(true);
+  };
+
+  const animateStep = (dir: 'next' | 'prev') => {
+    const fromX = dir === 'next' ? W * 0.3 : -W * 0.3;
+    slideX.setValue(fromX);
+    fadeV.setValue(0);
+    RNAnimated.parallel([
+      RNAnimated.spring(slideX, { toValue: 0, tension: 75, friction: 12, useNativeDriver: true }),
+      RNAnimated.timing(fadeV,  { toValue: 1, duration: 360, useNativeDriver: true }),
+    ]).start();
   };
 
   const next = () => {
     if (!canContinue) return;
     Keyboard.dismiss();
     if (currentStep === 'entry') { finishOnboarding(); return; }
+    animateStep('next');
     setStepIndex(i => Math.min(i + 1, STEPS.length - 1));
   };
-  const previous = () => { Keyboard.dismiss(); setStepIndex(i => Math.max(i - 1, 0)); };
 
+  const previous = () => {
+    Keyboard.dismiss();
+    if (stepIndex === 0) return;
+    animateStep('prev');
+    setStepIndex(i => Math.max(i - 1, 0));
+  };
+
+  // ── Step content ─────────────────────────────────────────────────────────────
   const renderStep = () => {
     if (currentStep === 'welcome') {
       return (
-        <ScrollView style={ob.scroll} contentContainerStyle={ob.scrollContent} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
-          <View style={ob.logoHero}>
-            <LinearGradient colors={[accent + '44', accent + '18']} style={ob.logoCircle}>
-              <Sparkles color={accent} size={32} strokeWidth={1.5}/>
-            </LinearGradient>
-            <Text style={[ob.appName, { color: accent, fontSize: 22 }]}>Aethera DuniAI & Oracle</Text>
-            <Text style={[ob.appSub, { color: textHint }]}>Sanktuarium AI, symboli i rytuału</Text>
-          </View>
-          <View style={[ob.heroCard, { backgroundColor: cardBgLow, borderColor: accent + '22' }]}>
-            <LinearGradient colors={[accent + '18', 'transparent']} style={StyleSheet.absoluteFill}/>
-            <Text style={[ob.heroTitle, { color: textPrimary }]}>
-              Sanktuarium stworzone, by prowadzić, nie przytłaczać.
-            </Text>
-            <Text style={[ob.heroBody, { color: '#5A4A38' }]}>
-              Aethera łączy Tarot, astrologię, rytuały i inteligentnego Oracle w jeden spójny świat dostosowany do Twojego rytmu.
-            </Text>
-          </View>
-          <View style={[ob.previewCard, { backgroundColor: cardBgMid, borderColor: accent + '18' }]}>
-            <Text style={[ob.cardEyebrow, { color: accent }]}>CO ZNAJDZIESZ</Text>
-            {WORLDS_PREVIEW.map(item => {
+        <ScrollView
+          style={ob.scroll}
+          contentContainerStyle={ob.scrollContent}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
+          <Animated.View entering={FadeInDown.delay(100).duration(700)} style={ob.stepHeroCenter}>
+            <HeroIcon icon={meta.icon} accent={accent} size={64} />
+            <Typography style={[ob.stepHeroTitle, { color: WHITE_HIGH }]}>
+              Sanktuarium stworzone,{'\n'}by prowadzić, nie przytłaczać.
+            </Typography>
+            <Typography style={ob.stepHeroBody}>
+              Aethera łączy Tarot, astrologię, rytuały i Oracle w jeden spójny świat dopasowany do Twojego rytmu.
+            </Typography>
+          </Animated.View>
+
+          {/* Preview worlds */}
+          <Animated.View entering={FadeInUp.delay(300).duration(700)} style={ob.glassSectionCard}>
+            <LinearGradient
+              colors={['rgba(255,255,255,0.05)', 'rgba(255,255,255,0.02)']}
+              style={StyleSheet.absoluteFillObject}
+            />
+            <Typography style={[ob.sectionEyebrow, { color: accent }]}>CO ZNAJDZIESZ</Typography>
+            {WORLDS_PREVIEW.map((item, i) => {
               const Icon = item.icon;
               return (
-                <View key={item.title} style={ob.worldRow}>
-                  <View style={[ob.worldIcon, { borderColor: accent + '33', backgroundColor: accent + '14' }]}>
-                    <Icon color={accent} size={16} strokeWidth={1.8}/>
+                <Animated.View key={item.title} entering={FadeInUp.delay(400 + i * 80).duration(500)} style={ob.worldRow}>
+                  <View style={[ob.worldIconBox, { borderColor: item.accent + '40', backgroundColor: item.accent + '12' }]}>
+                    <Icon color={item.accent} size={16} strokeWidth={1.8} />
                   </View>
                   <View style={{ flex: 1 }}>
-                    <Text style={[ob.worldTitle, { color: accent }]}>{item.title}</Text>
-                    <Text style={[ob.worldCopy, { color: textSecondary }]}>{item.copy}</Text>
+                    <Typography style={[ob.worldTitle, { color: item.accent }]}>{item.title}</Typography>
+                    <Typography style={ob.worldCopy}>{item.copy}</Typography>
                   </View>
-                </View>
+                </Animated.View>
               );
             })}
-          </View>
-          <View style={[ob.stepsCard, { backgroundColor: cardBgMid, borderColor: accent + '18' }]}>
-            <Text style={[ob.cardEyebrow, { color: accent }]}>JAK WYGLĄDA WEJŚCIE</Text>
-            <View style={ob.stepsRow}>
-              {['Imię', 'Płeć', 'Data', 'Miasto', 'Poziom'].map((label, i) => (
-                <View key={label} style={ob.stepDot}>
-                  <View style={[ob.stepCircle, { borderColor: accent + '55', backgroundColor: accent + '18' }]}>
-                    <Text style={[ob.stepNum, { color: accent }]}>{i + 1}</Text>
+          </Animated.View>
+
+          {/* Steps overview */}
+          <Animated.View entering={FadeInUp.delay(600).duration(700)} style={ob.glassSectionCard}>
+            <LinearGradient
+              colors={['rgba(212,168,67,0.07)', 'rgba(255,255,255,0.02)']}
+              style={StyleSheet.absoluteFillObject}
+            />
+            <Typography style={[ob.sectionEyebrow, { color: GOLD }]}>JAK WYGLĄDA WEJŚCIE</Typography>
+            <View style={ob.stepsPreviewRow}>
+              {['Imię','Płeć','Data','Miasto','Poziom'].map((label, i) => (
+                <View key={label} style={ob.stepPreviewDot}>
+                  <View style={[ob.stepPreviewCircle, { borderColor: GOLD + '55', backgroundColor: GOLD + '14' }]}>
+                    <Typography style={[ob.stepPreviewNum, { color: GOLD }]}>{i + 1}</Typography>
                   </View>
-                  <Text style={[ob.stepLabel, { color: textHint }]}>{label}</Text>
+                  <Typography style={ob.stepPreviewLabel}>{label}</Typography>
                 </View>
               ))}
             </View>
-          </View>
+          </Animated.View>
         </ScrollView>
       );
     }
@@ -194,38 +389,48 @@ export const OnboardingScreen = () => {
           showsVerticalScrollIndicator={false}
         >
           <View style={ob.inputStepCenter}>
-            <View style={[ob.stepIconBig, { borderColor: accent + '44', backgroundColor: accent + '18' }]}>
-              {isName ? <Sparkles color={accent} size={24} strokeWidth={1.5}/> : <Compass color={accent} size={24} strokeWidth={1.5}/>}
-            </View>
-            <Text style={[ob.inputBigTitle, { color: textPrimary }]}>
-              {isName ? 'Jak do Ciebie mówić?' : 'Skąd pochodzi Twoja mapa nieba?'}
-            </Text>
-            <Text style={[ob.inputBigSub, { color: textSecondary }]}>
-              {isName
-                ? 'Twoje imię pojawi się w centrum dnia, w Oracle i w najbardziej osobistych warstwach.'
-                : 'Wystarczy nazwa miasta. To domknie głębszą warstwę astrologii i osobistego wykresu.'}
-            </Text>
-            <View style={[ob.inputBox, { backgroundColor: cardBgHigh, borderColor: accent + '33' }]}>
-              <LinearGradient colors={[accent + '12', 'transparent']} style={StyleSheet.absoluteFill}/>
-              <Text style={[ob.inputLabel, { color: accent }]}>
-                {isName ? 'TWOJE IMIĘ' : 'MIASTO LUB MIEJSCOWOŚĆ'}
-              </Text>
-              <TextInput
-                ref={isName ? nameInputRef : placeInputRef}
-                style={[ob.textInput, { color: textPrimary, borderColor: accent + '33', backgroundColor: inputBgColor }]}
-                placeholder={isName ? t('onboarding.namePlaceholder') : 'np. Warszawa, Kraków...'}
-                placeholderTextColor="#A89A8A"
-                value={isName ? name : birthPlace}
-                onChangeText={isName ? setName : setBirthPlace}
-                returnKeyType="done"
-                onSubmitEditing={next}
-                autoFocus
-                autoCapitalize="words"
+            <Animated.View entering={ZoomIn.delay(100).duration(600)}>
+              <HeroIcon icon={meta.icon} accent={accent} size={64} />
+            </Animated.View>
+            <Animated.View entering={FadeInDown.delay(250).duration(600)}>
+              <Typography style={[ob.inputBigTitle, { color: WHITE_HIGH }]}>
+                {isName ? 'Jak do Ciebie mówić?' : 'Skąd pochodzi Twoja mapa nieba?'}
+              </Typography>
+              <Typography style={ob.inputBigSub}>
+                {isName
+                  ? 'Twoje imię pojawi się w centrum dnia, w Oracle i w najbardziej osobistych warstwach.'
+                  : 'Wystarczy nazwa miasta. To domknie głębszą warstwę astrologii i osobistego wykresu.'}
+              </Typography>
+            </Animated.View>
+
+            <Animated.View entering={FadeInUp.delay(350).duration(600)} style={[ob.inputGlassBox, { borderColor: accent + '30' }]}>
+              <LinearGradient
+                colors={[accent + '12', 'transparent']}
+                style={StyleSheet.absoluteFillObject}
               />
-              <Text style={[ob.inputHint, { color: textHint }]}>
+              <Typography style={[ob.inputGlassLabel, { color: accent }]}>
+                {isName ? 'TWOJE IMIĘ' : 'MIASTO LUB MIEJSCOWOŚĆ'}
+              </Typography>
+              <GlowInput focused={isName ? nameFocused : placeFocused} icon={isName ? User : MapPin} accent={accent}>
+                <TextInput
+                  ref={isName ? nameInputRef : placeInputRef}
+                  style={ob.textInput}
+                  placeholder={isName ? t('onboarding.namePlaceholder', { defaultValue: 'np. Aleksandra' }) : 'np. Warszawa, Kraków...'}
+                  placeholderTextColor={WHITE_LOW}
+                  value={isName ? name : birthPlace}
+                  onChangeText={isName ? setName : setBirthPlace}
+                  returnKeyType="done"
+                  onSubmitEditing={next}
+                  autoFocus
+                  autoCapitalize="words"
+                  onFocus={() => isName ? setNameFocused(true) : setPlaceFocused(true)}
+                  onBlur={() => isName ? setNameFocused(false) : setPlaceFocused(false)}
+                />
+              </GlowInput>
+              <Typography style={ob.inputHint}>
                 {isName ? 'Aethera będzie Cię tak witać każdego dnia.' : 'Wystarczy przybliżona lokalizacja.'}
-              </Text>
-            </View>
+              </Typography>
+            </Animated.View>
           </View>
         </ScrollView>
       );
@@ -234,33 +439,50 @@ export const OnboardingScreen = () => {
     if (currentStep === 'gender') {
       return (
         <ScrollView style={ob.scroll} contentContainerStyle={ob.scrollContent} showsVerticalScrollIndicator={false}>
-          <View style={[ob.stepIconBig, { borderColor: accent + '44', backgroundColor: accent + '18', alignSelf: 'center' }]}>
-            <Sparkles color={accent} size={24} strokeWidth={1.5}/>
-          </View>
-          <Text style={[ob.inputBigTitle, { color: textPrimary, textAlign: 'center', marginTop: 12 }]}>
-            Jak się do Ciebie zwracać?
-          </Text>
-          <Text style={[ob.inputBigSub, { color: textSecondary, textAlign: 'center', marginBottom: 20 }]}>
-            Oracle dostosuje ton i formę zwrotu do Twoich preferencji.
-          </Text>
-          {GENDER_OPTIONS.map(option => {
+          <Animated.View entering={ZoomIn.delay(80).duration(600)} style={{ alignItems: 'center' }}>
+            <HeroIcon icon={meta.icon} accent={accent} size={64} />
+          </Animated.View>
+          <Animated.View entering={FadeInDown.delay(200).duration(600)}>
+            <Typography style={[ob.inputBigTitle, { color: WHITE_HIGH, textAlign: 'center', marginTop: 14 }]}>
+              Jak się do Ciebie zwracać?
+            </Typography>
+            <Typography style={[ob.inputBigSub, { textAlign: 'center', marginBottom: 22 }]}>
+              Oracle dostosuje ton i formę zwrotu do Twoich preferencji.
+            </Typography>
+          </Animated.View>
+          {GENDER_OPTIONS.map((option, i) => {
             const active = gender === option.id;
             return (
-              <Pressable key={option.id} onPress={() => setGender(option.id)}>
-                <View style={[ob.optionCard, {
-                  backgroundColor: active ? optionBgActive : cardBgMid,
-                  borderColor: active ? accent + '66' : accent + '22',
-                }]}>
-                  {active && <LinearGradient colors={[accent + '18', 'transparent']} style={StyleSheet.absoluteFill}/>}
-                  <View style={{ flex: 1 }}>
-                    <Text style={[ob.optionTitle, { color: active ? accent : '#1A1410' }]}>{option.label}</Text>
-                    <Text style={[ob.optionCopy, { color: textSecondary }]}>{option.sub}</Text>
+              <Animated.View key={option.id} entering={FadeInUp.delay(280 + i * 100).duration(550)}>
+                <Pressable onPress={() => setGender(option.id)}>
+                  <View style={[ob.optionCard, {
+                    backgroundColor: active ? accent + '14' : GLASS_BG,
+                    borderColor: active ? accent + '70' : GLASS_BORDER,
+                  }]}>
+                    {active && (
+                      <LinearGradient
+                        colors={[accent + '18', 'transparent']}
+                        style={StyleSheet.absoluteFillObject}
+                      />
+                    )}
+                    <View style={[ob.optionIconBox, { borderColor: active ? accent + '55' : WHITE_LOW, backgroundColor: active ? accent + '18' : 'rgba(255,255,255,0.04)' }]}>
+                      <Typography style={{ color: active ? accent : WHITE_LOW, fontSize: 16 }}>{option.icon}</Typography>
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Typography style={[ob.optionTitle, { color: active ? accent : WHITE_HIGH }]}>
+                        {option.label}
+                      </Typography>
+                      <Typography style={ob.optionCopy}>{option.sub}</Typography>
+                    </View>
+                    <View style={[ob.optionCheckCircle, {
+                      borderColor: active ? accent : WHITE_LOW,
+                      backgroundColor: active ? accent : 'transparent',
+                    }]}>
+                      {active && <Check color="#fff" size={11} strokeWidth={3} />}
+                    </View>
                   </View>
-                  <View style={[ob.optionCheck, { borderColor: active ? accent : checkBorder, backgroundColor: active ? accent : 'transparent' }]}>
-                    {active && <Check color="#FFF" size={12} strokeWidth={3}/>}
-                  </View>
-                </View>
-              </Pressable>
+                </Pressable>
+              </Animated.View>
             );
           })}
         </ScrollView>
@@ -270,36 +492,38 @@ export const OnboardingScreen = () => {
     if (currentStep === 'birth') {
       return (
         <ScrollView style={ob.scroll} contentContainerStyle={ob.scrollContent} showsVerticalScrollIndicator={false}>
-          <View style={[ob.stepIconBig, { borderColor: accent + '44', backgroundColor: accent + '18', alignSelf: 'center' }]}>
-            <Moon color={accent} size={24} strokeWidth={1.5}/>
-          </View>
-          <Text style={[ob.inputBigTitle, { color: textPrimary, textAlign: 'center', marginTop: 12 }]}>
-            Kiedy zaczęła się Twoja droga?
-          </Text>
-          <Text style={[ob.inputBigSub, { color: textSecondary, textAlign: 'center', marginBottom: 20 }]}>
-            Data urodzenia łączy astrologię, archetyp i energię dnia w jeden spójny obraz.
-          </Text>
-          <View style={[ob.inputBox, { backgroundColor: cardBgHigh, borderColor: accent + '33' }]}>
-            <LinearGradient colors={[accent + '12', 'transparent']} style={StyleSheet.absoluteFill}/>
-            <Text style={[ob.inputLabel, { color: accent }]}>{t('onboarding.birthDate')}</Text>
+          <Animated.View entering={ZoomIn.delay(80).duration(600)} style={{ alignItems: 'center' }}>
+            <HeroIcon icon={meta.icon} accent={accent} size={64} />
+          </Animated.View>
+          <Animated.View entering={FadeInDown.delay(200).duration(600)}>
+            <Typography style={[ob.inputBigTitle, { color: WHITE_HIGH, textAlign: 'center', marginTop: 14 }]}>
+              Kiedy zaczęła się Twoja droga?
+            </Typography>
+            <Typography style={[ob.inputBigSub, { textAlign: 'center', marginBottom: 22 }]}>
+              Data urodzenia łączy astrologię, archetyp i energię dnia w jeden spójny obraz.
+            </Typography>
+          </Animated.View>
+          <Animated.View entering={FadeInUp.delay(320).duration(600)} style={[ob.inputGlassBox, { borderColor: accent + '30' }]}>
+            <LinearGradient colors={[accent + '12', 'transparent']} style={StyleSheet.absoluteFillObject} />
+            <Typography style={[ob.inputGlassLabel, { color: accent }]}>
+              {t('onboarding.birthDate', { defaultValue: 'DATA URODZENIA' })}
+            </Typography>
             <Pressable onPress={() => setShowDatePicker(true)} style={ob.dateTrigger}>
               <View style={ob.dateRow}>
                 {[
-                  { val: birthDateParts.day, label: 'dzień' },
+                  { val: birthDateParts.day,   label: 'dzień' },
                   { val: birthDateParts.month, label: 'miesiąc' },
-                  { val: birthDateParts.year, label: 'rok' },
+                  { val: birthDateParts.year,  label: 'rok' },
                 ].map(({ val, label }) => (
-                  <View key={label} style={[ob.dateCol, label === 'miesiąc' && ob.dateColWide, { borderColor: accent + '44', backgroundColor: accent + '12' }]}>
-                    <Text style={[ob.dateVal, { color: accent }]}>{val}</Text>
-                    <Text style={[ob.dateLabel, { color: textHint }]}>{label}</Text>
+                  <View key={label} style={[ob.dateCol, label === 'miesiąc' && ob.dateColWide, { borderColor: accent + '44', backgroundColor: accent + '10' }]}>
+                    <Typography style={[ob.dateVal, { color: accent }]}>{val}</Typography>
+                    <Typography style={ob.dateLabel}>{label}</Typography>
                   </View>
                 ))}
               </View>
-              <Text style={[ob.inputHint, { color: textHint, textAlign: 'center', marginTop: 12 }]}>
-                Dotknij, aby zmienić datę
-              </Text>
+              <Typography style={ob.dateTriggerHint}>Dotknij, aby zmienić datę</Typography>
             </Pressable>
-          </View>
+          </Animated.View>
         </ScrollView>
       );
     }
@@ -307,37 +531,51 @@ export const OnboardingScreen = () => {
     if (currentStep === 'experience') {
       return (
         <ScrollView style={ob.scroll} contentContainerStyle={ob.scrollContent} showsVerticalScrollIndicator={false}>
-          <View style={[ob.stepIconBig, { borderColor: accent + '44', backgroundColor: accent + '18', alignSelf: 'center' }]}>
-            <Star color={accent} size={24} strokeWidth={1.5}/>
-          </View>
-          <Text style={[ob.inputBigTitle, { color: textPrimary, textAlign: 'center', marginTop: 12 }]}>
-            Jak głęboko chcesz wejść?
-          </Text>
-          <Text style={[ob.inputBigSub, { color: textSecondary, textAlign: 'center', marginBottom: 20 }]}>
-            To nie ocena. To sposób ustawienia głębokości języka i tempa prowadzenia.
-          </Text>
-          {EXPERIENCE_OPTIONS.map(option => {
+          <Animated.View entering={ZoomIn.delay(80).duration(600)} style={{ alignItems: 'center' }}>
+            <HeroIcon icon={meta.icon} accent={accent} size={64} />
+          </Animated.View>
+          <Animated.View entering={FadeInDown.delay(200).duration(600)}>
+            <Typography style={[ob.inputBigTitle, { color: WHITE_HIGH, textAlign: 'center', marginTop: 14 }]}>
+              Jak głęboko chcesz wejść?
+            </Typography>
+            <Typography style={[ob.inputBigSub, { textAlign: 'center', marginBottom: 22 }]}>
+              To nie ocena. To sposób ustawienia głębokości języka i tempa prowadzenia.
+            </Typography>
+          </Animated.View>
+          {EXPERIENCE_OPTIONS.map((option, i) => {
             const active = experienceLevel === option.id;
-            const Icon = option.icon;
+            const Icon   = option.icon;
             return (
-              <Pressable key={option.id} onPress={() => setExperienceLevel(option.id as any)}>
-                <View style={[ob.optionCard, {
-                  backgroundColor: active ? optionBgActive : cardBgMid,
-                  borderColor: active ? accent + '66' : accent + '22',
-                }]}>
-                  {active && <LinearGradient colors={[accent + '18', 'transparent']} style={StyleSheet.absoluteFill}/>}
-                  <View style={[ob.optionIcon, { borderColor: active ? accent + '55' : accent + '22', backgroundColor: active ? accent + '18' : accent + '0A' }]}>
-                    <Icon color={accent} size={20} strokeWidth={1.8}/>
+              <Animated.View key={option.id} entering={FadeInUp.delay(280 + i * 110).duration(580)}>
+                <Pressable onPress={() => setExperienceLevel(option.id)}>
+                  <View style={[ob.optionCard, {
+                    backgroundColor: active ? option.accent + '12' : GLASS_BG,
+                    borderColor: active ? option.accent + '70' : GLASS_BORDER,
+                  }]}>
+                    {active && (
+                      <LinearGradient
+                        colors={[option.accent + '18', 'transparent']}
+                        style={StyleSheet.absoluteFillObject}
+                      />
+                    )}
+                    <View style={[ob.optionIconBox, { borderColor: active ? option.accent + '55' : WHITE_LOW, backgroundColor: active ? option.accent + '18' : 'rgba(255,255,255,0.04)' }]}>
+                      <Icon color={active ? option.accent : WHITE_LOW} size={19} strokeWidth={1.6} />
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Typography style={[ob.optionTitle, { color: active ? option.accent : WHITE_HIGH }]}>
+                        {option.title}
+                      </Typography>
+                      <Typography style={ob.optionCopy}>{option.description}</Typography>
+                    </View>
+                    <View style={[ob.optionCheckCircle, {
+                      borderColor: active ? option.accent : WHITE_LOW,
+                      backgroundColor: active ? option.accent : 'transparent',
+                    }]}>
+                      {active && <Check color="#fff" size={11} strokeWidth={3} />}
+                    </View>
                   </View>
-                  <View style={{ flex: 1 }}>
-                    <Text style={[ob.optionTitle, { color: active ? accent : '#1A1410' }]}>{option.title}</Text>
-                    <Text style={[ob.optionCopy, { color: textSecondary }]}>{option.description}</Text>
-                  </View>
-                  <View style={[ob.optionCheck, { borderColor: active ? accent : checkBorder, backgroundColor: active ? accent : 'transparent' }]}>
-                    {active && <Check color="#FFF" size={12} strokeWidth={3}/>}
-                  </View>
-                </View>
-              </Pressable>
+                </Pressable>
+              </Animated.View>
             );
           })}
         </ScrollView>
@@ -347,45 +585,59 @@ export const OnboardingScreen = () => {
     if (currentStep === 'entry') {
       return (
         <ScrollView style={ob.scroll} contentContainerStyle={ob.scrollContent} showsVerticalScrollIndicator={false}>
-          <View style={ob.entryLogo}>
-            <LinearGradient colors={[accent + '44', accent + '18']} style={ob.entryLogoIcon}>
-              <Sparkles color={accent} size={20} strokeWidth={1.5}/>
-            </LinearGradient>
-            <Text style={[ob.appName, { color: accent, fontSize: 18 }]}>Aethera DuniAI & Oracle</Text>
+          {/* Confetti */}
+          <View style={StyleSheet.absoluteFill} pointerEvents="none">
+            {CONFETTI.map((c, i) => <ConfettiStar key={i} {...c} />)}
           </View>
-          <Text style={[ob.inputBigTitle, { color: textPrimary, textAlign: 'center', marginTop: 4 }]}>
-            Twoje sanktuarium jest gotowe.
-          </Text>
-          <Text style={[ob.inputBigSub, { color: textSecondary, textAlign: 'center', marginBottom: 20 }]}>
-            Wszystko ustawione. Możesz teraz wejść i odkrywać swój osobisty świat.
-          </Text>
-          <View style={[ob.inputBox, { backgroundColor: cardBgHigh, borderColor: accent + '33' }]}>
-            <LinearGradient colors={[accent + '12', 'transparent']} style={StyleSheet.absoluteFill}/>
+
+          <Animated.View entering={ZoomIn.delay(80).duration(700)} style={{ alignItems: 'center' }}>
+            <HeroIcon icon={meta.icon} accent={GOLD} size={72} />
+          </Animated.View>
+          <Animated.View entering={FadeInDown.delay(250).duration(700)}>
+            <Typography style={[ob.inputBigTitle, { color: WHITE_HIGH, textAlign: 'center', marginTop: 14 }]}>
+              Twoje sanktuarium jest gotowe.
+            </Typography>
+            <Typography style={[ob.inputBigSub, { textAlign: 'center', marginBottom: 22 }]}>
+              Wszystko ustawione. Możesz teraz wejść i odkrywać swój osobisty świat.
+            </Typography>
+          </Animated.View>
+
+          {/* Summary card */}
+          <Animated.View entering={FadeInUp.delay(350).duration(700)} style={[ob.glassSectionCard, { borderColor: GOLD + '30' }]}>
+            <LinearGradient colors={[GOLD + '10', 'transparent']} style={StyleSheet.absoluteFillObject} />
             {[
-              { label: 'Imię', value: name },
-              { label: 'Forma zwrotu', value: GENDER_OPTIONS.find(o => o.id === gender)?.label || '' },
-              { label: 'Data urodzenia', value: formattedBirthDate },
-              { label: 'Miejsce urodzenia', value: birthPlace },
-              { label: 'Poziom wejścia', value: EXPERIENCE_OPTIONS.find(o => o.id === experienceLevel)?.title || '' },
+              { label: 'Imię',            value: name },
+              { label: 'Forma zwrotu',    value: GENDER_OPTIONS.find(o => o.id === gender)?.label || '' },
+              { label: 'Data urodzenia',  value: formattedBirthDate },
+              { label: 'Miejsce',         value: birthPlace },
+              { label: 'Poziom wejścia',  value: EXPERIENCE_OPTIONS.find(o => o.id === experienceLevel)?.title || '' },
             ].map((row, i, arr) => (
-              <View key={row.label} style={[ob.summaryRow, i < arr.length - 1 && { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: accent + '22' }]}>
-                <Text style={[ob.summaryLabel, { color: accent }]}>{row.label}</Text>
-                <Text style={[ob.summaryVal, { color: textPrimary }]}>{row.value}</Text>
+              <View key={row.label} style={[ob.summaryRow, i < arr.length - 1 && { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: GOLD + '22' }]}>
+                <Typography style={[ob.summaryLabel, { color: GOLD }]}>{row.label}</Typography>
+                <Typography style={ob.summaryVal}>{row.value}</Typography>
               </View>
             ))}
-          </View>
-          <View style={ob.worldsGrid}>
-            {WORLDS_PREVIEW.map(item => {
-              const Icon = item.icon;
-              return (
-                <View key={item.title} style={[ob.worldPreviewCard, { backgroundColor: cardBgMid, borderColor: accent + '22' }]}>
-                  <Icon color={accent} size={18} strokeWidth={1.8}/>
-                  <Text style={[ob.worldTitle, { color: accent, marginTop: 8 }]}>{item.title}</Text>
-                  <Text style={[ob.worldCopy, { color: textSecondary }]}>{item.copy}</Text>
-                </View>
-              );
-            })}
-          </View>
+          </Animated.View>
+
+          {/* Worlds grid */}
+          <Animated.View entering={FadeInUp.delay(500).duration(700)}>
+            <Typography style={[ob.sectionEyebrow, { color: GOLD, marginBottom: 12 }]}>TWOJE ŚWIATY</Typography>
+            <View style={ob.worldsGrid}>
+              {WORLDS_PREVIEW.map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <Animated.View key={item.title} entering={FadeIn.delay(600 + i * 80).duration(500)}>
+                    <View style={[ob.worldPreviewCard, { borderColor: item.accent + '30', backgroundColor: item.accent + '08' }]}>
+                      <LinearGradient colors={[item.accent + '14', 'transparent']} style={StyleSheet.absoluteFillObject} />
+                      <Icon color={item.accent} size={20} strokeWidth={1.6} />
+                      <Typography style={[ob.worldTitle, { color: item.accent, marginTop: 10 }]}>{item.title}</Typography>
+                      <Typography style={ob.worldCopy}>{item.copy}</Typography>
+                    </View>
+                  </Animated.View>
+                );
+              })}
+            </View>
+          </Animated.View>
         </ScrollView>
       );
     }
@@ -394,47 +646,64 @@ export const OnboardingScreen = () => {
 
   return (
     <View style={ob.container}>
-      <CelestialBackdrop intensity="immersive"/>
-      <LinearGradient colors={isLight ? ['#FAF6EE', '#F2E8D8'] as const : ['#0B0A14', '#0F0920'] as const} style={StyleSheet.absoluteFill}/>
+      {/* Dynamic step background */}
+      <LinearGradient
+        key={currentStep}
+        colors={meta.gradColors}
+        locations={meta.gradLoc}
+        style={StyleSheet.absoluteFill}
+      />
+      <CelestialBackdrop intensity="immersive" />
 
-      <KeyboardAvoidingView
-        behavior="padding"
-        style={ob.kav}
-        keyboardVerticalOffset={0}
-      >
+      {/* Accent glow blob for current step */}
+      <View style={[ob.stepGlowBlob, { backgroundColor: accent + '10' }]} pointerEvents="none" />
+
+      <KeyboardAvoidingView behavior="padding" style={ob.kav} keyboardVerticalOffset={0}>
         <SafeAreaView style={[ob.safeArea, { paddingTop: insets.top }]}>
 
+          {/* Top bar */}
           <View style={ob.topBar}>
-            <Pressable onPress={previous} disabled={stepIndex === 0} hitSlop={14} style={ob.backBtn}>
-              <Text style={[ob.backText, { color: stepIndex === 0 ? '#C0B0A0' : accent }]}>Wstecz</Text>
+            <Pressable
+              onPress={previous}
+              disabled={stepIndex === 0}
+              hitSlop={14}
+              style={ob.backBtn}
+            >
+              <Typography style={[ob.backText, { color: stepIndex === 0 ? WHITE_LOW : accent }]}>
+                Wstecz
+              </Typography>
             </Pressable>
-            <View style={[ob.progressTrack, { backgroundColor: progressTrackColor }]}>
-              <View style={[ob.progressFill, { width: `${progress}%`, backgroundColor: accent }]}/>
+
+            <View style={{ flex: 1, paddingHorizontal: 12 }}>
+              <GradientProgressBar progress={progress} accent={accent} />
             </View>
-            <Text style={ob.stepCounter}>{stepIndex + 1}/{STEPS.length}</Text>
+
+            <Typography style={ob.stepCounter}>
+              {stepIndex + 1}/{STEPS.length}
+            </Typography>
           </View>
 
-          {/* Tresc ekranu */}
+          {/* Step content */}
           <View style={ob.body}>
-            {renderStep()}
+            <RNAnimated.View
+              style={[ob.stepSlide, { transform: [{ translateX: slideX }], opacity: fadeV }]}
+            >
+              {renderStep()}
+            </RNAnimated.View>
           </View>
 
-          {/*
-            FOOTER — bezposrednio nad klawiatura.
-            Na krokach z inputem KeyboardAvoidingView pushuje caly SafeAreaView
-            w gore, wiec footer naturalnie laduje tuz nad klawiatura.
-            paddingBottom uzywa insets.bottom tylko gdy klawiatura jest schowana.
-          */}
-          <View style={[
-            ob.footer,
-            { paddingBottom: isKeyboardStep ? 8 : Math.max(insets.bottom, 16) }
-          ]}>
+          {/* Footer */}
+          <View style={[ob.footer, { paddingBottom: isKeyboardStep ? 8 : Math.max(insets.bottom, 16) }]}>
+            {/* Glow shadow under button */}
+            <View style={[ob.btnGlowShadow, { shadowColor: accent }]} />
             <PremiumButton
-              label={currentStep === 'entry' ? t('onboarding.enterAethera') : t('onboarding.continue_btn')}
+              label={currentStep === 'entry'
+                ? t('onboarding.enterAethera', { defaultValue: 'Wejdź do Aethery' })
+                : t('onboarding.continue_btn', { defaultValue: 'Dalej' })}
               onPress={next}
               disabled={!canContinue}
             />
-            <Text style={[ob.footerNote, { color: textHint }]}>{STEP_NOTES[currentStep]}</Text>
+            <Typography style={ob.footerNote}>{STEP_NOTES[currentStep]}</Typography>
           </View>
 
         </SafeAreaView>
@@ -457,83 +726,235 @@ export const OnboardingScreen = () => {
   );
 };
 
+const ITEM_H  = 50;
+const VISIBLE = 5;
+
 const ob = StyleSheet.create({
-  container: { flex: 1 },
-  kav: { flex: 1 },
-  safeArea: { flex: 1 },
+  container: { flex: 1, backgroundColor: '#08071A' },
+  kav:       { flex: 1 },
+  safeArea:  { flex: 1 },
 
-  topBar: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 22, paddingTop: 6, paddingBottom: 12 },
-  backBtn: { minWidth: 52 },
-  backText: { fontSize: 14, fontWeight: '600' },
-  progressTrack: { flex: 1, height: 3, borderRadius: 999, backgroundColor: 'rgba(0,0,0,0.08)', overflow: 'hidden' },
-  progressFill: { height: '100%', borderRadius: 999 },
-  stepCounter: { minWidth: 28, textAlign: 'right', fontSize: 12, color: '#A89A8A' },
-
-  body: { flex: 1, minHeight: 0 },
-  scroll: { flex: 1 },
-  scrollContent: { paddingHorizontal: 22, paddingTop: 8, paddingBottom: 16, gap: 14 },
-  inputScrollContent: { paddingHorizontal: 22, paddingTop: 8, paddingBottom: 16, flexGrow: 1 },
-
-  // Footer — nie uczestniczy w flex scroll, lezy tuz nad klawiatura
-  footer: { paddingHorizontal: 22, paddingTop: 10, gap: 8, backgroundColor: 'transparent' },
-  footerNote: { textAlign: 'center', fontSize: 12, color: '#A89A8A', lineHeight: 18 },
-
-  logoHero: { alignItems: 'center', paddingTop: 8, paddingBottom: 4, gap: 8 },
-  logoCircle: { width: 68, height: 68, borderRadius: 22, alignItems: 'center', justifyContent: 'center' },
-  appName: { fontSize: 32, fontWeight: '300', letterSpacing: 1 },
-  appSub: { fontSize: 10, color: '#A89A8A', letterSpacing: 2.5, textTransform: 'uppercase' },
-
-  heroCard: { borderRadius: 20, borderWidth: 1, padding: 22, overflow: 'hidden' },
-  heroTitle: { fontSize: 20, fontWeight: '500', lineHeight: 28, marginBottom: 12 },
-  heroBody: { fontSize: 15, lineHeight: 24 },
-
-  previewCard: { borderRadius: 18, borderWidth: 1, padding: 18, overflow: 'hidden' },
-  cardEyebrow: { fontSize: 10, fontWeight: '700', letterSpacing: 1.8, marginBottom: 14 },
-  worldRow: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 8, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: 'rgba(169,122,57,0.1)' },
-  worldIcon: { width: 36, height: 36, borderRadius: 11, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
-  worldTitle: { fontSize: 14, fontWeight: '600', marginBottom: 2 },
-  worldCopy: { fontSize: 12, lineHeight: 17 },
-
-  stepsCard: { borderRadius: 18, borderWidth: 1, padding: 18 },
-  stepsRow: { flexDirection: 'row', justifyContent: 'space-around', marginTop: 14 },
-  stepDot: { alignItems: 'center', gap: 6 },
-  stepCircle: { width: 34, height: 34, borderRadius: 17, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
-  stepNum: { fontSize: 14, fontWeight: '700' },
-  stepLabel: { fontSize: 11, color: '#8A7A6A' },
-
-  inputStepCenter: { flex: 1, justifyContent: 'center', paddingTop: 20, gap: 16 },
-  stepIconBig: { width: 60, height: 60, borderRadius: 20, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
-  inputBigTitle: { fontSize: 24, fontWeight: '400', lineHeight: 32, letterSpacing: -0.3 },
-  inputBigSub: { fontSize: 14, lineHeight: 22 },
-
-  inputBox: { borderRadius: 20, borderWidth: 1, padding: 20, overflow: 'hidden' },
-  inputLabel: { fontSize: 10, fontWeight: '700', letterSpacing: 1.8, marginBottom: 12 },
-  textInput: {
-    borderWidth: 1, borderRadius: 14,
-    paddingHorizontal: 16, paddingVertical: 14,
-    fontSize: 18, letterSpacing: 0.2,
-    backgroundColor: 'rgba(255,255,255,0.6)',
+  stepGlowBlob: {
+    position: 'absolute', top: '20%', left: '10%',
+    width: W * 0.7, height: W * 0.7, borderRadius: W * 0.35,
   },
-  inputHint: { fontSize: 12, lineHeight: 18, marginTop: 10 },
 
-  dateTrigger: { marginTop: 4 },
-  dateRow: { flexDirection: 'row', gap: 10 },
-  dateCol: { flex: 1, alignItems: 'center', justifyContent: 'center', minHeight: 78, paddingVertical: 12, borderRadius: 14, borderWidth: 1 },
+  // Top bar
+  topBar: {
+    flexDirection: 'row', alignItems: 'center',
+    paddingHorizontal: 22, paddingTop: 6, paddingBottom: 14,
+  },
+  backBtn: { minWidth: 56 },
+  backText: { fontSize: 14, fontWeight: '600' },
+  stepCounter: { minWidth: 30, textAlign: 'right', fontSize: 12, color: WHITE_LOW },
+
+  // Progress bar
+  progressTrack: {
+    height: 4, borderRadius: 2,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    overflow: 'hidden',
+  },
+  progressFill: {
+    height: '100%', borderRadius: 2,
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  progressShimmer: {
+    position: 'absolute', right: 0,
+    width: 20, height: '100%',
+    backgroundColor: 'rgba(255,255,255,0.55)',
+    borderRadius: 2,
+  },
+
+  // Body / scroll
+  body:      { flex: 1, minHeight: 0 },
+  stepSlide: { flex: 1 },
+  scroll:    { flex: 1 },
+  scrollContent: {
+    paddingHorizontal: 22, paddingTop: 8, paddingBottom: 16, gap: 14,
+  },
+  inputScrollContent: {
+    paddingHorizontal: 22, paddingTop: 8, paddingBottom: 16, flexGrow: 1,
+  },
+
+  // Footer
+  footer: {
+    paddingHorizontal: 22, paddingTop: 10, gap: 8,
+    backgroundColor: 'transparent',
+  },
+  footerNote: {
+    textAlign: 'center', fontSize: 12, color: WHITE_LOW, lineHeight: 18,
+  },
+  btnGlowShadow: {
+    position: 'absolute', top: 10, left: 40, right: 40, height: 4,
+    borderRadius: 4, backgroundColor: 'transparent',
+    shadowOpacity: 0.5, shadowRadius: 18,
+    shadowOffset: { width: 0, height: 0 },
+    elevation: 8,
+  },
+
+  // Hero step layout
+  stepHeroCenter: { alignItems: 'center', gap: 16 },
+  stepHeroTitle: {
+    fontSize: 24, fontWeight: '700',
+    lineHeight: 34, textAlign: 'center',
+    letterSpacing: -0.3,
+  },
+  stepHeroBody: {
+    fontSize: 14, color: WHITE_MED,
+    lineHeight: 22, textAlign: 'center',
+  },
+
+  // Hero icon
+  heroIconWrapper: {
+    width: 130, height: 130,
+    alignItems: 'center', justifyContent: 'center',
+  },
+  heroIconGlowOuter: {
+    position: 'absolute',
+    width: 120, height: 120, borderRadius: 60,
+    borderWidth: 1,
+  },
+  heroIconGlowInner: {
+    position: 'absolute',
+    width: 98, height: 98, borderRadius: 49,
+    borderWidth: 1.5,
+  },
+  heroIconCore: {
+    width: 82, height: 82, borderRadius: 41,
+    borderWidth: 1.5,
+    alignItems: 'center', justifyContent: 'center',
+    overflow: 'hidden',
+  },
+  heroIconGlowFill: {
+    position: 'absolute',
+    width: 60, height: 60, borderRadius: 30,
+  },
+
+  // Glass section card
+  glassSectionCard: {
+    borderRadius: 20, borderWidth: 1,
+    borderColor: GLASS_BORDER,
+    backgroundColor: GLASS_BG,
+    padding: 18, overflow: 'hidden',
+  },
+  sectionEyebrow: {
+    fontSize: 9.5, fontWeight: '700',
+    letterSpacing: 2, marginBottom: 14,
+  },
+
+  // World rows
+  worldRow: {
+    flexDirection: 'row', alignItems: 'center', gap: 12,
+    paddingVertical: 9,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: 'rgba(255,255,255,0.07)',
+  },
+  worldIconBox: {
+    width: 36, height: 36, borderRadius: 11,
+    borderWidth: 1,
+    alignItems: 'center', justifyContent: 'center',
+  },
+  worldTitle: { fontSize: 14, fontWeight: '600', marginBottom: 2 },
+  worldCopy:  { fontSize: 12, color: WHITE_MED, lineHeight: 17 },
+
+  // Steps preview
+  stepsPreviewRow: {
+    flexDirection: 'row', justifyContent: 'space-around', marginTop: 10,
+  },
+  stepPreviewDot: { alignItems: 'center', gap: 6 },
+  stepPreviewCircle: {
+    width: 34, height: 34, borderRadius: 17,
+    borderWidth: 1, alignItems: 'center', justifyContent: 'center',
+  },
+  stepPreviewNum:   { fontSize: 14, fontWeight: '700' },
+  stepPreviewLabel: { fontSize: 11, color: WHITE_LOW },
+
+  // Input step
+  inputStepCenter: {
+    flex: 1, justifyContent: 'center',
+    paddingTop: 16, gap: 18,
+  },
+  inputBigTitle: {
+    fontSize: 24, fontWeight: '600',
+    lineHeight: 33, letterSpacing: -0.3,
+    color: WHITE_HIGH,
+  },
+  inputBigSub: {
+    fontSize: 14, lineHeight: 22,
+    color: WHITE_MED,
+  },
+
+  // Glass input box
+  inputGlassBox: {
+    borderRadius: 20, borderWidth: 1,
+    backgroundColor: GLASS_BG,
+    padding: 18, overflow: 'hidden',
+  },
+  inputGlassLabel: {
+    fontSize: 9.5, fontWeight: '700',
+    letterSpacing: 2, marginBottom: 12,
+  },
+  inputWrapper: {
+    flexDirection: 'row', alignItems: 'center',
+    borderWidth: 1.5, borderRadius: 14,
+    marginBottom: 0, overflow: 'hidden',
+  },
+  inputIcon: { paddingLeft: 14, paddingRight: 4 },
+  textInput: {
+    flex: 1,
+    paddingHorizontal: 12, paddingVertical: 15,
+    fontSize: 17, color: WHITE_HIGH, letterSpacing: 0.2,
+  },
+  inputHint: {
+    fontSize: 12, color: WHITE_LOW, lineHeight: 18, marginTop: 10,
+  },
+
+  // Date picker trigger
+  dateTrigger:     { marginTop: 4 },
+  dateRow:         { flexDirection: 'row', gap: 10 },
+  dateCol: {
+    flex: 1, alignItems: 'center', justifyContent: 'center',
+    minHeight: 76, paddingVertical: 12,
+    borderRadius: 14, borderWidth: 1,
+  },
   dateColWide: { flex: 1.5 },
-  dateVal: { fontSize: 18, fontWeight: '600' },
-  dateLabel: { fontSize: 11, marginTop: 4 },
+  dateVal:   { fontSize: 17, fontWeight: '600' },
+  dateLabel: { fontSize: 11, color: WHITE_LOW, marginTop: 4 },
+  dateTriggerHint: {
+    textAlign: 'center', color: WHITE_LOW,
+    fontSize: 12, marginTop: 12,
+  },
 
-  optionCard: { borderRadius: 18, borderWidth: 1, padding: 18, marginBottom: 10, flexDirection: 'row', alignItems: 'center', gap: 14, overflow: 'hidden' },
-  optionIcon: { width: 44, height: 44, borderRadius: 14, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
-  optionTitle: { fontSize: 16, fontWeight: '600', marginBottom: 4 },
-  optionCopy: { fontSize: 13, lineHeight: 19 },
-  optionCheck: { width: 22, height: 22, borderRadius: 11, borderWidth: 1.5, alignItems: 'center', justifyContent: 'center' },
+  // Option cards
+  optionCard: {
+    borderRadius: 18, borderWidth: 1,
+    padding: 16, marginBottom: 10,
+    flexDirection: 'row', alignItems: 'center', gap: 14,
+    overflow: 'hidden',
+  },
+  optionIconBox: {
+    width: 44, height: 44, borderRadius: 13,
+    borderWidth: 1, alignItems: 'center', justifyContent: 'center',
+    flexShrink: 0,
+  },
+  optionTitle: { fontSize: 15, fontWeight: '600', marginBottom: 3 },
+  optionCopy:  { fontSize: 12, color: WHITE_MED, lineHeight: 18 },
+  optionCheckCircle: {
+    width: 22, height: 22, borderRadius: 11,
+    borderWidth: 1.5, alignItems: 'center', justifyContent: 'center',
+  },
 
-  entryLogo: { flexDirection: 'row', alignItems: 'center', gap: 12, justifyContent: 'center', marginBottom: 8 },
-  entryLogoIcon: { width: 40, height: 40, borderRadius: 13, alignItems: 'center', justifyContent: 'center' },
-  summaryRow: { paddingVertical: 14 },
-  summaryLabel: { fontSize: 10, fontWeight: '700', letterSpacing: 1.5, marginBottom: 4 },
-  summaryVal: { fontSize: 16, fontWeight: '400' },
-  worldsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 4 },
-  worldPreviewCard: { padding: 16, width: '47.5%', borderRadius: 16, borderWidth: 1 },
+  // Entry summary
+  summaryRow: { paddingVertical: 13 },
+  summaryLabel: { fontSize: 9.5, fontWeight: '700', letterSpacing: 1.5, marginBottom: 4 },
+  summaryVal:   { fontSize: 15, fontWeight: '400', color: WHITE_HIGH },
+
+  // Worlds grid
+  worldsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
+  worldPreviewCard: {
+    padding: 16, width: '47.5%',
+    borderRadius: 16, borderWidth: 1,
+    overflow: 'hidden',
+  },
 });

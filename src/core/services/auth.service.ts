@@ -16,6 +16,8 @@ export interface AetheraUser {
   archetype: string;
   avatarEmoji: string;
   bio: string;
+  birthDate?: string;
+  birthPlace?: string;
 }
 
 export interface RegisterData {
@@ -25,26 +27,42 @@ export interface RegisterData {
   zodiacSign: string;
   archetype: string;
   avatarEmoji: string;
+  birthDate?: string;
+  birthPlace?: string;
 }
 
 export const AuthService = {
   async register(data: RegisterData): Promise<User> {
-    const { user } = await createUserWithEmailAndPassword(auth, data.email, data.password);
-    await setDoc(doc(db, 'users', user.uid), {
-      displayName: data.displayName,
-      email: data.email,
-      zodiacSign: data.zodiacSign,
-      archetype: data.archetype,
-      avatarEmoji: data.avatarEmoji,
-      bio: '',
-      createdAt: serverTimestamp(),
-      lastSeen: serverTimestamp(),
-    });
+    const registerPromise = createUserWithEmailAndPassword(auth, data.email, data.password);
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(Object.assign(new Error('timeout'), { code: 'auth/network-request-failed' })), 15000)
+    );
+    const { user } = await Promise.race([registerPromise, timeoutPromise]);
+    try {
+      await setDoc(doc(db, 'users', user.uid), {
+        displayName: data.displayName,
+        email: data.email,
+        zodiacSign: data.zodiacSign,
+        archetype: data.archetype,
+        avatarEmoji: data.avatarEmoji,
+        bio: '',
+        birthDate: data.birthDate ?? null,
+        birthPlace: data.birthPlace ?? null,
+        createdAt: serverTimestamp(),
+        lastSeen: serverTimestamp(),
+      });
+    } catch (error) {
+      console.warn('[AuthService] Firestore profile creation failed, keeping auth account.', error);
+    }
     return user;
   },
 
   async login(email: string, password: string): Promise<User> {
-    const { user } = await signInWithEmailAndPassword(auth, email, password);
+    const loginPromise = signInWithEmailAndPassword(auth, email, password);
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(Object.assign(new Error('timeout'), { code: 'auth/network-request-failed' })), 15000)
+    );
+    const { user } = await Promise.race([loginPromise, timeoutPromise]);
     return user;
   },
 

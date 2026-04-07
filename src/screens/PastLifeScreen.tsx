@@ -33,7 +33,7 @@ import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
 import { formatLocaleDate } from '../core/utils/localeFormat';
-
+import { useTheme } from '../core/hooks/useTheme';
 const ACCENT = '#A78BFA';
 
 // ── BACKGROUND ──────────────────────────────────────────────────
@@ -586,14 +586,15 @@ const PAST_LIFE_INDICATOR_MEANINGS: Record<number, string> = {
 export const PastLifeScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.06)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.06)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
 
   const lifePath = useMemo(() => calcLifePath(userData?.birthDate || ''), [userData?.birthDate]);
   const karmicDebts = useMemo(() => calcKarmicDebts(userData?.birthDate || ''), [userData?.birthDate]);

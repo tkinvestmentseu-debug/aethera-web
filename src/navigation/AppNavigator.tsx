@@ -356,6 +356,10 @@ const lazy_PastLifeScreen_87 = () => ws(require('../screens/PastLifeScreen').Pas
 const lazy_AstroTransitsScreen_88 = () => ws(require('../screens/AstroTransitsScreen').default);
 const lazy_SacredGeometryScreen_89 = () => ws(require('../screens/SacredGeometryScreen').default);
 const lazy_SpiritualProfileScreen_90 = () => ws(require('../screens/SpiritualProfileScreen').SpiritualProfileScreen);
+const lazy_SpiritualProfileRevealScreen_94 = () => ws(require('../screens/SpiritualProfileRevealScreen').SpiritualProfileRevealScreen);
+const lazy_GratitudeWallScreen_95 = () => ws(require('../screens/GratitudeWallScreen').GratitudeWallScreen);
+const lazy_GroupMeditationScreen_96 = () => ws(require('../screens/GroupMeditationScreen').GroupMeditationScreen);
+const lazy_SynchronicitiesScreen_97 = () => ws(require('../screens/SynchronicitiesScreen').SynchronicitiesScreen);
 const lazy_ElementalMagicScreen_91 = () => ws(require('../screens/ElementalMagicScreen').default);
 const lazy_TodayScreen_92 = () => ws(require('../screens/TodayScreen').TodayScreen);
 const lazy_NotificationsScreen_93 = () => ws(require('../screens/NotificationsScreen').NotificationsScreen);
@@ -373,6 +377,7 @@ const lazy_CosmicPortalsScreen_104 = () => ws(require('../screens/CosmicPortalsS
 const lazy_CommunityChronicleScreen_105 = () => ws(require('../screens/CommunityChronicleScreen').CommunityChronicleScreen);
 const lazy_GlobalShareScreen_106 = () => ws(require('../screens/GlobalShareScreen').GlobalShareScreen);
 const lazy_CommunityChatScreen_107 = () => ws(require('../screens/CommunityChatScreen').CommunityChatScreen);
+const lazy_CommunityEventsScreen_108b = () => ws(require('../screens/CommunityEventsScreen').CommunityEventsScreen);
 const lazy_RitualSessionScreen_108 = () => ws(require('../screens/RitualSessionScreen').RitualSessionScreen);
 const lazy_LucidDreamingScreen_109 = () => ws(require('../screens/LucidDreamingScreen').LucidDreamingScreen);
 const lazy_SleepRitualScreen_110 = () => ws(require('../screens/SleepRitualScreen').SleepRitualScreen);
@@ -619,7 +624,7 @@ export const AppNavigator = () => {
           gestureEnabled: true,
           gestureDirection: 'horizontal',
           fullScreenGestureEnabled: false,
-          gestureResponseDistance: { start: 16 },
+          gestureResponseDistance: { start: 30 },
           freezeOnBlur: true,
           contentStyle: { backgroundColor: 'transparent' },
         }}
@@ -642,6 +647,7 @@ export const AppNavigator = () => {
           <Stack.Group screenOptions={{ animation: 'fade' }}>
             <Stack.Screen name="LanguageSelection" getComponent={lazy_LanguageSelectionScreen_8} options={{ animation: 'fade' }} />
             <Stack.Screen name="IdentitySetup" getComponent={lazy_IdentitySetupScreen_9} options={{ animation: 'slide_from_right' }} />
+            <Stack.Screen name="SpiritualProfileReveal" getComponent={lazy_SpiritualProfileRevealScreen_94} options={{ animation: 'fade', headerShown: false }} />
             <Stack.Screen name="MagicEntry" getComponent={lazy_MagicEntryScreen_10} options={{ animation: 'fade' }} />
             <Stack.Screen name="Onboarding" getComponent={lazy_OnboardingScreen_11} />
             <Stack.Screen name="SplashIntro" getComponent={lazy_SplashIntroScreen_12} options={{ animation: 'fade' }} />
@@ -732,6 +738,9 @@ export const AppNavigator = () => {
             <Stack.Screen name="SacredGeometry" getComponent={lazy_SacredGeometryScreen_89} />
             <Stack.Screen name="SpiritualProfile" getComponent={lazy_SpiritualProfileScreen_90} />
             <Stack.Screen name="ElementalMagic" getComponent={lazy_ElementalMagicScreen_91} />
+            <Stack.Screen name="GratitudeWall" getComponent={lazy_GratitudeWallScreen_95} />
+            <Stack.Screen name="GroupMeditation" getComponent={lazy_GroupMeditationScreen_96} />
+            <Stack.Screen name="Synchronicities" getComponent={lazy_SynchronicitiesScreen_97} />
             <Stack.Screen name="Today" getComponent={lazy_TodayScreen_92} />
             <Stack.Screen name="NotificationsDetail" getComponent={lazy_NotificationsScreen_93} />
             <Stack.Screen name="EnergyCircle" getComponent={lazy_EnergyCircleScreen_94} />
@@ -748,6 +757,7 @@ export const AppNavigator = () => {
             <Stack.Screen name="CommunityChronicle" getComponent={lazy_CommunityChronicleScreen_105} />
             <Stack.Screen name="GlobalShare" getComponent={lazy_GlobalShareScreen_106} />
             <Stack.Screen name="CommunityChat" getComponent={lazy_CommunityChatScreen_107} />
+            <Stack.Screen name="CommunityEvents" getComponent={lazy_CommunityEventsScreen_108b} />
             <Stack.Screen name="RitualSession" getComponent={lazy_RitualSessionScreen_108} />
             <Stack.Screen name="LucidDreaming" getComponent={lazy_LucidDreamingScreen_109} />
             <Stack.Screen name="SleepRitual" getComponent={lazy_SleepRitualScreen_110} />

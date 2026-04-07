@@ -10,7 +10,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown, FadeIn } from 'react-native-reanimated';
 import { ChevronLeft, Star, Sparkles, Moon, Sun, Telescope, Save, Trash2, Plus } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
-import { getResolvedTheme } from '../core/theme/tokens';
+import { getResolvedTheme, isLightBg } from '../core/theme/tokens';
 import { layout } from '../core/theme/designSystem';
 import { useAppStore } from '../store/useAppStore';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
@@ -42,14 +42,21 @@ const ASTRO_PROMPTS = [
 export const AstroNoteScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, astroNotes, addAstroNote, deleteAstroNote, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
+    const themeName = useAppStore(s => s.themeName);
+  const userData = useAppStore(s => s.userData);
+  const astroNotes = useAppStore(s => s.astroNotes);
+  const addAstroNote = useAppStore(s => s.addAstroNote);
+  const deleteAstroNote = useAppStore(s => s.deleteAstroNote);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
   const currentTheme = getResolvedTheme(themeName, userData?.preferences?.colorScheme);
-  const isDark = !currentTheme.background.startsWith('#F');
+  const isDark = !isLightBg(currentTheme.background);
   const isLight = !isDark;
   const textColor = isLight ? '#1A0A2E' : '#EDE9FE';
   const subColor = isLight ? 'rgba(26,10,46,0.5)' : 'rgba(237,233,254,0.5)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.09)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.09)';
 
   const [selectedTemplate, setSelectedTemplate] = useState('free');
   const [noteText, setNoteText] = useState('');
@@ -104,7 +111,9 @@ Daj krótką, głęboką interpretację astrologiczną (3-4 zdania). Pisz bezpo�
   }, [noteText, template, zodiac]);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <LinearGradient
         colors={isDark ? ['#0B0818', '#10082A', '#160A35'] : ['#F5F3FF', '#EDE9FE', '#F9F7FF']}
         style={StyleSheet.absoluteFill}
@@ -282,7 +291,8 @@ Daj krótką, głęboką interpretację astrologiczną (3-4 zdania). Pisz bezpo�
           <EndOfContentSpacer />
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

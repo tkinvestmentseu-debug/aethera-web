@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import Svg, { Circle, Line, G } from 'react-native-svg';
 import { useAppStore } from '../store/useAppStore';
-import { getResolvedTheme } from '../core/theme/tokens';
+import { useTheme } from '../core/hooks/useTheme';
 
 interface CelestialBackdropProps {
   intensity?: 'soft' | 'medium' | 'immersive';
@@ -67,9 +67,8 @@ const BRIGHT_STARS = [
 ];
 
 export const CelestialBackdrop: React.FC<CelestialBackdropProps> = ({ intensity = 'medium' }) => {
-  const { themeName, experience } = useAppStore();
-  const theme = getResolvedTheme(themeName);
-  const isLight = theme.background.startsWith('#F');
+  const { experience } = useAppStore();
+  const { currentTheme: theme, isLight } = useTheme();
   const motionFactor =
     experience.motionStyle === 'quiet' ? 0.65
     : experience.motionStyle === 'minimal' ? 0.8
@@ -112,12 +111,16 @@ export const CelestialBackdrop: React.FC<CelestialBackdropProps> = ({ intensity 
           </Svg>
           {/* Deep darkness vignette from edges */}
           <LinearGradient
-            colors={['rgba(0,0,0,0.58)', 'transparent'] as const}
+            colors={isLight
+              ? ['rgba(120,94,56,0.10)', 'transparent'] as const
+              : ['rgba(0,0,0,0.58)', 'transparent'] as const}
             locations={[0, 0.3]}
             style={StyleSheet.absoluteFill}
           />
           <LinearGradient
-            colors={['transparent', 'rgba(0,0,0,0.68)'] as const}
+            colors={isLight
+              ? ['transparent', 'rgba(120,94,56,0.12)'] as const
+              : ['transparent', 'rgba(0,0,0,0.68)'] as const}
             locations={[0.7, 1]}
             style={StyleSheet.absoluteFill}
           />
@@ -362,13 +365,17 @@ export const CelestialBackdrop: React.FC<CelestialBackdropProps> = ({ intensity 
 
       {/* Top vignette */}
       <LinearGradient
-        colors={['rgba(0,0,0,0.14)', 'transparent'] as const}
+        colors={isLight
+          ? ['rgba(120,94,56,0.05)', 'transparent'] as const
+          : ['rgba(0,0,0,0.14)', 'transparent'] as const}
         locations={[0, 0.32]}
         style={StyleSheet.absoluteFill}
       />
       {/* Bottom vignette */}
       <LinearGradient
-        colors={['transparent', 'rgba(0,0,0,0.20)'] as const}
+        colors={isLight
+          ? ['transparent', 'rgba(120,94,56,0.07)'] as const
+          : ['transparent', 'rgba(0,0,0,0.20)'] as const}
         locations={[0.68, 1]}
         style={StyleSheet.absoluteFill}
       />

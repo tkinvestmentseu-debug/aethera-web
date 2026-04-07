@@ -6,7 +6,7 @@ import { Typography } from './Typography';
 import { AudioService } from '../core/services/audio.service';
 import { useAppStore } from '../store/useAppStore';
 import { getResolvedTheme } from '../core/theme/tokens';
-
+import { useTheme } from '../core/hooks/useTheme';
 const MUSIC_OPTIONS = [
   { id: 'relaxing',   label: '528 Hz',  sublabel: 'Relaks' },
   { id: 'sleep',      label: '432 Hz',  sublabel: 'Sen' },
@@ -30,11 +30,10 @@ interface MusicPickerProps {
 
 export const MusicPicker = ({ accentColor }: MusicPickerProps) => {
   const { t } = useTranslation();
-  const { themeName, experience, ambientSoundEnabled, setExperience, setAmbientSoundEnabled } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
+  const { experience, ambientSoundEnabled, setExperience, setAmbientSoundEnabled } = useAppStore();
+  const { currentTheme, isLight } = useTheme();
   const accent = accentColor || currentTheme.primary;
-  const isLight = currentTheme.background.startsWith('#F');
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)';
+  const cardBg = isLight ? 'rgba(122,95,54,0.08)' : 'rgba(255,255,255,0.06)';
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
   const subColor = isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.55)';
 

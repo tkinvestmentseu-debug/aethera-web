@@ -13,7 +13,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#34D399';
 
@@ -504,13 +504,14 @@ const HerbalBg = ({ isLight }: { isLight: boolean }) => (
 
 export const HerbalAlchemyScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
-  const { themeName, favoriteItems, addFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const favoriteItems = useAppStore(s => s.favoriteItems);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#0A2E14' : '#E8F5E9';
   const subColor = isLight ? '#2E6B3A' : 'rgba(232,245,233,0.65)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.09)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.09)';
 
   const isFav = favoriteItems.some(f => f.route === 'HerbalAlchemy');
   const toggleFav = () => {

@@ -23,7 +23,7 @@ import { NotificationsService } from '../core/services/notifications.service';
 import { ReminderConfig } from '../features/portal/types';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 // ── Constants ───────────────────────────────────────────────────────────────────
 const DAYS_PL = ['Nd', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'Sb'];
 const ALL_DAYS = [1, 2, 3, 4, 5, 6, 0]; // Mon–Sun display order
@@ -234,17 +234,17 @@ const CustomToggle = ({ value, onChange, accentColor }: { value: boolean; onChan
 );
 
 const TimeAdjuster = ({
-  value, onChange, min, max, step = 1, label, textColor,
-}: { value: number; onChange: (n: number) => void; min: number; max: number; step?: number; label?: string; textColor?: string }) => (
+  value, onChange, min, max, step = 1, label, textColor, isLight,
+}: { value: number; onChange: (n: number) => void; min: number; max: number; step?: number; label?: string; textColor?: string; isLight?: boolean }) => (
   <View style={ns.adjuster}>
     {label && <Text style={[ns.adjLabel, { color: textColor || 'rgba(255,255,255,0.5)' }]}>{label}</Text>}
     <View style={ns.adjRow}>
       <Pressable onPress={() => { void HapticsService.selection(); onChange(Math.max(min, value - step)); }} style={ns.adjBtn}>
-        <Minus size={14} color="#fff" />
+        <Minus size={14} color={isLight ? 'rgba(37,29,22,0.72)' : '#fff'} />
       </Pressable>
-      <Text style={ns.adjValue}>{String(value).padStart(2, '0')}</Text>
+      <Text style={[ns.adjValue, isLight && { color: 'rgba(37,29,22,0.88)' }]}>{String(value).padStart(2, '0')}</Text>
       <Pressable onPress={() => { void HapticsService.selection(); onChange(Math.min(max, value + step)); }} style={ns.adjBtn}>
-        <Plus size={14} color="#fff" />
+        <Plus size={14} color={isLight ? 'rgba(37,29,22,0.72)' : '#fff'} />
       </Pressable>
     </View>
   </View>
@@ -253,14 +253,16 @@ const TimeAdjuster = ({
 // ── Main screen ─────────────────────────────────────────────────────────────────
 export const NotificationsScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
-  const { themeName, scheduledReminders, addReminder, removeReminder, updateReminder } = useAppStore();
+    const scheduledReminders = useAppStore(s => s.scheduledReminders);
+  const addReminder = useAppStore(s => s.addReminder);
+  const removeReminder = useAppStore(s => s.removeReminder);
+  const updateReminder = useAppStore(s => s.updateReminder);
+  const { isLight } = useTheme();
   const insets = useSafeAreaInsets();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
   const textColor = isLight ? '#1A1208' : '#F5F1EA';
   const subColor = isLight ? 'rgba(26,18,8,0.55)' : 'rgba(245,241,234,0.52)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
 
   // ── State ──────────────────────────────────────────────────────────────────────
   const [permGranted, setPermGranted] = useState<boolean | null>(null);
@@ -405,7 +407,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
 
         {/* Header */}
         <Animated.View entering={FadeInDown.duration(350)} style={ns.header}>
-          <Pressable onPress={() => navigation.goBack()} style={[ns.backBtn, { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)' }]}>
+          <Pressable onPress={() => navigation.goBack()} style={[ns.backBtn, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.06)' }]}>
             <ChevronLeft color={textColor} size={22} strokeWidth={2} />
           </Pressable>
           <View style={{ flex: 1 }}>
@@ -492,7 +494,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
                 <CustomToggle value={oracleEnabled} onChange={setOracleEnabled} accentColor={ACCENT} />
               </View>
               {oracleEnabled && (
-                <View style={[ns.oracleMessage, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: ACCENT + '28' }]}>
+                <View style={[ns.oracleMessage, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: ACCENT + '28' }]}>
                   <Text style={[ns.oracleMessageText, { color: textColor }]}>„{oracleMessage}"</Text>
                   <Text style={[ns.oracleMessageSub, { color: subColor }]}>— Aethera Oracle · dzisiejsze przesłanie</Text>
                 </View>
@@ -597,7 +599,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
                     </View>
                     <View style={[ns.presetBadge, alreadyAdded
                       ? { backgroundColor: meta.color + '22', borderColor: meta.color + '44' }
-                      : { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.08)', borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.15)' }
+                      : { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.08)', borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.15)' }
                     ]}>
                       <Text style={[ns.presetBadgeText, { color: alreadyAdded ? meta.color : subColor }]}>
                         {alreadyAdded ? '✓ Dodane' : '+ Dodaj'}
@@ -639,7 +641,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
                     </View>
                     <View style={[ns.packBadge, allAdded
                       ? { backgroundColor: pack.color + '22', borderColor: pack.color + '44' }
-                      : { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.13)' }
+                      : { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.13)' }
                     ]}>
                       <Text style={[ns.packBadgeText, { color: allAdded ? pack.color : subColor }]}>
                         {allAdded ? '✓ Aktywny' : '+ Dodaj'}
@@ -672,7 +674,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
                             {formatTime(reminder.hour, reminder.minute)} · {reminder.days.length === 7 ? 'Codziennie' : `${reminder.days.length} dni/tydz.`}
                           </Text>
                         </View>
-                        <Pressable onPress={() => setEditingId(isExpanded ? null : reminder.id)} style={[ns.expandBtn, { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)' }]}>
+                        <Pressable onPress={() => setEditingId(isExpanded ? null : reminder.id)} style={[ns.expandBtn, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.06)' }]}>
                           <Clock size={14} color={subColor} />
                         </Pressable>
                         <CustomToggle value={reminder.enabled} onChange={(v) => toggleReminder(reminder.id, v)} accentColor={meta.color} />
@@ -686,9 +688,9 @@ export const NotificationsScreen = ({ navigation }: any) => {
                           <View style={ns.editorSection}>
                             <Text style={[ns.editorLabel, { color: subColor }]}>{t('notifications.time').toUpperCase()}</Text>
                             <View style={ns.editorRow}>
-                              <TimeAdjuster value={reminder.hour} onChange={h => updateReminder(reminder.id, { hour: h })} min={0} max={23} label="GG" textColor={subColor} />
+                              <TimeAdjuster value={reminder.hour} onChange={h => updateReminder(reminder.id, { hour: h })} min={0} max={23} label="GG" textColor={subColor} isLight={isLight} />
                               <Text style={[ns.timeSep, { color: textColor }]}>:</Text>
-                              <TimeAdjuster value={reminder.minute} onChange={m => updateReminder(reminder.id, { minute: m })} min={0} max={59} step={5} label="MM" textColor={subColor} />
+                              <TimeAdjuster value={reminder.minute} onChange={m => updateReminder(reminder.id, { minute: m })} min={0} max={59} step={5} label="MM" textColor={subColor} isLight={isLight} />
                             </View>
                           </View>
                           <View style={ns.editorSection}>
@@ -700,7 +702,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
                                   <Pressable
                                     key={day}
                                     onPress={() => toggleDay(reminder.id, day)}
-                                    style={[ns.dayChip, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)' }, active && { backgroundColor: meta.color + '28', borderColor: meta.color + '66' }]}
+                                    style={[ns.dayChip, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)' }, active && { backgroundColor: meta.color + '28', borderColor: meta.color + '66' }]}
                                   >
                                     <Text style={[ns.dayLabel, { color: active ? meta.color : subColor }]}>{DAYS_PL[day]}</Text>
                                   </Pressable>
@@ -767,7 +769,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
                 </View>
                 <Pressable
                   onPress={() => { void HapticsService.selection(); setQuietExpanded(v => !v); }}
-                  style={[ns.expandBtn, { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)' }]}
+                  style={[ns.expandBtn, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.06)' }]}
                 >
                   <Edit3 size={13} color={subColor} />
                 </Pressable>
@@ -775,14 +777,14 @@ export const NotificationsScreen = ({ navigation }: any) => {
               </View>
 
               {quietExpanded && (
-                <View style={[ns.quietEditor, { borderTopColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.08)' }]}>
+                <View style={[ns.quietEditor, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)' }]}>
                   <View style={ns.quietTimeRow}>
                     <View style={{ alignItems: 'center' }}>
                       <Text style={[ns.editorLabel, { color: subColor, marginBottom: 8 }]}>OD GODZINY</Text>
                       <View style={ns.editorRow}>
-                        <TimeAdjuster value={quietFrom.hour} onChange={h => setQuietFrom(p => ({ ...p, hour: h }))} min={0} max={23} label="GG" textColor={subColor} />
+                        <TimeAdjuster value={quietFrom.hour} onChange={h => setQuietFrom(p => ({ ...p, hour: h }))} min={0} max={23} label="GG" textColor={subColor} isLight={isLight} />
                         <Text style={[ns.timeSep, { color: textColor }]}>:</Text>
-                        <TimeAdjuster value={quietFrom.minute} onChange={m => setQuietFrom(p => ({ ...p, minute: m }))} min={0} max={59} step={15} label="MM" textColor={subColor} />
+                        <TimeAdjuster value={quietFrom.minute} onChange={m => setQuietFrom(p => ({ ...p, minute: m }))} min={0} max={59} step={15} label="MM" textColor={subColor} isLight={isLight} />
                       </View>
                     </View>
                     <View style={[ns.quietArrow, { backgroundColor: '#60A5FA' + '18' }]}>
@@ -791,9 +793,9 @@ export const NotificationsScreen = ({ navigation }: any) => {
                     <View style={{ alignItems: 'center' }}>
                       <Text style={[ns.editorLabel, { color: subColor, marginBottom: 8 }]}>DO GODZINY</Text>
                       <View style={ns.editorRow}>
-                        <TimeAdjuster value={quietTo.hour} onChange={h => setQuietTo(p => ({ ...p, hour: h }))} min={0} max={23} label="GG" textColor={subColor} />
+                        <TimeAdjuster value={quietTo.hour} onChange={h => setQuietTo(p => ({ ...p, hour: h }))} min={0} max={23} label="GG" textColor={subColor} isLight={isLight} />
                         <Text style={[ns.timeSep, { color: textColor }]}>:</Text>
-                        <TimeAdjuster value={quietTo.minute} onChange={m => setQuietTo(p => ({ ...p, minute: m }))} min={0} max={59} step={15} label="MM" textColor={subColor} />
+                        <TimeAdjuster value={quietTo.minute} onChange={m => setQuietTo(p => ({ ...p, minute: m }))} min={0} max={59} step={15} label="MM" textColor={subColor} isLight={isLight} />
                       </View>
                     </View>
                   </View>
@@ -833,7 +835,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
                     key={item.id}
                     style={[
                       ns.historyItem,
-                      i < reminderHistory.length - 1 && { borderBottomWidth: 1, borderBottomColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.07)' },
+                      i < reminderHistory.length - 1 && { borderBottomWidth: 1, borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)' },
                     ]}
                   >
                     <View style={[ns.historyDot, { backgroundColor: item.status === 'delivered' ? '#34D399' : '#94A3B8' }]} />
@@ -890,7 +892,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
               <Text style={[ns.modalTitle, { color: textColor }]}>{t('notifications.add_reminder')}</Text>
               <Text style={[ns.modalSub, { color: subColor }]}>Spersonalizuj swój rytm duchowy</Text>
             </View>
-            <Pressable onPress={() => setShowCustomModal(false)} style={[ns.modalClose, { backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.08)' }]}>
+            <Pressable onPress={() => setShowCustomModal(false)} style={[ns.modalClose, { backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.08)' }]}>
               <X size={18} color={textColor} />
             </Pressable>
           </View>
@@ -903,7 +905,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
                 <Pressable
                   key={ic}
                   onPress={() => { void HapticsService.selection(); setCustomIcon(ic); }}
-                  style={[ns.iconChip, { backgroundColor: customIcon === ic ? ACCENT + '28' : (isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)'), borderColor: customIcon === ic ? ACCENT + '77' : (isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.12)') }]}
+                  style={[ns.iconChip, { backgroundColor: customIcon === ic ? ACCENT + '28' : (isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.07)'), borderColor: customIcon === ic ? ACCENT + '77' : (isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.12)') }]}
                 >
                   <Text style={{ fontSize: 20 }}>{ic}</Text>
                 </Pressable>
@@ -918,7 +920,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
             onChangeText={setCustomName}
             placeholder="np. Medytacja poranna"
             placeholderTextColor={subColor}
-            style={[ns.modalInput, { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)', color: textColor }]}
+            style={[ns.modalInput, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)', color: textColor }]}
           />
 
           {/* Message input */}
@@ -928,15 +930,15 @@ export const NotificationsScreen = ({ navigation }: any) => {
             onChangeText={setCustomBody}
             placeholder="Krótka wiadomość motywacyjna..."
             placeholderTextColor={subColor}
-            style={[ns.modalInput, { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)', color: textColor }]}
+            style={[ns.modalInput, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)', color: textColor }]}
           />
 
           {/* Time picker */}
           <Text style={[ns.modalLabel, { color: subColor }]}>{t('notifications.time').toUpperCase()}</Text>
           <View style={[ns.modalTimeRow, { marginBottom: 16 }]}>
-            <TimeAdjuster value={customHour} onChange={setCustomHour} min={0} max={23} label="GG" textColor={subColor} />
+            <TimeAdjuster value={customHour} onChange={setCustomHour} min={0} max={23} label="GG" textColor={subColor} isLight={isLight} />
             <Text style={[ns.timeSep, { color: textColor }]}>:</Text>
-            <TimeAdjuster value={customMinute} onChange={setCustomMinute} min={0} max={59} step={5} label="MM" textColor={subColor} />
+            <TimeAdjuster value={customMinute} onChange={setCustomMinute} min={0} max={59} step={5} label="MM" textColor={subColor} isLight={isLight} />
           </View>
 
           {/* Day picker */}
@@ -948,7 +950,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
                 <Pressable
                   key={day}
                   onPress={() => toggleCustomDay(day)}
-                  style={[ns.dayChip, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)' }, active && { backgroundColor: ACCENT + '28', borderColor: ACCENT + '66' }]}
+                  style={[ns.dayChip, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)' }, active && { backgroundColor: ACCENT + '28', borderColor: ACCENT + '66' }]}
                 >
                   <Text style={[ns.dayLabel, { color: active ? ACCENT : subColor }]}>{DAYS_PL[day]}</Text>
                 </Pressable>

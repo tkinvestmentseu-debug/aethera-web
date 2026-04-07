@@ -1,5 +1,6 @@
 // src/core/theme/designSystem.ts
 import { Dimensions, StyleSheet } from 'react-native';
+import { isLightBg } from './tokens';
 
 const { width, height } = Dimensions.get('window');
 
@@ -26,6 +27,25 @@ export const layout = {
   hairline: StyleSheet.hairlineWidth,
 };
 
+// 1.2 Responsive helpers
+export const isTablet = width >= 600;
+export const isLargeTablet = width >= 900;
+
+/** Scale font size proportionally for larger screens */
+export const rf = (base: number): number =>
+  isLargeTablet ? Math.round(base * 1.25) : isTablet ? Math.round(base * 1.12) : base;
+
+/** Responsive horizontal padding — grows on tablets */
+export const rp = (base: number = layout.padding.screen): number =>
+  isLargeTablet ? base * 2.2 : isTablet ? base * 1.5 : base;
+
+/** Max content width (centers content on tablets) */
+export const maxContentWidth = isLargeTablet ? 720 : isTablet ? 560 : width;
+
+/** Number of grid columns based on screen width */
+export const gridColumns = (minItemWidth: number): number =>
+  Math.max(1, Math.floor(width / minItemWidth));
+
 // 1.5 Luxury Styling
 export const luxury = {
   glass: (theme: any) => ({
@@ -33,9 +53,9 @@ export const luxury = {
     borderColor: theme.glassBorder,
     borderWidth: layout.hairline,
     borderRadius: layout.radius.m,
-    shadowColor: theme.background.startsWith('#F') ? '#7B5C31' : '#000',
+    shadowColor: isLightBg(theme.background) ? '#7B5C31' : '#000',
     shadowOffset: { width: 0, height: 14 },
-    shadowOpacity: theme.background.startsWith('#F') ? 0.08 : 0.2,
+    shadowOpacity: isLightBg(theme.background) ? 0.08 : 0.2,
     shadowRadius: 28,
     elevation: 8,
   }),
@@ -55,7 +75,7 @@ export const luxury = {
     paddingHorizontal: 24,
   }),
   secondaryButton: (theme: any) => ({
-    backgroundColor: theme.background.startsWith('#F') ? 'rgba(37,29,22,0.06)' : 'rgba(255,255,255,0.06)',
+    backgroundColor: isLightBg(theme.background) ? 'rgba(37,29,22,0.06)' : 'rgba(255,255,255,0.06)',
     borderColor: theme.border,
     borderWidth: 1,
     borderRadius: layout.radius.round,
@@ -66,10 +86,10 @@ export const luxury = {
     paddingHorizontal: 24,
   }),
   input: (theme: any) => ({
-    backgroundColor: theme.background.startsWith('#F')
+    backgroundColor: isLightBg(theme.background)
       ? 'rgba(255,253,247,0.95)'
       : 'rgba(10,14,24,0.94)',
-    borderColor: theme.background.startsWith('#F')
+    borderColor: isLightBg(theme.background)
       ? 'rgba(169,122,57,0.32)'
       : theme.primary + '48',
     borderWidth: 1,
@@ -81,7 +101,7 @@ export const luxury = {
     fontSize: 16,
     shadowColor: theme.primary,
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: theme.background.startsWith('#F') ? 0.08 : 0.18,
+    shadowOpacity: isLightBg(theme.background) ? 0.08 : 0.18,
     shadowRadius: 12,
     elevation: 4,
   }),
@@ -89,7 +109,7 @@ export const luxury = {
     borderRadius: layout.radius.round,
     borderWidth: 1,
     borderColor: active ? theme.border : theme.glassBorder,
-    backgroundColor: active ? theme.primary + (theme.background.startsWith('#F') ? '16' : '14') : theme.background.startsWith('#F') ? 'rgba(255,255,255,0.70)' : 'rgba(255,255,255,0.04)',
+    backgroundColor: active ? theme.primary + (isLightBg(theme.background) ? '16' : '14') : isLightBg(theme.background) ? 'rgba(255,255,255,0.70)' : 'rgba(255,255,255,0.04)',
     paddingHorizontal: 13,
     paddingVertical: 9,
   }),

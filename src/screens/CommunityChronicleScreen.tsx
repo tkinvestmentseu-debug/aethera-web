@@ -23,13 +23,11 @@ import { useAppStore } from '../store/useAppStore';
 import { HapticsService } from '../core/services/haptics.service';
 import { useAuthStore } from '../store/useAuthStore';
 import { ChroniclesService, Chronicle } from '../core/services/community/chronicles.service';
-
+import { getResolvedTheme } from '../core/theme/tokens';
+import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#E879F9';
-const textColor = '#E8E0FF';
-const subColor = 'rgba(232,224,255,0.55)';
-const cardBg = 'rgba(255,255,255,0.05)';
-const cardBorder = 'rgba(255,255,255,0.10)';
 
 const CATEGORIES = ['Wszystkie', 'Transformacje', 'Cuda', 'Synchroniczności', 'Uzdrowienia', 'Wizje'];
 
@@ -80,8 +78,15 @@ const TOP_STORYTELLERS = [
 export const CommunityChronicleScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const { currentUser } = useAuthStore();
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
+  const textColor = isLight ? '#1C1008' : '#E8E0FF';
+  const subColor = isLight ? 'rgba(28,16,8,0.55)' : 'rgba(232,224,255,0.55)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.10)';
+    const currentUser = useAuthStore(s => s.currentUser);
   const [entries, setEntries] = useState(ENTRIES);
   const [activeCategory, setActiveCategory] = useState('Wszystkie');
   const [liked, setLiked] = useState({});
@@ -147,12 +152,14 @@ export const CommunityChronicleScreen = ({ navigation }) => {
   const featuredStory = ENTRIES.find(e => e.id === 5);
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[styles.container, {}]} edges={['top']}>
+
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => goBackOrToMainTab(navigation, 'Portal')}>
           <ChevronLeft size={22} color={textColor} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>KRONIKA WSPÓLNOTY</Text>
+        <Text style={[styles.headerTitle, { color: textColor }]}>KRONIKA WSPÓLNOTY</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <TouchableOpacity onPress={() => {
             HapticsService.impact('light');
@@ -324,7 +331,7 @@ export const CommunityChronicleScreen = ({ navigation }) => {
           <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'flex-end' }}>
             <KeyboardAvoidingView behavior="padding">
               <ScrollView
-                style={{ maxHeight: '90%', backgroundColor: '#12101E', borderTopLeftRadius: 28, borderTopRightRadius: 28 }}
+                style={{ maxHeight: '90%', backgroundColor: isLight ? '#FFFFFF' : '#12101E', borderTopLeftRadius: 28, borderTopRightRadius: 28 }}
                 keyboardShouldPersistTaps="handled"
                 onStartShouldSetResponder={() => true}
               >
@@ -370,7 +377,7 @@ export const CommunityChronicleScreen = ({ navigation }) => {
         <TouchableWithoutFeedback onPress={() => setCommentModal(null)}>
           <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'flex-end' }}>
             <View
-              style={{ backgroundColor: '#12101E', borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24 }}
+              style={{ backgroundColor: isLight ? '#FFFFFF' : '#12101E', borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24 }}
               onStartShouldSetResponder={() => true}
             >
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
@@ -405,12 +412,13 @@ export const CommunityChronicleScreen = ({ navigation }) => {
           </View>
         </TouchableWithoutFeedback>
       </Modal>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#07050F' },
+  container: { flex: 1 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 22, paddingVertical: 14 },
-  headerTitle: { color: textColor, fontSize: 13, fontWeight: '800', letterSpacing: 2 },
+  headerTitle: { fontSize: 13, fontWeight: '800', letterSpacing: 2 },
 });

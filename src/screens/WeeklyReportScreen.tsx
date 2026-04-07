@@ -31,7 +31,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
 import { resolveUserFacingText } from '../core/utils/contentResolver';
-
+import { useTheme } from '../core/hooks/useTheme';
 const AnimatedPolygon = Animated.createAnimatedComponent(Polygon);
 
 const { width: SW } = Dimensions.get('window');
@@ -302,7 +302,7 @@ const MoodTrendChart = ({
       <Text style={[wr.sectionTitle, { color: isLight ? '#2A1E0F' : '#F5F1EA' }]}>NASTRÓJ TYGODNIA</Text>
       <View style={[wr.card, {
         backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)',
-        borderColor: isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)',
+        borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)',
         padding: 16,
       }]}>
         {/* Average line label */}
@@ -376,7 +376,7 @@ const PracticeTimeline = ({
       <Text style={[wr.sectionTitle, { color: textColor }]}>PRAKTYKI TYGODNIA</Text>
       <View style={[wr.card, {
         backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)',
-        borderColor: isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)',
+        borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)',
         padding: 14,
         gap: 10,
       }]}>
@@ -404,7 +404,7 @@ const PracticeTimeline = ({
                   ) : (
                     <View style={{
                       width: 8, height: 8, borderRadius: 4,
-                      backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)',
+                      backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)',
                     }} />
                   )}
                 </View>
@@ -479,7 +479,7 @@ const EnergyRadar = ({
       <Text style={[wr.sectionTitle, { color: textColor }]}>MAPA ENERGII</Text>
       <View style={[wr.card, {
         backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)',
-        borderColor: isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)',
+        borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)',
         padding: 16,
       }]}>
         <Svg width={SIZE} height={SIZE * 0.85}>
@@ -559,7 +559,7 @@ const TopMoments = ({
   const textColor = isLight ? '#2A1E0F' : '#F5F1EA';
   const subColor  = isLight ? '#6A5A48' : '#8A8080';
   const cardBg    = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)';
-  const cardBdr   = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const cardBdr   = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
 
   const items = [
     { emoji: '⭐', label: 'Najlepszy dzień', value: bestMoodDay || '—', color: '#CEAE72' },
@@ -618,7 +618,7 @@ const Achievements = ({
 
   const textColor = isLight ? '#2A1E0F' : '#F5F1EA';
   const cardBg    = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)';
-  const cardBdr   = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const cardBdr   = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
 
   return (
     <View style={{ gap: 6 }}>
@@ -877,16 +877,22 @@ const StatMiniCard = ({
 export const WeeklyReportScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets   = useSafeAreaInsets();
-  const { themeName, userData, meditationSessions, breathworkSessions,
-          streaks, dailyProgress, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
+    const userData = useAppStore(s => s.userData);
+  const meditationSessions = useAppStore(s => s.meditationSessions);
+  const breathworkSessions = useAppStore(s => s.breathworkSessions);
+  const streaks = useAppStore(s => s.streaks);
+  const dailyProgress = useAppStore(s => s.dailyProgress);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const { entries: journalEntries } = useJournalStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight  = currentTheme.background.startsWith('#F');
+  const localeCode = getLocaleCode();
   const accent   = ACCENT;
   const textColor = isLight ? '#2A1E0F' : '#F5F1EA';
   const subColor  = isLight ? '#6A5A48' : '#8A8080';
   const cardBg    = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)';
-  const cardBdr   = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const cardBdr   = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
   const bgColors: [string, string, string] = isLight
     ? ['#FAF6EE', '#F5EDD8', '#FAF6EE']
     : ['#07060F', '#0E0B1A', '#07060F'];
@@ -896,7 +902,6 @@ export const WeeklyReportScreen = ({ navigation }: any) => {
   const weekDates  = useMemo(() => getWeekDates(weekOffset), [weekOffset]);
   const weekNum    = useMemo(() => isoWeek(weekDates[0]), [weekDates]);
   const weekLabel  = useMemo(() => {
-  const localeCode = getLocaleCode();
   const start = weekDates[0].toLocaleDateString(localeCode, { day: 'numeric', month: 'short' });
   const end   = weekDates[6].toLocaleDateString(localeCode, { day: 'numeric', month: 'short' });
     return `${start} — ${end}`;

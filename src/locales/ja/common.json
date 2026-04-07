@@ -1,0 +1,20 @@
+{
+  "actions": {
+    "clear": "クリア",
+    "confirm": "確認する",
+    "cancel": "キャンセル",
+    "delete": "削除"
+  },
+  "labels": {
+    "center": "センター",
+    "relationships": "レポート",
+    "agency": "能動性",
+    "lesson": "授業",
+    "path": "道"
+  },
+  "status": {
+    "todayActive": "今日はオンライン",
+    "now": "今",
+    "past": "過去"
+  }
+}

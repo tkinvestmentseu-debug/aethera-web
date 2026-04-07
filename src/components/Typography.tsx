@@ -1,10 +1,9 @@
 import React from 'react';
 import { Text, TextProps, StyleSheet, StyleProp, TextStyle } from 'react-native';
 import { typography as designTypography } from '../core/theme/designSystem';
-import { useAppStore } from '../store/useAppStore';
 import { getResolvedTheme } from '../core/theme/tokens';
 import { resolveUserFacingText } from '../core/utils/contentResolver';
-
+import { useTheme } from '../core/hooks/useTheme';
 export type TypographyVariant =
   | 'display'
   | 'heading'
@@ -44,8 +43,8 @@ export const Typography: React.FC<TypographyProps> = ({
   children,
   ...rest
 }) => {
-  const themeName = useAppStore((state) => state.themeName);
-  const theme = getResolvedTheme(themeName);
+  const { currentTheme } = useTheme();
+  const theme = currentTheme;
   const resolvedColor = color || getDefaultColor(theme, variant);
   const variantStyle = getVariantStyle(variant);
   const resolvedChildren = typeof children === 'string' ? resolveUserFacingText(children) : children;

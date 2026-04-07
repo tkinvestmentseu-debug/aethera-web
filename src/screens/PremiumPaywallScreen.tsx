@@ -21,6 +21,7 @@ import {
   Zap, Moon, Star, Shield, BookOpen, MessageCircle,
   HeartHandshake, Music, BrainCircuit, LayoutGrid, Clock,
 } from 'lucide-react-native';
+import { useTranslation } from 'react-i18next';
 import { useAppStore } from '../store/useAppStore';
 import { usePremiumStore } from '../store/usePremiumStore';
 import { getResolvedTheme } from '../core/theme/tokens';
@@ -261,13 +262,13 @@ const CrownHero = React.memo(() => {
         fontFamily: 'Cinzel-Bold', fontSize: 28, fontWeight: '800',
         color: '#F5EDD8', letterSpacing: 3, marginTop: 16, textAlign: 'center',
       }}>
-        AETHERA PREMIUM
+        {t('premium.hero.title', 'AETHERA PREMIUM')}
       </Animated.Text>
       <Animated.Text entering={FadeInDown.delay(500).duration(600)} style={{
         fontSize: 15, color: 'rgba(196,181,253,0.75)', textAlign: 'center',
         marginTop: 6, letterSpacing: 0.3, lineHeight: 22, paddingHorizontal: 32,
       }}>
-        Wybierz swój plan duchowego wzrostu
+        {t('premium.hero.subtitle', 'Wybierz swoj plan duchowego wzrostu')}
       </Animated.Text>
     </View>
   );
@@ -436,7 +437,7 @@ const PlanCard = React.memo(({
                 alignItems: 'center',
               }}>
                 <Text style={{ fontSize: 14, fontWeight: '700', color: plan.accent, letterSpacing: 0.5 }}>
-                  ✦ {plan.id === 'free' ? 'Plan aktywny' : 'Wybrany plan'}
+                  ✦ {plan.id === 'free' ? t('premium.plan.activePlan', 'Plan aktywny') : t('premium.plan.selectedPlan', 'Wybrany plan')}
                 </Text>
               </Animated.View>
             )}
@@ -484,7 +485,8 @@ const TESTIMONIALS = [
 ];
 
 export const PremiumPaywallScreen = ({ navigation }: any) => {
-    const themeName = useAppStore(s => s.currentTheme);
+  const themeName = useAppStore(s => s.themeName);
+  const { t } = useTranslation();
   const { isPremium, subscriptionPlan, unlockPremium } = usePremiumStore();
   const [selectedPlan, setSelectedPlan] = useState<string>(isPremium ? (subscriptionPlan ?? 'free') : 'master');
 
@@ -503,10 +505,10 @@ export const PremiumPaywallScreen = ({ navigation }: any) => {
   }, [selectedPlan, unlockPremium, navigation]);
 
   const ctaLabel = selectedPlan === 'free'
-    ? 'Twój obecny plan'
+    ? t('premium.cta.currentPlan', 'Twoj obecny plan')
     : selectedPlan === 'soul'
-    ? 'Rozpocznij plan Dusza — 59,99 zł/mies.'
-    : 'Rozpocznij plan Mistrz — 499 zł/rok';
+    ? t('premium.cta.startSoul', 'Rozpocznij plan Dusza — 59,99 zl/mies.')
+    : t('premium.cta.startMaster', 'Rozpocznij plan Mistrz — 499 zl/rok');
 
   const ctaAccent = selectedPlan === 'soul' ? '#C4B5FD' : '#CEAE72';
 
@@ -578,8 +580,8 @@ export const PremiumPaywallScreen = ({ navigation }: any) => {
                 textAlign: 'center', marginTop: 10,
                 fontSize: 12, color: 'rgba(196,181,253,0.45)', lineHeight: 17,
               }}>
-                Możesz anulować w dowolnym momencie.{'\n'}
-                Przechowywane bezpiecznie przez Google Play / App Store.
+                {t('premium.cta.cancelHint', 'Mozesz anulic w dowolnym momencie.')}{'\n'}
+                {t('premium.cta.storeHint', 'Przechowywane bezpiecznie przez Google Play / App Store.')}
               </Text>
             </Animated.View>
           )}
@@ -590,17 +592,17 @@ export const PremiumPaywallScreen = ({ navigation }: any) => {
               fontSize: 11, fontWeight: '700', letterSpacing: 3, color: '#CEAE72',
               textAlign: 'center', marginBottom: 20,
             }}>
-              DLACZEGO WARTO
+              {t('premium.whySection.title', 'DLACZEGO WARTO')}
             </Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
               {[
-                { icon: InfinityIcon, label: 'Nielimitowany Oracle', color: '#C084FC' },
-                { icon: Moon, label: 'Rytuały Księżycowe', color: '#818CF8' },
-                { icon: BrainCircuit, label: 'AI analizuje sny', color: '#6EE7B7' },
-                { icon: Star, label: 'Matryca Przeznaczenia', color: '#CEAE72' },
-                { icon: Music, label: 'Sound Bath & Binauralne', color: '#60A5FA' },
-                { icon: HeartHandshake, label: 'Tarot Partnerski', color: '#F472B6' },
-              ].map(({ icon: Icon, label, color }, i) => (
+                { icon: InfinityIcon, labelKey: 'premium.whySection.unlimitedOracle', fallback: 'Nielimitowany Oracle', color: '#C084FC' },
+                { icon: Moon, labelKey: 'premium.whySection.moonRituals', fallback: 'Rytualy Ksiezycowe', color: '#818CF8' },
+                { icon: BrainCircuit, labelKey: 'premium.whySection.aiDreams', fallback: 'AI analizuje sny', color: '#6EE7B7' },
+                { icon: Star, labelKey: 'premium.whySection.destinyMatrix', fallback: 'Matryca Przeznaczenia', color: '#CEAE72' },
+                { icon: Music, labelKey: 'premium.whySection.soundBath', fallback: 'Sound Bath & Binauralne', color: '#60A5FA' },
+                { icon: HeartHandshake, labelKey: 'premium.whySection.partnerTarot', fallback: 'Tarot Partnerski', color: '#F472B6' },
+              ].map(({ icon: Icon, labelKey, fallback, color }, i) => (
                 <View key={i} style={{
                   width: (SW - 56) / 2,
                   flexDirection: 'row', alignItems: 'center', gap: 10,
@@ -616,7 +618,7 @@ export const PremiumPaywallScreen = ({ navigation }: any) => {
                     <Icon size={17} color={color} strokeWidth={1.8} />
                   </View>
                   <Text style={{ fontSize: 12, fontWeight: '600', color: 'rgba(240,235,248,0.75)', flex: 1, lineHeight: 16 }}>
-                    {label}
+                    {t(labelKey, fallback)}
                   </Text>
                 </View>
               ))}
@@ -629,7 +631,7 @@ export const PremiumPaywallScreen = ({ navigation }: any) => {
               fontSize: 11, fontWeight: '700', letterSpacing: 3, color: '#CEAE72',
               textAlign: 'center', marginBottom: 16,
             }}>
-              CO MÓWIĄ DUSZE
+              {t('premium.testimonialsSection.title', 'CO MOWIA DUSZE')}
             </Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 2 }}>
               {TESTIMONIALS.map((t, i) => <Testimonial key={i} item={t} index={i} />)}
@@ -639,14 +641,14 @@ export const PremiumPaywallScreen = ({ navigation }: any) => {
           {/* Security badges */}
           <Animated.View entering={FadeInDown.delay(900).duration(600)} style={{ flexDirection: 'row', justifyContent: 'center', gap: 20, marginBottom: 8 }}>
             {[
-              { icon: Shield, label: 'Bezpieczna płatność' },
-              { icon: Clock, label: 'Anuluj kiedy chcesz' },
-              { icon: HeartHandshake, label: '7-dniowy zwrot' },
-            ].map(({ icon: Icon, label }, i) => (
+              { icon: Shield, labelKey: 'premium.badges.securePayment', fallback: 'Bezpieczna platnosc' },
+              { icon: Clock, labelKey: 'premium.badges.cancelAnytime', fallback: 'Anuluj kiedy chcesz' },
+              { icon: HeartHandshake, labelKey: 'premium.badges.refund', fallback: '7-dniowy zwrot' },
+            ].map(({ icon: Icon, labelKey, fallback }, i) => (
               <View key={i} style={{ alignItems: 'center', gap: 4 }}>
                 <Icon size={18} color="rgba(196,181,253,0.5)" strokeWidth={1.5} />
                 <Text style={{ fontSize: 10, color: 'rgba(196,181,253,0.4)', textAlign: 'center', maxWidth: 70 }}>
-                  {label}
+                  {t(labelKey, fallback)}
                 </Text>
               </View>
             ))}

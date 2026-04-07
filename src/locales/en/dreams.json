@@ -1,1 +1,1328 @@
-{}
+{
+  "header": {
+    "eyebrow": "THE LAND OF DREAMS",
+    "title": "The Symbolism of the Night",
+    "favoriteLabel": "Dreams",
+    "favoriteId": "dreams",
+    "formTab": "sleep"
+  },
+  "tabs": [
+    {
+      "id": "sleep",
+      "label": "Sleep",
+      "icon": "🌙"
+    },
+    {
+      "id": "symbol collection",
+      "label": "Symbolarium",
+      "icon": "📖"
+    },
+    {
+      "id": "patterns",
+      "label": "Patterns",
+      "icon": "🔮"
+    },
+    {
+      "id": "the moon",
+      "label": "The Moon",
+      "icon": "🌕"
+    },
+    {
+      "id": "lucid",
+      "label": "Conscious",
+      "icon": "💡"
+    },
+    {
+      "id": "calendar",
+      "label": "Calendar",
+      "icon": "📅"
+    }
+  ],
+  "calendar": {
+    "monthNames": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "weekdays": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun"
+    ],
+    "stats": [
+      {
+        "id": "daysWithDreams",
+        "label": "Days with dreams",
+        "icon": "🌙"
+      },
+      {
+        "id": "entries",
+        "label": "Posts",
+        "icon": "📝"
+      },
+      {
+        "id": "lucid",
+        "label": "Lucid",
+        "icon": "💡"
+      }
+    ],
+    "legend": [
+      {
+        "id": "normal",
+        "label": "An ordinary dream"
+      },
+      {
+        "id": "lucid",
+        "label": "Lucid"
+      },
+      {
+        "id": "nightmare",
+        "label": "A nightmare"
+      }
+    ],
+    "emptyDay": "No dreams recorded on this day",
+    "monthDetailFormat": "{{day}} {{month}}"
+  },
+  "sections": {
+    "dreamStats": [
+      {
+        "id": "dreams",
+        "label": "Dreams",
+        "icon": "🌙"
+      },
+      {
+        "id": "streak",
+        "label": "Band",
+        "icon": "🔥"
+      },
+      {
+        "id": "lucid",
+        "label": "Lucid",
+        "icon": "💡"
+      }
+    ],
+    "patternStats": [
+      {
+        "id": "saved",
+        "label": "Saved",
+        "icon": "🌙"
+      },
+      {
+        "id": "nightStreak",
+        "label": "The Night Band",
+        "icon": "🔥"
+      },
+      {
+        "id": "patterns",
+        "label": "Templates",
+        "icon": "🔄"
+      }
+    ],
+    "moonStats": [
+      {
+        "id": "lucid",
+        "label": "Lucid",
+        "icon": "💡"
+      },
+      {
+        "id": "prophetic",
+        "label": "Prophetic",
+        "icon": "🔮"
+      },
+      {
+        "id": "streak",
+        "label": "Band",
+        "icon": "🌙"
+      }
+    ],
+    "lucidStats": [
+      {
+        "id": "Lucid Dreams",
+        "label": "Lucid dreaming",
+        "icon": "💡"
+      },
+      {
+        "id": "nightStreak",
+        "label": "The Night Band",
+        "icon": "🌙"
+      },
+      {
+        "id": "effectiveness",
+        "label": "Effectiveness",
+        "icon": "📊"
+      }
+    ]
+  },
+  "form": {
+    "ctaTitle": "Write down today's dream",
+    "ctaSubtitle": "As soon as I wake up — before the images fade",
+    "cardEyebrow": "A NEW DREAM",
+    "cardTitle": "Write it down as soon as you wake up",
+    "titleLabel": "TITLE OF THE DREAM",
+    "titlePlaceholder": "e.g. A House with Children, Flight Over the Sea...",
+    "contentLabel": "DREAM DESCRIPTION",
+    "contentPlaceholder": "Describe your dream — start with a colour, a place or an emotion that lingered after you woke up...",
+    "detectedSymbols": "{{count}}",
+    "dominantEmotion": "KEY EMOTION",
+    "tagsLabel": "TAGS",
+    "clarityLabel": "THE VIVIDNESS OF A DREAM",
+    "clarityLabels": [
+      "Misty",
+      "Weak",
+      "Clear",
+      "Alive",
+      "Just like a dream"
+    ],
+    "clarityPlaceholder": "Choose clarity",
+    "aiLabel": "A JUNGARIAN INTERPRETATION",
+    "aiLoading": "Oracle reads your dreams...",
+    "emptyTitle": "No dreams recorded",
+    "emptyDescription": "Write down your first dream as soon as you wake up. Every dream is a message from the depths of your psyche.",
+    "emptyCta": "Write down your first dream",
+    "detailsAndAi": "Details and AI",
+    "howToRecord": "HOW TO WRITE DOWN YOUR DREAMS",
+    "saveDream": "Record your dream",
+    "interpret": "Interpret",
+    "analyzing": "I'm thinking..."
+  },
+  "symbolarium": {
+    "searchPlaceholder": "Search for the symbol...",
+    "title": "SYMBOLE ({{count}})",
+    "jungianLayer": "THE JUNG LAYER",
+    "shadowLayer": "THE ELEMENT OF SHADOW",
+    "emptyTitle": "No results",
+    "emptyDescription": "Try a different keyword",
+    "dailySymbolEyebrow": "✨ SYMBOL OF THE DAY"
+  },
+  "patterns": {
+    "aiCardTitle": "A Jungian interpretation of all your dreams. Archetypes, the Shadow and messages.",
+    "mapTitle": "MAP OF ONIRIC PATTERNS",
+    "aiLoading": "Oracle is analysing the patterns in your dreams...",
+    "recurringTitle": "REPEATING SYMBOLS",
+    "recurringEmpty": "Write down more of your dreams to identify recurring patterns.",
+    "emotionsTitle": "THE MOST COMMON EMOTIONS",
+    "emotionsEmpty": "Record your dreams with emotion to view the statistics.",
+    "dreamTypesTitle": "TYPES OF DREAMS",
+    "nextActions": [
+      {
+        "id": "shadow",
+        "title": "Working with Shadow"
+      },
+      {
+        "id": "moon",
+        "title": "Lunar Calendar"
+      },
+      {
+        "id": "journal",
+        "title": "Save your reflection",
+        "subtitle": "Which symbol from your last dream resonates with your life?"
+      }
+    ],
+    "nowPrefix": "NOW · ",
+    "aiTitle": "Analysis of AI patterns",
+    "aiLoadingTitle": "I'm analysing the patterns...",
+    "streakTitle": "7-DAY SERIES",
+    "streakEmpty": "Start today and create the life of your dreams.",
+    "streakActive": "Well done! You’ve been recording your dreams for {{count}} nights in a row.",
+    "exploreTitle": "✦ EXPLORE MORE"
+  },
+  "moon": {
+    "cycleTitle": "THE MOON CYCLE AND SLEEP",
+    "lunarDreamsTitle": "YOUR MOONLIT DREAMS",
+    "lunarDreamsNote": "By noting down the date of each dream, you can discover during which phase of the moon you dream most vividly.",
+    "lucidTipsTitle": "HOW TO ENTER A LUCID DREAM",
+    "lucidTips": [
+      [
+        "The MILD technique",
+        "Just before going to sleep, repeat: \"The next time I dream, I will be aware.\" Visualise yourself performing a reality check in your dream."
+      ],
+      [
+        "The WILD technique",
+        "Drifting off to sleep whilst remaining conscious — observe the hypnagogic images without getting involved, until sleep takes hold."
+      ],
+      [
+        "Reality checks",
+        "Ask yourself \"Am I dreaming?\" several times a day. In your dreams, the habit will take hold automatically."
+      ],
+      [
+        "Full moon",
+        "Peak dream activity. Set your alarm for 90 minutes after your usual bedtime and fall asleep straight away with the intention of lucid dreaming."
+      ]
+    ],
+    "lunarCalendarTitle": "Full Lunar Calendar",
+    "lunarCalendarDescription": "Plan your sleep intentions in line with the lunar cycle.",
+    "illuminationSuffix": "illuminations",
+    "badges": {
+      "lucid": "Lucid {{mark}}",
+      "prophetic": "{{mark}}"
+    }
+  },
+  "lucid": {
+    "introEyebrow": "💡 LUCID DREAMING",
+    "introBody": "Lucid dreaming is a state in which you are aware that you are dreaming — and can actively participate in the dream. Regular practice opens up access to the subconscious, boosts creativity and allows you to work through your fears within the safe space of a dream.",
+    "techniquesTitle": "INDUCTION TECHNIQUES",
+    "techniques": [
+      {
+        "tag": "MILD",
+        "icon": "🌿",
+        "difficulty": "Easy",
+        "title": "MILD — Mnemonic Induction",
+        "desc": "Before going to sleep, repeat the affirmation: \"The next time I dream, I will be aware of it.\" Visualise clearly the moment when you realise you are dreaming. This technique is based on prospective memory.",
+        "steps": [
+          "Set an intention just before you go to sleep",
+          "Visualise the moment you realise you are dreaming",
+          "Repeat the mantra 10–20 times in a calm inner voice",
+          "If you wake up in the night, brush up on your technique"
+        ]
+      },
+      {
+        "tag": "WBTB",
+        "icon": "⏰",
+        "difficulty": "Average",
+        "title": "WBTB — Wake Back to Bed",
+        "desc": "Set an alarm for 5–6 hours after you fall asleep. Get up for 30–60 minutes, keeping yourself fully conscious (read up on lucid dreaming). Go back to sleep. The REM phase is then at its longest and most intense.",
+        "steps": [
+          "Set an alarm for 5 hours after you fall asleep",
+          "Get up and spend 30–60 minutes reading about lucid dreaming",
+          "Go back to bed with a strong MILD or WILD intention",
+          "The REM phase following WBTB lasts up to 45–60 minutes"
+        ]
+      },
+      {
+        "tag": "WILD",
+        "icon": "🌀",
+        "difficulty": "Advanced",
+        "title": "WILD — Wake-Initiated Lucid Dream",
+        "desc": "Transition your consciousness directly from wakefulness to sleep without any break in consciousness. Observe the hypnagogic images and sounds as a signal that you are entering sleep.",
+        "steps": [
+          "Connect to WBTB for the best results",
+          "Lie still and watch the hypnagogic visions",
+          "Don’t react emotionally — just observe",
+          "You’ll feel a vibration or a ‘pull’ — that’s when you’re drifting off to sleep"
+        ]
+      },
+      {
+        "tag": "SSILD",
+        "icon": "👁️",
+        "difficulty": "Easy–Medium",
+        "title": "SSILD — Senses-Initiated Lucid Dream",
+        "desc": "Periodically focus your attention on your sight, hearing and sense of touch for 3–4 cycles. Don’t analyse — just observe. This technique confuses the brain and speeds up the transition into REM sleep whilst maintaining consciousness.",
+        "steps": [
+          "Connect to WBTB for SSILD upon waking",
+          "20 seconds of focusing on something (darkness or images)",
+          "20 seconds for internal and external sounds",
+          "20 seconds of body awareness — repeat 4 times"
+        ]
+      }
+    ],
+    "realityChecksTitle": "REALITY CHECKS",
+    "realityChecksEyebrow": "REALITY CHECKS — DO THEM 10 TIMES A DAY",
+    "realityChecksBody": "Regularly checking reality becomes a habit that carries over into your dreams. In a dream, something will always be wrong — and that’s when you’ll wake up.",
+    "realityChecks": [
+      {
+        "icon": "✋",
+        "title": "Fingers",
+        "desc": "Count your fingers — in the dream there are usually 6 or 7 of them, or they are misshapen."
+      },
+      {
+        "icon": "📖",
+        "title": "Reading the text",
+        "desc": "Read the sentence, look away and look back — in your dream, the text changes."
+      },
+      {
+        "icon": "⏰",
+        "title": "Digital clock",
+        "desc": "In dreams, time is irrational — numbers change or don’t exist."
+      },
+      {
+        "icon": "👃",
+        "title": "Nose",
+        "desc": "Hold your nose and try to breathe. In your dream, you’ll be able to breathe even with a blocked nose."
+      },
+      {
+        "icon": "💡",
+        "title": "Light switch",
+        "desc": "In dreams, switches often don’t work or work the other way round."
+      }
+    ],
+    "dreamSignsTitle": "YOUR DREAMS",
+    "dreamSignsBody": "Dream symbols are recurring elements in your dreams. When you recognise them in a dream, you become fully aware. Write them down in your journal after every dream.",
+    "dreamSignsEmpty": "Write down a few dreams so that Aether can identify your personal dream symbols.",
+    "dreamSignsCount": "{{count}}× in my dreams",
+    "tonightIntentionTitle": "A PRAYER FOR TONIGHT",
+    "tonightBlocks": [
+      {
+        "title": "Bedtime routine",
+        "steps": [
+          "Switch off your screens 30 minutes before bedtime",
+          "Write a daily journal entry in three sentences",
+          "Read the latest entry in the dream journal",
+          "Set your intention by saying: \"Tonight, I will be aware that I am dreaming\"",
+          "Visualise your favourite place — it’s your anchor point in your dream"
+        ]
+      },
+      {
+        "title": "Ideal conditions",
+        "steps": [
+          "Room temperature: 18–20°C",
+          "Darkness — melatonin promotes vivid dreams",
+          "Don’t eat 2–3 hours before going to bed",
+          "Magnesium gluconate helps you relax and improves the quality of REM sleep",
+          "7.5–9 hours of sleep — full REM cycles are essential"
+        ]
+      }
+    ]
+  },
+  "ai": {
+    "interpretSections": [
+      "ANALYSIS OF SYMBOLS",
+      "THE ELEMENT OF SHADOW",
+      "MESSAGE",
+      "INTEGRATION PRACTICE"
+    ],
+    "patternSections": [
+      "MAIN THEME",
+      "RECURRING PATTERNS",
+      "THE SHADOW AND ARCHETYPES",
+      "A MESSAGE FOR THE DREAMER",
+      "NEXT STEP"
+    ],
+    "interpretPrompt": {
+      "intro": "You are a Jungian dream interpreter with a deep understanding of archetypes, symbolism and depth psychology.",
+      "personPrefix": "Person: {{name}}.",
+      "zodiacPrefix": "Star sign: {{sign}}.",
+      "dreamPrefix": "Dream: ‘{{content}}’",
+      "emotionPrefix": "The prevailing emotion: {{emotion}}.",
+      "tagPrefix": "Dream type: {{tags}}.",
+      "lucidNote": "It was a lucid dream.",
+      "repeatingNote": "I keep having this dream — it’s an important sign.",
+      "clarityPrefix": "Dream clarity: {{clarity}} /5.",
+      "instruction": "Write an in-depth analysis containing EXACTLY these sections in this order:",
+      "sectionDescriptions": [
+        "SYMBOL ANALYSIS: Identify 2–3 key symbols from the dream and explain their Jungian significance. What exactly do they symbolise in the context of the dream described? (3–4 sentences)",
+        "THE SHADOW: Which aspect of the Shadow (Carl Jung) is revealed in this dream? Which unintegrated part of the psyche is demanding attention? Write specifically and boldly. (2–3 sentences)",
+        "GUIDELINE: What is your subconscious trying to tell you? What truth about yourself or your situation does the dream reveal? Write directly and insightfully. (2–3 sentences)",
+        "INTEGRATION EXERCISE: Suggest one specific exercise or question to work on with this dream over the next few days. (1–2 sentences)"
+      ],
+      "tone": "Write in the user’s language. Tone: warm, deep, psychologically precise. Avoid clichés — get straight to the point.",
+      "fallback": "Oracle is silent tonight. Trust your intuition — it already knows the answer."
+    },
+    "patternPrompt": {
+      "intro": "You are a dream analyst with a background in Jungian psychology.",
+      "recentDreams": "This person's most recent {{count}} dreams:",
+      "recurringSymbols": "Recurring symbols: {{symbols}}",
+      "dominantEmotions": "{{emotions}}",
+      "streak": "A string of dreams: {{count}} nights in a row.",
+      "none": "none",
+      "instruction": "Write an in-depth analysis of the patterns, including:",
+      "sectionDescriptions": [
+        "MAIN THEME: What is the main psychological theme that runs through these dreams? (2–3 sentences)",
+        "RECURRING PATTERNS: Which symbols, emotions or narratives recur? What does this suggest? (2–3 sentences)",
+        "THE SHADOW AND ARCHETYPES: Which archetypal energies or elements of the Shadow are active? (2–3 sentences)",
+        "A MESSAGE FOR THE DREAMER: What is the unconscious consistently trying to convey? One clear, direct message. (2 sentences)",
+        "NEXT STEP: One specific action or question to work on over the coming week."
+      ],
+      "tone": "Write in the user’s language, in a thorough and precise manner.",
+      "fallback": "The patterns are too subtle to make out today. Keep dreaming."
+    }
+  },
+  "data": {
+    "emotions": [
+      {
+        "id": "Fear",
+        "emoji": "😨",
+        "color": "#60A5FA"
+      },
+      {
+        "id": "Joy",
+        "emoji": "😄",
+        "color": "#34D399"
+      },
+      {
+        "id": "Sadness",
+        "emoji": "😢",
+        "color": "#818CF8"
+      },
+      {
+        "id": "Anxiety",
+        "emoji": "😰",
+        "color": "#F97316"
+      },
+      {
+        "id": "Peace",
+        "emoji": "😌",
+        "color": "#A78BFA"
+      },
+      {
+        "id": "Excitement",
+        "emoji": "🤩",
+        "color": "#FBBF24"
+      },
+      {
+        "id": "Loss",
+        "emoji": "😶‍🌫️",
+        "color": "#94A3B8"
+      },
+      {
+        "id": "Delight",
+        "emoji": "🤩",
+        "color": "#F9A8D4"
+      }
+    ],
+    "dreamTagOptions": [
+      {
+        "id": "nightmare",
+        "label": "A nightmare",
+        "color": "#EF4444",
+        "emoji": "😱"
+      },
+      {
+        "id": "prophetic",
+        "label": "Prophetic",
+        "color": "#FBBF24",
+        "emoji": "🔮"
+      },
+      {
+        "id": "repeat",
+        "label": "Recurring",
+        "color": "#F472B6",
+        "emoji": "🔄"
+      },
+      {
+        "id": "lucid",
+        "label": "Lucid",
+        "color": "#34D399",
+        "emoji": "💡"
+      },
+      {
+        "id": "healing",
+        "label": "Healing",
+        "color": "#86EFAC",
+        "emoji": "💚"
+      },
+      {
+        "id": "astral",
+        "label": "Astral",
+        "color": "#C084FC",
+        "emoji": "✨"
+      }
+    ],
+    "symbolariumCategories": [
+      {
+        "id": "all",
+        "label": "All",
+        "icon": "🌙"
+      },
+      {
+        "id": "nature",
+        "label": "Nature",
+        "icon": "🌿"
+      },
+      {
+        "id": "people",
+        "label": "People",
+        "icon": "👤"
+      },
+      {
+        "id": "facilities",
+        "label": "Facilities",
+        "icon": "🗝️"
+      },
+      {
+        "id": "places",
+        "label": "Places",
+        "icon": "🏛️"
+      },
+      {
+        "id": "shares",
+        "label": "Shares",
+        "icon": "⚡"
+      },
+      {
+        "id": "emotions",
+        "label": "Emotions",
+        "icon": "💜"
+      }
+    ],
+    "extendedSymbols": [
+      {
+        "id": "e1",
+        "keyword": "Water",
+        "cat": "nature",
+        "emoji": "💧",
+        "color": "#60A5FA",
+        "meaning": "Water in dreams reveals the state of one’s emotions and subconscious. Calm water signifies balance and going with one’s intuition; turbulent water signifies emotional overload or formless feelings.",
+        "jungian": "Water is a symbol of the anima/animus and the collective unconscious. Jung saw the ocean as a primordial chaos from which consciousness emerges.",
+        "shadow": "Drowning or flooding can signify that repressed emotions are coming to the surface and demanding to be integrated.",
+        "followUpPrompt": "What emotion today calls for gentle recognition rather than suppression?"
+      },
+      {
+        "id": "e2",
+        "keyword": "Fire",
+        "cat": "nature",
+        "emoji": "🔥",
+        "color": "#FB923C",
+        "meaning": "Fire represents transformation, intensity and energy. Warmth symbolises passion and vitality, whilst a destructive flame symbolises burnout or uncontrolled anger.",
+        "jungian": "In Jungian symbolism, fire is a symbol of the spirit and the libido. Prometheus brings fire as a gift of consciousness.",
+        "shadow": "If a fire is burning down houses or affecting loved ones, this may indicate destructive aspects of one’s own temperament.",
+        "followUpPrompt": "Which energy seeks to purify you, and which begins to burn you out?"
+      },
+      {
+        "id": "e3",
+        "keyword": "Forest",
+        "cat": "nature",
+        "emoji": "🌳",
+        "color": "#86EFAC",
+        "meaning": "The forest symbolises a journey into the unknown, a connection with the subconscious and with that which has not yet been named. It invites you to discover a hidden aspect of yourself.",
+        "jungian": "The forest is a symbol of the collective unconscious and the Self. The fairy-tale motif of the forest as a place of trials and initiation.",
+        "shadow": "Getting lost in the woods symbolises a loss of connection with one’s inner self and a sense of direction in life.",
+        "followUpPrompt": "In which area of your life do you know less than you try to pretend to yourself?"
+      },
+      {
+        "id": "e4",
+        "keyword": "Top",
+        "cat": "nature",
+        "emoji": "⛰️",
+        "color": "#94A3B8",
+        "meaning": "A mountain represents a challenge, an aspiration and a path towards a higher perspective. Climbing signifies striving towards a goal; the summit represents achievement or enlightenment.",
+        "jungian": "The mountain is the archetype of the axis mundi — the axis of the world, connecting earth and sky. Climbing symbolises individuation.",
+        "shadow": "The fear of falling from the summit reveals a fear of success or of being in the public eye.",
+        "followUpPrompt": "Which peak are you afraid of reaching, because something will change then?"
+      },
+      {
+        "id": "e5",
+        "keyword": "Ocean",
+        "cat": "nature",
+        "emoji": "🌊",
+        "color": "#38BDF8",
+        "meaning": "The ocean reinforces the theme of the subconscious and the vastness of that which eludes the control of reason. A symbol of a power greater than mere momentary tension.",
+        "jungian": "The ocean is the collective unconscious, the primordial substance and the primal chaos. It is from this that archetypes emerge.",
+        "shadow": "Being swallowed up by the ocean — a regression to a pre-individual state or a fear of losing one’s identity.",
+        "followUpPrompt": "What is there within you that is greater than words, yet longs to be noticed?"
+      },
+      {
+        "id": "e6",
+        "keyword": "Lightning",
+        "cat": "nature",
+        "emoji": "⚡",
+        "color": "#EAB308",
+        "meaning": "Lightning in a dream symbolises a sudden realisation, a breakthrough or the destruction of the old order. A sudden signal from the conscious mind.",
+        "jungian": "In mythology, lightning is an attribute of the father god and a symbol of divine intervention. Kairos — the right moment.",
+        "shadow": "Being struck by lightning can symbolise a fear of sudden change or punishment for insincerity.",
+        "followUpPrompt": "What in your life needs a sudden breakthrough rather than just another small step?"
+      },
+      {
+        "id": "e7",
+        "keyword": "Child",
+        "cat": "people",
+        "emoji": "👶",
+        "color": "#F48DB0",
+        "meaning": "A child in a dream represents a vulnerable part of yourself, a new beginning, or a need for a gentler connection with your own emotions.",
+        "jungian": "The Child archetype (puer/puella) symbolises potential and possibilities. It is the Self in its embryonic form.",
+        "shadow": "An abandoned or mistreated child in a dream is a projection of one’s wounded inner child.",
+        "followUpPrompt": "Which part of you needs kindness rather than judgement today?"
+      },
+      {
+        "id": "e8",
+        "keyword": "A stranger",
+        "cat": "people",
+        "emoji": "🧙",
+        "color": "#A3E635",
+        "meaning": "A stranger in a dream is usually a projection of some aspect of yourself — a trait that has not yet been integrated or has been rejected.",
+        "jungian": "The stranger may be the anima or animus (the opposite-sex aspect of the psyche) or the Shadow.",
+        "shadow": "If a stranger seems threatening, it’s worth asking yourself: what trait do I see in them that I don’t accept in myself?",
+        "followUpPrompt": "What unknown aspect of yourself is crying out to be integrated?"
+      },
+      {
+        "id": "e9",
+        "keyword": "Mother",
+        "cat": "people",
+        "emoji": "👩",
+        "color": "#FDA4AF",
+        "meaning": "In dreams, a mother embodies a sense of care, security and belonging. She may also symbolise the mother complex or certain expectations.",
+        "jungian": "The Great Mother archetype — the nurturing and all-encompassing aspect of femininity, nature and the unconscious.",
+        "shadow": "A domineering or absent mother in a dream may indicate unresolved relationship patterns from childhood.",
+        "followUpPrompt": "Where do you get your sense of security and belonging from these days?"
+      },
+      {
+        "id": "e10",
+        "keyword": "Father",
+        "cat": "people",
+        "emoji": "👨",
+        "color": "#93C5FD",
+        "meaning": "In dreams, the father symbolises authority, rules, structure and the animus. He may also embody the father complex.",
+        "jungian": "The archetype of the Old Sage or Father — logos, order and conscious direction.",
+        "shadow": "A harsh or absent father in a dream indicates internalised critical voices or a fear of authority.",
+        "followUpPrompt": "What is your relationship with your inner critic and your principles like?"
+      },
+      {
+        "id": "e11",
+        "keyword": "Key",
+        "cat": "facilities",
+        "emoji": "🗝️",
+        "color": "#FCD34D",
+        "meaning": "A key is a symbol of access to a secret, untapped potential or knowledge waiting to be discovered.",
+        "jungian": "The key unlocks the door to the unconscious — an initiation and access to hidden psychological resources.",
+        "shadow": "A lost key suggests that you know what question to ask, but you’re afraid of the answer.",
+        "followUpPrompt": "What truth about yourself do you know, but are afraid to act on?"
+      },
+      {
+        "id": "e12",
+        "keyword": "Mirror",
+        "cat": "facilities",
+        "emoji": "🪞",
+        "color": "#818CF8",
+        "meaning": "A mirror is one of the most powerful symbols — it reveals one’s true face without filters. A distorted image suggests a distorted sense of self.",
+        "jungian": "The mirror as a persona — the mask we show to the world. But also the Shadow and what we cannot accept.",
+        "shadow": "A broken mirror or a terrifying image in the mirror is a classic projection of the Shadow.",
+        "followUpPrompt": "What part of yourself do you avoid seeing?"
+      },
+      {
+        "id": "e13",
+        "keyword": "Doors",
+        "cat": "facilities",
+        "emoji": "🚪",
+        "color": "#C4A882",
+        "meaning": "Doors symbolise a threshold and a choice. Your subconscious is preparing you for the transition between stages of life.",
+        "jungian": "The threshold (limen) is a place of initiation — crossing it requires courage and the symbolic death of the old self.",
+        "shadow": "A door you cannot open — an internal barrier, a fear of the unknown.",
+        "followUpPrompt": "What milestone are you facing in your life right now?"
+      },
+      {
+        "id": "e14",
+        "keyword": "Car",
+        "cat": "facilities",
+        "emoji": "🚗",
+        "color": "#6EE7B7",
+        "meaning": "A car symbolises control over the direction of your life. Who is driving and how reflects your sense of agency.",
+        "jungian": "The vehicle as the self — the centre of conscious orientation. A vehicle breaking down means a loss of control.",
+        "shadow": "A car accident can symbolise a clash between two conflicting impulses or decisions.",
+        "followUpPrompt": "Are you really in control of your life, or do you feel like a passenger?"
+      },
+      {
+        "id": "e15",
+        "keyword": "Weapons",
+        "cat": "facilities",
+        "emoji": "⚔️",
+        "color": "#F87171",
+        "meaning": "Weapons in dreams symbolise aggression, boundaries, or a force that can either protect or destroy.",
+        "jungian": "Weapons as logos and a principle of discernment — the sword cuts through false or destructive patterns.",
+        "shadow": "The use of weapons may symbolise repressed aggression seeking an outlet.",
+        "followUpPrompt": "Which boundaries in your life need protecting or clearly defined?"
+      },
+      {
+        "id": "e16",
+        "keyword": "Home",
+        "cat": "places",
+        "emoji": "🏠",
+        "color": "#D9B56D",
+        "meaning": "A house symbolises your inner world and psychological structure. Each room corresponds to a different aspect of your psyche.",
+        "jungian": "The home as a mandala of the Self — the whole psyche. The basement represents the unconscious, the attic represents forgotten memories.",
+        "shadow": "A haunted house or ruin symbolises unwanted aspects of oneself that are waiting to be integrated.",
+        "followUpPrompt": "Which parts of your mind do you rarely visit?"
+      },
+      {
+        "id": "e17",
+        "keyword": "School",
+        "cat": "places",
+        "emoji": "🏫",
+        "color": "#FCA5A5",
+        "meaning": "In dreams, a school evokes a sense of being judged, tested, or the need to learn something important.",
+        "jungian": "The archetype of initiation — crossing the threshold of knowledge and social expectations.",
+        "shadow": "An exam you’re not prepared for — a classic manifestation of anxiety about assessment and competence.",
+        "followUpPrompt": "How do you deal with the feeling that you have to prove your worth to someone?"
+      },
+      {
+        "id": "e18",
+        "keyword": "Church",
+        "cat": "places",
+        "emoji": "⛪",
+        "color": "#C084FC",
+        "meaning": "A church or temple symbolises spirituality, the sacred, and a connection with something greater than everyday life.",
+        "jungian": "Temenos — the sacred space of the Self. A place where consciousness and the unconscious meet.",
+        "shadow": "Fear or being barred from entering a church may symbolise a severing of ties with one’s own spirituality or values.",
+        "followUpPrompt": "What do you hold sacred, and how do you look after it?"
+      },
+      {
+        "id": "e19",
+        "keyword": "Bridge",
+        "cat": "places",
+        "emoji": "🌉",
+        "color": "#F9A8D4",
+        "meaning": "A bridge symbolises the transition between two stages of life or states of consciousness.",
+        "jungian": "The bridge as a transcendent function — it bridges opposites and facilitates synthesis.",
+        "shadow": "A broken or dangerous bridge suggests a stalled transformation or a fear of crossing over.",
+        "followUpPrompt": "What change have you started in your life but are afraid to see through to the end?"
+      },
+      {
+        "id": "e20",
+        "keyword": "Maze",
+        "cat": "places",
+        "emoji": "🌀",
+        "color": "#C084FC",
+        "meaning": "A maze appears when, in real life, you are looking for a way out of a situation with no easy solution.",
+        "jungian": "The labyrinth is a symbol of the unconscious and the search for the centre — the Self. The Minotaur is the Shadow.",
+        "shadow": "The inability to find one’s way out of the maze symbolises mental loops and repetitive patterns of behaviour.",
+        "followUpPrompt": "What mental or emotional cycle are you stuck in?"
+      },
+      {
+        "id": "e21",
+        "keyword": "Flight",
+        "cat": "shares",
+        "emoji": "🕊️",
+        "color": "#67E8F9",
+        "meaning": "Flying is a symbol of freedom, expansion and regaining perspective. Fear during a flight signifies difficulty in maintaining control as one ascends.",
+        "jungian": "Flight symbolises the transcendence of the ego and access to higher states of consciousness.",
+        "shadow": "Fear of landing — the fear of returning to everyday life and responsibilities.",
+        "followUpPrompt": "Where do you need to have more confidence rather than clinging desperately to your course?"
+      },
+      {
+        "id": "e22",
+        "keyword": "The Chase",
+        "cat": "shares",
+        "emoji": "🏃",
+        "color": "#FB923C",
+        "meaning": "Being chased symbolises the energy of avoidance. The dream suggests that a certain emotion or issue is resurfacing because it has not been consciously resolved.",
+        "jungian": "Persecution as a shadow — what we flee from grows stronger. Jung: what we resist persists.",
+        "shadow": "The monster or figure chasing us is an unintegrated aspect of the Shadow demanding attention.",
+        "followUpPrompt": "What are you trying to run away from, even though you know it needs to be named?"
+      },
+      {
+        "id": "e23",
+        "keyword": "Stairs",
+        "cat": "shares",
+        "emoji": "🪜",
+        "color": "#A78BFA",
+        "meaning": "Stairs symbolise the transition between levels of consciousness. Climbing them represents growth; descending them represents a journey into deeper layers.",
+        "jungian": "Stairs as a path of initiation and a transition between psychological levels — the ego, the personal unconscious and the collective unconscious.",
+        "shadow": "Endless or collapsing staircases suggest a lack of progress despite one’s efforts.",
+        "followUpPrompt": "Where are you at right now, emotionally or in life?"
+      },
+      {
+        "id": "e24",
+        "keyword": "Death",
+        "cat": "shares",
+        "emoji": "💀",
+        "color": "#6B7280",
+        "meaning": "Death in a dream almost never signifies physical death — it is a symbol of the end of a phase and of transformation.",
+        "jungian": "The archetype of death and rebirth — the symbolic death of the ego is a prerequisite for individuation.",
+        "shadow": "The death of a loved one in a dream may symbolise the end of a relationship or of a part of that person within you.",
+        "followUpPrompt": "What must die within you for something new to be born?"
+      },
+      {
+        "id": "e25",
+        "keyword": "The Fall",
+        "cat": "shares",
+        "emoji": "⬇️",
+        "color": "#94A3B8",
+        "meaning": "A fall symbolises a loss of control, a fear of failure, or the need to come down to earth and let go of one’s inflated ego.",
+        "jungian": "The fall as hubris — a punishment for pride and for turning one’s back on one’s instincts and the earth.",
+        "shadow": "A fear of falling may reflect a fear of losing one’s status or identity.",
+        "followUpPrompt": "What keeps you so high up that you’re afraid of falling for a moment?"
+      },
+      {
+        "id": "e26",
+        "keyword": "Fear",
+        "cat": "emotions",
+        "emoji": "😱",
+        "color": "#EF4444",
+        "meaning": "Fear in a dream, as the dominant emotion, points to areas where the ego feels threatened or inadequate.",
+        "jungian": "Fear as a projection of the Shadow — we fear in others what we cannot accept in ourselves.",
+        "shadow": "Exploring the source of one’s fear allows one to integrate an unknown part of oneself.",
+        "followUpPrompt": "What are you really afraid of, once you strip away the rationalisation?"
+      },
+      {
+        "id": "e27",
+        "keyword": "Love",
+        "cat": "emotions",
+        "emoji": "❤️",
+        "color": "#F43F5E",
+        "meaning": "Love in a dream may symbolise a desire for connection, the integration of the anima and animus, or a need for acceptance.",
+        "jungian": "Falling in love with a character in a dream is often a projection of one’s own traits — the anima or animus archetype.",
+        "shadow": "Forbidden love in a dream may indicate desires that the ego suppresses.",
+        "followUpPrompt": "Which aspects of yourself are you still unable to fully love?"
+      },
+      {
+        "id": "e28",
+        "keyword": "Anger",
+        "cat": "emotions",
+        "emoji": "😡",
+        "color": "#EF4444",
+        "meaning": "Anger in a dream indicates repressed energy, injustice or boundaries that have been crossed, all of which require conscious processing.",
+        "jungian": "Anger as libido energy directed towards change. Mars — the driving force behind transformation.",
+        "shadow": "Uncontrolled anger in a dream is the Shadow demanding attention. Energy waiting for a constructive outlet.",
+        "followUpPrompt": "What injustice or boundary demands your voice today?"
+      },
+      {
+        "id": "e29",
+        "keyword": "Shame",
+        "cat": "emotions",
+        "emoji": "😔",
+        "color": "#8B5CF6",
+        "meaning": "Shame in dreams touches upon deeply held beliefs about self-worth and social acceptance.",
+        "jungian": "Shame as a persona — the gap between who we are and who we want to appear to be.",
+        "shadow": "Shame is one of the fundamental mechanisms underlying the formation of the Shadow.",
+        "followUpPrompt": "What truth about yourself are you still too ashamed to admit?"
+      },
+      {
+        "id": "e30",
+        "keyword": "The Moon",
+        "cat": "nature",
+        "emoji": "🌕",
+        "color": "#E2D4F0",
+        "meaning": "The moon is a symbol of cycles, intuition and realms beyond the reach of reason. A full moon signifies a climax; a new moon, a new beginning.",
+        "jungian": "The Moon as the anima — the cyclical, instinctual, unconscious part of the psyche. The Moon and its phases.",
+        "shadow": "A lunar eclipse can symbolise blocked intuition or suppressed emotions.",
+        "followUpPrompt": "What stage of life are you at right now, and what does that require of you?"
+      },
+      {
+        "id": "e31",
+        "keyword": "The Sun",
+        "cat": "nature",
+        "emoji": "☀️",
+        "color": "#FBBF24",
+        "meaning": "The Sun symbolises consciousness, self-esteem and vitality. It is the source of the ego and a clear sense of identity.",
+        "jungian": "The Sun as Logos and Sol — conscious orientation, reason and spirit. The paternal archetype.",
+        "shadow": "A solar eclipse is a temporary dimming of one’s self-esteem.",
+        "followUpPrompt": "What makes your inner sun shine brightly?"
+      },
+      {
+        "id": "e32",
+        "keyword": "Tree",
+        "cat": "nature",
+        "emoji": "🌳",
+        "color": "#4ADE80",
+        "meaning": "A tree is a metaphor for one’s inner structure — the roots represent beliefs and heritage, the trunk represents identity, and the crown represents aspirations.",
+        "jungian": "Axis mundi — the cosmic tree connecting the underworld, the earth and the heavens. A symbol of the Self.",
+        "shadow": "A withered or fallen tree symbolises a loss of roots or an identity crisis.",
+        "followUpPrompt": "How deep do your roots go, and where does the crown lead you?"
+      },
+      {
+        "id": "e33",
+        "keyword": "Spider",
+        "cat": "nature",
+        "emoji": "🕷️",
+        "color": "#6B7280",
+        "meaning": "The spider symbolises the creative power of weaving life and networks of relationships, but also traps or manipulation.",
+        "jungian": "The spider as the archetype of the Spinner — fate and the interwoven threads of destiny. The Anima in its negative aspect.",
+        "shadow": "A fear of spiders in a dream often indicates a fear of female power or control.",
+        "followUpPrompt": "What kind of networks do you weave in your life — liberating or restrictive?"
+      },
+      {
+        "id": "e34",
+        "keyword": "Snake",
+        "cat": "nature",
+        "emoji": "🐍",
+        "color": "#4ADE80",
+        "meaning": "The snake is one of the most archetypal symbols — representing transformation, healing and the wisdom hidden within the earth.",
+        "jungian": "The serpent as Kundalini and the energy of libido. Ouroboros — the cycle of death and rebirth.",
+        "shadow": "The attacking serpent represents instinctive forces and the accumulated unconscious demanding attention.",
+        "followUpPrompt": "What transformation has already begun within you, even though you haven’t yet put a name to it?"
+      },
+      {
+        "id": "e35",
+        "keyword": "Bird",
+        "cat": "nature",
+        "emoji": "🦅",
+        "color": "#67E8F9",
+        "meaning": "Birds bring a message of hope and freedom. They often invite us to look beyond the confines of everyday life.",
+        "jungian": "The bird as animus and spirit — a messenger between heaven and earth. A messenger of the unconscious.",
+        "shadow": "An injured or caged bird symbolises a suppressed need for freedom or self-expression.",
+        "followUpPrompt": "What would you see differently if you looked at it from a bird’s-eye view?"
+      },
+      {
+        "id": "e36",
+        "keyword": "Telephone",
+        "cat": "facilities",
+        "emoji": "📱",
+        "color": "#6EE7B7",
+        "meaning": "A telephone symbolises communication and the need for connection. Not answering or no signal — a broken bond or difficulty expressing oneself.",
+        "jungian": "A modern symbol of the unconscious attempting to make contact with the ego.",
+        "shadow": "A phone ringing endlessly with no answer — a need that cries out but goes unheard.",
+        "followUpPrompt": "Which part of you is crying out for more attention and communication today?"
+      },
+      {
+        "id": "e37",
+        "keyword": "Money",
+        "cat": "facilities",
+        "emoji": "💰",
+        "color": "#FBBF24",
+        "meaning": "Money in dreams symbolises energy, value and resources — not only material ones, but also spiritual and emotional ones.",
+        "jungian": "Gold as a symbol of the Self and spiritual wealth. The alchemical transmutation of lead into gold.",
+        "shadow": "The theft or loss of money indicates a fear of one’s own worth or a lack of inner resources.",
+        "followUpPrompt": "What kind of wealth are you really looking for?"
+      },
+      {
+        "id": "e38",
+        "keyword": "Teeth",
+        "cat": "facilities",
+        "emoji": "🦷",
+        "color": "#F1F5F9",
+        "meaning": "Teeth symbolise control, image, and a loss of strength or tension. A dream about the fragility of what appears to be stable.",
+        "jungian": "Teeth as a symbol of power and aggression — instincts and the animal side of nature.",
+        "shadow": "Dreams about losing teeth are among the most common – a fear of one’s image and social acceptance.",
+        "followUpPrompt": "What in your life seems stable but actually needs proper attention?"
+      },
+      {
+        "id": "e39",
+        "keyword": "Weapons",
+        "cat": "facilities",
+        "emoji": "🗡️",
+        "color": "#EF4444",
+        "meaning": "Weapons in dreams symbolise boundaries, aggression or a protective force. The key factor is who is holding it and for what purpose.",
+        "jungian": "The sword as logos — the ability to cut through and distinguish truth from falsehood.",
+        "shadow": "Using weapons against loved ones may indicate repressed aggression towards them.",
+        "followUpPrompt": "Which boundaries in your life need to be clearly and boldly established?"
+      },
+      {
+        "id": "e40",
+        "keyword": "Train",
+        "cat": "facilities",
+        "emoji": "🚂",
+        "color": "#A3A3A3",
+        "meaning": "The train symbolises the direction of your life and the feeling that something has started to move. The dream asks whether you are following your own rhythm or someone else’s path.",
+        "jungian": "Journey as a metaphor for the process of individuation — unknown stations represent new stages of consciousness.",
+        "shadow": "Missing a train is a classic anxiety dream about a missed opportunity or a setback in life.",
+        "followUpPrompt": "Is the pace at which you live really your own?"
+      },
+      {
+        "id": "e41",
+        "keyword": "Hospital",
+        "cat": "places",
+        "emoji": "🏥",
+        "color": "#86EFAC",
+        "meaning": "A hospital symbolises healing, vulnerability or a time of transformation. It may indicate a need to look after oneself.",
+        "jungian": "A sanctuary of healing — a temenos where the psyche is restored. Chiron — the wounded healer.",
+        "shadow": "The need for surgery in a dream may symbolise the need to work deeply on oneself.",
+        "followUpPrompt": "Which part of you needs proper care and rest right now?"
+      },
+      {
+        "id": "e42",
+        "keyword": "Prison",
+        "cat": "places",
+        "emoji": "⛓️",
+        "color": "#6B7280",
+        "meaning": "A prison symbolises a sense of confinement, of being trapped in a situation or belief with no way out.",
+        "jungian": "Prison as a complex — internalised patterns that stifle mental freedom.",
+        "shadow": "Being the jailer of your own prison — you impose restrictions on yourself.",
+        "followUpPrompt": "What belief or pattern do you find yourself trapped in?"
+      }
+    ],
+    "nocturnalPrompts": [
+      "What in that dream felt like your own, and what felt alien?",
+      "Which symbol has been recurring in your dreams recently?",
+      "If this dream were a message, what would it say?",
+      "What emotion did you carry with you from your dream into waking life?",
+      "What did you want to change in that dream, but couldn’t?",
+      "Which colour or place do you remember most?",
+      "If you could go back to that dream — what would you do differently?"
+    ],
+    "dailySymbols": [
+      {
+        "name": "Water",
+        "emoji": "🌊",
+        "color": "#60A5FA",
+        "desc": "In dreams, water touches the deepest layers of our emotions — those we usually hide from ourselves."
+      },
+      {
+        "name": "Fire",
+        "emoji": "🔥",
+        "color": "#FB923C",
+        "desc": "Fire symbolises transformation and a purifying force."
+      },
+      {
+        "name": "Tree",
+        "emoji": "🌳",
+        "color": "#86EFAC",
+        "desc": "The tree you dream of is a reflection of your inner structure and roots."
+      },
+      {
+        "name": "Maze",
+        "emoji": "🌀",
+        "color": "#C084FC",
+        "desc": "A maze arises when you’re trying to find a way out of a situation with no easy solution."
+      },
+      {
+        "name": "Bird",
+        "emoji": "🦅",
+        "color": "#67E8F9",
+        "desc": "The bird conveys a message of freedom and a bird's-eye view."
+      },
+      {
+        "name": "Mirror",
+        "emoji": "🪞",
+        "color": "#818CF8",
+        "desc": "The mirror shows your true self, without any filters."
+      },
+      {
+        "name": "Bridge",
+        "emoji": "🌉",
+        "color": "#F9A8D4",
+        "desc": "A bridge symbolises the transition between stages of life."
+      },
+      {
+        "name": "Key",
+        "emoji": "🗝️",
+        "color": "#FCD34D",
+        "desc": "A key is a symbol of access to mystery and hidden potential."
+      },
+      {
+        "name": "Storm",
+        "emoji": "⛈️",
+        "color": "#818CF8",
+        "desc": "A storm is pent-up emotional energy seeking release."
+      },
+      {
+        "name": "Home",
+        "emoji": "🏠",
+        "color": "#D9B56D",
+        "desc": "The house in your dream is you — each room represents an aspect of your psyche."
+      },
+      {
+        "name": "Child",
+        "emoji": "👶",
+        "color": "#F48DB0",
+        "desc": "A child symbolises the sensitive part of oneself and new beginnings."
+      },
+      {
+        "name": "A stranger",
+        "emoji": "🧙",
+        "color": "#A3E635",
+        "desc": "A stranger is usually a projection of an unintegrated aspect of oneself."
+      },
+      {
+        "name": "The Moon",
+        "emoji": "🌕",
+        "color": "#E2D4F0",
+        "desc": "The moon is a symbol of cycles, intuition and realms beyond reason."
+      },
+      {
+        "name": "The Sun",
+        "emoji": "☀️",
+        "color": "#FBBF24",
+        "desc": "The sun in your dream represents the radiance of your consciousness and your values."
+      },
+      {
+        "name": "Snake",
+        "emoji": "🐍",
+        "color": "#4ADE80",
+        "desc": "The snake is an archetype of transformation, healing and hidden wisdom."
+      },
+      {
+        "name": "Top",
+        "emoji": "⛰️",
+        "color": "#94A3B8",
+        "desc": "A mountain is a challenge and a path to a higher vantage point."
+      },
+      {
+        "name": "Doors",
+        "emoji": "🚪",
+        "color": "#C4A882",
+        "desc": "A door is a symbol of a threshold and a choice — the passage beckons."
+      },
+      {
+        "name": "Eye",
+        "emoji": "👁️",
+        "color": "#A78BFA",
+        "desc": "The eye is a symbol of observation, awareness and being seen."
+      },
+      {
+        "name": "Circle",
+        "emoji": "⭕",
+        "color": "#34D399",
+        "desc": "The circle symbolises a cycle, completeness and a return to wholeness."
+      },
+      {
+        "name": "Spider",
+        "emoji": "🕷️",
+        "color": "#6B7280",
+        "desc": "The spider embodies the creative power of weaving life, networks of relationships and destiny."
+      }
+    ],
+    "moonDreamData": [
+      {
+        "phase": "New Moon",
+        "emoji": "🌑",
+        "color": "#6B7280",
+        "dreamType": "Intentional dreams",
+        "description": "The new moon is the perfect time for dream programming. The subconscious mind is particularly receptive to intentions and questions set before sleep.",
+        "tip": "Write down this question before you go to sleep: \"Show me where to start a new chapter.\"",
+        "lucidFavorable": "false",
+        "propheticFavorable": "true"
+      },
+      {
+        "phase": "The approaching sickle",
+        "emoji": "🌒",
+        "color": "#9CA3AF",
+        "dreamType": "Dreams of growth",
+        "description": "The energies of growth encourage dreams of expansion and new opportunities. Dreams of travel and discovery are common.",
+        "tip": "Take note of the symbols of new beginnings — keys, seeds, the rising sun.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "First quarter",
+        "emoji": "🌓",
+        "color": "#D1D5DB",
+        "dreamType": "Confrontational dreams",
+        "description": "The square aspect triggers dreams about challenges and decisions. The subconscious processes conflicts and dilemmas.",
+        "tip": "Take note of the people you argue with — they are aspects of yourself.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "The approaching hump",
+        "emoji": "🌔",
+        "color": "#E5E7EB",
+        "dreamType": "Integration dreams",
+        "description": "The approaching full moon intensifies dream activity. Dreams become more vivid, emotional and multi-layered.",
+        "tip": "It’s worth keeping a notebook by your bed — this is a time when you have particularly significant dreams.",
+        "lucidFavorable": "true",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "Full moon",
+        "emoji": "🌕",
+        "color": "#F9FAFB",
+        "dreamType": "Dreams of revelation",
+        "description": "The full moon marks the peak of dream activity. Dreams are at their most vivid, longest in duration and easiest to remember.",
+        "tip": "Time for lucid dreaming — focus your intention just before you go to sleep.",
+        "lucidFavorable": "true",
+        "propheticFavorable": "true"
+      },
+      {
+        "phase": "A receding hump",
+        "emoji": "🌖",
+        "color": "#D1FAE5",
+        "dreamType": "Liberating dreams",
+        "description": "The energy of waning encourages dreams of farewells, endings and letting go of what no longer serves us.",
+        "tip": "Dreams during this phase often bring a sense of relief and closure.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "The last quarter",
+        "emoji": "🌗",
+        "color": "#A7F3D0",
+        "dreamType": "Purifying dreams",
+        "description": "Time for processing and integration. The subconscious mind organises the experiences from the entire cycle.",
+        "tip": "Dreams can be chaotic – that’s normal. Look for one key symbol.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "A waning crescent moon",
+        "emoji": "🌘",
+        "color": "#6EE7B7",
+        "dreamType": "Dreams of Silence",
+        "description": "Before the new moon, dreams become calmer and more profound. It is a time for reflection and preparation for a new cycle.",
+        "tip": "Meditating before bed at this stage strengthens the connection with one’s dream intuition.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      }
+    ],
+    "monthNames": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "weekdays": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun"
+    ],
+    "moonPhases": [
+      {
+        "max": "1.85",
+        "emoji": "🌑",
+        "label": "New Moon"
+      },
+      {
+        "max": "7.38",
+        "emoji": "🌒",
+        "label": "The approaching sickle"
+      },
+      {
+        "max": "9.22",
+        "emoji": "🌓",
+        "label": "First quarter"
+      },
+      {
+        "max": "14.77",
+        "emoji": "🌔",
+        "label": "The approaching hump"
+      },
+      {
+        "max": "16.61",
+        "emoji": "🌕",
+        "label": "Full moon"
+      },
+      {
+        "max": "10.15 pm",
+        "emoji": "🌖",
+        "label": "A receding hump"
+      },
+      {
+        "max": "23.99",
+        "emoji": "🌗",
+        "label": "The last quarter"
+      },
+      {
+        "max": "29.53",
+        "emoji": "🌘",
+        "label": "A waning crescent moon"
+      }
+    ]
+  },
+  "hero": {
+    "metaLine": "{{dreams}} dreams · {{streak}} nights · {{lucid}} lucid"
+  },
+  "archive": {
+    "title": "MY DREAM INTERPRETATION ({{count}})",
+    "tipsTitle": "HOW TO WRITE DOWN YOUR DREAMS",
+    "tips": [
+      [
+        "Immediately upon waking",
+        "After 20 minutes, you’ll have forgotten 80% of the details. Write it down before you get up."
+      ],
+      [
+        "Start with your emotions",
+        "Emotion is more important than the plot — it is what conveys the real message."
+      ],
+      [
+        "One picture is enough",
+        "Even a single colour or face is a valuable Jungian clue."
+      ],
+      [
+        "Watch the repeats",
+        "A recurring symbol is the voice of your subconscious. Give it your own meaning."
+      ]
+    ]
+  }
+}

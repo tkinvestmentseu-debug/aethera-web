@@ -1,0 +1,834 @@
+{
+  "tabs": {
+    "hero": "Mapa",
+    "read": "Leitura",
+    "deep": "Mais a fundo",
+    "practice": "Prática",
+    "daily": "Diário"
+  },
+  "header": {
+    "eyebrow": "A matriz da vida",
+    "titleOwn": "Mapa da energia e do destino",
+    "titleOther": "Fonte: {{name}}",
+    "banner": "Matriz para: {{name}}",
+    "favoriteLabel": "A matriz da vida"
+  },
+  "empty": {
+    "eyebrow": "O percurso da vida",
+    "title": "A leitura começa pela data de nascimento",
+    "description": "Insira a sua data de nascimento para revelar o seu mapa energético.",
+    "body": "Neste espaço, o Aether revelará o teu número do caminho, o campo das relações, o ritmo da ação e a lição principal que se repete nas decisões importantes.",
+    "listLabel": "O que irá ver após a ativação",
+    "items": [
+      "O centro da tua energia e o lugar onde recuperas a paz interior.",
+      "O significado prático dos números nas relações, no trabalho e na intuição.",
+      "Uma pergunta à Oracle que aprofundará esta análise."
+    ],
+    "cta": "Preencha os dados no santuário"
+  },
+  "hero": {
+    "titleOwn": "O teu mapa de energia e destino",
+    "titleOther": "Matriz da alma: {{name}}",
+    "description": "Oito números. Cada um deles é um modelo vivo — nas relações, no trabalho, no corpo e na intuição. As descobertas mais importantes encontram-se no centro do diagrama.",
+    "mainEnergies": "As quatro energias principais",
+    "chartTitle": "Diagrama da matriz — toque e gire",
+    "chartNodes": {
+      "center": "Centro",
+      "top": "Topo — Potência",
+      "bottom": "Parte inferior — Lição",
+      "left": "Esquerda — Personalidade",
+      "right": "Direito — Materialização"
+    },
+    "personalYearTitle": "O ano pessoal de {{year}}",
+    "personalYearEyebrow": "ANO PESSOAL",
+    "badges": {
+      "growth": "aumento",
+      "reflection": "reflexão",
+      "agency": "autonomia"
+    },
+    "forecastTitle": "Previsão de energia — {{date}}",
+    "forecastEyebrow": "POSIÇÃO ATIVA DO DIA",
+    "forecastBadge": "hoje ativa",
+    "forecastIntention": "Intenção para hoje: Observa como a energia de «{{name}}» se manifesta nas tuas decisões, conversas e sentimentos.",
+    "affirmationTitle": "Afirmação da matriz",
+    "affirmationEyebrow": "CENTRO {{value}} · {{type}}"
+  },
+  "share": {
+    "summary": "O Centro {{center}} é o eixo central deste mapa. As relações são conduzidas pela energia {{relationship}}, a capacidade de ação {{money}}, e a lição regressa através de {{bottom}}.",
+    "highlights": {
+      "comfort": "Conforto da Alma {{value}}: {{meaning}}",
+      "relationships": "Campo de relação {{value}}: {{meaning}}",
+      "power": "Página pessoal de {{value}}: {{meaning}}"
+    }
+  },
+  "directionBadges": {
+    "incoming": "chega",
+    "outgoing": "sai",
+    "left": "linha esquerda",
+    "right": "linha de direito",
+    "balanced": "centro"
+  },
+  "positions": {
+    "1": {
+      "name": "A Missão da Alma",
+      "desc": "O teu principal objetivo e vocação nesta encarnação. O centro do teu caminho."
+    },
+    "2": {
+      "name": "Energia Pessoal",
+      "desc": "Como agis e como os outros te veem. A tua força natural."
+    },
+    "3": {
+      "name": "Desafios",
+      "desc": "Lições cármicas e áreas que requerem trabalho e atenção."
+    },
+    "4": {
+      "name": "Relatos",
+      "desc": "O teu padrão nos relacionamentos e o que atraís nas pessoas próximas."
+    },
+    "5": {
+      "name": "Saúde",
+      "desc": "Energia física e áreas relacionadas com o cuidado do corpo e da mente."
+    },
+    "6": {
+      "name": "Finanças",
+      "desc": "A tua relação com o dinheiro e a abundância nesta vida."
+    },
+    "7": {
+      "name": "A Karma dos Antepassados",
+      "desc": "Padrões da linhagem ancestral que vieste trabalhar."
+    },
+    "8": {
+      "name": "Potencial",
+      "desc": "As melhores oportunidades que tens à tua disposição nesta encarnação."
+    },
+    "9": {
+      "name": "Síntese",
+      "desc": "Como todas as energias se unem no teu caminho único."
+    }
+  },
+  "yearArchetypes": {
+    "1": "Iniciador",
+    "2": "Diplomata",
+    "3": "Criador",
+    "4": "Construtor",
+    "5": "O Descobridor",
+    "6": "Responsável",
+    "7": "Místico",
+    "8": "Líder",
+    "9": "Encerramento",
+    "11": "Visionário",
+    "22": "Campeão"
+  },
+  "yearDisplayNames": {
+    "1": "O Ano do Iniciador",
+    "2": "O Ano do Diplomata",
+    "3": "O Ano do Criador",
+    "4": "O Ano do Construtor",
+    "5": "O Ano do Descobridor",
+    "6": "O Ano do Tutelante",
+    "7": "O Ano da Mística",
+    "8": "O Ano do Líder",
+    "9": "Ano de encerramento",
+    "11": "O Ano do Visionário",
+    "22": "O Ano do Campeão"
+  },
+  "read": {
+    "summary": [
+      "Estrada",
+      "Relatos",
+      "Agência",
+      "Aula"
+    ],
+    "axesTitle": "Três eixos principais",
+    "axes": [
+      {
+        "key": "núcleo",
+        "label": "Núcleo",
+        "copy": "O lugar onde é mais fácil recuperar a harmonia."
+      },
+      {
+        "key": "relações",
+        "label": "Relatos",
+        "copy": "Um estilo de ligação, atração e tensão."
+      },
+      {
+        "key": "abundância",
+        "label": "Abundância",
+        "copy": "É assim que funcionam a agência e a materialização."
+      }
+    ],
+    "positionsTitle": "Interpretações das 9 posições",
+    "energyMapTitle": "Mapa das direções da energia",
+    "lifeAreasTitle": "Como é que isso funciona na vida",
+    "lifeAreas": [
+      {
+        "key": "amor",
+        "title": "Amor e relações",
+        "body": "A energia do {{value}} mostra como crias laços e onde precisas de mais coragem, reciprocidade ou limites."
+      },
+      {
+        "key": "trabalho",
+        "title": "Trabalho e materialização",
+        "body": "A energia {{value}} mostra onde o fluxo da agência é natural e onde começa a ser travado pelo medo ou pela sobrecarga."
+      },
+      {
+        "key": "intuição",
+        "title": "Intuição e desenvolvimento",
+        "body": "O Centro {{value}} é um lugar para reencontrar a harmonia. É aqui que mais facilmente se percebe o que realmente te pertence."
+      }
+    ],
+    "coreReadingTitle": "O núcleo da matriz — uma análise mais aprofundada",
+    "coreReading": [
+      {
+        "key": "conforto",
+        "title": "Conforto da alma • {{value}}"
+      },
+      {
+        "key": "potência",
+        "title": "{{value}}"
+      },
+      {
+        "key": "aula",
+        "title": "Lição cármica • {{value}}"
+      },
+      {
+        "key": "relações",
+        "title": "Campo de comentários • {{value}}"
+      }
+    ],
+    "karmicTitle": "Lições cármicas — os números que faltam ({{count}})",
+    "karmicNone": "A tua matriz contém todos os números de 1 a 9. Não há lacunas cármicas evidentes — concentras-te em aprofundar as energias existentes.",
+    "karmicIntro": "Os números que não constam na tua matriz indicam áreas que requerem um trabalho consciente nesta vida. Não são fraquezas — são áreas de crescimento.",
+    "karmicEyebrow": "LIÇÃO CÁRMICA",
+    "compatibilityTitle": "Compatibilidade de almas — tipo: {{type}}",
+    "compatibilitySoulType": "TIPO DE ALMA",
+    "compatibilityRows": [
+      {
+        "key": "ressonante",
+        "label": "Almas em sintonia"
+      },
+      {
+        "key": "tensão",
+        "label": "Almas em tensão"
+      },
+      {
+        "key": "presente",
+        "label": "O teu dom para os outros"
+      }
+    ],
+    "compatibilityActiveBanner": "O modo «Para alguém» está ativo — a comparação de matrizes encontra-se no separador «Mais detalhadamente».",
+    "compatibilityInactiveBanner": "Ative o modo «Para alguém» para ver uma comparação completa entre os dois sensores.",
+    "compatibilityAdd": "Adicionar uma pessoa à comparação",
+    "compatibilityChange": "Alterar: {{name}}",
+    "energyMap": {
+      "center": {
+        "dir": "Centro",
+        "desc": "A âncora da identidade. O lugar de onde partiste e para onde regressas."
+      },
+      "top": {
+        "dir": "Topo ↑",
+        "desc": "Energia que se dirige para o potencial. Aspirações e vontade."
+      },
+      "bottom": {
+        "dir": "Para baixo ↓",
+        "desc": "A energia que chega como uma lição. Karma e padrões que exigem integração."
+      },
+      "left": {
+        "dir": "Esquerda ◀",
+        "desc": "A linha materna. Personalidade, instinto, ação que vem de dentro."
+      },
+      "right": {
+        "dir": "Direito ▶",
+        "desc": "A linha paterna. Materialização, influência no mundo exterior."
+      }
+    }
+  },
+  "deep": {
+    "ancestorTitle": "Programas dos antepassados",
+    "ancestorIntro": "A matriz codifica não só a tua energia, mas também os padrões herdados ao longo de gerações. O lado direito representa a linhagem paterna, o esquerdo — a materna, e a parte inferior representa o karma coletivo da família.",
+    "ancestorItems": [
+      {
+        "key": "pai",
+        "title": "Programa da linha do pai",
+        "desc": "A energia «{{value}}», na posição direita, reflete os padrões transmitidos pela linha paterna: a relação com o trabalho, a autoridade, o dinheiro e os limites."
+      },
+      {
+        "key": "mãe",
+        "title": "Programa da linha da mãe",
+        "desc": "A energia do {{value}}, na posição esquerda, transmite padrões maternos: carinho, emotividade, limites nas relações e a forma de viver a intimidade."
+      },
+      {
+        "key": "família",
+        "title": "Carma familiar",
+        "desc": "A energia «{{value}}» surge frequentemente nas histórias dos avós ou bisavós como uma lição cármica. É um padrão que a tua alma assumiu para o concluir — e não para o repetir."
+      },
+      {
+        "key": "presente",
+        "title": "Um presente que foi repassado",
+        "desc": "O centro {{value}} é a energia que podes transmitir às gerações futuras numa forma transformada. Quando trabalhas os padrões da esquerda e da direita, o centro torna-se o ponto de cura de toda a linha."
+      }
+    ],
+    "decadesTitle": "O percurso das décadas da vida",
+    "decadesIntro": "Cada década da vida é marcada por uma energia numérica específica. A década ativa indica o tema principal com o qual estás a trabalhar nesta fase.",
+    "ageRange": "WIEK {{start}}–{{end}} • {{startYear}}–{{endYear}}",
+    "past": "ANTERIORES",
+    "energyPrefix": "Energia",
+    "lifePathTitle": "A sobreposição do caminho da vida",
+    "lifePathEyebrow": "O NÚMERO DO CAMINHO DA VIDA",
+    "lifePathRows": [
+      {
+        "key": "centro",
+        "label": "O caminho da vida e o centro",
+        "desc": "Quando a energia do caminho da vida {{lifePath}} se encontra com o centro {{center}}, surge o número da sinergia {{interaction}}. Este é o teu fluxo principal."
+      },
+      {
+        "key": "aula",
+        "label": "O caminho da vida e uma lição",
+        "desc": "A tensão entre o caminho {{lifePath}} e a lição {{bottom}} resulta no número {{interaction}} — a área onde o potencial encontra a maior resistência."
+      },
+      {
+        "key": "relações",
+        "label": "O caminho da vida e as relações",
+        "desc": "A soma de {{lifePath}} e {{relationship}} resulta no número {{interaction}}, que descreve a qualidade das suas relações íntimas."
+      }
+    ],
+    "timelineTitle": "Linha do tempo de ativação (ciclo de 9 anos)",
+    "timelineIntro": "Cada ano de vida ativa uma posição diferente da matriz no ciclo de 9 anos.",
+    "timelineAge": "{{age}}",
+    "relationshipInactiveTitle": "Matriz relacional — para dois",
+    "relationshipInactiveBody": "Ative o modo «Para alguém» para ver como a sua matriz entra em ressonância com a matriz da outra pessoa. A análise inclui pontos de contacto, tensões e sinergias entre os dois campos.",
+    "relationshipActiveTitle": "Matriz relacional — {{name}}",
+    "relationshipCenterTitle": "CENTRO DA ALMA — {{name}}",
+    "relationshipCenterMeta": "O Caminho da Vida {{lifePath}} · Relatos {{relationship}} · Lição {{bottom}}",
+    "relationshipRows": [
+      {
+        "key": "sinergia",
+        "label": "Sinergia entre centros",
+        "desc": "Quando os dois centros se encontram, cria-se o espaço «{{result}}». É uma energia na qual ambos se sentem mais vocês mesmos e se complementam mutuamente."
+      },
+      {
+        "key": "tensão",
+        "label": "O ritmo da aula",
+        "desc": "Ambas as lições cármicas, {{a}} e {{b}}, criam uma tensão {{result}}. Este é o local onde se encontram os maiores desafios e, ao mesmo tempo, de um profundo aprendizado mútuo."
+      },
+      {
+        "key": "ritmo",
+        "label": "O ritmo da relação",
+        "desc": "Os campos relacionais de ambas as matrizes unem-se ao ritmo de «{{result}}». Esta energia descreve o tipo de proximidade de que ambos precisam."
+      }
+    ],
+    "moneyTitle": "Programas financeiros e de prosperidade",
+    "moneyRows": [
+      {
+        "key": "principal",
+        "title": "Programa financeiro principal",
+        "desc": "A energia {{value}} descreve o teu padrão material fundamental.",
+        "practiceType": "significado"
+      },
+      {
+        "key": "ração",
+        "title": "Fluxo de recursos",
+        "desc": "O Centro {{value}} mostra de onde vem a tua profunda atitude em relação ao mérito.",
+        "practice": "Afirmação: «O meu centro {{value}} permite-me receber a abundância sem sentimentos de culpa.»"
+      },
+      {
+        "key": "bloco",
+        "title": "Bloqueio da abundância",
+        "desc": "A lição cármica de {{value}} manifesta-se frequentemente nas finanças como um padrão recorrente: a falta de dinheiro ou o medo de o perder.",
+        "practice": "Pergunta: «De que forma a lição \"{{value}}\" está a impedir o meu progresso nas finanças?»"
+      },
+      {
+        "key": "potencial",
+        "title": "Potencial de concretização",
+        "desc": "O lado direito da matriz {{value}} representa a sua capacidade de transformar energia em forma.",
+        "practiceType": "significado"
+      }
+    ],
+    "missionTitle": "Missão vs zona de conforto",
+    "missionIntro": "O centro da matriz é a zona de conforto. O topo é a missão — a direção para onde cresces quando agis com coragem.",
+    "missionRows": [
+      {
+        "key": "conforto",
+        "label": "Zona de conforto",
+        "desc": "Centro «{{value}}»: é o teu porto seguro. Aqui sentes-te em segurança. {{meaning}}"
+      },
+      {
+        "key": "chamando",
+        "label": "Missão e vocação",
+        "desc": "Montanha de {{value}}: direção das aspirações e do crescimento. É preciso coragem para sair do centro. {{meaning}}"
+      },
+      {
+        "key": "tensão",
+        "label": "Tensão de crescimento",
+        "desc": "A tensão entre a missão e o conforto: {{value}}. É aqui que se dá o verdadeiro crescimento."
+      }
+    ],
+    "aiTitle": "Leitura profunda do sensor por IA",
+    "aiRows": [
+      {
+        "key": "antepassados",
+        "title": "Programas ancestrais e libertação",
+        "copy": "A Oracle identifica quais os padrões familiares que estão codificados na matriz."
+      },
+      {
+        "key": "síntese",
+        "title": "A síntese das finanças, da saúde e das relações",
+        "copy": "A Oracle integra estas três áreas da vida através de uma matriz."
+      }
+    ],
+    "aiContexts": {
+      "ancestors": "Estou a analisar os programas dos antepassados:\n- Linha paterna (direita): {{right}}\n- Linha materna (esquerda): {{left}}\n- Karma da família (em baixo): {{bottom}}\n- Centro: {{center}}\n- Caminho da vida: {{lifePath}}\n\nQue padrões familiares estão codificados nestes números? Indique um passo concreto para a transformação da energia {{bottom}}.",
+      "synthesis": "Síntese pela Matryca:\nFINANÇAS:{{money}}\n\n,{{right}}\n\n,{{center}}\n\n\nSAÚDE:{{lifePath}}\n\n,{{bottom}}\n\n,{{center}}\n\n\nRELACIONAMENTOS:{{relationship}}\n\n,{{left}}\n\n,{{bottom}}\n\nQual é o denominador comum? Sugira uma ação que desbloqueie o fluxo em todas as esferas ao mesmo tempo."
+    }
+  },
+  "practice": {
+    "aiTitle": "Entrevista com a IA da Matrix",
+    "aiPrompts": [
+      {
+        "key": "núcleo",
+        "title": "Pergunta sobre o âmago da alma",
+        "copy": "Pede à IA para dividir o centro {{center}} em decisões diárias, relações e segurança emocional.",
+        "context": "Estou na tela da Matriz da Alma. O meu centro é {{center}}, as relações são {{relationship}}, a energia do dinheiro é {{money}} e a lição cármica é {{bottom}}. Explica-me a essência desta matriz e mostra-me como ela funciona no dia-a-dia."
+      },
+      {
+        "key": "sombra",
+        "title": "Pergunte sobre o bloqueio e a sombra",
+        "copy": "Deixemos que a IA explique como a lição «{{bottom}}» sabota o movimento e o que realmente pretende ensinar.",
+        "context": "Estou a analisar a minha Matriz da Alma. A lição cármica é {{bottom}}, o poder pessoal é {{top}} e o centro é {{center}}. Mostra-me como funciona a minha sombra e qual o movimento sereno que realmente me irá desbloquear."
+      },
+      {
+        "key": "completo",
+        "title": "Leitura completa das 8 posições",
+        "copy": "O Oracle analisa toda a matriz e identifica um padrão dominante neste momento.",
+        "context": "Faça uma leitura completa da Matriz do Destino.\nCentro:{{center}}\n\n\nParte superior:{{top}}\n\n\nParte inferior:{{bottom}}\n\n\nEsquerda:{{left}}\n\n\nDireita:{{right}}\n\n\nRelações:{{relationship}}\n\n\nDinheiro:{{money}}\n\n\nCaminho da vida:{{lifePath}}\n\nAnalise as tensões e as sinergias. Identifique um padrão dominante. Conclua com uma pergunta para reflexão."
+      }
+    ],
+    "meditationTitle": "Meditação da matriz — 6 passos",
+    "meditationRows": [
+      {
+        "num": "01",
+        "title": "Respiração inicial",
+        "body": "Sente-se confortavelmente, feche os olhos. Três respirações profundas. Visualize uma rede geométrica dourada — a sua Matriz."
+      },
+      {
+        "num": "02",
+        "title": "Centro de {{center}}",
+        "body": "Visualize o número {{center}} como um ponto luminoso no centro do peito. Sinta o seu calor. Deixe-o pulsar ritmicamente."
+      },
+      {
+        "num": "03",
+        "title": "Eixo vertical",
+        "body": "Do centro ergue-se um eixo vertical. Para cima — o número {{top}}, o teu poder. Para baixo — o número {{bottom}}, a tua lição e a terra."
+      },
+      {
+        "num": "04",
+        "title": "Eixo horizontal",
+        "body": "Traça-se um eixo horizontal. À esquerda — o número {{left}}, a sua personalidade. À direita — o número {{right}}, a sua materialização."
+      },
+      {
+        "num": "05",
+        "title": "O objetivo do campo",
+        "body": "Sentado no centro da cruz, faz a seguinte pergunta: que energia requer a minha atenção hoje? Espera por um impulso, não analises."
+      },
+      {
+        "num": "06",
+        "title": "Encerramento",
+        "body": "Três respirações finais. Agradece a cada energia. Abre os olhos e anota um número ou uma imagem que tenha surgido no silêncio."
+      }
+    ],
+    "meditationCta": "Passe à prática da meditação",
+    "tipsTitle": "Dicas práticas",
+    "tipsRows": [
+      {
+        "key": "meditação",
+        "title": "Meditação da matriz",
+        "desc": "Feche os olhos e visualize uma grelha de números. Cada número é uma luz no seu campo energético."
+      },
+      {
+        "key": "revista",
+        "title": "Diário dos números",
+        "desc": "Durante 9 dias, anote uma descoberta sobre cada posição da matriz. Observe os padrões."
+      },
+      {
+        "key": "intenção",
+        "title": "Objetivo da posição",
+        "desc": "Escolha uma posição da matriz por dia e defina para ela uma intenção para o dia inteiro."
+      }
+    ],
+    "guideTitle": "Se quiseres tirar alguma lição disto",
+    "guideSteps": [
+      "1. Escolha um número que lhe cause maior resistência ou alívio.",
+      "2. Encará-lo como o tema da semana, e não como uma teoria para memorizar.",
+      "3. Se ainda houver alguma dúvida, pergunte apenas sobre esse ponto específico."
+    ],
+    "integrationTitle": "Integração por matriz",
+    "integrationBody": "Transforme os números da matriz numa reflexão concreta sobre as relações, o trabalho, a intuição e o próximo passo concreto.",
+    "integrationPrompt": "A minha matriz mostra o centro {{center}}, as relações {{relationship}} e a energia do dinheiro {{money}}. Como é que este padrão se traduz hoje nas relações, no trabalho e no próximo passo importante?",
+    "nextTitle": "E agora?",
+    "nextRows": [
+      {
+        "key": "nota",
+        "label": "Nota após a matriz",
+        "desc": "Escreve o número que mais te toca hoje."
+      },
+      {
+        "key": "numerologia",
+        "label": "Numerologia avançada",
+        "desc": "Passe para um nível mais elevado da trajetória da vida e do ano pessoal."
+      },
+      {
+        "key": "relação",
+        "label": "Matriz na relação",
+        "desc": "Veja como o seu número de relações se relaciona com outra pessoa."
+      },
+      {
+        "key": "parceiro",
+        "label": "Matriz de parceiros",
+        "desc": "Aceda a uma trilha de relação separada com o primeiro plano completo."
+      },
+      {
+        "key": "partilhar",
+        "label": "Partilhar o atalho da matriz",
+        "desc": "Envie um resumo elegante dos pontos mais importantes."
+      }
+    ],
+    "nextPrompt": "O centro da minha matriz é {{center}}, as relações são {{relationship}} e a energia do dinheiro é {{money}}. Qual destes números está a ter maior impacto hoje e porquê?"
+  },
+  "daily": {
+    "activeTitle": "A energia ativa do dia",
+    "activeEyebrow": "POSIÇÃO DA MATRIZ · {{date}}",
+    "affirmationEyebrow": "✦ AFIRMAÇÃO DO DIA",
+    "crystalEyebrow": "CRISTAL DE APOIO",
+    "reflectionEyebrow": "✦ PERGUNTA DE REFLEXÃO PARA HOJE",
+    "journalCta": "Regista a tua reflexão no diário",
+    "personalYearTitle": "O ano pessoal de {{year}}",
+    "yearEyebrow": "ANO{{archetype}}",
+    "ruler": "Autor: {{name}}",
+    "element": "Elemento: {{element}}",
+    "mantraEyebrow": "MANTRA DO ANO",
+    "compatibilityTitle": "Compatibilidade de almas",
+    "compatibilityAttracts": "ATRAIS ENERGIAS",
+    "compatibilityTension": "ÁREA DE TENSÃO",
+    "compatibilityGift": "A TUA CONTRIBUIÇÃO PARA OS OUTROS",
+    "quickTitle": "Passagens rápidas",
+    "quickRows": [
+      {
+        "key": "numerologia",
+        "label": "Numerologia — ano e mês",
+        "desc": "Um ano pessoal, revista mensal, ciclo de 9 anos"
+      },
+      {
+        "key": "compatibilidade",
+        "label": "Compatibilidade no casal",
+        "desc": "Como a tua matriz entra em sintonia com o teu parceiro"
+      },
+      {
+        "key": "Oracle",
+        "label": "Matriz Oracle",
+        "desc": "Pergunta à IA sobre o dia de hoje através da matriz"
+      }
+    ],
+    "oraclePrompt": "Hoje, a posição ativa da matriz é {{dailyName}} (energia {{dailyEnergy}}). O meu ano pessoal é {{personalYear}} — ano {{yearArchetype}}. O centro da matriz é {{center}}. Como é que estas energias interagem entre si neste dia e o que devo ter em conta agora?",
+    "journalPrompt": "Pergunta da matriz de hoje:\n{{todayQuestion}}\n\nA minha matriz: centro {{center}}, relações {{relationship}}, potência {{top}}, lição {{bottom}}."
+  },
+  "forSomeone": {
+    "title": "A quem se destina esta sessão?",
+    "body": "Introduza os dados da pessoa para quem está a fazer a leitura da matriz.",
+    "placeholder": "Nome da pessoa...",
+    "disable": "Desativa o modo «Para alguém»",
+    "centerEyebrow": "{{name}} — O CENTRO DA ALMA",
+    "centerMeta": "Link {{lifePath}} · Relatos {{relationship}} · Lição {{bottom}}"
+  },
+  "dailyCrystal": {
+    "1": {
+      "name": "Carneli",
+      "color": "#F97316",
+      "use": "Reforça a iniciativa e a coragem para dar o primeiro passo"
+    },
+    "2": {
+      "name": "Pedra da Lua",
+      "color": "#A5B4FC",
+      "use": "Acalma as emoções e aprofunda a intuição nas relações"
+    },
+    "3": {
+      "name": "Citrino",
+      "color": "#FCD34D",
+      "use": "Desperta a alegria de criar e a leveza da expressão"
+    },
+    "4": {
+      "name": "Jaspis verde",
+      "color": "#4ADE80",
+      "use": "Consolida e reforça a regularidade"
+    },
+    "5": {
+      "name": "Aquamarina",
+      "color": "#38BDF8",
+      "use": "Promove a flexibilidade e a abertura à mudança"
+    },
+    "6": {
+      "name": "Quartzo rosa",
+      "color": "#F9A8D4",
+      "use": "Abre o coração e harmoniza o espaço das relações"
+    },
+    "7": {
+      "name": "Ametista",
+      "color": "#A78BFA",
+      "use": "Aprofunda a reflexão e a conexão com a sabedoria superior"
+    },
+    "8": {
+      "name": "Olho de tigre",
+      "color": "#FBBF24",
+      "use": "Estimula a proatividade e a mentalidade de liderança"
+    },
+    "9": {
+      "name": "Labradorita",
+      "color": "#60A5FA",
+      "use": "Apoia o encerramento e a transformação de ciclos"
+    },
+    "10": {
+      "name": "Obsidiana",
+      "color": "#6B7280",
+      "use": "Protege a energia e purifica os padrões do passado"
+    },
+    "11": {
+      "name": "Selenita",
+      "color": "#C4B5FD",
+      "use": "Limpa o campo energético e reforça a canalização da energia"
+    },
+    "22": {
+      "name": "Obsidiana dourada",
+      "color": "#D97706",
+      "use": "Concretiza grandes visões e constrói estruturas duradouras"
+    }
+  },
+  "soulCompatibility": {
+    "1": {
+      "type": "Iniciador",
+      "attracts": "almas 2, 9 — a sensibilidade e a sabedoria do recuo complementam a tua força de avanço",
+      "tension": "almas 1, 8 — rivalidade pela liderança e pela capacidade de agir",
+      "gift": "Dás aos outros a coragem para darem o primeiro passo."
+    },
+    "2": {
+      "type": "Harmonizador",
+      "attracts": "almas 1, 11 — a iniciativa e a intuição magistral levam-te mais longe",
+      "tension": "5, 9 — o ritmo das mudanças e dos encerramentos pode ser opressivo",
+      "gift": "A tua presença acalma e harmoniza o espaço."
+    },
+    "3": {
+      "type": "Assistente",
+      "attracts": "almas 6, 9 — a proteção e a sabedoria criam espaço para a tua expressão",
+      "tension": "almas 4, 7 — os rigores e o silêncio limitam a tua voz",
+      "gift": "Inspiras os outros a criarem por conta própria."
+    },
+    "4": {
+      "type": "Construtor",
+      "attracts": "Almas 8, 22 — a capacidade de agir e a mestria co-criam estruturas duradouras",
+      "tension": "almas 3, 5 — a espontaneidade e o caos abalam o teu equilíbrio",
+      "gift": "Proporcionas aos outros a estabilidade e a segurança que a forma proporciona."
+    },
+    "5": {
+      "type": "O Descobridor",
+      "attracts": "almas 1, 3 — a iniciativa e a expressão apoiam a tua liberdade",
+      "tension": "almas 4, 6 — as obrigações e a rotina travam o teu fluxo",
+      "gift": "Fazes com que os outros se abram à mudança e a novas oportunidades."
+    },
+    "6": {
+      "type": "Responsável",
+      "attracts": "almas 2, 9 — a sensibilidade e o isolamento ressoam com a tua preocupação",
+      "tension": "almas 5, 11 — a liberdade e a hipersensibilidade esgotam as tuas reservas",
+      "gift": "O teu amor cura o espaço à tua volta."
+    },
+    "7": {
+      "type": "Místico",
+      "attracts": "almas 11, 2 — a intuição e a subtileza aprofundam o teu conhecimento",
+      "tension": "almas 1, 8 — a ação e a materialidade podem parecer superficiais",
+      "gift": "Dás aos outros profundidade e sentido na escuridão."
+    },
+    "8": {
+      "type": "Líder",
+      "attracts": "Almas 4, 22 — a estrutura e a mestria apoiam a tua capacidade de agir",
+      "tension": "almas 2, 7 — a delicadeza e a reserva podem frustrar o teu avanço",
+      "gift": "Estás a abrir as portas da liberdade financeira para os outros."
+    },
+    "9": {
+      "type": "Sábio",
+      "attracts": "almas 3, 6 — a criatividade e o coração ressoam com a tua sabedoria",
+      "tension": "almas 1, 8 — o ego e a ambição entram em conflito com a tua dedicação",
+      "gift": "A tua presença ensina aos outros a despedir-se sem dor."
+    },
+    "10": {
+      "type": "Transformador",
+      "attracts": "almas 5, 13 — a mudança e a transformação constituem um eixo comum",
+      "tension": "almas 4, 6 — a estabilidade e o hábito impedem a tua evolução",
+      "gift": "Dás aos outros a coragem de dar uma volta de 180 graus."
+    },
+    "11": {
+      "type": "Canal da Luz",
+      "attracts": "almas 2, 7 — a sensibilidade e a profundidade estão em sintonia com a tua intuição",
+      "tension": "almas 4, 8 — o materialismo e a estrutura podem tornar a vida mundana",
+      "gift": "A tua presença desperta a intuição nos outros."
+    },
+    "22": {
+      "type": "Mestre da Forma",
+      "attracts": "almas 4, 8 — os construtores e líderes criam uma visão do futuro juntamente contigo",
+      "tension": "almas 3, 5 — o caos e a instabilidade desestabilizam as tuas grandes estruturas",
+      "gift": "Tu concretizas aquilo com que os outros apenas sonham."
+    }
+  },
+  "yearGuidance": {
+    "1": "O ano do número 1 é uma época de novos começos e iniciativas ousadas. Semeia aquilo de que desejas colher frutos no próximo ciclo.",
+    "2": "O ano do 2 traz parcerias, paciência e diplomacia. Ouve mais do que falas — a resposta virá através das relações.",
+    "3": "O ano do 3 abre caminho à expressão, à criatividade e à alegria da comunicação. Tudo o que criares agora transmite uma energia de leveza.",
+    "4": "O ano do 4 lança as bases. O trabalho sistemático traz resultados duradouros — evite dispersar a sua energia.",
+    "5": "O ano do 5 é sinónimo de mudança, liberdade e novas experiências. Esteja pronto para abandonar o que o limita e abraçar o que o faz crescer.",
+    "6": "O ano do 6 centra-se no lar, na família e nas responsabilidades. A harmonia nas relações é o teu maior trunfo.",
+    "7": "O ano do 7 aprofunda a reflexão, a espiritualidade e a busca interior. O silêncio e o isolamento são agora mais enriquecedores do que a atividade.",
+    "8": "O ano do 8 estimula a proatividade, a concretização e a liderança. O teu poder transforma-se em resultados concretos e mensuráveis.",
+    "9": "O ano do 9 encerra um ciclo. Liberta o que já passou — relações, projetos, convicções — para dar lugar ao novo.",
+    "11": "O ano do 11 traz uma intuição magistral e um despertar espiritual. A tua sensibilidade supera o que é racional — confia nela.",
+    "22": "O ano de 2022 é o ano do mestre materialista. O potencial para construir algo grandioso e duradouro é agora excepcionalmente elevado."
+  },
+  "decadeThemes": {
+    "1": "Construir a identidade e os primeiros alicerces",
+    "2": "Relações, intuição e a busca pela harmonia",
+    "3": "Expressão, criatividade e descoberta da voz",
+    "4": "Estrutura, trabalho e bases sólidas",
+    "5": "Mudança, liberdade e horizontes amplos",
+    "6": "O lar, a família e a responsabilidade madura",
+    "7": "Reflexão, espiritualidade e busca interior",
+    "8": "Autonomia, liderança e concretização",
+    "9": "Sabedoria, conclusões e transmissão",
+    "10": "Mudança de rumo e adoção de uma nova direção",
+    "11": "O despertar místico e a intuição de ordem superior",
+    "12": "Abandonar o controlo e uma renovação profunda",
+    "13": "Transformação profunda e libertação de fardos",
+    "14": "Equilibrar os extremos e a alquimia",
+    "15": "Um acerto de contas com os apegos e os padrões",
+    "16": "Uma viragem e uma reconstrução sobre novas bases",
+    "17": "Esperança, inspiração e renovação",
+    "18": "Trabalho com o subconsciente e as sombras",
+    "19": "Visibilidade total e confiança madura",
+    "20": "O despertar e o acerto de contas com o passado",
+    "21": "Integração e plenitude de todas as partes de si mesmo",
+    "22": "Excelência e a construção de um legado duradouro"
+  },
+  "affirmations": {
+    "1": "Sou o protagonista da minha vida. A minha vontade é suficiente para começar.",
+    "2": "A minha sensibilidade é uma força. Ouço, sinto e construo pontes com amor.",
+    "3": "Expresso-me sem pedir desculpa. A minha voz e a minha obra têm valor.",
+    "4": "Estou a construir bases sólidas, passo a passo. A regularidade é o meu superpoder.",
+    "5": "Sou livre para mudar e crescer. As novas experiências fortalecem-me.",
+    "6": "Cuido dos outros por amor, não por medo. A harmonia começa comigo.",
+    "7": "A minha profundidade e reflexão são um tesouro. O silêncio conduz-me à verdade.",
+    "8": "Ajo com determinação e responsabilidade. Manifesto aquilo que realmente desejo.",
+    "9": "Deixo para trás, com gratidão, o que já passou. Os meus encerramentos abrem espaço para o novo.",
+    "10": "Estou pronto/a para a transformação. Cada momento da minha vida tem significado.",
+    "11": "A minha intuição é infalível. Confio no que sinto no fundo do coração.",
+    "22": "Concretizo grandes visões. Construo algo duradouro e significativo para o futuro."
+  },
+  "karmicLessons": {
+    "1": "Falta de iniciativa — aprendes a ser o primeiro, a tomar decisões e a aventurar-te em novos desafios sem um roteiro pré-definido.",
+    "2": "Falta de paciência — aprendes a esperar, a ouvir e a construir relações num ritmo mais suave.",
+    "3": "Falta de expressão — aprendes a dizer a tua verdade, a criar e a mostrar-te ao mundo.",
+    "4": "Falta de disciplina — aprendes a criar uma estrutura, a estabelecer rotinas e a cumprir as promessas que fazes a ti mesmo.",
+    "5": "A falta de adaptação — aprendes a ter coragem para mudar, viajar e sair da tua zona de conforto.",
+    "6": "A falta de consideração — aprendes a assumir a responsabilidade pelas relações, pelo lar e pela reciprocidade nas relações íntimas.",
+    "7": "Falta de reflexão — aprendes a fazer uma pausa, a analisar e a estabelecer uma relação mais profunda contigo mesmo.",
+    "8": "Falta de autonomia — aprendes a liderar, a gerir recursos e a ir além do papel de mero observador.",
+    "9": "Falta de conclusão — aprendes a encerrar ciclos, a sabedoria que vem da experiência e a deixar para trás o que já passou."
+  },
+  "dailyQuestions": {
+    "center": "Onde te sentes mais tu mesmo hoje? O que te ajuda a recuperar o equilíbrio?",
+    "top": "O que queres trazer hoje para o espaço à tua volta? Que força tua clama por se expressar?",
+    "bottom": "O que exige paciência ou aceitação hoje? Qual é a tua lição neste dia?",
+    "left": "Como reages instintivamente hoje? Do que a tua personalidade interior precisa neste momento?",
+    "right": "O que queres concretizar hoje? Como marcas a tua presença no mundo?",
+    "relationship": "Como estão as tuas relações hoje? Quem precisa mais da tua atenção ou da tua presença hoje?",
+    "money": "Como está a tua capacidade de agir hoje? O que bloqueia ou facilita o fluxo de energia material?",
+    "lifePath": "As decisões de hoje estão em sintonia com o teu caminho mais profundo? O que te diz o teu caminho de vida hoje?"
+  },
+  "yearMantras": {
+    "1": "Começo. Decido. Ajo.",
+    "2": "Ouço. Sinto. Conecto.",
+    "3": "Crio. Expresso-me. Ilumino.",
+    "4": "Construo. Organizo. Persisto.",
+    "5": "Mudo. Experimento. Atrevo-me.",
+    "6": "Cuido. Harmonizo. Respondo.",
+    "7": "Refletindo. Meditando. Compreendendo.",
+    "8": "Ajo. Manifesto. Realizo.",
+    "9": "Encerro. Liberto. Entreguei.",
+    "11": "Sinto. Canalizo. Inspiro.",
+    "22": "Vejo em grande. Concretizo o que é duradouro. Construo para o futuro."
+  },
+  "planetRulers": {
+    "1": {
+      "name": "Sol",
+      "element": "Fogo"
+    },
+    "2": {
+      "name": "A Lua",
+      "element": "Água"
+    },
+    "3": {
+      "name": "Júpiter",
+      "element": "Fogo"
+    },
+    "4": {
+      "name": "Urânio",
+      "element": "Ar"
+    },
+    "5": {
+      "name": "Mercúrio",
+      "element": "Ar"
+    },
+    "6": {
+      "name": "Vénus",
+      "element": "Terra"
+    },
+    "7": {
+      "name": "Netuno",
+      "element": "Água"
+    },
+    "8": {
+      "name": "Saturno",
+      "element": "Terra"
+    },
+    "9": {
+      "name": "Marte",
+      "element": "Fogo"
+    },
+    "11": {
+      "name": "Urano/Netuno",
+      "element": "Éter"
+    },
+    "22": {
+      "name": "Plutão",
+      "element": "Éter"
+    }
+  },
+  "energyMeanings": {
+    "1": "A energia da iniciação. Ensina a coragem, a autonomia e a dar o primeiro passo sem esperar pelo momento ideal.",
+    "2": "A energia da sensibilidade e da empatia. Reforça a intuição, a perceção das relações e a necessidade de um ritmo mais suave.",
+    "3": "A energia da expressão. Exige voz, criatividade, comunicação e coragem para se mostrar.",
+    "4": "A energia da estrutura. Recordam-nos dos limites, da disciplina e da construção de algo que resiste ao passar do tempo.",
+    "5": "A energia da mudança. Ela agita o que estava estagnado e põe à prova a tua capacidade de continuares a ser tu mesmo em movimento.",
+    "6": "A energia do coração e da responsabilidade. Diz respeito aos laços, ao carinho, à harmonia e à capacidade de estar presente para os outros sem perder a própria identidade.",
+    "7": "A energia da busca pelo sentido. Conduz para o interior, rumo ao conhecimento, à espiritualidade e às questões que não podem ser respondidas de forma superficial.",
+    "8": "A energia da ação. Combina a concretização, a influência, a ambição e a arte de lidar com o poder de forma saudável.",
+    "9": "A energia do encerramento. Reflete a sabedoria que advém da experiência, da compaixão e da disposição para concluir um ciclo.",
+    "10": "A energia da reviravolta do destino. Ensina-nos que mudar de rumo pode ser uma bênção, se não nos agarrarmos obstinadamente à velha narrativa.",
+    "11": "A energia da força interior. Atua através do autocontrole, da dignidade e de uma profunda sintonia com o próprio âmago.",
+    "12": "A energia da pausa e de uma nova perspetiva. É uma lição sobre como largar o controlo e encontrar sentido onde antes havia apenas uma pausa.",
+    "13": "A energia da transformação. Não retira nada sem motivo, mas prepara o terreno para uma forma de vida mais autêntica.",
+    "14": "A energia da alquimia. Ensina o equilíbrio, a paciência e a união dos extremos num todo mais maduro.",
+    "15": "A energia do apego e dos desejos. Mostra onde estás a ceder poder ao medo, à tentação ou à necessidade compulsiva de controlo.",
+    "16": "A energia da viragem. Ela destrói aquilo que já não pode continuar a assentar nos antigos alicerces.",
+    "17": "A energia da esperança e da inspiração. Recordam a luz que regressa após uma fase difícil e conduz à renovação.",
+    "18": "A energia da sombra e do subconsciente. Traz sonhos, pressentimentos, medos e aquilo que requer uma interpretação mais delicada.",
+    "19": "A energia da visibilidade. Promove a confiança, a clareza e a transição de um estado de anonimato para uma vida mais plena.",
+    "20": "A energia do despertar. Exorta a fazer as contas com o passado e a entrar conscientemente na próxima fase.",
+    "21": "A energia da integração. Revela maturidade, plenitude e a capacidade de unir as diferentes partes de si mesmo num caminho coerente.",
+    "22": "A energia da liberdade e da confiança. É o potencial de um novo começo, mas sem a necessidade de ter todas as respostas de imediato.",
+    "fallback": "Esta energia aponta para um tema importante na tua vida, que requer uma interpretação mais atenta no contexto do teu percurso atual."
+  }
+}

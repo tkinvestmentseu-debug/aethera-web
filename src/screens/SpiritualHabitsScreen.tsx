@@ -23,7 +23,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const CARD_W = (SW - layout.padding.screen * 2 - 10) / 2;
 const GOLD = '#F59E0B';
@@ -100,11 +100,11 @@ const HabitCard = React.memo(({
   const Icon = habit.icon;
 
   const cardBg = isLight
-    ? completed ? habit.color + '18' : 'rgba(0,0,0,0.03)'
+    ? completed ? habit.color + '18' : 'rgba(240,228,210,0.90)'
     : completed ? habit.color + '18' : 'rgba(255,255,255,0.05)';
-  const cardBorder = completed ? habit.color : isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBorder = completed ? habit.color : isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)';
   const textColor = isLight ? '#1A1A2E' : '#F0EBE2';
-  const subColor  = isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)';
+  const subColor  = isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)';
 
   const handleToggle = () => {
     scale.value = withSequence(withSpring(0.92, { damping: 6 }), withSpring(1, { damping: 6 }));
@@ -144,13 +144,13 @@ const HabitCard = React.memo(({
 const HeatDot = ({ pct, label, isToday, isLight }: { pct: number; label: string; isToday: boolean; isLight: boolean }) => {
   const filled = pct > 0.5;
   const partial = pct > 0 && pct <= 0.5;
-  const labelColor = isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.40)';
+  const labelColor = isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.40)';
   return (
     <View style={s.heatDotWrap}>
       <View style={[
         s.heatDot,
         { borderColor: isToday ? GOLD : 'transparent',
-          backgroundColor: filled ? GOLD : partial ? GOLD + '55' : isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)' },
+          backgroundColor: filled ? GOLD : partial ? GOLD + '55' : isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)' },
       ]} />
       <Text style={[s.heatLabel, { color: isToday ? GOLD : labelColor }]}>{label}</Text>
     </View>
@@ -161,14 +161,17 @@ const HeatDot = ({ pct, label, isToday, isLight }: { pct: number; label: string;
 export const SpiritualHabitsScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem, dailyProgress } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const dailyProgress = useAppStore(s => s.dailyProgress);
+  const updateDailyProgress = useAppStore(s => s.updateDailyProgress);
+  const { isLight } = useTheme();
   const textColor  = isLight ? '#1A1A2E' : '#F0EBE2';
-  const subColor   = isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.50)';
-  const cardBg     = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.09)';
+  const subColor   = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)';
+  const cardBg     = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.09)';
 
   const bgColors = isLight
     ? (['#F0F4FF', '#E8EEFF', '#F5F0FF'] as const)
@@ -178,21 +181,12 @@ export const SpiritualHabitsScreen = ({ navigation }: any) => {
   const moonPhase = getMoonPhase(new Date());
 
   // ── State ──────────────────────────────────────────────────────────────────
-  const [savedDate, setSavedDate]         = useState<string>('');
-  const [completedToday, setCompletedToday] = useState<Record<string, boolean>>({});
+  const completedToday: Record<string, boolean> = (dailyProgress?.[todayKey]?.habits) ?? {};
   const [streaks, setStreaks]             = useState<Record<string, number>>(() =>
     Object.fromEntries(HABITS.map(h => [h.id, 0]))
   );
   const [aiGuidance, setAiGuidance]       = useState('');
   const [aiLoading, setAiLoading]         = useState(false);
-
-  // Reset completedToday if it's a new day
-  useEffect(() => {
-    if (savedDate !== todayKey) {
-      setSavedDate(todayKey);
-      setCompletedToday({});
-    }
-  }, [todayKey, savedDate]);
 
   // ── Derived values ─────────────────────────────────────────────────────────
   const completedCount = useMemo(() => HABITS.filter(h => completedToday[h.id]).length, [completedToday]);
@@ -218,9 +212,11 @@ export const SpiritualHabitsScreen = ({ navigation }: any) => {
       let pct = 0;
       if (offset === 0) {
         pct = completionPct;
-      } else if (dp) {
-        // Use energy score as proxy if available
-        pct = (dp.energyScore ?? 0) / 100;
+      } else if (dp?.habits) {
+        const dayCount = Object.values(dp.habits).filter(Boolean).length;
+        pct = dayCount / HABITS.length;
+      } else if (dp?.energyScore) {
+        pct = dp.energyScore / 100;
       }
       return { key, label: getShortDayLabel(offset), pct, isToday: offset === 0 };
     });
@@ -228,16 +224,14 @@ export const SpiritualHabitsScreen = ({ navigation }: any) => {
 
   // ── Toggle habit ───────────────────────────────────────────────────────────
   const toggleHabit = useCallback((id: string) => {
-    setCompletedToday(prev => {
-      const next = { ...prev, [id]: !prev[id] };
-      return next;
-    });
+    const wasOn = completedToday[id];
+    const next = { ...completedToday, [id]: !wasOn };
+    updateDailyProgress(todayKey, { habits: next });
     setStreaks(prev => {
-      const wasOn = completedToday[id];
       const nextStreak = wasOn ? Math.max(0, (prev[id] ?? 0) - 1) : (prev[id] ?? 0) + 1;
       return { ...prev, [id]: nextStreak };
     });
-  }, [completedToday]);
+  }, [completedToday, todayKey, updateDailyProgress]);
 
   // ── Navigate to habit screen ───────────────────────────────────────────────
   const navigateToHabit = useCallback((habit: Habit) => {
@@ -298,7 +292,7 @@ export const SpiritualHabitsScreen = ({ navigation }: any) => {
             <Text style={[s.headerSub, { color: subColor }]}>Twoja codzienna praktyka</Text>
           </View>
           <Pressable onPress={handleStar} hitSlop={12} style={s.starBtn}>
-            <Star color={isStarred ? GOLD : isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.35)'}
+            <Star color={isStarred ? GOLD : isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.35)'}
               fill={isStarred ? GOLD : 'none'} size={20} strokeWidth={1.8} />
           </Pressable>
         </Animated.View>
@@ -438,7 +432,7 @@ export const SpiritualHabitsScreen = ({ navigation }: any) => {
                 <Flame color={GOLD} size={20} strokeWidth={1.8} />
                 <View style={s.ritualBtnText}>
                   <Text style={[s.ritualBtnTitle, { color: GOLD }]}>ZAPROPONUJ RYTUAŁ</Text>
-                  <Text style={[s.ritualBtnSub, { color: isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.50)' }]}>
+                  <Text style={[s.ritualBtnSub, { color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)' }]}>
                     Poranny Rytuał — 5 etapów, wiele nawyków naraz
                   </Text>
                 </View>

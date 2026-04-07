@@ -29,7 +29,7 @@ import { HapticsService } from '../core/services/haptics.service';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#A78BFA';
 
@@ -328,14 +328,15 @@ const GridCanvas = ({ pattern, placedCrystals, onNodePress }) => {
 export const CrystalGridScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
 
   const TABS = [
     { id: 'mandala', label: 'Mandala' },
@@ -585,7 +586,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
                         paddingVertical: 14, paddingHorizontal: 16,
                         borderRadius: 14, borderWidth: 1,
                         borderColor: open ? c.color + '55' : cardBorder,
-                        backgroundColor: open ? (isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.08)') : cardBg,
+                        backgroundColor: open ? (isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.08)') : cardBg,
                         marginBottom: 10, overflow: 'hidden',
                       }}
                     >
@@ -661,7 +662,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
           {activeTab === 'siatka' && (
             <>
               <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 10 }}>WZORZEC SIATKI</Text>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }} contentContainerStyle={{ flexDirection: 'row', paddingRight: 8 }}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }} contentContainerStyle={{ flexDirection: 'row', paddingRight: 22 }}>
                 {GRID_PATTERNS.map(p => (
                   <Pressable
                     key={p.id}
@@ -1082,7 +1083,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
               placeholder="Jak się czujesz podczas tej siatki? Co obserwujesz?"
               placeholderTextColor={subColor}
               multiline
-              style={{ padding: 14, borderRadius: 14, borderWidth: 1, borderColor: cardBorder, backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', color: textColor, fontSize: 13, lineHeight: 20, minHeight: 80, marginBottom: 16 }}
+              style={{ padding: 14, borderRadius: 14, borderWidth: 1, borderColor: cardBorder, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', color: textColor, fontSize: 13, lineHeight: 20, minHeight: 80, marginBottom: 16 }}
             />
             <Pressable
               onPress={saveGrid}

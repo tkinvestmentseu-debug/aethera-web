@@ -32,7 +32,7 @@ import { SoulEngineService } from '../core/services/soulEngine.service';
 import { useTranslation } from 'react-i18next';
 import { formatLocaleDate } from '../core/utils/localeFormat';
 import i18n from '../core/i18n';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#818CF8';
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
@@ -292,10 +292,12 @@ const DreamMoonHero = ({ isLight }: { isLight: boolean }) => {
 export const DreamInterpreterScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { isLight } = useTheme();
   const { addEntry, entries } = useJournalStore();
-  const theme = getResolvedTheme(themeName);
-  const isLight = theme.background.startsWith('#F');
   const textColor  = isLight ? '#1A1410' : '#F5F1EA';
   const subColor   = isLight ? '#6A5A48' : '#B0A49A';
   const cardBg     = isLight ? 'rgba(255,255,255,0.92)' : 'rgba(10,8,22,0.88)';
@@ -568,7 +570,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                       <Pressable
                         key={chip.id}
                         onPress={() => setSleepQuality(chip.id)}
-                        style={[di.qualityChip, { backgroundColor: active ? ACCENT + '28' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)'), borderColor: active ? ACCENT : (isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.14)') }]}
+                        style={[di.qualityChip, { backgroundColor: active ? ACCENT + '28' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)'), borderColor: active ? ACCENT : (isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.14)') }]}
                       >
                         <Text style={[di.qualityChipText, { color: active ? ACCENT : subColor, fontWeight: active ? '700' : '500' }]}>{chip.id}</Text>
                       </Pressable>
@@ -590,7 +592,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                     const active = selectedMood === m.id;
                     return (
                       <Pressable key={m.id} onPress={() => setSelectedMood(active ? '' : m.id)}
-                        style={[di.moodChip, { backgroundColor: active ? ACCENT + '2A' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)'), borderColor: active ? ACCENT : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)') }]}>
+                        style={[di.moodChip, { backgroundColor: active ? ACCENT + '2A' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)'), borderColor: active ? ACCENT : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)') }]}>
                         <Text style={di.moodEmoji}>{m.emoji}</Text>
                         <Text style={[di.moodLabel, { color: active ? ACCENT : subColor, fontWeight: active ? '700' : '500' }]}>{m.label}</Text>
                       </Pressable>
@@ -631,7 +633,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                     const active = selectedDreamTypes.has(dt.id);
                     return (
                       <Pressable key={dt.id} onPress={() => toggleDreamType(dt.id)}
-                        style={[di.dreamTypeChip, { backgroundColor: active ? dt.color + '28' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)'), borderColor: active ? dt.color : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)') }]}>
+                        style={[di.dreamTypeChip, { backgroundColor: active ? dt.color + '28' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)'), borderColor: active ? dt.color : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)') }]}>
                         <Text style={di.dreamTypeIcon}>{dt.icon}</Text>
                         <Text style={[di.dreamTypeText, { color: active ? dt.color : subColor, fontWeight: active ? '700' : '500' }]}>{dt.id}</Text>
                       </Pressable>
@@ -768,7 +770,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                 <Text style={[di.sectionSubtitle, { color: subColor }]}>5 Jungowskich pytań, które pomagają zejść głębiej z materiałem snu.</Text>
                 {JUNGIAN_QUESTIONS.map((q, i) => (
                   <Pressable key={i} onPress={() => navigation.navigate('JournalEntry', { prompt: q, type: 'dream' })}
-                    style={[di.jungianRow, { borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.09)', borderBottomWidth: i < JUNGIAN_QUESTIONS.length - 1 ? StyleSheet.hairlineWidth : 0 }]}>
+                    style={[di.jungianRow, { borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.09)', borderBottomWidth: i < JUNGIAN_QUESTIONS.length - 1 ? StyleSheet.hairlineWidth : 0 }]}>
                     <View style={[di.jungianNum, { backgroundColor: ACCENT + '20', borderColor: ACCENT + '40' }]}>
                       <Text style={[di.jungianNumText, { color: ACCENT }]}>{i + 1}</Text>
                     </View>
@@ -792,7 +794,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                 <Text style={[di.sectionSubtitle, { color: subColor }]}>30+ najczęstszych symboli snów. Dotknij symbol po rozwinięciu, aby zobaczyć pełne znaczenie.</Text>
                 {showSymbolDict && (
                   <Animated.View entering={FadeInDown.duration(300)}>
-                    <View style={[di.dictSearchRow, { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)' }]}>
+                    <View style={[di.dictSearchRow, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.06)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)' }]}>
                       <Search color={subColor} size={14} strokeWidth={1.6} />
                       <TextInput value={symbolSearch} onChangeText={setSymbolSearch} placeholder="Szukaj symbolu..." placeholderTextColor={subColor} style={[di.dictSearchInput, { color: textColor }]} />
                       {symbolSearch.length > 0 && (
@@ -807,7 +809,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                         const isExpanded = expandedSymbol === s.symbol;
                         return (
                           <Pressable key={s.symbol} onPress={() => setExpandedSymbol(isExpanded ? '' : s.symbol)}
-                            style={[di.symbolGridCell, { backgroundColor: isExpanded ? s.color + '22' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)'), borderColor: isExpanded ? s.color + '60' : (isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)') }]}>
+                            style={[di.symbolGridCell, { backgroundColor: isExpanded ? s.color + '22' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)'), borderColor: isExpanded ? s.color + '60' : (isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)') }]}>
                             <Text style={di.symbolGridIcon}>{s.icon}</Text>
                             <Text style={[di.symbolGridName, { color: isExpanded ? s.color : textColor }]}>{s.symbol}</Text>
                             {isExpanded && (
@@ -844,7 +846,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                       const checked = !!checkedThemes[theme.id];
                       const count = checkedThemes[theme.id] || 0;
                       return (
-                        <View key={theme.id} style={[di.recurringRow, { borderColor: checked ? theme.color + '40' : (isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.08)'), backgroundColor: checked ? theme.color + '0E' : 'transparent' }]}>
+                        <View key={theme.id} style={[di.recurringRow, { borderColor: checked ? theme.color + '40' : (isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.08)'), backgroundColor: checked ? theme.color + '0E' : 'transparent' }]}>
                           <Pressable onPress={() => toggleRecurringTheme(theme.id)} hitSlop={8}>
                             {checked
                               ? <CheckSquare color={theme.color} size={20} strokeWidth={1.8} />
@@ -912,7 +914,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                       return (
                         <G key={item.symbol}>
                           <Path d={`M${90},${y + 10} L${90 + barW},${y + 10} L${90 + barW},${y + 22} L${90},${y + 22} Z`} fill={ACCENT} opacity={0.7 - i * 0.08} rx={4} />
-                          <Path d={`M${90},${y + 10} L${90 + maxBarW},${y + 10} L${90 + maxBarW},${y + 22} L${90},${y + 22} Z`} fill={isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.08)'} rx={4} />
+                          <Path d={`M${90},${y + 10} L${90 + maxBarW},${y + 10} L${90 + maxBarW},${y + 22} L${90},${y + 22} Z`} fill={isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.08)'} rx={4} />
                           <Path d={`M${90},${y + 10} L${90 + barW},${y + 10} L${90 + barW},${y + 22} L${90},${y + 22} Z`} fill={ACCENT} opacity={0.7 - i * 0.08} rx={4} />
                         </G>
                       );
@@ -993,7 +995,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                     <View style={di.lucidTechRow}>
                       {LUCID_TECHNIQUES.map(t => (
                         <Pressable key={t.id} onPress={() => setActiveLucidTech(t.id)}
-                          style={[di.lucidTechChip, { backgroundColor: activeLucidTech === t.id ? t.color + '28' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)'), borderColor: activeLucidTech === t.id ? t.color : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)') }]}>
+                          style={[di.lucidTechChip, { backgroundColor: activeLucidTech === t.id ? t.color + '28' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)'), borderColor: activeLucidTech === t.id ? t.color : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)') }]}>
                           <Text style={[di.lucidTechChipText, { color: activeLucidTech === t.id ? t.color : subColor, fontWeight: activeLucidTech === t.id ? '700' : '500' }]}>{t.id}</Text>
                           <Text style={[di.lucidDiffBadge, { color: activeLucidTech === t.id ? t.color : subColor }]}>{t.difficulty}</Text>
                         </Pressable>
@@ -1055,19 +1057,19 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                 <LinearGradient colors={[ACCENT + '0A', 'transparent']} style={StyleSheet.absoluteFill} />
                 <Text style={[di.sectionEyebrow, { color: ACCENT }]}>✦ CO DALEJ?</Text>
                 <Text style={[di.sectionSubtitle, { color: subColor }]}>Pogłęb pracę z materiałem snu</Text>
-                <Pressable onPress={() => navigation.navigate('LunarCalendar')} style={[di.nextStepRow, { borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.09)' }]}>
+                <Pressable onPress={() => navigation.navigate('LunarCalendar')} style={[di.nextStepRow, { borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.09)' }]}>
                   <View style={[di.nextStepIcon, { backgroundColor: '#818CF8' + '22' }]}><CalendarDays color="#818CF8" size={18} /></View>
                   <View style={di.nextStepText}><Text style={[di.nextStepTitle, { color: textColor }]}>Kalendarz księżycowy</Text><Text style={[di.nextStepSub, { color: subColor }]}>Powiąż sen z energią Księżyca</Text></View>
                   <ArrowRight color={subColor} size={16} />
                 </Pressable>
-                <Pressable onPress={() => navigation.navigate('ShadowWork')} style={[di.nextStepRow, { borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.09)' }]}>
+                <Pressable onPress={() => navigation.navigate('ShadowWork')} style={[di.nextStepRow, { borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.09)' }]}>
                   <View style={[di.nextStepIcon, { backgroundColor: '#6366F1' + '22' }]}><Layers color="#6366F1" size={18} /></View>
                   <View style={di.nextStepText}><Text style={[di.nextStepTitle, { color: textColor }]}>Praca z cieniem</Text><Text style={[di.nextStepSub, { color: subColor }]}>Eksploruj odrzucone aspekty siebie</Text></View>
                   <ArrowRight color={subColor} size={16} />
                 </Pressable>
                 <Pressable
                   onPress={() => navigation.navigate('JournalEntry', { prompt: dreamText ? `Refleksja nad snem: ${dreamText.slice(0, 80)}...` : 'Zapis snu i moich refleksji', type: 'dream' })}
-                  style={[di.nextStepRow, { borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.09)', borderBottomWidth: 0 }]}>
+                  style={[di.nextStepRow, { borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.09)', borderBottomWidth: 0 }]}>
                   <View style={[di.nextStepIcon, { backgroundColor: '#34D399' + '22' }]}><BookOpen color="#34D399" size={18} /></View>
                   <View style={di.nextStepText}><Text style={[di.nextStepTitle, { color: textColor }]}>Dziennik refleksji</Text><Text style={[di.nextStepSub, { color: subColor }]}>Zapisz przemyślenia w dzienniku</Text></View>
                   <ArrowRight color={subColor} size={16} />

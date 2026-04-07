@@ -24,7 +24,7 @@ import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#E879F9';
 
@@ -499,9 +499,9 @@ const NumberBadge = ({ number, color }: { number: number; color: string }) => (
 const PracticeTile = ({
   icon: Icon, label, sublabel, route, navigation, isLight, delay = 0,
 }: any) => {
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
   const textColor = isLight ? '#1A0A2E' : '#F0E8FF';
-  const subColor  = isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)';
+  const subColor  = isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)';
 
   const scale = useSharedValue(1);
   const animStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
@@ -543,13 +543,11 @@ const PracticeTile = ({
 export const SoulContractScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A0A2E' : '#F0E8FF';
-  const subColor  = isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.50)';
-  const cardBg    = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const subColor  = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)';
+  const cardBg    = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
   const cardBorder = ACCENT + '22';
 
   const [starred, setStarred] = useState(false);
@@ -659,7 +657,9 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
   // RENDER
   // ─────────────────────────────────────────────────────────────
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1, backgroundColor: currentTheme.background }}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView edges={['top']} style={{ flex: 1}}>
+
       <SoulBg isLight={isLight} />
 
       {/* ── HEADER ─────────────────────────────────────────────── */}
@@ -1106,7 +1106,8 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
 
         <EndOfContentSpacer size="standard" />
       </ScrollView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

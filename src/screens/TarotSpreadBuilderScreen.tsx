@@ -30,7 +30,7 @@ import { HapticsService } from '../core/services/haptics.service';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { formatLocaleDate } from '../core/utils/localeFormat';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#EC4899';
 
@@ -341,20 +341,33 @@ const SpreadVisualizer = ({
   );
 };
 
+// ── Section header with accent bar ──────────────────────────────
+const SectionHeader = ({ label, accent: a }: { label: string; accent: string }) => (
+  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+    <LinearGradient
+      colors={[a, a + '55']}
+      start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+      style={{ width: 3, height: 17, borderRadius: 2 }}
+    />
+    <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2.5, color: a }}>{label}</Text>
+  </View>
+);
+
 // ── MAIN SCREEN ────────────────────────────────────────────────
 export default function TarotSpreadBuilderScreen() {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const isDark = !isLight;
   const textColor  = isLight ? '#1A1410' : '#F5F1EA';
   const subColor   = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg     = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.06)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg     = isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.06)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
   const accent     = ACCENT;
 
   const scrollRef = useRef<ScrollView>(null);
@@ -572,7 +585,9 @@ export default function TarotSpreadBuilderScreen() {
   }), [cardBg, cardBorder, subColor]);
 
   return (
-    <SafeAreaView style={[s.safe, { backgroundColor: currentTheme.background }]} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[s.safe, {}]} edges={['top']}>
+
       <TarotSpreadBg isDark={!isLight} />
 
       {/* HEADER */}
@@ -603,23 +618,77 @@ export default function TarotSpreadBuilderScreen() {
 
           {/* 3D WIDGET + HERO */}
           <SpreadWidget3D accent={accent} />
-          <View style={{ alignItems: 'center', paddingHorizontal: layout.padding.screen, paddingBottom: 8 }}>
+          <View style={{ alignItems: 'center', paddingHorizontal: layout.padding.screen, paddingBottom: 4 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8 }}>
               <View style={{ width: 28, height: 1, backgroundColor: accent + '44' }} />
               <Typography style={{ color: accent, fontSize: 10, fontWeight: '700', letterSpacing: 2 }}>BUDOWNICZY UKŁADÓW</Typography>
               <View style={{ width: 28, height: 1, backgroundColor: accent + '44' }} />
             </View>
-            <Typography style={{ color: textColor, fontSize: 20, fontWeight: '700', textAlign: 'center', lineHeight: 28, marginBottom: 6 }}>
+            <Typography style={{ color: textColor, fontSize: 21, fontWeight: '800', textAlign: 'center', lineHeight: 28, marginBottom: 6, letterSpacing: -0.3 }}>
               Zaprojektuj swój rozkład tarota
             </Typography>
             <Typography style={{ color: subColor, fontSize: 13, lineHeight: 20, textAlign: 'center' }}>
-              Wybierz układ, sformułuj pytanie i pozwól kartom przemówić. Przesuń widget by zobaczyć w przestrzeni.
+              Wybierz układ, sformułuj pytanie i pozwól kartom przemówić.
             </Typography>
           </View>
 
+          {/* ── WHAT IS THIS — description card ── */}
+          <Animated.View entering={FadeInDown.delay(80).springify()} style={{ marginHorizontal: layout.padding.screen, marginTop: 20, marginBottom: 4 }}>
+            <LinearGradient
+              colors={isLight
+                ? ['rgba(236,72,153,0.10)', 'rgba(236,72,153,0.04)']
+                : ['rgba(236,72,153,0.14)', 'rgba(236,72,153,0.04)']}
+              style={{
+                borderRadius: 22, borderWidth: 1,
+                borderColor: accent + (isLight ? '28' : '33'),
+                padding: 20, overflow: 'hidden',
+              }}
+            >
+              {/* Title row */}
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+                <View style={{ width: 38, height: 38, borderRadius: 12, backgroundColor: accent + '1E', alignItems: 'center', justifyContent: 'center' }}>
+                  <Wand2 size={18} color={accent} strokeWidth={1.8} />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={{ color: accent, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 1 }}>CO TO JEST?</Text>
+                  <Text style={{ color: textColor, fontSize: 14, fontWeight: '700' }}>Narzędzie do budowy odczytów</Text>
+                </View>
+              </View>
+
+              <Text style={{ color: subColor, fontSize: 13, lineHeight: 21, marginBottom: 18 }}>
+                Układ tarota to mapa pozycji kart — każda pozycja ma swoje znaczenie (np. „Przeszłość", „Przeszkoda", „Wynik"). Budowniczy pozwala Ci wybrać gotowy układ lub stworzyć własny, dopasowany do Twojego pytania.
+              </Text>
+
+              {/* 3-step guide */}
+              {[
+                { n: '1', label: 'Wybierz układ', desc: 'Gotowe układy (3 karty, Krzyż Celtycki, Rok) lub zbuduj własny do 12 pozycji.', color: '#EC4899' },
+                { n: '2', label: 'Sformułuj pytanie', desc: 'Konkretne pytanie skupia energię kart — im wyraźniejsze, tym głębszy odczyt.', color: '#A78BFA' },
+                { n: '3', label: 'Dobierz karty i interpretuj', desc: 'Każda pozycja zostanie odsłonięta z opisem. Możesz też zapytać Oracle AI.', color: '#60A5FA' },
+              ].map((step) => (
+                <View key={step.n} style={{ flexDirection: 'row', gap: 12, marginBottom: 12, alignItems: 'flex-start' }}>
+                  <View style={{ width: 24, height: 24, borderRadius: 12, backgroundColor: step.color + '22', borderWidth: 1, borderColor: step.color + '55', alignItems: 'center', justifyContent: 'center', marginTop: 1 }}>
+                    <Text style={{ color: step.color, fontSize: 11, fontWeight: '800' }}>{step.n}</Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ color: textColor, fontSize: 13, fontWeight: '700', marginBottom: 2 }}>{step.label}</Text>
+                    <Text style={{ color: subColor, fontSize: 12, lineHeight: 18 }}>{step.desc}</Text>
+                  </View>
+                </View>
+              ))}
+
+              {/* Pro tip */}
+              <View style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-start', marginTop: 4, paddingTop: 14, borderTopWidth: 1, borderTopColor: accent + '1A' }}>
+                <Sparkles size={13} color={accent} style={{ marginTop: 2 }} />
+                <Text style={{ color: accent + 'CC', fontSize: 12, lineHeight: 18, flex: 1, fontStyle: 'italic' }}>
+                  Wskazówka: Układ „Własny" umożliwia Ci nadanie każdej pozycji własnej nazwy i znaczenia — idealny do głębokiej pracy duchowej.
+                </Text>
+              </View>
+            </LinearGradient>
+          </Animated.View>
+
           {/* PRESET SPREADS */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <Typography style={s.sectionLabel}>WYBIERZ UKŁAD</Typography>
+            <SectionHeader label="WYBIERZ UKŁAD" accent={accent} />
             <ScrollView horizontal showsHorizontalScrollIndicator={false}
               contentContainerStyle={{ paddingRight: 20 }}>
               {PRESET_SPREADS.map(spread => {
@@ -692,17 +761,22 @@ export default function TarotSpreadBuilderScreen() {
           {/* CUSTOM SPREAD BUILDER */}
           {selectedSpreadId === 'custom' && (
             <Animated.View entering={FadeInDown.duration(400)} style={[s.section, { marginTop: 28 }]}>
-              <Typography style={s.sectionLabel}>BUDOWNICZY WŁASNEGO UKŁADU</Typography>
+              <SectionHeader label="BUDOWNICZY WŁASNEGO UKŁADU" accent={accent} />
               {customPositions.map((pos, i) => (
-                <View key={i} style={s.customPositionRow}>
-                  <View style={[s.numberBadge, { backgroundColor: accent + '22' }]}>
-                    <Typography style={{ color: accent, fontSize: 12, fontWeight: '700' }}>{i + 1}</Typography>
+                <LinearGradient
+                  key={i}
+                  colors={[accent + '0E', accent + '05']}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                  style={{ borderRadius: 12, borderWidth: 1, borderColor: accent + '28', marginBottom: 8, paddingVertical: 8, paddingHorizontal: 10, flexDirection: 'row', alignItems: 'center' }}
+                >
+                  <View style={[s.numberBadge, { backgroundColor: accent + '28', borderWidth: 1, borderColor: accent + '44', marginTop: 0 }]}>
+                    <Typography style={{ color: accent, fontSize: 12, fontWeight: '800' }}>{i + 1}</Typography>
                   </View>
                   <TextInput
                     style={[s.posInput, {
                       color: textColor,
-                      borderColor: cardBorder,
-                      backgroundColor: cardBg,
+                      borderColor: accent + '2A',
+                      backgroundColor: isLight ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,0.25)',
                     }]}
                     value={pos.label}
                     onChangeText={v => updateCustomLabel(i, v)}
@@ -714,7 +788,7 @@ export default function TarotSpreadBuilderScreen() {
                       <Trash2 size={18} color="#F87171" />
                     </Pressable>
                   )}
-                </View>
+                </LinearGradient>
               ))}
               <View style={{ flexDirection: 'row', gap: 10, marginTop: 4 }}>
                 <Pressable
@@ -739,7 +813,7 @@ export default function TarotSpreadBuilderScreen() {
           {/* SPREAD LAYOUT VISUALIZER */}
           {activePositions.length > 0 && (
             <View style={[s.section, { marginTop: 28 }]}>
-              <Typography style={s.sectionLabel}>WIZUALIZACJA UKŁADU</Typography>
+              <SectionHeader label="WIZUALIZACJA UKŁADU" accent={accent} />
               <View style={[s.card, { paddingHorizontal: 8 }]}>
                 <SpreadVisualizer
                   positions={activePositions}
@@ -752,33 +826,34 @@ export default function TarotSpreadBuilderScreen() {
 
           {/* QUESTION FORMULATOR */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <Typography style={s.sectionLabel}>SFORMUŁUJ PYTANIE</Typography>
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 4 }}>
-              <Pressable
-                onPress={() => setUseTemplate(true)}
-                style={[s.templateBtn, {
-                  borderColor: useTemplate ? accent : cardBorder,
-                  backgroundColor: useTemplate ? accent + '18' : cardBg,
-                }]}>
-                <Typography style={{ color: useTemplate ? accent : subColor, fontSize: 12, fontWeight: '600' }}>
-                  Z szablonu
-                </Typography>
+            <SectionHeader label="SFORMUŁUJ PYTANIE" accent={accent} />
+            {/* Segmented control */}
+            <View style={{ flexDirection: 'row', backgroundColor: cardBg, borderRadius: 14, borderWidth: 1, borderColor: cardBorder, padding: 3, marginBottom: 12 }}>
+              <Pressable onPress={() => { setUseTemplate(true); HapticsService.notify(); }} style={{ flex: 1 }}>
+                <LinearGradient
+                  colors={useTemplate ? [accent, accent + 'BB'] : ['transparent', 'transparent']}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                  style={{ borderRadius: 11, paddingVertical: 9, alignItems: 'center' }}>
+                  <Typography style={{ color: useTemplate ? '#fff' : subColor, fontSize: 13, fontWeight: '700', letterSpacing: 0.2 }}>
+                    Z szablonu
+                  </Typography>
+                </LinearGradient>
               </Pressable>
-              <Pressable
-                onPress={() => setUseTemplate(false)}
-                style={[s.templateBtn, {
-                  borderColor: !useTemplate ? accent : cardBorder,
-                  backgroundColor: !useTemplate ? accent + '18' : cardBg,
-                }]}>
-                <Typography style={{ color: !useTemplate ? accent : subColor, fontSize: 12, fontWeight: '600' }}>
-                  Własne pytanie
-                </Typography>
+              <Pressable onPress={() => { setUseTemplate(false); HapticsService.notify(); }} style={{ flex: 1 }}>
+                <LinearGradient
+                  colors={!useTemplate ? [accent, accent + 'BB'] : ['transparent', 'transparent']}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                  style={{ borderRadius: 11, paddingVertical: 9, alignItems: 'center' }}>
+                  <Typography style={{ color: !useTemplate ? '#fff' : subColor, fontSize: 13, fontWeight: '700', letterSpacing: 0.2 }}>
+                    Własne pytanie
+                  </Typography>
+                </LinearGradient>
               </Pressable>
             </View>
             {useTemplate ? (
               <>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}
-                  contentContainerStyle={{ paddingRight: 8, paddingTop: 8 }}>
+                  contentContainerStyle={{ paddingRight: 22, paddingTop: 8 }}>
                   {QUESTION_TEMPLATES.map((tpl, i) => (
                     <Pressable key={i} onPress={() => setQuestionTemplate(i)}>
                       <View style={[s.chip, {
@@ -827,7 +902,7 @@ export default function TarotSpreadBuilderScreen() {
 
           {/* DRAW & INTERPRET */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <Typography style={s.sectionLabel}>CIĄGNIJ KARTY</Typography>
+            <SectionHeader label="CIĄGNIJ KARTY" accent={accent} />
 
             {activePositions.length === 0 && selectedSpreadId === 'custom' && (
               <View style={[s.card, { borderColor: accent + '30' }]}>
@@ -913,7 +988,7 @@ export default function TarotSpreadBuilderScreen() {
 
           {/* SPREAD HISTORY */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <Typography style={s.sectionLabel}>HISTORIA UKŁADÓW</Typography>
+            <SectionHeader label="HISTORIA UKŁADÓW" accent={accent} />
             {spreadHistory.length === 0 ? (
               <View style={[s.card, { alignItems: 'center', paddingVertical: 20 }]}>
                 <History size={28} color={subColor} style={{ marginBottom: 8 }} />
@@ -959,7 +1034,7 @@ export default function TarotSpreadBuilderScreen() {
 
           {/* LEARNING LIBRARY */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <Typography style={s.sectionLabel}>BIBLIOTEKA WIEDZY</Typography>
+            <SectionHeader label="BIBLIOTEKA WIEDZY" accent={accent} />
             {LEARNING_SECTIONS.map((sec, i) => (
               <View key={i} style={[s.learnItem, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <Pressable style={s.learnHeader} onPress={() => {
@@ -991,7 +1066,7 @@ export default function TarotSpreadBuilderScreen() {
 
           {/* ORACLE AI */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <Typography style={s.sectionLabel}>WYROCZNIA UKŁADÓW</Typography>
+            <SectionHeader label="WYROCZNIA UKŁADÓW" accent={accent} />
             <LinearGradient
               colors={isLight ? ['#FDF4DC', '#FAF0E0'] : [accent + '1A', accent + '08']}
               start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
@@ -1095,6 +1170,7 @@ export default function TarotSpreadBuilderScreen() {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 }

@@ -37,6 +37,7 @@ import {
   HelpCircle,
   Layers,
   AlignLeft,
+  CornerDownLeft,
 } from 'lucide-react-native';
 import { useAppStore } from '../store/useAppStore';
 import { JournalEntryType, useJournalStore } from '../store/useJournalStore';
@@ -47,7 +48,7 @@ import { HapticsService } from '../core/services/haptics.service';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { AiService } from '../core/services/ai.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 // ── Extended entry types ─────────────────────────────────────────────────────
 const ENTRY_TYPES: {
   id: JournalEntryType;
@@ -290,10 +291,8 @@ const ParchmentBg = React.memo(({ isLight }: { isLight: boolean }) => (
 // ── Main screen ───────────────────────────────────────────────────────────────
 export const JournalEntryScreen = ({ navigation, route }: any) => {
   const { t } = useTranslation();
+  const { currentTheme, isLight } = useTheme();
   const insets = useSafeAreaInsets();
-  const { themeName } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
   const { addEntry, updateEntry, entries } = useJournalStore();
   const scrollRef = useRef<ScrollView>(null);
 
@@ -513,7 +512,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
       <SafeAreaView edges={['top']} style={s.safeArea}>
         <View style={s.flex}>
           {/* ── HEADER ── */}
-          <View style={[s.header, { borderBottomColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)' }]}>
+          <View style={[s.header, { borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)' }]}>
             <Pressable
               onPress={() => navigation.canGoBack() ? navigation.goBack() : goBackOrToMainTab(navigation, 'Journal' as any)}
               style={s.headerBtn}
@@ -599,7 +598,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                         {
                           backgroundColor: active
                             ? et.color + '22'
-                            : isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)',
+                            : isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)',
                           borderColor: active
                             ? et.color + '66'
                             : isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.08)',
@@ -637,10 +636,10 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                       {
                         backgroundColor: active
                           ? accent + '18'
-                          : isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)',
+                          : isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)',
                         borderColor: active
                           ? accent + '55'
-                          : isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.08)',
+                          : isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.08)',
                       },
                     ]}
                   >
@@ -677,7 +676,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                         {
                           backgroundColor: i < energyLevel
                             ? (energyLevel <= 3 ? '#FB7185' : energyLevel <= 6 ? '#FBBF24' : '#34D399')
-                            : isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)',
+                            : isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)',
                           borderRadius: i === 0 ? 6 : i === 9 ? 6 : 2,
                         },
                       ]}
@@ -705,10 +704,10 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                       {
                         backgroundColor: active
                           ? accent + '20'
-                          : isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)',
+                          : isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)',
                         borderColor: active
                           ? accent + '66'
-                          : isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.08)',
+                          : isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.08)',
                         transform: [{ scale: active ? 1.08 : 1 }],
                       },
                     ]}
@@ -730,8 +729,8 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
               <Pressable
                 onPress={() => setShowTemplateModal(true)}
                 style={[s.toolBtn, {
-                  backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)',
-                  borderColor: isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.08)',
+                  backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)',
+                  borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.08)',
                 }]}
               >
                 <AlignLeft color={subColor} size={13} />
@@ -787,7 +786,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                           setShowGuidedPrompts(false);
                         }}
                         style={[s.guidedPromptRow, {
-                          borderBottomColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)',
+                          borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)',
                           borderBottomWidth: i < guidedPrompts.length - 1 ? StyleSheet.hairlineWidth : 0,
                         }]}
                       >
@@ -825,8 +824,13 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                   scrollEnabled={false}
                 />
 
+                {/* Done hint */}
+                <View style={{ alignItems: 'flex-end', paddingRight: 6, paddingBottom: 2 }}>
+                  <CornerDownLeft size={14} color="rgba(206,174,114,0.40)" />
+                </View>
+
                 {/* Word count + reading time */}
-                <View style={[s.wordCountRow, { borderTopColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }]}>
+                <View style={[s.wordCountRow, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)' }]}>
                   <Hash color={subColor} size={11} />
                   <Text style={[s.wordCount, { color: subColor }]}>
                     {wordCount} {wordCount === 1 ? 'słowo' : wordCount < 5 ? 'słowa' : 'słów'}
@@ -942,7 +946,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                 paddingBottom: keyboardH > 0 ? 8 : Math.max(insets.bottom, 16),
                 paddingTop: 12,
                 backgroundColor: isLight ? 'rgba(255,255,255,0.97)' : 'rgba(14,10,30,0.97)',
-                borderTopColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)',
+                borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)',
                 zIndex: 10,
               },
             ]}
@@ -1456,4 +1460,3 @@ const s = StyleSheet.create({
   cardPickerEmoji: { fontSize: 22, marginBottom: 4 },
   cardPickerName: { fontSize: 9, fontWeight: '700', textAlign: 'center', letterSpacing: 0.2 },
 });
-

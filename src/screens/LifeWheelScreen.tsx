@@ -11,7 +11,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { ChevronLeft, Star, BarChart3 } from 'lucide-react-native';
-import { getResolvedTheme } from '../core/theme/tokens';
+import { getResolvedTheme, isLightBg } from '../core/theme/tokens';
 import { layout } from '../core/theme/designSystem';
 import { useAppStore } from '../store/useAppStore';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
@@ -64,11 +64,11 @@ const WheelSvg = ({ scores, isDark }: { scores: Record<string, number>; isDark: 
         </RadialGradient>
       </Defs>
       {[2, 4, 6, 8, 10].map(v => (
-        <Polygon key={v} points={gridPoints(v)} stroke={isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'} strokeWidth={0.7} fill="none" />
+        <Polygon key={v} points={gridPoints(v)} stroke={isDark ? 'rgba(255,255,255,0.08)' : 'rgba(122,95,54,0.18)'} strokeWidth={0.7} fill="none" />
       ))}
       {AREAS.map((_, i) => {
         const angle = i * angleStep - Math.PI / 2;
-        return <Line key={i} x1={cx} y1={cy} x2={cx + WHEEL_R * Math.cos(angle)} y2={cy + WHEEL_R * Math.sin(angle)} stroke={isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'} strokeWidth={0.7} />;
+        return <Line key={i} x1={cx} y1={cy} x2={cx + WHEEL_R * Math.cos(angle)} y2={cy + WHEEL_R * Math.sin(angle)} stroke={isDark ? 'rgba(255,255,255,0.06)' : 'rgba(255,246,230,0.92)'} strokeWidth={0.7} />;
       })}
       <Polygon points={spiderPoints.map(p => `${p.x},${p.y}`).join(' ')} fill={ACCENT} fillOpacity={0.18} stroke={ACCENT} strokeWidth={1.5} />
       {AREAS.map((area, i) => {
@@ -89,15 +89,19 @@ const WheelSvg = ({ scores, isDark }: { scores: Record<string, number>; isDark: 
 };
 
 export const LifeWheelScreen = ({ navigation }: any) => {
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
+    const themeName = useAppStore(s => s.themeName);
+  const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
   const currentTheme = getResolvedTheme(themeName, userData?.preferences?.colorScheme);
-  const isDark = !currentTheme.background.startsWith('#F');
+  const isDark = !isLightBg(currentTheme.background);
   const isLight = !isDark;
   const textColor = isLight ? '#1A0800' : '#FFF7E6';
   const subColor = isLight ? 'rgba(26,8,0,0.5)' : 'rgba(255,247,230,0.5)';
   const { t } = useTranslation();
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
 
   const [scores, setScores] = useState<Record<string, number>>(() =>
     Object.fromEntries(AREAS.map(a => [a.id, 5]))
@@ -128,7 +132,9 @@ export const LifeWheelScreen = ({ navigation }: any) => {
   const lowest = AREAS.slice().sort((a, b) => (scores[a.id] || 0) - (scores[b.id] || 0)).slice(0, 3);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <View style={StyleSheet.absoluteFill} pointerEvents="none">
         <LinearGradient colors={isDark ? ['#0A0600', '#120900', '#1A0E00'] : ['#FFFBF0', '#FFF8E8', '#FFF4D8']} style={StyleSheet.absoluteFill} />
       </View>
@@ -219,7 +225,8 @@ export const LifeWheelScreen = ({ navigation }: any) => {
 
         <EndOfContentSpacer />
       </ScrollView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

@@ -1,0 +1,20 @@
+{
+  "actions": {
+    "clear": "مسح",
+    "confirm": "تأكيد",
+    "cancel": "إلغاء",
+    "delete": "حذف"
+  },
+  "labels": {
+    "center": "المركز",
+    "relationships": "التقارير",
+    "agency": "الفاعلية",
+    "lesson": "الدرس",
+    "path": "الطريق"
+  },
+  "status": {
+    "todayActive": "نشطة اليوم",
+    "now": "الآن",
+    "past": "الماضي"
+  }
+}

@@ -1,16 +1,12 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Switch, View } from 'react-native';
 import { Typography } from './Typography';
 import { NotificationsService, ReminderPrefs } from '../core/services/notifications.service';
-import { getResolvedTheme } from '../core/theme/tokens';
-import { useAppStore } from '../store/useAppStore';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 export const ReminderSettings: React.FC = () => {
   const { t } = useTranslation();
-  const { themeName } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+  const { isLight } = useTheme();
   const [prefs, setPrefs]                 = useState<ReminderPrefs | null>(null);
   const [hasPermission, setHasPermission] = useState(false);
 
@@ -35,9 +31,9 @@ export const ReminderSettings: React.FC = () => {
       <View style={{
         padding: 16,
         borderRadius: 18,
-        backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)',
+        backgroundColor: isLight ? 'rgba(122,95,54,0.08)' : 'rgba(255,255,255,0.05)',
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)',
+        borderColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)',
       }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
           <View>
@@ -53,7 +49,7 @@ export const ReminderSettings: React.FC = () => {
             thumbColor="#ffffff"
           />
         </View>
-        <View style={{ height: StyleSheet.hairlineWidth, backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', marginBottom: 16 }} />
+        <View style={{ height: StyleSheet.hairlineWidth, backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)', marginBottom: 16 }} />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
           <View>
             <Typography variant="label">{t('notifications.evening_reflection', { defaultValue: 'Evening reflection' })}</Typography>

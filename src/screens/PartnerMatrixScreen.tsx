@@ -31,7 +31,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Circle, Defs, Line, Path, RadialGradient as SvgRadialGradient, Stop, G, Polygon } from 'react-native-svg';
 import { useTranslation } from 'react-i18next';
 import { DateWheelPicker } from '../components/DateWheelPicker';
-
+import { useTheme } from '../core/hooks/useTheme';
 const SW = Dimensions.get('window').width;
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
@@ -491,9 +491,11 @@ const ProgressBar = ({ value, max = 10, color }: { value: number; max?: number; 
 export const PartnerMatrixScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { isLight } = useTheme();
   const accentA = '#EC4899';
   const accentB = '#A78BFA';
   const accentGold = '#F59E0B';
@@ -525,7 +527,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
   const bg = isLight ? '#FAF8FF' : '#04020E';
   const cardBg = isLight ? 'rgba(120,60,180,0.05)' : 'rgba(255,255,255,0.05)';
   const cardBorder = isLight ? 'rgba(120,60,180,0.12)' : 'rgba(255,255,255,0.08)';
-  const dividerColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.07)';
+  const dividerColor = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.07)';
   const textColor = isLight ? '#1A1025' : '#F0EBF8';
   const subColor = isLight ? '#5A4A70' : '#B8A8D0';
 

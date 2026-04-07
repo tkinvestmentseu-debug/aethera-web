@@ -47,6 +47,10 @@ temp/
 .env*.local
 .env.local
 .env.production
+website/.env
+website/.env.local
+FundMind V2/web/.env
+FundMind V2/web/.env.local
 
 # typescript
 *.tsbuildinfo
@@ -84,3 +88,12 @@ __write_tcv.py
 QA_RUNTIME_REPORTS/
 qa_output/
 qa_v2/
+
+# Generated i18n master/flat files (built by scripts, not hand-edited)
+src/locales/**/_master.json
+src/locales/**/_master.flat.json
+src/locales/_master-translation-summary.json
+tools/i18n-resources/
+
+# Leftover diagnostic scripts
+fix_zustand_selectors.py

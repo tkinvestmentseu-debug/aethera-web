@@ -8,7 +8,7 @@ import Svg, { Circle, Path, G, Defs, RadialGradient, Stop, Text as SvgText } fro
 import Animated, { FadeInDown, useSharedValue, useAnimatedStyle, useAnimatedProps, withRepeat, withSequence, withTiming, Easing } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { ChevronLeft, Star, Play, Pause, RotateCcw } from 'lucide-react-native';
-import { getResolvedTheme } from '../core/theme/tokens';
+import { getResolvedTheme, isLightBg } from '../core/theme/tokens';
 import { layout } from '../core/theme/designSystem';
 import { useAppStore } from '../store/useAppStore';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
@@ -36,17 +36,21 @@ const SIGNS = [
 ];
 
 export const SignMeditationScreen = ({ navigation }: any) => {
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
+    const themeName = useAppStore(s => s.themeName);
+  const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
   const currentTheme = getResolvedTheme(themeName, userData?.preferences?.colorScheme);
-  const isDark = !currentTheme.background.startsWith('#F');
-  const isLight = !isDark;
+  const isLight = isLightBg(currentTheme.background);
+  const isDark = !isLight;
   const textColor = isLight ? '#0A0020' : '#F5F0FF';
   const subColor = isLight ? 'rgba(10,0,32,0.5)' : 'rgba(245,240,255,0.5)';
   const { t } = useTranslation();
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
 
-  const { userData: ud } = useAppStore();
+    const ud = useAppStore(s => s.userData);
   const userSign = ud?.zodiacSign || 'Baran';
   const [activeSign, setActiveSign] = useState(() => SIGNS.find(s => s.name === userSign) || SIGNS[0]);
   const [activeTab, setActiveTab] = useState<'meditation' | 'affirmation' | 'signs'>('meditation');
@@ -86,7 +90,9 @@ export const SignMeditationScreen = ({ navigation }: any) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <View style={StyleSheet.absoluteFill} pointerEvents="none">
         <LinearGradient colors={isDark ? ['#06030F', '#0A0520', '#0E0830'] : ['#F5F0FF', '#F2EEFF', '#EFE8FF']} style={StyleSheet.absoluteFill} />
         <Animated.View style={[StyleSheet.absoluteFill, glowStyle]}>
@@ -213,7 +219,8 @@ export const SignMeditationScreen = ({ navigation }: any) => {
 
         <EndOfContentSpacer />
       </ScrollView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 
@@ -225,7 +232,7 @@ const signAiStyles = StyleSheet.create({
 const styles = StyleSheet.create({
   header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: layout.padding.screen, paddingBottom: 12, gap: 12, paddingTop: 6 },
   backBtn: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
-  starBtn: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, backgroundColor: 'rgba(0,0,0,0.06)' },
+  starBtn: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 1, backgroundColor: 'rgba(255,246,230,0.92)' },
   tabRow: { flexDirection: 'row', gap: 8, paddingHorizontal: layout.padding.screen, marginBottom: 12 },
   tabChip: { flex: 1, paddingVertical: 7, borderRadius: 20, borderWidth: 1, borderColor: 'rgba(128,128,255,0.25)', backgroundColor: 'rgba(128,128,255,0.06)', alignItems: 'center' },
   tabLabel: { fontSize: 12, fontWeight: '600' },

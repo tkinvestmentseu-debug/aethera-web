@@ -24,7 +24,7 @@ import { Typography } from '../components/Typography';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#CEAE72';
 
@@ -239,13 +239,15 @@ const ForecastDayItem = ({
 export const BiorhythmScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const theme    = getResolvedTheme(themeName);
-  const isLight  = theme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { isLight } = useTheme();
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor  = isLight ? '#6A5A48' : '#9A8E80';
-  const cardBg    = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg    = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
   const chartW    = SW - 88;
   const birthDate = userData.birthDate || '1995-01-01';
 
@@ -525,7 +527,7 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
                     </View>
                   </View>
                 ))}
-                <View style={[bs.critAdviceBox, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderColor: '#E8705A22' }]}>
+                <View style={[bs.critAdviceBox, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: '#E8705A22' }]}>
                   <Text style={{ fontSize: 12, color: subColor, lineHeight: 18 }}>
                     💡 W dniach krytycznych unikaj ważnych decyzji, operacji i intensywnego wysiłku. To czas na obserwację i introspekcję.
                   </Text>
@@ -609,7 +611,7 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
                       </View>
                     </View>
                   </View>
-                  <View style={[bs.progressTrack, { backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.1)' }]}>
+                  <View style={[bs.progressTrack, { backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.1)' }]}>
                     <View style={[bs.progressFill, { width: pct + '%', backgroundColor: cycle.color }]} />
                   </View>
                   <Text style={[bs.cyclePeriod, { color: subColor }]}>Cykl: {cycle.days} dni · Kolejny szczyt za ~{Math.round(cycle.days / 4)} dni</Text>

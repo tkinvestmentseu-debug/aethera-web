@@ -66,7 +66,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../store/useAuthStore';
 import { FeedService } from '../core/services/community/feed.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const SP = layout.padding.screen; // 22
 
@@ -519,7 +519,7 @@ const PostCard = React.memo(({ post, isLight, index, onComment }: PostCardProps)
         </View>
 
         {/* Action row */}
-        <View style={[s.actionRow, { borderTopColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }]}>
+        <View style={[s.actionRow, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)' }]}>
           <Pressable
             style={s.actionBtn}
             onPress={() => { HapticsService.impact(); onComment(post); }}
@@ -527,7 +527,7 @@ const PostCard = React.memo(({ post, isLight, index, onComment }: PostCardProps)
             <MessageCircle size={13} color={subColor} strokeWidth={1.5} />
             <Text style={[s.actionBtnText, { color: subColor }]}>Komentuj</Text>
           </Pressable>
-          <View style={[s.actionDivider, { backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)' }]} />
+          <View style={[s.actionDivider, { backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)' }]} />
           <Pressable
             style={s.actionBtn}
             onPress={() => HapticsService.impact()}
@@ -619,7 +619,7 @@ const ComposeModal = ({ visible, onClose, onSubmit, isLight }: { visible: boolea
   const bg = isLight ? '#FFFFFF' : '#130D22';
   const textColor = isLight ? '#1A1020' : '#F0EBF8';
   const subColor = isLight ? 'rgba(40,30,60,0.54)' : 'rgba(200,190,220,0.52)';
-  const inputBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)';
+  const inputBg = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)';
   const inputBorder = isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)';
   const cardBorder = isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.09)';
 
@@ -792,10 +792,10 @@ const CommentsModal = ({
   const bg = isLight ? '#FFFFFF' : '#130D22';
   const textColor = isLight ? '#1A1020' : '#F0EBF8';
   const subColor = isLight ? 'rgba(40,30,60,0.54)' : 'rgba(200,190,220,0.52)';
-  const inputBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)';
+  const inputBg = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)';
   const inputBorder = isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)';
   const cardBorder = isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.09)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
 
   if (!post) return null;
   const def = POST_TYPES[post.type];
@@ -873,11 +873,11 @@ const CommentsModal = ({
 export const GlobalShareScreen = () => {
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const { currentUser } = useAuthStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
+    const currentUser = useAuthStore(s => s.currentUser);
   const textColor = isLight ? '#1A1020' : '#F0EBF8';
   const subColor = isLight ? 'rgba(40,30,60,0.54)' : 'rgba(200,190,220,0.52)';
   const cardBorder = isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.09)';
@@ -953,7 +953,9 @@ export const GlobalShareScreen = () => {
   const keyExtractor = useCallback((item: FeedPost) => item.id, []);
 
   return (
-    <SafeAreaView edges={['top']} style={[s.safeArea, { backgroundColor: currentTheme.background }]}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView edges={['top']} style={[s.safeArea, {}]}>
+
       <GlobalShareBg isLight={isLight} />
 
       {/* ── HEADER ── */}
@@ -1103,7 +1105,8 @@ export const GlobalShareScreen = () => {
         onClose={() => setCommentPost(null)}
         isLight={isLight}
       />
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

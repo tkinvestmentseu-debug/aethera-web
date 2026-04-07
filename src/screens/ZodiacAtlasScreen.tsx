@@ -24,7 +24,8 @@ import {
   Heart, BookOpen, Zap, Wind, Info,
 } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
-
+import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 
 // ─── ZODIAC SIGN DATA ───────────────────────────────────────────────────────
@@ -600,7 +601,7 @@ function SkeletonLoader2({ isLight }: { isLight: boolean }) {
       {[70, 50, 90, 40, 65].map((h, i) => (
         <Animated.View key={i} style={[{
           height: h, borderRadius: 10, marginBottom: 10,
-          backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)',
+          backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)',
         }, shimStyle]} />
       ))}
     </View>
@@ -611,14 +612,14 @@ function SkeletonLoader2({ isLight }: { isLight: boolean }) {
 export const ZodiacAtlasScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#2A1A0A' : '#F0EBE2';
   const subColor = isLight ? 'rgba(50,30,10,0.55)' : 'rgba(220,200,160,0.55)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
   const goldColor = isLight ? '#8B6914' : '#CEAE72';
 
   // Determine user sign index
@@ -697,14 +698,16 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
   ] as const;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <LinearGradient colors={bgColors} style={{ flex: 1 }}>
         {/* ── Header ── */}
         <View style={{
           flexDirection: 'row', alignItems: 'center',
           paddingHorizontal: layout.padding.screen, paddingTop: 8, paddingBottom: 10,
           borderBottomWidth: 1,
-          borderBottomColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)',
+          borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)',
         }}>
           <Pressable
             onPress={() => { if (navigation.canGoBack()) navigation.goBack(); else navigation.navigate('Main'); }}
@@ -750,7 +753,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
                   style={{
                     paddingHorizontal: 12, paddingVertical: 7,
                     borderRadius: 20,
-                    backgroundColor: active ? s.color : (isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)'),
+                    backgroundColor: active ? s.color : (isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.07)'),
                     borderWidth: 1,
                     borderColor: active ? s.color : (isLight ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)'),
                     flexDirection: 'row', alignItems: 'center', gap: 5,
@@ -800,7 +803,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
                     <View style={{ backgroundColor: `${ELEMENT_COLORS[sign.element]}22`, borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3, borderWidth: 1, borderColor: `${ELEMENT_COLORS[sign.element]}44` }}>
                       <Text style={{ fontSize: 10, color: ELEMENT_COLORS[sign.element], fontWeight: '600' }}>{sign.element}</Text>
                     </View>
-                    <View style={{ backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.08)', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 }}>
+                    <View style={{ backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.08)', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 }}>
                       <Text style={{ fontSize: 10, color: subColor }}>{sign.quality}</Text>
                     </View>
                   </View>
@@ -819,7 +822,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
                   { label: 'DOM', val: sign.house },
                   { label: 'POLARNOŚĆ', val: sign.polarity },
                 ].map((m) => (
-                  <View key={m.label} style={{ flex: 1, backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)', borderRadius: 12, padding: 10, alignItems: 'center' }}>
+                  <View key={m.label} style={{ flex: 1, backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.06)', borderRadius: 12, padding: 10, alignItems: 'center' }}>
                     <Text style={{ fontSize: 8, color: subColor, letterSpacing: 1 }}>{m.label}</Text>
                     <Text style={{ fontSize: 12, fontWeight: '700', color: textColor, marginTop: 3 }}>{m.val}</Text>
                   </View>
@@ -840,7 +843,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
               </View>
 
               {/* Tabs */}
-              <View style={{ flexDirection: 'row', backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)', borderRadius: 14, padding: 3, marginBottom: 14 }}>
+              <View style={{ flexDirection: 'row', backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.06)', borderRadius: 14, padding: 3, marginBottom: 14 }}>
                 {TABS.map((tab) => (
                   <Pressable
                     key={tab.key}
@@ -889,7 +892,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
                       { k: 'KOLOR', v: sign.color_assoc },
                       { k: 'CIAŁO', v: sign.bodyPart },
                     ].map((a) => (
-                      <View key={a.k} style={{ backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)', borderRadius: 12, padding: 10, minWidth: '44%', flex: 1 }}>
+                      <View key={a.k} style={{ backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.05)', borderRadius: 12, padding: 10, minWidth: '44%', flex: 1 }}>
                         <Text style={{ fontSize: 8, color: subColor, letterSpacing: 1 }}>{a.k}</Text>
                         <Text style={{ fontSize: 11, color: textColor, marginTop: 3, fontWeight: '600' }}>{a.v}</Text>
                       </View>
@@ -914,7 +917,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
                     const d = decans[dk];
                     return (
                       <View key={dk} style={{
-                        backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)',
+                        backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)',
                         borderRadius: 14, padding: 14, marginBottom: 10,
                         borderLeftWidth: 3, borderLeftColor: sign.color,
                       }}>
@@ -1062,9 +1065,9 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
                   onPress={() => { handleSelectSign(SIGNS.indexOf(compSign)); scrollRef.current?.scrollTo({ y: 0, animated: true }); }}
                   style={{
                     flexDirection: 'row', alignItems: 'center',
-                    backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)',
+                    backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)',
                     borderRadius: 12, padding: 12, marginBottom: 8,
-                    borderWidth: 1, borderColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)',
+                    borderWidth: 1, borderColor: isLight ? 'rgba(139,100,42,0.45)' : 'rgba(255,255,255,0.06)',
                   }}
                 >
                   <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: compSign.color, alignItems: 'center', justifyContent: 'center', marginRight: 12 }}>
@@ -1131,7 +1134,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
                   flexDirection: 'row', alignItems: 'center',
                   paddingVertical: 9,
                   borderBottomWidth: 1,
-                  borderBottomColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)',
+                  borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)',
                 }}
               >
                 <Text style={{ fontSize: 18, width: 32, textAlign: 'center', color: s.color }}>{s.symbol}</Text>
@@ -1147,9 +1150,10 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
             ))}
           </Animated.View>
 
-          <View style={{ height: 40 }} />
+          <EndOfContentSpacer />
         </ScrollView>
       </LinearGradient>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };

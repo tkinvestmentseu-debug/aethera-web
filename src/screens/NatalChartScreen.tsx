@@ -8,7 +8,7 @@ import Svg, { Circle, Line, Path, G, Defs, RadialGradient, Stop, Text as SvgText
 import Animated, { FadeInDown, useSharedValue, useAnimatedStyle, withRepeat, withTiming, Easing } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { ChevronLeft, Star, MapPin, Clock } from 'lucide-react-native';
-import { getResolvedTheme } from '../core/theme/tokens';
+import { getResolvedTheme, isLightBg } from '../core/theme/tokens';
 import { layout } from '../core/theme/designSystem';
 import { useAppStore } from '../store/useAppStore';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
@@ -78,7 +78,7 @@ return (
       </Defs>
       <Circle cx={cx} cy={cy} r={CHART_R + 20} fill="url(#chartGrad)" />
       {[CHART_R, CHART_R * 0.7, CHART_R * 0.4].map((r, i) => (
-        <Circle key={i} cx={cx} cy={cy} r={r} stroke={isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.07)'} strokeWidth={1} fill="none" />
+        <Circle key={i} cx={cx} cy={cy} r={r} stroke={isDark ? 'rgba(255,255,255,0.08)' : 'rgba(122,95,54,0.14)'} strokeWidth={1} fill="none" />
       ))}
       {Array.from({ length: n }, (_, i) => {
         const angle = (i * 30 - 90) * Math.PI / 180;
@@ -140,15 +140,19 @@ return (
 };
 
 export const NatalChartScreen = ({ navigation }: any) => {
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
+    const themeName = useAppStore(s => s.themeName);
+  const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
   const currentTheme = getResolvedTheme(themeName, userData?.preferences?.colorScheme);
-  const isDark = !currentTheme.background.startsWith('#F');
+  const isDark = !isLightBg(currentTheme.background);
   const isLight = !isDark;
   const textColor = isLight ? '#1A0800' : '#FFF7E0';
   const subColor = isLight ? 'rgba(26,8,0,0.5)' : 'rgba(255,247,224,0.5)';
   const { t } = useTranslation();
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
 
   const [activeTab, setActiveTab] = useState<'chart' | 'planets' | 'houses'>('chart');
   const [expandedHouse, setExpandedHouse] = useState<number | null>(null);
@@ -169,7 +173,9 @@ export const NatalChartScreen = ({ navigation }: any) => {
     }
   };
 return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <View style={StyleSheet.absoluteFill} pointerEvents="none">
         <LinearGradient colors={isDark ? ['#0A0500', '#120A00', '#1A1000'] : ['#FFFBF0', '#FFF8E8', '#FFF5E0']} style={StyleSheet.absoluteFill} />
       </View>
@@ -277,7 +283,8 @@ return (
         </View>
 <EndOfContentSpacer />
       </ScrollView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

@@ -1,4 +1,5 @@
-﻿import { getLoadingMessage } from '../core/utils/loadingMessages';
+import { getLoadingMessage } from '../core/utils/loadingMessages';
+import { useTheme } from '../core/hooks/useTheme';
 // @ts-nocheck
 import { SpeakButton } from '../components/SpeakButton';
 import React, { useEffect, useState } from 'react';
@@ -375,12 +376,14 @@ const formatPalmResponse = (text: string): string[] => {
 export const PalmReadingScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem, userData } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#2C1C08' : 'rgba(240,235,226,0.92)';
   const subColor = isLight ? '#5A3A18' : 'rgba(255,255,255,0.60)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
   const cardBorder = isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)';
   const isFav = isFavoriteItem('palm-reading');
 
@@ -528,9 +531,9 @@ Pisz w języku użytkownika. Każda sekcja zaczyna się dokładnie od podanego n
               <LinearGradient colors={[ACCENT + '16', 'transparent'] as const} style={StyleSheet.absoluteFill} />
               <Text style={ps.sectionEyebrow}>KOMNATY CHIROMANCJI</Text>
               <View style={ps.chambersGrid}>
-                <Pressable onPress={() => setActiveTab('learn')} style={[ps.chamberTile, activeTab === 'learn' && { borderColor: ACCENT + '66', backgroundColor: ACCENT + '12' }]}><Hand color={ACCENT} size={16} /><Text style={ps.chamberTitle}>Poznaj linie</Text><Text style={ps.chamberCopy}>Uczysz się znaczeń, układów i subtelnych wariantów dłoni.</Text></Pressable>
-                <Pressable onPress={() => setActiveTab('scan')} style={[ps.chamberTile, activeTab === 'scan' && { borderColor: ACCENT + '66', backgroundColor: ACCENT + '12' }]}><ZoomIn color={ACCENT} size={16} /><Text style={ps.chamberTitle}>Skan dłoni</Text><Text style={ps.chamberCopy}>AI rozkłada odczyt na sekcje i syntetyczne przesłanie.</Text></Pressable>
-                <View style={ps.chamberTile}><Sparkles color={ACCENT} size={16} /><Text style={ps.chamberTitle}>Przesłanie</Text><Text style={ps.chamberCopy}>Na końcu dostajesz nie tylko opis, ale osobisty ton całej dłoni.</Text></View>
+                <Pressable onPress={() => setActiveTab('learn')} style={[ps.chamberTile, isLight && { backgroundColor: 'rgba(255,255,255,0.88)', borderColor: 'rgba(139,100,42,0.20)' }, activeTab === 'learn' && { borderColor: ACCENT + '66', backgroundColor: ACCENT + '12' }]}><Hand color={ACCENT} size={16} /><Text style={ps.chamberTitle}>Poznaj linie</Text><Text style={[ps.chamberCopy, { color: subColor }]}>Uczysz się znaczeń, układów i subtelnych wariantów dłoni.</Text></Pressable>
+                <Pressable onPress={() => setActiveTab('scan')} style={[ps.chamberTile, isLight && { backgroundColor: 'rgba(255,255,255,0.88)', borderColor: 'rgba(139,100,42,0.20)' }, activeTab === 'scan' && { borderColor: ACCENT + '66', backgroundColor: ACCENT + '12' }]}><ZoomIn color={ACCENT} size={16} /><Text style={ps.chamberTitle}>Skan dłoni</Text><Text style={[ps.chamberCopy, { color: subColor }]}>AI rozkłada odczyt na sekcje i syntetyczne przesłanie.</Text></Pressable>
+                <View style={[ps.chamberTile, isLight && { backgroundColor: 'rgba(255,255,255,0.88)', borderColor: 'rgba(139,100,42,0.20)' }]}><Sparkles color={ACCENT} size={16} /><Text style={ps.chamberTitle}>Przesłanie</Text><Text style={[ps.chamberCopy, { color: subColor }]}>Na końcu dostajesz nie tylko opis, ale osobisty ton całej dłoni.</Text></View>
               </View>
             </View>
           </Animated.View>

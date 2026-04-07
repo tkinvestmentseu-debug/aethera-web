@@ -13,7 +13,7 @@ import Animated, {
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { ChevronLeft, Star, Users, Play, Pause, RotateCcw, CheckCircle2, Circle as CircleIcon } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
-import { getResolvedTheme } from '../core/theme/tokens';
+import { getResolvedTheme, isLightBg } from '../core/theme/tokens';
 import { layout } from '../core/theme/designSystem';
 import { useAppStore } from '../store/useAppStore';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
@@ -22,7 +22,7 @@ import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
 import { AudioService } from '../core/services/audio.service';
 import { useAudioCleanup } from '../core/hooks/useAudioCleanup';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#6EE7B7';
 const RITUAL_DURATION = 11 * 60; // 11 minutes in seconds
@@ -215,14 +215,16 @@ const RITUAL_STEPS = [
 // ─── Main screen ───────────────────────────────────────────────────────────────
 export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) => {
   const { t } = useTranslation();
-  const { themeName, userData, addFavoriteItem, removeFavoriteItem, isFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isDark = !currentTheme.background.startsWith('#F');
-  const isLight = !isDark;
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
+  const isDark = !isLightBg(currentTheme.background);
   const textColor = isLight ? '#0A2010' : '#E8F8EF';
   const subColor = isLight ? 'rgba(10,32,16,0.5)' : 'rgba(232,248,239,0.5)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
   const insets = useSafeAreaInsets();
 
   useAudioCleanup();
@@ -403,7 +405,9 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
   const nodeX = (col: number) => TREE_W / 2 + col * (TREE_W / 5);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <AncestralBg isDark={isDark} />
 
       {/* Header */}
@@ -516,7 +520,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
                       <Circle cx={cx} cy={cy} r={r + 4} fill={ACCENT} opacity={0.06} />
                       <Circle
                         cx={cx} cy={cy} r={r}
-                        fill={hasName ? ACCENT + '33' : (isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)')}
+                        fill={hasName ? ACCENT + '33' : (isDark ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.88)')}
                         stroke={hasName ? ACCENT : (isDark ? 'rgba(110,231,183,0.25)' : 'rgba(110,231,183,0.35)')}
                         strokeWidth={1.2}
                       />
@@ -956,7 +960,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
               autoFocus
               returnKeyType="done"
               onSubmitEditing={saveEdit}
-              style={[styles.modalInput, { color: textColor, borderColor: ACCENT + '44', backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)' }]}
+              style={[styles.modalInput, { color: textColor, borderColor: ACCENT + '44', backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(240,228,210,0.90)' }]}
             />
             <View style={{ flexDirection: 'row', gap: 10, marginTop: 4 }}>
               <Pressable
@@ -976,7 +980,8 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
         </Pressable>
         </KeyboardAvoidingView>
       </Modal>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

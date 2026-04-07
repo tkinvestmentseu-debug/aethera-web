@@ -1397,7 +1397,7 @@ const styles = StyleSheet.create({
   affirmText: { fontSize: 14, lineHeight: 23, fontStyle: 'italic', fontWeight: '500' },
 
   // Related cards
-  relatedRow: { gap: 10, paddingRight: 4 },
+  relatedRow: { gap: 10, paddingRight: 22 },
   relatedCard: {
     width: 120,
     borderRadius: 16,

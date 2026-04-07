@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { Typography } from './Typography';
@@ -7,14 +7,12 @@ import { HapticsService } from '../core/services/haptics.service';
 import { useAppStore } from '../store/useAppStore';
 import { getResolvedTheme } from '../core/theme/tokens';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 export const FavoriteAffirmationsDeck: React.FC = () => {
   const { t } = useTranslation();
-  const { themeName } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const { isLight } = useTheme();
+  const cardBg = isLight ? 'rgba(122,95,54,0.08)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)';
 
   const favorites              = useFavoriteAffirmationsStore((s) => s.favorites);
   const [index, setIndex]      = useState(0);

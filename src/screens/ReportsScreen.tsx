@@ -31,7 +31,7 @@ import { AiService } from '../core/services/ai.service';
 import { resolveUserFacingText } from '../core/utils/contentResolver';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { Dimensions } from 'react-native';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 
 interface SoulReportSection {
@@ -530,18 +530,22 @@ const COSMIC_EVENTS_STATIC = [
 export const ReportsScreen = ({ navigation }: any) => {
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
-  const {
-    themeName, streaks, userData, meditationSessions, breathworkSessions,
-    gratitudeEntries, dailyProgress, addFavoriteItem, isFavoriteItem, removeFavoriteItem,
-  } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const streaks = useAppStore(s => s.streaks);
+  const userData = useAppStore(s => s.userData);
+  const meditationSessions = useAppStore(s => s.meditationSessions);
+  const breathworkSessions = useAppStore(s => s.breathworkSessions);
+  const gratitudeEntries = useAppStore(s => s.gratitudeEntries);
+  const dailyProgress = useAppStore(s => s.dailyProgress);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const accent = currentTheme.primary;
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const dividerColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
-  const rowBg = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const dividerColor = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)';
+  const rowBg = isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.04)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
   const aiAvailable = AiService.isLaunchAvailable();
   const { entries: _entries } = useJournalStore();
   const entries = _entries ?? [];
@@ -1011,8 +1015,8 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInDown.duration(560)}>
             <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>Twój profil duchowy</Typography>
             <View style={[styles.heroBanner, {
-              backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
-              borderColor: isLight ? 'rgba(0,0,0,0.07)' : accent + '22',
+              backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)',
+              borderColor: isLight ? 'rgba(139,100,42,0.32)' : accent + '22',
             }]}>
               {/* Left: arc + level */}
               <View style={{ alignItems: 'center', marginRight: 16 }}>
@@ -1097,7 +1101,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
               Które dni były aktywne — i jakie praktyki zostały wykonane. Ikony pokazują rodzaj aktywności duchowej.
             </Typography>
-            <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }]}>
+            <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)' }]}>
               <WeekGrid
                 entries={entries}
                 meditationSessions={meditationSessions}
@@ -1130,7 +1134,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 8, lineHeight: 20 }}>
               Emocjonalny łuk tygodnia — jak zmieniała się Twoja energia od poniedziałku do dziś.
             </Typography>
-            <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }]}>
+            <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)' }]}>
               {entries.length > 0 ? (
                 <MoodChart entries={entries} accent={accent} textColor={textColor} subColor={subColor} />
               ) : (
@@ -1161,7 +1165,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
               Wizualny podział czasu między różne formy pracy duchowej.
             </Typography>
             {practiceStats.length > 0 ? (
-              <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)', paddingBottom: 16 }]}>
+              <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)', paddingBottom: 16 }]}>
                 <DistributionBarChart data={practiceStats} accent={accent} subColor={subColor} cardBg={cardBg} />
                 {/* Stacked bars below */}
                 {practiceStats.map((row, i) => (
@@ -1173,7 +1177,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
                       </View>
                       <Typography variant="microLabel" style={{ color: subColor }}>{row.minutes} min ({Math.round(row.pct * 100)}%)</Typography>
                     </View>
-                    <View style={[styles.practiceBarBg, { backgroundColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }]}>
+                    <View style={[styles.practiceBarBg, { backgroundColor: isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)' }]}>
                       <View style={[styles.practiceBarFill, { width: `${Math.round(row.pct * 100)}%`, backgroundColor: row.color }]} />
                     </View>
                   </Animated.View>
@@ -1197,7 +1201,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
               Każda komórka to jeden dzień. Im głębszy kolor, tym więcej aktywności w tym dniu.
             </Typography>
-            <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }]}>
+            <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)' }]}>
               <StreakCalendar
                 entries={entries}
                 meditationSessions={meditationSessions}
@@ -1349,7 +1353,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
                 <Animated.View key={record.label} entering={FadeInUp.delay(100 + idx * 50).duration(420)}>
                   <View style={[styles.recordCard, {
                     backgroundColor: record.available ? (record.color + '0D') : cardBg,
-                    borderColor: record.available ? (record.color + '30') : (isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)'),
+                    borderColor: record.available ? (record.color + '30') : (isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)'),
                   }]}>
                     <View style={{ width: 44, height: 44, borderRadius: 12, backgroundColor: record.color + '20', alignItems: 'center', justifyContent: 'center', marginRight: 14 }}>
                       <Typography style={{ fontSize: 20 }}>{record.icon}</Typography>
@@ -1387,7 +1391,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
                 <Animated.View key={item.label} entering={FadeInUp.delay(115 + idx * 45).duration(420)}>
                   <View style={[styles.growthCard, {
                     backgroundColor: cardBg,
-                    borderColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)',
+                    borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)',
                   }]}>
                     <View style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: item.color + '20', alignItems: 'center', justifyContent: 'center', marginRight: 12 }}>
                       <item.icon color={item.color} size={18} strokeWidth={1.8} />
@@ -1442,7 +1446,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
                 <Animated.View key={event.label} entering={FadeInUp.delay(125 + idx * 40).duration(380)}>
                   <View style={[styles.cosmicEventRow, {
                     backgroundColor: event.days <= 3 ? (event.color + '12') : cardBg,
-                    borderColor: event.days <= 3 ? (event.color + '40') : (isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)'),
+                    borderColor: event.days <= 3 ? (event.color + '40') : (isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)'),
                   }]}>
                     <Typography style={{ fontSize: 22, marginRight: 12 }}>{event.icon}</Typography>
                     <View style={{ flex: 1 }}>
@@ -1496,7 +1500,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
               {COSMIC_EVENTS_STATIC.map((event, idx) => (
                 <View key={idx} style={[styles.cosmicEventRow, {
                   backgroundColor: cardBg,
-                  borderColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)',
+                  borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)',
                 }]}>
                   <Typography style={{ fontSize: 20, marginRight: 12 }}>{event.icon}</Typography>
                   <View style={{ flex: 1 }}>
@@ -1519,7 +1523,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
               Najczęstsze słowa z wszystkich Twoich wpisów — tematy, które wracają bez zaproszenia. Im większe, tym częstsze.
             </Typography>
-            <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }]}>
+            <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)' }]}>
               {keyWords.length > 0 ? (
                 <WordCloud words={keyWords} accent={accent} subColor={subColor} cardBg={cardBg} />
               ) : (
@@ -1710,7 +1714,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
                 <View key={mood} style={styles.moodRow}>
                   <Typography variant="bodyRefined" style={[styles.moodName, { color: textColor }]}>{mood}</Typography>
                   <View style={styles.moodBarContainer}>
-                    <View style={[styles.moodBarBg, { backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)' }]}>
+                    <View style={[styles.moodBarBg, { backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)' }]}>
                       <View style={[styles.moodBarFill, { width: `${pct}%`, backgroundColor: accent }]} />
                     </View>
                   </View>
@@ -1813,7 +1817,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
 
             {/* Share summary card preview */}
             <View style={[styles.exportPreviewCard, {
-              backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
+              backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)',
               borderColor: accent + '25',
             }]}>
               <LinearGradient

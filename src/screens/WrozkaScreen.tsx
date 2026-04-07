@@ -2,8 +2,8 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import {
-  Dimensions, Keyboard, Modal, Platform, Pressable,
-  ScrollView, StyleSheet, Text, TextInput, View,
+  Dimensions, findNodeHandle, Keyboard, Modal, PanResponder,
+  Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -611,47 +611,107 @@ interface ChatMsg {
 const ChatMessage = ({ msg, deckId, accentColor }: { msg: ChatMsg; deckId: string; accentColor: string }) => {
   const isOracle = msg.role === 'oracle';
   const { isLight } = useTheme();
-  const oracleBg = isLight ? 'rgba(100,60,200,0.10)' : 'rgba(109,40,217,0.18)';
-  const userBg = isLight ? 'rgba(80,50,150,0.07)' : 'rgba(255,255,255,0.06)';
-  const oracleBorder = isLight ? 'rgba(100,60,200,0.20)' : 'rgba(206,174,114,0.20)';
-  const userBorder = isLight ? 'rgba(80,50,150,0.15)' : 'rgba(255,255,255,0.10)';
-  const oracleTextColor = isLight ? '#2D1A50' : 'rgba(245,241,234,0.90)';
-  const userTextColor = isLight ? '#3D2060' : 'rgba(245,241,234,0.75)';
+
+  if (isOracle) {
+    return (
+      <Animated.View entering={FadeInUp.springify()} style={cm.oracleWrapper}>
+        {/* Avatar + label row */}
+        <View style={cm.oracleHeader}>
+          <LinearGradient
+            colors={isLight ? ['#7C3AED', '#9D4EDD'] : ['#6D28D9', '#9333EA']}
+            style={cm.oracleAvatar}>
+            <Text style={{ color: '#FFE5A0', fontSize: 14, fontWeight: '700' }}>✦</Text>
+          </LinearGradient>
+          <View style={{ marginLeft: 8 }}>
+            <Text style={{ color: GOLD, fontSize: 9, letterSpacing: 2.5, fontWeight: '800' }}>WRÓŻKA AETHERA</Text>
+            <View style={{ flexDirection: 'row', gap: 3, marginTop: 2 }}>
+              {[0,1,2].map(i => <View key={i} style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: GOLD, opacity: 0.5 + i * 0.2 }} />)}
+            </View>
+          </View>
+        </View>
+
+        {/* Bubble */}
+        <LinearGradient
+          colors={isLight
+            ? ['rgba(124,58,237,0.10)', 'rgba(147,51,234,0.06)', 'rgba(109,40,217,0.04)']
+            : ['rgba(109,40,217,0.28)', 'rgba(88,28,220,0.18)', 'rgba(60,20,160,0.12)']}
+          start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+          style={[cm.oracleBubble, {
+            borderColor: isLight ? 'rgba(124,58,237,0.28)' : 'rgba(206,174,114,0.30)',
+          }]}>
+          {/* Gold left accent bar */}
+          <View style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 3,
+            backgroundColor: GOLD, borderTopLeftRadius: 18, borderBottomLeftRadius: 18, opacity: 0.7 }} />
+
+          {msg.extraCard && (
+            <View style={{ flexDirection: 'row', gap: 12, marginBottom: 12, alignItems: 'flex-start',
+              backgroundColor: isLight ? 'rgba(124,58,237,0.06)' : 'rgba(206,174,114,0.08)',
+              borderRadius: 12, padding: 10, borderWidth: 1,
+              borderColor: isLight ? 'rgba(124,58,237,0.15)' : 'rgba(206,174,114,0.18)' }}>
+              <View style={{ width: 50, height: 82, borderRadius: 8, overflow: 'hidden',
+                borderWidth: 1.5, borderColor: GOLD + '66' }}>
+                <TarotCardVisual deck={getTarotDeckById(deckId)} card={msg.extraCard.card} isReversed={msg.extraCard.isReversed} faceDown={false} size="small" />
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text style={{ color: GOLD, fontSize: 8.5, letterSpacing: 2.5, fontWeight: '800', marginBottom: 4 }}>
+                  {msg.extraCard.label.toUpperCase()}
+                </Text>
+                <Text style={{ color: isLight ? '#2D1A50' : '#F5F1EA', fontSize: 15, fontWeight: '800', lineHeight: 20, marginBottom: 4 }}>
+                  {resolveUserFacingText(msg.extraCard.card.name)}
+                </Text>
+                {msg.extraCard.isReversed && (
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                    <View style={{ width: 5, height: 5, borderRadius: 3, backgroundColor: '#F87171' }} />
+                    <Text style={{ color: '#F87171', fontSize: 10, fontWeight: '600' }}>odwrócona</Text>
+                  </View>
+                )}
+              </View>
+            </View>
+          )}
+
+          <Text style={[cm.oracleText, {
+            color: isLight ? '#2D1A50' : 'rgba(245,241,234,0.92)',
+          }]}>{msg.content}</Text>
+
+          {/* Sparkle decoration bottom-right */}
+          <View style={{ alignSelf: 'flex-end', flexDirection: 'row', gap: 3, marginTop: 8, opacity: 0.45 }}>
+            <Sparkles size={9} color={GOLD} />
+          </View>
+        </LinearGradient>
+      </Animated.View>
+    );
+  }
+
+  /* User bubble */
   return (
-    <Animated.View entering={FadeInUp.springify()} style={[cm.bubble, {
-      backgroundColor: isOracle ? oracleBg : userBg,
-      borderColor: isOracle ? oracleBorder : userBorder,
-      marginLeft: isOracle ? 0 : 40,
-    }]}>
-      {isOracle && (
-        <View style={cm.oracleLabel}>
-          <Sparkles size={10} color={GOLD} />
-          <Text style={{ color: GOLD, fontSize: 9, letterSpacing: 2, fontWeight: '700', marginLeft: 4 }}>WRÓŻKA</Text>
-        </View>
-      )}
-      {msg.extraCard && (
-        <View style={{ flexDirection: 'row', gap: 12, marginBottom: 10, alignItems: 'flex-start' }}>
-          <View style={{ width: 48, height: 78, borderRadius: 6, overflow: 'hidden',
-            borderWidth: 1, borderColor: 'rgba(206,174,114,0.5)' }}>
-            <TarotCardVisual deck={getTarotDeckById(deckId)} card={msg.extraCard.card} isReversed={msg.extraCard.isReversed} faceDown={false} size="small" />
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text style={{ color: GOLD, fontSize: 9, letterSpacing: 2, marginBottom: 2 }}>{msg.extraCard.label.toUpperCase()}</Text>
-            <Text style={{ color: isLight ? '#251D16' : '#F5F1EA', fontSize: 14, fontWeight: '700' }}>
-              {resolveUserFacingText(msg.extraCard.card.name)}
-            </Text>
-          </View>
-        </View>
-      )}
-      <Text style={[cm.text, { color: isOracle ? oracleTextColor : userTextColor }]}>{msg.content}</Text>
+    <Animated.View entering={FadeInUp.springify()} style={cm.userWrapper}>
+      <LinearGradient
+        colors={isLight
+          ? ['rgba(80,50,150,0.09)', 'rgba(60,30,120,0.05)']
+          : ['rgba(255,255,255,0.09)', 'rgba(255,255,255,0.04)']}
+        start={{ x: 1, y: 0 }} end={{ x: 0, y: 1 }}
+        style={[cm.userBubble, {
+          borderColor: isLight ? 'rgba(80,50,150,0.18)' : 'rgba(255,255,255,0.12)',
+        }]}>
+        <Text style={[cm.userText, { color: isLight ? '#3D2060' : 'rgba(245,241,234,0.80)' }]}>
+          {msg.content}
+        </Text>
+      </LinearGradient>
     </Animated.View>
   );
 };
 
 const cm = StyleSheet.create({
-  bubble: { marginHorizontal: 18, marginBottom: 12, padding: 14, borderRadius: 14, borderWidth: 1 },
-  oracleLabel: { flexDirection: 'row', alignItems: 'center', marginBottom: 6 },
-  text: { fontSize: 14, lineHeight: 22 },
+  /* Oracle */
+  oracleWrapper: { marginLeft: 18, marginRight: 54, marginBottom: 18 },
+  oracleHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 8, paddingLeft: 2 },
+  oracleAvatar: { width: 32, height: 32, borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
+  oracleBubble: { borderRadius: 18, borderTopLeftRadius: 4, borderWidth: 1, padding: 16, paddingLeft: 19 },
+  oracleText: { fontSize: 14.5, lineHeight: 24, letterSpacing: 0.15 },
+  /* User */
+  userWrapper: { marginLeft: 54, marginRight: 18, marginBottom: 14 },
+  userBubble: { borderRadius: 18, borderTopRightRadius: 4, borderWidth: 1, padding: 13, paddingHorizontal: 15 },
+  userText: { fontSize: 14, lineHeight: 22 },
 });
 
 // ─── Intro Sheet ──────────────────────────────────────────────────────────────
@@ -986,6 +1046,7 @@ export const WrozkaScreen = ({ navigation, route }: any) => {
   const { isPremium } = usePremiumStore();
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
+  const oracleMsgRefs = useRef<Record<number, any>>({});
   const [keyboardHeight, setKeyboardHeight] = useState(0);
 
   useEffect(() => {
@@ -1294,7 +1355,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
       });
     }
     setIsChatLoading(false);
-    setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 300);
+    // Scrolling to oracle message start is handled by the useEffect watching lastOracleMsgIndex
   };
 
   const resetReading = () => {
@@ -1399,6 +1460,36 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
     }
   };
 
+  // ── Scroll to START of latest oracle message ────────────────────────────────
+  useEffect(() => {
+    if (lastOracleMsgIndex < 0) return;
+    setTimeout(() => {
+      const ref = oracleMsgRefs.current[lastOracleMsgIndex];
+      if (!ref || !scrollRef.current) return;
+      const node = findNodeHandle(scrollRef.current);
+      if (!node) return;
+      ref.measureLayout(
+        node,
+        (_l: number, top: number) => {
+          scrollRef.current?.scrollTo({ y: Math.max(0, top - 16), animated: true });
+        },
+        () => scrollRef.current?.scrollToEnd({ animated: true }),
+      );
+    }, 450);
+  }, [lastOracleMsgIndex]);
+
+  // ── Swipe-down on chat input bar → dismiss keyboard ─────────────────────────
+  const chatPanResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => false,
+      onMoveShouldSetPanResponder: (_, g) =>
+        g.dy > 12 && Math.abs(g.dy) > Math.abs(g.dx) * 1.5,
+      onPanResponderRelease: (_, g) => {
+        if (g.dy > 25) Keyboard.dismiss();
+      },
+    }),
+  ).current;
+
   return (
     <View style={{ flex: 1, backgroundColor: isLight ? '#F0E8F8' : '#05030F', paddingTop: insets.top }}>
       {/* Header */}
@@ -1430,8 +1521,10 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
         {/* Intro phase */}
         {phase === 'intro' && (
           <View style={{ flex: 1 }}>
-            {/* Table preview in background */}
-            <TarotTableScene phase="intro" />
+            {/* Table preview in background — absolute so it doesn't push content down */}
+            <View style={{ position: 'absolute', top: 0, left: 0, right: 0, overflow: 'hidden' }}>
+              <TarotTableScene phase="intro" />
+            </View>
             {/* Tagline */}
             <View style={{ alignItems: 'center', paddingTop: 14, paddingBottom: 10 }}>
               <Text style={{ color: isLight ? 'rgba(139,100,42,0.70)' : GOLD_DIM, fontSize: 11, letterSpacing: 3, fontWeight: '700' }}>
@@ -1556,7 +1649,10 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                   )}
 
                   {chatMessages.map((msg, i) => (
-                    <View key={i}>
+                    <View
+                      key={i}
+                      ref={msg.role === 'oracle' ? (r) => { if (r) oracleMsgRefs.current[i] = r; } : undefined}
+                    >
                       <ChatMessage msg={msg} deckId={deckId} accentColor={topicColor} />
                       {/* ── Feature 5: Save quote button after oracle messages ── */}
                       {msg.role === 'oracle' && (
@@ -1653,26 +1749,42 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
 
             {/* Chat Input (only after all cards revealed) */}
             {showChat && (
-              <View style={[wr.chatInputContainer, {
-                bottom: keyboardHeight > 0 ? keyboardHeight : 0,
-                paddingBottom: keyboardHeight > 0 ? 8 : Math.max(insets.bottom + 8, 12),
-                backgroundColor: isLight ? 'rgba(244,238,252,0.97)' : 'rgba(5,3,15,0.92)',
-                borderTopWidth: 1,
-                borderTopColor: isLight ? 'rgba(100,60,200,0.15)' : 'rgba(206,174,114,0.15)',
-              }]}>
+              <View
+                {...chatPanResponder.panHandlers}
+                style={[wr.chatInputContainer, {
+                  bottom: keyboardHeight > 0 ? keyboardHeight : 0,
+                  paddingBottom: keyboardHeight > 0 ? 8 : Math.max(insets.bottom + 8, 12),
+                  backgroundColor: isLight ? 'rgba(244,238,252,0.97)' : 'rgba(5,3,15,0.94)',
+                  borderTopWidth: 1,
+                  borderTopColor: isLight ? 'rgba(100,60,200,0.18)' : 'rgba(206,174,114,0.20)',
+                }]}
+              >
+                {/* Prompt hint — visible when keyboard is down */}
+                {keyboardHeight === 0 && !chatInput && (
+                  <Text style={{
+                    textAlign: 'center',
+                    fontSize: 11,
+                    letterSpacing: 1.5,
+                    fontWeight: '600',
+                    color: isLight ? 'rgba(100,60,200,0.55)' : 'rgba(206,174,114,0.55)',
+                    marginBottom: 8,
+                  }}>
+                    ✦ Dotknij, by porozmawiać z wróżką ✦
+                  </Text>
+                )}
                 <View style={[wr.chatInputRow, {
-                  borderColor: isLight ? 'rgba(100,60,200,0.20)' : 'rgba(206,174,114,0.25)',
+                  borderColor: isLight ? 'rgba(100,60,200,0.22)' : 'rgba(206,174,114,0.28)',
                 }]}>
                   <TextInput
                     ref={inputRef}
                     value={chatInput}
                     onChangeText={setChatInput}
-                    placeholder="Zapytaj wróżkę... lub poproś o kolejną kartę"
-                    placeholderTextColor={isLight ? 'rgba(60,30,100,0.40)' : 'rgba(245,241,234,0.28)'}
+                    placeholder="Zadaj pytanie lub poproś o kolejną kartę..."
+                    placeholderTextColor={isLight ? 'rgba(60,30,100,0.38)' : 'rgba(245,241,234,0.26)'}
                     style={[wr.chatInput, {
                       color: isLight ? '#2D1A50' : '#F5F1EA',
-                      backgroundColor: isLight ? 'rgba(255,255,255,0.90)' : 'rgba(20,12,40,0.96)',
-                      borderColor: isLight ? 'rgba(100,60,200,0.20)' : 'rgba(255,255,255,0.12)',
+                      backgroundColor: isLight ? 'rgba(255,255,255,0.92)' : 'rgba(20,12,40,0.96)',
+                      borderColor: isLight ? 'rgba(100,60,200,0.18)' : 'rgba(255,255,255,0.10)',
                     }]}
                     multiline
                     onFocus={() => setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 350)}
@@ -1683,15 +1795,15 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                   <Pressable
                     onPress={sendChatMessage}
                     disabled={!chatInput.trim() || isChatLoading}
-                    style={[wr.sendBtn, (!chatInput.trim() || isChatLoading) && { opacity: 0.4 }]}
+                    style={[wr.sendBtn, (!chatInput.trim() || isChatLoading) && { opacity: 0.35 }]}
                   >
                     <LinearGradient colors={['#7C3AED', '#5B21B6']} style={wr.sendBtnGrad}>
                       <Sparkles size={16} color={GOLD} />
                     </LinearGradient>
                   </Pressable>
                 </View>
-                <Text style={[wr.chatHint, { color: isLight ? 'rgba(80,50,120,0.55)' : 'rgba(245,241,234,0.30)' }]}>
-                  Możesz poprosić o kolejne karty wpisując „wyłóż kartę" lub zadając pytanie
+                <Text style={[wr.chatHint, { color: isLight ? 'rgba(80,50,120,0.50)' : 'rgba(245,241,234,0.28)' }]}>
+                  Przesuń w dół, aby ukryć klawiaturę · wpisz „wyłóż kartę", by dobrać nową
                 </Text>
               </View>
             )}

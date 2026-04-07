@@ -31,7 +31,7 @@ import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#F97316';
 
@@ -540,15 +540,16 @@ export default function ElementalMagicScreen() {
   const { t } = useTranslation();
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const isDark = !isLight;
   const textColor  = isLight ? '#1A1410' : '#F5F1EA';
   const subColor   = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg     = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.06)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg     = isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.06)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
   const accent     = ACCENT;
 
   const scrollRef = useRef<ScrollView>(null);
@@ -728,7 +729,9 @@ export default function ElementalMagicScreen() {
   const QUIZ_ANSWER_KEYS = ['a', 'b', 'c', 'd'];
 
   return (
-    <SafeAreaView style={[s.safe, { backgroundColor: currentTheme.background }]} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[s.safe, {}]} edges={['top']}>
+
       <ElementalBg isDark={!isLight} />
 
       {/* HEADER */}
@@ -1267,6 +1270,7 @@ export default function ElementalMagicScreen() {
           <EndOfContentSpacer />
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 }

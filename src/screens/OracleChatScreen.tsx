@@ -1,4 +1,4 @@
-﻿import { getLoadingMessage } from '../core/utils/loadingMessages';
+import { getLoadingMessage } from '../core/utils/loadingMessages';
 import { useNetworkStatus } from '../core/hooks/useNetworkStatus';
 import { OfflineBanner } from '../components/OfflineBanner';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { getResolvedTheme } from '../core/theme/tokens';
+import { getResolvedTheme, isLightBg } from '../core/theme/tokens';
 import { layout, luxury, screenContracts } from '../core/theme/designSystem';
 import { useAppStore } from '../store/useAppStore';
 import { OracleMode, OracleSessionKind, OracleMessage, useOracleStore } from '../store/useOracleStore';
@@ -45,6 +45,7 @@ import {
   WandSparkles,
   ArrowRight,
   Star,
+  CornerDownLeft,
 } from 'lucide-react-native';
 import { MusicToggleButton } from '../components/MusicToggleButton';
 import Animated, { FadeIn, FadeInUp, withRepeat, withTiming, withSequence, withDelay, useSharedValue, useAnimatedStyle } from 'react-native-reanimated';
@@ -56,7 +57,7 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Svg, { Circle, Defs, Ellipse, RadialGradient as SvgRadialGradient, Stop } from 'react-native-svg';
 import { useTranslation } from 'react-i18next';
 import { Dimensions } from 'react-native';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: OCS_W, height: OCS_H } = Dimensions.get('window');
 
 // ── Oracle ambient background (floating orbs + mode-tinted glow) ─────────────
@@ -460,9 +461,11 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
   const [localResponseLength, setLocalResponseLength] = React.useState<"short" | "medium" | "deep">(
     (globalLength as "short" | "medium" | "deep") || "medium"
   );
-  const { themeName, experience, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = useMemo(() => getResolvedTheme(themeName), [themeName]);
-  const isLight = currentTheme.background.startsWith('#F');
+    const experience = useAppStore(s => s.experience);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight, themeName, themeMode } = useTheme();
   const keyboardOpen = useKeyboardOpen();
   const { isPremium, trackUsage, usage } = usePremiumStore();
   const [paywallVisible, setPaywallVisible] = React.useState(false);
@@ -659,7 +662,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                 Oracle nie przyjmie dziś nowej rozmowy. Nie ukrywamy tego pod ponownymi próbami ani pustym „spróbuj jeszcze raz".
               </Typography>
             </View>
-            <View style={{ marginHorizontal: layout.padding.screen, paddingVertical: 14, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }}>
+            <View style={{ marginHorizontal: layout.padding.screen, paddingVertical: 14, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)' }}>
               <Typography variant="microLabel" color={currentTheme.primary} style={{ marginBottom: 8 }}>CO MOŻESZ ZROBIĆ ZAMIAST TEGO</Typography>
               <Typography variant="bodySmall" style={{ lineHeight: 22, opacity: 0.72 }}>
                 {aiAvailability.fallbackPrompt}
@@ -670,7 +673,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                 label={aiAvailability.actionLabel}
                 onPress={() => navigation.navigate('JournalEntry', { prompt: aiAvailability.fallbackPrompt, type: 'reflection' })}
               />
-              <Pressable style={[styles.followUpChip, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' }]} onPress={handleBack}>
+              <Pressable style={[styles.followUpChip, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' }]} onPress={handleBack}>
                 <Typography variant="microLabel" color={currentTheme.primary}>Wróć do poprzedniej ścieżki</Typography>
               </Pressable>
             </View>
@@ -859,7 +862,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
           </View>
         </View>
 
-        <View style={[styles.assistantCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(18,14,32,0.92)', borderRadius: 18, borderWidth: 1, borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', borderLeftWidth: 3, borderLeftColor: modeColor, overflow: 'hidden' }]}>
+        <View style={[styles.assistantCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(18,14,32,0.92)', borderRadius: 18, borderWidth: 1, borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.08)', borderLeftWidth: 3, borderLeftColor: modeColor, overflow: 'hidden' }]}>
           {/* Top border stripe in modeColor */}
           <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1.5, backgroundColor: modeColor, opacity: 0.70 }} pointerEvents="none" />
           {blocks.map((block, blockIndex) => {
@@ -891,7 +894,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
             { label: 'Do rytuału', icon: WandSparkles, onPress: () => convertToRitual(message) },
           ].map(({ label, icon: ActionIcon, onPress: onActionPress }) => (
             <Pressable key={label} onPress={onActionPress} style={[styles.actionChip, {
-              backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)',
+              backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)',
               borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.09)',
             }]}>
               <ActionIcon color={currentTheme.primary} size={13} />
@@ -957,14 +960,14 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
             />
 
             {pastSessions.map((session, idx) => (
-              <View key={session.id} style={{ borderBottomWidth: idx < pastSessions.length - 1 ? StyleSheet.hairlineWidth : 0, borderBottomColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }}>
+              <View key={session.id} style={{ borderBottomWidth: idx < pastSessions.length - 1 ? StyleSheet.hairlineWidth : 0, borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)' }}>
                 <Pressable onPress={() => { loadSession(session.id); setShowHistory(false); }} style={{ paddingHorizontal: layout.padding.screen, paddingVertical: 14 }}>
                   <Typography variant="cardTitle">{session.title || 'Prywatna sesja'}</Typography>
                   <Typography variant="bodySmall" style={{ marginTop: 6, opacity: 0.6 }}>
                     {new Date(session.startedAt).toLocaleDateString()} • {session.messages.length} wiadomości • {resolveSourceLabel(session.source)}
                   </Typography>
                 </Pressable>
-                <Pressable style={[styles.historyDelete, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : '#0F1320', borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.08)' }]} onPress={() => deleteSession(session.id)}>
+                <Pressable style={[styles.historyDelete, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : '#0F1320', borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.08)' }]} onPress={() => deleteSession(session.id)}>
                   <X color={currentTheme.primary} size={16} />
                   <Typography variant="microLabel" color={currentTheme.primary} style={{ marginLeft: 8 }}>
                     Usuń
@@ -1069,7 +1072,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                             style={({ pressed }) => ([
                               styles.emptyModePill,
                               {
-                                backgroundColor: active ? mode.color + '22' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)'),
+                                backgroundColor: active ? mode.color + '22' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)'),
                                 borderColor: active ? mode.color + '77' : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)'),
                                 shadowColor: mode.color,
                                 shadowOpacity: active ? 0.40 : 0,
@@ -1123,8 +1126,8 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                           style={({ pressed }) => ([
                             styles.emptyPromptPill,
                             {
-                              backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
-                              borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)',
+                              backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)',
+                              borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.08)',
                               opacity: pressed ? 0.75 : 1,
                             },
                           ])}
@@ -1161,7 +1164,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                             style={({ pressed }) => ([
                               styles.emptyPresetCard,
                               {
-                                backgroundColor: active ? pColor + '1A' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)'),
+                                backgroundColor: active ? pColor + '1A' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)'),
                                 borderColor: active ? pColor + '66' : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.08)'),
                                 shadowColor: pColor,
                                 shadowOpacity: active ? 0.35 : 0.08,
@@ -1205,7 +1208,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                       return (
                         <Pressable key={mode.id} onPress={() => handleModeChange(mode.id, mode.premium)}
                           style={[styles.modeChip, {
-                            backgroundColor: active ? mode.color + '1A' : (isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)'),
+                            backgroundColor: active ? mode.color + '1A' : (isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.07)'),
                             borderColor: active ? mode.color + '66' : (isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.08)'),
                           }]}>
                           <View style={[styles.modeDotSmall, { backgroundColor: active ? mode.color : mode.color + '55' }]}/>
@@ -1242,7 +1245,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                   </Typography>
                   <Typography variant="bodySmall" align="center" style={{ marginTop: 8, lineHeight: 22, opacity: 0.78 }}>{errorMessage}</Typography>
                   {fallbackPrompt ? (
-                    <Pressable key={fallbackPrompt} style={[styles.followUpChip, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' }]} onPress={() => setInput(fallbackPrompt)}>
+                    <Pressable key={fallbackPrompt} style={[styles.followUpChip, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' }]} onPress={() => setInput(fallbackPrompt)}>
                       <Typography variant="bodySmall" color={currentTheme.textSoft}>{fallbackPrompt}</Typography>
                       <ArrowRight color={currentTheme.primary} size={14} />
                     </Pressable>
@@ -1257,7 +1260,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                     Co dalej
                   </Typography>
                   {followUps.map((item) => (
-                    <Pressable key={item} style={[styles.followUpChip, { borderColor: currentModeColor + '55', overflow: 'hidden', shadowColor: currentModeColor, shadowOpacity: 0.18, shadowRadius: 10, elevation: 4, backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)' }]} onPress={() => { animateSend(); sendMessage(item); }}>
+                    <Pressable key={item} style={[styles.followUpChip, { borderColor: currentModeColor + '55', overflow: 'hidden', shadowColor: currentModeColor, shadowOpacity: 0.18, shadowRadius: 10, elevation: 4, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)' }]} onPress={() => { animateSend(); sendMessage(item); }}>
                       <LinearGradient colors={[currentModeColor + '18', 'transparent'] as const} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={StyleSheet.absoluteFill} />
                       <LinearGradient colors={['transparent', currentModeColor + '77', 'transparent'] as [string,string,string]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1 }} pointerEvents="none" />
                       <Typography variant="bodySmall" color={currentTheme.textSoft}>{item}</Typography>
@@ -1288,10 +1291,10 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                 style={[
                   styles.composerShell,
                   {
-                    backgroundColor: currentTheme.background.startsWith('#F') ? 'rgba(255,248,240,0.72)' : 'rgba(14,17,26,0.85)',
+                    backgroundColor: isLightBg(currentTheme.background) ? 'rgba(255,248,240,0.72)' : 'rgba(14,17,26,0.85)',
                     borderColor: inputFocused
                       ? currentModeColor + '88'
-                      : currentTheme.background.startsWith('#F') ? 'rgba(118,92,48,0.18)' : currentModeColor + '33',
+                      : isLightBg(currentTheme.background) ? 'rgba(118,92,48,0.18)' : currentModeColor + '33',
                     shadowColor: currentModeColor,
                     shadowOpacity: glowAnim.interpolate({ inputRange: [0, 1], outputRange: [0.08, 0.55] }),
                     shadowRadius: glowAnim.interpolate({ inputRange: [0, 1], outputRange: [8, 22] }),
@@ -1346,11 +1349,11 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                       <LinearGradient
                         colors={input.trim()
                           ? [currentModeColor, currentModeColor + 'BB'] as const
-                          : (isLight ? ['rgba(0,0,0,0.08)', 'rgba(0,0,0,0.04)'] as const : ['#1A1F30', '#111520'] as const)}
+                          : (isLight ? ['rgba(122,95,54,0.18)', 'rgba(255,255,255,0.88)'] as const : ['#1A1F30', '#111520'] as const)}
                         style={styles.sendInner}
                         start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
                       >
-                        <Sparkles color={input.trim() ? '#0D0D14' : currentTheme.textMuted} size={18} />
+                        <CornerDownLeft color={input.trim() ? '#0D0D14' : currentTheme.textMuted} size={18} />
                       </LinearGradient>
                     </RNAnimated.View>
                   </Pressable>

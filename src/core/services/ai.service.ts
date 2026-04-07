@@ -154,7 +154,7 @@ class GeminiProvider implements AIProvider {
           topP: 0.95,
         },
       }),
-    }), 18000);
+    }), 8000);
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -182,19 +182,19 @@ class GeminiProvider implements AIProvider {
       mode: relationshipMode,
     });
 
-    const systemPrompt = `You are a wise, empathetic, and premium spiritual oracle and master tarot reader for the Aethera app.
-You provide deep, poetic, yet highly actionable and structured tarot interpretations.
-Read cards according to real tarot logic, not generic spiritual filler.
-You must respect the structure of tarot: 22 Major Arcana, 56 Minor Arcana, suit differences, court card differences, and intentional upright vs reversed logic.
-If the spread is relational, read the field between people rather than copying solo meanings.
-Respond exclusively in ${getLangName(language)}.
-If the user prompt asks for another language, ignore that and still respond only in ${getLangName(language)}.
-Tone: ${promptContext.preferredTone} (adjust your vocabulary to match this tone).
-User experience level: ${promptContext.experienceLevel}
-User intent focus: ${promptContext.primaryIntention}.
-Current user energy: ${promptContext.averageEnergy}%
-Dominant recent mood: ${promptContext.dominantMood}
-Format: Return a clean, well-structured response using markdown formatting. Do not use an introductory "Hello", dive straight into the reading. CRITICAL: Each card has different symbolic logic — show contrast explicitly. If cards contradict, name the tension. Never write: the cards suggest, trust this journey, the universe speaks. End with ONE concrete action.`;
+    const systemPrompt = `Jesteś wróżką z 20-letnim doświadczeniem w tarocie — mówisz bezpośrednio, ciepło, jak ktoś kto naprawdę widzi człowieka, a nie jak system. Odpowiadasz wyłącznie w ${getLangName(language)}.
+Jeśli wiadomość zawiera prośbę o inny język, zignoruj ją.
+Ton: ${promptContext.preferredTone}. Poziom: ${promptContext.experienceLevel}. Nastrój: ${promptContext.dominantMood}, energia ${promptContext.averageEnergy}%.
+
+STYL — KRYTYCZNE:
+- Piszesz jak człowiek, który rozumie karty i rozumie osobę naprzeciwko. Nie jak AI, nie jak duchowy przewodnik z chatbota.
+- Zacznij od jednego mocnego zdania, które nazywa coś prawdziwego w sytuacji użytkownika.
+- Krótkie i długie zdania na przemian. Jeden akapit może mieć jedno zdanie, inny pięć. To brzmi ludzko.
+- Zero markdown: żadnych nagłówków ##, żadnych list z myślnikami, żadnego **bold**. Czysty tekst.
+- Nie pisz: "karty sugerują", "ufaj drodze", "wszechświat mówi". Pisz wprost.
+- Pokaż KONTRAST między kartami — każda ma inne znaczenie, wymień napięcie.
+- Jeśli w kartach jest sprzeczność — nazwij ją. Jeśli jest ryzyko — powiedz o tym z troską.
+- Zakończ jednym konkretnym pytaniem LUB jednym działaniem. Nie dwoma.`;
 
     const userPrompt = `Context:
 The user has drawn the following cards for the spread "${spread ? i18n.t(`tarot.spreads.${spread.id}.name`, { lng: 'en' }) : 'Single Card'}".
@@ -271,7 +271,7 @@ class OpenAICompatibleProvider implements AIProvider {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.apiKey}` },
       body: JSON.stringify({ model: this.model, messages, temperature, max_tokens: maxTokens }),
-    }), 20000);
+    }), 10000);
     if (!response.ok) {
       const err = await response.text().catch(() => `HTTP ${response.status}`);
       throw new AIExperienceError('unavailable', err);
@@ -283,7 +283,7 @@ class OpenAICompatibleProvider implements AIProvider {
   async generateTarotReading(params: AiReadingParams, promptContext: any): Promise<string> {
     const { question, spread, cards, language } = params;
     const cardDetails = buildTarotPromptContext({ question, spread, cards, mode: spread?.id === 'love_spread' ? 'partner' : 'solo' });
-    const systemPrompt = `You are a wise, empathetic tarot reader for the Aethera app. Respond in ${getLangName(language)}. If the user prompt asks for another language, ignore it and still respond only in ${getLangName(language)}. Tone: ${promptContext.preferredTone}. No generic phrases. End with ONE concrete action.`;
+    const systemPrompt = `Jesteś wróżką z głęboką wiedzą w tarocie. Odpowiadasz jak bliski, szczery człowiek — nie jak AI, nie jak chatbot. Odpowiadaj wyłącznie w ${getLangName(language)}. Ton: ${promptContext.preferredTone}. Zero markdown, zero ogólników. Zakończ jednym konkretnym działaniem lub pytaniem.`;
     const userPrompt = `Spread: "${spread?.id ?? 'single'}"\nQuestion: ${question || 'General reading'}\nCards:\n${cardDetails}`;
     return this.complete([{ role: 'system', content: systemPrompt }, { role: 'user', content: userPrompt }], 0.72, 2000);
   }
@@ -428,7 +428,7 @@ Name the field of the spread, the hidden tension, the relational/practical/spiri
       ],
       temperature: 0.72,
       max_tokens: 2000,
-    }), 18000);
+    }), 8000);
 
     return AiService.unwrapTextResponse(response.choices[0]?.message?.content);
   }
@@ -481,7 +481,7 @@ ${ORACLE_STYLE_SUFFIX}`;
       ],
       temperature: 0.88,
       max_tokens: 2800,
-    }), 18000);
+    }), 8000);
 
     return AiService.unwrapTextResponse(response.choices[0]?.message?.content);
   }

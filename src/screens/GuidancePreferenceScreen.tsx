@@ -28,6 +28,7 @@ import { layout, screenContracts } from '../core/theme/designSystem';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../core/hooks/useTheme';
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -366,14 +367,15 @@ function calcSpiritualSignature(birthDate: string): { primary: string; secondary
 export const GuidancePreferenceScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, setUserData, setOnboarded, userData } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight   = currentTheme.background.startsWith('#F');
+  const setUserData = useAppStore(s => s.setUserData);
+  const setOnboarded = useAppStore(s => s.setOnboarded);
+  const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor  = isLight ? '#6A5A48' : '#9A8E80';
   const cardBg    = isLight ? 'rgba(255,255,255,0.60)' : 'rgba(255,255,255,0.03)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.08)';
-  const inputBg   = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.08)';
+  const inputBg   = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)';
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -470,11 +472,11 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                     borderRadius: 12,
                     paddingHorizontal: 10,
                     paddingVertical: 4,
-                    backgroundColor: active ? pt.color + '22' : isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)',
+                    backgroundColor: active ? pt.color + '22' : isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)',
                     borderWidth: 1,
-                    borderColor: active ? pt.color + '55' : isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.08)',
+                    borderColor: active ? pt.color + '55' : isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.08)',
                   }}>
-                    <Typography variant="microLabel" style={{ color: active ? pt.color : isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.45)', fontSize: 10 }}>
+                    <Typography variant="microLabel" style={{ color: active ? pt.color : isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.45)', fontSize: 10 }}>
                       {pt.label}
                     </Typography>
                   </View>
@@ -486,21 +488,21 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
           {/* ── PROGRESS INDICATOR ── */}
           <Animated.View entering={FadeInDown.delay(140).duration(500)} style={{
             marginBottom: 16,
-            backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
+            backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)',
             borderRadius: 14,
             padding: 14,
             borderWidth: StyleSheet.hairlineWidth,
-            borderColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)',
+            borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)',
           }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-              <Typography variant="microLabel" style={{ color: isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.50)', letterSpacing: 1.2 }}>
+              <Typography variant="microLabel" style={{ color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)', letterSpacing: 1.2 }}>
                 KONFIGURACJA
               </Typography>
-              <Typography variant="microLabel" style={{ color: selectedId ? currentTheme.primary : isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.35)', letterSpacing: 0.8 }}>
+              <Typography variant="microLabel" style={{ color: selectedId ? currentTheme.primary : isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.35)', letterSpacing: 0.8 }}>
                 {selectedId ? '1/1 ustawione' : '0/1 ustawione'}
               </Typography>
             </View>
-            <View style={{ height: 4, backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden' }}>
+            <View style={{ height: 4, backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)', borderRadius: 2, overflow: 'hidden' }}>
               <View style={{ height: 4, width: selectedId ? '100%' : '0%', backgroundColor: currentTheme.primary, borderRadius: 2 }} />
             </View>
             {!!selectedId && (
@@ -541,7 +543,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                       {
                         borderColor: isSelected
                           ? option.accentColor + '80'
-                          : isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)',
+                          : isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)',
                         borderWidth: isSelected ? 1.5 : StyleSheet.hairlineWidth,
                         backgroundColor: isLight ? 'rgba(255,255,255,0.60)' : 'rgba(255,255,255,0.03)',
                       },
@@ -563,7 +565,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                           {
                             backgroundColor: isSelected
                               ? option.accentColor + '22'
-                              : isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)',
+                              : isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.06)',
                             borderColor: isSelected ? option.accentColor + '50' : 'transparent',
                             borderWidth: isSelected ? 1 : 0,
                           },
@@ -606,8 +608,8 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
 
                       <View style={styles.chevronBox}>
                         {isExpanded
-                          ? <ChevronUp color={isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.35)'} size={16} />
-                          : <ChevronDown color={isLight ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.25)'} size={16} />}
+                          ? <ChevronUp color={isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.35)'} size={16} />
+                          : <ChevronDown color={isLight ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.25)'} size={16} />}
                       </View>
                     </View>
 
@@ -639,10 +641,10 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                           ))}
                         </View>
 
-                        <View style={[styles.previewBlock, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderRadius: 12, borderWidth: StyleSheet.hairlineWidth, borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)' }]}>
+                        <View style={[styles.previewBlock, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderRadius: 12, borderWidth: StyleSheet.hairlineWidth, borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.08)' }]}>
                           <Typography
                             variant="microLabel"
-                            style={{ color: isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)', marginBottom: 6, letterSpacing: 1.0 }}
+                            style={{ color: isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)', marginBottom: 6, letterSpacing: 1.0 }}
                           >
                             WIDOK GŁÓWNY
                           </Typography>
@@ -845,7 +847,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                       })}
                     </>
                   ) : (
-                    <View style={[styles.sigNoData, { backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)', borderColor: '#F472B622' }]}>
+                    <View style={[styles.sigNoData, { backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)', borderColor: '#F472B622' }]}>
                       <Typography variant="bodySmall" style={{ opacity: 0.65, textAlign: 'center', lineHeight: 22, color: textColor }}>
                         Uzupełnij datę urodzenia w profilu, by obliczyć Twoją duchową sygnaturę i zobaczyć rekomendowany styl prowadzenia.
                       </Typography>
@@ -893,8 +895,8 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                         return (
                           <Animated.View key={histId} entering={FadeInDown.delay(i * 60).duration(400)}>
                             <View style={[styles.historyRow, {
-                              backgroundColor: isActive ? histOpt.accentColor + '10' : isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
-                              borderColor: isActive ? histOpt.accentColor + '50' : isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)',
+                              backgroundColor: isActive ? histOpt.accentColor + '10' : isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.04)',
+                              borderColor: isActive ? histOpt.accentColor + '50' : isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)',
                             }]}>
                               <View style={[styles.historyNumBadge, { backgroundColor: '#FBBF2418', borderColor: '#FBBF2440' }]}>
                                 <Typography variant="microLabel" style={{ color: '#FBBF24' }}>{i + 1}</Typography>
@@ -950,7 +952,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
               {impactOpen && (
                 <View style={styles.previewContent}>
                   <View style={[styles.previewDivider, { backgroundColor: '#60A5FA30' }]} />
-                  <View style={[styles.impactQuestion, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: '#60A5FA28' }]}>
+                  <View style={[styles.impactQuestion, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: '#60A5FA28' }]}>
                     <Typography variant="microLabel" style={{ color: '#60A5FA', letterSpacing: 1, marginBottom: 6 }}>PYTANIE</Typography>
                     <Typography variant="bodySmall" style={{ lineHeight: 21, fontStyle: 'italic', opacity: 0.85, color: textColor }}>
                       "{IMPACT_QUESTION}"
@@ -1133,8 +1135,8 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
           {/* ── AETHERA'S APPROACH INFO CARD ── */}
           <Animated.View entering={FadeInUp.delay(300).duration(600)} style={{ marginTop: 24 }}>
             <View style={[styles.infoCard, {
-              backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
-              borderColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)',
+              backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)',
+              borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)',
             }]}>
               <View style={styles.infoRow}>
                 <Sparkles color={currentTheme.primary} size={16} strokeWidth={1.5} style={{ marginRight: 10, marginTop: 1 }} />

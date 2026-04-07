@@ -26,7 +26,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#F97316'; // saffron orange
 
@@ -427,15 +427,16 @@ const PremiumCard = ({ gradient, children, style }: any) => (
 export const VedicAstrologyScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const accent = ACCENT;
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.10)';
 
   const [expandedRashi, setExpandedRashi] = useState<number | null>(null);
   const [expandedRemedy, setExpandedRemedy] = useState<number | null>(null);
@@ -560,7 +561,7 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
             <SectionHeader label="ZNAK ZACHODNI vs. WEDYJSKI" accent={accent} />
             <PremiumCard gradient={isLight ? [accent + '14', accent + '06'] : [accent + '18', accent + '08', '#0C0805']}>
               <View style={{ flexDirection: 'row', gap: 12 }}>
-                <View style={{ flex: 1, padding: 14, borderRadius: 14, backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)', alignItems: 'center' }}>
+                <View style={{ flex: 1, padding: 14, borderRadius: 14, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)', alignItems: 'center' }}>
                   <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 2, color: subColor, marginBottom: 6 }}>TROPIKALNY</Text>
                   <Text style={{ fontSize: 22, fontWeight: '200', color: textColor, letterSpacing: -0.5 }}>{westernSign}</Text>
                   <Text style={{ fontSize: 11, color: subColor, marginTop: 4 }}>Zachodni / IAU</Text>

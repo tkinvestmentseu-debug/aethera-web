@@ -29,7 +29,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#34D399';
 
@@ -669,14 +669,16 @@ const GEOM_ORACLE_PROMPTS = [
 export default function SacredGeometryScreen({ navigation }: any) {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, favoriteItems, addFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const favoriteItems = useAppStore(s => s.favoriteItems);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const isDark = !isLight;
   const textColor  = isLight ? '#1A1410' : '#F5F1EA';
   const subColor   = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg     = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.06)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg     = isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.06)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
   const accent     = ACCENT;
 
   const today = new Date();
@@ -767,7 +769,9 @@ export default function SacredGeometryScreen({ navigation }: any) {
   const DOW_NAMES = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <GeomBg isDark={!isLight} />
 
       {/* Header */}
@@ -1067,7 +1071,7 @@ export default function SacredGeometryScreen({ navigation }: any) {
             </ScrollView>
 
             <TextInput
-              style={[styles.input, { color: textColor, borderColor: cardBorder, backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)', minHeight: 72 }]}
+              style={[styles.input, { color: textColor, borderColor: cardBorder, backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)', minHeight: 72 }]}
               placeholder={`Zapytaj o ${selectedPattern.name}…`}
               placeholderTextColor={subColor}
               multiline
@@ -1097,7 +1101,8 @@ export default function SacredGeometryScreen({ navigation }: any) {
         <EndOfContentSpacer />
       </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 }
 

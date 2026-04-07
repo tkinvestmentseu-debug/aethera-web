@@ -12,7 +12,10 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
+import { collection, addDoc, onSnapshot, query, orderBy, limit, doc, runTransaction, serverTimestamp, Timestamp } from 'firebase/firestore';
+import { db } from '../core/config/firebase.config';
+import { useAuthStore } from '../store/useAuthStore';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#10B981';
 
@@ -35,13 +38,12 @@ const MY_INTENTIONS = [
 
 export const IntentionChamberScreen = ({ navigation }) => {
   const { t } = useTranslation();
-  const { themeName } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+  const { currentTheme, isLight } = useTheme();
+  const currentUser = useAuthStore(s => s.currentUser);
   const tc = isLight ? '#1A1008' : '#F0ECE4';
-  const sc = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
+  const sc = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
   const cb = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
-  const cbr = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
+  const cbr = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)';
 
   const [selectedCat, setSelectedCat] = useState('MIŁOŚĆ');
   const [intentionText, setIntentionText] = useState('');
@@ -58,6 +60,34 @@ export const IntentionChamberScreen = ({ navigation }) => {
     glowScale.value = withRepeat(withSequence(withTiming(1.12, { duration: 2500 }), withTiming(1, { duration: 2500 })), -1, false);
   }, []);
 
+  useEffect(() => {
+    const q = query(collection(db, 'globalIntentions'), orderBy('createdAt', 'desc'), limit(20));
+    const unsub = onSnapshot(q, (snap) => {
+      if (snap.docs.length > 0) {
+        const fbIntentions = snap.docs.map(d => {
+          const data = d.data();
+          return {
+            id: d.id,
+            text: data.text,
+            category: data.category,
+            witnesses: data.witnesses ?? 0,
+            anon: data.anon ?? false,
+            name: data.anon ? null : data.authorName,
+            time: (() => {
+              const diff = Date.now() - (data.createdAt instanceof Timestamp ? data.createdAt.toMillis() : Date.now());
+              const min = Math.floor(diff / 60000);
+              if (min < 1) return 'teraz';
+              if (min < 60) return `${min} min temu`;
+              return `${Math.floor(min / 60)}h temu`;
+            })(),
+          };
+        });
+        setIntentions(fbIntentions);
+      }
+    }, () => {/* silently keep seed data on error */});
+    return () => unsub();
+  }, []);
+
   const glowStyle = useAnimatedStyle(() => ({ transform: [{ scale: glowScale.value }] }));
   const flyStyle = useAnimatedStyle(() => ({ transform: [{ translateY: flyY.value }], opacity: flyOpacity.value }));
 
@@ -69,6 +99,17 @@ export const IntentionChamberScreen = ({ navigation }) => {
       time: 'teraz', witnesses: 0, anon: isAnon, name: isAnon ? null : 'Ty',
     };
     setIntentions(prev => [newItem, ...prev]);
+    if (currentUser && intentionText.trim()) {
+      addDoc(collection(db, 'globalIntentions'), {
+        text: intentionText.trim(),
+        category: selectedCat,
+        anon: isAnon,
+        authorId: currentUser.uid,
+        authorName: currentUser.displayName,
+        witnesses: 0,
+        createdAt: serverTimestamp(),
+      }).catch(() => {});
+    }
     setSent(true);
     flyOpacity.value = withTiming(1, { duration: 200 });
     flyY.value = withTiming(-60, { duration: 1200 });
@@ -83,12 +124,21 @@ export const IntentionChamberScreen = ({ navigation }) => {
     HapticsService.impact('light');
     setWitnessedIds(prev => [...prev, id]);
     setIntentions(prev => prev.map(i => i.id === id ? { ...i, witnesses: i.witnesses + 1 } : i));
+    if (currentUser) {
+      const ref = doc(db, 'globalIntentions', id);
+      runTransaction(db, async (tx) => {
+        const snap = await tx.get(ref);
+        if (snap.exists()) tx.update(ref, { witnesses: (snap.data().witnesses ?? 0) + 1 });
+      }).catch(() => {});
+    }
   };
 
   const catColor = CAT_COLORS[selectedCat] || ACCENT;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <LinearGradient
         colors={isLight ? ['#ECFDF5', '#D1FAE5', currentTheme.background] : ['#021A0E', '#031A0F', currentTheme.background]}
         style={StyleSheet.absoluteFill} pointerEvents="none"
@@ -226,7 +276,8 @@ export const IntentionChamberScreen = ({ navigation }) => {
           <EndOfContentSpacer />
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

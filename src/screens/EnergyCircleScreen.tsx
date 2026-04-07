@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { formatLocaleNumber } from '../core/utils/localeFormat';
 import { useAuthStore } from '../store/useAuthStore';
 import { CirclesService } from '../core/services/community/circles.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 const SYNC_MUSIC_OPTIONS = [
   { id: 'waves', label: 'Fale', emoji: '🌊', color: '#67D1B2' },
   { id: 'forest', label: 'Las', emoji: '🌲', color: '#34D399' },
@@ -52,14 +52,15 @@ const BREATH = [{ label: 'Wdech', d: 4000, c: '#6366F1' }, { label: 'Zatrzymaj',
 
 export const EnergyCircleScreen = ({ navigation }) => {
   const { t } = useTranslation();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const { currentUser } = useAuthStore();
-  const theme = getResolvedTheme(themeName);
-  const isLight = theme.background.startsWith('#F');
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { isLight } = useTheme();
+    const currentUser = useAuthStore(s => s.currentUser);
   const tc = isLight ? '#1A1008' : '#F0ECE4';
-  const sc = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
+  const sc = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
   const cb = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
-  const cbr = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
+  const cbr = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)';
 
   const [joined, setJoined] = useState(false);
   const [filter, setFilter] = useState('WSZYSTKIE');
@@ -216,7 +217,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
               <LinearGradient colors={[ACCENT + 'EE', ACCENT + '66']} style={StyleSheet.absoluteFill} />
               <Animated.View style={ps}><Globe2 color="#fff" size={34} strokeWidth={1.4} /></Animated.View>
                 <Text style={{ color: '#fff', fontSize: 22, fontWeight: '800', marginTop: 4 }}>{formatLocaleNumber(liveCount)}</Text>
-              <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: 9, letterSpacing: 1.4 }}>DUSZ TERAZ</Text>
+              <Text style={{ color: isLight ? 'rgba(37,29,22,0.8)' : 'rgba(255,255,255,0.8)', fontSize: 9, letterSpacing: 1.4 }}>DUSZ TERAZ</Text>
             </Animated.View>
           </View>
 
@@ -290,7 +291,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
                 <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 12 }}>PODZIEL SIĘ SWOJĄ ENERGIĄ</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14, marginBottom: 12 }}>
                   <Text style={{ color: ACCENT, fontSize: 40, fontWeight: '800', width: 60 }}>{energy}</Text>
-                  <View style={{ flex: 1, height: 8, borderRadius: 4, overflow: 'hidden', backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)' }}>
+                  <View style={{ flex: 1, height: 8, borderRadius: 4, overflow: 'hidden', backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)' }}>
                     <LinearGradient colors={[ACCENT, '#10B981']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: '100%', width: `${energy}%` }} />
                   </View>
                 </View>

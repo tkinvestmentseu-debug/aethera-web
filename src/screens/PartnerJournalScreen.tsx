@@ -67,7 +67,7 @@ import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
 import { DateWheelPicker } from '../components/DateWheelPicker';
-
+import { useTheme } from '../core/hooks/useTheme';
 const ACCENT = '#EC4899';
 const SP = layout.padding.screen;
 
@@ -337,10 +337,10 @@ const HeartWidget3D = ({ accent }) => {
 // ─── Entry Card ───────────────────────────────────────────────────────────────
 
 const EntryCard = ({ entry, isLight }) => {
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.09)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.09)';
   const textColor = isLight ? '#1A1108' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.5)';
   const date = entry.date ? new Date(entry.date).toLocaleDateString(getLocaleCode(), { day: 'numeric', month: 'long' }) : '';
   const typeInfo = ENTRY_TYPES.find((t) => t.id === entry.type);
   return (
@@ -403,7 +403,7 @@ const SetupForm = ({ onSave, isLight, textColor, subColor, cardBg, cardBorder, o
         day={bdDay} month={bdMonth} year={bdYear}
         onChange={(d, m, y) => { setBdDay(d); setBdMonth(m); setBdYear(y); }}
         textColor={textColor} accentColor={ACCENT}
-        cardBg={isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)'}
+        cardBg={isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)'}
       />
       <Pressable
         onPress={() => setShowStartDate(v => !v)}
@@ -418,7 +418,7 @@ const SetupForm = ({ onSave, isLight, textColor, subColor, cardBg, cardBorder, o
           day={sdDay} month={sdMonth} year={sdYear}
           onChange={(d, m, y) => { setSdDay(d); setSdMonth(m); setSdYear(y); }}
           textColor={textColor} accentColor={ACCENT}
-          cardBg={isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)'}
+          cardBg={isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)'}
         />
       )}
       <Pressable
@@ -447,8 +447,8 @@ const RelationshipStats = ({ partnerData, partnerEntries, compat, isLight, textC
       {stats.map((st) => (
         <View key={st.label} style={{
           flex: 1, borderRadius: 16, borderWidth: 1,
-          backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)',
-          borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.09)',
+          backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)',
+          borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.09)',
           padding: 12, alignItems: 'center',
         }}>
           <Text style={{ fontSize: 18 }}>{st.icon}</Text>
@@ -474,7 +474,7 @@ const EntryTypeChips = ({ selected, onSelect, isLight, subColor }) => (
           style={{
             paddingHorizontal: 14, paddingVertical: 7, borderRadius: 20,
             borderWidth: 1,
-            backgroundColor: active ? t.color + '28' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)'),
+            backgroundColor: active ? t.color + '28' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)'),
             borderColor: active ? t.color + '88' : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)'),
           }}>
           <Text style={{ fontSize: 12, fontWeight: '700', color: active ? t.color : subColor }}>
@@ -544,9 +544,9 @@ const IntentionBoard = ({ isLight, textColor, subColor, cardBg, cardBorder, acce
             multiline
             style={{
               fontSize: 13.5, lineHeight: 20, color: textColor,
-              backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)',
+              backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)',
               borderRadius: 14, borderWidth: 1,
-              borderColor: agreed[slot.key] ? accent + '77' : (isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.09)'),
+              borderColor: agreed[slot.key] ? accent + '77' : (isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.09)'),
               padding: 12, minHeight: 64,
             }}
           />
@@ -555,7 +555,7 @@ const IntentionBoard = ({ isLight, textColor, subColor, cardBg, cardBorder, acce
             style={{
               position: 'absolute', right: 10, bottom: 10,
               flexDirection: 'row', alignItems: 'center', gap: 4,
-              backgroundColor: agreed[slot.key] ? accent + '28' : (isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.08)'),
+              backgroundColor: agreed[slot.key] ? accent + '28' : (isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.08)'),
               borderRadius: 10, paddingHorizontal: 8, paddingVertical: 4,
             }}>
             {agreed[slot.key]
@@ -616,7 +616,7 @@ const RelationshipTimeline = ({ isLight, textColor, subColor, cardBg, cardBorder
               flexDirection: 'row', alignItems: 'center', gap: 12,
               paddingVertical: 12,
               borderBottomWidth: idx < MILESTONE_DEFAULTS.length - 1 ? 1 : 0,
-              borderColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)',
+              borderColor: isLight ? 'rgba(139,100,42,0.45)' : 'rgba(255,255,255,0.06)',
             }}>
             <View style={{
               width: 40, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center',
@@ -647,7 +647,7 @@ const RelationshipTimeline = ({ isLight, textColor, subColor, cardBg, cardBorder
                 style={{
                   fontSize: 13, color: textColor, borderRadius: 10, borderWidth: 1,
                   borderColor: m.color + '55', padding: 10,
-                  backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
+                  backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)',
                 }}
               />
               <TextInput
@@ -658,9 +658,9 @@ const RelationshipTimeline = ({ isLight, textColor, subColor, cardBg, cardBorder
                 multiline
                 style={{
                   fontSize: 13, color: textColor, borderRadius: 10, borderWidth: 1,
-                  borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)',
+                  borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.08)',
                   padding: 10, minHeight: 56,
-                  backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
+                  backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)',
                 }}
               />
             </View>
@@ -711,8 +711,8 @@ const LoveLanguageProfile = ({ partnerName, isLight, textColor, subColor, cardBg
                   style={{
                     flexDirection: 'row', alignItems: 'center', gap: 12,
                     padding: 12, borderRadius: 14, marginBottom: 6, borderWidth: 1,
-                    backgroundColor: active ? accent + '18' : (isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.03)'),
-                    borderColor: active ? accent + '66' : (isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)'),
+                    backgroundColor: active ? accent + '18' : (isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.03)'),
+                    borderColor: active ? accent + '66' : (isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)'),
                   }}>
                   <Text style={{ fontSize: 20 }}>{ll.icon}</Text>
                   <View style={{ flex: 1 }}>
@@ -764,12 +764,12 @@ const ConflictRituals = ({ isLight, textColor, subColor, cardBg, cardBorder, acc
             style={{
               flexDirection: 'row', alignItems: 'flex-start', gap: 12,
               padding: 14, borderRadius: 16, marginBottom: 8, borderWidth: 1,
-              backgroundColor: isActive ? accent + '18' : (isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.03)'),
-              borderColor: isActive ? accent + '66' : (isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)'),
+              backgroundColor: isActive ? accent + '18' : (isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.03)'),
+              borderColor: isActive ? accent + '66' : (isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)'),
             }}>
             <View style={{
               width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center',
-              backgroundColor: isActive ? accent + '28' : (isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.08)'),
+              backgroundColor: isActive ? accent + '28' : (isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.08)'),
             }}>
               <Text style={{ fontSize: 16 }}>{r.icon}</Text>
             </View>
@@ -857,9 +857,9 @@ const DailyGratitude = ({ partnerName, isLight, textColor, subColor, cardBg, car
             multiline
             style={{
               fontSize: 13.5, lineHeight: 20, color: textColor,
-              backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)',
+              backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)',
               borderRadius: 14, borderWidth: 1,
-              borderColor: isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.09)',
+              borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.09)',
               padding: 12, minHeight: 72,
             }}
           />
@@ -868,7 +868,7 @@ const DailyGratitude = ({ partnerName, isLight, textColor, subColor, cardBg, car
             disabled={!input.trim()}
             style={{
               marginTop: 10, paddingVertical: 11, borderRadius: 14, alignItems: 'center',
-              backgroundColor: input.trim() ? accent + '28' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)'),
+              backgroundColor: input.trim() ? accent + '28' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)'),
               borderWidth: 1, borderColor: input.trim() ? accent + '66' : 'transparent',
             }}>
             <Text style={{ fontSize: 13, fontWeight: '700', color: input.trim() ? accent : subColor }}>
@@ -937,9 +937,9 @@ const FutureVisionBoard = ({ isLight, textColor, subColor, cardBg, cardBorder, a
             multiline
             style={{
               fontSize: 13.5, lineHeight: 20, color: textColor,
-              backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)',
+              backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)',
               borderRadius: 14, borderWidth: 1,
-              borderColor: visions[h.key] ? accent + '55' : (isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.09)'),
+              borderColor: visions[h.key] ? accent + '55' : (isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.09)'),
               padding: 12, minHeight: 72,
             }}
           />
@@ -1018,7 +1018,7 @@ const OracleRelationship = ({
             style={{
               paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20,
               borderWidth: 1, borderColor: accent + '44',
-              backgroundColor: query === p ? accent + '22' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)'),
+              backgroundColor: query === p ? accent + '22' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)'),
             }}>
             <Text style={{ fontSize: 11, color: query === p ? accent : subColor, fontWeight: '600' }}>{p}</Text>
           </Pressable>
@@ -1032,9 +1032,9 @@ const OracleRelationship = ({
         multiline
         style={{
           fontSize: 13.5, lineHeight: 20, color: textColor,
-          backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)',
+          backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)',
           borderRadius: 14, borderWidth: 1,
-          borderColor: isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.09)',
+          borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.09)',
           padding: 12, minHeight: 68,
         }}
       />
@@ -1044,7 +1044,7 @@ const OracleRelationship = ({
         style={{
           marginTop: 10, paddingVertical: 13, borderRadius: 14, alignItems: 'center',
           flexDirection: 'row', justifyContent: 'center', gap: 8,
-          backgroundColor: query.trim() ? accent + '28' : (isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)'),
+          backgroundColor: query.trim() ? accent + '28' : (isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)'),
           borderWidth: 1, borderColor: query.trim() ? accent + '66' : 'transparent',
         }}>
         {loading
@@ -1079,16 +1079,16 @@ const OracleRelationship = ({
 
 export const PartnerJournalScreen = ({ navigation }) => {
   const { t } = useTranslation();
-  const { themeName, partnerData, setPartnerData, userData } = useAppStore();
+    const partnerData = useAppStore(s => s.partnerData);
+  const setPartnerData = useAppStore(s => s.setPartnerData);
+  const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
   const { entries, addEntry } = useJournalStore();
   const insets = useSafeAreaInsets();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
 
   const [tab, setTab] = useState<'mine' | 'together' | 'rituals'>('together');
   const [selectedEntryType, setSelectedEntryType] = useState('together');
@@ -1149,7 +1149,9 @@ export const PartnerJournalScreen = ({ navigation }) => {
   ] as const;
 
   return (
-    <SafeAreaView style={[s.root, { backgroundColor: currentTheme.background }]} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[s.root, {}]} edges={['top']}>
+
       <PartnerJournalBg isLight={isLight} />
 
       {/* Header */}
@@ -1485,7 +1487,8 @@ export const PartnerJournalScreen = ({ navigation }) => {
           </View>
         </Pressable>
       </Modal>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

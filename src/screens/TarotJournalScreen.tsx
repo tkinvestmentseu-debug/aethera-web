@@ -72,7 +72,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 import { formatLocaleDate } from '../core/utils/localeFormat';
-
+import { useTheme } from '../core/hooks/useTheme';
 const ACCENT = '#CEAE72';
 
 // ── FILTER CHIPS ─────────────────────────────────────────────────────────────
@@ -332,7 +332,7 @@ const ReadingCard = React.memo(({
     <Animated.View entering={FadeInDown.delay(100).springify()}>
       <Pressable
         onPress={() => setExpanded(p => !p)}
-        style={[styles.readingCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : cardBg, borderColor: isLight ? 'rgba(0,0,0,0.07)' : cardBorder, borderLeftWidth: 3, borderLeftColor: spreadColor }]}
+        style={[styles.readingCard, { backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : cardBg, borderColor: isLight ? 'rgba(139,100,42,0.32)' : cardBorder, borderLeftWidth: 3, borderLeftColor: spreadColor }]}
       >
         {/* Header row */}
         <View style={styles.readingCardHeader}>
@@ -370,7 +370,7 @@ const ReadingCard = React.memo(({
           horizontal
           showsHorizontalScrollIndicator={false}
           style={styles.cardScrollRow}
-          contentContainerStyle={{ paddingRight: 12 }}
+          contentContainerStyle={{ paddingRight: 22 }}
         >
           {(reading.cards ?? []).slice(0, 5).map((slot: any, i: number) => (
             <View key={i} style={styles.cardThumbWrap}>
@@ -419,7 +419,7 @@ const ReadingCard = React.memo(({
             )}
 
             {/* Reflection section */}
-            <View style={[styles.reflectionBlock, { borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)' }]}>
+            <View style={[styles.reflectionBlock, { borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.08)' }]}>
               <View style={styles.reflectionHeader}>
                 <NotebookPen size={13} color={ACCENT} />
                 <Typography variant="microLabel" style={{ color: ACCENT, marginLeft: 6, letterSpacing: 1.2 }}>
@@ -438,7 +438,7 @@ const ReadingCard = React.memo(({
                     style={[styles.reflectionInput, {
                       color: textColor,
                       borderColor: ACCENT + '44',
-                      backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)',
+                      backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.05)',
                     }]}
                     autoFocus
                   />
@@ -517,14 +517,15 @@ const ReadingCard = React.memo(({
 export const TarotJournalScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets      = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, favoriteItems, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight      = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const favoriteItems = useAppStore(s => s.favoriteItems);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const textColor  = isLight ? '#1A1208' : '#F0EAD6';
   const subColor   = isLight ? 'rgba(30,20,10,0.55)' : 'rgba(240,234,214,0.55)';
-  const cardBg     = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
+  const cardBg     = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.10)';
 
   const { pastReadings } = useTarotStore();
 
@@ -667,7 +668,9 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
   }, []);
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: currentTheme.background }]} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[styles.safe, {}]} edges={['top']}>
+
       {/* Background */}
       <View style={StyleSheet.absoluteFill} pointerEvents="none">
         <LinearGradient
@@ -762,7 +765,7 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
                 { label: 'Pasmo',        value: `${streak}d` },
                 { label: 'Top karta',    value: topCard ? topCard[0].slice(0, 6) : '—' },
               ].map((s, i) => (
-                <View key={i} style={[styles.statPill, { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)', borderColor: isLight ? 'rgba(0,0,0,0.08)' : cardBorder }]}>
+                <View key={i} style={[styles.statPill, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)', borderColor: isLight ? 'rgba(139,100,42,0.30)' : cardBorder }]}>
                   <Typography variant="title3" style={{ color: ACCENT, fontWeight: '700', fontSize: i === 3 ? 11 : 18 }}>
                     {s.value}
                   </Typography>
@@ -850,7 +853,7 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
                     styles.filterChip,
                     active
                       ? { backgroundColor: ACCENT, borderColor: ACCENT }
-                      : { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)', borderColor: cardBorder },
+                      : { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)', borderColor: cardBorder },
                   ]}
                 >
                   <Typography
@@ -1107,7 +1110,8 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
         <EndOfContentSpacer />
       </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

@@ -32,7 +32,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { AiService } from '../core/services/ai.service';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#34D399';
 
@@ -236,8 +236,8 @@ const EnergyLineChart = ({ data, color, isLight }: { data: ChartPoint[]; color: 
           const y = H - (lvl / 100) * H;
           return (
             <G key={lvl}>
-              <Path d={`M0,${y} L${W},${y}`} stroke={isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)'} strokeWidth={1} />
-              <SvgText x={2} y={y - 3} fontSize="8" fill={isLight ? 'rgba(0,0,0,0.28)' : 'rgba(255,255,255,0.28)'}>{lvl}%</SvgText>
+              <Path d={`M0,${y} L${W},${y}`} stroke={isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)'} strokeWidth={1} />
+              <SvgText x={2} y={y - 3} fontSize="8" fill={isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.28)'}>{lvl}%</SvgText>
             </G>
           );
         })}
@@ -262,18 +262,20 @@ const EnergyLineChart = ({ data, color, isLight }: { data: ChartPoint[]; color: 
 export const EnergyJournalScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const {
-    themeName, dailyProgress, streaks, updateDailyProgress,
-    addFavoriteItem, isFavoriteItem, removeFavoriteItem, userData,
-  } = useAppStore();
+    const dailyProgress = useAppStore(s => s.dailyProgress);
+  const streaks = useAppStore(s => s.streaks);
+  const updateDailyProgress = useAppStore(s => s.updateDailyProgress);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const userData = useAppStore(s => s.userData);
+  const {currentTheme, isLight} = useTheme();
+  const theme = currentTheme;
   const { entries } = useJournalStore();
-
-  const theme      = getResolvedTheme(themeName);
-  const isLight    = theme.background.startsWith('#F');
   const accent     = ACCENT;
   const textColor  = isLight ? '#1A1410' : '#F5F1EA';
   const subColor   = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg     = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const cardBg     = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
   const borderColor = isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)';
 
   const today        = new Date().toISOString().split('T')[0];
@@ -659,7 +661,7 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
                   returnKeyType="done"
                   style={[
                     s.journalInput,
-                    { color: textColor, backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)', borderColor },
+                    { color: textColor, backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)', borderColor },
                   ]}
                   textAlignVertical="top"
                 />
@@ -807,7 +809,7 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
                   </Pressable>
                 )}
                 {showAiInsight && (
-                  <View style={[s.aiResponseCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)', borderColor }]}>
+                  <View style={[s.aiResponseCard, { backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)', borderColor }]}>
                     {aiLoading ? (
                       <View style={s.aiLoadingRow}>
                         <RefreshCw color={accent} size={16} strokeWidth={1.8} />
@@ -898,7 +900,7 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
                               <Text style={[s.historyNote, { color: subColor }]} numberOfLines={1}>{note}…</Text>
                             ) : null}
                           </View>
-                          <View style={[s.historyBar, { backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.08)' }]}>
+                          <View style={[s.historyBar, { backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.08)' }]}>
                             <View style={[s.historyBarFill, { height: `${lvl}%`, backgroundColor: col }]} />
                           </View>
                         </View>

@@ -584,7 +584,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
                 ? 'Jeden punkt oporu w silnym przeplywi energii'
                 : 'Czysty przeplyw — wszystkie karty wchodza prosto'}
             </Typography>
-            <Typography variant="bodySmall" style={ts.synthesisCopy}>
+            <Typography variant="bodySmall" style={[ts.synthesisCopy, { color: subColor }]}>
               {selectedSpreadMeta?.name} ({String(drawnCards.length)} kart) gotowy do interpretacji.
             </Typography>
             <View style={ts.synthesisStats}>

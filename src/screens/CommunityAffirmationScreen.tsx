@@ -14,7 +14,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../store/useAuthStore';
 import { AffirmationsService, Affirmation } from '../core/services/community/affirmations.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#FBBF24';
 
@@ -50,14 +50,12 @@ const RANDOM_AFFIRMATIONS = [
 
 export const CommunityAffirmationScreen = ({ navigation }) => {
   const { t } = useTranslation();
-  const { themeName } = useAppStore();
-  const { currentUser } = useAuthStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+  const { currentTheme, isLight } = useTheme();
+      const currentUser = useAuthStore(s => s.currentUser);
   const tc = isLight ? '#1A1008' : '#F0ECE4';
-  const sc = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
+  const sc = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
   const cb = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
-  const cbr = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
+  const cbr = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)';
 
   const affirmationIdRef = useRef<string | null>(null);
   const [heroText, setHeroText] = useState(HERO_AFFIRMATION);
@@ -160,7 +158,9 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <LinearGradient
         colors={isLight ? ['#FFFBEB', '#FEF3C7', currentTheme.background] : ['#0E0902', '#1A1005', currentTheme.background]}
         style={StyleSheet.absoluteFill} pointerEvents="none"
@@ -186,9 +186,9 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
           {/* Hero */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 8 }}>
             <LinearGradient colors={['#92400E', '#B45309', '#D97706']} style={styles.heroCard}>
-              <Text style={styles.heroLabel}>AFIRMACJA DNIA</Text>
+              <Text style={[styles.heroLabel, isLight && { color: 'rgba(37,29,22,0.70)' }]}>AFIRMACJA DNIA</Text>
               <Text style={styles.heroText}>{heroText}</Text>
-              <Text style={styles.heroVotes}>{votes.toLocaleString()} głosów</Text>
+              <Text style={[styles.heroVotes, isLight && { color: 'rgba(37,29,22,0.70)' }]}>{votes.toLocaleString()} głosów</Text>
             </LinearGradient>
 
             {/* Vote Button */}
@@ -263,9 +263,9 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 20 }}>
             <Text style={[styles.sectionTitle, { color: sc }]}>AFIRMACJA TYGODNIA</Text>
             <LinearGradient colors={['#78350F', '#92400E', '#B45309']} style={styles.weekHeroCard}>
-              <Text style={styles.weekHeroLabel}>NAJWYŻEJ OCENIANA</Text>
+              <Text style={[styles.weekHeroLabel, isLight && { color: 'rgba(37,29,22,0.60)' }]}>NAJWYŻEJ OCENIANA</Text>
               <Text style={styles.weekHeroText}>Wybieram siebie każdego dnia.</Text>
-              <Text style={styles.weekHeroVotes}>2 891 głosów</Text>
+              <Text style={[styles.weekHeroVotes, isLight && { color: 'rgba(37,29,22,0.60)' }]}>2 891 głosów</Text>
             </LinearGradient>
           </View>
 
@@ -385,7 +385,8 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
           <EndOfContentSpacer />
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

@@ -55,7 +55,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 // ─── Constants ───────────────────────────────────────────────────────────────
 
 const { width: SW } = Dimensions.get('window');
@@ -213,10 +213,12 @@ const SavedMantraCard = ({ item, isLight, index }: { item: MantraResult; isLight
 
 export const MantraGeneratorScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem, savedMantras, addSavedMantra } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const savedMantras = useAppStore(s => s.savedMantras);
+  const addSavedMantra = useAppStore(s => s.addSavedMantra);
+  const { isLight } = useTheme();
   const [selectedIntention, setSelectedIntention] = useState<string>('spokoj');
   const [energyState, setEnergyState] = useState<string>('zrownowazony');
   const [focusKeyword, setFocusKeyword] = useState('');
@@ -338,7 +340,9 @@ Odpowiedz WYŁĄCZNIE w tym formacie JSON (bez markdown, bez komentarzy):
   const inputBorder = isLight ? 'rgba(129,140,248,0.35)' : 'rgba(129,140,248,0.28)';
 
   return (
-    <SafeAreaView edges={['top']} style={[styles.safe, { backgroundColor: isLight ? '#F0ECF8' : '#0D0B1E' }]}>
+<View style={{ flex: 1, backgroundColor: isLight ? '#F0ECF8' : '#0D0B1E' }}>
+  <SafeAreaView edges={['top']} style={[styles.safe, {}]}>
+
       {/* Background gradient */}
       <LinearGradient
         colors={isLight ? ['#F0ECF8', '#E8E0F8', '#EEE8FF'] : BG_GRADIENT}
@@ -566,7 +570,7 @@ Odpowiedz WYŁĄCZNIE w tym formacie JSON (bez markdown, bez komentarzy):
                   <Pressable
                     onPress={handleGenerate}
                     disabled={isLoading}
-                    style={[styles.resultActionBtn, { borderColor: 'rgba(255,255,255,0.18)', backgroundColor: 'rgba(255,255,255,0.06)' }]}
+                    style={[styles.resultActionBtn, { borderColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.18)', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)' }]}
                   >
                     <RefreshCw color={isLight ? '#7B6FAA' : 'rgba(255,255,255,0.55)'} size={16} strokeWidth={2} />
                     <Text style={[styles.resultActionText, { color: isLight ? '#7B6FAA' : 'rgba(255,255,255,0.55)' }]}>Nowa</Text>
@@ -641,7 +645,8 @@ Odpowiedz WYŁĄCZNIE w tym formacie JSON (bez markdown, bez komentarzy):
           <EndOfContentSpacer size="standard" />
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

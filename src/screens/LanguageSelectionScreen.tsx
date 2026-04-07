@@ -7,16 +7,28 @@ import { ChevronRight, Globe2, Check, Sparkles, Info, ChevronDown, ChevronUp } f
 import { I18nManager } from 'react-native';
 import { isRTLLanguage } from '../core/i18n/languageOptions';
 import { LinearGradient } from 'expo-linear-gradient';
-import { CelestialBackdrop } from '../components/CelestialBackdrop';
+import Svg, { Circle } from 'react-native-svg';
 import { Typography } from '../components/Typography';
-import { SectionHeading } from '../components/SectionHeading';
 import { useAppStore } from '../store/useAppStore';
-import { getResolvedTheme } from '../core/theme/tokens';
 import { layout, screenContracts } from '../core/theme/designSystem';
 import { LANGUAGE_OPTIONS } from '../core/i18n/languageOptions';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
+
+// ── Stała paleta "deep space" — ten ekran zawsze dark ──
+const SPACE_BG = '#05030E';
+const GOLD = '#CEB472';
+const TEXT_PRIMARY = '#F5F1EA';
+const TEXT_SUB = '#9A8F7E';
+
+// ── 50 losowych gwiazd (seed statyczny, żeby nie losować przy każdym renderze) ──
+const STARS = Array.from({ length: 50 }, (_, i) => ({
+  cx: ((i * 137.508 + 23) % 390),
+  cy: ((i * 97.3 + 11) % 220),
+  r: i % 7 === 0 ? 1.5 : i % 3 === 0 ? 1.1 : 0.7,
+  opacity: 0.3 + (i % 5) * 0.12,
+}));
 
 const LANGUAGE_DESCRIPTIONS: Record<string, { culture: string; note: string }> = {
   pl: {
@@ -80,18 +92,19 @@ const WHY_LANGUAGE_MATTERS = [
   { emoji: '✦', title: 'Zmiana w ustawieniach', desc: 'Możesz zmienić język w każdej chwili z poziomu Profilu. Ten wybór nie jest ostateczny.' },
 ];
 
-export const LanguageSelectionScreen = ({ navigation }: any) => {
+export const LanguageSelectionScreen = ({ navigation, route }: any) => {
+  // returnTo: 'Login' — gdy ekran jest wywoływany przed auth (nie z onboardingu)
+  const returnTo: string | undefined = route?.params?.returnTo;
   const { t } = useTranslation();
   const tr = (pl: string, en: string) => (i18n.language?.startsWith('en') ? en : pl);
   const insets = useSafeAreaInsets();
-  const { themeName, setLanguage } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-  const accent = currentTheme.primary;
-  const textColor = isLight ? '#1A1410' : '#F5F1EA';
-  const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+    const setLanguage = useAppStore(s => s.setLanguage);
+  // Ten ekran to onboarding — zawsze dark mode
+  const accent = GOLD;
+  const textColor = TEXT_PRIMARY;
+  const subColor = TEXT_SUB;
+  const cardBg = 'rgba(255,255,255,0.04)';
+  const cardBorder = 'rgba(255,255,255,0.08)';
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [expandedInfo, setExpandedInfo] = useState(false);
@@ -108,7 +121,16 @@ export const LanguageSelectionScreen = ({ navigation }: any) => {
       if (I18nManager.isRTL !== needsRTL) {
         I18nManager.forceRTL(needsRTL);
       }
-      navigation.navigate('IdentitySetup');
+      if (returnTo) {
+        // Wywołany z auth flow — idź do wskazanego ekranu (Login)
+        navigation.navigate(returnTo);
+      } else if (navigation.canGoBack()) {
+        // Wywołany z wnętrza aplikacji (np. Profil) — wróć
+        navigation.goBack();
+      } else {
+        // Normalny onboarding — idź do IdentitySetup
+        navigation.navigate('IdentitySetup');
+      }
     }
   };
 
@@ -116,43 +138,62 @@ export const LanguageSelectionScreen = ({ navigation }: any) => {
   const limitedLangs: typeof fullLangs = [];
 
   return (
-    <View style={[styles.container, { backgroundColor: currentTheme.background }]}>
-      <CelestialBackdrop intensity="soft" />
+    <View style={[styles.container, { backgroundColor: SPACE_BG }]}>
       <SafeAreaView edges={['top']} style={styles.safeArea}>
         <ScrollView
           contentContainerStyle={[styles.scrollContent, { paddingBottom: screenContracts.bottomInset(insets.bottom, 'airy') + 90 }]}
           showsVerticalScrollIndicator={false}
         >
-          {/* ── Hero ── */}
+          {/* ── Hero full-width z SVG gwiazdami ── */}
           <Animated.View entering={FadeInDown.duration(600)}>
-            <View style={[styles.heroCard, { backgroundColor: isLight ? accent + '0A' : accent + '0D', borderColor: accent + '30', borderLeftColor: accent }]}>
-              <View style={[styles.heroIcon, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)' }]}>
-                <Globe2 color={accent} size={24} />
+            <View style={styles.heroSection}>
+              {/* Gwiazdy SVG */}
+              <Svg style={StyleSheet.absoluteFill} viewBox="0 0 390 220">
+                {STARS.map((s, i) => (
+                  <Circle key={i} cx={s.cx} cy={s.cy} r={s.r} fill="#CEB472" opacity={s.opacity} />
+                ))}
+              </Svg>
+              {/* Ikona Globe */}
+              <View style={styles.heroGlobeWrap}>
+                <Globe2 color={GOLD} size={28} strokeWidth={1.5} />
               </View>
-              <Typography variant="premiumLabel" color={accent}>{tr('Wejście do sanktuarium', 'Entrance to the sanctuary')}</Typography>
-              <Typography variant="bodyRefined" style={{ marginTop: 8, lineHeight: 24, opacity: 0.88 }}>
+              <Typography
+                variant="premiumLabel"
+                style={styles.heroTitle}
+              >
+                {tr('WYBIERZ SWÓJ JĘZYK', 'CHOOSE YOUR LANGUAGE')}
+              </Typography>
+              <Typography
+                variant="bodySmall"
+                style={styles.heroSubtitle}
+              >
                 {tr(
-                  'Wybór języka wpływa na ton prowadzenia AI, interpretacje kart, rytuały i afirmacje. Aethera mówi do Ciebie — a nie tłumaczy z angielskiego.',
-                  'Your language shapes the tone of AI guidance, card interpretations, rituals, and affirmations. Aethera speaks to you directly rather than translating from English.',
+                  'Język kształtuje ton prowadzenia AI, rytuałów i afirmacji.\nAethera mówi do Ciebie — nie tłumaczy.',
+                  'Your language shapes AI guidance, rituals and affirmations.\nAethera speaks to you — not translates.',
                 )}
               </Typography>
+
+              {/* Expand: Dlaczego język ma znaczenie */}
               <Pressable
                 onPress={() => setExpandedInfo(v => !v)}
-                style={[styles.whyRow, { borderTopColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }]}
+                style={styles.whyRow}
               >
-                <Info color={accent} size={14} strokeWidth={2} />
-                <Typography variant="microLabel" color={accent} style={{ flex: 1 }}>{tr('Dlaczego język ma znaczenie?', 'Why does language matter?')}</Typography>
-                {expandedInfo ? <ChevronUp color={accent} size={14} /> : <ChevronDown color={accent} size={14} />}
+                <Info color={GOLD} size={13} strokeWidth={2} />
+                <Typography variant="microLabel" color={GOLD} style={{ flex: 1 }}>
+                  {tr('Dlaczego język ma znaczenie?', 'Why does language matter?')}
+                </Typography>
+                {expandedInfo ? <ChevronUp color={GOLD} size={13} /> : <ChevronDown color={GOLD} size={13} />}
               </Pressable>
+
               {expandedInfo && (
                 <Animated.View entering={FadeInDown.duration(320)} style={{ gap: 12, paddingTop: 8 }}>
                   {WHY_LANGUAGE_MATTERS.map((item, i) => (
                     <View key={i} style={{ flexDirection: 'row', gap: 12, alignItems: 'flex-start' }}>
-                      <View style={{ width: 36, height: 36, borderRadius: 12, backgroundColor: accent + '12', alignItems: 'center', justifyContent: 'center' }}>
+                      <View style={{ width: 36, height: 36, borderRadius: 12, backgroundColor: GOLD + '14', alignItems: 'center', justifyContent: 'center' }}>
                         <Typography variant="bodyRefined">{item.emoji}</Typography>
                       </View>
                       <View style={{ flex: 1 }}>
-                        <Typography variant="cardTitle" style={{ marginBottom: 3 }}>
+                        <Typography variant="cardTitle" style={{ marginBottom: 3, color: TEXT_PRIMARY }}>
                           {item.title === 'Ton prowadzenia'
                             ? tr('Ton prowadzenia', 'Tone of guidance')
                             : item.title === 'Kontekst kulturowy'
@@ -161,23 +202,21 @@ export const LanguageSelectionScreen = ({ navigation }: any) => {
                                 ? tr('Zmiana w ustawieniach', 'Change in settings')
                                 : item.title}
                         </Typography>
-                        <Typography variant="bodySmall" style={{ opacity: 0.75, lineHeight: 19 }}>
+                        <Typography variant="bodySmall" style={{ opacity: 0.75, lineHeight: 19, color: TEXT_SUB }}>
                           {item.title === 'Ton prowadzenia'
                             ? tr(
                               'Język kształtuje głębokość rezonansu. Afirmacja po polsku trafia inaczej niż ta sama treść przetłumaczona z angielskiego.',
-                              'Language changes the depth of resonance. An affirmation received in your own language lands differently than one translated from another.',
+                              'Language changes the depth of resonance. An affirmation received in your own language lands differently.',
                             )
                             : item.title === 'Kontekst kulturowy'
                               ? tr(
                                 'Tradycje duchowe mają swoje lokalne niuanse. Oracle AI rozumie je, gdy mówi w Twoim języku.',
                                 'Spiritual traditions carry local nuance. Oracle AI understands it best when it speaks in your language.',
                               )
-                              : item.title === 'Zmiana w ustawieniach'
-                                ? tr(
-                                  'Możesz zmienić język w każdej chwili z poziomu Profilu. Ten wybór nie jest ostateczny.',
-                                  'You can change the language at any time from Profile. This choice is not final.',
-                                )
-                                : item.desc}
+                              : tr(
+                                'Możesz zmienić język w każdej chwili z poziomu Profilu. Ten wybór nie jest ostateczny.',
+                                'You can change the language at any time from Profile. This choice is not final.',
+                              )}
                         </Typography>
                       </View>
                     </View>
@@ -189,7 +228,7 @@ export const LanguageSelectionScreen = ({ navigation }: any) => {
 
           {/* ── All languages ── */}
           <Animated.View entering={FadeInDown.delay(80).duration(520)}>
-            <Typography variant="premiumLabel" color={accent} style={styles.sectionLabel}>
+            <Typography variant="premiumLabel" color={GOLD} style={styles.sectionLabel}>
               {tr('10 języków · Pełna obsługa', '10 languages · Full support')}
             </Typography>
           </Animated.View>
@@ -205,24 +244,26 @@ export const LanguageSelectionScreen = ({ navigation }: any) => {
                   style={[
                     styles.langCard,
                     {
-                      borderColor: isSelected ? accent : cardBorder,
-                      backgroundColor: isSelected ? accent + '0D' : cardBg,
-                      borderWidth: isSelected ? 1.5 : 1,
+                      borderColor: isSelected ? GOLD + '55' : cardBorder,
+                      backgroundColor: isSelected ? GOLD + '15' : cardBg,
+                      borderWidth: isSelected ? 1 : 1,
+                      borderLeftWidth: isSelected ? 4 : 1,
+                      borderLeftColor: isSelected ? GOLD : cardBorder,
                     },
                   ]}
                 >
                   {isSelected && (
                     <LinearGradient
-                      colors={[accent + '10', 'transparent']}
+                      colors={[GOLD + '14', 'transparent']}
                       style={StyleSheet.absoluteFill}
                     />
                   )}
                   {/* Top row */}
                   <View style={styles.langCardTop}>
                     <View style={{ flex: 1 }}>
-                      <Typography variant="cardTitle" style={{ fontSize: 18 }}>{item.native}</Typography>
+                      <Typography variant="cardTitle" style={{ fontSize: 18, color: TEXT_PRIMARY }}>{item.native}</Typography>
                       {info && (
-                        <Typography variant="bodySmall" style={{ marginTop: 4, opacity: 0.72, lineHeight: 19 }}>
+                        <Typography variant="bodySmall" style={{ marginTop: 4, opacity: 0.72, lineHeight: 19, color: TEXT_SUB }}>
                           {info.note}
                         </Typography>
                       )}
@@ -230,28 +271,31 @@ export const LanguageSelectionScreen = ({ navigation }: any) => {
                     <View style={[
                       styles.selectCircle,
                       {
-                        borderColor: isSelected ? accent : cardBorder,
-                        backgroundColor: isSelected ? accent : 'transparent',
+                        borderColor: isSelected ? GOLD : 'rgba(255,255,255,0.2)',
+                        backgroundColor: isSelected ? GOLD : 'transparent',
                       },
                     ]}>
-                      {isSelected && <Check color="#FFF" size={14} strokeWidth={2.5} />}
+                      {isSelected && <Check color="#05030E" size={14} strokeWidth={2.5} />}
                     </View>
                   </View>
 
                   {/* Cultural note */}
                   {info && (
-                    <Typography variant="bodySmall" style={{ marginTop: 10, lineHeight: 20, opacity: 0.8 }}>
+                    <Typography variant="bodySmall" style={{ marginTop: 10, lineHeight: 20, opacity: 0.8, color: TEXT_SUB }}>
                       {info.culture}
                     </Typography>
                   )}
 
                   {/* Features */}
                   {features && (
-                    <View style={[styles.featuresRow, { borderTopColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }]}>
+                    <View style={[styles.featuresRow, { borderTopColor: 'rgba(255,255,255,0.07)' }]}>
                       {features.map((f, fi) => (
-                        <View key={fi} style={[styles.featureChip, { backgroundColor: isSelected ? accent + '14' : isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: isSelected ? accent + '33' : 'transparent' }]}>
-                          <Sparkles color={isSelected ? accent : subColor} size={10} strokeWidth={1.5} />
-                          <Typography variant="microLabel" color={isSelected ? accent : subColor}>{f}</Typography>
+                        <View key={fi} style={[styles.featureChip, {
+                          backgroundColor: isSelected ? GOLD + '14' : 'rgba(255,255,255,0.05)',
+                          borderColor: isSelected ? GOLD + '33' : 'transparent',
+                        }]}>
+                          <Sparkles color={isSelected ? GOLD : TEXT_SUB} size={10} strokeWidth={1.5} />
+                          <Typography variant="microLabel" color={isSelected ? GOLD : TEXT_SUB}>{f}</Typography>
                         </View>
                       ))}
                     </View>
@@ -262,32 +306,35 @@ export const LanguageSelectionScreen = ({ navigation }: any) => {
           })}
 
           {/* ── Coming soon ── */}
-          <Animated.View entering={FadeInDown.delay(300).duration(520)}>
-            <Typography variant="premiumLabel" color={accent} style={[styles.sectionLabel, { marginTop: 8 }]}>
-              {tr('Kolejne języki', 'More languages')}
-            </Typography>
-          </Animated.View>
-
-          {limitedLangs.map((item, idx) => (
-            <Animated.View key={item.id} entering={FadeInDown.delay(320 + idx * 60).duration(400)}>
-              <View style={[styles.langCard, { borderColor: cardBorder, backgroundColor: cardBg, opacity: 0.55 }]}>
-                <View style={styles.langCardTop}>
-                  <View style={{ flex: 1 }}>
-                    <Typography variant="cardTitle">{item.native}</Typography>
-                    <Typography variant="bodySmall" style={{ marginTop: 4, opacity: 0.7 }}>{item.note}</Typography>
+          {limitedLangs.length > 0 && (
+            <>
+              <Animated.View entering={FadeInDown.delay(300).duration(520)}>
+                <Typography variant="premiumLabel" color={GOLD} style={[styles.sectionLabel, { marginTop: 8 }]}>
+                  {tr('Kolejne języki', 'More languages')}
+                </Typography>
+              </Animated.View>
+              {limitedLangs.map((item, idx) => (
+                <Animated.View key={item.id} entering={FadeInDown.delay(320 + idx * 60).duration(400)}>
+                  <View style={[styles.langCard, { borderColor: cardBorder, backgroundColor: cardBg, opacity: 0.55 }]}>
+                    <View style={styles.langCardTop}>
+                      <View style={{ flex: 1 }}>
+                        <Typography variant="cardTitle" style={{ color: TEXT_PRIMARY }}>{item.native}</Typography>
+                        <Typography variant="bodySmall" style={{ marginTop: 4, opacity: 0.7, color: TEXT_SUB }}>{item.note}</Typography>
+                      </View>
+                      <View style={[styles.comingSoonBadge, { borderColor: GOLD + '33', backgroundColor: GOLD + '0C' }]}>
+                        <Typography variant="microLabel" color={GOLD}>{tr('W przygotowaniu', 'Coming soon')}</Typography>
+                      </View>
+                    </View>
                   </View>
-                  <View style={[styles.comingSoonBadge, { borderColor: accent + '33', backgroundColor: accent + '0C' }]}>
-                    <Typography variant="microLabel" color={accent}>{tr('W przygotowaniu', 'Coming soon')}</Typography>
-                  </View>
-                </View>
-              </View>
-            </Animated.View>
-          ))}
+                </Animated.View>
+              ))}
+            </>
+          )}
 
           {/* ── Privacy note ── */}
           <Animated.View entering={FadeInDown.delay(400).duration(440)}>
             <View style={[styles.privacyCard, { borderColor: cardBorder, backgroundColor: cardBg }]}>
-              <Typography variant="microLabel" color={subColor} style={{ textAlign: 'center', lineHeight: 18 }}>
+              <Typography variant="microLabel" color={TEXT_SUB} style={{ textAlign: 'center', lineHeight: 18 }}>
                 {tr(
                   'Język można zmienić w dowolnym momencie w Profilu → Ustawienia.\nWybór nie wpływa na przechowywane dane.',
                   'You can change the language at any time in Profile → Settings.\nThis choice does not affect your saved data.',
@@ -299,15 +346,32 @@ export const LanguageSelectionScreen = ({ navigation }: any) => {
           <EndOfContentSpacer size="compact" />
         </ScrollView>
 
+        {/* ── Gradient fade na dole ScrollView ── */}
+        <View pointerEvents="none" style={styles.bottomFade}>
+          <LinearGradient
+            colors={['transparent', SPACE_BG]}
+            style={StyleSheet.absoluteFill}
+          />
+        </View>
+
         {/* ── Fixed CTA ── */}
         {selectedId && (
-          <Animated.View entering={FadeInUp.duration(320)} style={[styles.ctaBar, { paddingBottom: insets.bottom + 12, backgroundColor: isLight ? 'rgba(250,246,238,0.97)' : 'rgba(8,6,18,0.97)', borderTopColor: cardBorder }]}>
+          <Animated.View entering={FadeInUp.duration(320)} style={[styles.ctaBar, {
+            paddingBottom: insets.bottom + 12,
+            backgroundColor: 'rgba(5,3,14,0.97)',
+            borderTopColor: 'rgba(206,180,114,0.15)',
+            shadowColor: GOLD,
+            shadowOpacity: 0.55,
+            shadowRadius: 18,
+            shadowOffset: { width: 0, height: -4 },
+            elevation: 16,
+          }]}>
             <Pressable onPress={handleContinue} style={styles.ctaBtn}>
-              <LinearGradient colors={[accent, accent + 'CC']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={StyleSheet.absoluteFill} />
-              <Typography variant="premiumLabel" color="#000" style={{ fontSize: 15 }}>
+              <LinearGradient colors={[GOLD, GOLD + 'CC']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={StyleSheet.absoluteFill} />
+              <Typography variant="premiumLabel" color="#05030E" style={{ fontSize: 15 }}>
                 {(fullLangs.find(l => l.id === selectedId)?.native || selectedId) + ' — ' + tr('KONTYNUUJ', 'CONTINUE')}
               </Typography>
-              <ChevronRight color="#000" size={18} strokeWidth={2} />
+              <ChevronRight color="#05030E" size={18} strokeWidth={2} />
             </Pressable>
           </Animated.View>
         )}
@@ -319,34 +383,58 @@ export const LanguageSelectionScreen = ({ navigation }: any) => {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   safeArea: { flex: 1 },
-  scrollContent: { paddingHorizontal: layout.padding.screen, paddingTop: 8 },
-  heroCard: {
-    borderRadius: 20,
-    borderWidth: 1,
-    borderLeftWidth: 3,
-    padding: 20,
+  scrollContent: { paddingHorizontal: layout.padding.screen, paddingTop: 0 },
+
+  // ── Hero section ──
+  heroSection: {
+    minHeight: 220,
+    alignSelf: 'stretch',
+    marginHorizontal: -layout.padding.screen,
+    paddingHorizontal: layout.padding.screen,
+    paddingTop: 28,
+    paddingBottom: 20,
     marginBottom: 24,
-    gap: 4,
+    overflow: 'hidden',
+    justifyContent: 'flex-end',
+    gap: 8,
   },
-  heroIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 16,
+  heroGlobeWrap: {
+    width: 56,
+    height: 56,
+    borderRadius: 20,
+    backgroundColor: 'rgba(206,180,114,0.12)',
+    borderWidth: 1,
+    borderColor: 'rgba(206,180,114,0.3)',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
+    marginBottom: 6,
+  },
+  heroTitle: {
+    color: '#F5F1EA',
+    fontSize: 22,
+    letterSpacing: 2.5,
+    fontWeight: '700',
+  },
+  heroSubtitle: {
+    color: '#9A8F7E',
+    lineHeight: 20,
+    opacity: 0.88,
   },
   whyRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    marginTop: 14,
-    paddingTop: 12,
+    marginTop: 10,
+    paddingTop: 10,
     borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: 'rgba(206,180,114,0.2)',
   },
+
   sectionLabel: { marginBottom: 12 },
+
+  // ── Language cards ──
   langCard: {
-    borderRadius: 18,
+    borderRadius: 22,
     padding: 18,
     marginBottom: 12,
     overflow: 'hidden',
@@ -394,6 +482,15 @@ const styles = StyleSheet.create({
     padding: 14,
     borderWidth: 1,
     marginTop: 8,
+  },
+
+  // ── Gradient fade i CTA ──
+  bottomFade: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 80,
   },
   ctaBar: {
     position: 'absolute',

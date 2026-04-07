@@ -10,7 +10,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Circle, Path, Line } from 'react-native-svg';
 import Animated, {
   useSharedValue, useAnimatedStyle, useAnimatedProps,
-  withRepeat, withSequence, withTiming, FadeInDown, withSpring,
+  withRepeat, withSequence, withTiming, FadeInDown, withSpring, cancelAnimation,
 } from 'react-native-reanimated';
 import {
   ChevronLeft, Heart, Star, Users, Zap, Sparkles, Send,
@@ -26,7 +26,7 @@ import { useAppStore } from '../store/useAppStore';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#EC4899';
 
@@ -134,18 +134,15 @@ function ElementBadge({ element, size = 'sm' }: { element: string; size?: 'sm' |
 export const SoulMatchScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const themeName = useAppStore(s => s.themeName);
-  const currentTheme = getResolvedTheme(themeName);
   const userData = useAppStore(s => s.userData);
-  const { currentUser } = useAuthStore();
-  const isLight = currentTheme.background.startsWith('#F');
-
+  const { currentTheme, isLight } = useTheme();
+    const currentUser = useAuthStore(s => s.currentUser);
   const textColor  = isLight ? '#1A0010' : '#FFF0F8';
   const subColor   = isLight ? 'rgba(26,0,16,0.55)' : 'rgba(255,240,248,0.55)';
-  const cardBg     = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.11)';
-  const tabBg      = isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.08)';
-  const inputBg    = isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)';
+  const cardBg     = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.11)';
+  const tabBg      = isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.08)';
+  const inputBg    = isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.07)';
 
   const [activeTab, setActiveTab] = useState<'odkryj' | 'polaczone' | 'historia'>('odkryj');
   const [filter, setFilter] = useState('WSZYSTKIE');
@@ -187,6 +184,14 @@ export const SoulMatchScreen = ({ navigation }) => {
 
   const connectedProfiles = useMemo(() => profiles.filter(p => connectedIds.includes(p.id)), [profiles, connectedIds]);
 
+  // Load real connections from Firebase on mount
+  useEffect(() => {
+    if (!currentUser) return;
+    SoulsService.getConnections(currentUser.uid)
+      .then(ids => { if (ids.length > 0) setConnectedIds(ids); })
+      .catch(() => {});
+  }, [currentUser]);
+
   // Arc animation
   const energyArc  = useSharedValue(0);
   const auraScale  = useSharedValue(1);
@@ -196,6 +201,11 @@ export const SoulMatchScreen = ({ navigation }) => {
     energyArc.value = withTiming(1, { duration: 2200 });
     auraScale.value = withRepeat(withSequence(withTiming(1.14, { duration: 2800 }), withTiming(1, { duration: 2800 })), -1, false);
     auraOpacity.value = withRepeat(withSequence(withTiming(0.85, { duration: 2800 }), withTiming(0.45, { duration: 2800 })), -1, false);
+    return () => {
+      cancelAnimation(energyArc);
+      cancelAnimation(auraScale);
+      cancelAnimation(auraOpacity);
+    };
   }, []);
 
   const auraStyle = useAnimatedStyle(() => ({
@@ -579,7 +589,9 @@ export const SoulMatchScreen = ({ navigation }) => {
   // ─── Main render ──────────────────────────────────────────────────────────
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: currentTheme.background }]} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[styles.safe, {}]} edges={['top']}>
+
       <LinearGradient
         colors={isLight ? ['#FDF2F8', '#FCE7F3', currentTheme.background] : ['#12040A', '#1E0612', currentTheme.background]}
         style={StyleSheet.absoluteFill}
@@ -625,7 +637,8 @@ export const SoulMatchScreen = ({ navigation }) => {
           {activeTab === 'historia'  && renderHistoriaTab()}
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

@@ -1,0 +1,1328 @@
+{
+  "header": {
+    "eyebrow": "IL REGNO DEI SOGNI",
+    "title": "Il simbolario della notte",
+    "favoriteLabel": "Sogni",
+    "favoriteId": "sogni",
+    "formTab": "sonno"
+  },
+  "tabs": [
+    {
+      "id": "sonno",
+      "label": "Sogno",
+      "icon": "🌙"
+    },
+    {
+      "id": "simboli",
+      "label": "Simbolario",
+      "icon": "📖"
+    },
+    {
+      "id": "modelli",
+      "label": "Modelli",
+      "icon": "🔮"
+    },
+    {
+      "id": "luna",
+      "label": "La Luna",
+      "icon": "🌕"
+    },
+    {
+      "id": "lucido",
+      "label": "Consapevole",
+      "icon": "💡"
+    },
+    {
+      "id": "calendario",
+      "label": "Calendario",
+      "icon": "📅"
+    }
+  ],
+  "calendar": {
+    "monthNames": [
+      "Gennaio",
+      "Febbraio",
+      "Marzo",
+      "Aprile",
+      "Maggio",
+      "Giugno",
+      "Luglio",
+      "Agosto",
+      "Settembre",
+      "Ottobre",
+      "Novembre",
+      "Dicembre"
+    ],
+    "weekdays": [
+      "Lun",
+      "Mar",
+      "Mer",
+      "Giovedì",
+      "Ven",
+      "sabato",
+      "Dom"
+    ],
+    "stats": [
+      {
+        "id": "giorni con i sogni",
+        "label": "Giorni da sogno",
+        "icon": "🌙"
+      },
+      {
+        "id": "voci",
+        "label": "Post",
+        "icon": "📝"
+      },
+      {
+        "id": "lucido",
+        "label": "Lucid",
+        "icon": "💡"
+      }
+    ],
+    "legend": [
+      {
+        "id": "normale",
+        "label": "Un sogno normale"
+      },
+      {
+        "id": "lucido",
+        "label": "Lucid"
+      },
+      {
+        "id": "incubo",
+        "label": "Un incubo"
+      }
+    ],
+    "emptyDay": "Nessun sogno registrato in questa data",
+    "monthDetailFormat": "{{day}} {{month}}"
+  },
+  "sections": {
+    "dreamStats": [
+      {
+        "id": "sogni",
+        "label": "Sogni",
+        "icon": "🌙"
+      },
+      {
+        "id": "serie",
+        "label": "Banda",
+        "icon": "🔥"
+      },
+      {
+        "id": "lucido",
+        "label": "Lucid",
+        "icon": "💡"
+      }
+    ],
+    "patternStats": [
+      {
+        "id": "salvato",
+        "label": "Iscritti",
+        "icon": "🌙"
+      },
+      {
+        "id": "nightStreak",
+        "label": "La notte",
+        "icon": "🔥"
+      },
+      {
+        "id": "modelli",
+        "label": "Modelli",
+        "icon": "🔄"
+      }
+    ],
+    "moonStats": [
+      {
+        "id": "lucido",
+        "label": "Lucid",
+        "icon": "💡"
+      },
+      {
+        "id": "profetico",
+        "label": "Profetico",
+        "icon": "🔮"
+      },
+      {
+        "id": "serie",
+        "label": "Banda",
+        "icon": "🌙"
+      }
+    ],
+    "lucidStats": [
+      {
+        "id": "sogni lucidi",
+        "label": "Sogni lucidi",
+        "icon": "💡"
+      },
+      {
+        "id": "nightStreak",
+        "label": "La notte",
+        "icon": "🌙"
+      },
+      {
+        "id": "efficacia",
+        "label": "Efficacia",
+        "icon": "📊"
+      }
+    ]
+  },
+  "form": {
+    "ctaTitle": "Annota il sogno di oggi",
+    "ctaSubtitle": "Appena sveglio — prima che le immagini svaniscano",
+    "cardEyebrow": "UN NUOVO SOGNO",
+    "cardTitle": "Scrivilo subito dopo esserti svegliato",
+    "titleLabel": "TITOLO DEL SOGNO",
+    "titlePlaceholder": "ad es. Una casa con i bambini, Un volo sul mare...",
+    "contentLabel": "DESCRIZIONE DEL SOGNO",
+    "contentPlaceholder": "Descrivi il sogno: inizia dal colore, dal luogo o dall'emozione che ti è rimasta dopo il risveglio...",
+    "detectedSymbols": "SIMBOLI RILEVATI ({{count}})",
+    "dominantEmotion": "EMOZIONE DOMINANTE",
+    "tagsLabel": "TAG",
+    "clarityLabel": "L'INTENSITÀ DEL SOGNO",
+    "clarityLabels": [
+      "Nebuloso",
+      "Debole",
+      "Chiaro",
+      "Vivo",
+      "Come la realtà"
+    ],
+    "clarityPlaceholder": "Scegli la nitidezza",
+    "aiLabel": "INTERPRETAZIONE JUNGHIANA",
+    "aiLoading": "Oracle legge i tuoi sogni...",
+    "emptyTitle": "Nessun sogno registrato",
+    "emptyDescription": "Annota il tuo primo sogno subito dopo il risveglio. Ogni sogno è un messaggio proveniente dal profondo della psiche.",
+    "emptyCta": "Annota il primo sogno",
+    "detailsAndAi": "Dettagli e IA",
+    "howToRecord": "COME ANNOTARE I SOGNI",
+    "saveDream": "Registra il sogno",
+    "interpret": "Interpreta",
+    "analyzing": "Sto analizzando..."
+  },
+  "symbolarium": {
+    "searchPlaceholder": "Cerca il simbolo...",
+    "title": "SYMBOLE ({{count}})",
+    "jungianLayer": "LO STRATO JUNGHIANO",
+    "shadowLayer": "ELEMENTO D'OMBRA",
+    "emptyTitle": "Nessun risultato",
+    "emptyDescription": "Prova un'altra parola chiave",
+    "dailySymbolEyebrow": "✨ SIMBOLO DEL GIORNO"
+  },
+  "patterns": {
+    "aiCardTitle": "L'interpretazione junghiana di tutti i tuoi sogni. Archetipi, Ombra e messaggi.",
+    "mapTitle": "Mappa dei modelli onirici",
+    "aiLoading": "Oracle analizza i modelli dei tuoi sogni...",
+    "recurringTitle": "SIMBOLI RICORRENTI",
+    "recurringEmpty": "Annota più sogni per individuare gli schemi ricorrenti.",
+    "emotionsTitle": "LE EMOZIONI PIÙ COMUNI",
+    "emotionsEmpty": "Registra i tuoi sogni con entusiasmo per visualizzare le statistiche.",
+    "dreamTypesTitle": "TIPI DI SOGNI",
+    "nextActions": [
+      {
+        "id": "ombra",
+        "title": "Lavorare con l'ombra"
+      },
+      {
+        "id": "luna",
+        "title": "Calendario lunare"
+      },
+      {
+        "id": "rivista",
+        "title": "Salva la riflessione",
+        "subtitle": "Quale simbolo del tuo ultimo sogno risuona nella tua vita?"
+      }
+    ],
+    "nowPrefix": "ORA · ",
+    "aiTitle": "Analisi dei modelli di IA",
+    "aiLoadingTitle": "Sto analizzando gli schemi...",
+    "streakTitle": "SERIE DI 7 GIORNI",
+    "streakEmpty": "Inizia oggi stesso e crea la tua serie dei sogni.",
+    "streakActive": "Complimenti! Stai annotando i tuoi sogni da {{count}} notti di fila.",
+    "exploreTitle": "✦ CONTINUA A ESPLORARE"
+  },
+  "moon": {
+    "cycleTitle": "IL CICLO LUNARE E IL SONNO",
+    "lunarDreamsTitle": "I TUOI SOGNI LUNARI",
+    "lunarDreamsNote": "Annotando la data di ogni sogno, potrai scoprire in quale fase lunare sogni più intensamente.",
+    "lucidTipsTitle": "COME ENTRARE IN UN SONNO CONSAPEVOLE",
+    "lucidTips": [
+      [
+        "Tecnica MILD",
+        "Poco prima di addormentarti, ripeti: «La prossima volta che sognerò, ne sarò consapevole». Visualizza te stesso mentre esegui un test di realtà nel sogno."
+      ],
+      [
+        "Tecnica WILD",
+        "Entrare nel sonno mantenendo lo stato di coscienza: osserva le immagini ipnagogiche senza lasciarti coinvolgere, finché il sogno non prende forma."
+      ],
+      [
+        "Test di realtà",
+        "Chiediti \"Sto sognando?\" un paio di volte al giorno. Nel sogno, questa abitudine diventerà automatica."
+      ],
+      [
+        "Fase di luna piena",
+        "Massima attività onirica. Imposta la sveglia 90 minuti dopo il tuo solito orario di andare a dormire e addormentati subito con l'intenzione di fare un sogno lucido."
+      ]
+    ],
+    "lunarCalendarTitle": "Calendario lunare completo",
+    "lunarCalendarDescription": "Pianifica le tue intenzioni per il sonno in base al ciclo lunare.",
+    "illuminationSuffix": "illuminazioni",
+    "badges": {
+      "lucid": "Lucid {{mark}}",
+      "prophetic": "{{mark}} profetico"
+    }
+  },
+  "lucid": {
+    "introEyebrow": "💡 SOGNI LUCIDI",
+    "introBody": "Il sogno lucido (lucid dreaming) è uno stato in cui sei consapevole di stare sognando e puoi partecipare attivamente al sogno. Una pratica regolare apre l'accesso al subconscio, aumenta la creatività e permette di affrontare le proprie paure in uno spazio onirico sicuro.",
+    "techniquesTitle": "TECNICHE DI INDUZIONE",
+    "techniques": [
+      {
+        "tag": "MILD",
+        "icon": "🌿",
+        "difficulty": "Facile",
+        "title": "MILD — Induzione mnemonica",
+        "desc": "Prima di andare a dormire, ripeti l'affermazione: «La prossima volta che sognerò, ne sarò consapevole». Immagina chiaramente di renderti conto che stai sognando. Questa tecnica si basa sulla memoria prospettica.",
+        "steps": [
+          "Fissa un obiettivo appena prima di addormentarti",
+          "Immagina il momento in cui ti rendi conto che stai sognando",
+          "Ripeti il mantra 10-20 volte con una voce interiore calma",
+          "Se ti svegli durante la notte, ripassa la tecnica"
+        ]
+      },
+      {
+        "tag": "WBTB",
+        "icon": "⏰",
+        "difficulty": "Media",
+        "title": "WBTB — Svegliati e torna a letto",
+        "desc": "Imposta la sveglia 5-6 ore dopo esserti addormentato. Alzati per 30-60 minuti, mantenendo la consapevolezza (leggi qualcosa sul sogno lucido). Torna a dormire. La fase REM è allora la più lunga e la più intensa.",
+        "steps": [
+          "Imposta la sveglia 5 ore dopo esserti addormentato",
+          "Alzati e dedica 30-60 minuti alla lettura sul sogno lucido",
+          "Torna a letto con una forte intenzione MILD o WILD",
+          "La fase REM dopo il WBTB dura fino a 45-60 minuti"
+        ]
+      },
+      {
+        "tag": "WILD",
+        "icon": "🌀",
+        "difficulty": "Avanzato",
+        "title": "WILD — Sogno lucido indotto dal risveglio",
+        "desc": "Trasferisci la coscienza direttamente dallo stato di veglia al sonno senza interruzioni. Osserva le immagini e i suoni ipnagogici come segnale di ingresso nel sonno.",
+        "steps": [
+          "Collegati a WBTB per ottenere i migliori risultati",
+          "Rimani immobile e osserva le visioni ipnagogiche",
+          "Non reagire in modo emotivo: limitati a osservare",
+          "Sentirai delle vibrazioni o una sorta di \"attrazione\": è l'inizio del sonno"
+        ]
+      },
+      {
+        "tag": "SSILD",
+        "icon": "👁️",
+        "difficulty": "Facile-Medio",
+        "title": "SSILD — Sogno lucido indotto dai sensi",
+        "desc": "Concentrati ciclicamente sulla vista, sull'udito e sul tatto per 3-4 cicli. Non analizzare, limitati a osservare. Questa tecnica disorienta il cervello e accelera l'ingresso nella fase REM mantenendo lo stato di coscienza.",
+        "steps": [
+          "Collegati al WBTB per l'SSILD al risveglio",
+          "20 secondi di concentrazione sulla vista (buio o immagini)",
+          "20 secondi per i suoni interni ed esterni",
+          "20 secondi per percepire il proprio corpo — ripetere 4 cicli"
+        ]
+      }
+    ],
+    "realityChecksTitle": "TEST DI REALTÀ",
+    "realityChecksEyebrow": "VERIFICHE DELLA REALTÀ — DA EFFETTUARE 10 VOLTE AL GIORNO",
+    "realityChecksBody": "Controllare regolarmente la realtà crea un'abitudine che si riflette anche nei sogni. Nel sogno ci sarà sempre qualcosa che non va: è proprio in quel momento che ti sveglierai.",
+    "realityChecks": [
+      {
+        "icon": "✋",
+        "title": "Le dita della mano",
+        "desc": "Conta le dita: nei sogni di solito sono 6-7 oppure sono deformate."
+      },
+      {
+        "icon": "📖",
+        "title": "Lettura del testo",
+        "desc": "Leggi la frase, distogli lo sguardo e torna a guardarla: nel sogno il testo cambia."
+      },
+      {
+        "icon": "⏰",
+        "title": "Orologio digitale",
+        "desc": "Nei sogni il tempo è irrazionale: i numeri cambiano o non esistono."
+      },
+      {
+        "icon": "👃",
+        "title": "Naso",
+        "desc": "Tappati il naso e prova a respirare. Nel sogno riuscirai a farlo nonostante il naso sia tappato."
+      },
+      {
+        "icon": "💡",
+        "title": "Interruttore della luce",
+        "desc": "Nei sogni, spesso gli interruttori non funzionano o funzionano al contrario."
+      }
+    ],
+    "dreamSignsTitle": "I TUOI SOGNI",
+    "dreamSignsBody": "I simboli onirici sono elementi ricorrenti nei tuoi sogni. Quando li riconosci in sogno, torni alla consapevolezza. Annotali nel diario dopo ogni sogno.",
+    "dreamSignsEmpty": "Annota alcuni sogni affinché Aethera possa individuare i tuoi simboli onirici personali.",
+    "dreamSignsCount": "{{count}}× nei sogni",
+    "tonightIntentionTitle": "INTENZIONE PER QUESTA NOTTE",
+    "tonightBlocks": [
+      {
+        "title": "La routine della buonanotte",
+        "steps": [
+          "Spegni gli schermi 30 minuti prima di andare a dormire",
+          "Scrivi il diario della giornata in 3 frasi",
+          "Leggi l'ultimo post nel diario dei sogni",
+          "Formula l'intenzione con queste parole: «Stanotte sarò consapevole di stare sognando»",
+          "Immagina il tuo posto preferito: è il punto di ritorno nel sogno"
+        ]
+      },
+      {
+        "title": "Condizioni ottimali",
+        "steps": [
+          "Temperatura ambiente: 18–20 °C",
+          "L'oscurità — la melatonina favorisce i sogni vividi",
+          "Non mangiare nelle 2-3 ore prima di andare a dormire",
+          "Il gliconato di magnesio rilassa e migliora la qualità del sonno REM",
+          "7,5–9 ore di sonno — i cicli REM completi sono fondamentali"
+        ]
+      }
+    ]
+  },
+  "ai": {
+    "interpretSections": [
+      "ANALISI DEI SIMBOLI",
+      "ELEMENTO D'OMBRA",
+      "MESSAGGIO",
+      "PRATICA DI INTEGRAZIONE"
+    ],
+    "patternSections": [
+      "TEMA PRINCIPALE",
+      "MODELLI RICORRENTI",
+      "L'OMBRA E GLI ARCHETIPI",
+      "MESSAGGIO PER CHI STA SOGNANDO",
+      "IL PASSO SUCCESSIVO"
+    ],
+    "interpretPrompt": {
+      "intro": "Sei un interprete dei sogni di stampo junghiano con una profonda conoscenza degli archetipi, della simbologia e della psicologia del profondo.",
+      "personPrefix": "Persona: {{name}}.",
+      "zodiacPrefix": "Segno zodiacale: {{sign}}.",
+      "dreamPrefix": "Sogno: «{{content}}»",
+      "emotionPrefix": "L'emozione dominante: {{emotion}}.",
+      "tagPrefix": "Tipo di sogno: {{tags}}.",
+      "lucidNote": "Era un sogno lucido.",
+      "repeatingNote": "Questo sogno si ripete: è un segnale importante.",
+      "clarityPrefix": "Vitalità del sogno: {{clarity}} /5.",
+      "instruction": "Scrivi un'analisi approfondita che includa ESATTAMENTE queste sezioni nell'ordine indicato:",
+      "sectionDescriptions": [
+        "ANALISI DEI SIMBOLI: Identifica 2-3 simboli chiave del sogno e spiega il loro significato secondo la teoria di Jung. Cosa simboleggiano concretamente nel contesto del sogno descritto? (3-4 frasi)",
+        "L'ELEMENTO DELL'OMBRA: Quale aspetto dell'Ombra (Carl Jung) emerge in questo sogno? Quale parte non integrata della psiche richiede attenzione? Scrivi in modo concreto e con coraggio. (2-3 frasi)",
+        "MESSAGGIO: Cosa sta cercando di comunicarti il tuo inconscio? Quale verità su di te o sulla tua situazione rivela il sogno? Scrivi in modo diretto e profondo. (2-3 frasi)",
+        "ESERCIZIO DI INTEGRAZIONE: Proponi un esercizio concreto o una domanda su cui lavorare in relazione a questo sogno nei prossimi giorni. (1-2 frasi)"
+      ],
+      "tone": "Scrivi nella lingua dell'utente. Tono: caloroso, profondo, psicologicamente accurato. Evita i luoghi comuni: vai dritto al punto.",
+      "fallback": "L'oracolo tace questa notte. Fidati del tuo intuito: lui conosce già la risposta."
+    },
+    "patternPrompt": {
+      "intro": "Sei un analista dei sogni con una formazione junghiana.",
+      "recentDreams": "Gli ultimi sogni di questa persona su {{count}}:",
+      "recurringSymbols": "Simboli ricorrenti: {{symbols}}",
+      "dominantEmotions": "Emozioni dominanti: {{emotions}}",
+      "streak": "La serie dei sogni: {{count}} notti di fila.",
+      "none": "nessuno",
+      "instruction": "Scrivi un'analisi approfondita dei modelli, che includa:",
+      "sectionDescriptions": [
+        "TEMA PRINCIPALE: Qual è il tema psicologico principale che ricorre in questi sogni? (2-3 frasi)",
+        "MODELLI RICORRENTI: Quali simboli, emozioni o narrazioni si ripetono? Cosa indicano? (2-3 frasi)",
+        "L'OMBRA E GLI ARCHETIPI: Quali energie archetipiche o elementi dell'Ombra sono attivi? (2-3 frasi)",
+        "MESSAGGIO PER CHI SOGNA: Cosa cerca costantemente di comunicare l'inconscio? Un messaggio chiaro e diretto. (2 frasi)",
+        "PROSSIMO PASSO: Un'azione concreta o una domanda su cui lavorare nella prossima settimana."
+      ],
+      "tone": "Scrivi nella lingua dell'utente, in modo approfondito e preciso.",
+      "fallback": "I segnali sono troppo sottili per poterli cogliere oggi. Continua a sognare."
+    }
+  },
+  "data": {
+    "emotions": [
+      {
+        "id": "Paura",
+        "emoji": "😨",
+        "color": "#60A5FA"
+      },
+      {
+        "id": "Gioia",
+        "emoji": "😄",
+        "color": "#34D399"
+      },
+      {
+        "id": "Tristezza",
+        "emoji": "😢",
+        "color": "#818CF8"
+      },
+      {
+        "id": "Ansia",
+        "emoji": "😰",
+        "color": "#F97316"
+      },
+      {
+        "id": "Tranquillità",
+        "emoji": "😌",
+        "color": "#A78BFA"
+      },
+      {
+        "id": "Emozione",
+        "emoji": "🤩",
+        "color": "#FBBF24"
+      },
+      {
+        "id": "Smarrimento",
+        "emoji": "😶‍🌫️",
+        "color": "#94A3B8"
+      },
+      {
+        "id": "Incanto",
+        "emoji": "🤩",
+        "color": "#F9A8D4"
+      }
+    ],
+    "dreamTagOptions": [
+      {
+        "id": "incubo",
+        "label": "Un incubo",
+        "color": "#EF4444",
+        "emoji": "😱"
+      },
+      {
+        "id": "profetico",
+        "label": "Profetico",
+        "color": "#FBBF24",
+        "emoji": "🔮"
+      },
+      {
+        "id": "ripetizione",
+        "label": "Ricorrenti",
+        "color": "#F472B6",
+        "emoji": "🔄"
+      },
+      {
+        "id": "lucido",
+        "label": "Consapevole (lucido)",
+        "color": "#34D399",
+        "emoji": "💡"
+      },
+      {
+        "id": "curative",
+        "label": "Curative",
+        "color": "#86EFAC",
+        "emoji": "💚"
+      },
+      {
+        "id": "astrale",
+        "label": "Astral",
+        "color": "#C084FC",
+        "emoji": "✨"
+      }
+    ],
+    "symbolariumCategories": [
+      {
+        "id": "tutto",
+        "label": "Tutti",
+        "icon": "🌙"
+      },
+      {
+        "id": "natura",
+        "label": "Natura",
+        "icon": "🌿"
+      },
+      {
+        "id": "persone",
+        "label": "Persone",
+        "icon": "👤"
+      },
+      {
+        "id": "strutture",
+        "label": "Strutture",
+        "icon": "🗝️"
+      },
+      {
+        "id": "luoghi",
+        "label": "Luoghi",
+        "icon": "🏛️"
+      },
+      {
+        "id": "azioni",
+        "label": "Azioni",
+        "icon": "⚡"
+      },
+      {
+        "id": "emozioni",
+        "label": "Emozioni",
+        "icon": "💜"
+      }
+    ],
+    "extendedSymbols": [
+      {
+        "id": "e1",
+        "keyword": "Acqua",
+        "cat": "natura",
+        "emoji": "💧",
+        "color": "#60A5FA",
+        "meaning": "L'acqua nei sogni rivela lo stato delle emozioni e del subconscio. Se è calma, indica equilibrio e capacità di seguire l'intuizione; se è agitata, indica un sovraccarico emotivo o sentimenti indefiniti.",
+        "jungian": "L'acqua è il simbolo dell'anima/animus e dell'inconscio collettivo. Jung vedeva nell'oceano il caos primordiale da cui emerge la coscienza.",
+        "shadow": "Un affondamento o un'alluvione possono significare che le emozioni represse stanno venendo a galla e chiedono di essere integrate.",
+        "followUpPrompt": "Quale sentimento richiede oggi di essere definito con delicatezza anziché represso?"
+      },
+      {
+        "id": "e2",
+        "keyword": "Fuoco",
+        "cat": "natura",
+        "emoji": "🔥",
+        "color": "#FB923C",
+        "meaning": "Il fuoco rappresenta la trasformazione, l'intensità e l'energia. Il calore simboleggia la passione e la vitalità, mentre la fiamma distruttiva rappresenta l'esaurimento o la rabbia incontrollata.",
+        "jungian": "Il fuoco è il simbolo dello spirito e della libido nella simbologia junghiana. Prometeo porta il fuoco come dono della coscienza.",
+        "shadow": "Se il fuoco brucia le case o i propri cari, ciò può indicare aspetti distruttivi del proprio carattere.",
+        "followUpPrompt": "Quale energia ti purifica e quale invece inizia a consumarti?"
+      },
+      {
+        "id": "e3",
+        "keyword": "Il bosco",
+        "cat": "natura",
+        "emoji": "🌳",
+        "color": "#86EFAC",
+        "meaning": "Il bosco simboleggia l'ingresso nell'ignoto, il contatto con il subconscio e con ciò che non ha ancora un nome. Invita a scoprire un aspetto nascosto di sé stessi.",
+        "jungian": "La foresta è il simbolo dell'inconscio collettivo e del Sé. Il motivo fiabesco della foresta come luogo di prove e di iniziazione.",
+        "shadow": "Perdersi nel bosco indica la perdita di contatto con il proprio io interiore e del senso di orientamento nella vita.",
+        "followUpPrompt": "In quale ambito della tua vita sai meno di quanto cerchi di far credere a te stesso?"
+      },
+      {
+        "id": "e4",
+        "keyword": "Inizio pagina",
+        "cat": "natura",
+        "emoji": "⛰️",
+        "color": "#94A3B8",
+        "meaning": "La montagna è una sfida, un’aspirazione e un percorso verso una visione più elevata. L’arrampicata simboleggia la ricerca di un obiettivo, la vetta il raggiungimento o l’illuminazione.",
+        "jungian": "La montagna è l'archetipo dell'axis mundi, l'asse del mondo che collega la terra e il cielo. L'arrampicata simboleggia l'individuazione.",
+        "shadow": "La paura di cadere dalla vetta rivela il timore del successo o dell'essere sotto i riflettori.",
+        "followUpPrompt": "Quale traguardo temi di raggiungere, perché in quel caso qualcosa cambierà?"
+      },
+      {
+        "id": "e5",
+        "keyword": "Oceano",
+        "cat": "natura",
+        "emoji": "🌊",
+        "color": "#38BDF8",
+        "meaning": "L'oceano rafforza il tema del subconscio e dell'immensità di ciò che sfugge al controllo della ragione. Un simbolo di forza superiore alla tensione momentanea.",
+        "jungian": "L'oceano è l'inconscio collettivo, la materia prima e il caos primordiale. Da esso emergono gli archetipi.",
+        "shadow": "Essere risucchiati dall'oceano: un ritorno allo stato pre-individuale o la paura di perdere la propria identità.",
+        "followUpPrompt": "Cosa c'è in te che va oltre le parole, ma vuole essere notato?"
+      },
+      {
+        "id": "e6",
+        "keyword": "Fulmine",
+        "cat": "natura",
+        "emoji": "⚡",
+        "color": "#EAB308",
+        "meaning": "Un fulmine in sogno simboleggia un'illuminazione improvvisa, una svolta o la distruzione del vecchio ordine. Un segnale improvviso proveniente dalla coscienza.",
+        "jungian": "Nella mitologia, il fulmine è l'attributo del dio padre e il simbolo dell'intervento divino. Kairos: il momento giusto.",
+        "shadow": "Essere colpiti da un fulmine può significare il timore di un cambiamento improvviso o una punizione per la propria inautenticità.",
+        "followUpPrompt": "Cosa nella tua vita ha bisogno di una svolta radicale, anziché di un altro piccolo passo?"
+      },
+      {
+        "id": "e7",
+        "keyword": "Bambino",
+        "cat": "persone",
+        "emoji": "👶",
+        "color": "#F48DB0",
+        "meaning": "Un bambino in sogno rappresenta una parte vulnerabile di sé, un nuovo inizio o il bisogno di un contatto più delicato con le proprie emozioni.",
+        "jungian": "L'archetipo del Bambino (puer/puella) simboleggia il potenziale e le possibilità. È il Sé allo stato embrionale.",
+        "shadow": "Un bambino abbandonato o maltrattato in sogno è la proiezione del bambino interiore ferito.",
+        "followUpPrompt": "Quale parte di te ha bisogno oggi di gentilezza invece che di giudizio?"
+      },
+      {
+        "id": "e8",
+        "keyword": "Uno sconosciuto",
+        "cat": "persone",
+        "emoji": "🧙",
+        "color": "#A3E635",
+        "meaning": "Uno sconosciuto in sogno è spesso la proiezione di un aspetto di te stesso — una caratteristica non ancora integrata o che hai rimosso.",
+        "jungian": "Lo sconosciuto può essere l'anima/l'animus (l'aspetto del sesso opposto della psiche) oppure l'Ombra.",
+        "shadow": "Se uno sconosciuto mi mette a disagio, vale la pena chiedersi: quale suo tratto non riesco ad accettare in me stesso?",
+        "followUpPrompt": "Quale aspetto sconosciuto di te stesso chiede di essere integrato?"
+      },
+      {
+        "id": "e9",
+        "keyword": "Madre",
+        "cat": "persone",
+        "emoji": "👩",
+        "color": "#FDA4AF",
+        "meaning": "La madre nei sogni trasmette un senso di cura, sicurezza e appartenenza. Può anche simboleggiare il complesso materno o le aspettative.",
+        "jungian": "L'archetipo della Grande Madre — l'aspetto nutriente e accogliente della femminilità, della natura e dell'inconscio.",
+        "shadow": "Una madre autoritaria o assente in sogno può indicare modelli relazionali irrisolti risalenti all'infanzia.",
+        "followUpPrompt": "Da dove trai oggi il tuo senso di sicurezza e di appartenenza?"
+      },
+      {
+        "id": "e10",
+        "keyword": "Papà",
+        "cat": "persone",
+        "emoji": "👨",
+        "color": "#93C5FD",
+        "meaning": "Il padre nei sogni simboleggia l'autorità, le regole, la struttura e l'aspetto dell'animus. Può anche incarnare il complesso del padre.",
+        "jungian": "L'archetipo del Vecchio Saggio o del Padre: logos, ordine e orientamento consapevole.",
+        "shadow": "Un padre severo o assente in sogno indica voci critiche interiorizzate o la paura dell'autorità.",
+        "followUpPrompt": "Come sono i tuoi rapporti con il tuo critico interiore e con le regole?"
+      },
+      {
+        "id": "e11",
+        "keyword": "Chiave",
+        "cat": "strutture",
+        "emoji": "🗝️",
+        "color": "#FCD34D",
+        "meaning": "La chiave è il simbolo dell'accesso a un mistero, a un potenziale nascosto o a una conoscenza che attende di essere scoperta.",
+        "jungian": "La chiave apre le porte dell'inconscio: l'iniziazione e l'accesso alle risorse psichiche nascoste.",
+        "shadow": "Una chiave smarrita suggerisce che sai quale domanda porre, ma hai paura della risposta.",
+        "followUpPrompt": "A quale verità su te stesso hai accesso, ma hai paura di metterla in pratica?"
+      },
+      {
+        "id": "e12",
+        "keyword": "Specchio",
+        "cat": "strutture",
+        "emoji": "🪞",
+        "color": "#818CF8",
+        "meaning": "Lo specchio è uno dei simboli più potenti: mostra il vero volto senza filtri. L'immagine distorta suggerisce un'immagine distorta di sé.",
+        "jungian": "Lo specchio come persona: la maschera che mostriamo al mondo. Ma anche l’Ombra e ciò che non accettiamo.",
+        "shadow": "Uno specchio rotto o un'immagine spaventosa riflessa nello specchio sono una classica proiezione dell'Ombra.",
+        "followUpPrompt": "Quale parte di te eviti di vedere?"
+      },
+      {
+        "id": "e13",
+        "keyword": "Porte",
+        "cat": "strutture",
+        "emoji": "🚪",
+        "color": "#C4A882",
+        "meaning": "Le porte sono il simbolo della soglia e della scelta. Il subconscio ti prepara al passaggio tra le diverse fasi della vita.",
+        "jungian": "La soglia (limen) è il luogo dell'iniziazione: il passaggio richiede coraggio e la morte simbolica del vecchio sé.",
+        "shadow": "Una porta che non riesci ad aprire: un blocco interiore, la paura dell'ignoto.",
+        "followUpPrompt": "A quale bivio ti trovi adesso nella vita?"
+      },
+      {
+        "id": "e14",
+        "keyword": "L'auto",
+        "cat": "strutture",
+        "emoji": "🚗",
+        "color": "#6EE7B7",
+        "meaning": "L'auto simboleggia il controllo sulla direzione della propria vita. Chi guida e in che modo riflette il tuo senso di autonomia.",
+        "jungian": "Il veicolo come ego: il centro dell'orientamento cosciente. Un veicolo in avaria comporta la perdita del senso di controllo.",
+        "shadow": "Un incidente stradale può simboleggiare lo scontro tra due impulsi o decisioni contrastanti.",
+        "followUpPrompt": "Stai davvero vivendo la tua vita o ti senti solo un passeggero?"
+      },
+      {
+        "id": "e15",
+        "keyword": "Armi",
+        "cat": "strutture",
+        "emoji": "⚔️",
+        "color": "#F87171",
+        "meaning": "Le armi nei sogni simboleggiano l'aggressività, i confini o una forza che può proteggere o distruggere.",
+        "jungian": "L'arma come logos e principio di discernimento: la spada recide i modelli falsi o distruttivi.",
+        "shadow": "L'uso delle armi può simboleggiare un'aggressività repressa in cerca di uno sfogo.",
+        "followUpPrompt": "Quali sono i confini nella tua vita che necessitano di essere protetti o definiti chiaramente?"
+      },
+      {
+        "id": "e16",
+        "keyword": "Casa",
+        "cat": "luoghi",
+        "emoji": "🏠",
+        "color": "#D9B56D",
+        "meaning": "La casa simboleggia il mondo interiore e la struttura psichica. Ogni stanza corrisponde a un diverso aspetto della tua psiche.",
+        "jungian": "La casa come mandala del Sé — la totalità della psiche. La cantina rappresenta l'inconscio, la soffitta i ricordi dimenticati.",
+        "shadow": "Una casa infestata o una rovina simboleggia gli aspetti indesiderati di sé che attendono di essere integrati.",
+        "followUpPrompt": "Quali angoli della tua psiche visiti raramente?"
+      },
+      {
+        "id": "e17",
+        "keyword": "Scuola",
+        "cat": "luoghi",
+        "emoji": "🏫",
+        "color": "#FCA5A5",
+        "meaning": "La scuola nei sogni rimanda alla sensazione di essere giudicati, messi alla prova o al bisogno di imparare qualcosa di importante.",
+        "jungian": "L'archetipo dell'iniziazione: il superamento della soglia della conoscenza e delle aspettative sociali.",
+        "shadow": "Un esame per cui non sei preparato: la classica proiezione della paura del giudizio e dell'incompetenza.",
+        "followUpPrompt": "Come gestisci la sensazione di dover dimostrare il tuo valore a qualcuno?"
+      },
+      {
+        "id": "e18",
+        "keyword": "Chiesa",
+        "cat": "luoghi",
+        "emoji": "⛪",
+        "color": "#C084FC",
+        "meaning": "Una chiesa o un tempio simboleggia la spiritualità, il sacro e il contatto con qualcosa di più grande della quotidianità.",
+        "jungian": "Temenos — lo spazio sacro del Sé. Il luogo in cui si incontrano il conscio e l'inconscio.",
+        "shadow": "La paura o il divieto di entrare in chiesa possono simboleggiare un allontanamento dalla propria spiritualità o dai propri valori.",
+        "followUpPrompt": "Cosa è sacro per te e come te ne prendi cura?"
+      },
+      {
+        "id": "e19",
+        "keyword": "Il ponte",
+        "cat": "luoghi",
+        "emoji": "🌉",
+        "color": "#F9A8D4",
+        "meaning": "Il ponte simboleggia il passaggio tra due fasi della vita o stati di coscienza.",
+        "jungian": "Il ponte come funzione trascendente: unisce gli opposti e rende possibile la sintesi.",
+        "shadow": "Un ponte crollato o pericoloso simboleggia una trasformazione interrotta o la paura del passaggio.",
+        "followUpPrompt": "Quale cambiamento hai iniziato nella tua vita, ma hai paura di portare a termine?"
+      },
+      {
+        "id": "e20",
+        "keyword": "Labirinto",
+        "cat": "luoghi",
+        "emoji": "🌀",
+        "color": "#C084FC",
+        "meaning": "Il labirinto si presenta quando, nella vita reale, cerchi una via d'uscita da una situazione che non ha una soluzione semplice.",
+        "jungian": "Il labirinto è il simbolo dell'inconscio e della ricerca del centro: il Sé. Il Minotauro è l'Ombra.",
+        "shadow": "L'impossibilità di uscire dal labirinto simboleggia i circoli viziosi mentali e i modelli comportamentali ricorrenti.",
+        "followUpPrompt": "In quale circolo vizioso, mentale o emotivo, continui a girare a vuoto?"
+      },
+      {
+        "id": "e21",
+        "keyword": "Volo",
+        "cat": "azioni",
+        "emoji": "🕊️",
+        "color": "#67E8F9",
+        "meaning": "Volare è simbolo di libertà, espansione e ritrovata prospettiva. La paura di volare indica la difficoltà a mantenere il controllo quando si sale in quota.",
+        "jungian": "Il volo simboleggia il superamento dell'ego e l'accesso a livelli superiori di coscienza.",
+        "shadow": "Paura dell'atterraggio — paura di tornare alla routine quotidiana e alle responsabilità.",
+        "followUpPrompt": "In quali situazioni ti serve più fiducia invece di aggrapparti ostinatamente alla rotta?"
+      },
+      {
+        "id": "e22",
+        "keyword": "L'inseguimento",
+        "cat": "azioni",
+        "emoji": "🏃",
+        "color": "#FB923C",
+        "meaning": "Essere inseguiti simboleggia l'energia della fuga. Il sogno suggerisce che una certa emozione o questione sta tornando a galla perché non è stata consapevolmente risolta.",
+        "jungian": "L'ossessione come ombra: ciò da cui fuggiamo diventa sempre più forte. Jung: ciò a cui ci opponiamo persiste.",
+        "shadow": "Il mostro o la figura che ci insegue è un aspetto non integrato dell'Ombra che richiede attenzione.",
+        "followUpPrompt": "Da cosa stai cercando di fuggire, pur sapendo che occorre dargli un nome?"
+      },
+      {
+        "id": "e23",
+        "keyword": "Scale",
+        "cat": "azioni",
+        "emoji": "🪜",
+        "color": "#A78BFA",
+        "meaning": "Le scale simboleggiano il passaggio tra i diversi livelli di coscienza. Salire significa evolversi, scendere significa addentrarsi in strati più profondi.",
+        "jungian": "Le scale come percorso di iniziazione e di passaggio tra i livelli psichici: l'ego, l'inconscio personale e quello collettivo.",
+        "shadow": "Una scala senza fine o che crolla simboleggia l'assenza di progressi nonostante gli sforzi.",
+        "followUpPrompt": "A che punto ti trovi ora dal punto di vista emotivo o nella tua vita?"
+      },
+      {
+        "id": "e24",
+        "keyword": "Morte",
+        "cat": "azioni",
+        "emoji": "💀",
+        "color": "#6B7280",
+        "meaning": "La morte in sogno non indica quasi mai la morte fisica: è un simbolo della fine di una fase e di una trasformazione.",
+        "jungian": "L'archetipo della morte e della rinascita: la morte simbolica dell'ego è una condizione necessaria per l'individuazione.",
+        "shadow": "La morte di una persona cara in sogno può simboleggiare la fine di una relazione o di un aspetto di quella persona che è presente in te.",
+        "followUpPrompt": "Cosa deve morire dentro di te affinché possa nascere qualcosa di nuovo?"
+      },
+      {
+        "id": "e25",
+        "keyword": "La caduta",
+        "cat": "azioni",
+        "emoji": "⬇️",
+        "color": "#94A3B8",
+        "meaning": "La caduta simboleggia la perdita di controllo, la paura del fallimento o la necessità di tornare con i piedi per terra e smontare dall'alto ego.",
+        "jungian": "La caduta come hybris: una punizione per l’arroganza e l’allontanamento dagli istinti e dalla terra.",
+        "shadow": "La paura di cadere può riflettere la paura di perdere la propria posizione o identità.",
+        "followUpPrompt": "Cosa ti tiene così in alto da farti temere di cadere da un momento all’altro?"
+      },
+      {
+        "id": "e26",
+        "keyword": "Paura",
+        "cat": "emozioni",
+        "emoji": "😱",
+        "color": "#EF4444",
+        "meaning": "La paura nei sogni, in quanto emozione dominante, indica gli ambiti in cui l'ego si sente minacciato o inadeguato.",
+        "jungian": "La paura come proiezione dell'Ombra: ciò che temiamo negli altri è ciò che non accettiamo in noi stessi.",
+        "shadow": "L'analisi dell'oggetto della paura permette di integrare quella parte di sé che non si conosce.",
+        "followUpPrompt": "Di cosa hai davvero paura, una volta eliminato lo strato di razionalizzazione?"
+      },
+      {
+        "id": "e27",
+        "keyword": "Amore",
+        "cat": "emozioni",
+        "emoji": "❤️",
+        "color": "#F43F5E",
+        "meaning": "L'amore in sogno può simboleggiare il desiderio di unione, l'integrazione tra anima e animus o il bisogno di accettazione.",
+        "jungian": "L'amore per un personaggio in sogno è spesso una proiezione delle proprie caratteristiche: l'archetipo dell'anima o dell'animus.",
+        "shadow": "Un amore proibito in sogno può indicare desideri che l'ego reprime.",
+        "followUpPrompt": "Quali aspetti di te stesso non riesci ancora ad amare pienamente?"
+      },
+      {
+        "id": "e28",
+        "keyword": "Rabbia",
+        "cat": "emozioni",
+        "emoji": "😡",
+        "color": "#EF4444",
+        "meaning": "La rabbia in sogno indica un'energia repressa, un'ingiustizia o dei limiti superati che richiedono un'elaborazione consapevole.",
+        "jungian": "La rabbia come energia libidica orientata al cambiamento. Marte: la forza motrice della trasformazione.",
+        "shadow": "La rabbia incontrollata nei sogni è l'Ombra che reclama attenzione. È un'energia in attesa di uno sfogo costruttivo.",
+        "followUpPrompt": "Quale ingiustizia o quale limite richiede oggi la tua voce?"
+      },
+      {
+        "id": "e29",
+        "keyword": "Vergogna",
+        "cat": "emozioni",
+        "emoji": "😔",
+        "color": "#8B5CF6",
+        "meaning": "La vergogna nei sogni tocca convinzioni profondamente radicate riguardo all'autostima e all'accettazione sociale.",
+        "jungian": "La vergogna come persona: la differenza tra ciò che siamo e ciò che vorremmo sembrare.",
+        "shadow": "La vergogna è uno dei meccanismi fondamentali alla base della formazione dell'Ombra.",
+        "followUpPrompt": "Quale verità su te stesso hai ancora vergogna di ammettere?"
+      },
+      {
+        "id": "e30",
+        "keyword": "La Luna",
+        "cat": "natura",
+        "emoji": "🌕",
+        "color": "#E2D4F0",
+        "meaning": "La luna è simbolo di cicli, intuizione e sfere alle quali la ragione non ha accesso. La luna piena rappresenta il culmine, la luna nuova un nuovo inizio.",
+        "jungian": "La Luna come anima: la parte ciclica, istintiva e inconscia della psiche. La Luna e le sue fasi.",
+        "shadow": "Un'eclissi lunare può simboleggiare un'intuizione bloccata o un'emotività repressa.",
+        "followUpPrompt": "In quale fase della vita ti trovi adesso e cosa ti richiede?"
+      },
+      {
+        "id": "e31",
+        "keyword": "Il sole",
+        "cat": "natura",
+        "emoji": "☀️",
+        "color": "#FBBF24",
+        "meaning": "Il Sole simboleggia la consapevolezza, l'autostima e la vitalità. È la fonte dell'ego e di una chiara identità.",
+        "jungian": "Il Sole come Logos e Sol: orientamento consapevole, ragione e spirito. L'archetipo paterno.",
+        "shadow": "Il sole oscurato o un'eclissi sono un momentaneo offuscamento dell'autostima.",
+        "followUpPrompt": "Cosa fa brillare a pieno il tuo sole interiore?"
+      },
+      {
+        "id": "e32",
+        "keyword": "Albero",
+        "cat": "natura",
+        "emoji": "🌳",
+        "color": "#4ADE80",
+        "meaning": "L'albero è un'immagine della struttura interiore: le radici rappresentano le convinzioni e le origini, il tronco l'identità, la chioma le aspirazioni.",
+        "jungian": "Axis mundi — l'albero cosmico che collega gli inferi, la terra e i cieli. Simbolo del Sé.",
+        "shadow": "Un albero secco o abbattuto simboleggia la perdita delle radici o una crisi d'identità.",
+        "followUpPrompt": "Quanto sono profonde le tue radici e dove ti porta la corona?"
+      },
+      {
+        "id": "e33",
+        "keyword": "Il ragno",
+        "cat": "natura",
+        "emoji": "🕷️",
+        "color": "#6B7280",
+        "meaning": "Il ragno simboleggia il potere creativo di tessere la vita e la rete delle relazioni, ma anche le trappole o la manipolazione.",
+        "jungian": "Il ragno come archetipo della Spinnerka: il destino e i fili intrecciati del destino. L'Anima nel suo aspetto negativo.",
+        "shadow": "Le fobie dei ragni nei sogni indicano spesso la paura del potere o del controllo femminile.",
+        "followUpPrompt": "Che tipo di reti stai tessendo nella tua vita: liberatorie o limitanti?"
+      },
+      {
+        "id": "e34",
+        "keyword": "Serpente",
+        "cat": "natura",
+        "emoji": "🐍",
+        "color": "#4ADE80",
+        "meaning": "Il serpente è uno dei simboli più archetipici: trasformazione, guarigione e saggezza nascosta nella terra.",
+        "jungian": "Il serpente come Kundalini ed energia libidica. L'Ouroboros: il ciclo della morte e della rinascita.",
+        "shadow": "Il serpente che attacca rappresenta le forze istintive e l'inconscio represso che reclama attenzione.",
+        "followUpPrompt": "Quale trasformazione è già iniziata dentro di te, anche se non le hai ancora dato un nome?"
+      },
+      {
+        "id": "e35",
+        "keyword": "Uccello",
+        "cat": "natura",
+        "emoji": "🦅",
+        "color": "#67E8F9",
+        "meaning": "Gli uccelli portano con sé un messaggio di prospettiva e libertà. Spesso sono un invito a guardare oltre i confini della quotidianità.",
+        "jungian": "L'uccello come animus e spirito — messaggero tra cielo e terra. Messaggero dell'inconscio.",
+        "shadow": "Un uccello ferito o imprigionato simboleggia un bisogno represso di libertà o di espressione.",
+        "followUpPrompt": "Cosa vedrai di diverso se guardi dall'alto?"
+      },
+      {
+        "id": "e36",
+        "keyword": "Telefono",
+        "cat": "strutture",
+        "emoji": "📱",
+        "color": "#6EE7B7",
+        "meaning": "Il telefono simboleggia la comunicazione e il bisogno di connessione. Il mancato risposta o l'assenza di segnale indicano un legame interrotto o difficoltà nell'esprimersi.",
+        "jungian": "Un simbolo moderno dell'inconscio che cerca di entrare in contatto con l'ego.",
+        "shadow": "Il telefono che squilla all'infinito senza ricevere risposta: un bisogno che grida, ma non viene ascoltato.",
+        "followUpPrompt": "Quale parte di te oggi richiede maggiore attenzione e comunicazione?"
+      },
+      {
+        "id": "e37",
+        "keyword": "Denaro",
+        "cat": "strutture",
+        "emoji": "💰",
+        "color": "#FBBF24",
+        "meaning": "Il denaro nei sogni simboleggia energia, valore e risorse — non solo materiali, ma anche spirituali ed emotive.",
+        "jungian": "L'oro come simbolo del Sé e della ricchezza spirituale. La trasmutazione alchemica del piombo in oro.",
+        "shadow": "Il furto o la perdita di denaro denota una paura del proprio valore o una carenza di risorse interiori.",
+        "followUpPrompt": "Che tipo di ricchezza stai cercando davvero?"
+      },
+      {
+        "id": "e38",
+        "keyword": "I denti",
+        "cat": "strutture",
+        "emoji": "🦷",
+        "color": "#F1F5F9",
+        "meaning": "I denti simboleggiano il controllo, l'immagine di sé, la perdita di forza o di tensione. Un sogno sulla fragilità di ciò che sembra stabile.",
+        "jungian": "I denti come simbolo di potere e aggressività: gli istinti e il lato animale della natura.",
+        "shadow": "I denti che cadono sono uno dei sogni più comuni: il timore per l'immagine di sé e l'accettazione sociale.",
+        "followUpPrompt": "Cosa nella tua vita sembra stabile, ma richiede una cura particolare?"
+      },
+      {
+        "id": "e39",
+        "keyword": "Armi",
+        "cat": "strutture",
+        "emoji": "🗡️",
+        "color": "#EF4444",
+        "meaning": "Le armi nei sogni simboleggiano i confini, l'aggressività o la forza protettiva. È fondamentale chi le impugna e a quale scopo.",
+        "jungian": "La spada come logos: la capacità di tagliare e distinguere la verità dalla menzogna.",
+        "shadow": "L'uso delle armi nei confronti dei propri cari può indicare un'aggressività repressa nei loro confronti.",
+        "followUpPrompt": "Quali limiti nella tua vita richiedono di essere definiti in modo chiaro e deciso?"
+      },
+      {
+        "id": "e40",
+        "keyword": "Treno",
+        "cat": "strutture",
+        "emoji": "🚂",
+        "color": "#A3A3A3",
+        "meaning": "Questa sensazione riguarda il senso della vita e la percezione che qualcosa si sia messo in moto. Il sogno ti chiede se stai seguendo il tuo ritmo o il percorso di qualcun altro.",
+        "jungian": "Il viaggio come metafora del processo di individuazione: le stazioni sconosciute rappresentano nuove fasi della consapevolezza.",
+        "shadow": "Arrivare in ritardo al treno è un classico sogno angosciante che simboleggia un'occasione persa o un ritardo nella vita.",
+        "followUpPrompt": "Il ritmo con cui vivi è davvero quello che fa per te?"
+      },
+      {
+        "id": "e41",
+        "keyword": "Ospedale",
+        "cat": "luoghi",
+        "emoji": "🏥",
+        "color": "#86EFAC",
+        "meaning": "L'ospedale simboleggia la guarigione, la fragilità o un periodo di trasformazione. Può indicare la necessità di prendersi cura di sé.",
+        "jungian": "Il santuario della guarigione — il temenos dove la psiche si rigenera. Chirone — il guaritore ferito.",
+        "shadow": "La necessità di un intervento chirurgico in sogno può simboleggiare il bisogno di un profondo lavoro su se stessi.",
+        "followUpPrompt": "Quale parte di te ha bisogno in questo momento di cure e riposo?"
+      },
+      {
+        "id": "e42",
+        "keyword": "Prigione",
+        "cat": "luoghi",
+        "emoji": "⛓️",
+        "color": "#6B7280",
+        "meaning": "La prigione simboleggia il senso di limitazione, l'essere intrappolati in una situazione o in una convinzione senza via d'uscita.",
+        "jungian": "Il carcere come complesso: modelli interiorizzati che ostacolano la libertà psichica.",
+        "shadow": "Essere il guardiano della propria prigione: sei tu stesso a imporre i limiti.",
+        "followUpPrompt": "In quale convinzione o modello ti imprigioni?"
+      }
+    ],
+    "nocturnalPrompts": [
+      "Cosa in quel sogno ti sembrava tuo e cosa estraneo?",
+      "Quale simbolo ti è apparso più spesso nei sogni ultimamente?",
+      "Se questo sogno fosse un messaggio, cosa direbbe?",
+      "Quale emozione hai portato con te dal sonno al risveglio?",
+      "Cosa avresti voluto cambiare in quel sogno, ma non ci sei riuscito?",
+      "Qual è il colore o il luogo che ricordi di più?",
+      "Se potessi tornare a quel sogno, cosa faresti di diverso?"
+    ],
+    "dailySymbols": [
+      {
+        "name": "Acqua",
+        "emoji": "🌊",
+        "color": "#60A5FA",
+        "desc": "L'acqua nei sogni tocca gli strati più profondi delle emozioni — quelli che di solito nascondiamo a noi stessi."
+      },
+      {
+        "name": "Fuoco",
+        "emoji": "🔥",
+        "color": "#FB923C",
+        "desc": "Il fuoco simboleggia la trasformazione e il potere purificatore."
+      },
+      {
+        "name": "Albero",
+        "emoji": "🌳",
+        "color": "#86EFAC",
+        "desc": "L'albero che hai sognato è un'immagine della tua struttura interiore e delle tue radici."
+      },
+      {
+        "name": "Labirinto",
+        "emoji": "🌀",
+        "color": "#C084FC",
+        "desc": "Il labirinto si presenta quando cerchi una via d'uscita da una situazione che non ha una soluzione semplice."
+      },
+      {
+        "name": "Uccello",
+        "emoji": "🦅",
+        "color": "#67E8F9",
+        "desc": "L'uccello porta con sé un messaggio di libertà e una visione dall'alto."
+      },
+      {
+        "name": "Specchio",
+        "emoji": "🪞",
+        "color": "#818CF8",
+        "desc": "Lo specchio riflette il tuo vero volto, senza filtri."
+      },
+      {
+        "name": "Il ponte",
+        "emoji": "🌉",
+        "color": "#F9A8D4",
+        "desc": "Il ponte simboleggia il passaggio da una fase della vita all'altra."
+      },
+      {
+        "name": "Chiave",
+        "emoji": "🗝️",
+        "color": "#FCD34D",
+        "desc": "La chiave è il simbolo dell'accesso al mistero e al potenziale nascosto."
+      },
+      {
+        "name": "Tempesta",
+        "emoji": "⛈️",
+        "color": "#818CF8",
+        "desc": "Una tempesta è energia emotiva accumulata che cerca di liberarsi."
+      },
+      {
+        "name": "Casa",
+        "emoji": "🏠",
+        "color": "#D9B56D",
+        "desc": "La casa nei sogni sei tu stesso: ogni stanza rappresenta un aspetto della tua psiche."
+      },
+      {
+        "name": "Bambino",
+        "emoji": "👶",
+        "color": "#F48DB0",
+        "desc": "Il bambino simboleggia la parte più sensibile di sé e i nuovi inizi."
+      },
+      {
+        "name": "Uno sconosciuto",
+        "emoji": "🧙",
+        "color": "#A3E635",
+        "desc": "Uno sconosciuto è spesso il riflesso di un aspetto di sé che non è stato integrato."
+      },
+      {
+        "name": "La Luna",
+        "emoji": "🌕",
+        "color": "#E2D4F0",
+        "desc": "La luna è il simbolo dei cicli, dell'intuizione e delle sfere che sfuggono alla ragione."
+      },
+      {
+        "name": "Il sole",
+        "emoji": "☀️",
+        "color": "#FBBF24",
+        "desc": "Il sole dei sogni è il bagliore della tua coscienza e dei tuoi valori."
+      },
+      {
+        "name": "Serpente",
+        "emoji": "🐍",
+        "color": "#4ADE80",
+        "desc": "Il serpente è l'archetipo della trasformazione, della guarigione e della saggezza nascosta."
+      },
+      {
+        "name": "Inizio pagina",
+        "emoji": "⛰️",
+        "color": "#94A3B8",
+        "desc": "La montagna è una sfida e un percorso verso un punto di vista più elevato."
+      },
+      {
+        "name": "Porte",
+        "emoji": "🚪",
+        "color": "#C4A882",
+        "desc": "La porta è simbolo di soglia e di scelta: il passaggio ci chiama."
+      },
+      {
+        "name": "Occhio",
+        "emoji": "👁️",
+        "color": "#A78BFA",
+        "desc": "L'occhio è simbolo di osservazione, consapevolezza e dell'essere visti."
+      },
+      {
+        "name": "Cerchio",
+        "emoji": "⭕",
+        "color": "#34D399",
+        "desc": "Il cerchio simboleggia il ciclo, la completezza e il ritorno alla pienezza."
+      },
+      {
+        "name": "Il ragno",
+        "emoji": "🕷️",
+        "color": "#6B7280",
+        "desc": "Il ragno è la forza creativa che tesse la vita, la rete delle relazioni e il destino."
+      }
+    ],
+    "moonDreamData": [
+      {
+        "phase": "Novità",
+        "emoji": "🌑",
+        "color": "#6B7280",
+        "dreamType": "Sogni intenzionali",
+        "description": "La luna nuova è il momento ideale per programmare i sogni. Il subconscio è particolarmente ricettivo alle intenzioni e alle domande formulate prima di andare a dormire.",
+        "tip": "Prima di andare a dormire, scrivi questa domanda: «Mostrami da dove iniziare un nuovo capitolo».",
+        "lucidFavorable": "false",
+        "propheticFavorable": "vero"
+      },
+      {
+        "phase": "La falce in arrivo",
+        "emoji": "🌒",
+        "color": "#9CA3AF",
+        "dreamType": "Sogni di crescita",
+        "description": "Le energie della crescita favoriscono i sogni di espansione e di nuove opportunità. Spesso si fanno sogni di viaggi e scoperte.",
+        "tip": "Prendi nota dei simboli dei nuovi inizi: chiavi, semi, sole che sorge.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "Primo quarto",
+        "emoji": "🌓",
+        "color": "#D1D5DB",
+        "dreamType": "Sogni conflittuali",
+        "description": "La tensione del quadrato stimola sogni incentrati su sfide e decisioni. Il subconscio elabora conflitti e dilemmi.",
+        "tip": "Presta attenzione alle persone con cui litighi: sono aspetti di te stesso.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "La gobba che si avvicina",
+        "emoji": "🌔",
+        "color": "#E5E7EB",
+        "dreamType": "Sogni di integrazione",
+        "description": "L'avvicinarsi della luna piena intensifica l'attività onirica. I sogni diventano più vividi, emotivi e ricchi di sfaccettature.",
+        "tip": "È bene tenere un taccuino accanto al letto: in questo periodo si fanno sogni particolarmente significativi.",
+        "lucidFavorable": "vero",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "Piena luna",
+        "emoji": "🌕",
+        "color": "#F9FAFB",
+        "dreamType": "Sogni rivelatori",
+        "description": "La luna piena segna il culmine dell'attività onirica. I sogni sono più intensi, più lunghi e rimangono più facilmente impressi nella memoria.",
+        "tip": "È il momento del sogno lucido: rafforza la tua intenzione proprio prima di addormentarti.",
+        "lucidFavorable": "vero",
+        "propheticFavorable": "vero"
+      },
+      {
+        "phase": "La gobba che si sta assottigliando",
+        "emoji": "🌖",
+        "color": "#D1FAE5",
+        "dreamType": "Sogni liberatori",
+        "description": "L'energia del declino favorisce i sogni di addii, conclusioni e distacco da ciò che non serve più.",
+        "tip": "I sogni in questa fase spesso danno una sensazione di sollievo e di conclusione.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "L'ultimo quarto",
+        "emoji": "🌗",
+        "color": "#A7F3D0",
+        "dreamType": "Sogni purificatori",
+        "description": "È il momento dell'elaborazione e dell'integrazione. Il subconscio mette ordine nelle esperienze dell'intero ciclo.",
+        "tip": "I sogni possono essere caotici: è normale. Cerca un simbolo chiave.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "La falce calante",
+        "emoji": "🌘",
+        "color": "#6EE7B7",
+        "dreamType": "I sogni del silenzio",
+        "description": "Prima della luna nuova, i sogni diventano più sereni e profondi. È il momento di dedicarsi alla contemplazione e di prepararsi al nuovo ciclo.",
+        "tip": "La meditazione prima di andare a dormire in questa fase rafforza il legame con l'intuizione onirica.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      }
+    ],
+    "monthNames": [
+      "Gennaio",
+      "Febbraio",
+      "Marzo",
+      "Aprile",
+      "Maggio",
+      "Giugno",
+      "Luglio",
+      "Agosto",
+      "Settembre",
+      "Ottobre",
+      "Novembre",
+      "Dicembre"
+    ],
+    "weekdays": [
+      "Lun",
+      "Mar",
+      "Mer",
+      "Giovedì",
+      "Ven",
+      "sabato",
+      "Dom"
+    ],
+    "moonPhases": [
+      {
+        "max": "1,85",
+        "emoji": "🌑",
+        "label": "Novità"
+      },
+      {
+        "max": "7,38",
+        "emoji": "🌒",
+        "label": "La falce in arrivo"
+      },
+      {
+        "max": "9.22",
+        "emoji": "🌓",
+        "label": "Primo quarto"
+      },
+      {
+        "max": "14,77",
+        "emoji": "🌔",
+        "label": "La gobba che si avvicina"
+      },
+      {
+        "max": "16,61",
+        "emoji": "🌕",
+        "label": "Piena luna"
+      },
+      {
+        "max": "22:15",
+        "emoji": "🌖",
+        "label": "La gobba che si sta assottigliando"
+      },
+      {
+        "max": "23,99",
+        "emoji": "🌗",
+        "label": "L'ultimo quarto"
+      },
+      {
+        "max": "29,53",
+        "emoji": "🌘",
+        "label": "La falce calante"
+      }
+    ]
+  },
+  "hero": {
+    "metaLine": "{{dreams}} sogni · serie {{streak}} notte · {{lucid}} lucido"
+  },
+  "archive": {
+    "title": "IL MIO INTERPRETE DEI SOGNI ({{count}})",
+    "tipsTitle": "COME ANNOTARE I SOGNI",
+    "tips": [
+      [
+        "Subito dopo il risveglio",
+        "Dopo 20 minuti si dimentica l'80% dei dettagli. Prima di alzarti, prendi nota."
+      ],
+      [
+        "Inizia dalle emozioni",
+        "L'emozione è più importante della trama: è lei a trasmettere il vero messaggio."
+      ],
+      [
+        "Basta un'immagine",
+        "Anche un solo colore o un volto costituiscono un indizio junghiano significativo."
+      ],
+      [
+        "Segui le repliche",
+        "Un simbolo ricorrente è la voce del subconscio. Attribuiscigli un significato personale."
+      ]
+    ]
+  }
+}

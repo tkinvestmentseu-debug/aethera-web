@@ -26,6 +26,7 @@ import { getTarotDeckById } from '../features/tarot/data/decks';
 import { AiService } from '../core/services/ai.service';
 import { navigateToMainTab } from '../navigation/navigationFallbacks';
 import { AudioService } from '../core/services/audio.service';
+import { CosmicNewsStrip } from '../components/CosmicNewsStrip';
 
 import Animated, {
   FadeInDown, FadeIn,
@@ -124,7 +125,8 @@ const QuickActionPill = React.memo(({ item, navigation, isLight, index }: { item
   const pressStyle = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
   const Icon = item.icon;
   return (
-    <Animated.View entering={FadeIn.delay(index * 60).duration(280)} style={pressStyle}>
+    <Animated.View entering={FadeIn.delay(index * 60).duration(280)}>
+      <Animated.View style={pressStyle}>
       <Pressable
         onPress={() => navigation.navigate(item.screen)}
         onPressIn={() => { scale.value = withSpring(0.92, { damping: 14, stiffness: 400 }); }}
@@ -159,6 +161,7 @@ const QuickActionPill = React.memo(({ item, navigation, isLight, index }: { item
         </View>
         <Text style={[qa.label, { color: isLight ? '#1A1008' : '#F0E8D8' }]}>{item.label}</Text>
       </Pressable>
+      </Animated.View>
     </Animated.View>
   );
 });
@@ -1009,6 +1012,9 @@ export const HomeScreen = ({ navigation, route }: any) => {
             </Animated.View>
           )}
 
+          {/* COSMIC NEWS STRIP */}
+          <CosmicNewsStrip isLight={isLight} accent={activeSurface.accent} />
+
           {/* WORLD HERO — Living Portal */}
           <Animated.View key={activeSurface.id} entering={FadeIn.duration(280)} style={hs.heroSection}>
             {/* Glassmorphism hero card */}
@@ -1064,7 +1070,7 @@ export const HomeScreen = ({ navigation, route }: any) => {
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ paddingHorizontal: 2, gap: 8, paddingVertical: 4 }}
+              contentContainerStyle={{ paddingLeft: 2, paddingRight: 22, gap: 8, paddingVertical: 4 }}
               overScrollMode="never"
             >
               {QUICK_ACTIONS.map((item, idx) => (

@@ -11,7 +11,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { ChevronLeft, Star, Shield, Zap, CheckCircle2, Gem } from 'lucide-react-native';
-import { getResolvedTheme } from '../core/theme/tokens';
+import { getResolvedTheme, isLightBg } from '../core/theme/tokens';
 import { layout } from '../core/theme/designSystem';
 import { useAppStore } from '../store/useAppStore';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
@@ -160,15 +160,19 @@ const CRYSTALS = [
 ];
 
 export const ProtectionRitualScreen = ({ navigation }: any) => {
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
+    const themeName = useAppStore(s => s.themeName);
+  const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
   const currentTheme = getResolvedTheme(themeName, userData?.preferences?.colorScheme);
-  const isDark = !currentTheme.background.startsWith('#F');
-  const isLight = !isDark;
+  const isLight = isLightBg(currentTheme.background);
+  const isDark = !isLight;
   const textColor = isLight ? '#150B2E' : '#F0EEFF';
   const subColor = isLight ? 'rgba(21,11,46,0.55)' : 'rgba(240,238,255,0.55)';
   const { t } = useTranslation();
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.09)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.09)';
 
   const [activeType, setActiveType] = useState<string>('energy');
   const [doneSteps, setDoneSteps] = useState<number[]>([]);
@@ -193,7 +197,9 @@ export const ProtectionRitualScreen = ({ navigation }: any) => {
     }
   };
 return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       {/* Full-screen background gradient */}
       <LinearGradient
         colors={isDark ? ['#060310', '#0A0518', '#100824'] : ['#F0EEFF', '#EDE8FF', '#E8E0FF']}
@@ -397,7 +403,7 @@ return (
           style={[
             styles.activateBtn,
             {
-              backgroundColor: allDone ? ACCENT : (isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)'),
+              backgroundColor: allDone ? ACCENT : (isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)'),
               borderColor: allDone ? ACCENT + '88' : cardBorder,
             },
           ]}
@@ -411,7 +417,8 @@ return (
           )}
         </Pressable>
       </View>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

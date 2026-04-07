@@ -28,7 +28,7 @@ import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
 import { formatLocaleDate } from '../core/utils/localeFormat';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#C4B5FD';
 
@@ -470,14 +470,18 @@ function getWeekDays(): { label: string; date: Date; dayName: string }[] {
 export default function MoonRitualScreen({ navigation }: any) {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, lunarIntentions, addLunarIntent, favoriteItems, addFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const lunarIntentions = useAppStore(s => s.lunarIntentions);
+  const addLunarIntent = useAppStore(s => s.addLunarIntent);
+  const favoriteItems = useAppStore(s => s.favoriteItems);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const isDark = !isLight;
   const textColor  = isLight ? '#1A1410' : '#F5F1EA';
   const subColor   = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg     = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.06)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg     = isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.06)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
   const accent     = ACCENT;
 
   const today = new Date();
@@ -603,7 +607,9 @@ export default function MoonRitualScreen({ navigation }: any) {
   const selIllum = getMoonIllumination(selAge);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <MoonBg isDark={!isLight} />
 
       {/* Header */}
@@ -783,7 +789,7 @@ export default function MoonRitualScreen({ navigation }: any) {
               </Typography>
             </View>
             <TextInput
-              style={[styles.input, { color: textColor, borderColor: cardBorder, backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)', minHeight: 80 }]}
+              style={[styles.input, { color: textColor, borderColor: cardBorder, backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)', minHeight: 80 }]}
               placeholder={`Jakie refleksje przynosi Ci ${phaseName}?`}
               placeholderTextColor={subColor}
               multiline
@@ -802,7 +808,7 @@ export default function MoonRitualScreen({ navigation }: any) {
               <View style={{ marginTop: 14 }}>
                 <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 1.5, fontSize: 9, marginBottom: 8 }}>OSTATNIE WPISY</Typography>
                 {journalEntries.map((e, i) => (
-                  <Animated.View key={e.id} entering={FadeInDown.delay(i * 50).springify()} style={{ marginBottom: 8, padding: 10, borderRadius: 10, backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)', borderWidth: 1, borderColor: cardBorder }}>
+                  <Animated.View key={e.id} entering={FadeInDown.delay(i * 50).springify()} style={{ marginBottom: 8, padding: 10, borderRadius: 10, backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)', borderWidth: 1, borderColor: cardBorder }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
                       <Typography variant="caption" style={{ color: accent }}>{e.emoji} {e.phase}</Typography>
                       <Typography variant="caption" style={{ color: subColor, fontSize: 10 }}>{e.date}</Typography>
@@ -896,7 +902,7 @@ export default function MoonRitualScreen({ navigation }: any) {
             </View>
 
             {/* Detail of selected day */}
-            <View style={{ marginTop: 12, padding: 12, borderRadius: 10, backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)', borderWidth: 1, borderColor: cardBorder }}>
+            <View style={{ marginTop: 12, padding: 12, borderRadius: 10, backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.05)', borderWidth: 1, borderColor: cardBorder }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>
                   {weekDays[selectedDay]?.dayName} — {selEmoji} {selPhase}
@@ -973,7 +979,7 @@ export default function MoonRitualScreen({ navigation }: any) {
             </ScrollView>
 
             <TextInput
-              style={[styles.input, { color: textColor, borderColor: cardBorder, backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)', minHeight: 72 }]}
+              style={[styles.input, { color: textColor, borderColor: cardBorder, backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)', minHeight: 72 }]}
               placeholder="Zadaj pytanie wyroczni księżyca…"
               placeholderTextColor={subColor}
               multiline
@@ -1002,7 +1008,8 @@ export default function MoonRitualScreen({ navigation }: any) {
 
         <EndOfContentSpacer />
       </ScrollView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 }
 

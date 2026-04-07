@@ -28,7 +28,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#F59E0B';
 
@@ -224,9 +224,12 @@ return (
 export const ReleaseLettersScreen = () => {
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
-  const { themeName, isFavoriteItem, addFavoriteItem, removeFavoriteItem, releaseLetters, addReleaseLetter } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F') || currentTheme.background.startsWith('#E');
+    const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const releaseLetters = useAppStore(s => s.releaseLetters);
+  const addReleaseLetter = useAppStore(s => s.addReleaseLetter);
+  const { currentTheme, isLight } = useTheme();
   const isDark = !isLight;
 
   const [selectedTarget, setSelectedTarget] = useState<string | null>(null);

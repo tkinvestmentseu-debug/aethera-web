@@ -29,7 +29,7 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Svg, { Circle, Defs, Ellipse, Line, Path, Polygon, RadialGradient as SvgRadialGradient, Stop, G, Text as SvgText } from 'react-native-svg';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const AnimGaugeCircle = Animated.createAnimatedComponent(Circle);
 
@@ -364,9 +364,11 @@ const ProgressBar = ({ value, max = 10, color }: { value: number; max?: number; 
 export const PartnerHoroscopeScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { isLight } = useTheme();
   const aiAvailable = AiService.isLaunchAvailable();
   const scrollRef = useRef<ScrollView>(null);
 
@@ -388,7 +390,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
   const subColor = isLight ? '#5A4070' : '#C4B5E0';
   const cardBg = isLight ? 'rgba(109,40,217,0.05)' : 'rgba(167,139,250,0.07)';
   const cardBorder = isLight ? 'rgba(109,40,217,0.12)' : 'rgba(167,139,250,0.12)';
-  const dividerColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.07)';
+  const dividerColor = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.07)';
 
   const mySign: ZodiacSign | null = useMemo(() => {
     try { return userData.birthDate ? getZodiacSign(userData.birthDate) : null; } catch { return null; }

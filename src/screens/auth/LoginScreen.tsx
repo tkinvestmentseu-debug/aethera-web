@@ -1,10 +1,11 @@
 // @ts-nocheck
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  View, TextInput, Pressable, StyleSheet,
+  View, TextInput, Pressable, StyleSheet, ScrollView,
   KeyboardAvoidingView, Platform, ActivityIndicator, Alert, Dimensions,
   Animated as RNAnimated, Easing as RNEasing,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Animated, { FadeIn, FadeInDown, FadeInUp } from 'react-native-reanimated';
@@ -195,31 +196,35 @@ const GlowInput = ({ focused, icon: Icon, children }) => {
 // ── Screen ────────────────────────────────────────────────────────────────────
 export const LoginScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
   const [email,       setEmail]       = useState('');
   const [password,    setPassword]    = useState('');
   const [loading,     setLoading]     = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
   const [passFocused,  setPassFocused]  = useState(false);
   const [resetLoading, setResetLoading] = useState(false);
+  const [rememberMe,   setRememberMe]   = useState(true);
 
   const btnScale = useRef(new RNAnimated.Value(1)).current;
 
   const handleForgotPassword = async () => {
-    // Use the email field value if already filled in, so user doesn't have to re-type
     const resetEmail = email.trim();
     if (!resetEmail) {
       Alert.alert(
-        'Zapomniałem hasła',
-        'Wpisz swój adres e-mail w pole powyżej, a następnie dotknij "Zapomniałem hasła" ponownie.',
+        t('auth.forgotPassword'),
+        t('auth.forgotPasswordBody'),
       );
       return;
     }
     setResetLoading(true);
     try {
       await sendPasswordResetEmail(auth, resetEmail);
-      Alert.alert('Email wysłany', 'Sprawdź swoją skrzynkę pocztową.');
+      Alert.alert(
+        t('auth.emailSent'),
+        t('auth.emailSentBody'),
+      );
     } catch (e: any) {
-      Alert.alert('Błąd', e?.message ?? 'Nie udało się wysłać e-maila.');
+      Alert.alert(t('auth.errorTitle'), e?.message ?? t('auth.errorEmailSend'));
     } finally {
       setResetLoading(false);
     }
@@ -227,7 +232,7 @@ export const LoginScreen = ({ navigation }: any) => {
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
-      Alert.alert('Błąd', t('auth.email') + ' / ' + t('auth.password'));
+      Alert.alert(t('auth.errorTitle'), t('auth.email') + ' / ' + t('auth.password'));
       return;
     }
     RNAnimated.sequence([
@@ -252,7 +257,7 @@ export const LoginScreen = ({ navigation }: any) => {
       const msg = e?.code === 'auth/invalid-credential'
         ? t('auth.errorInvalidCredential')
         : t('auth.errorConnection');
-      Alert.alert('Błąd logowania', msg);
+      Alert.alert(t('auth.errorLoginTitle'), msg);
     } finally {
       setLoading(false);
     }
@@ -278,8 +283,14 @@ export const LoginScreen = ({ navigation }: any) => {
 
       <SafeAreaView edges={['top']} style={{ flex: 1 }}>
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-          style={ls.kav}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{ flex: 1 }}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? insets.top : 0}
+        >
+        <ScrollView
+          contentContainerStyle={[ls.kav, { paddingTop: Math.max(insets.top > 44 ? 24 : 8, 8) }]}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
         >
           {/* ── Logo block ── */}
           <Animated.View entering={FadeInDown.delay(100).duration(900)} style={ls.logoBlock}>
@@ -351,19 +362,30 @@ export const LoginScreen = ({ navigation }: any) => {
               style={{ alignSelf: 'flex-end', paddingVertical: 4, marginBottom: 6, marginTop: -4 }}
             >
               <Typography style={{ color: PURPLE_SOFT, fontSize: 13, opacity: resetLoading ? 0.5 : 1 }}>
-                {resetLoading ? 'Wysyłanie...' : 'Zapomniałem hasła'}
+                {resetLoading
+                ? t('auth.sendingReset')
+                : t('auth.forgotPassword')}
               </Typography>
             </Pressable>
 
             {/* Remember me */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, paddingVertical: 4 }}>
-              <View style={{ width: 20, height: 20, borderRadius: 6, backgroundColor: PURPLE_CORE, alignItems: 'center', justifyContent: 'center' }}>
-                <Typography style={{ color: '#fff', fontSize: 13, lineHeight: 18 }}>✓</Typography>
+            <Pressable
+              onPress={() => setRememberMe(v => !v)}
+              style={{ flexDirection: 'row', alignItems: 'center', gap: 10, paddingVertical: 4 }}
+            >
+              <View style={{
+                width: 20, height: 20, borderRadius: 6,
+                backgroundColor: rememberMe ? PURPLE_CORE : 'rgba(255,255,255,0.08)',
+                borderWidth: rememberMe ? 0 : 1.5,
+                borderColor: 'rgba(167,139,250,0.35)',
+                alignItems: 'center', justifyContent: 'center',
+              }}>
+                {rememberMe && <Typography style={{ color: '#fff', fontSize: 13, lineHeight: 18 }}>✓</Typography>}
               </View>
-              <Typography style={{ color: WHITE_MED, fontSize: 13 }}>
-                {t('auth.rememberMe', { defaultValue: 'Zapamietaj mnie' })}
+              <Typography style={{ color: rememberMe ? WHITE_MED : WHITE_LOW, fontSize: 13 }}>
+                {t('auth.rememberMe', { defaultValue: 'Remember me' })}
               </Typography>
-            </View>
+            </Pressable>
 
             {/* Submit */}
             <RNAnimated.View style={[{ transform: [{ scale: btnScale }] }, ls.btnOuter]}>
@@ -410,9 +432,10 @@ export const LoginScreen = ({ navigation }: any) => {
           {/* Bottom hint */}
           <Animated.View entering={FadeIn.delay(900).duration(700)} style={ls.bottomHint}>
             <Typography style={ls.bottomHintText}>
-              ✦ &nbsp; Twoje dane są bezpieczne i prywatne &nbsp; ✦
+              {t('auth.privacyHint')}
             </Typography>
           </Animated.View>
+        </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </View>
@@ -420,7 +443,7 @@ export const LoginScreen = ({ navigation }: any) => {
 };
 
 const ls = StyleSheet.create({
-  kav: { flex: 1, justifyContent: 'center', paddingHorizontal: 26 },
+  kav: { flexGrow: 1, justifyContent: 'center', paddingHorizontal: 26, paddingBottom: 32 },
 
   blobTopLeft: {
     position: 'absolute', top: -100, left: -90,

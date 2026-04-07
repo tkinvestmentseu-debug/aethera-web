@@ -31,7 +31,6 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
-
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#DC2626';
 const ACCENT_LIGHT = '#FCA5A5';
@@ -360,8 +359,6 @@ const POWER_WORDS = [
 // ── MAIN SCREEN ───────────────────────────────────────────────────
 export const FireCeremonyScreen = ({ navigation }: any) => {
   const insets = useSafeAreaInsets();
-  const { themeName } = useAppStore();
-  const theme = getResolvedTheme(themeName);
   const { t } = useTranslation();
 
   const [intention, setIntention] = useState('');

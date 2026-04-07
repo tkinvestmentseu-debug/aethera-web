@@ -48,7 +48,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 // Enable LayoutAnimation on Android
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -235,7 +235,7 @@ const QuarterCard = ({ q, personalYear, isLight }: { q: typeof QUARTERS[0]; pers
   const [expanded, setExpanded] = useState(false);
   const textColor = isLight ? '#1A1028' : '#F0ECF8';
   const subColor = isLight ? '#4A3A68' : 'rgba(255,255,255,0.60)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
   const border = isLight ? 'rgba(0,0,0,0.10)' : 'rgba(245,158,11,0.20)';
 
   const toggle = () => {
@@ -277,14 +277,14 @@ const MonthCard = ({ month, index, personalYear, isLight }: { month: string; ind
   const energy = getMonthEnergy(personalYear, index);
   const color = getEnergyColor(energy);
   const label = getEnergyLabel(energy);
-  const cardBg = isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.06)';
   const textColor = isLight ? '#1A1028' : '#F0ECF8';
   const subColor = isLight ? '#5A4A78' : 'rgba(255,255,255,0.50)';
 
   return (
     <View style={[styles.monthCard, { backgroundColor: cardBg }]}>
       <Text style={[styles.monthName, { color: textColor }]}>{month}</Text>
-      <View style={styles.monthBarBg}>
+      <View style={[styles.monthBarBg, isLight && { backgroundColor: 'rgba(0,0,0,0.08)' }]}>
         <View style={[styles.monthBarFill, { width: `${energy}%`, backgroundColor: color }]} />
       </View>
       <Text style={[styles.monthLabel, { color: subColor }]}>{label}</Text>
@@ -344,10 +344,11 @@ const CO_DALEJ = [
 
 export const AnnualForecastScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const personalYear = calcPersonalYear(userData?.birthDate || '');
   const yearInfo = YEAR_THEMES[personalYear] || YEAR_THEMES[1];
   const lucky = LUCKY_ELEMENTS[personalYear] || LUCKY_ELEMENTS[1];
@@ -361,7 +362,7 @@ export const AnnualForecastScreen = ({ navigation }: any) => {
   const textColor = isLight ? '#1A1028' : '#F0ECF8';
   const subColor = isLight ? '#4A3A68' : 'rgba(255,255,255,0.60)';
   const cardBg = isLight ? 'rgba(255,255,255,0.80)' : 'rgba(255,255,255,0.06)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.08)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.08)';
   const currentYear = new Date().getFullYear();
 
   // ── Star handler ──
@@ -582,7 +583,7 @@ Odpowiedź powinna być zwięzła, mistyczna i inspirująca.`,
                     <Text style={[styles.codalejTitle, { color: textColor }]}>{title}</Text>
                     <Text style={[styles.codalejDesc, { color: subColor }]}>{desc}</Text>
                   </View>
-                  <ArrowRight size={16} color={isLight ? 'rgba(0,0,0,0.30)' : 'rgba(255,255,255,0.30)'} />
+                  <ArrowRight size={16} color={isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.30)'} />
                 </Pressable>
               ))}
             </View>
@@ -692,7 +693,7 @@ const styles = StyleSheet.create({
   },
   // Lucky chips
   luckyRow: {
-    paddingRight: 8,
+    paddingRight: 22,
     gap: 8,
   },
   luckyChip: {
@@ -757,7 +758,7 @@ const styles = StyleSheet.create({
   },
   // Months
   monthRow: {
-    paddingRight: 8,
+    paddingRight: 22,
     gap: 8,
   },
   monthCard: {

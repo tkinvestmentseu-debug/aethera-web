@@ -22,7 +22,7 @@ import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#60A5FA';
 
@@ -258,7 +258,7 @@ const TimelineBar = ({ retro, isLight }: { retro: Retrograde; isLight: boolean }
 
   return (
     <View style={{ marginTop: 10, paddingHorizontal: 0 }}>
-      <View style={{ height: 6, backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)', borderRadius: 3, overflow: 'hidden' }}>
+      <View style={{ height: 6, backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.06)', borderRadius: 3, overflow: 'hidden' }}>
         {/* Retrograde period */}
         <View style={{
           position: 'absolute',
@@ -280,10 +280,10 @@ const TimelineBar = ({ retro, isLight }: { retro: Retrograde; isLight: boolean }
         }} />
       </View>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 4 }}>
-        <Text style={{ fontSize: 9, color: isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.30)', letterSpacing: 0.3 }}>
+        <Text style={{ fontSize: 9, color: isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.30)', letterSpacing: 0.3 }}>
           -{3}mies.
         </Text>
-        <Text style={{ fontSize: 9, color: isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.30)', letterSpacing: 0.3 }}>
+        <Text style={{ fontSize: 9, color: isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.30)', letterSpacing: 0.3 }}>
           +9mies.
         </Text>
       </View>
@@ -300,10 +300,12 @@ export const AstrologyCyclesScreen: React.FC = () => {
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
   const themeName = useAppStore((s) => s.themeName);
-  const { addFavoriteItem, removeFavoriteItem, isFavoriteItem } = useAppStore();
-  const theme = getResolvedTheme(themeName);
-  const isLight = theme.background.startsWith('#F');
-
+  const themeMode = useAppStore((s) => s.themeMode);
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
+  const theme = currentTheme;
   const [activeTab, setActiveTab] = useState<TabId>('dziś');
   const [expandedPlanet, setExpandedPlanet] = useState<string | null>(null);
   const [aiInsight, setAiInsight] = useState<string>('');
@@ -327,10 +329,10 @@ export const AstrologyCyclesScreen: React.FC = () => {
   };
 
   const textColor  = isLight ? theme.text              : '#F0ECFF';
-  const subColor   = isLight ? 'rgba(0,0,0,0.50)'      : 'rgba(255,255,255,0.48)';
-  const cardBg     = isLight ? 'rgba(0,0,0,0.04)'      : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)'      : 'rgba(255,255,255,0.08)';
-  const chipBg     = isLight ? 'rgba(0,0,0,0.05)'      : 'rgba(255,255,255,0.07)';
+  const subColor   = isLight ? 'rgba(0,0,0,0.72)'      : 'rgba(255,255,255,0.48)';
+  const cardBg     = isLight ? 'rgba(255,255,255,0.88)'      : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)'      : 'rgba(255,255,255,0.08)';
+  const chipBg     = isLight ? 'rgba(255,248,234,0.92)'      : 'rgba(255,255,255,0.07)';
 
   const SCREEN_ID = 'AstrologyCycles';
   const isFav = isFavoriteItem(SCREEN_ID);
@@ -366,7 +368,9 @@ export const AstrologyCyclesScreen: React.FC = () => {
   ];
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+
       <AstrologyCyclesBg isLight={isLight} />
 
       {/* Header */}
@@ -385,7 +389,7 @@ export const AstrologyCyclesScreen: React.FC = () => {
 
         <Pressable onPress={toggleFav} hitSlop={12} style={styles.headerBtn}>
           <Star
-            color={isFav ? ACCENT : (isLight ? 'rgba(0,0,0,0.40)' : 'rgba(255,255,255,0.40)')}
+            color={isFav ? ACCENT : (isLight ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.40)')}
             fill={isFav ? ACCENT : 'none'}
             size={20}
             strokeWidth={1.8}
@@ -545,7 +549,7 @@ export const AstrologyCyclesScreen: React.FC = () => {
                           {formatDate(r.retroStart)} – {formatDate(r.retroEnd)}
                         </Text>
                       </View>
-                      <Text style={[styles.expandChevron, { color: isLight ? 'rgba(0,0,0,0.30)' : 'rgba(255,255,255,0.30)' }]}>
+                      <Text style={[styles.expandChevron, { color: isLight ? 'rgba(0,0,0,0.58)' : 'rgba(255,255,255,0.30)' }]}>
                         {isExpanded ? '▲' : '▼'}
                       </Text>
                     </View>
@@ -557,7 +561,7 @@ export const AstrologyCyclesScreen: React.FC = () => {
                     {isExpanded && (
                       <View style={{ marginTop: 14 }}>
                         <View style={[styles.effectCard, {
-                          backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)',
+                          backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)',
                           borderColor: r.color + '33',
                         }]}>
                           <Text style={[styles.effectLabel, { color: r.color }]}>WPŁYW</Text>
@@ -689,7 +693,8 @@ export const AstrologyCyclesScreen: React.FC = () => {
 
         <EndOfContentSpacer size="airy" />
       </ScrollView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

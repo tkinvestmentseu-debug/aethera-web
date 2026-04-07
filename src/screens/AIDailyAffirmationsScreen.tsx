@@ -63,7 +63,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { AiService } from '../core/services/ai.service';
 import { Typography } from '../components/Typography';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#F472B6';
 
@@ -641,14 +641,15 @@ const aj = StyleSheet.create({
 // ─── Main screen ─────────────────────────────────────────────────────────────
 export const AIDailyAffirmationsScreen = ({ navigation }: any) => {
   const insets = useSafeAreaInsets();
-  const { themeName, userData, favoriteAffirmations, toggleFavoriteAffirmation } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight    = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const favoriteAffirmations = useAppStore(s => s.favoriteAffirmations);
+  const toggleFavoriteAffirmation = useAppStore(s => s.toggleFavoriteAffirmation);
+  const { currentTheme, isLight } = useTheme();
   const accent     = currentTheme.primary || ACCENT;
   const textColor  = isLight ? '#1A1410' : '#F5F1EA';
   const subColor   = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg     = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const divColor   = isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)';
+  const cardBg     = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
+  const divColor   = isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)';
 
   const dailyPlan = SoulEngineService.generateDailyPlan();
   const mood      = dailyPlan.affirmationGuidance?.featured?.category || 'peace';
@@ -924,7 +925,7 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
                     onPress={() => setActiveCategory(cat.id)}
                     style={[aa.catChip, {
                       borderColor: activeCategory === cat.id ? (cat.color || accent) : accent + '33',
-                      backgroundColor: activeCategory === cat.id ? (cat.color || accent) + '22' : isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
+                      backgroundColor: activeCategory === cat.id ? (cat.color || accent) + '22' : isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.04)',
                     }]}
                   >
                     <Text style={aa.catEmoji}>{cat.emoji}</Text>
@@ -940,7 +941,7 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
             <Animated.View entering={FadeInDown.delay(140).duration(400)}>
               <Pressable
                 onPress={() => setShowControls((s) => !s)}
-                style={[aa.controlsToggle, { borderColor: accent + '33', backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)' }]}
+                style={[aa.controlsToggle, { borderColor: accent + '33', backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)' }]}
               >
                 <Layers color={accent} size={14} strokeWidth={1.8} />
                 <Text style={[aa.controlsToggleText, { color: subColor }]}>
@@ -1277,7 +1278,7 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
               onChangeText={setFsNameInput}
               placeholder="Imię osoby..."
               placeholderTextColor={subColor}
-              style={[aa.fsInput, { color: textColor, borderColor: accent + '44', backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)' }]}
+              style={[aa.fsInput, { color: textColor, borderColor: accent + '44', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)' }]}
             />
             <Pressable
               onPress={() => {

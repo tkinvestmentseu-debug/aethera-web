@@ -31,7 +31,7 @@ import { getResolvedTheme } from '../core/theme/tokens';
 import { layout, screenContracts } from '../core/theme/designSystem';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { AiService } from '../core/services/ai.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 
 // ── AURORA ORB — animated glow blob ──────────────────────────
@@ -309,12 +309,12 @@ export const OraclePortalScreen = ({ navigation }: any) => {
   const insets = useSafeAreaInsets();
   const isOnline = useNetworkStatus();
   const { t } = useTranslation();
-  const {
-    themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem,
-  } = useAppStore();
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { isLight } = useTheme();
   const { currentSession, pastSessions } = useOracleStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
   const isDark = !isLight;
   const accent = '#A78BFA';
   const firstName = userData.name?.trim() || 'Wędrowcze';
@@ -332,8 +332,8 @@ export const OraclePortalScreen = ({ navigation }: any) => {
 
   const textColor = isLight ? '#1A1410' : '#F0EAF8';
   const subColor = isLight ? '#6A4A8A' : '#9A8AC0';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(167,139,250,0.28)' : 'rgba(167,139,250,0.30)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,92,180,0.38)' : 'rgba(167,139,250,0.30)';
 
   // Daily oracle wisdom — deterministic per day
   const dailyWisdomIdx = new Date().getDate() % ORACLE_DAILY_WISDOMS.length;
@@ -407,8 +407,8 @@ export const OraclePortalScreen = ({ navigation }: any) => {
               {activeTab === tab && (
                 <LinearGradient colors={[accent, accent + 'CC']} style={StyleSheet.absoluteFill} />
               )}
-              <Icon color={activeTab === tab ? '#FFF' : accent + 'BB'} size={13} strokeWidth={activeTab === tab ? 2.0 : 1.6} />
-              <Text style={[op.tabText, { color: activeTab === tab ? '#FFF' : accent + 'BB' }]}>
+              <Icon color={activeTab === tab ? (isLight ? '#1A1410' : '#FFF') : accent + 'BB'} size={13} strokeWidth={activeTab === tab ? 2.0 : 1.6} />
+              <Text style={[op.tabText, { color: activeTab === tab ? (isLight ? '#1A1410' : '#FFF') : accent + 'BB' }]}>
                 {label}
               </Text>
             </Pressable>
@@ -603,7 +603,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                         else setCeremonialMode(false);
                       }}
                       style={[op.ceremonialToggle, {
-                        backgroundColor: ceremonialMode ? '#CEAE72' : (isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.08)'),
+                        backgroundColor: ceremonialMode ? '#CEAE72' : (isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.08)'),
                         borderColor: ceremonialMode ? '#CEAE72' : cardBorder,
                       }]}
                     >
@@ -656,7 +656,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                             onPress={() => !isOnline ? undefined : openSession(q, 'gentle', 'general')}
                             style={[op.questionRow, {
                               borderColor: cat.color + '33',
-                              backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
+                              backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)',
                               opacity: isOnline ? 1 : 0.45,
                             }]}
                           >
@@ -713,7 +713,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                       <Pressable
                         key={i}
                         onPress={() => navigation.navigate('OracleChat', { initialQuestion: q.text, forceNewSession: true, source: 'oracle_portal' })}
-                        style={[op.myQRow, { borderColor: cardBorder, backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.03)' }]}
+                        style={[op.myQRow, { borderColor: cardBorder, backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.03)' }]}
                       >
                         <View style={[op.myQNum, { backgroundColor: accent + '18' }]}>
                           <Text style={[op.myQNumText, { color: accent }]}>{i + 1}</Text>
@@ -974,7 +974,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                     multiline
                     style={[op.intentionInput, {
                       color: textColor,
-                      backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)',
+                      backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)',
                       borderColor: accent + '30',
                     }]}
                   />
@@ -1097,7 +1097,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
               multiline
               style={[op.intentionInput, {
                 color: textColor,
-                backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)',
+                backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)',
                 borderColor: '#CEAE72' + '44',
                 marginBottom: 4,
               }]}

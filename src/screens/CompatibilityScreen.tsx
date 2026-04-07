@@ -25,7 +25,7 @@ import { AiService } from '../core/services/ai.service';
 import { buildCompatibilityShareMessage } from '../core/utils/share';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
-
+import { useTheme } from '../core/hooks/useTheme';
 const AnimatedSvgCircle = Animated.createAnimatedComponent(SvgCircle);
 
 const TWIN_STARS = [
@@ -102,9 +102,11 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
   const localeCode = isEnglish ? 'en-US' : 'pl-PL';
   const tr = (pl: string, en: string) => (isEnglish ? en : pl);
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const keyboardOpen = useKeyboardOpen();
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const aiAvailable = AiService.isLaunchAvailable();
@@ -122,10 +124,10 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
 
   // dynamic colors
   const textColor   = isLight ? '#1A1A2E' : '#F0EBE2';
-  const subColor    = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(240,235,226,0.65)';
-  const dividerColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
-  const surfaceBg   = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const surfaceBorder = isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)';
+  const subColor    = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(240,235,226,0.65)';
+  const dividerColor = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)';
+  const surfaceBg   = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
+  const surfaceBorder = isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)';
   const accentBg    = isLight ? currentTheme.primary + '12' : currentTheme.primary + '16';
 
   const focusIntoView = (y: number) => {

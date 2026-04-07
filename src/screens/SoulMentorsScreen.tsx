@@ -16,13 +16,15 @@ import {
   MessageCircle, Clock, Users, Sparkles,
 } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
-
+import { useAppStore } from '../store/useAppStore';
+import { collection, getDocs, query, orderBy, doc, addDoc, serverTimestamp, onSnapshot } from 'firebase/firestore';
+import { db } from '../core/config/firebase.config';
+import { useAuthStore } from '../store/useAuthStore';
+import { getResolvedTheme } from '../core/theme/tokens';
+import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#60A5FA';
-const textColor = '#E8E0FF';
-const subColor = 'rgba(232,224,255,0.55)';
-const cardBg = 'rgba(255,255,255,0.05)';
-const cardBorder = 'rgba(255,255,255,0.10)';
 
 const SPECIALIZATIONS = ['Wszystko', 'Tarot', 'Numerologia', 'Astrologia', 'Medytacja', 'Reiki', 'Jungowski'];
 
@@ -69,7 +71,14 @@ const REVIEWS = [
 
 export const SoulMentorsScreen = ({ navigation }) => {
   const { t } = useTranslation();
+  const { currentTheme, isLight } = useTheme();
   const insets = useSafeAreaInsets();
+  const currentUser = useAuthStore(s => s.currentUser);
+  const textColor = isLight ? '#1C1008' : '#E8E0FF';
+  const subColor = isLight ? 'rgba(28,16,8,0.55)' : 'rgba(232,224,255,0.55)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.10)';
+  const [mentors, setMentors] = useState(MENTORS);
   const [activeSpec, setActiveSpec] = useState('Wszystko');
   const [search, setSearch] = useState('');
   const [selectedMentor, setSelectedMentor] = useState(null);
@@ -83,21 +92,33 @@ export const SoulMentorsScreen = ({ navigation }) => {
     glowAnim.value = withRepeat(withSequence(withTiming(1, { duration: 1800 }), withTiming(0.6, { duration: 1800 })), -1, false);
   }, []);
 
-  const filteredMentors = MENTORS.filter(m => {
-    const matchSpec = activeSpec === 'Wszystko' || m.tags.includes(activeSpec);
+  useEffect(() => {
+    const q = query(collection(db, 'mentors'), orderBy('rating', 'desc'));
+    const unsub = onSnapshot(q, (snap) => {
+      if (snap.docs.length > 0) {
+        setMentors(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      }
+    }, () => {/* keep seed data on error */});
+    return () => unsub();
+  }, []);
+
+  const filteredMentors = mentors.filter(m => {
+    const matchSpec = activeSpec === 'Wszystko' || (m.tags || []).includes(activeSpec);
     const matchSearch = search === '' || m.name.toLowerCase().includes(search.toLowerCase()) || m.specialty.toLowerCase().includes(search.toLowerCase());
     return matchSpec && matchSearch;
   });
 
-  const featuredMentor = MENTORS.find(m => m.id === 3);
+  const featuredMentor = mentors.find(m => m.id === 3) ?? mentors[0] ?? MENTORS[2];
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[styles.container, {}]} edges={['top']}>
+
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => goBackOrToMainTab(navigation, 'Portal')}>
           <ChevronLeft size={22} color={textColor} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>MENTORZY DUSZY</Text>
+        <Text style={[styles.headerTitle, { color: textColor }]}>MENTORZY DUSZY</Text>
         <View style={{ width: 32 }} />
       </View>
 
@@ -238,7 +259,7 @@ export const SoulMentorsScreen = ({ navigation }) => {
       {/* Mentor Detail Modal */}
       <Modal visible={!!selectedMentor} transparent animationType="slide">
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'flex-end' }}>
-          <ScrollView style={{ maxHeight: '85%', backgroundColor: '#12101E', borderTopLeftRadius: 28, borderTopRightRadius: 28 }}>
+          <ScrollView style={{ maxHeight: '85%', backgroundColor: isLight ? '#FFFFFF' : '#12101E', borderTopLeftRadius: 28, borderTopRightRadius: 28 }}>
             <View style={{ padding: 24 }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 }}>
                 <Text style={{ color: textColor, fontSize: 18, fontWeight: '700' }}>{selectedMentor?.name}</Text>
@@ -267,7 +288,21 @@ export const SoulMentorsScreen = ({ navigation }) => {
                     </View>
                   ) : (
                     <TouchableOpacity
-                      onPress={() => bookedTime && setBookingConfirmed(true)}
+                      onPress={() => {
+                        if (!bookedTime) return;
+                        setBookingConfirmed(true);
+                        if (currentUser) {
+                          addDoc(collection(db, 'mentorBookings'), {
+                            mentorId: selectedMentor.id,
+                            mentorName: selectedMentor.name,
+                            userId: currentUser.uid,
+                            userName: currentUser.displayName,
+                            bookedTime,
+                            status: 'pending',
+                            createdAt: serverTimestamp(),
+                          }).catch(() => {});
+                        }
+                      }}
                       style={{ backgroundColor: bookedTime ? selectedMentor.color : 'rgba(255,255,255,0.1)', borderRadius: 14, paddingVertical: 16, alignItems: 'center' }}>
                       <Text style={{ color: bookedTime ? '#fff' : subColor, fontWeight: '700', fontSize: 15 }}>
                         {bookedTime ? `Umów sesję · ${selectedMentor.price} zł` : 'Wybierz termin'}
@@ -284,7 +319,7 @@ export const SoulMentorsScreen = ({ navigation }) => {
       {/* Apply Modal */}
       <Modal visible={showApplyModal} transparent animationType="slide">
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'flex-end' }}>
-          <View style={{ backgroundColor: '#12101E', borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24 }}>
+          <View style={{ backgroundColor: isLight ? '#FFFFFF' : '#12101E', borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 }}>
               <Text style={{ color: textColor, fontSize: 18, fontWeight: '700' }}>Aplikuj jako Mentor</Text>
               <TouchableOpacity onPress={() => setShowApplyModal(false)}>
@@ -295,19 +330,30 @@ export const SoulMentorsScreen = ({ navigation }) => {
               Twoja aplikacja zostanie rozpatrzona przez zespół Aethery. Poszukujemy doświadczonych praktykantów z potwierdzonym doświadczeniem.
             </Text>
             <TouchableOpacity
-              onPress={() => setShowApplyModal(false)}
+              onPress={() => {
+                if (currentUser) {
+                  addDoc(collection(db, 'mentorApplications'), {
+                    userId: currentUser.uid,
+                    userName: currentUser.displayName,
+                    status: 'pending',
+                    createdAt: serverTimestamp(),
+                  }).then(() => {}).catch(() => {});
+                }
+                setShowApplyModal(false);
+              }}
               style={{ backgroundColor: ACCENT, borderRadius: 14, paddingVertical: 16, alignItems: 'center' }}>
               <Text style={{ color: '#fff', fontWeight: '700', fontSize: 15 }}>Wyślij zgłoszenie</Text>
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#07050F' },
+  container: { flex: 1 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 22, paddingVertical: 14 },
-  headerTitle: { color: textColor, fontSize: 13, fontWeight: '800', letterSpacing: 2 },
+  headerTitle: { fontSize: 13, fontWeight: '800', letterSpacing: 2 },
 });

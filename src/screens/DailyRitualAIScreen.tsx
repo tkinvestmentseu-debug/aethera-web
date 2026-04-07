@@ -16,7 +16,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 import { getLocaleCode } from '../core/utils/localeFormat';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#F97316';
 
@@ -183,13 +183,14 @@ const INGREDIENTS: Record<string, { emoji: string; name: string; purpose: string
 export const DailyRitualAIScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, dailyProgress, updateDailyProgress } = useAppStore();
-  const theme = getResolvedTheme(themeName);
-  const isLight = theme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const dailyProgress = useAppStore(s => s.dailyProgress);
+  const updateDailyProgress = useAppStore(s => s.updateDailyProgress);
+  const { isLight } = useTheme();
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : '#9A8E80';
   const cardBg = isLight ? 'rgba(255,255,255,0.92)' : 'rgba(20,15,10,0.88)';
-  const borderColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
+  const borderColor = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)';
 
   const dailyPlan = useMemo(() => SoulEngineService.generateDailyPlan(), []);
   const today = new Date().toISOString().split('T')[0];
@@ -391,7 +392,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
   return (
     <View style={[styles.container, { backgroundColor: isLight ? '#FDF6EE' : '#0A0603' }]}>
       <LinearGradient colors={isLight ? ['#FDF6EE', '#F5E8D0'] : ['#0A0603', '#160A05', '#200F08']} style={StyleSheet.absoluteFill} />
-      <SafeAreaView style={styles.safeArea}>
+      <SafeAreaView edges={['top']} style={styles.safeArea}>
         {/* ── Header ── */}
         <View style={styles.header}>
           <Pressable onPress={() => goBackOrToMainTab(navigation, 'Today')} style={styles.backBtn} hitSlop={14}>
@@ -625,7 +626,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
                       color: textColor, fontSize: 15, lineHeight: 24,
                       borderWidth: 1.5, borderColor: wordCount9 === 9 ? '#F59E0B' : (wordCount9 > 9 ? '#E8705A' : '#F59E0B' + '44'),
                       borderRadius: 14, padding: 14, minHeight: 72,
-                      backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.03)',
+                      backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.03)',
                       textAlignVertical: 'top',
                     }}
                   />
@@ -860,7 +861,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
                 placeholderTextColor={subColor + '90'}
                 multiline
                 numberOfLines={4}
-                style={{ color: textColor, fontSize: 14, lineHeight: 22, borderWidth: 1, borderColor: ACCENT + '30', borderRadius: 14, padding: 14, minHeight: 90, backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.03)', textAlignVertical: 'top' }}
+                style={{ color: textColor, fontSize: 14, lineHeight: 22, borderWidth: 1, borderColor: ACCENT + '30', borderRadius: 14, padding: 14, minHeight: 90, backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.03)', textAlignVertical: 'top' }}
               />
               {ritualNote.length > 0 && (
                 <Pressable onPress={() => navigation.navigate('JournalEntry', { type: 'ritual', prompt: ritualNote })} style={{ marginTop: 10, flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 10, paddingHorizontal: 14, borderRadius: 12, backgroundColor: ACCENT + '0F', borderWidth: 1, borderColor: ACCENT + '30', alignSelf: 'flex-start' }}>
@@ -914,7 +915,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
                   const dayLabel = ['Nd','Pn','Wt','Śr','Cz','Pt','So'][d.getDay()];
                   return (
                     <View key={i} style={{ flex: 1, alignItems: 'center', gap: 6 }}>
-                      <View style={{ width: 36, height: 36, borderRadius: 12, backgroundColor: done ? ACCENT : isToday ? ACCENT + '22' : isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.06)', borderWidth: isToday ? 1.5 : 0, borderColor: ACCENT, alignItems: 'center', justifyContent: 'center' }}>
+                      <View style={{ width: 36, height: 36, borderRadius: 12, backgroundColor: done ? ACCENT : isToday ? ACCENT + '22' : isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.06)', borderWidth: isToday ? 1.5 : 0, borderColor: ACCENT, alignItems: 'center', justifyContent: 'center' }}>
                         {done ? <Text style={{ fontSize: 16 }}>🔥</Text> : isToday ? <Flame color={ACCENT} size={16} strokeWidth={1.5} /> : <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.15)' }} />}
                       </View>
                       <Text style={{ fontSize: 9, fontWeight: '600', color: isToday ? ACCENT : subColor }}>{dayLabel}</Text>
@@ -955,14 +956,14 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
                 <Pressable
                   key={item.label}
                   onPress={() => navigation.navigate(item.route as any, (item as any).params)}
-                  style={{ flexDirection: 'row', alignItems: 'center', gap: 12, borderWidth: 1, borderRadius: 16, padding: 14, marginBottom: 10, backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: item.color + '33' }}
+                  style={{ flexDirection: 'row', alignItems: 'center', gap: 12, borderWidth: 1, borderRadius: 16, padding: 14, marginBottom: 10, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: item.color + '33' }}
                 >
                   <View style={{ width: 40, height: 40, borderRadius: 12, alignItems: 'center', justifyContent: 'center', backgroundColor: item.color + '18' }}>
                     <Icon color={item.color} size={17} strokeWidth={1.8} />
                   </View>
                   <View style={{ flex: 1 }}>
                     <Text style={{ fontSize: 14, fontWeight: '700', color: isLight ? '#1A1A1A' : '#F5F1EA' }}>{item.label}</Text>
-                    <Text style={{ fontSize: 12, color: isLight ? 'rgba(0,0,0,0.55)' : 'rgba(245,241,234,0.60)', marginTop: 2, lineHeight: 18 }}>{item.sub}</Text>
+                    <Text style={{ fontSize: 12, color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(245,241,234,0.60)', marginTop: 2, lineHeight: 18 }}>{item.sub}</Text>
                   </View>
                   <ArrowRight color={item.color} size={15} strokeWidth={1.5} />
                 </Pressable>

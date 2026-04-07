@@ -38,7 +38,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const ACCENT = '#F59E0B';
 const SP = layout.padding.screen;
 const SW = Dimensions.get('window').width;
@@ -309,8 +309,8 @@ const FlipHeroCard = ({ color, glyph, text, isLight }) => {
           >
             <Text style={[s.flipGlyph, { color }]}>{glyph}</Text>
             <View style={[s.flipDivider, { backgroundColor: color + '66' }]} />
-            <Text style={s.flipText}>{text || 'Twoja intencja pojawi się tutaj'}</Text>
-            <Text style={[s.flipHint, { color: 'rgba(255,255,255,0.50)' }]}>Dotknij, by zobaczyć geometrię</Text>
+            <Text style={[s.flipText, isLight && { color: 'rgba(37,29,22,0.88)' }]}>{text || 'Twoja intencja pojawi się tutaj'}</Text>
+            <Text style={[s.flipHint, { color: isLight ? 'rgba(37,29,22,0.5)' : 'rgba(255,255,255,0.50)' }]}>Dotknij, by zobaczyć geometrię</Text>
           </LinearGradient>
         </Animated.View>
         {/* Back face — sacred geometry */}
@@ -340,7 +340,7 @@ const SpreadPositionCard = ({ item, color, isLight }) => {
   const subColor = isLight ? 'rgba(0,0,0,0.62)' : 'rgba(255,255,255,0.62)';
   return (
     <View style={[s.spreadPosCard, {
-      backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)',
+      backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.05)',
       borderColor: color + '44',
     }]}>
       <LinearGradient colors={[color + '18', 'transparent']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={StyleSheet.absoluteFill} />
@@ -373,15 +373,16 @@ const GalleryCard = ({ item, onDelete, onPress }) => {
 // ─── main screen ─────────────────────────────────────────────────────────────
 export const IntentionCardsScreen = ({ navigation }) => {
   const { t } = useTranslation();
-  const { themeName, intentionCards, addIntentionCard, deleteIntentionCard } = useAppStore();
+    const intentionCards = useAppStore(s => s.intentionCards);
+  const addIntentionCard = useAppStore(s => s.addIntentionCard);
+  const deleteIntentionCard = useAppStore(s => s.deleteIntentionCard);
+  const { currentTheme, isLight } = useTheme();
   const insets = useSafeAreaInsets();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
   const scrollRef = useRef(null);
 
   const textColor = isLight ? '#1A1108' : '#F0EBE2';
   const subColor = isLight ? 'rgba(0,0,0,0.62)' : 'rgba(255,255,255,0.62)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
   const cardBorder = isLight ? 'rgba(83,57,17,0.12)' : 'rgba(255,255,255,0.10)';
   const modalBg = isLight ? '#FBF5E8' : '#0F0A18';
 
@@ -597,7 +598,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
 
             {/* Category chips */}
             <Text style={[s.sectionLabel, { color: ACCENT }]}>OBSZAR INTENCJI</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 14 }} contentContainerStyle={{ gap: 8, paddingRight: 4 }}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 14 }} contentContainerStyle={{ gap: 8, paddingRight: 22 }}>
               {INTENTION_CATEGORIES.map((cat) => (
                 <Pressable key={cat.id} onPress={() => { setSelectedCategory(cat.id); HapticsService.impact('light'); setAiSuggestion(''); }}
                   style={[s.catChip, {
@@ -749,7 +750,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
                 <View style={[s.weeklyItem, {
                   backgroundColor: wi.manifesting
                     ? '#34D399' + '14'
-                    : (isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)'),
+                    : (isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.05)'),
                   borderColor: wi.manifesting ? '#34D399' + '55' : cardBorder,
                 }]}>
                   <View style={[s.weeklyNumBadge, { backgroundColor: '#34D399' + '22', borderColor: '#34D399' + '44' }]}>
@@ -794,7 +795,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
                   {wi.text && weeklyEditIdx !== idx && (
                     <Pressable onPress={() => toggleManifesting(idx)}
                       style={[s.manifestBtn, {
-                        backgroundColor: wi.manifesting ? '#34D399' + '28' : (isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.08)'),
+                        backgroundColor: wi.manifesting ? '#34D399' + '28' : (isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.08)'),
                         borderColor: wi.manifesting ? '#34D399' + '55' : cardBorder,
                       }]}>
                       <Text style={[s.manifestBtnText, { color: wi.manifesting ? '#34D399' : subColor, fontSize: 10 }]}>
@@ -925,7 +926,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
                 { label: 'Kategorie', val: new Set(intentionCards.map((c) => c.category).filter(Boolean)).size || 1 },
                 { label: 'Najnowsza', val: intentionCards[0]?.createdAt ? new Date(intentionCards[0].createdAt).toLocaleDateString('pl', { day: '2-digit', month: 'short' }) : '—' },
               ].map((stat, i) => (
-                <View key={stat.label} style={[s.statItem, i > 0 && { borderLeftWidth: 1, borderLeftColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)' }]}>
+                <View key={stat.label} style={[s.statItem, i > 0 && { borderLeftWidth: 1, borderLeftColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)' }]}>
                   <Text style={[s.statVal, { color: textColor }]}>{stat.val}</Text>
                   <Text style={[s.statLabel, { color: subColor }]}>{stat.label}</Text>
                 </View>
@@ -953,7 +954,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
                     <View style={[s.historyRow, {
                       backgroundColor: isFulfilled
                         ? '#34D399' + '12'
-                        : (isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)'),
+                        : (isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.05)'),
                       borderColor: isFulfilled ? '#34D399' + '44' : cardBorder,
                     }]}>
                       <View style={[s.historyCardMini, { borderColor: card.color + '55', backgroundColor: card.color + '18' }]}>
@@ -977,7 +978,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
                       </View>
                       <Pressable onPress={() => toggleFulfilled(card.id)}
                         style={[s.fulfilledBtn, {
-                          backgroundColor: isFulfilled ? '#34D399' + '28' : (isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.07)'),
+                          backgroundColor: isFulfilled ? '#34D399' + '28' : (isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.07)'),
                           borderColor: isFulfilled ? '#34D399' + '55' : cardBorder,
                         }]}>
                         <Text style={[s.fulfilledBtnText, { color: isFulfilled ? '#34D399' : subColor }]}>

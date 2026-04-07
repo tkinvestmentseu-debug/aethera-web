@@ -69,7 +69,14 @@
     "copied": "Copied",
     "copy": "COPY",
     "screenErrorTitle": "SCREEN ERROR",
-    "screenErrorBody": "This screen hit a problem.\nGo back and try again."
+    "screenErrorBody": "This screen hit a problem.\nGo back and try again.",
+    "timeAgo": {
+      "justNow": "just now",
+      "minAgo": "min ago",
+      "hrAgo": "hr ago",
+      "daysAgo": "days ago"
+    },
+    "all": "All"
   },
   "nav": {
     "portal": "Portal",
@@ -337,6 +344,564 @@
       "cosmicDesc": "A modern, galactic interpretation of universal archetypes.",
       "dark": "Soul Darkness",
       "darkDesc": "A deep deck for shadow work and hidden truths."
+    },
+    "cards": {
+      "major": {
+        "0": {
+          "name": "The Fool",
+          "meaningUpright": "New beginnings, spontaneity, faith in life, innocence",
+          "meaningReversed": "Recklessness, risk-taking, naivety, poor judgment",
+          "description": "The Fool represents pure potential and the willingness to embark on a new journey with an open heart.",
+          "advice": "Trust the process and step forward with courage."
+        },
+        "1": {
+          "name": "The Magician",
+          "meaningUpright": "Will, manifestation, skill, creative power, resourcefulness",
+          "meaningReversed": "Manipulation, blocked energy, trickery, false appearances",
+          "description": "The Magician bridges the spiritual and material realms, transforming thought into reality.",
+          "advice": "You have everything you need. Act decisively and with intention."
+        },
+        "2": {
+          "name": "The High Priestess",
+          "meaningUpright": "Intuition, mystery, inner knowledge, stillness, the subconscious",
+          "meaningReversed": "Secrets, ignoring intuition, disharmony, hidden agendas",
+          "description": "The High Priestess invites you into the world of the subconscious and deep inner wisdom.",
+          "advice": "Listen to your inner wisdom. Silence holds the answers you seek."
+        },
+        "3": {
+          "name": "The Empress",
+          "meaningUpright": "Fertility, abundance, motherhood, nature, creativity",
+          "meaningReversed": "Dependence, stagnation, blocked creativity, smothering",
+          "description": "The Empress embodies divine femininity, life force, and the fertile power of nature.",
+          "advice": "Nurture yourself and others. Abundance is right before you."
+        },
+        "4": {
+          "name": "The Emperor",
+          "meaningUpright": "Authority, structure, stability, leadership, discipline",
+          "meaningReversed": "Domination, rigidity, lack of flexibility, control issues",
+          "description": "The Emperor provides solid foundations and a stable structure for your actions.",
+          "advice": "Build a strong foundation. Act with authority and responsibility."
+        },
+        "5": {
+          "name": "The Hierophant",
+          "meaningUpright": "Tradition, spirituality, guidance, values, institutions",
+          "meaningReversed": "Dogmatism, conformity, rebellion against norms",
+          "description": "The Hierophant bridges the sacred and the mundane as teacher and guide.",
+          "advice": "Seek the wisdom of teachers or your own spiritual path."
+        },
+        "6": {
+          "name": "The Lovers",
+          "meaningUpright": "Love, harmony, values, heart choices, relationships",
+          "meaningReversed": "Separation, indecision, conflict of values, misalignment",
+          "description": "The Lovers symbolise union, harmony, and important life choices made from the heart.",
+          "advice": "Make a decision aligned with your deepest values and heart's truth."
+        },
+        "7": {
+          "name": "The Chariot",
+          "meaningUpright": "Will, determination, victory, control, triumph",
+          "meaningReversed": "Aggression, lack of control, scattered energy, defeat",
+          "description": "The Chariot is the triumph of will over obstacles through disciplined action.",
+          "advice": "Hold the reins firmly. Your determination will carry you to your goal."
+        },
+        "8": {
+          "name": "Strength",
+          "meaningUpright": "Courage, patience, compassion, inner strength, confidence",
+          "meaningReversed": "Weakness, self-doubt, lack of faith, insecurity",
+          "description": "Strength is the gentle power rooted in love and spiritual courage.",
+          "advice": "Approach the situation with love and calm rather than force."
+        },
+        "9": {
+          "name": "The Hermit",
+          "meaningUpright": "Introspection, reflection, wisdom, solitude, inner guidance",
+          "meaningReversed": "Isolation, loneliness, withdrawal, cutting off from the world",
+          "description": "The Hermit illuminates the path to inner truth through silence and contemplation.",
+          "advice": "Step back for a while and seek answers within yourself."
+        },
+        "10": {
+          "name": "Wheel of Fortune",
+          "meaningUpright": "Change, life cycles, karma, fate, turning point",
+          "meaningReversed": "Bad luck, resistance to change, stagnation, breaking cycles",
+          "description": "The Wheel of Fortune reminds us of the constant movement and cyclical nature of all existence.",
+          "advice": "Accept change as part of the cycle. What ends makes way for the new."
+        },
+        "11": {
+          "name": "Justice",
+          "meaningUpright": "Truth, balance, fairness, karma, cause and effect",
+          "meaningReversed": "Injustice, imbalance, avoiding truth, dishonesty",
+          "description": "Justice symbolises objective truth and the consequences of our actions.",
+          "advice": "Be honest with yourself and others. Truth always comes to light."
+        },
+        "12": {
+          "name": "The Hanged Man",
+          "meaningUpright": "Surrender, new perspective, sacrifice, pause, letting go",
+          "meaningReversed": "Resistance to surrender, stagnation, martyrdom, delays",
+          "description": "The Hanged Man pauses us to see the world from a fresh, inverted angle.",
+          "advice": "Release control. Suspension will bring you a new perspective and wisdom."
+        },
+        "13": {
+          "name": "Death",
+          "meaningUpright": "Ending, transformation, transition, rebirth, change",
+          "meaningReversed": "Resistance to change, stagnation, fear of endings",
+          "description": "The Death card does not signify physical death but deep transformation and new beginnings.",
+          "advice": "Allow the old to pass. Transformation opens the door to new life."
+        },
+        "14": {
+          "name": "Temperance",
+          "meaningUpright": "Harmony, balance, patience, moderation, synthesis",
+          "meaningReversed": "Imbalance, impatience, extremes, excess",
+          "description": "Temperance teaches us the art of balancing and finding the golden mean.",
+          "advice": "Find harmony between extremes. Patience is your strength."
+        },
+        "15": {
+          "name": "The Devil",
+          "meaningUpright": "Addiction, materialism, illusion, bondage, shadow self",
+          "meaningReversed": "Liberation, release, breaking chains, reclaiming power",
+          "description": "The Devil embodies our addictions and the limitations we impose on ourselves.",
+          "advice": "Recognise your bonds and begin the process of liberation. You have the power to break free."
+        },
+        "16": {
+          "name": "The Tower",
+          "meaningUpright": "Chaos, sudden change, awakening, revelation, upheaval",
+          "meaningReversed": "Avoiding disaster, fear of change, delaying the inevitable",
+          "description": "The Tower shatters old structures to make room for authenticity and truth.",
+          "advice": "Though the change is abrupt, this clearing paves the way for a true foundation."
+        },
+        "17": {
+          "name": "The Star",
+          "meaningUpright": "Hope, inspiration, serenity, healing, renewal",
+          "meaningReversed": "Loss of faith, pessimism, hopelessness, discouragement",
+          "description": "The Star brings healing, hope, and renewal after difficult experiences.",
+          "advice": "Have faith. After darkness, starlight always comes."
+        },
+        "18": {
+          "name": "The Moon",
+          "meaningUpright": "Illusion, fear, the subconscious, dreams, uncertainty",
+          "meaningReversed": "Clarity, dispelling confusion, emerging from darkness",
+          "description": "The Moon illuminates our fears and the shadowy corners of the subconscious.",
+          "advice": "Face your own fears. Not everything is as it seems."
+        },
+        "19": {
+          "name": "The Sun",
+          "meaningUpright": "Joy, success, vitality, clarity, positivity, radiance",
+          "meaningReversed": "Naivety, blocked joy, excessive optimism, temporary setbacks",
+          "description": "The Sun brings clarity, vitality, and genuine happiness in every area of life.",
+          "advice": "Shine your full light. This is a time of joy and success."
+        },
+        "20": {
+          "name": "Judgement",
+          "meaningUpright": "Awakening, absolution, renewal, calling, reckoning",
+          "meaningReversed": "Self-criticism, doubt, fear of judgement, ignoring the call",
+          "description": "Judgement symbolises deep awakening and the answer to a spiritual calling.",
+          "advice": "Answer your higher calling. It is time for renewal and a new chapter."
+        },
+        "21": {
+          "name": "The World",
+          "meaningUpright": "Fulfilment, integration, completion, triumph, wholeness",
+          "meaningReversed": "Incompleteness, lack of closure, procrastination, stagnation",
+          "description": "The World signifies the fullness of experience, completion of a cycle, and celebration of achievement.",
+          "advice": "Celebrate your accomplishments. One cycle ends; a new one begins."
+        }
+      },
+      "cups": {
+        "c1": {
+          "name": "Ace of Cups",
+          "meaningUpright": "New emotions, love, intuition, emotional abundance, beginnings",
+          "meaningReversed": "Blocked emotions, repressed feelings, loss of connection",
+          "description": "The Ace of Cups symbolises pure love and emotional new beginnings.",
+          "advice": "Open your heart to love and new emotional possibilities."
+        },
+        "c2": {
+          "name": "Two of Cups",
+          "meaningUpright": "Partnership, harmony, mutual attraction, connection",
+          "meaningReversed": "Separation, imbalance, conflict, disharmony",
+          "description": "The Two of Cups represents the depth of connection and mutual feeling.",
+          "advice": "Nurture your relationships and mutual understanding."
+        },
+        "c3": {
+          "name": "Three of Cups",
+          "meaningUpright": "Celebration, community, friendship, joy, abundance",
+          "meaningReversed": "Excess, gossip, isolation from friends, over-indulgence",
+          "description": "The Three of Cups is a celebration with loved ones and the joy of community.",
+          "advice": "Celebrate together with others. Shared moments of joy hold great power."
+        },
+        "c4": {
+          "name": "Four of Cups",
+          "meaningUpright": "Meditation, contemplation, boredom, apathy, re-evaluation",
+          "meaningReversed": "New opportunities, new awakening, motivation, openness",
+          "description": "The Four of Cups invites inner reflection and re-evaluation of desires.",
+          "advice": "Pause and consider what you truly want. A new opportunity may be right before you."
+        },
+        "c5": {
+          "name": "Five of Cups",
+          "meaningUpright": "Loss, regret, disappointment, grief, sorrow",
+          "meaningReversed": "Acceptance, forgiveness, new perspective, moving on",
+          "description": "The Five of Cups teaches us that after loss something always remains on which we can build.",
+          "advice": "Allow yourself to grieve, but do not forget what you still have."
+        },
+        "c6": {
+          "name": "Six of Cups",
+          "meaningUpright": "Nostalgia, memories, innocence, the past, simplicity",
+          "meaningReversed": "Stuck in the past, naivety, living in fantasy",
+          "description": "The Six of Cups evokes the beauty of memories and the simplicity of former days.",
+          "advice": "Draw joy from memories, but remember that life moves forward."
+        },
+        "c7": {
+          "name": "Seven of Cups",
+          "meaningUpright": "Fantasy, illusion, many choices, wishful thinking, dreams",
+          "meaningReversed": "Clarity, realism, making the right choice, focus",
+          "description": "The Seven of Cups reveals an abundance of possibilities, though not all are real.",
+          "advice": "Distinguish dream from reality. Focus on what is truly attainable."
+        },
+        "c8": {
+          "name": "Eight of Cups",
+          "meaningUpright": "Walking away, seeking deeper meaning, withdrawal, letting go",
+          "meaningReversed": "Fear of abandonment, avoiding truth, staying in the wrong situation",
+          "description": "The Eight of Cups symbolises the courage to leave behind what does not fulfil us.",
+          "advice": "Have the courage to walk away from what does not serve your spiritual growth."
+        },
+        "c9": {
+          "name": "Nine of Cups",
+          "meaningUpright": "Wish fulfilment, satisfaction, happiness, contentment",
+          "meaningReversed": "Materialism, wishful thinking, illusion of happiness, greed",
+          "description": "The Nine of Cups is the card of emotional fulfilment and life satisfaction.",
+          "advice": "Your wishes can come true. Be grateful for what you already have."
+        },
+        "c10": {
+          "name": "Ten of Cups",
+          "meaningUpright": "Family, harmony, happiness, fulfilment, long-term joy",
+          "meaningReversed": "Family conflicts, lack of harmony, broken home, loss of meaning",
+          "description": "The Ten of Cups symbolises ideal family happiness and emotional completeness.",
+          "advice": "Nurture family bonds and close relationships. That is your true treasure."
+        },
+        "c11": {
+          "name": "Page of Cups",
+          "meaningUpright": "Creativity, intuition, sensitivity, new feelings, imagination",
+          "meaningReversed": "Emotional immaturity, daydreaming, moodiness",
+          "description": "The Page of Cups is an artistic soul full of imagination and emotional sensitivity.",
+          "advice": "Trust your intuition and give expression to the creativity you carry in your heart."
+        },
+        "c12": {
+          "name": "Knight of Cups",
+          "meaningUpright": "Romance, charm, imagination, following dreams, idealism",
+          "meaningReversed": "Moodiness, unrealistic expectations, disappointment, over-sensitivity",
+          "description": "The Knight of Cups moves forward with a heart full of dreams and romantic ideals.",
+          "advice": "Follow your dreams, but do not lose yourself in illusions. Stay true to yourself."
+        },
+        "c13": {
+          "name": "Queen of Cups",
+          "meaningUpright": "Empathy, intuition, nurturing, emotional wisdom, compassion",
+          "meaningReversed": "Emotional dependency, manipulation, insecurity, moodiness",
+          "description": "The Queen of Cups embodies the depth of emotion and loving wisdom of the heart.",
+          "advice": "Use your intuition and empathy as a guide in your relationships."
+        },
+        "c14": {
+          "name": "King of Cups",
+          "meaningUpright": "Emotional maturity, diplomacy, wisdom, calm, balance",
+          "meaningReversed": "Emotional manipulation, repression of feelings, instability",
+          "description": "The King of Cups rules over emotions with wisdom and stability.",
+          "advice": "Be master of your emotions, not their victim. Act with balance and wisdom."
+        }
+      },
+      "wands": {
+        "w1": {
+          "name": "Ace of Wands",
+          "meaningUpright": "New beginnings, inspiration, potential, creative energy, spark",
+          "meaningReversed": "Delays, lack of motivation, creative block, missed opportunity",
+          "description": "The Ace of Wands is the spark that ignites the flame of new ventures and passion.",
+          "advice": "Act on this creative energy. Now is the time to begin."
+        },
+        "w2": {
+          "name": "Two of Wands",
+          "meaningUpright": "Planning, vision, partnership, future, bold steps",
+          "meaningReversed": "Fear of the unknown, lack of planning, playing it safe",
+          "description": "The Two of Wands invites bold planning and ambitious steps forward.",
+          "advice": "Think long-term and boldly plan your next move."
+        },
+        "w3": {
+          "name": "Three of Wands",
+          "meaningUpright": "Expansion, foresight, leadership, progress, enterprise",
+          "meaningReversed": "Obstacles, delays, frustration, lack of foresight",
+          "description": "The Three of Wands symbolises the moment of observing the fruits of your work and planning expansion.",
+          "advice": "Your work is bearing results. It is time to broaden your horizons."
+        },
+        "w4": {
+          "name": "Four of Wands",
+          "meaningUpright": "Celebration, harmony, home, stability, milestone",
+          "meaningReversed": "Lack of harmony, overload, postponing celebration, conflict at home",
+          "description": "The Four of Wands is a joyful celebration of achievements and a sense of belonging.",
+          "advice": "Celebrate your successes. You have earned a moment of joy and gratitude."
+        },
+        "w5": {
+          "name": "Five of Wands",
+          "meaningUpright": "Conflict, competition, chaos, challenge, struggle",
+          "meaningReversed": "Avoiding conflict, end of struggle, harmony, resolution",
+          "description": "The Five of Wands reveals the dynamic energy of competition and creative chaos.",
+          "advice": "Approach challenges with an open mind. Conflict can lead to growth."
+        },
+        "w6": {
+          "name": "Six of Wands",
+          "meaningUpright": "Triumph, victory, recognition, success, public acknowledgement",
+          "meaningReversed": "Arrogance, downfall, uncertainty of success, egotism",
+          "description": "The Six of Wands celebrates public recognition and longed-for victory.",
+          "advice": "Your success deserves recognition. Accept it with grace and humility."
+        },
+        "w7": {
+          "name": "Seven of Wands",
+          "meaningUpright": "Perseverance, defence, challenge, determination, standing firm",
+          "meaningReversed": "Exhaustion, over-defensiveness, giving up, compromise",
+          "description": "The Seven of Wands demands perseverance in the face of challenges and defending your position.",
+          "advice": "Stand firmly by your convictions. Perseverance is your strength."
+        },
+        "w8": {
+          "name": "Eight of Wands",
+          "meaningUpright": "Swift action, movement, news, progress, momentum",
+          "meaningReversed": "Delays, frustration, information chaos, lack of direction",
+          "description": "The Eight of Wands brings rapid changes and an acceleration of events.",
+          "advice": "Act quickly when the opportunity arises. Timing matters."
+        },
+        "w9": {
+          "name": "Nine of Wands",
+          "meaningUpright": "Perseverance, resilience, boundaries, strength, near completion",
+          "meaningReversed": "Exhaustion, lack of resilience, excessive caution, burnout",
+          "description": "The Nine of Wands symbolises the strength gained through difficult experiences.",
+          "advice": "You are stronger than you think. One last effort and the goal will be reached."
+        },
+        "w10": {
+          "name": "Ten of Wands",
+          "meaningUpright": "Burden, overwhelm, duty, responsibility, carrying too much",
+          "meaningReversed": "Delegation, release, simplification, letting go",
+          "description": "The Ten of Wands reveals the weight of excessive obligations and the need to delegate.",
+          "advice": "You do not have to carry everything alone. Share part of the burden with others."
+        },
+        "w11": {
+          "name": "Page of Wands",
+          "meaningUpright": "Enthusiasm, exploration, ambition, energy, free spirit",
+          "meaningReversed": "Lack of direction, inconsistency, immaturity, scattered energy",
+          "description": "The Page of Wands is an energetic adventurer ready for new challenges.",
+          "advice": "Be bold and enthusiastic. Your energy is contagious."
+        },
+        "w12": {
+          "name": "Knight of Wands",
+          "meaningUpright": "Impulsiveness, adventure, energy, passion, action",
+          "meaningReversed": "Scattered energy, lack of plan, reckless decisions, haste",
+          "description": "The Knight of Wands charges forward with unbridled passion and courage.",
+          "advice": "Channel your energy into concrete actions so as not to fall into chaos."
+        },
+        "w13": {
+          "name": "Queen of Wands",
+          "meaningUpright": "Confidence, independence, charisma, courage, determination",
+          "meaningReversed": "Jealousy, domination, egocentrism, aggression",
+          "description": "The Queen of Wands embodies powerful femininity, independence, and magnetic charisma.",
+          "advice": "Be yourself without apology. Your authenticity is your greatest strength."
+        },
+        "w14": {
+          "name": "King of Wands",
+          "meaningUpright": "Leadership, vision, entrepreneurship, inspiration, boldness",
+          "meaningReversed": "Impulsiveness, arrogance, tyranny, high expectations",
+          "description": "The King of Wands is a visionary leader who inspires others with passion and determination.",
+          "advice": "Lead with vision and passion. Your leadership can inspire others."
+        }
+      },
+      "swords": {
+        "s1": {
+          "name": "Ace of Swords",
+          "meaningUpright": "Mental clarity, truth, breakthrough, new thinking, justice",
+          "meaningReversed": "Confusion of thought, disinformation, brutality, chaos",
+          "description": "The Ace of Swords is the sharpness of intellect and the power of truth that cuts through illusions.",
+          "advice": "Seek truth and speak with clear, precise intention."
+        },
+        "s2": {
+          "name": "Two of Swords",
+          "meaningUpright": "Dilemma, blocked decision, stalemate, avoidance",
+          "meaningReversed": "Disorientation, deception, indecision, information overload",
+          "description": "The Two of Swords symbolises a difficult choice and the necessity of looking beyond appearances.",
+          "advice": "Remove the blindfold. The true answer lies within you."
+        },
+        "s3": {
+          "name": "Three of Swords",
+          "meaningUpright": "Heartbreak, betrayal, grief, sorrow, pain",
+          "meaningReversed": "Healing, forgiveness, release from pain, recovery",
+          "description": "The Three of Swords reveals the pain of the heart, a necessary stage on the path to healing.",
+          "advice": "Allow yourself to feel the pain. Healing begins with accepting the truth."
+        },
+        "s4": {
+          "name": "Four of Swords",
+          "meaningUpright": "Rest, recuperation, meditation, contemplation, retreat",
+          "meaningReversed": "Return to action, anxiety, lack of rest, burnout",
+          "description": "The Four of Swords encourages pausing and recuperating after intense effort.",
+          "advice": "Allow yourself to rest. Peace of mind will restore your strength."
+        },
+        "s5": {
+          "name": "Five of Swords",
+          "meaningUpright": "Conflict, defeat, dishonesty, hostility, hollow victory",
+          "meaningReversed": "Reconciliation, resolution, moving past conflict, forgiveness",
+          "description": "The Five of Swords reveals the consequences of battle and the need for wisdom in choosing your fights.",
+          "advice": "Not every battle is worth winning. Wisdom lies in choosing your fights."
+        },
+        "s6": {
+          "name": "Six of Swords",
+          "meaningUpright": "Transition, journey, moving toward calm, rite of passage",
+          "meaningReversed": "Resistance to change, stuck in problems, ongoing turbulence",
+          "description": "The Six of Swords symbolises a slow emergence from difficulty toward calmer waters.",
+          "advice": "Move forward. Better times await on the other side."
+        },
+        "s7": {
+          "name": "Seven of Swords",
+          "meaningUpright": "Deception, strategy, escape, cunning, acting alone",
+          "meaningReversed": "Return to honesty, exposure of deception, confession",
+          "description": "The Seven of Swords points to the need for a considered strategy or warns against deception.",
+          "advice": "Be wary of dishonesty — your own or others'. Strategy requires integrity."
+        },
+        "s8": {
+          "name": "Eight of Swords",
+          "meaningUpright": "Imprisonment, restriction, self-limiting beliefs, helplessness",
+          "meaningReversed": "Liberation, new perspective, breaking limitations, empowerment",
+          "description": "The Eight of Swords reveals restrictions that we often impose upon ourselves in the mind.",
+          "advice": "Your bonds are less real than you think. You have the power to free yourself."
+        },
+        "s9": {
+          "name": "Nine of Swords",
+          "meaningUpright": "Fear, anxiety, nightmares, worry, mental anguish",
+          "meaningReversed": "Hope, recovery from fear, seeking help, relief",
+          "description": "The Nine of Swords symbolises the suffering of the mind and nocturnal anxieties.",
+          "advice": "You are not alone in your fear. Reach out for support and share your burden."
+        },
+        "s10": {
+          "name": "Ten of Swords",
+          "meaningUpright": "Ending, pain, defeat, but also a new dawn, rock bottom",
+          "meaningReversed": "Unwanted change, resistance, clinging to pain, inability to let go",
+          "description": "The Ten of Swords marks the end of a cycle which, though painful, opens the door to rebirth.",
+          "advice": "What has ended has ended. Breathe — a new dawn is coming."
+        },
+        "s11": {
+          "name": "Page of Swords",
+          "meaningUpright": "Intellectual curiosity, communication, honesty, vigilance",
+          "meaningReversed": "Gossip, superficiality, dishonesty, all talk no action",
+          "description": "The Page of Swords is a sharp, inquisitive intellect hungry for knowledge and truth.",
+          "advice": "Ask, investigate, question. Your mind is your greatest weapon."
+        },
+        "s12": {
+          "name": "Knight of Swords",
+          "meaningUpright": "Ambition, swift action, determination, intellect, directness",
+          "meaningReversed": "Impulsiveness, lack of empathy, arrogance, recklessness",
+          "description": "The Knight of Swords charges at a goal with the full force of intellect and determined will.",
+          "advice": "Act decisively, but remember the impact on others."
+        },
+        "s13": {
+          "name": "Queen of Swords",
+          "meaningUpright": "Independence, clarity of thought, boundaries, perception, truth",
+          "meaningReversed": "Harshness, emotional coldness, bitter experience, cruelty",
+          "description": "The Queen of Swords combines intellectual sharpness with wisdom gained through life experience.",
+          "advice": "Be clear and direct. Your strength flows from truth and healthy boundaries."
+        },
+        "s14": {
+          "name": "King of Swords",
+          "meaningUpright": "Intellectual power, authority, clarity, justice, truth",
+          "meaningReversed": "Tyranny, manipulation, lack of empathy, abuse of power",
+          "description": "The King of Swords rules through the power of intellect and speaks truth without compromise.",
+          "advice": "Act with intellectual authority and clarity. Truth is your strength."
+        }
+      },
+      "pentacles": {
+        "p1": {
+          "name": "Ace of Pentacles",
+          "meaningUpright": "Abundance, new financial opportunity, manifestation, prosperity",
+          "meaningReversed": "Lost opportunity, greed, lack of stability, poor planning",
+          "description": "The Ace of Pentacles symbolises the seed of material prosperity and new opportunities.",
+          "advice": "Seize the new financial or material opportunity. The ground beneath your feet is solid."
+        },
+        "p2": {
+          "name": "Two of Pentacles",
+          "meaningUpright": "Balance, adaptability, resource management, juggling priorities",
+          "meaningReversed": "Financial chaos, imbalance, overwhelm, disorganisation",
+          "description": "The Two of Pentacles reveals the art of juggling resources while maintaining balance.",
+          "advice": "Be flexible and balance your commitments with wisdom."
+        },
+        "p3": {
+          "name": "Three of Pentacles",
+          "meaningUpright": "Craftsmanship, collaboration, learning, quality of work, teamwork",
+          "meaningReversed": "Lack of harmony at work, mediocrity, conflict, poor planning",
+          "description": "The Three of Pentacles celebrates excellence in craft and effective collaboration.",
+          "advice": "Invest in your skills and collaborate with others for better results."
+        },
+        "p4": {
+          "name": "Four of Pentacles",
+          "meaningUpright": "Security, control, frugality, stability, conservation",
+          "meaningReversed": "Miserliness, greed, fear of loss, hoarding",
+          "description": "The Four of Pentacles symbolises the need for financial security but also the risk of excessive control.",
+          "advice": "Enjoy your security, but do not let fear of loss limit your life."
+        },
+        "p5": {
+          "name": "Five of Pentacles",
+          "meaningUpright": "Financial hardship, poverty, isolation, difficulty, hardship",
+          "meaningReversed": "Return to stability, help arriving, healing, recovery",
+          "description": "The Five of Pentacles reveals material and emotional hardship, yet help is available nearby.",
+          "advice": "Do not be ashamed to ask for help. Support is available — you only need to accept it."
+        },
+        "p6": {
+          "name": "Six of Pentacles",
+          "meaningUpright": "Generosity, giving, sharing, balance of exchange",
+          "meaningReversed": "Debts, inequality, conditional giving, strings attached",
+          "description": "The Six of Pentacles teaches that giving and receiving must be in harmony.",
+          "advice": "Give generously where you can, but also attend to your own needs."
+        },
+        "p7": {
+          "name": "Seven of Pentacles",
+          "meaningUpright": "Patience, assessment, long-term planning, investment, reward",
+          "meaningReversed": "Lack of reward, discouragement, impatience, poor returns",
+          "description": "The Seven of Pentacles encourages assessing the work done so far and patient anticipation of results.",
+          "advice": "Your work is bearing fruit, though slowly. Have patience."
+        },
+        "p8": {
+          "name": "Eight of Pentacles",
+          "meaningUpright": "Craftsmanship, diligence, mastery, learning, dedication",
+          "meaningReversed": "Lack of ambition, perfectionism blocking action, mediocrity",
+          "description": "The Eight of Pentacles is a dedication to mastering a craft through persistent work.",
+          "advice": "Be diligent and focused on honing your skills."
+        },
+        "p9": {
+          "name": "Nine of Pentacles",
+          "meaningUpright": "Prosperity, independence, luxury, success, self-sufficiency",
+          "meaningReversed": "False prosperity, dependence, superficiality, over-investment",
+          "description": "The Nine of Pentacles symbolises well-earned prosperity and independence.",
+          "advice": "Enjoy the fruits of your labour. You have taken care of yourself and it shows."
+        },
+        "p10": {
+          "name": "Ten of Pentacles",
+          "meaningUpright": "Wealth, legacy, family, long-term success, inheritance",
+          "meaningReversed": "Family conflicts, loss of legacy, short-sightedness, instability",
+          "description": "The Ten of Pentacles represents the fullness of material prosperity and lasting family happiness.",
+          "advice": "Think about the legacy you are leaving. Build on enduring foundations."
+        },
+        "p11": {
+          "name": "Page of Pentacles",
+          "meaningUpright": "Ambition, diligence, realism, learning, practicality",
+          "meaningReversed": "Lack of ambition, daydreaming without action, missed opportunity",
+          "description": "The Page of Pentacles is a persistent student who sets goals and works toward them systematically.",
+          "advice": "Learn and work consistently. Your perseverance will bear fruit."
+        },
+        "p12": {
+          "name": "Knight of Pentacles",
+          "meaningUpright": "Responsibility, perseverance, routine, reliability, patience",
+          "meaningReversed": "Stagnation, lack of flexibility, excessive caution, stubbornness",
+          "description": "The Knight of Pentacles moves slowly but surely, focused on the goal.",
+          "advice": "Be perseverant and reliable. Slow, systematic action leads to success."
+        },
+        "p13": {
+          "name": "Queen of Pentacles",
+          "meaningUpright": "Nurturing, practicality, abundance, groundedness, security",
+          "meaningReversed": "Imbalance, self-neglect, materialism, over-dependence",
+          "description": "The Queen of Pentacles combines warmth with practical wisdom and the ability to create abundance.",
+          "advice": "Care for others with tenderness, but remember your own needs too."
+        },
+        "p14": {
+          "name": "King of Pentacles",
+          "meaningUpright": "Wealth, leadership, security, success, wise management",
+          "meaningReversed": "Greed, corruption, materialism at the expense of relationships, stubbornness",
+          "description": "The King of Pentacles is the embodiment of material success, stability, and wise stewardship.",
+          "advice": "Manage your resources with wisdom and generosity. True success serves others."
+        }
+      }
     }
   },
   "horoscope": {
@@ -748,41 +1313,180 @@
   },
   "community": {
     "title": "Community",
-    "online": "online",
-    "join": "JOIN",
-    "leave": "LEAVE",
-    "share": "SHARE",
-    "comment": "Comment",
-    "like": "Like",
-    "send": "SEND",
-    "souls_online": "souls online",
-    "live": "Live",
-    "chronicle": "Chronicle",
-    "global_stream": "Global Stream",
-    "chat": "Chat",
-    "affirmation": "Affirmation",
-    "energy_circle": "Energy Circle",
-    "tarot_community": "Community Tarot",
-    "post_types": {
-      "TAROT": "Tarot",
-      "HOROSKOP": "Horoscope",
-      "MEDYTACJA": "Meditation",
-      "SEN": "Dream",
-      "REFLEKSJA": "Reflection",
-      "AFIRMACJA": "Affirmation"
+    "chat": {
+      "title": "Community Chat",
+      "rooms": "Rooms",
+      "categories": [
+        "All",
+        "Popular",
+        "By Topic",
+        "Mine"
+      ],
+      "createRoom": "Create Room",
+      "joinByCode": "Join by Code",
+      "enterCode": "Enter invite code",
+      "join": "Join",
+      "send": "Send",
+      "messagePlaceholder": "Write a message...",
+      "online": "online",
+      "roomCreated": "Room created!",
+      "inviteCode": "Invite code",
+      "copyCode": "Copy code",
+      "shareRoom": "Share room",
+      "privateRoom": "Private room",
+      "publicRoom": "Public room",
+      "createRoomTitle": "Create New Room",
+      "roomName": "Room name",
+      "roomDesc": "Description (optional)",
+      "chooseEmoji": "Choose emoji",
+      "create": "Create",
+      "codeInvalid": "Invalid code. Try again.",
+      "joinSuccess": "You joined the room!",
+      "members": "members",
+      "noRooms": "No rooms yet. Create the first one!"
     },
-    "compose_title": "Share an insight",
-    "compose_placeholder": "What do you want to share with the community of souls?",
-    "publish": "PUBLISH",
-    "reactions": {
-      "resonuje": "Resonates",
-      "prawda": "Truth",
-      "czuje": "I feel this"
+    "events": {
+      "title": "Events Calendar",
+      "upcoming": "Upcoming",
+      "mine": "Mine",
+      "archive": "Archive",
+      "today": "TODAY",
+      "thisWeek": "THIS WEEK",
+      "later": "LATER",
+      "createEvent": "Create Event",
+      "joinByCode": "Join by Code",
+      "eventTitle": "Event title",
+      "eventDesc": "Description",
+      "eventType": "Type",
+      "startTime": "Start time (DD.MM HH:MM)",
+      "duration": "Duration",
+      "maxParticipants": "Max participants",
+      "public": "Public",
+      "private": "Private",
+      "rsvp": "RSVP",
+      "joined": "You're registered",
+      "liveJoin": "Live — Join",
+      "host": "Host",
+      "participants": "participants",
+      "types": {
+        "meditation": "Meditation",
+        "ritual": "Ritual",
+        "tarot": "Tarot",
+        "meeting": "Meeting",
+        "workshop": "Workshop",
+        "astrology": "Astrology",
+        "breathwork": "Breathwork",
+        "oracle": "Oracle"
+      },
+      "noEvents": "No events yet. Create the first one!",
+      "inviteCode": "Invite code",
+      "eventCreated": "Event created!",
+      "codeInvalid": "Invalid code. Try again.",
+      "joinSuccess": "You joined the event!"
     },
-    "noPostsYet": "No community posts yet",
-    "beFirst": "Be the first soul to share",
-    "liveSession": "Live session",
-    "joinCircle": "Join the circle"
+    "souls": {
+      "title": "Soul Match",
+      "discover": "Discover",
+      "connected": "Connected",
+      "history": "History",
+      "resonance": "resonance",
+      "connect": "Connect",
+      "message": "Message",
+      "iceBreaker": "Ice Breaker Question",
+      "noMatches": "No matches found. Try another filter.",
+      "sortBy": "Sort by",
+      "filterBy": "Filter by archetype"
+    },
+    "liveRituals": {
+      "title": "Live Rituals",
+      "join": "Join",
+      "joined": "Joined",
+      "live": "LIVE",
+      "starting": "Starting",
+      "upcoming": "Upcoming",
+      "participants": "participants",
+      "checkIn": "Check in",
+      "complete": "Complete",
+      "host": "Host",
+      "duration": "Duration",
+      "benefits": "Benefits",
+      "tips": "Tips"
+    },
+    "challenges": {
+      "title": "Spiritual Challenges",
+      "join": "Join",
+      "joined": "Joined",
+      "checkIn": "Check in",
+      "streak": "Streak",
+      "days": "days",
+      "progress": "Progress",
+      "ranking": "Ranking",
+      "createChallenge": "Create challenge",
+      "newChallengeName": "Challenge name...",
+      "benefits": "Benefits",
+      "tips": "Tips",
+      "task": "Today's task"
+    },
+    "affirmations": {
+      "title": "Community Affirmations",
+      "vote": "Vote",
+      "voted": "Voted",
+      "heroTitle": "Affirmation of the week",
+      "weekly": "Weekly affirmations",
+      "archive": "Archive",
+      "propose": "Propose affirmation",
+      "myProposals": "My proposals",
+      "howItWorks": "How does voting work?",
+      "copy": "Copy",
+      "share": "Share",
+      "shuffle": "Random"
+    },
+    "chronicles": {
+      "title": "Community Chronicles",
+      "categories": [
+        "All",
+        "Transformations",
+        "Miracles",
+        "Synchronicities",
+        "Healing",
+        "Visions"
+      ],
+      "write": "Write your story",
+      "trending": "Trending",
+      "topAuthors": "Top Authors",
+      "likes": "likes",
+      "comments": "comments",
+      "read": "reads",
+      "storyTitle": "Title",
+      "storyContent": "Your story...",
+      "publish": "Publish"
+    },
+    "energyCircle": {
+      "title": "Energy Circle",
+      "join": "Join circle",
+      "joined": "In the circle",
+      "intention": "Add intention",
+      "intentions": "Intentions",
+      "breathe": "Breathe",
+      "inhale": "Inhale",
+      "hold": "Hold",
+      "exhale": "Exhale",
+      "syncMeditation": "Synchronized meditation",
+      "participants": "participants",
+      "energy": "Energy",
+      "sessions": "Sessions",
+      "minutes": "Minutes"
+    },
+    "social": {
+      "title": "Community",
+      "greeting": "Hello, Wanderer",
+      "liveNow": "LIVE NOW",
+      "soulMatches": "SOUL MATCHES",
+      "dreamSymbols": "TRENDING DREAM SYMBOLS",
+      "weeklyChallenge": "WEEKLY CHALLENGE",
+      "cosmicEvents": "COSMIC EVENTS",
+      "communityFeed": "COMMUNITY FEED"
+    }
   },
   "profile": {
     "title": "Profile",
@@ -1374,26 +2078,444 @@
   },
   "auth": {
     "loginTitle": "Sign In",
-    "subtitle": "Sign in to your soul",
-    "email": "Email",
+    "subtitle": "Return to the sanctuary",
+    "email": "Email address",
     "password": "Password",
-    "loginButton": "Enter ✦",
+    "loginButton": "Enter the sanctuary",
     "noAccount": "Don't have an account?",
     "register": "Sign Up",
     "hasAccount": "Already have an account?",
     "login": "Sign In",
-    "step1": "Step 1/2 — Account Details",
-    "step2": "Step 2/2 — Your Profile",
+    "step1": "Account Details",
+    "step2": "Your Profile",
+    "stepLabel_account": "Account",
+    "stepLabel_profile": "Profile",
+    "step1Subtitle": "Secure access to your sanctuary.",
+    "step2Subtitle": "The Oracle needs a few details to speak with you personally.",
     "displayName": "Your name",
     "zodiacSign": "Zodiac sign",
     "archetype": "Soul archetype",
     "symbol": "Your symbol",
-    "registerButton": "Create account ✦",
-    "nextStep": "Next →",
-    "backStep": "← Back",
+    "registerButton": "Create sanctuary ✦",
+    "createAccount": "Create your sanctuary",
+    "nextStep": "Next",
+    "backStep": "Back",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password",
+    "forgotPasswordBody": "Enter your email address in the field above, then tap \"Forgot password\" again.",
+    "emailSent": "Email sent",
+    "emailSentBody": "Check your inbox.",
+    "errorEmailSend": "Could not send the email.",
+    "errorTitle": "Error",
+    "errorLoginTitle": "Login error",
+    "sendingReset": "Sending...",
+    "privacyHint": "✦  Your data is safe and private  ✦",
     "errorInvalidCredential": "Invalid email or password.",
-    "errorEmailInUse": "This email is already in use.",
+    "errorEmailInUse": "Email already registered",
+    "errorEmailInUseDetail": "This email address is already registered.",
+    "goToLogin": "Log in",
     "errorWeakPassword": "Password must be at least 6 characters.",
-    "errorConnection": "Could not sign in. Check your connection."
+    "errorConnection": "Could not sign in. Check your connection.",
+    "birthDate": "Date of birth",
+    "birthPlace": "Place of birth",
+    "birthPlacePlaceholder": "City, country (optional)",
+    "wheelDay": "Day",
+    "wheelMonth": "Month",
+    "wheelYear": "Year"
+  },
+  "onboarding_flow": {
+    "stepNote_welcome": "Setup takes less than 2 minutes.",
+    "stepNote_identity": "Your name will appear at the centre of each day and in Oracle sessions.",
+    "stepNote_gender": "Gender influences how the Oracle addresses you.",
+    "stepNote_birth": "Your birth date powers the astrology and personal archetype of the day.",
+    "stepNote_birth_place": "Your city completes a deeper layer of astrology.",
+    "stepNote_experience": "Sets the depth of language and the pace of guidance.",
+    "stepNote_entry": "Everything can be changed in your Profile at any time.",
+    "welcomeHeroTitle": "A sanctuary built\nto guide, not overwhelm.",
+    "welcomeHeroBody": "Aethera combines Tarot, astrology, rituals and Oracle into one coherent world tailored to your rhythm.",
+    "sectionWhatYouFind": "WHAT YOU'LL FIND",
+    "sectionHowItWorks": "HOW ONBOARDING WORKS",
+    "sectionYourWorlds": "YOUR WORLDS",
+    "stepPreviewSteps": [
+      "Name",
+      "Gender",
+      "Date",
+      "City",
+      "Level"
+    ],
+    "worldTitle_today": "Today",
+    "worldCopy_today": "Personal tone of the day and next moves.",
+    "worldTitle_worlds": "Worlds",
+    "worldCopy_worlds": "Tarot, Horoscope, Ritual and more.",
+    "worldTitle_oracle": "Oracle",
+    "worldCopy_oracle": "AI guide leading to a concrete next step.",
+    "worldTitle_profile": "Profile",
+    "worldCopy_profile": "Settings and memory centre.",
+    "genderTitle": "How should we address you?",
+    "genderSubtitle": "The Oracle will adapt its tone and form of address to your preference.",
+    "genderWoman": "Woman",
+    "genderWoman_sub": "Oracle will address you as: She / You",
+    "genderMan": "Man",
+    "genderMan_sub": "Oracle will address you as: He / You",
+    "genderPreferNot": "Prefer not to say",
+    "genderPreferNot_sub": "Oracle uses neutral form",
+    "identityTitle": "What shall we call you?",
+    "identitySubtitle": "Your name will appear at the centre of each day, in Oracle and in the most personal layers.",
+    "identityLabel": "YOUR NAME",
+    "identityHint": "Aethera will greet you this way every day.",
+    "birthPlaceTitle": "Where does your sky map come from?",
+    "birthPlaceSubtitle": "Just a city name. This completes a deeper layer of astrology and your personal chart.",
+    "birthPlaceLabel": "CITY OR PLACE",
+    "birthPlacePlaceholder": "e.g. Warsaw, Kraków…",
+    "birthPlaceHint": "An approximate location is enough.",
+    "birthTitle": "When did your journey begin?",
+    "birthSubtitle": "Your birth date combines astrology, archetype and energy of the day into one coherent picture.",
+    "dateLabelDay": "day",
+    "dateLabelMonth": "month",
+    "dateLabelYear": "year",
+    "dateTapToChange": "Tap to change the date",
+    "experienceTitle": "How deep do you want to go?",
+    "experienceSubtitle": "This is not a test. It is a way to set the depth of language and the pace of guidance.",
+    "experienceBeginner": "Just starting",
+    "experienceBeginner_desc": "I want simple language and calm guidance.",
+    "experienceIntermediate": "Already practising",
+    "experienceIntermediate_desc": "I seek balance between intuition and symbolic depth.",
+    "experienceAdvanced": "Deep in the subject",
+    "experienceAdvanced_desc": "I need richer layers and mature guidance.",
+    "entryTitle": "Your sanctuary is ready.",
+    "entrySubtitle": "Everything is set. You can now enter and discover your personal world.",
+    "summaryName": "Name",
+    "summaryGender": "Form of address",
+    "summaryBirthDate": "Date of birth",
+    "summaryPlace": "Place",
+    "summaryLevel": "Entry level",
+    "backButton": "Back"
+  },
+  "identitySetup": {
+    "step1Eyebrow": "✦ STEP 1 / 4",
+    "step1Title": "What is your name?",
+    "step1Subtitle": "Your name is the code of your soul",
+    "namePlaceholder": "First name",
+    "lastNamePlaceholder": "Last name",
+    "nameEnergyHint": "Vibrational energy of the name \"{name}\" — number {energy}",
+    "step2Eyebrow": "✦ STEP 2 / 4",
+    "step2Title": "When were you born?",
+    "step2Subtitle": "Your birth date opens the map of your soul",
+    "dayLabel": "Day",
+    "monthLabel": "Month",
+    "yearLabel": "Year",
+    "birthTimeLabel": "Birth time (optional)",
+    "birthTimePlaceholder": "HH:MM — e.g. 14:35",
+    "birthTimeHint": "Birth time allows us to calculate your ascendant and draw a full natal chart.",
+    "zodiacLabel": "Your zodiac sign",
+    "pickerPlaceholder": "Select…",
+    "step3Eyebrow": "✦ STEP 3 / 4",
+    "step3Title": "Where did your life begin?",
+    "step3Subtitle": "Your place of birth defines your ascendant and cosmic roots",
+    "birthPlacePlaceholder": "City, country — e.g. Kraków, Poland",
+    "whyImportantTitle": "Why does this matter?",
+    "whyImportantText": "Your geographic location at birth determines the rising point of the zodiac — your ascendant, the mask you show the world. It is also the centre of your cosmic roots from which the astrological houses of your birth chart grow.",
+    "step4Eyebrow": "✦ STEP 4 / 4",
+    "step4Title": "How deeply do you reach?",
+    "step4Subtitle": "Experience level lets us tailor the language and depth of the Oracle",
+    "expBeginner": "Beginner",
+    "expBeginner_desc": "Just discovering the world of symbols and rituals",
+    "expIntermediate": "Traveller",
+    "expIntermediate_desc": "I know the basics and want to develop my practice",
+    "expAdvanced": "Adept",
+    "expAdvanced_desc": "I have been working with symbolism and rituals for years",
+    "energyLabel_default": "Name energy",
+    "energyLabel_1": "Leader · Pioneer",
+    "energyLabel_2": "Diplomat · Intuition",
+    "energyLabel_3": "Creator · Expression",
+    "energyLabel_4": "Builder · Order",
+    "energyLabel_5": "Freedom · Change",
+    "energyLabel_6": "Caregiver · Harmony",
+    "energyLabel_7": "Mystic · Knowledge",
+    "energyLabel_8": "Power · Abundance",
+    "energyLabel_9": "Sage · Service",
+    "energyLabel_11": "Master · Illumination",
+    "energyLabel_22": "Master Builder",
+    "energyLabel_33": "Master Teacher"
+  },
+  "chineseHoroscope": {
+    "tabAnimal": "Animal",
+    "tabElements": "Elements",
+    "tabYear": "Year",
+    "tabCompatibility": "Compatibility",
+    "tabWisdom": "Wisdom",
+    "tabFortune": "Oracle",
+    "viewingFor": "Viewing for:"
+  },
+  "gratitudeWall": {
+    "title": "Gratitude Wall",
+    "subtitle": "Share gratitude with the community",
+    "cat_milosc": "Love",
+    "cat_natura": "Nature",
+    "cat_ludzie": "People",
+    "cat_moment": "Moment",
+    "cat_zmiana": "Change",
+    "placeholder": "What are you grateful for today?",
+    "anonLabel": "Anonymous",
+    "sendBtn": "Send",
+    "anonSoul": "Anonymous soul",
+    "emptyState": "Be the first to share your gratitude"
+  },
+  "groupMeditation": {
+    "title": "Group Meditation",
+    "subtitle": "Every day at 9 PM",
+    "nextSession": "Next session in",
+    "peopleMeditating": "people meditating now",
+    "meditatingWith": "✦ You are meditating with the community",
+    "dailyIntention": "Daily intention",
+    "activeMeditators": "Active meditators",
+    "joinBtn": "Join the circle",
+    "leaveBtn": "End meditation"
+  },
+  "synchronicities": {
+    "title": "Synchronicities",
+    "subtitle": "Meaningful coincidences and signs",
+    "tag_liczby": "Numbers",
+    "tag_widzenie": "Vision",
+    "tag_sen": "Dream",
+    "tag_znak": "Sign",
+    "tag_przypadek": "Coincidence",
+    "placeholder": "Describe the synchronicity you experienced...",
+    "shareBtn": "Share",
+    "fulfilled": "Fulfilled",
+    "fulfillBtn": "✦ It came true",
+    "unknownSoul": "Unknown soul",
+    "emptyState": "Share a synchronicity you recently experienced"
+  },
+  "social": {
+    "stat": {
+      "votes": "votes",
+      "participants": "participants",
+      "chronicles": "Essays · Reflections",
+      "onlineNow": "souls online now"
+    },
+    "hero": {
+      "eyebrow": "✦ COSMIC COMMUNITY",
+      "title": "You are connected",
+      "online": "souls active now",
+      "live": "LIVE"
+    },
+    "hub": {
+      "title": "COMMUNITY PORTALS",
+      "count": "17 spaces"
+    },
+    "section": {
+      "energyCircleTitle": "Energy Circle",
+      "energyCircleSub": "Synchronous group meditation",
+      "tarotTitle": "Community Tarot",
+      "tarotSub": "The community card of the day",
+      "liveRitualsTitle": "Live Rituals",
+      "liveRitualsSub": "Ceremonies led by masters",
+      "matchingTitle": "Cosmic Match",
+      "matchingSub": "Soul resonance and energies",
+      "dreamsTitle": "Dream Symbolarium",
+      "dreamsSub": "Community dream trends · anonymous",
+      "affirmationTitle": "Community Affirmation",
+      "affirmationSub": "Voting every 24h",
+      "challengesTitle": "Soul Challenges",
+      "challengesSub": "Collective paths of transformation",
+      "intentionsTitle": "Intention Chamber",
+      "intentionsSub": "Shared manifestation board",
+      "feedTitle": "Field of Awareness",
+      "feedSub": "Reflections and community breakthroughs",
+      "mentorsTitle": "Soul Mentors",
+      "mentorsSub": "Sessions with spiritual guides",
+      "portalsTitle": "Cosmic Portals",
+      "portalsSub": "Shared celebrations of energy",
+      "chronicleTitle": "Community Chronicle",
+      "chronicleSub": "Essays and archive of spiritual wisdom"
+    },
+    "energy": {
+      "nextSession": "next session",
+      "ready": "ready",
+      "in": "in",
+      "topic": "Grounding and inner peace",
+      "circleEnergy": "CIRCLE ENERGY",
+      "highCoherence": "high coherence",
+      "joined": "You joined the circle ✓",
+      "join": "Join the circle"
+    },
+    "tarot": {
+      "card": "The Star",
+      "theme": "Hope and renewal",
+      "energyLabel": "Energy",
+      "comment": "This card reminded me that after every darkness, light returns.",
+      "interpretations": "interpretations",
+      "addYours": "Add yours"
+    },
+    "rituals": {
+      "startFirst": "Start the first ritual"
+    },
+    "ritual": {
+      "unnamed": "Community Ritual",
+      "hostedBy": "Hosted by:",
+      "host": "Community Master"
+    },
+    "match": {
+      "discover": "Discover souls resonating with your energy",
+      "sub": "Based on your zodiac sign and archetype",
+      "btn": "Find your resonant souls"
+    },
+    "dreams": {
+      "mostCommon": "Most common symbols tonight",
+      "addSymbol": "Add a symbol from your dream"
+    },
+    "affirmation": {
+      "text": "I am ready to receive the love I have been seeking within myself for so long.",
+      "confirmed": "of the community confirmed",
+      "confirmedState": "Confirmed",
+      "confirm": "Confirm"
+    },
+    "intentions": {
+      "yours": "YOUR INTENTION",
+      "placeholder": "Write the intention you want to send into the world...",
+      "send": "Send intention",
+      "sent": "Intention sent — the community is bearing witness ✓",
+      "witnesses": "witnesses"
+    },
+    "feed": {
+      "placeholder": "Share your reflection with the community...",
+      "publish": "Publish",
+      "empty": "Be the first to share",
+      "emptySub": "Share a reflection with the whole community",
+      "anonSoul": "Anonymous Soul",
+      "reply": "Reply"
+    },
+    "mentors": {
+      "discover": "Discover Soul Mentors",
+      "discoverSub": "Private sessions with spiritual guides",
+      "mentor": "Mentor",
+      "sessions": "sessions",
+      "book": "Book a session"
+    },
+    "chronicle": {
+      "empty": "Write the first chronicle",
+      "emptySub": "Share your knowledge and experience",
+      "by": "by"
+    },
+    "more": "more",
+    "moreBtn": "More",
+    "participants": "participants",
+    "days": "days",
+    "daysUpper": "DAYS",
+    "voteCount": "votes",
+    "challenges": {
+      "completed": "completed"
+    }
+  },
+  "search": {
+    "placeholder": "Search screen or feature...",
+    "countFound": "{{n}} screens for \"{{q}}\"",
+    "countAll": "{{n}} available",
+    "noResults": "No screen found for \"{{q}}\""
+  },
+  "spiritualReveal": {
+    "eyebrow": "✦ YOUR COSMIC PORTRAIT",
+    "title": "The stars know you",
+    "starsKnowYou": "The stars know you",
+    "subtitle": "Your unique spiritual profile — revealed through dates, numbers and the sky.",
+    "zodiacBadge": "ZODIAC SIGN",
+    "lifePathBadge": "LIFE PATH",
+    "master": " · MASTER",
+    "soulChallenge": "⚡ SOUL CHALLENGE",
+    "ascendantBadge": "ASCENDANT · MASK",
+    "ctaButton": "Enter Aethera ✦",
+    "ctaHint": "Your profile is secure and encrypted. You can always edit it in settings."
+  },
+  "premium": {
+    "hero": {
+      "title": "AETHERA PREMIUM",
+      "subtitle": "Choose your spiritual growth plan"
+    },
+    "plan": {
+      "activePlan": "Active plan",
+      "selectedPlan": "Selected plan"
+    },
+    "cta": {
+      "currentPlan": "Your current plan",
+      "startSoul": "Start Soul plan — 59.99/mo.",
+      "startMaster": "Start Master plan — 499/yr.",
+      "cancelHint": "You can cancel at any time.",
+      "storeHint": "Securely stored by Google Play / App Store."
+    },
+    "whySection": {
+      "title": "WHY UPGRADE",
+      "unlimitedOracle": "Unlimited Oracle",
+      "moonRituals": "Moon Rituals",
+      "aiDreams": "AI analyses dreams",
+      "destinyMatrix": "Destiny Matrix",
+      "soundBath": "Sound Bath & Binaural",
+      "partnerTarot": "Partner Tarot"
+    },
+    "testimonialsSection": {
+      "title": "WHAT SOULS SAY"
+    },
+    "badges": {
+      "securePayment": "Secure payment",
+      "cancelAnytime": "Cancel anytime",
+      "refund": "7-day refund"
+    }
+  },
+  "communityEvents": {
+    "title": "Events Calendar",
+    "upcomingCount": "{{n}} upcoming",
+    "tab": {
+      "upcoming": "Upcoming",
+      "mine": "Mine",
+      "past": "Archive"
+    },
+    "section": {
+      "today": "TODAY",
+      "thisWeek": "THIS WEEK",
+      "later": "LATER"
+    },
+    "filter": {
+      "all": "All",
+      "meditation": "Meditation",
+      "ritual": "Ritual",
+      "tarot": "Tarot",
+      "meeting": "Meeting"
+    },
+    "card": {
+      "participants": "participants",
+      "enterNow": "Enter now",
+      "joined": "Joined",
+      "full": "Full",
+      "enterLive": "🔴 Enter Live",
+      "join": "Join"
+    },
+    "modal": {
+      "newEvent": "New Event",
+      "titleLabel": "Title *",
+      "titlePlaceholder": "Event name...",
+      "descLabel": "Description",
+      "descPlaceholder": "Brief description of the meeting...",
+      "coverEmojiLabel": "Cover emoji",
+      "typeLabel": "Type",
+      "dateLabel": "Date and time (DD.MM HH:MM)",
+      "datePlaceholder": "e.g. 25.04 20:00",
+      "durationLabel": "Duration",
+      "maxParticipantsLabel": "Max. participants",
+      "privateLabel": "Private event",
+      "privateSubLabel": "Invite code only",
+      "creating": "Creating...",
+      "createBtn": "Create event"
+    },
+    "joinModal": {
+      "title": "Join by code",
+      "subtitle": "Enter 6-character invite code",
+      "joining": "Joining...",
+      "joinBtn": "Join"
+    },
+    "empty": {
+      "title": "No events",
+      "mine": "You are not yet signed up for any event.",
+      "upcoming": "No upcoming events in this category."
+    }
   }
 }

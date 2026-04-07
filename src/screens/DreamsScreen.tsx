@@ -59,13 +59,16 @@ const getMoonAge = (): number => {
 };
 
 const getMoonPhase = (phases: Array<{ max: number; emoji: string; label: string }>): { label: string; emoji: string; illumination: number } => {
+  if (!phases || phases.length === 0) return { emoji: '🌙', label: 'Nów', illumination: 0 };
   const age = getMoonAge();
   const illumination = Math.round(50 * (1 - Math.cos((age / 29.53058867) * 2 * Math.PI)));
   const found = phases.find(({ max }) => age < max) || phases[phases.length - 1];
+  if (!found) return { emoji: '🌙', label: 'Nów', illumination };
   return { emoji: found.emoji, label: found.label, illumination };
 };
 
 const getCurrentMoonDreamData = (phaseName: string, moonDreamData: any[]) => {
+  if (!moonDreamData || moonDreamData.length === 0) return { phase: 'Nów', color: '#818CF8', lucidFavorable: false, propheticFavorable: false };
   return moonDreamData.find(d => d.phase === phaseName) || moonDreamData[0];
 };
 

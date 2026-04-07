@@ -1637,7 +1637,7 @@ export const PortalScreen = ({ navigation }: any) => {
           </View>
           <View style={[ps.wText, { gap: 6 }]}>
             <Text style={[ps.wEyebrow, { color: eColor }]}>{tr('portal.energy.eyebrow', 'ENERGIA DNIA', 'ENERGY OF THE DAY')}</Text>
-            <View style={ps.barTrack}>
+            <View style={[ps.barTrack, isLight && { backgroundColor: 'rgba(0,0,0,0.08)' }]}>
               <View style={[ps.barFill, { width: barW, backgroundColor: eColor }]} />
             </View>
             <Text style={[ps.wSub, { color: subColor }]}>{score}% — {dailyPlan.archetype?.name || tr('portal.energy.yourArchetype', 'Twój archetyp', 'Your archetype')}</Text>
@@ -2896,7 +2896,7 @@ const ps = StyleSheet.create({
   journalEntryText: { fontSize: 13, lineHeight: 19, fontWeight: '400' },
 
   // Favorites
-  favScroll: { gap: 10, paddingRight: 4 },
+  favScroll: { gap: 10, paddingRight: SP },
   favTile: { width: 88, height: 88, borderRadius: 20, borderWidth: 1, alignItems: 'center', justifyContent: 'center', gap: 6, overflow: 'hidden', padding: 8 },
   favIcon: { width: 36, height: 36, borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
   favLabel: { fontSize: 10, fontWeight: '700', letterSpacing: 0.2, textAlign: 'center', lineHeight: 13 },

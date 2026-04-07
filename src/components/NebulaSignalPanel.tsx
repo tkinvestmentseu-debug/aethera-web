@@ -10,8 +10,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { Typography } from './Typography';
-import { useAppStore } from '../store/useAppStore';
-import { getResolvedTheme } from '../core/theme/tokens';
+import { useTheme } from '../core/hooks/useTheme';
 
 interface NebulaSignalStat {
   label: string;
@@ -33,11 +32,9 @@ export const NebulaSignalPanel = ({
   description,
   stats,
 }: NebulaSignalPanelProps) => {
-  const { themeName } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const { isLight } = useTheme();
+  const cardBg = isLight ? 'rgba(122,95,54,0.08)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)';
 
   const spin = useSharedValue(0);
   const pulse = useSharedValue(0);

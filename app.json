@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#010106"
+      "backgroundColor": "#07071A"
     },
     "ios": {
       "supportsTablet": true,
@@ -18,12 +18,11 @@
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       },
-      "buildNumber": "1"
+      "buildNumber": "3"
     },
     "android": {
       "package": "com.aethera.app",
       "jsEngine": "hermes",
-      "enableProguardInReleaseBuilds": true,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -37,12 +36,20 @@
         "android.permission.FOREGROUND_SERVICE",
         "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
       ],
-      "versionCode": 1
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "gradleVersion": "8.13"
+          }
+        }
+      ],
       [
         "expo-image-picker",
         {

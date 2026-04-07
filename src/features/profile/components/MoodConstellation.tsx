@@ -12,7 +12,7 @@ interface MoodConstellationProps {
 }
 
 export const MoodConstellation = ({ entries }: MoodConstellationProps) => {
-  const { themeName } = useAppStore();
+    const themeName = useAppStore(s => s.themeName);
   const currentTheme = themes[themeName] || themes.dark;
   const size = width - 80;
   const padding = 40;

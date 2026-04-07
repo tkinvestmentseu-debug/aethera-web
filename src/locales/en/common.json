@@ -1,7 +1,9 @@
 {
   "actions": {
     "clear": "Clear",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "delete": "Delete"
   },
   "labels": {
     "center": "Center",

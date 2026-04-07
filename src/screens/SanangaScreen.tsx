@@ -42,7 +42,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { MusicToggleButton } from '../components/MusicToggleButton';
 import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#22C55E';
 const DARK_GREEN = '#15803D';
@@ -184,14 +184,14 @@ const BENEFITS = [
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export const SanangaScreen = ({ navigation }: any) => {
-  const { themeName, userData } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName, userData?.preferences?.colorScheme);
-  const isLight = currentTheme.background.startsWith('#F');
+    const themeName = useAppStore(s => s.themeName);
+  const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
   const isDark = !isLight;
   const textColor = isLight ? '#052E16' : '#D1FAE5';
   const subColor = isLight ? 'rgba(5,46,22,0.55)' : 'rgba(209,250,229,0.55)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.07)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.07)';
   const { t } = useTranslation();
 
   const [checkedSteps, setCheckedSteps] = useState<number[]>([]);
@@ -288,7 +288,9 @@ export const SanangaScreen = ({ navigation }: any) => {
   const progress = 1 - remaining / TIMER_DURATION;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <ForestBg isLight={isLight} />
 
       {/* Header */}
@@ -439,7 +441,7 @@ export const SanangaScreen = ({ navigation }: any) => {
           <Text style={[styles.sectionHeader, { color: textColor }]}>Czas integracji</Text>
           <View style={[styles.timerCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             {/* Progress bar */}
-            <View style={[styles.progressTrack, { backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)' }]}>
+            <View style={[styles.progressTrack, { backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)' }]}>
               <View style={[styles.progressFill, { width: `${progress * 100}%`, backgroundColor: ACCENT }]} />
             </View>
             <Text style={[styles.timerDisplay, { color: timerDone ? ACCENT : textColor }]}>
@@ -494,7 +496,8 @@ export const SanangaScreen = ({ navigation }: any) => {
 
         <EndOfContentSpacer />
       </ScrollView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

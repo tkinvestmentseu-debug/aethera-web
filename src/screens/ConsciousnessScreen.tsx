@@ -20,13 +20,16 @@ import { Svg, Circle, G, Rect, Defs } from 'react-native-svg';
 import { AiService } from '../core/services/ai.service';
 import { useTranslation } from 'react-i18next';
 import { formatLocaleNumber } from '../core/utils/localeFormat';
-
+import { useAppStore } from '../store/useAppStore';
+import { FeedService, FeedPost } from '../core/services/community/feed.service';
+import { useAuthStore } from '../store/useAuthStore';
+import { getResolvedTheme } from '../core/theme/tokens';
+import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
+import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
+import { MusicToggleButton } from '../components/MusicToggleButton';
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#A78BFA';
-const textColor = '#E8E0FF';
-const subColor = 'rgba(232,224,255,0.55)';
-const cardBg = 'rgba(255,255,255,0.05)';
-const cardBorder = 'rgba(255,255,255,0.10)';
 
 const CATEGORIES = ['Wszystkie', 'Wizje', 'Sny', 'Znaki', 'Synchroniczności', 'Przemyślenia'];
 
@@ -63,6 +66,14 @@ const CONSCIOUSNESS_LEVEL = 73;
 export const ConsciousnessScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
+  const { currentTheme, isLight } = useTheme();
+  const currentUser = useAuthStore(s => s.currentUser);
+  const textColor = isLight ? '#1C1008' : '#E8E0FF';
+  const subColor = isLight ? 'rgba(28,16,8,0.55)' : 'rgba(232,224,255,0.55)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.10)';
+  const [feedPosts, setFeedPosts] = useState(FEED_POSTS);
+  const [loadingPosts, setLoadingPosts] = useState(false);
   const [activeCategory, setActiveCategory] = useState('Wszystkie');
   const [liked, setLiked] = useState({});
   const [myVote, setMyVote] = useState(null);
@@ -85,24 +96,56 @@ export const ConsciousnessScreen = ({ navigation }) => {
     ), -1, false);
   }, []);
 
+  useEffect(() => {
+    if (!currentUser) return;
+    setLoadingPosts(true);
+    FeedService.getPosts(currentUser.uid)
+      .then(({ posts: fbPosts }) => {
+        if (fbPosts.length > 0) setFeedPosts(fbPosts.map(p => ({
+          id: p.id,
+          author: p.authorName,
+          initials: (p.authorName || 'A').slice(0, 2).toUpperCase(),
+          color: ({ TAROT: '#F59E0B', HOROSKOP: '#6366F1', MEDYTACJA: '#10B981', AFIRMACJA: '#FBBF24', SEN: '#818CF8', REFLEKSJA: '#8B5CF6' })[p.type] ?? '#6366F1',
+          category: ({ TAROT: 'Wizje', HOROSKOP: 'Znaki', MEDYTACJA: 'Przemyślenia', AFIRMACJA: 'Przemyślenia', SEN: 'Sny', REFLEKSJA: 'Przemyślenia' })[p.type] ?? 'Przemyślenia',
+          time: (() => {
+            const diff = Date.now() - p.createdAt;
+            const min = Math.floor(diff / 60000);
+            if (min < 1) return 'teraz';
+            if (min < 60) return `${min} min temu`;
+            return `${Math.floor(min / 60)}h temu`;
+          })(),
+          likes: (p.reactions.resonuje + p.reactions.prawda + p.reactions.czuje),
+          comments: p.commentCount,
+          content: p.content,
+        })));
+      })
+      .catch(() => {})
+      .finally(() => setLoadingPosts(false));
+  }, [currentUser]);
+
   const filteredPosts = activeCategory === 'Wszystkie'
-    ? FEED_POSTS
-    : FEED_POSTS.filter(p => p.category === activeCategory);
+    ? feedPosts
+    : feedPosts.filter(p => p.category === activeCategory);
 
   const totalVotes = QUESTION.votes.tak + QUESTION.votes.nie + QUESTION.votes.nwiem;
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[styles.container, {}]} edges={['top']}>
+
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => goBackOrToMainTab(navigation, 'Portal')}>
           <ChevronLeft size={22} color={textColor} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>ŚWIADOMOŚĆ ZBIOROWA</Text>
-        <TouchableOpacity onPress={() => setShowPostModal(true)}
-          style={[styles.addBtn, { backgroundColor: ACCENT + '22', borderColor: ACCENT + '55' }]}>
-          <Plus size={16} color={ACCENT} />
-        </TouchableOpacity>
+        <Text style={[styles.headerTitle, { color: textColor }]}>ŚWIADOMOŚĆ ZBIOROWA</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+          <MusicToggleButton color={ACCENT} size={19} />
+          <TouchableOpacity onPress={() => setShowPostModal(true)}
+            style={[styles.addBtn, { backgroundColor: ACCENT + '22', borderColor: ACCENT + '55' }]}>
+            <Plus size={16} color={ACCENT} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <KeyboardAvoidingView
@@ -132,7 +175,7 @@ export const ConsciousnessScreen = ({ navigation }) => {
             </View>
 
             {/* Progress bar */}
-            <View style={{ width: '100%', height: 6, backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden' }}>
+            <View style={{ width: '100%', height: 6, backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden' }}>
               <LinearGradient
                 colors={[ACCENT, '#818CF8', '#60A5FA']}
                 start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
@@ -282,7 +325,7 @@ export const ConsciousnessScreen = ({ navigation }) => {
               <Eye size={14} color={ACCENT} />
               <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 2 }}>NAJBARDZIEJ REZONUJĄCE W TYM TYGODNIU</Text>
             </View>
-            {FEED_POSTS.filter((_, i) => i < 3).sort((a, b) => b.likes - a.likes).map((post, i) => (
+            {feedPosts.filter((_, i) => i < 3).sort((a, b) => b.likes - a.likes).map((post, i) => (
               <View key={post.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: cardBg, borderRadius: 12, padding: 12, borderWidth: 1, borderColor: cardBorder, marginBottom: 8 }}>
                 <Text style={{ color: ACCENT, fontSize: 18, fontWeight: '800', width: 28 }}>#{i + 1}</Text>
                 <View style={{ flex: 1 }}>
@@ -292,13 +335,14 @@ export const ConsciousnessScreen = ({ navigation }) => {
               </View>
             ))}
           </Animated.View>
+          <EndOfContentSpacer />
         </ScrollView>
       </KeyboardAvoidingView>
 
       {/* Post Modal */}
       <Modal visible={showPostModal} transparent animationType="slide">
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'flex-end' }}>
-          <View style={{ backgroundColor: '#12101E', borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 24 }}>
+          <View style={{ backgroundColor: isLight ? '#FFFFFF' : '#12101E', borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 24 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
               <Text style={{ color: textColor, fontSize: 16, fontWeight: '700' }}>Podziel się ze wspólnotą</Text>
               <TouchableOpacity onPress={() => setShowPostModal(false)}>
@@ -324,7 +368,34 @@ export const ConsciousnessScreen = ({ navigation }) => {
               style={{ color: textColor, backgroundColor: cardBg, borderRadius: 12, padding: 14, height: 120, textAlignVertical: 'top', fontSize: 14, borderWidth: 1, borderColor: cardBorder, marginBottom: 16 }}
             />
             <TouchableOpacity
-              onPress={() => { setShowPostModal(false); setPostText(''); }}
+              onPress={() => {
+                if (postText.trim()) {
+                  const newPost = {
+                    id: Date.now().toString(),
+                    author: currentUser?.displayName ?? 'Ty',
+                    initials: (currentUser?.displayName ?? 'Ty').slice(0, 2).toUpperCase(),
+                    color: '#8B5CF6',
+                    category: postCategory,
+                    time: 'teraz',
+                    likes: 0,
+                    comments: 0,
+                    content: postText.trim(),
+                  };
+                  setFeedPosts(prev => [newPost, ...prev]);
+                  if (currentUser) {
+                    FeedService.createPost({
+                      authorId: currentUser.uid,
+                      authorName: currentUser.displayName,
+                      authorEmoji: currentUser.avatarEmoji ?? '🌙',
+                      authorZodiac: '',
+                      type: 'REFLEKSJA',
+                      content: postText.trim(),
+                    }).catch(() => {});
+                  }
+                }
+                setShowPostModal(false);
+                setPostText('');
+              }}
               style={{ backgroundColor: ACCENT, borderRadius: 14, paddingVertical: 14, alignItems: 'center' }}
             >
               <Text style={{ color: '#fff', fontWeight: '700', fontSize: 14 }}>Wyślij do strumienia</Text>
@@ -336,7 +407,7 @@ export const ConsciousnessScreen = ({ navigation }) => {
       {/* Comment Modal */}
       <Modal visible={!!commentModal} transparent animationType="slide">
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'flex-end' }}>
-          <View style={{ backgroundColor: '#12101E', borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 24 }}>
+          <View style={{ backgroundColor: isLight ? '#FFFFFF' : '#12101E', borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 24 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
               <Text style={{ color: textColor, fontSize: 16, fontWeight: '700' }}>Komentarze</Text>
               <TouchableOpacity onPress={() => setCommentModal(null)}>
@@ -371,16 +442,17 @@ export const ConsciousnessScreen = ({ navigation }) => {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#07050F' },
+  container: { flex: 1 },
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingHorizontal: 22, paddingVertical: 14,
   },
-  headerTitle: { color: textColor, fontSize: 13, fontWeight: '800', letterSpacing: 2 },
+  headerTitle: { fontSize: 13, fontWeight: '800', letterSpacing: 2 },
   addBtn: { width: 32, height: 32, borderRadius: 16, alignItems: 'center', justifyContent: 'center', borderWidth: 1 },
 });

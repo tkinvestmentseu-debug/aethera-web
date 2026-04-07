@@ -9,7 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Circle, Path, G, Line, Defs, RadialGradient, Stop } from 'react-native-svg';
 import Animated, {
   FadeInDown, FadeInUp, useSharedValue, useAnimatedStyle,
-  withRepeat, withSequence, withTiming, Easing,
+  withRepeat, withSequence, withTiming, Easing, cancelAnimation,
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import {
@@ -67,6 +67,7 @@ const CrystalWidget = React.memo(({ accent }: { accent: string }) => {
   useEffect(() => {
     rot.value   = withRepeat(withTiming(360, { duration: 14000, easing: Easing.linear }), -1, false);
     pulse.value = withRepeat(withSequence(withTiming(1.07, { duration: 2400 }), withTiming(0.95, { duration: 2400 })), -1, false);
+    return () => { cancelAnimation(rot); cancelAnimation(pulse); };
   }, []);
 
   const pan = Gesture.Pan()
@@ -360,7 +361,7 @@ export function CrystalGuideScreen({ navigation }: any) {
   const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
   const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
   const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
-  const { isLight } = useTheme();
+  const { currentTheme, isLight } = useTheme();
   const textColor  = isLight ? '#1A0A2E' : '#F0EBF8';
   const subColor   = isLight ? 'rgba(26,10,46,0.55)' : 'rgba(240,235,248,0.55)';
   const cardBg     = isLight ? 'rgba(255,255,255,0.72)' : 'rgba(255,255,255,0.06)';

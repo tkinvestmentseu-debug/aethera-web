@@ -24,7 +24,7 @@ import { AudioService } from '../core/services/audio.service';
 import { buildCleansingShareMessage } from '../core/utils/share';
 import { navigateToDashboardSurface } from '../navigation/navigationFallbacks';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const ACCENT = '#34D399';
 
 // ── 3D PURIFICATION ORB ───────────────────────────────────────
@@ -497,8 +497,17 @@ type CleansingLogEntry = {
 export const CleansingScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, experience, setExperience, ambientSoundEnabled, setAmbientSoundEnabled, audioRuntimeState, audioRuntimeMessage, addFavoriteItem, isFavoriteItem, removeFavoriteItem, shadowWorkSessions } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
+    const experience = useAppStore(s => s.experience);
+  const setExperience = useAppStore(s => s.setExperience);
+  const ambientSoundEnabled = useAppStore(s => s.ambientSoundEnabled);
+  const setAmbientSoundEnabled = useAppStore(s => s.setAmbientSoundEnabled);
+  const audioRuntimeState = useAppStore(s => s.audioRuntimeState);
+  const audioRuntimeMessage = useAppStore(s => s.audioRuntimeMessage);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const shadowWorkSessions = useAppStore(s => s.shadowWorkSessions);
+  const { currentTheme, isLight } = useTheme();
   const audioReady = audioRuntimeState !== 'initializing' && audioRuntimeState !== 'failed';
   const aiAvailable = AiService.isLaunchAvailable();
   const aiState = AiService.getLaunchAvailabilityState();
@@ -544,11 +553,9 @@ export const CleansingScreen = ({ navigation }: any) => {
     AudioService.playAmbientSound(id);
     AudioService.playTouchTone('confirm');
   };
-
-  const isLight = currentTheme.background.startsWith('#F');
   const isDark = !isLight;
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.06)' : 'rgba(52,211,153,0.12)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(52,211,153,0.12)';
 
   // ── ENERGIE DNIA ─────────────────────────────────────────────
   const today = new Date();
@@ -687,7 +694,7 @@ export const CleansingScreen = ({ navigation }: any) => {
                 return (
                   <Animated.View key={b.id} entering={FadeInUp.delay(idx * 60).duration(500)} onLayout={(e) => { burdenItemYs.current[b.id] = e.nativeEvent.layout.y; }}>
                     <Pressable onPress={() => { AudioService.playTouchTone(); setSelectedBurden(b.id); setShowSaveCta(true); const y = burdensContainerY.current + (burdenItemYs.current[b.id] ?? 0) - 60; scrollRef.current?.scrollTo({ y: Math.max(0, y), animated: true }); }}
-                      style={[cs.burdenRow, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)' }, active && { borderColor: b.color + '88', backgroundColor: b.color + '12' }]}>
+                      style={[cs.burdenRow, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)' }, active && { borderColor: b.color + '88', backgroundColor: b.color + '12' }]}>
                       <View style={[cs.burdenIconCircle, { backgroundColor: b.color + '22', borderColor: b.color + '44' }]}>
                         <Icon color={b.color} size={22} strokeWidth={1.8} />
                       </View>
@@ -704,11 +711,11 @@ export const CleansingScreen = ({ navigation }: any) => {
 
             {/* ACTIVE RITUAL FRAME */}
             <Animated.View entering={FadeInDown.duration(500)}>
-              <View style={[cs.ritualFrame, { borderColor: activeBurden.color + '44', backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)' }]}>
+              <View style={[cs.ritualFrame, { borderColor: activeBurden.color + '44', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)' }]}>
                 <LinearGradient colors={[activeBurden.color + '14', 'transparent']} style={cs.heroGrad} />
                 <Typography variant="premiumLabel" color={activeBurden.color}>{ritualFrame.title}</Typography>
                 <Typography variant="bodySmall" style={cs.ritualCopy}>{ritualFrame.body}</Typography>
-                <View style={[cs.ritualTag, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)' }]}>
+                <View style={[cs.ritualTag, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)' }]}>
                   <Typography variant="microLabel" color={activeBurden.color}>Aktywny temat: {activeBurden.label}</Typography>
                 </View>
               </View>
@@ -737,7 +744,7 @@ export const CleansingScreen = ({ navigation }: any) => {
                 const Icon = tech.icon;
                 return (
                   <Animated.View key={tech.id} entering={FadeInUp.delay(idx * 70).duration(500)}>
-                    <View style={[cs.techniqueCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)', borderColor: tech.color + '33' }]}>
+                    <View style={[cs.techniqueCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: tech.color + '33' }]}>
                       <LinearGradient colors={[tech.color + '0C', 'transparent']} style={cs.heroGrad} />
                       <View style={cs.techniqueHeader}>
                         <View style={[cs.techniqueIconBox, { backgroundColor: tech.color + '1A', borderColor: tech.color + '44' }]}>
@@ -779,7 +786,7 @@ export const CleansingScreen = ({ navigation }: any) => {
                 const active = experience.ambientSoundscape === sc.id;
                 return (
                   <Pressable key={sc.id} disabled={!audioReady} onPress={() => handleSoundSelect(sc.id)}
-                    style={[cs.soundChip, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)' }, active && { borderColor: ACCENT, backgroundColor: ACCENT + '18' }, !audioReady && { opacity: 0.45 }]}>
+                    style={[cs.soundChip, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)' }, active && { borderColor: ACCENT, backgroundColor: ACCENT + '18' }, !audioReady && { opacity: 0.45 }]}>
                     <Typography variant="microLabel" color={active ? ACCENT : currentTheme.textMuted}>{sc.label}</Typography>
                     <Typography variant="caption" style={[cs.soundSub, active && { color: ACCENT + 'CC' }]}>{sc.sub}</Typography>
                   </Pressable>
@@ -857,7 +864,7 @@ export const CleansingScreen = ({ navigation }: any) => {
                       <Typography variant="microLabel" style={{ opacity: d.isToday ? 1 : 0.55, color: d.isToday ? ACCENT : undefined, marginBottom: 6 }}>{d.label}</Typography>
                       <View style={[
                         cs.weekDot,
-                        { backgroundColor: d.active ? ACCENT + '30' : isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)', borderColor: d.active ? ACCENT : isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' },
+                        { backgroundColor: d.active ? ACCENT + '30' : isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.06)', borderColor: d.active ? ACCENT : isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' },
                         d.isToday && !d.active && { borderColor: ACCENT + '66' },
                       ]}>
                         {d.active && <View style={[cs.weekDotInner, { backgroundColor: ACCENT }]} />}

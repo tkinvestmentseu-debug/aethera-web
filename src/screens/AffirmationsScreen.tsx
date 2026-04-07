@@ -1704,7 +1704,7 @@ const af = StyleSheet.create({
   mantraFooter: { flexDirection: 'row', alignItems: 'center', paddingTop: 12, borderTopWidth: StyleSheet.hairlineWidth },
 
   catWrap: { marginBottom: 20 },
-  catScroll: { gap: 10, paddingRight: 10 },
+  catScroll: { gap: 10, paddingRight: 22 },
   catChip: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 10, borderRadius: 24, borderWidth: 1, gap: 4 },
   catDot: { width: 6, height: 6, borderRadius: 3, marginLeft: 6 },
   heroCatPill: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20, borderWidth: 1 },

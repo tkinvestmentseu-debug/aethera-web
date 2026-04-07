@@ -17,13 +17,14 @@ import {
 } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
-
+import { useAppStore } from '../store/useAppStore';
+import { getResolvedTheme } from '../core/theme/tokens';
+import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
+import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
+import { MusicToggleButton } from '../components/MusicToggleButton';
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#F59E0B';
-const textColor = '#E8E0FF';
-const subColor = 'rgba(232,224,255,0.55)';
-const cardBg = 'rgba(255,255,255,0.05)';
-const cardBorder = 'rgba(255,255,255,0.10)';
 
 const PORTALS = [
   { id: 1, name: 'Pełnia Księżyca w Wadze', date: '13 Kwi 2026', daysLeft: 13, participants: 3420, color: '#818CF8',
@@ -66,6 +67,14 @@ export const CosmicPortalsScreen = ({ navigation }) => {
   const localeCode = isEnglish ? 'en-US' : 'pl-PL';
   const tr = (pl, en) => (isEnglish ? en : pl);
   const insets = useSafeAreaInsets();
+
+    const themeName = useAppStore(s => s.themeName);
+  const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
+  const textColor = isLight ? '#1C1008' : '#E8E0FF';
+  const subColor = isLight ? 'rgba(28,16,8,0.55)' : 'rgba(232,224,255,0.55)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.10)';
   const [joined, setJoined] = useState({ 2: true });
   const [accessCode, setAccessCode] = useState('');
   const [codeSubmitted, setCodeSubmitted] = useState(false);
@@ -84,13 +93,20 @@ export const CosmicPortalsScreen = ({ navigation }) => {
   const activePortal = PORTALS.find(p => p.active);
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[styles.container, {}]} edges={['top']}>
+
+      <LinearGradient
+        colors={isLight ? ['#FAF5FF', '#EDE9FE', '#F5F0FF'] : ['#07050F', '#0F0828', '#150A30']}
+        style={StyleSheet.absoluteFill}
+        pointerEvents="none"
+      />
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => goBackOrToMainTab(navigation, 'Portal')}>
           <ChevronLeft size={22} color={textColor} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>{tr('PORTALE KOSMICZNE', 'COSMIC PORTALS')}</Text>
-        <View style={{ width: 32 }} />
+        <Text style={[styles.headerTitle, { color: textColor }]}>{tr('PORTALE KOSMICZNE', 'COSMIC PORTALS')}</Text>
+        <MusicToggleButton color={ACCENT} size={19} />
       </View>
 
       <KeyboardAvoidingView
@@ -243,13 +259,14 @@ export const CosmicPortalsScreen = ({ navigation }) => {
               ))}
             </View>
           </Animated.View>
+          <EndOfContentSpacer />
         </ScrollView>
       </KeyboardAvoidingView>
 
       {/* Portal Detail Modal */}
       <Modal visible={!!selectedPortal} transparent animationType="slide">
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'flex-end' }}>
-          <ScrollView style={{ maxHeight: '80%', backgroundColor: '#12101E', borderTopLeftRadius: 28, borderTopRightRadius: 28 }}>
+          <ScrollView style={{ maxHeight: '80%', backgroundColor: isLight ? '#FFFFFF' : '#12101E', borderTopLeftRadius: 28, borderTopRightRadius: 28 }}>
             {selectedPortal && (
               <View style={{ padding: 24 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
@@ -280,12 +297,13 @@ export const CosmicPortalsScreen = ({ navigation }) => {
           </ScrollView>
         </View>
       </Modal>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#07050F' },
+  container: { flex: 1 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 22, paddingVertical: 14 },
-  headerTitle: { color: textColor, fontSize: 13, fontWeight: '800', letterSpacing: 2 },
+  headerTitle: { fontSize: 13, fontWeight: '800', letterSpacing: 2 },
 });

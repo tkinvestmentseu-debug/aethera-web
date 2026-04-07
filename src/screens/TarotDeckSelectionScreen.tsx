@@ -19,7 +19,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const ACCENT = '#CEAE72';
 const { width: SW } = Dimensions.get('window');
 
@@ -335,7 +335,7 @@ const StatItem = ({ label, value, isLight }: { label: string; value: string; isL
     </Typography>
     <Typography
       variant="microLabel"
-      style={[styles.statLabel, { color: isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.50)' }]}
+      style={[styles.statLabel, { color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)' }]}
     >
       {label}
     </Typography>
@@ -363,14 +363,12 @@ export const TarotDeckSelectionScreen = () => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<any>();
-  const { themeName } = useAppStore();
-  const { selectedDeckId, setSelectedDeck, resetReading, pastReadings } = useTarotStore();
-  const currentTheme = getResolvedTheme(themeName);
-
+    const { selectedDeckId, setSelectedDeck, resetReading, pastReadings } = useTarotStore();
   const handleBack = () => {
     goBackOrToMainTab(navigation, 'Home');
   };
 
+  const { currentTheme, isLight } = useTheme();
   const handleSelect = (deckId: string, available: boolean) => {
     if (!available) return;
     if (deckId !== selectedDeckId) {
@@ -379,10 +377,8 @@ export const TarotDeckSelectionScreen = () => {
     setSelectedDeck(deckId);
     navigation.navigate('Tarot', { deckId });
   };
-
-  const isLight = currentTheme.background.startsWith('#F');
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
   const textColor = isLight ? '#1A1008' : '#F0E8D8';
   const subColor = isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.60)';
 
@@ -516,7 +512,7 @@ export const TarotDeckSelectionScreen = () => {
               <View style={[styles.statDivider, { backgroundColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' }]} />
               <StatItem label="Wszystkie odczyty" value={String(pastReadings.length)} isLight={isLight} />
               <View style={[styles.statDivider, { backgroundColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' }]} />
-              <StatItem label="Aktywna talia" value={activeDeck?.name?.split(' ')[0] ?? '–'} isLight={isLight} />
+              <StatItem label="Aktywna talia" value={activeDeck?.name ? activeDeck.name.split(' ')[0].slice(0, 8) + (activeDeck.name.split(' ')[0].length > 8 ? '…' : '') : '–'} isLight={isLight} />
             </View>
           </Animated.View>
 
@@ -542,7 +538,7 @@ export const TarotDeckSelectionScreen = () => {
                 </View>
               </View>
               <View style={[styles.energyDivider, { backgroundColor: ACCENT + '28' }]} />
-              <Typography variant="premiumLabel" style={[styles.energyRecoLabel, { color: isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)' }]}>
+              <Typography variant="premiumLabel" style={[styles.energyRecoLabel, { color: isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)' }]}>
                 NAJLEPSZA TALIA NA TEN MOMENT
               </Typography>
               <Typography variant="editorialHeader" style={[styles.energyRecoName, { color: isLight ? '#2A1C00' : '#F5E4B0' }]}>
@@ -612,7 +608,7 @@ export const TarotDeckSelectionScreen = () => {
                   </View>
 
                   {/* ── Deck footer ── */}
-                  <View style={[styles.deckFooter, { borderTopColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.06)' }]}>
+                  <View style={[styles.deckFooter, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)' }]}>
                     <Typography variant="bodySmall" style={styles.deckMood}>
                       {deck.mood}
                     </Typography>
@@ -629,19 +625,19 @@ export const TarotDeckSelectionScreen = () => {
                   </View>
 
                   {/* ── Reading history strip ── */}
-                  <View style={[styles.historyStrip, { borderTopColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.05)' }]}>
-                    <Typography variant="microLabel" style={[styles.historyLabel, { color: isLight ? 'rgba(0,0,0,0.40)' : 'rgba(255,255,255,0.38)' }]}>
+                  <View style={[styles.historyStrip, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)' }]}>
+                    <Typography variant="microLabel" style={[styles.historyLabel, { color: isLight ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.38)' }]}>
                       OSTATNIE ODCZYTY Z TEJ TALII
                     </Typography>
                     {deckReadingDates.length === 0 ? (
-                      <Typography variant="bodySmall" style={[styles.historyEmpty, { color: isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.32)' }]}>
+                      <Typography variant="bodySmall" style={[styles.historyEmpty, { color: isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.32)' }]}>
                         Brak historii z tą talią
                       </Typography>
                     ) : (
                       <View style={styles.historyBadgeRow}>
                         {deckReadingDates.map((date, di) => (
                           <View key={di} style={[styles.historyBadge, {
-                            backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.09)',
+                            backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.09)',
                             borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)',
                             borderWidth: StyleSheet.hairlineWidth,
                           }]}>
@@ -656,7 +652,7 @@ export const TarotDeckSelectionScreen = () => {
 
                   {/* ── ENERGIA TALII (energy & numerology profile) ── */}
                   {deck.available && energyProfile && (
-                    <View style={[styles.energyProfileBlock, { borderTopColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.05)' }]}>
+                    <View style={[styles.energyProfileBlock, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)' }]}>
                       <Typography variant="microLabel" style={[styles.blockLabel, { color: ACCENT }]}>
                         ENERGIA TALII
                       </Typography>
@@ -671,7 +667,7 @@ export const TarotDeckSelectionScreen = () => {
                           </View>
                         ))}
                       </View>
-                      <Typography variant="microLabel" style={[styles.numerologyLabel, { color: isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)' }]}>
+                      <Typography variant="microLabel" style={[styles.numerologyLabel, { color: isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)' }]}>
                         NUMEROLOGIA: {energyProfile.numerology}
                       </Typography>
                       <Typography variant="bodySmall" style={[styles.numerologyDesc, { color: subColor, lineHeight: 20 }]}>
@@ -685,7 +681,7 @@ export const TarotDeckSelectionScreen = () => {
                       </View>
                       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 8 }}>
                         {energyProfile.bestFor.map((bf) => (
-                          <View key={bf} style={[styles.bestForTag, { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)', borderColor: cardBorder, borderWidth: StyleSheet.hairlineWidth }]}>
+                          <View key={bf} style={[styles.bestForTag, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)', borderColor: cardBorder, borderWidth: StyleSheet.hairlineWidth }]}>
                             <Typography variant="microLabel" style={{ color: subColor, fontSize: 10 }}>{bf}</Typography>
                           </View>
                         ))}
@@ -695,12 +691,12 @@ export const TarotDeckSelectionScreen = () => {
 
                   {/* ── KARTY ARCHETYPICZNE (signature cards) ── */}
                   {deck.available && sigCards.length > 0 && (
-                    <View style={[styles.sigCardsBlock, { borderTopColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.05)' }]}>
+                    <View style={[styles.sigCardsBlock, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)' }]}>
                       <Typography variant="microLabel" style={[styles.blockLabel, { color: ACCENT }]}>
                         KARTY ARCHETYPICZNE TEJ TALII
                       </Typography>
                       {sigCards.map((sc, si) => (
-                        <View key={si} style={[styles.sigCardRow, { borderBottomColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.05)' }]}>
+                        <View key={si} style={[styles.sigCardRow, { borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)' }]}>
                           <View style={[styles.sigCardEmoji, { backgroundColor: ACCENT + '18', borderColor: ACCENT + '33', borderWidth: StyleSheet.hairlineWidth }]}>
                             <Typography style={{ fontSize: 16 }}>{sc.emoji}</Typography>
                           </View>
@@ -715,7 +711,7 @@ export const TarotDeckSelectionScreen = () => {
 
                   {/* ── HISTORIA ROZKŁADÓW (last 10 readings for this deck) ── */}
                   {deck.available && deckReadings.length > 0 && (
-                    <View style={[styles.deckHistoryBlock, { borderTopColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.05)' }]}>
+                    <View style={[styles.deckHistoryBlock, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)' }]}>
                       <Typography variant="microLabel" style={[styles.blockLabel, { color: ACCENT }]}>
                         HISTORIA ROZKŁADÓW
                       </Typography>
@@ -724,8 +720,8 @@ export const TarotDeckSelectionScreen = () => {
                           key={ri}
                           onPress={() => navigation.navigate('ReadingDetail', { card: reading.cards?.[0]?.card, position: reading.spread?.name ?? 'Pozycja 1' })}
                           style={({ pressed }) => [styles.readingRow, {
-                            backgroundColor: pressed ? ACCENT + '10' : (isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)'),
-                            borderColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)',
+                            backgroundColor: pressed ? ACCENT + '10' : (isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.04)'),
+                            borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)',
                             borderWidth: StyleSheet.hairlineWidth,
                           }]}
                         >
@@ -752,7 +748,7 @@ export const TarotDeckSelectionScreen = () => {
 
                   {/* ── DECK JOURNAL (personal connection log) ── */}
                   {deck.available && (
-                    <View style={[styles.journalBlock, { borderTopColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.05)' }]}>
+                    <View style={[styles.journalBlock, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)' }]}>
                       <Typography variant="microLabel" style={[styles.blockLabel, { color: ACCENT }]}>
                         MOJE POŁĄCZENIE Z TALIĄ
                       </Typography>
@@ -804,7 +800,7 @@ export const TarotDeckSelectionScreen = () => {
 
                   {/* ── INICJACJA button ── */}
                   {deck.available && (
-                    <View style={[styles.inicjacjaRow, { borderTopColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.05)' }]}>
+                    <View style={[styles.inicjacjaRow, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)' }]}>
                       <Pressable
                         onPress={() => openInicjacja(deck.id)}
                         style={[styles.inicjacjaBtn, { backgroundColor: ACCENT + '14', borderColor: ACCENT + '44', borderWidth: StyleSheet.hairlineWidth }]}
@@ -865,7 +861,7 @@ export const TarotDeckSelectionScreen = () => {
                     <Pressable
                       onPress={() => navigation.navigate(link.route)}
                       style={({ pressed }) => [styles.nextCard, {
-                        backgroundColor: pressed ? (isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.08)') : cardBg,
+                        backgroundColor: pressed ? (isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.08)') : cardBg,
                         borderColor: cardBorder,
                         borderWidth: StyleSheet.hairlineWidth,
                         opacity: pressed ? 0.82 : 1,
@@ -878,7 +874,7 @@ export const TarotDeckSelectionScreen = () => {
                         <Typography variant="premiumLabel" style={[styles.nextLabel, { color: isLight ? '#1A1008' : '#F0E8D8' }]}>
                           {link.label}
                         </Typography>
-                        <Typography variant="bodySmall" style={[styles.nextSublabel, { color: isLight ? 'rgba(0,0,0,0.52)' : 'rgba(255,255,255,0.50)' }]}>
+                        <Typography variant="bodySmall" style={[styles.nextSublabel, { color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)' }]}>
                           {link.sublabel}
                         </Typography>
                       </View>
@@ -953,7 +949,7 @@ export const TarotDeckSelectionScreen = () => {
             {deckA && deckB && energyA && energyB && (
               <View style={[styles.compareTable, { borderColor: cardBorder, borderWidth: StyleSheet.hairlineWidth }]}>
                 {/* Header */}
-                <View style={[styles.compareTableRow, styles.compareTableHeader, { borderBottomColor: cardBorder, backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)' }]}>
+                <View style={[styles.compareTableRow, styles.compareTableHeader, { borderBottomColor: cardBorder, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)' }]}>
                   <View style={{ flex: 1 }} />
                   <View style={[styles.compareTableCell, { borderLeftColor: ACCENT + '33' }]}>
                     <Typography variant="microLabel" style={{ color: ACCENT, fontSize: 9 }}>{deckA.name}</Typography>

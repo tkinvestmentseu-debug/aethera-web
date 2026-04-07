@@ -13,7 +13,10 @@ import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
+import { collection, onSnapshot, query, orderBy, limit, doc, runTransaction, serverTimestamp, addDoc } from 'firebase/firestore';
+import { db } from '../core/config/firebase.config';
+import { useAuthStore } from '../store/useAuthStore';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#818CF8';
 
@@ -50,31 +53,89 @@ const ARCHIVE = [
 
 export const DreamSymbolsScreen = ({ navigation }) => {
   const { t } = useTranslation();
-  const { themeName } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+  const { currentTheme, isLight } = useTheme();
   const tc = isLight ? '#1A1008' : '#F0ECE4';
-  const sc = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
+  const sc = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
   const cb = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
-  const cbr = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
+  const cbr = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)';
 
+  const currentUser = useAuthStore(s => s.currentUser);
+  const [symbols, setSymbols] = useState(SYMBOLS);
+  const [trending, setTrending] = useState(TRENDING);
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
   const [dreamText, setDreamText] = useState('');
   const [isAnon, setIsAnon] = useState(false);
   const [aiResult, setAiResult] = useState('');
   const [loadingAi, setLoadingAi] = useState(false);
   const [moods] = useState({ spokojny: 42, żywy: 38, niespokojny: 20 });
+  const [reportedSymbols, setReportedSymbols] = useState<Set<string>>(new Set());
 
   const moonPulse = useSharedValue(1);
   useEffect(() => {
     moonPulse.value = withRepeat(withSequence(withTiming(1.1, { duration: 2000 }), withTiming(1, { duration: 2000 })), -1, false);
   }, []);
+
+  // Real-time symbol trends from Firebase
+  useEffect(() => {
+    const q = query(collection(db, 'dreamSymbols'), orderBy('count', 'desc'), limit(12));
+    const unsub = onSnapshot(q, (snap) => {
+      if (snap.docs.length > 0) {
+        const fbSymbols = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        setSymbols(fbSymbols.map(s => ({
+          emoji: s.emoji ?? '🌊',
+          name: s.name,
+          count: s.count ?? 0,
+          meaning: s.meaning ?? '',
+          trend: s.trend ?? 0,
+        })));
+        setTrending(fbSymbols.slice(0, 6).map(s => ({
+          emoji: s.emoji ?? '🌊',
+          name: s.name,
+          trend: s.trend ?? 0,
+        })));
+      }
+    }, () => {/* keep seed data */});
+    return () => unsub();
+  }, []);
+
+  const handleReportSymbol = (symbolName: string) => {
+    if (reportedSymbols.has(symbolName)) return;
+    setReportedSymbols(prev => new Set([...prev, symbolName]));
+    HapticsService.impact('light');
+    // Increment count in Firebase
+    const symRef = doc(db, 'dreamSymbols', symbolName.toLowerCase().replace(/\s/g, '_'));
+    runTransaction(db, async (tx) => {
+      const snap = await tx.get(symRef);
+      if (snap.exists()) {
+        tx.update(symRef, { count: (snap.data().count ?? 0) + 1 });
+      } else {
+        const found = SYMBOLS.find(s => s.name === symbolName);
+        tx.set(symRef, {
+          name: symbolName,
+          emoji: found?.emoji ?? '✨',
+          meaning: found?.meaning ?? '',
+          count: 1, trend: 0,
+          createdAt: serverTimestamp(),
+        });
+      }
+    }).catch(() => {});
+  };
   const moonStyle = useAnimatedStyle(() => ({ transform: [{ scale: moonPulse.value }] }));
 
   const handleSubmitDream = async () => {
     if (!dreamText.trim()) return;
     HapticsService.impact('medium');
     setLoadingAi(true);
+    // Write anonymous dream to community feed
+    if (currentUser) {
+      addDoc(collection(db, 'communityDreams'), {
+        text: dreamText.trim(),
+        anon: isAnon,
+        authorId: isAnon ? null : currentUser.uid,
+        authorName: isAnon ? 'Anonim' : currentUser.displayName,
+        createdAt: serverTimestamp(),
+      }).catch(() => {});
+    }
     try {
       const res = await AiService.chatWithOracle([{
         role: 'user',
@@ -89,7 +150,9 @@ export const DreamSymbolsScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <LinearGradient
         colors={isLight ? ['#EEF2FF', '#E0E7FF', currentTheme.background] : ['#08061A', '#0E0A28', currentTheme.background]}
         style={StyleSheet.absoluteFill} pointerEvents="none"
@@ -233,7 +296,8 @@ export const DreamSymbolsScreen = ({ navigation }) => {
           <EndOfContentSpacer />
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

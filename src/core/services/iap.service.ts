@@ -7,9 +7,9 @@ export const IAP_PRODUCTS = {
 } as const;
 
 export const IAP_PRICES = {
-  MONTHLY:  { display: '29,99 PLN', period: 'miesiac',     savings: '' },
-  YEARLY:   { display: '179,99 PLN', period: 'rok',        savings: 'Oszczedzasz 40%' },
-  LIFETIME: { display: '399,99 PLN', period: 'jednorazowo',savings: 'Raz na zawsze' },
+  MONTHLY:  { display: '59,99 PLN', period: 'miesiac',     savings: '' },
+  YEARLY:   { display: '499,00 PLN', period: 'rok',        savings: 'Oszczedzasz 31%' },
+  LIFETIME: { display: '799,00 PLN', period: 'jednorazowo',savings: 'Raz na zawsze' },
 };
 
 class IAPServiceClass {

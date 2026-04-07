@@ -3,6 +3,7 @@ import { StyleSheet, View, ViewStyle, StyleProp } from 'react-native';
 import { useAppStore } from '../store/useAppStore';
 import { getResolvedTheme } from '../core/theme/tokens';
 import { Typography } from './Typography';
+import { useTheme } from '../core/hooks/useTheme';
 
 interface SectionHeadingProps {
   eyebrow?: string;
@@ -34,10 +35,7 @@ export const SectionHeading: React.FC<SectionHeadingProps> = ({
   style,
   centered,
 }) => {
-  const { themeName } = useAppStore();
-  const theme = getResolvedTheme(themeName);
-  const isLight = theme.background.startsWith('#F');
-
+  const { currentTheme: theme, isLight } = useTheme();
   return (
     <View style={[styles.container, !centered && styles.leftAccent, { borderLeftColor: theme.primary + '55' }, style, centered && styles.centered]}>
       {eyebrow ? (

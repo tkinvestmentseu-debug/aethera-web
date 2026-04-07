@@ -1,0 +1,20 @@
+{
+  "actions": {
+    "clear": "Effacer",
+    "confirm": "Confirmer",
+    "cancel": "Annuler",
+    "delete": "Supprimer"
+  },
+  "labels": {
+    "center": "Centre",
+    "relationships": "Reportages",
+    "agency": "Autonomie",
+    "lesson": "Leçon",
+    "path": "La route"
+  },
+  "status": {
+    "todayActive": "active aujourd'hui",
+    "now": "MAINTENANT",
+    "past": "PRÉCÉDENTES"
+  }
+}

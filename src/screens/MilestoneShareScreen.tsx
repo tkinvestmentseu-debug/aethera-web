@@ -69,7 +69,7 @@ import {
   Users,
 } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 const GOLD = '#D4AF37';
 const GOLD2 = '#CEAE72';
@@ -564,7 +564,7 @@ const NextMilestoneBar = ({
           {current}/{total}
         </Text>
       </View>
-      <View style={[styles.progressTrack, { backgroundColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)' }]}>
+      <View style={[styles.progressTrack, { backgroundColor: isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)' }]}>
         <Animated.View style={[styles.progressFill, barStyle, { backgroundColor: color }]} />
       </View>
     </View>
@@ -577,14 +577,12 @@ export const MilestoneShareScreen = ({ route, navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { badge } = route?.params || {};
-  const {
-    themeName, userData,
-    meditationSessions, breathworkSessions,
-    gratitudeEntries, journalEntries,
-  } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const meditationSessions = useAppStore(s => s.meditationSessions);
+  const breathworkSessions = useAppStore(s => s.breathworkSessions);
+  const gratitudeEntries = useAppStore(s => s.gratitudeEntries);
+  const journalEntries = useAppStore(s => s.journalEntries);
+  const { currentTheme, isLight } = useTheme();
   const [copied, setCopied] = useState(false);
   const [burst, setBurst] = useState(0);
   const copiedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -638,12 +636,12 @@ export const MilestoneShareScreen = ({ route, navigation }: any) => {
 
   // Theme vars
   const cardBg = isLight ? 'rgba(255,252,245,0.96)' : 'rgba(12,8,22,0.90)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.08)';
-  const subText = isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.50)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
+  const subText = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)';
   const bodyText = isLight ? 'rgba(0,0,0,0.80)' : 'rgba(255,255,255,0.82)';
-  const sectionBg = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)';
-  const sectionBorder = isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)';
-  const divColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const sectionBg = isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.04)';
+  const sectionBorder = isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.06)';
+  const divColor = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)';
 
   const { color, color2, emoji, rarity, rarityColor, archetype, quote, quoteAuthor,
     affirmation, nextMilestone, nextMilestonePts, celebration } = milestoneData;

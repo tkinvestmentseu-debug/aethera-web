@@ -466,7 +466,9 @@ const PortalGateway = ({ accentColor, openScale }) => {
 // ─── Main MagicEntryScreen ────────────────────────────────────────────────────
 export const MagicEntryScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
-  const { themeName, userData, setOnboarded } = useAppStore();
+    const themeName = useAppStore(s => s.themeName);
+  const userData = useAppStore(s => s.userData);
+  const setOnboarded = useAppStore(s => s.setOnboarded);
 
   const name        = userData?.name || 'Podróżniku';
   const birthDate   = userData?.birthDate || '';

@@ -45,7 +45,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 // ── Constants ─────────────────────────────────────────────────────────────────
 
 const { width: SW } = Dimensions.get('window');
@@ -426,13 +426,15 @@ const AnimatedCoin = ({ isHeads, spinning, delay, accent }: {
 
 export function IChingScreen({ navigation }: { navigation: any }) {
   const { t } = useTranslation();
-  const { themeName, userData, favoriteItems, addFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+    const userData = useAppStore(s => s.userData);
+  const favoriteItems = useAppStore(s => s.favoriteItems);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
   const textColor = isLight ? '#1A1A2E' : '#EDE8F0';
   const subColor = isLight ? 'rgba(30,20,60,0.55)' : 'rgba(220,210,240,0.55)';
-  const borderColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const borderColor = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)';
 
   // Coin state
   const [coinHeads, setCoinHeads] = useState([false, false, false]);
@@ -560,7 +562,9 @@ Proszę o głęboką interpretację I Ching w języku użytkownika (ok. 150 sł�
   };
 
   return (
-    <SafeAreaView edges={['top']} style={[styles.root, { backgroundColor: currentTheme.background }]}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView edges={['top']} style={[styles.root, {}]}>
+
       {/* Header */}
       <View style={styles.header}>
         <Pressable onPress={() => goBackOrToMainTab(navigation, 'Worlds')} style={styles.headerBtn} hitSlop={8}>
@@ -841,7 +845,8 @@ Proszę o głęboką interpretację I Ching w języku użytkownika (ok. 150 sł�
           <EndOfContentSpacer size="standard" />
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 }
 

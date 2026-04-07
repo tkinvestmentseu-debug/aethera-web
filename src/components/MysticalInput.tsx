@@ -20,9 +20,8 @@ import {
   Platform,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useAppStore } from '../store/useAppStore';
-import { getResolvedTheme } from '../core/theme/tokens';
 import { layout } from '../core/theme/designSystem';
+import { useTheme } from '../core/hooks/useTheme';
 
 interface MysticalInputProps extends TextInputProps {
   containerStyle?: StyleProp<ViewStyle>;
@@ -32,10 +31,8 @@ interface MysticalInputProps extends TextInputProps {
 
 export const MysticalInput = forwardRef<TextInput, MysticalInputProps>(
   ({ containerStyle, onFocus, onBlur, onFocusScroll, style, ...rest }, ref) => {
-    const { themeName } = useAppStore();
-    const theme = getResolvedTheme(themeName);
-    const isLight = theme.background.startsWith('#F');
     const [focused, setFocused] = useState(false);
+    const { currentTheme: theme, isLight } = useTheme();
 
     // Animated border glow
     const glowAnim = useRef(new RNAnimated.Value(0)).current;

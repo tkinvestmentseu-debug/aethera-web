@@ -32,7 +32,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const CRYSTAL_ACCENT = '#8B5CF6';
 const MIRROR_ACCENT = '#C0C4D0';
@@ -386,7 +386,7 @@ const ScryingRitual = ({
 
   if (!running) {
     return (
-      <View style={[styles.ritualCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : accent + '0E', borderColor: 'transparent' }]}>
+      <View style={[styles.ritualCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : accent + '0E', borderColor: 'transparent' }]}>
         <LinearGradient colors={[accent + '12', 'transparent']} style={StyleSheet.absoluteFill} />
         <Eye color={accent} size={22} strokeWidth={1.6} />
         <Text style={[styles.ritualTitle, { color: textColor }]}>Rytuał wchodzenia w trans</Text>
@@ -402,7 +402,7 @@ const ScryingRitual = ({
 
   const current = RITUAL_STEPS[step];
   return (
-    <View style={[styles.ritualCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : accent + '12', borderColor: 'transparent' }]}>
+    <View style={[styles.ritualCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : accent + '12', borderColor: 'transparent' }]}>
       <LinearGradient colors={[accent + '18', 'transparent']} style={StyleSheet.absoluteFill} />
       <Text style={[styles.ritualStepNum, { color: accent }]}>{step + 1} / {RITUAL_STEPS.length}</Text>
       <Animated.View style={[{ alignItems: 'center' }, fadeStyle]}>
@@ -426,13 +426,16 @@ const ScryingRitual = ({
 export const CrystalBallScreen = ({ navigation, route }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem, userData } = useAppStore();
-  const theme = getResolvedTheme(themeName);
-  const isLight = theme.background.startsWith('#F');
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const userData = useAppStore(s => s.userData);
+  const {currentTheme, isLight} = useTheme();
+  const theme = currentTheme;
   const textColor  = isLight ? '#1A1410' : '#F5F1EA';
   const subColor   = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg     = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const borderColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
+  const cardBg     = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
+  const borderColor = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)';
 
   const initialMode = route?.params?.mode as Mode | undefined;
   const [mode, setMode] = useState<Mode>(
@@ -634,7 +637,7 @@ Pisz w języku użytkownika.`;
           const hColor = v.horizon === 'teraz' ? accent : v.horizon === 'wkrótce' ? '#F59E0B' : '#10B981';
           return (
             <Animated.View key={idx} entering={FadeInUp.delay(idx * 80).duration(500)}>
-              <View style={[styles.visionCard, { borderColor: 'transparent', backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : hColor + '10' }]}>
+              <View style={[styles.visionCard, { borderColor: 'transparent', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : hColor + '10' }]}>
                 <LinearGradient colors={[hColor + '12', 'transparent']} style={StyleSheet.absoluteFill} />
                 <View style={styles.visionHeader}>
                   <VisionThumb color={hColor} seed={daySeed + idx} />
@@ -657,7 +660,7 @@ Pisz w języku użytkownika.`;
 
   const renderFogSelector = () => (
     <Animated.View entering={FadeInDown.delay(60).duration(500)}>
-      <View style={[styles.fogSection, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
+      <View style={[styles.fogSection, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
         <Text style={[styles.sectionLabel, { color: accent }]}>🌫️ RODZAJ MGŁY — OBSZAR PYTANIA</Text>
         <Text style={[styles.sectionBody, { color: subColor, marginBottom: 12 }]}>
           Kolor mgły wyznacza przestrzeń odczytu. Wybierz obszar, który dotyczy Twojego pytania.
@@ -668,7 +671,7 @@ Pisz w języku użytkownika.`;
             <Pressable
               key={fog.id}
               onPress={() => setSelectedFog(fog.id)}
-              style={[styles.fogRow, { borderColor: 'transparent', backgroundColor: active ? fog.color + '16' : (isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)') }]}
+              style={[styles.fogRow, { borderColor: 'transparent', backgroundColor: active ? fog.color + '16' : (isLight ? 'rgba(240,228,210,0.90)' : 'rgba(255,255,255,0.04)') }]}
             >
               <View style={[styles.fogDot, { backgroundColor: fog.color }]} />
               <View style={{ flex: 1 }}>
@@ -686,7 +689,7 @@ Pisz w języku użytkownika.`;
 
   const renderSymbolInterpreter = () => (
     <Animated.View entering={FadeInDown.delay(180).duration(500)}>
-      <View style={[styles.symbolSection, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
+      <View style={[styles.symbolSection, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
         <Text style={[styles.sectionLabel, { color: accent }]}>🪄 CO WIDZISZ W KULI?</Text>
         <Text style={[styles.sectionBody, { color: subColor, marginBottom: 12 }]}>
           Wskaż symbole, które dostrzegasz. Możesz dodać notatkę i uzyskać osobistą interpretację.
@@ -702,7 +705,7 @@ Pisz w języku użytkownika.`;
                   setSymbolInterp('');
                   setSymbolNote('');
                 }}
-                style={[styles.symbolChip, { borderColor: 'transparent', backgroundColor: active ? cat.color + '20' : (isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)') }]}
+                style={[styles.symbolChip, { borderColor: 'transparent', backgroundColor: active ? cat.color + '20' : (isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.06)') }]}
               >
                 <Text style={styles.symbolEmoji}>{cat.emoji}</Text>
                 <Text style={[styles.symbolLabel, { color: active ? cat.color : subColor }]}>{cat.label}</Text>
@@ -712,14 +715,14 @@ Pisz w języku użytkownika.`;
         </View>
         {selectedSymbol ? (
           <Animated.View entering={FadeInDown.duration(360)}>
-            <View style={[styles.symbolDetail, { borderColor: 'transparent', backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)' }]}>
+            <View style={[styles.symbolDetail, { borderColor: 'transparent', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)' }]}>
               <TextInput
                 value={symbolNote}
                 onChangeText={setSymbolNote}
                 placeholder="Opisz, co dokładnie widzisz... (opcjonalnie)"
                 placeholderTextColor={subColor}
                 multiline
-                style={[styles.symbolInput, { color: textColor, borderColor: 'transparent', backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)' }]}
+                style={[styles.symbolInput, { color: textColor, borderColor: 'transparent', backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)' }]}
               />
               <Pressable
                 onPress={interpretSymbol}
@@ -747,7 +750,7 @@ Pisz w języku użytkownika.`;
     if (sessions.length === 0) return null;
     return (
       <Animated.View entering={FadeInDown.delay(140).duration(500)}>
-        <Pressable onPress={() => setShowHistory(v => !v)} style={[styles.historyToggle, { borderColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)' }]}>
+        <Pressable onPress={() => setShowHistory(v => !v)} style={[styles.historyToggle, { borderColor: isLight ? 'rgba(139,100,42,0.45)' : 'rgba(255,255,255,0.06)' }]}>
           <BookOpen color={accent} size={16} strokeWidth={1.8} />
           <Text style={[styles.historyToggleText, { color: textColor }]}>Historia odczytów ({sessions.length})</Text>
           <ChevronLeft color={subColor} size={16} style={{ transform: [{ rotate: showHistory ? '90deg' : '-90deg' }] }} />
@@ -757,7 +760,7 @@ Pisz w języku użytkownika.`;
           const fc = FOG_TYPES.find(f => f.id === s.fogType)?.color ?? ia;
           return (
             <Animated.View key={s.id} entering={FadeInUp.delay(i * 50).duration(400)}>
-              <View style={[styles.historyCard, { borderColor: 'transparent', backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : ia + '0E' }]}>
+              <View style={[styles.historyCard, { borderColor: 'transparent', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : ia + '0E' }]}>
                 <LinearGradient colors={[ia + '10', 'transparent']} style={StyleSheet.absoluteFill} />
                 <View style={styles.historyMeta}>
                   <View style={[styles.historyFogDot, { backgroundColor: fc }]} />
@@ -776,7 +779,7 @@ Pisz w języku użytkownika.`;
 
   const renderWeeklySchedule = () => (
     <Animated.View entering={FadeInDown.delay(220).duration(500)}>
-      <View style={[styles.scheduleSection, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
+      <View style={[styles.scheduleSection, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
         <Text style={[styles.sectionLabel, { color: accent }]}>📅 HARMONOGRAM TYGODNIOWY</Text>
         <Text style={[styles.sectionBody, { color: subColor, marginBottom: 14 }]}>
           Każdy dzień tygodnia rządzi inna planeta, wpływając na jakość i głębię wizji kryształowej.
@@ -787,7 +790,7 @@ Pisz w języku użytkownika.`;
             <View
               key={day.day}
               style={[styles.scheduleRow, {
-                borderBottomColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)',
+                borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)',
                 backgroundColor: isToday ? day.color + '10' : 'transparent',
               }]}
             >
@@ -882,7 +885,7 @@ Pisz w języku użytkownika.`;
                 <Pressable
                   key={opt.id}
                   onPress={() => setMode(opt.id)}
-                  style={[styles.modeChip, { borderColor: active ? accent + '55' : 'transparent', backgroundColor: active ? accent + '20' : (isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)') }]}
+                  style={[styles.modeChip, { borderColor: active ? accent + '55' : 'transparent', backgroundColor: active ? accent + '20' : (isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.06)') }]}
                 >
                   <Text style={[styles.modeChipText, { color: active ? accent : subColor }]}>{opt.label}</Text>
                 </Pressable>
@@ -891,7 +894,7 @@ Pisz w języku użytkownika.`;
           </Animated.View>
 
           {/* ── Chambers card ───────────────────────────────────────────── */}
-          <Animated.View entering={FadeInDown.delay(100).duration(520)} style={[styles.chambersCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
+          <Animated.View entering={FadeInDown.delay(100).duration(520)} style={[styles.chambersCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
             <LinearGradient colors={[accent + '16', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
             <Typography variant="premiumLabel" color={accent}>Komnaty kryształu</Typography>
             <View style={styles.chambersGrid}>
@@ -915,7 +918,7 @@ Pisz w języku użytkownika.`;
 
           {/* ── Mode hero card ───────────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(120).duration(520)}>
-            <View style={[styles.heroCard, styles.modeHeroCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : accent + '0C', borderColor: 'transparent' }]}>
+            <View style={[styles.heroCard, styles.modeHeroCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : accent + '0C', borderColor: 'transparent' }]}>
               <LinearGradient colors={[accent + '14', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
               <Text style={[styles.cardEyebrow, { color: accent }]}>{modeMeta.eyebrow}</Text>
               <Text style={[styles.modeHeroTitle, { color: textColor }]}>{modeMeta.title}</Text>
@@ -929,7 +932,7 @@ Pisz w języku użytkownika.`;
           {mode === 'daily' ? (
             <>
               <Animated.View entering={FadeInUp.delay(120).duration(520)} onLayout={e => setOracleAnchorY(e.nativeEvent.layout.y)}>
-                <View style={[styles.heroCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : crystal.color + '12', borderColor: 'transparent' }]}>
+                <View style={[styles.heroCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : crystal.color + '12', borderColor: 'transparent' }]}>
                   <LinearGradient colors={[crystal.color + '16', 'transparent']} style={StyleSheet.absoluteFill} />
                   <Text style={[styles.cardEyebrow, { color: crystal.color }]}>DZIŚ PRACUJESZ Z ENERGIĄ</Text>
                   <View style={styles.crystalHeroRow}>
@@ -943,7 +946,7 @@ Pisz w języku użytkownika.`;
               </Animated.View>
 
               <Animated.View entering={FadeInUp.delay(170).duration(520)}>
-                <View style={[styles.sectionCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
+                <View style={[styles.sectionCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
                   <View style={styles.sectionHead}>
                     <Gem color={crystal.color} size={16} strokeWidth={1.8} />
                     <Text style={[styles.sectionLabel, { color: crystal.color }]}>✨ WŁAŚCIWOŚCI</Text>
@@ -954,11 +957,11 @@ Pisz w języku użytkownika.`;
 
               <Animated.View entering={FadeInUp.delay(220).duration(520)}>
                 <View style={styles.dualRow}>
-                  <View style={[styles.dualCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
+                  <View style={[styles.dualCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
                     <Text style={[styles.sectionLabel, { color: crystal.color }]}>JAK UŻYĆ</Text>
                     <Text style={[styles.sectionBody, { color: textColor }]}>{crystal.use}</Text>
                   </View>
-                  <View style={[styles.dualCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
+                  <View style={[styles.dualCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
                     <Text style={[styles.sectionLabel, { color: crystal.color }]}>MINI RYTUAŁ</Text>
                     <Text style={[styles.sectionBody, { color: textColor }]}>{crystal.ritual}</Text>
                   </View>
@@ -966,7 +969,7 @@ Pisz w języku użytkownika.`;
               </Animated.View>
 
               <Animated.View entering={FadeInUp.delay(270).duration(540)}>
-                <View style={[styles.sectionCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : crystal.color + '10', borderColor: 'transparent' }]}>
+                <View style={[styles.sectionCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : crystal.color + '10', borderColor: 'transparent' }]}>
                   <LinearGradient colors={[crystal.color + '14', 'transparent']} style={StyleSheet.absoluteFill} />
                   <Text style={[styles.sectionLabel, { color: crystal.color }]}>AFIRMACJA KRYSZTAŁU</Text>
                   <View style={styles.speakRow}>
@@ -986,7 +989,7 @@ Pisz w języku użytkownika.`;
               {/* Chakra section */}
               {CRYSTAL_CHAKRA[crystal.name] ? (
                 <Animated.View entering={FadeInUp.delay(320).duration(520)}>
-                  <View style={[styles.newSection, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : CRYSTAL_CHAKRA[crystal.name].color + '0E', borderColor: 'transparent' }]}>
+                  <View style={[styles.newSection, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : CRYSTAL_CHAKRA[crystal.name].color + '0E', borderColor: 'transparent' }]}>
                     <LinearGradient colors={[CRYSTAL_CHAKRA[crystal.name].color + '14', 'transparent']} style={StyleSheet.absoluteFill} />
                     <Text style={[styles.sectionLabel, { color: CRYSTAL_CHAKRA[crystal.name].color }]}>🌸 KRYSZTAŁ I CHAKRY</Text>
                     <View style={styles.chakraRow}>
@@ -1003,7 +1006,7 @@ Pisz w języku użytkownika.`;
 
               {/* Cleansing section */}
               <Animated.View entering={FadeInUp.delay(340).duration(520)}>
-                <View style={[styles.newSection, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
+                <View style={[styles.newSection, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
                   <Text style={[styles.sectionLabel, { color: accent }]}>🔮 OCZYSZCZANIE I PROGRAMOWANIE</Text>
                   <Text style={[styles.sectionBody, { color: subColor, marginBottom: 14 }]}>
                     Regularne oczyszczanie pozwala kryształowi pracować z pełną mocą. Wybierz metodę bliską Tobie dziś.
@@ -1015,7 +1018,7 @@ Pisz w języku użytkownika.`;
                         <Pressable
                           key={idx}
                           onPress={() => setCleansingMethod(idx)}
-                          style={[styles.cleansingChip, { borderColor: 'transparent', backgroundColor: active ? accent + '22' : (isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)') }]}
+                          style={[styles.cleansingChip, { borderColor: 'transparent', backgroundColor: active ? accent + '22' : (isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.06)') }]}
                         >
                           <Text style={styles.cleansingChipEmoji}>{m.emoji}</Text>
                           <Text style={[styles.cleansingChipLabel, { color: active ? accent : subColor }]}>{m.label}</Text>
@@ -1029,7 +1032,7 @@ Pisz w języku użytkownika.`;
 
               {/* What to do section */}
               <Animated.View entering={FadeInUp.delay(360).duration(520)}>
-                <View style={[styles.newSection, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
+                <View style={[styles.newSection, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
                   <Text style={[styles.sectionLabel, { color: accent }]}>✦ CO DZIŚ MOŻESZ ZROBIĆ Z TYM KRYSZTAŁEM</Text>
                   {[
                     { label: 'Medytacja z kryształem', route: 'Meditation', params: undefined },
@@ -1040,7 +1043,7 @@ Pisz w języku użytkownika.`;
                     <Pressable
                       key={item.route}
                       onPress={() => navigation.navigate(item.route, item.params)}
-                      style={[styles.codalejRow, { borderBottomColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)', borderBottomWidth: idx < arr.length - 1 ? StyleSheet.hairlineWidth : 0 }]}
+                      style={[styles.codalejRow, { borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)', borderBottomWidth: idx < arr.length - 1 ? StyleSheet.hairlineWidth : 0 }]}
                     >
                       <View style={styles.codalejLeft}>
                         <View style={[styles.codalejDot, { backgroundColor: accent }]} />
@@ -1077,7 +1080,7 @@ Pisz w języku użytkownika.`;
 
               {/* Question input with templates */}
               <Animated.View entering={FadeInUp.delay(120).duration(520)} onLayout={e => setOracleAnchorY(e.nativeEvent.layout.y)}>
-                <View style={[styles.sectionCard, { borderColor: 'transparent', overflow: 'hidden', backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : accent + '12', shadowColor: accent, shadowOpacity: 0.18, shadowRadius: 20, elevation: 8 }]}>
+                <View style={[styles.sectionCard, { borderColor: 'transparent', overflow: 'hidden', backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : accent + '12', shadowColor: accent, shadowOpacity: 0.18, shadowRadius: 20, elevation: 8 }]}>
                   <LinearGradient colors={[accent + '18', 'transparent'] as const} style={StyleSheet.absoluteFill} />
                   <LinearGradient
                     colors={['transparent', accent + '88', 'transparent'] as [string, string, string]}
@@ -1144,7 +1147,7 @@ Pisz w języku użytkownika.`;
               {sessions.length > 0 ? (
                 <>
                   <Animated.View entering={FadeInUp.delay(150).duration(520)}>
-                    <View style={[styles.sectionCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : accent + '0A', borderColor: 'transparent' }]}>
+                    <View style={[styles.sectionCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : accent + '0A', borderColor: 'transparent' }]}>
                       <Text style={[styles.cardEyebrow, { color: accent }]}>ARCHIWUM ODCZYTÓW</Text>
                       <Text style={[styles.sectionBody, { color: subColor }]}>
                         Każda odpowiedź zostaje tu jako ślad. Wyrocznia i zwierciadło budują własną pamięć interpretacji.
@@ -1156,7 +1159,7 @@ Pisz w języku użytkownika.`;
                     const ia = item.mode === 'mirror' ? MIRROR_ACCENT : CRYSTAL_ACCENT;
                     return (
                       <Animated.View key={item.id} entering={FadeInUp.delay(170 + index * 40).duration(460)}>
-                        <View style={[styles.answerCard, { borderColor: 'transparent', backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : ia + '10', overflow: 'hidden', shadowColor: ia, shadowOpacity: 0.20, shadowRadius: 20, shadowOffset: { width: 0, height: 6 }, elevation: 8 }]}>
+                        <View style={[styles.answerCard, { borderColor: 'transparent', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : ia + '10', overflow: 'hidden', shadowColor: ia, shadowOpacity: 0.20, shadowRadius: 20, shadowOffset: { width: 0, height: 6 }, elevation: 8 }]}>
                           <LinearGradient colors={[ia + '20', 'transparent', ia + '08'] as const} start={{ x: 0, y: 0 }} end={{ x: 0.5, y: 1 }} style={StyleSheet.absoluteFill} />
                           <LinearGradient
                             colors={['transparent', ia + '99', 'transparent'] as [string, string, string]}

@@ -3,12 +3,11 @@ import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-na
 import { Pressable, StyleSheet, ViewStyle, StyleProp, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Haptics from 'expo-haptics';
-import { useAppStore } from '../store/useAppStore';
-import { getResolvedTheme } from '../core/theme/tokens';
 import { Typography } from './Typography';
 import { shadows } from '../core/theme/designSystem';
 import { AudioService } from '../core/services/audio.service';
 import { HapticsService } from '../core/services/haptics.service';
+import { useTheme } from '../core/hooks/useTheme';
 
 interface PremiumButtonProps {
   label: string;
@@ -27,9 +26,7 @@ export const PremiumButton: React.FC<PremiumButtonProps> = ({
   style,
   disabled,
 }) => {
-  const { themeName, experience } = useAppStore();
-  const theme = getResolvedTheme(themeName);
-  const isLight = theme.background.startsWith('#F');
+  const { currentTheme: theme, isLight } = useTheme();
   const scale = useSharedValue(1);
 
   const handlePressIn = () => {

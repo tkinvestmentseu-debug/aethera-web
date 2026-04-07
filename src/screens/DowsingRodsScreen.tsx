@@ -27,7 +27,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#FBBF24';
 const SP = layout.padding.screen;
@@ -359,7 +359,7 @@ const EnergyMeter = ({ value, isLight }) => {
           </RadialGradient>
         </Defs>
         <Circle cx={80} cy={80} r={70} fill="url(#emglow)" />
-        <Circle cx={80} cy={80} r={60} fill="none" stroke={isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)'} strokeWidth={10} />
+        <Circle cx={80} cy={80} r={60} fill="none" stroke={isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)'} strokeWidth={10} />
         <Circle
           cx={80} cy={80} r={60}
           fill="none"
@@ -383,12 +383,14 @@ const EnergyMeter = ({ value, isLight }) => {
 export const DowsingRodsScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem, userData } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A1108' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.65)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.65)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
   const cardBorder = ACCENT + '33';
 
   // Core state
@@ -753,7 +755,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
             {/* ── Question Categories ───────────────────────────── */}
             <Animated.View entering={FadeInDown.delay(130).duration(460)} style={{ marginHorizontal: SP, marginBottom: 14 }}>
               <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>KATEGORIE PYTAŃ</Text>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingRight: 4 }}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingRight: 22 }}>
                 {QUESTION_CATEGORIES.map((cat) => {
                   const CatIcon = cat.icon;
                   const isActive = activeCategory === cat.id;
@@ -806,7 +808,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
             {/* ── Quick questions (quick tap chips) ────────────── */}
             <Animated.View entering={FadeInDown.delay(140).duration(480)} style={{ marginHorizontal: SP, marginBottom: 12 }}>
               <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 8 }]}>SZYBKIE PYTANIA</Text>
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingRight: 4 }}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingRight: 22 }}>
                 {QUICK_QUESTIONS.map((q, i) => (
                   <Pressable
                     key={i}
@@ -928,7 +930,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
                     { label: 'NIE', val: stats.no, color: '#EF4444' },
                     { label: 'MOŻE', val: stats.maybe, color: '#A78BFA' },
                   ].map((st, i) => (
-                    <View key={st.label} style={[s.statItem, i > 0 && { borderLeftWidth: 1, borderLeftColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)' }]}>
+                    <View key={st.label} style={[s.statItem, i > 0 && { borderLeftWidth: 1, borderLeftColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)' }]}>
                       <Text style={[s.statVal, { color: st.color || textColor }]}>{st.val}</Text>
                       <Text style={[s.statLabel, { color: subColor }]}>{st.label}</Text>
                     </View>
@@ -941,7 +943,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
             <Animated.View entering={FadeInDown.delay(230).duration(460)} style={[s.responseGuide, { backgroundColor: cardBg, borderColor: ACCENT + '33', marginHorizontal: SP }]}>
               <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>ZNACZENIE ODPOWIEDZI</Text>
               {Object.values(ANSWER_TYPES).map((at) => (
-                <View key={at.label} style={[s.responseRow, { borderBottomColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)' }]}>
+                <View key={at.label} style={[s.responseRow, { borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)' }]}>
                   <View style={[s.responseBadge, { backgroundColor: at.color + '22' }]}>
                     <Text style={{ fontSize: 10, fontWeight: '800', color: at.color, letterSpacing: 0.5 }}>{at.label}</Text>
                   </View>
@@ -1075,7 +1077,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
                                 onChangeText={setNoteInput}
                                 placeholder="Twoja notatka o trafności..."
                                 placeholderTextColor={subColor}
-                                style={[s.noteInput, { color: textColor, borderColor: ACCENT + '44', backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)' }]}
+                                style={[s.noteInput, { color: textColor, borderColor: ACCENT + '44', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)' }]}
                                 autoFocus
                               />
                               <View style={{ flexDirection: 'row', gap: 10, marginTop: 4 }}>
@@ -1157,7 +1159,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
                 }]} />
               ))}
             </View>
-            <View style={[s.calibStepCard, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)', borderColor: ACCENT + '33' }]}>
+            <View style={[s.calibStepCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)', borderColor: ACCENT + '33' }]}>
               <Text style={[s.calibStepLabel, { color: ACCENT }]}>{CALIBRATION_STEPS[calibStep].label}</Text>
               <Text style={[s.calibStepInstruction, { color: textColor }]}>{CALIBRATION_STEPS[calibStep].instruction}</Text>
               <Text style={[s.calibStepMotion, { color: subColor }]}>{CALIBRATION_STEPS[calibStep].motion}</Text>

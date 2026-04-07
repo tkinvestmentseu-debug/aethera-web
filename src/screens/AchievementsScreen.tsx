@@ -28,7 +28,8 @@ import {
   Lock, Award, Flame, Crown, Shield, Target, Wind, Music, Gem, Eye,
 } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
-
+import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 const ACCENT = '#CEAE72';
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
@@ -509,17 +510,17 @@ function AchievementCard({ item, stats, isLight, index }: {
   const cardBg = isLight
     ? earned
       ? `${catColor}18`
-      : 'rgba(0,0,0,0.04)'
+      : 'rgba(255,255,255,0.88)'
     : earned
       ? `${catColor}14`
       : 'rgba(255,255,255,0.05)';
 
   const cardBorder = isLight
-    ? earned ? `${catColor}55` : 'rgba(0,0,0,0.08)'
+    ? earned ? `${catColor}55` : 'rgba(122,95,54,0.18)'
     : earned ? `${catColor}44` : 'rgba(255,255,255,0.08)';
 
   const textColor = isLight ? '#1A1A2E' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.5)';
 
   return (
     <Animated.View entering={FadeInDown.delay(index * 40).springify()}>
@@ -531,7 +532,7 @@ function AchievementCard({ item, stats, isLight, index }: {
       >
         <LinearGradient
           colors={isLight
-            ? [earned ? `${catColor}20` : 'rgba(0,0,0,0.03)', earned ? `${catColor}08` : 'rgba(0,0,0,0.01)']
+            ? [earned ? `${catColor}20` : 'rgba(240,228,210,0.90)', earned ? `${catColor}08` : 'rgba(0,0,0,0.01)']
             : [earned ? `${catColor}18` : 'rgba(255,255,255,0.06)', 'rgba(0,0,0,0.0)']
           }
           style={[styles.achCard, { borderColor: cardBorder, backgroundColor: cardBg }]}
@@ -539,7 +540,7 @@ function AchievementCard({ item, stats, isLight, index }: {
           {/* Lock overlay for locked items */}
           {!earned && (
             <View style={styles.achLockBadge}>
-              <Lock size={11} color={isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.35)'} />
+              <Lock size={11} color={isLight ? 'rgba(0,0,0,0.58)' : 'rgba(255,255,255,0.35)'} />
             </View>
           )}
 
@@ -547,7 +548,7 @@ function AchievementCard({ item, stats, isLight, index }: {
           <View style={[styles.achEmoji, {
             backgroundColor: earned
               ? (isLight ? `${catColor}28` : `${catColor}20`)
-              : (isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)'),
+              : (isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.06)'),
             borderColor: earned ? `${catColor}55` : 'transparent',
             borderWidth: 1,
             opacity: earned ? 1 : 0.45,
@@ -568,7 +569,7 @@ function AchievementCard({ item, stats, isLight, index }: {
             <Text style={[styles.achDesc, { color: subColor }]} numberOfLines={2}>{item.desc}</Text>
 
             {/* Progress bar */}
-            <View style={[styles.progressBg, { backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', marginTop: 8 }]}>
+            <View style={[styles.progressBg, { backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)', marginTop: 8 }]}>
               <View style={[styles.progressFill, {
                 width: `${pct * 100}%`,
                 backgroundColor: earned ? catColor : `${catColor}88`,
@@ -597,7 +598,7 @@ function StatCard({ label, value, icon, color, isLight }: {
 }) {
   const Icon = icon;
   const textColor = isLight ? '#1A1A2E' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)';
+  const subColor = isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)';
   const cardBg = isLight ? `${color}14` : `${color}10`;
   return (
     <LinearGradient
@@ -614,13 +615,20 @@ function StatCard({ label, value, icon, color, isLight }: {
 // ─── Main Screen ───────────────────────────────────────────────────────────────
 export const AchievementsScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
+  const { currentTheme, isLight } = useTheme();
   const insets = useSafeAreaInsets();
-  const {
-    addFavoriteItem, isFavoriteItem, userData, themeName,
-    meditationSessions, breathworkSessions, streaks,
-    dailyProgress, gratitudeEntries, intentionCards,
-    favoriteAffirmations,
-  } = useAppStore();
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const userData = useAppStore(s => s.userData);
+  const themeName = useAppStore(s => s.themeName);
+  const themeMode = useAppStore(s => s.themeMode);
+  const meditationSessions = useAppStore(s => s.meditationSessions);
+  const breathworkSessions = useAppStore(s => s.breathworkSessions);
+  const streaks = useAppStore(s => s.streaks);
+  const dailyProgress = useAppStore(s => s.dailyProgress);
+  const gratitudeEntries = useAppStore(s => s.gratitudeEntries);
+  const intentionCards = useAppStore(s => s.intentionCards);
+  const favoriteAffirmations = useAppStore(s => s.favoriteAffirmations);
 
   const { entries: journalEntries } = useJournalStore();
   const { pastReadings } = useTarotStore();
@@ -628,13 +636,10 @@ export const AchievementsScreen = ({ navigation }: any) => {
 
   const [activeCategory, setActiveCategory] = useState('Wszystko');
   const [showUpcoming, setShowUpcoming] = useState(true);
-
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
   const textColor = isLight ? '#1A1A2E' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)';
-  const borderColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.5)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.06)';
+  const borderColor = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)';
 
   // ─── Compute stats ─────────────────────────────────────────────────────────
   const stats = useMemo(() => {
@@ -735,10 +740,12 @@ export const AchievementsScreen = ({ navigation }: any) => {
     : ['#05030E', '#0D0820', '#05030E'];
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: currentTheme.background }}
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView
+      style={{ flex: 1}}
       edges={['top']}
     >
+
       <LinearGradient colors={bgColors} style={StyleSheet.absoluteFill} />
 
       {/* Header */}
@@ -809,7 +816,7 @@ export const AchievementsScreen = ({ navigation }: any) => {
                 style={[styles.catTab, {
                   backgroundColor: active
                     ? (isLight ? `${catColor}22` : `${catColor}18`)
-                    : (isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.06)'),
+                    : (isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.06)'),
                   borderColor: active ? `${catColor}66` : borderColor,
                 }]}
               >
@@ -873,10 +880,10 @@ export const AchievementsScreen = ({ navigation }: any) => {
           </Animated.View>
         )}
 
-        {/* Spacer */}
-        <View style={{ height: 40 }} />
+        <EndOfContentSpacer />
       </ScrollView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

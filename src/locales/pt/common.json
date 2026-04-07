@@ -1,0 +1,20 @@
+{
+  "actions": {
+    "clear": "Limpar",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "delete": "Apagar"
+  },
+  "labels": {
+    "center": "Centro",
+    "relationships": "Relatos",
+    "agency": "Agência",
+    "lesson": "Aula",
+    "path": "Estrada"
+  },
+  "status": {
+    "todayActive": "hoje ativa",
+    "now": "AGORA",
+    "past": "ANTERIORES"
+  }
+}

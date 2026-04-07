@@ -28,7 +28,7 @@ const NODE_COLORS = {
 };
 
 export const MatrixChart = ({ energies }: MatrixChartProps) => {
-  const { themeName } = useAppStore();
+    const themeName = useAppStore(s => s.themeName);
   const currentTheme = themes[themeName] || themes.dark;
 
   const screenWidth = layout.window.width;

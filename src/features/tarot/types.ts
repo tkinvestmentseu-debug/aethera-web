@@ -32,6 +32,7 @@ export interface TarotDeck {
   patternStyle: 'compass' | 'sunburst' | 'phases' | 'facets' | 'lattice';
   textureLabel: string;
   isPremium?: boolean;
+  imageMap?: Record<string, string | number | any>; // cardId → URI string (remote) OR require() result (local)
 }
 
 export interface TarotSpread {

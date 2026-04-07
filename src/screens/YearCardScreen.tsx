@@ -26,7 +26,8 @@ import {
   Moon, Heart, Zap, Sun, Snowflake, Wind, Leaf, ArrowRight, Eye,
 } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
-
+import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#CEAE72';
 
@@ -261,8 +262,8 @@ const OUTER_R = 108;
 const INNER_R = 72;
 const TEXT_R = 94;
 
-function YearWheelWidget({ personalYear, currentMonth, yearData }: {
-  personalYear: number; currentMonth: number; yearData: any;
+function YearWheelWidget({ personalYear, currentMonth, yearData, isLight }: {
+  personalYear: number; currentMonth: number; yearData: any; isLight?: boolean;
 }) {
   const rotateOuter = useSharedValue(0);
   const pulse = useSharedValue(1);
@@ -421,7 +422,7 @@ function YearWheelWidget({ personalYear, currentMonth, yearData }: {
         {/* Center year number */}
         <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, alignItems: 'center', justifyContent: 'center' }}>
           <Text style={{ color: accentColor, fontSize: 44, fontWeight: '900', letterSpacing: -1 }}>{personalYear}</Text>
-          <Text style={{ color: 'rgba(255,255,255,0.6)', fontSize: 9, fontWeight: '700', letterSpacing: 2.5, marginTop: -4 }}>ROK OSOBISTY</Text>
+          <Text style={{ color: isLight ? 'rgba(37,29,22,0.6)' : 'rgba(255,255,255,0.6)', fontSize: 9, fontWeight: '700', letterSpacing: 2.5, marginTop: -4 }}>ROK OSOBISTY</Text>
         </View>
       </Animated.View>
     </GestureDetector>
@@ -475,7 +476,7 @@ function YearTimeline({ energies, currentMonth, accentColor, isLight }: {
             <SvgText x={p.x} y={TH + 16} textAnchor="middle"
               fontSize={i === currentMonth ? 9 : 7.5}
               fontWeight={i === currentMonth ? 'bold' : 'normal'}
-              fill={i === currentMonth ? accentColor : (isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)')}>
+              fill={i === currentMonth ? accentColor : (isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)')}>
               {MONTH_SHORT[i]}
             </SvgText>
           </G>
@@ -522,7 +523,7 @@ function MonthCard({
       <Pressable onPress={() => { setExpanded(v => !v); HapticsService.notify(); }}>
         <LinearGradient
           colors={isLight
-            ? [isCurrent ? `${color}22` : 'rgba(0,0,0,0.04)', isCurrent ? `${color}0A` : 'rgba(0,0,0,0.01)']
+            ? [isCurrent ? `${color}22` : 'rgba(255,255,255,0.88)', isCurrent ? `${color}0A` : 'rgba(0,0,0,0.01)']
             : [isCurrent ? `${color}18` : 'rgba(255,255,255,0.05)', 'rgba(0,0,0,0)']}
           style={[styles.monthCard, {
             borderColor: isCurrent ? `${color}66` : borderColor,
@@ -550,7 +551,7 @@ function MonthCard({
                     width: 8, height: 4, borderRadius: 2,
                     backgroundColor: i < energy
                       ? (isCurrent ? color : `${color}99`)
-                      : (isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)'),
+                      : (isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)'),
                   }} />
                 ))}
                 <Text style={[styles.energyLabel, { color: subColor }]}>{seasonName}</Text>
@@ -586,14 +587,14 @@ function MonthCard({
 export const YearCardScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { addFavoriteItem, isFavoriteItem, userData, themeName } = useAppStore();
-
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A1A2E' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)';
-  const borderColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.5)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.06)';
+  const borderColor = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)';
 
   const today = new Date();
   const currentYear = today.getFullYear();
@@ -656,10 +657,12 @@ export const YearCardScreen = ({ navigation }: any) => {
     : Array.from({ length: 4 }, (_, i) => (currentMonth + i) % 12);
 
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: currentTheme.background }}
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView
+      style={{ flex: 1}}
       edges={['top']}
     >
+
       <LinearGradient colors={bgColors} style={StyleSheet.absoluteFill} />
 
       {/* Header */}
@@ -685,6 +688,7 @@ export const YearCardScreen = ({ navigation }: any) => {
             personalYear={personalYear}
             currentMonth={currentMonth}
             yearData={yearData}
+            isLight={isLight}
           />
 
           {/* Year name badge */}
@@ -884,7 +888,7 @@ export const YearCardScreen = ({ navigation }: any) => {
             placeholderTextColor={subColor}
             style={[styles.intentionInput, {
               color: textColor,
-              backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)',
+              backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)',
               borderColor,
             }]}
           />
@@ -939,7 +943,7 @@ export const YearCardScreen = ({ navigation }: any) => {
             <View
               key={i}
               style={[styles.tipCard, {
-                backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)',
+                backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)',
                 borderColor,
               }]}
             >
@@ -952,9 +956,10 @@ export const YearCardScreen = ({ navigation }: any) => {
           ))}
         </Animated.View>
 
-        <View style={{ height: 40 }} />
+        <EndOfContentSpacer />
       </ScrollView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

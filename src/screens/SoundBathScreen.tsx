@@ -615,7 +615,7 @@ export const SoundBathScreen: React.FC = () => {
                 ) : null}
                 <Pressable
                   onPress={() => toggle(active)}
-                  style={[styles.stopBtn, { borderColor: vizAccent + '55' }]}
+                  style={[styles.stopBtn, { borderColor: vizAccent + '55', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)' }]}
                 >
                   <Text style={[styles.stopBtnText, { color: vizAccent }]}>Zatrzymaj sesję</Text>
                 </Pressable>

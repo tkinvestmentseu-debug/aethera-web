@@ -42,7 +42,7 @@ import { CATEGORY_TILES } from './RitualsScreen';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#CEAE72';
 
@@ -203,9 +203,9 @@ interface RitualCardProps {
 
 const RitualCard: React.FC<RitualCardProps> = ({ ritual, color, isLight, onPress, delay }) => {
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
   const meta = CATEGORY_TILES.find(c => c.id === ritual.category);
   const Icon = meta?.icon;
 
@@ -262,7 +262,7 @@ const RitualCard: React.FC<RitualCardProps> = ({ ritual, color, isLight, onPress
 
         {/* Bottom row: best moment */}
         {ritual.bestMoment ? (
-          <View style={[styles.bestMomentRow, { borderTopColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)' }]}>
+          <View style={[styles.bestMomentRow, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)' }]}>
             <Typography variant="microLabel" style={{ color: color, fontSize: 10, letterSpacing: 0.5 }}>
               🕐 {ritual.bestMoment.slice(0, 60)}{ritual.bestMoment.length > 60 ? '…' : ''}
             </Typography>
@@ -316,7 +316,7 @@ const FeaturedRitualCard: React.FC<{
 
           <View style={styles.featuredTopRow}>
             <View style={styles.featuredDayBadge}>
-              <Typography variant="microLabel" style={{ color: 'rgba(255,255,255,0.80)', fontSize: 9, letterSpacing: 2 }}>
+              <Typography variant="microLabel" style={[{ color: 'rgba(255,255,255,0.80)', fontSize: 9, letterSpacing: 2 }, isLight && { color: 'rgba(37,29,22,0.85)' }]}>
                 RYTUAŁ DNIA
               </Typography>
             </View>
@@ -399,13 +399,13 @@ const GuidedPathCard: React.FC<{
           </View>
 
           <View style={{ flex: 1, marginLeft: 14 }}>
-            <Typography variant="cardTitle" style={{ color: '#F0EBE2', fontSize: 15, lineHeight: 20 }}>
+            <Typography variant="cardTitle" style={{ color: isLight ? '#251D16' : '#F0EBE2', fontSize: 15, lineHeight: 20 }}>
               {path.title}
             </Typography>
             <Typography variant="microLabel" style={{ color: path.color, fontSize: 10, letterSpacing: 0.5, marginTop: 2, marginBottom: 6 }}>
               {path.sub}
             </Typography>
-            <Typography variant="bodySmall" style={{ color: 'rgba(255,255,255,0.60)', fontSize: 12, lineHeight: 18 }}>
+            <Typography variant="bodySmall" style={{ color: isLight ? 'rgba(37,29,22,0.6)' : 'rgba(255,255,255,0.60)', fontSize: 12, lineHeight: 18 }}>
               {path.desc}
             </Typography>
           </View>
@@ -424,9 +424,9 @@ const SeasonalChips: React.FC<{
   isLight: boolean;
 }> = ({ selected, onSelect, isLight }) => {
   const currentSeason = getCurrentSeason();
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.09)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.06)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.09)';
 
   return (
     <Animated.View entering={FadeInDown.delay(220).duration(460)}>
@@ -491,10 +491,10 @@ const MiniRitualCard: React.FC<{ isLight: boolean }> = ({ isLight }) => {
   const [activeStep, setActiveStep] = useState(0);
   const timerRef = useRef<any>(null);
 
-  const cardBg = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.04)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
 
   const pct = 1 - secondsLeft / MINI_TOTAL_SECONDS;
   const mins = Math.floor(secondsLeft / 60);
@@ -588,7 +588,7 @@ const MiniRitualCard: React.FC<{ isLight: boolean }> = ({ isLight }) => {
         </View>
 
         {/* Steps */}
-        <View style={[styles.miniStepsRow, { borderTopColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)' }]}>
+        <View style={[styles.miniStepsRow, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)' }]}>
           {MINI_STEPS.map((step, i) => {
             const isActive = activeStep === i && (timerRunning || secondsLeft < MINI_TOTAL_SECONDS);
             const isDone = secondsLeft < MINI_TOTAL_SECONDS && i < activeStep;
@@ -601,7 +601,7 @@ const MiniRitualCard: React.FC<{ isLight: boolean }> = ({ isLight }) => {
                     backgroundColor: isActive
                       ? ACCENT + '1A'
                       : isDone
-                      ? isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)'
+                      ? isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)'
                       : 'transparent',
                     borderColor: isActive ? ACCENT + '55' : 'transparent',
                     flex: 1,
@@ -644,9 +644,9 @@ const CoDalejSection: React.FC<{
   navigation: any;
 }> = ({ isLight, navigation }) => {
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.04)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
 
   const actions = [
     {
@@ -722,9 +722,9 @@ const AllCategoriesView: React.FC<{
   subColor: string;
 }> = ({ isLight, navigation, textColor, subColor }) => {
   const { t } = useTranslation();
-  const cardBg = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
-  const divColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
+  const divColor = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)';
 
   const [selectedSeason, setSelectedSeason] = useState<Season | null>(null);
 
@@ -882,12 +882,10 @@ const AllCategoriesView: React.FC<{
 // ── MAIN SCREEN ───────────────────────────────────────────────
 export const RitualCategorySelectionScreen: React.FC<any> = ({ navigation, route }: any) => {
   const insets = useSafeAreaInsets();
-  const { themeName } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
-  const divColor = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
+  const divColor = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)';
 
   // Route params: if categoryId is provided → show filtered rituals; otherwise show all categories
   const categoryId: string | undefined = route?.params?.categoryId;
@@ -952,7 +950,7 @@ export const RitualCategorySelectionScreen: React.FC<any> = ({ navigation, route
             <>
               {/* Category hero banner */}
               <Animated.View entering={FadeInDown.delay(80).duration(500)}>
-                <View style={[styles.heroBanner, { borderColor: categoryColor + '33', backgroundColor: isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)' }]}>
+                <View style={[styles.heroBanner, { borderColor: categoryColor + '33', backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)' }]}>
                   <LinearGradient
                     colors={[categoryColor + '1A', categoryColor + '06']}
                     start={{ x: 0, y: 0 }}

@@ -23,7 +23,7 @@ import { MusicToggleButton } from '../components/MusicToggleButton';
 import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
 import * as Haptics from 'expo-haptics';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#A78BFA';
 
@@ -400,12 +400,12 @@ const ChakraBodyMap = ({ activeId, onTap, isLight }: { activeId: string | null; 
         <Circle cx={cx} cy={28} r={22} stroke={isLight ? "rgba(0,0,0,0.22)" : "rgba(255,255,255,0.25)"} strokeWidth={1.2} fill="none" />
         <Line x1={cx - 8} y1={50} x2={cx - 8} y2={68} stroke={isLight ? "rgba(0,0,0,0.12)" : "rgba(255,255,255,0.15)"} strokeWidth={8} strokeLinecap="round" />
         <Line x1={cx + 8} y1={50} x2={cx + 8} y2={68} stroke={isLight ? "rgba(0,0,0,0.12)" : "rgba(255,255,255,0.15)"} strokeWidth={8} strokeLinecap="round" />
-        <Path d={`M${cx - 28} 68 L${cx - 32} 165 L${cx + 32} 165 L${cx + 28} 68 Z`} stroke={isLight ? "rgba(0,0,0,0.12)" : "rgba(255,255,255,0.15)"} strokeWidth={1} fill={isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.04)"} />
+        <Path d={`M${cx - 28} 68 L${cx - 32} 165 L${cx + 32} 165 L${cx + 28} 68 Z`} stroke={isLight ? "rgba(0,0,0,0.12)" : "rgba(255,255,255,0.15)"} strokeWidth={1} fill={isLight ? "rgba(122,95,54,0.06)" : "rgba(255,255,255,0.04)"} />
         <Path d={`M${cx - 28} 75 L${cx - 48} 145`} stroke={isLight ? "rgba(0,0,0,0.12)" : "rgba(255,255,255,0.15)"} strokeWidth={10} strokeLinecap="round" />
         <Path d={`M${cx + 28} 75 L${cx + 48} 145`} stroke={isLight ? "rgba(0,0,0,0.12)" : "rgba(255,255,255,0.15)"} strokeWidth={10} strokeLinecap="round" />
         <Path d={`M${cx - 18} 165 L${cx - 22} 252`} stroke={isLight ? "rgba(0,0,0,0.12)" : "rgba(255,255,255,0.15)"} strokeWidth={12} strokeLinecap="round" />
         <Path d={`M${cx + 18} 165 L${cx + 22} 252`} stroke={isLight ? "rgba(0,0,0,0.12)" : "rgba(255,255,255,0.15)"} strokeWidth={12} strokeLinecap="round" />
-        <Line x1={cx} y1={50} x2={cx} y2={165} stroke={isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.10)"} strokeWidth={1} strokeDasharray="3 4" />
+        <Line x1={cx} y1={50} x2={cx} y2={165} stroke={isLight ? "rgba(122,95,54,0.18)" : "rgba(255,255,255,0.10)"} strokeWidth={1} strokeDasharray="3 4" />
 
         {CHAKRAS.map((ch) => {
           const y = (ch.bodyY / 100) * bodyHeight;
@@ -465,15 +465,21 @@ const generateBalancePlan = (scores: Record<string, number>): { day: number; cha
 export const ChakraScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, chakraHistory, chakraFocus, addChakraEntry, deleteChakraEntry, setChakraFocus, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const chakraHistory = useAppStore(s => s.chakraHistory);
+  const chakraFocus = useAppStore(s => s.chakraFocus);
+  const addChakraEntry = useAppStore(s => s.addChakraEntry);
+  const deleteChakraEntry = useAppStore(s => s.deleteChakraEntry);
+  const setChakraFocus = useAppStore(s => s.setChakraFocus);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const isDark = !isLight;
   const textColor = isLight ? '#1A1A1A' : '#F0F0F0';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.60)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
-  const dividerColor = isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.08)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.60)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
+  const dividerColor = isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.08)';
 
   const [activeId, setActiveId] = useState<string | null>(chakraFocus);
   const [modalVisible, setModalVisible] = useState(false);

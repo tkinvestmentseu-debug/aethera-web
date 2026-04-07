@@ -94,7 +94,13 @@
     "theme": "主题",
     "dark": "深色",
     "light": "浅色",
-    "auto": "自动"
+    "auto": "自动",
+    "timeAgo": {
+      "justNow": "刚刚",
+      "minAgo": "分钟前",
+      "hrAgo": "小时前",
+      "daysAgo": "天前"
+    }
   },
   "nav": {
     "portal": "入口",
@@ -1454,46 +1460,180 @@
   },
   "community": {
     "title": "社区",
-    "online": "在线",
-    "join": "加入",
-    "leave": "离开",
-    "share": "分享",
-    "comment": "评论",
-    "like": "点赞",
-    "send": "发送",
-    "souls_online": "灵魂在线",
-    "live": "直播",
-    "chronicle": "编年史",
-    "global_stream": "全球动态",
-    "chat": "聊天",
-    "affirmation": "肯定句",
-    "energy_circle": "能量圈",
-    "tarot_community": "社区塔罗",
-    "post_types": {
-      "TAROT": "塔罗",
-      "HOROSKOP": "星座",
-      "MEDYTACJA": "冥想",
-      "SEN": "梦境",
-      "REFLEKSJA": "反思",
-      "AFIRMACJA": "肯定句"
+    "chat": {
+      "title": "社区聊天",
+      "rooms": "房间",
+      "categories": [
+        "全部",
+        "热门",
+        "按话题",
+        "我的"
+      ],
+      "createRoom": "创建房间",
+      "joinByCode": "通过代码加入",
+      "enterCode": "输入邀请码",
+      "join": "加入",
+      "send": "发送",
+      "messagePlaceholder": "写一条消息...",
+      "online": "在线",
+      "roomCreated": "房间已创建！",
+      "inviteCode": "邀请码",
+      "copyCode": "复制代码",
+      "shareRoom": "分享房间",
+      "privateRoom": "私人房间",
+      "publicRoom": "公开房间",
+      "createRoomTitle": "创建新房间",
+      "roomName": "房间名称",
+      "roomDesc": "描述（可选）",
+      "chooseEmoji": "选择表情",
+      "create": "创建",
+      "codeInvalid": "无效代码。请重试。",
+      "joinSuccess": "你已加入房间！",
+      "members": "成员",
+      "noRooms": "暂无房间。创建第一个！"
     },
-    "compose_title": "分享洞察",
-    "compose_placeholder": "你想与灵魂社区分享什么？",
-    "publish": "发布",
-    "reactions": {
-      "resonuje": "共鸣",
-      "prawda": "真理",
-      "czuje": "我有同感"
+    "events": {
+      "title": "活动日历",
+      "upcoming": "即将到来",
+      "mine": "我的活动",
+      "archive": "存档",
+      "today": "今天",
+      "thisWeek": "本周",
+      "later": "稍后",
+      "createEvent": "创建活动",
+      "joinByCode": "通过代码加入",
+      "eventTitle": "活动标题",
+      "eventDesc": "描述",
+      "eventType": "类型",
+      "startTime": "开始时间 (日.月 时:分)",
+      "duration": "时长",
+      "maxParticipants": "最多参与者",
+      "public": "公开",
+      "private": "私密",
+      "rsvp": "报名",
+      "joined": "已报名",
+      "liveJoin": "直播 — 加入",
+      "host": "主持人",
+      "participants": "参与者",
+      "types": {
+        "meditation": "冥想",
+        "ritual": "仪式",
+        "tarot": "塔罗",
+        "meeting": "聚会",
+        "workshop": "工作坊",
+        "astrology": "占星",
+        "breathwork": "呼吸练习",
+        "oracle": "神谕"
+      },
+      "noEvents": "暂无活动。创建第一个！",
+      "inviteCode": "邀请码",
+      "eventCreated": "活动已创建！",
+      "codeInvalid": "无效代码。请重试。",
+      "joinSuccess": "你已加入活动！"
     },
-    "noPostsYet": "尚无社区帖子",
-    "beFirst": "成为第一个分享的灵魂",
-    "liveSession": "直播课程",
-    "joinCircle": "加入圈子",
-    "challenges": "挑战",
-    "rituals": "仪式",
-    "feed": "动态",
-    "members": "成员",
-    "create": "创建"
+    "souls": {
+      "title": "灵魂匹配",
+      "discover": "探索",
+      "connected": "已连接",
+      "history": "历史",
+      "resonance": "共鸣",
+      "connect": "连接",
+      "message": "消息",
+      "iceBreaker": "破冰问题",
+      "noMatches": "未找到匹配。尝试其他筛选条件。",
+      "sortBy": "排序方式",
+      "filterBy": "按原型筛选"
+    },
+    "liveRituals": {
+      "title": "直播仪式",
+      "join": "加入",
+      "joined": "已加入",
+      "live": "直播中",
+      "starting": "即将开始",
+      "upcoming": "即将到来",
+      "participants": "参与者",
+      "checkIn": "签到",
+      "complete": "完成",
+      "host": "主持人",
+      "duration": "时长",
+      "benefits": "益处",
+      "tips": "建议"
+    },
+    "challenges": {
+      "title": "灵性挑战",
+      "join": "加入",
+      "joined": "已加入",
+      "checkIn": "签到",
+      "streak": "连续",
+      "days": "天",
+      "progress": "进度",
+      "ranking": "排名",
+      "createChallenge": "创建挑战",
+      "newChallengeName": "挑战名称...",
+      "benefits": "益处",
+      "tips": "建议",
+      "task": "今日任务"
+    },
+    "affirmations": {
+      "title": "社区冥想语",
+      "vote": "投票",
+      "voted": "已投票",
+      "heroTitle": "本周冥想语",
+      "weekly": "每周冥想语",
+      "archive": "存档",
+      "propose": "提议冥想语",
+      "myProposals": "我的提议",
+      "howItWorks": "投票如何运作？",
+      "copy": "复制",
+      "share": "分享",
+      "shuffle": "随机"
+    },
+    "chronicles": {
+      "title": "社区编年史",
+      "categories": [
+        "全部",
+        "蜕变",
+        "奇迹",
+        "同步性",
+        "疗愈",
+        "幻象"
+      ],
+      "write": "写下你的故事",
+      "trending": "热门",
+      "topAuthors": "顶级作者",
+      "likes": "点赞",
+      "comments": "评论",
+      "read": "阅读数",
+      "storyTitle": "标题",
+      "storyContent": "你的故事...",
+      "publish": "发布"
+    },
+    "energyCircle": {
+      "title": "能量圈",
+      "join": "加入圆圈",
+      "joined": "在圆圈中",
+      "intention": "添加意图",
+      "intentions": "意图",
+      "breathe": "呼吸",
+      "inhale": "吸气",
+      "hold": "屏息",
+      "exhale": "呼气",
+      "syncMeditation": "同步冥想",
+      "participants": "参与者",
+      "energy": "能量",
+      "sessions": "会话",
+      "minutes": "分钟"
+    },
+    "social": {
+      "title": "社区",
+      "greeting": "你好，旅者",
+      "liveNow": "正在直播",
+      "soulMatches": "灵魂匹配",
+      "dreamSymbols": "热门梦境符号",
+      "weeklyChallenge": "每周挑战",
+      "cosmicEvents": "宇宙事件",
+      "communityFeed": "社区动态"
+    }
   },
   "profile": {
     "title": "个人资料",
@@ -2113,5 +2253,276 @@
     "errorEmailInUse": "此电子邮件已被使用。",
     "errorWeakPassword": "密码必须至少6个字符。",
     "errorConnection": "无法登录。请检查你的网络连接。"
+  },
+  "gratitudeWall": {
+    "title": "感恩之墙",
+    "subtitle": "与社区分享感恩",
+    "cat_milosc": "爱",
+    "cat_natura": "自然",
+    "cat_ludzie": "人们",
+    "cat_moment": "时刻",
+    "cat_zmiana": "改变",
+    "placeholder": "你今天感恩什么？",
+    "anonLabel": "匿名",
+    "sendBtn": "发送",
+    "anonSoul": "匿名灵魂",
+    "emptyState": "成为第一个分享感恩的人"
+  },
+  "groupMeditation": {
+    "title": "团体冥想",
+    "subtitle": "每天21:00",
+    "nextSession": "下一次课程将在",
+    "peopleMeditating": "人正在冥想",
+    "meditatingWith": "✦ 您正在与社区一起冥想",
+    "dailyIntention": "今日意图",
+    "activeMeditators": "活跃冥想者",
+    "joinBtn": "加入圆圈",
+    "leaveBtn": "结束冥想"
+  },
+  "synchronicities": {
+    "title": "共时性",
+    "subtitle": "有意义的巧合和迹象",
+    "tag_liczby": "数字",
+    "tag_widzenie": "视觉",
+    "tag_sen": "梦境",
+    "tag_znak": "迹象",
+    "tag_przypadek": "巧合",
+    "placeholder": "描述您所经历的共时性...",
+    "shareBtn": "分享",
+    "fulfilled": "已实现",
+    "fulfillBtn": "✦ 实现了",
+    "unknownSoul": "未知灵魂",
+    "emptyState": "分享您最近经历的共时性"
+  },
+  "social": {
+    "stat": {
+      "votes": "票",
+      "participants": "参与者",
+      "chronicles": "文章·反思",
+      "onlineNow": "灵魂现在在线"
+    },
+    "hero": {
+      "eyebrow": "✦ 宇宙社区",
+      "title": "你已连接",
+      "online": "活跃灵魂现在",
+      "live": "直播"
+    },
+    "hub": {
+      "title": "社区门户",
+      "count": "17个空间"
+    },
+    "section": {
+      "energyCircleTitle": "能量圈",
+      "energyCircleSub": "同步团体冥想",
+      "tarotTitle": "社区塔罗",
+      "tarotSub": "社区今日牌",
+      "liveRitualsTitle": "直播仪式",
+      "liveRitualsSub": "由大师主持的仪式",
+      "matchingTitle": "宇宙匹配",
+      "matchingSub": "灵魂共鸣与能量",
+      "dreamsTitle": "梦境符号集",
+      "dreamsSub": "社区梦境趋势·匿名",
+      "affirmationTitle": "社区肯定语",
+      "affirmationSub": "每24小时投票",
+      "challengesTitle": "灵魂挑战",
+      "challengesSub": "集体转化之路",
+      "intentionsTitle": "意图室",
+      "intentionsSub": "共享显化板",
+      "feedTitle": "意识场",
+      "feedSub": "社区的反思与突破",
+      "mentorsTitle": "灵魂导师",
+      "mentorsSub": "与精神向导的会话",
+      "portalsTitle": "宇宙门户",
+      "portalsSub": "共同的能量庆典",
+      "chronicleTitle": "社区编年史",
+      "chronicleSub": "文章与精神智慧档案"
+    },
+    "energy": {
+      "nextSession": "下一次课程",
+      "ready": "准备好了",
+      "in": "在",
+      "topic": "接地与内心平静",
+      "circleEnergy": "圆圈能量",
+      "highCoherence": "高相干性",
+      "joined": "您已加入圆圈 ✓",
+      "join": "加入圆圈"
+    },
+    "tarot": {
+      "card": "星星",
+      "theme": "希望与更新",
+      "energyLabel": "能量",
+      "comment": "这张牌提醒我，每一片黑暗之后，光明都会回来。",
+      "interpretations": "解释",
+      "addYours": "添加你的解释"
+    },
+    "rituals": {
+      "startFirst": "开始第一个仪式"
+    },
+    "ritual": {
+      "unnamed": "社区仪式",
+      "hostedBy": "主持人:",
+      "host": "社区导师"
+    },
+    "match": {
+      "discover": "发现与你能量共鸣的灵魂",
+      "sub": "基于你的星座和原型",
+      "btn": "找到你的共鸣灵魂"
+    },
+    "dreams": {
+      "mostCommon": "今晚最常见的符号",
+      "addSymbol": "添加来自你梦境的符号"
+    },
+    "affirmation": {
+      "text": "我准备好接受我在自己内心寻找了这么久的爱了。",
+      "confirmed": "的社区确认了",
+      "confirmedState": "已确认",
+      "confirm": "确认"
+    },
+    "intentions": {
+      "yours": "你的意图",
+      "placeholder": "写下你想送给世界的意图...",
+      "send": "发送意图",
+      "sent": "意图已发送 — 社区是见证者 ✓",
+      "witnesses": "见证者"
+    },
+    "feed": {
+      "placeholder": "与社区分享你的反思...",
+      "publish": "发布",
+      "empty": "成为第一个分享的人",
+      "emptySub": "与整个社区分享一个反思",
+      "anonSoul": "匿名灵魂",
+      "reply": "回复"
+    },
+    "mentors": {
+      "discover": "发现灵魂导师",
+      "discoverSub": "与精神向导的私人会话",
+      "mentor": "导师",
+      "sessions": "会话",
+      "book": "预约会话"
+    },
+    "chronicle": {
+      "empty": "写第一篇编年史",
+      "emptySub": "分享你的知识和经验",
+      "by": "作者"
+    },
+    "more": "更多",
+    "moreBtn": "更多",
+    "participants": "参与者",
+    "days": "天",
+    "daysUpper": "天",
+    "voteCount": "票",
+    "challenges": {
+      "completed": "已完成"
+    }
+  },
+  "search": {
+    "placeholder": "搜索屏幕或功能...",
+    "countFound": "找到{{n}}个屏幕，关键词\"{{q}}\"",
+    "countAll": "{{n}}个可用",
+    "noResults": "未找到\"{{q}}\"的相关屏幕"
+  },
+  "spiritualReveal": {
+    "eyebrow": "✦ 你的宇宙肖像",
+    "title": "星星了解你",
+    "starsKnowYou": "星星了解你",
+    "subtitle": "你独特的灵性档案——通过日期、数字和天空揭示。",
+    "zodiacBadge": "星座",
+    "lifePathBadge": "生命数字",
+    "master": " · 大师数",
+    "soulChallenge": "⚡ 灵魂挑战",
+    "ascendantBadge": "上升星座 · 面具",
+    "ctaButton": "进入Aethera ✦",
+    "ctaHint": "你的档案是安全且加密的。你随时可以在设置中编辑它。"
+  },
+  "premium": {
+    "hero": {
+      "title": "AETHERA PREMIUM",
+      "subtitle": "选择你的灵性成长计划"
+    },
+    "plan": {
+      "activePlan": "当前计划",
+      "selectedPlan": "已选计划"
+    },
+    "cta": {
+      "currentPlan": "你的当前计划",
+      "startSoul": "开始灵魂计划 — 59.99/月",
+      "startMaster": "开始大师计划 — 499/年",
+      "cancelHint": "你可以随时取消。",
+      "storeHint": "通过Google Play / App Store安全存储。"
+    },
+    "whySection": {
+      "title": "为何升级",
+      "unlimitedOracle": "无限神谕",
+      "moonRituals": "月亮仪式",
+      "aiDreams": "AI分析梦境",
+      "destinyMatrix": "命运矩阵",
+      "soundBath": "声音浴 & 双耳节拍",
+      "partnerTarot": "伴侣塔罗"
+    },
+    "testimonialsSection": {
+      "title": "灵魂们的声音"
+    },
+    "badges": {
+      "securePayment": "安全支付",
+      "cancelAnytime": "随时取消",
+      "refund": "7天退款"
+    }
+  },
+  "communityEvents": {
+    "title": "活动日历",
+    "upcomingCount": "{{n}}个即将举行",
+    "tab": {
+      "upcoming": "即将举行",
+      "mine": "我的活动",
+      "past": "存档"
+    },
+    "section": {
+      "today": "今天",
+      "thisWeek": "本周",
+      "later": "稍后"
+    },
+    "filter": {
+      "all": "全部",
+      "meditation": "冥想",
+      "ritual": "仪式",
+      "tarot": "塔罗",
+      "meeting": "会议"
+    },
+    "card": {
+      "participants": "参与者",
+      "enterNow": "立即进入",
+      "joined": "已报名",
+      "full": "已满",
+      "enterLive": "🔴 进入直播",
+      "join": "加入"
+    },
+    "modal": {
+      "newEvent": "新活动",
+      "titleLabel": "标题 *",
+      "titlePlaceholder": "活动名称...",
+      "descLabel": "描述",
+      "descPlaceholder": "会议的简短描述...",
+      "coverEmojiLabel": "封面表情",
+      "typeLabel": "类型",
+      "dateLabel": "日期和时间 (DD.MM HH:MM)",
+      "datePlaceholder": "例如: 25.04 20:00",
+      "durationLabel": "持续时间",
+      "maxParticipantsLabel": "最大参与人数",
+      "privateLabel": "私人活动",
+      "privateSubLabel": "仅限邀请码",
+      "creating": "创建中...",
+      "createBtn": "创建活动"
+    },
+    "joinModal": {
+      "title": "通过代码加入",
+      "subtitle": "输入6位邀请码",
+      "joining": "加入中...",
+      "joinBtn": "加入"
+    },
+    "empty": {
+      "title": "没有活动",
+      "mine": "你尚未报名参加任何活动。",
+      "upcoming": "该类别中没有即将举行的活动。"
+    }
   }
 }

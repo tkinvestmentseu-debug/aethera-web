@@ -1,0 +1,29 @@
+{
+  "avgSession": "平均会期",
+  "benefitsTitle": "实践的好处",
+  "chooseAmbient": "环境声音",
+  "duration": "会期",
+  "finish": "芬 兰",
+  "focusBreath": "专心呼吸",
+  "meditationTips": "冥想咨询",
+  "noSessions": "没有保存会话",
+  "pause": "巴拉圭",
+  "readyToBegin": "准备好了吗?",
+  "selectDuration": "自我时间",
+  "sessionHistory": "会议历史",
+  "session_complete": "会议已完成",
+  "sessions": "会议",
+  "start": "启动会话",
+  "streak": "冥想传",
+  "technique": "技术",
+  "techniques": {
+    "body_scan": "主体扫描",
+    "loving_kindness": "爱的善良",
+    "mantra": "满文",
+    "mindfulness": "注意点",
+    "visualization": "视觉"
+  },
+  "tips": "提示",
+  "title": "冥想",
+  "totalTime": "总时间"
+}

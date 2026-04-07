@@ -21,7 +21,7 @@ import { getResolvedTheme } from '../core/theme/tokens';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#818CF8';
 
@@ -139,19 +139,17 @@ const RecurringBadge = ({ active, onToggle, color }: { active: boolean; onToggle
 export const DreamDetailScreen = ({ navigation, route }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData } = useAppStore();
+    const userData = useAppStore(s => s.userData);
+  const { isLight } = useTheme();
   const { updateEntry, deleteEntry } = useJournalStore();
 
   // Accept dream object from params, or id lookup
   const dream = route?.params?.dream;
-
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
   const isDark = !isLight;
   const textColor  = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor   = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.60)';
-  const cardBg     = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const subColor   = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.60)';
+  const cardBg     = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
 
   const [aiLoading, setAiLoading] = useState(false);
   const [aiResult, setAiResult] = useState('');
@@ -168,7 +166,7 @@ export const DreamDetailScreen = ({ navigation, route }: any) => {
   const clarityLevel = dream?.energyLevel ? Math.round(dream.energyLevel / 20) : 0;
   const detectedSymbols = useMemo(() => extractSymbols(dreamText), [dreamText]);
   const entryTags = useMemo(
-    () => (dream?.tags || []).filter(t => t !== 'dream' && DREAM_TAG_OPTIONS.find(o => o.id === t)),
+    () => (dream?.tags || []).filter(tag => tag !== 'dream' && DREAM_TAG_OPTIONS.find(o => o.id === tag)),
     [dream]
   );
 
@@ -242,8 +240,8 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
     setIsRecurring(newVal);
     const currentTags = dream?.tags || [];
     const newTags = newVal
-      ? [...currentTags.filter(t => t !== 'powt'), 'powt']
-      : currentTags.filter(t => t !== 'powt');
+      ? [...currentTags.filter(tag => tag !== 'powt'), 'powt']
+      : currentTags.filter(tag => tag !== 'powt');
     updateEntry(dream.id, { tags: newTags });
   }, [isRecurring, dream, updateEntry]);
 
@@ -280,7 +278,7 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
 
   if (!dream) {
     return (
-      <View style={{ flex: 1, backgroundColor: '#010208', alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex: 1, backgroundColor: isLight ? '#F0F0FB' : '#010208', alignItems: 'center', justifyContent: 'center' }}>
         <Text style={{ color: ACCENT, fontSize: 16 }}>Sen nie został znaleziony.</Text>
       </View>
     );

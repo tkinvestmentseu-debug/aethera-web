@@ -3,7 +3,7 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import {
   View, Text, ScrollView, Pressable, StyleSheet, Modal,
   TouchableOpacity, Dimensions, TextInput, ActivityIndicator,
-  KeyboardAvoidingView, Platform, FlatList, Alert,
+  KeyboardAvoidingView, Platform, FlatList, Alert, Keyboard,
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -26,7 +26,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#8B5CF6';
 
@@ -720,14 +720,15 @@ const RuneMeditation = ({ rune, isLight, textColor, subColor }: { rune: Rune; is
 export const RuneCastScreen: React.FC = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem, userData } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const userData = useAppStore(s => s.userData);
+  const { isLight } = useTheme();
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
 
   // Cast state
   const [activeSpread, setActiveSpread] = useState<Spread>(SPREADS[1]);
@@ -923,14 +924,16 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
               <Animated.View entering={FadeInUp.duration(400).delay(60)} style={{ marginHorizontal: layout.padding.screen, marginBottom: 12 }}>
                 <Pressable
                   onPress={() => setShowSpreadModal(true)}
-                  style={[rc.spreadSelector, { backgroundColor: cardBg, borderColor: ACCENT + '55' }]}
+                  style={[rc.spreadSelector, { backgroundColor: cardBg, borderColor: ACCENT + '66' }]}
                 >
+                  {/* Premium top accent bar */}
+                  <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, borderTopLeftRadius: 14, borderTopRightRadius: 14, backgroundColor: ACCENT + '99' }} pointerEvents="none" />
                   <View style={{ flex: 1 }}>
-                    <Text style={{ color: ACCENT, fontSize: 11, fontWeight: '700', letterSpacing: 1.5 }}>WYBRANY ROZKŁAD</Text>
-                    <Text style={{ color: textColor, fontSize: 16, fontWeight: '300', marginTop: 2 }}>{activeSpread.name}</Text>
-                    <Text style={{ color: subColor, fontSize: 12, marginTop: 2 }}>{activeSpread.polish_desc}</Text>
+                    <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '800', letterSpacing: 2.2, opacity: 0.85 }}>✦ WYBRANY ROZKŁAD</Text>
+                    <Text style={{ color: textColor, fontSize: 19, fontWeight: '600', marginTop: 4, letterSpacing: -0.3 }}>{activeSpread.name}</Text>
+                    <Text style={{ color: subColor, fontSize: 12, marginTop: 3 }}>{activeSpread.polish_desc}</Text>
                   </View>
-                  <ChevronRight color={ACCENT} size={18} strokeWidth={1.6} />
+                  <ChevronRight color={ACCENT} size={20} strokeWidth={1.5} />
                 </Pressable>
               </Animated.View>
 
@@ -955,6 +958,9 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
                   placeholderTextColor={subColor + '88'}
                   style={[rc.questionInput, { backgroundColor: cardBg, borderColor: cardBorder, color: textColor }]}
                   multiline
+                  returnKeyType="done"
+                  blurOnSubmit
+                  onSubmitEditing={() => Keyboard.dismiss()}
                 />
               </Animated.View>
 

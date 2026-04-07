@@ -1,4 +1,4 @@
-﻿// @ts-nocheck
+// @ts-nocheck
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Dimensions, KeyboardAvoidingView, Platform, Pressable,
@@ -27,116 +27,113 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { MusicToggleButton } from '../components/MusicToggleButton';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 
-// ─── Live chat messages that stream in ───────────────────────────────────────
+// ��� Live chat messages that stream in ���������������������������������������
 const LIVE_MESSAGES = [
-  { id: 'm1', author: 'Luna V.', flag: '🇵🇱', text: 'Czuję ogromną energię już teraz ✨', color: '#A78BFA' },
-  { id: 'm2', author: 'Orion K.', flag: '🇩🇪', text: 'Przyszedłem z intencją uzdrowienia. Jestem gotowy.', color: '#6366F1' },
-  { id: 'm3', author: 'Aria Sol', flag: '🇫🇷', text: '💛 Kocham tę wspólnotę. Razem jesteśmy silniejsi.', color: '#F59E0B' },
-  { id: 'm4', author: 'Vera M.', flag: '🇪🇸', text: 'Oddycham razem z wami. Spokój...' , color: '#10B981' },
-  { id: 'm5', author: 'Sol R.', flag: '🇮🇹', text: 'To mój trzeci rytuał z tą grupą 🌙 Niesamowite.', color: '#EC4899' },
-  { id: 'm6', author: 'Mira T.', flag: '🇧🇷', text: 'Czuję jak napięcie odpływa z mojego ciała.', color: '#60A5FA' },
-  { id: 'm7', author: 'Ember K.', flag: '🇬🇧', text: '✦ Manifest: przyciągam to, czego naprawdę pragnę.', color: '#F97316' },
-  { id: 'm8', author: 'Nox A.', flag: '🇵🇱', text: 'Dziękuję za tę przestrzeń. Łzy oczyszczenia 💧', color: '#8B5CF6' },
-  { id: 'm9', author: 'Kira B.', flag: '🇳🇱', text: 'Prowadząca jest niesamowita! Głęboko dotykam centrum.', color: '#34D399' },
-  { id: 'm10', author: 'Zara W.', flag: '🇸🇪', text: '🔮 Widzę piękne obrazy podczas wizualizacji...', color: '#FB7185' },
-  { id: 'm11', author: 'Daan H.', flag: '🇳🇱', text: 'Intencja: pokój i jasność umysłu. Dziękuję', color: '#6366F1' },
-  { id: 'm12', author: 'Inara P.', flag: '🇵🇹', text: 'Łączę się z wami wszystkimi ❤️ Ogromna miłość.', color: '#EC4899' },
+  { id: 'm1', author: 'Luna V.', flag: '????', text: 'Czuj� ogromn� energi� ju� teraz ?', color: '#A78BFA' },
+  { id: 'm2', author: 'Orion K.', flag: '????', text: 'Przyszed�em z intencj� uzdrowienia. Jestem gotowy.', color: '#6366F1' },
+  { id: 'm3', author: 'Aria Sol', flag: '????', text: '?? Kocham t� wsp�lnot�. Razem jeste�my silniejsi.', color: '#F59E0B' },
+  { id: 'm4', author: 'Vera M.', flag: '????', text: 'Oddycham razem z wami. Spok�j...' , color: '#10B981' },
+  { id: 'm5', author: 'Sol R.', flag: '????', text: 'To m�j trzeci rytua� z t� grup� ?? Niesamowite.', color: '#EC4899' },
+  { id: 'm6', author: 'Mira T.', flag: '????', text: 'Czuj� jak napi�cie odp�ywa z mojego cia�a.', color: '#60A5FA' },
+  { id: 'm7', author: 'Ember K.', flag: '????', text: '? Manifest: przyci�gam to, czego naprawd� pragn�.', color: '#F97316' },
+  { id: 'm8', author: 'Nox A.', flag: '????', text: 'Dzi�kuj� za t� przestrze�. �zy oczyszczenia ??', color: '#8B5CF6' },
+  { id: 'm9', author: 'Kira B.', flag: '????', text: 'Prowadz�ca jest niesamowita! G��boko dotykam centrum.', color: '#34D399' },
+  { id: 'm10', author: 'Zara W.', flag: '????', text: '?? Widz� pi�kne obrazy podczas wizualizacji...', color: '#FB7185' },
+  { id: 'm11', author: 'Daan H.', flag: '????', text: 'Intencja: pok�j i jasno�� umys�u. Dzi�kuj�', color: '#6366F1' },
+  { id: 'm12', author: 'Inara P.', flag: '????', text: '��cz� si� z wami wszystkimi ?? Ogromna mi�o��.', color: '#EC4899' },
 ];
 
-// ─── Ritual phase steps ───────────────────────────────────────────────────────
+// ��� Ritual phase steps �������������������������������������������������������
 const RITUAL_PHASES: Record<string, { label: string; color: string; steps: string[] }> = {
-  'KSIĘŻYC': {
-    label: 'Księżycowy Rytuał Uwalniania',
+  'KSIʯYC': {
+    label: 'Ksi�ycowy Rytua� Uwalniania',
     color: '#818CF8',
     steps: [
-      'Zapal świecę i połóż dłonie na sercu.',
-      'Weź trzy głębokie oddechy. Poczuj ciężar nocy.',
-      'Napisz na kartce to, czego chcesz się uwolnić.',
-      'Powiedz głośno lub w ciszy: „Pozwalam, by to odeszło."',
-      'Wyobraź sobie jak księżyc pochłania to, co puszczasz.',
-      'Pozostań w wdzięczności przez chwilę ciszy.',
+      'Zapal �wiec� i po�� d�onie na sercu.',
+      'We� trzy g��bokie oddechy. Poczuj ci�ar nocy.',
+      'Napisz na kartce to, czego chcesz si� uwolni�.',
+      'Powiedz g�o�no lub w ciszy: �Pozwalam, by to odesz�o."',
+      'Wyobra� sobie jak ksi�yc poch�ania to, co puszczasz.',
+      'Pozosta� w wdzi�czno�ci przez chwil� ciszy.',
     ],
   },
-  'OGIEŃ': {
+  'OGIE�': {
     label: 'Ogniste Oczyszczanie',
     color: '#F97316',
     steps: [
-      'Usiądź stabilnie. Poczuj żar ognia w swojej klatce piersiowej.',
-      'Z każdym wydechem wyobraź sobie płomień oczyszczający twoje pole.',
-      'Nazwij to, co chcesz spalić — lęk, blokadę, winę.',
-      'Oddychaj szybko i rytmicznie przez nos (3 cykle po 10 oddechów).',
-      'W ciszy poczuj wolną, oczyszczoną przestrzeń wewnątrz.',
-      'Zamknij rytuał słowami: „Jestem wolny/a. Jestem nowy/a."',
+      'Usi�d� stabilnie. Poczuj �ar ognia w swojej klatce piersiowej.',
+      'Z ka�dym wydechem wyobra� sobie p�omie� oczyszczaj�cy twoje pole.',
+      'Nazwij to, co chcesz spali� � l�k, blokad�, win�.',
+      'Oddychaj szybko i rytmicznie przez nos (3 cykle po 10 oddech�w).',
+      'W ciszy poczuj woln�, oczyszczon� przestrze� wewn�trz.',
+      'Zamknij rytua� s�owami: �Jestem wolny/a. Jestem nowy/a."',
     ],
   },
   'CZAKRY': {
     label: 'Aktywacja Czakry',
     color: '#10B981',
     steps: [
-      'Połóż dłonie na centrum klatki piersiowej (czakra serca).',
-      'Wyobraź sobie zielone światło rozszerzające się z każdym wdechem.',
-      'Powtarzaj mantrę: „YAM" — dźwięk czakry serca.',
-      'Poczuj jak serce otwiera się jak kwiat.',
-      'Wyślij energię do osoby, która potrzebuje miłości.',
-      'Pozostań w rozszerzonym polu miłości przez 3 minuty.',
+      'Po�� d�onie na centrum klatki piersiowej (czakra serca).',
+      'Wyobra� sobie zielone �wiat�o rozszerzaj�ce si� z ka�dym wdechem.',
+      'Powtarzaj mantr�: �YAM" � d�wi�k czakry serca.',
+      'Poczuj jak serce otwiera si� jak kwiat.',
+      'Wy�lij energi� do osoby, kt�ra potrzebuje mi�o�ci.',
+      'Pozosta� w rozszerzonym polu mi�o�ci przez 3 minuty.',
     ],
   },
   'MEDYTACJA': {
-    label: 'Głęboka Medytacja Grupowa',
+    label: 'G��boka Medytacja Grupowa',
     color: '#6366F1',
     steps: [
-      'Znajdź stabilną pozycję. Zamknij oczy.',
-      'Pozwól myślom przepłynąć bez angażowania się w nie.',
-      'Skup uwagę na oddechu — sam oddech, nic więcej.',
-      'Wejdź głębiej. Twoje ciało staje się coraz cięższe.',
-      'W polu zbiorowej ciszy — odpocznij. Po prostu bądź.',
-      'Powoli wracaj. Porusz palcami. Podziękuj ciszy.',
+      'Znajd� stabiln� pozycj�. Zamknij oczy.',
+      'Pozw�l my�lom przep�yn�� bez anga�owania si� w nie.',
+      'Skup uwag� na oddechu � sam oddech, nic wi�cej.',
+      'Wejd� g��biej. Twoje cia�o staje si� coraz ci�sze.',
+      'W polu zbiorowej ciszy � odpocznij. Po prostu b�d�.',
+      'Powoli wracaj. Porusz palcami. Podzi�kuj ciszy.',
     ],
   },
 };
 
 const DEFAULT_PHASE = {
-  label: 'Zbiorowy Rytuał',
+  label: 'Zbiorowy Rytua�',
   color: '#A78BFA',
   steps: [
-    'Usiądź wygodnie i zamknij oczy.',
-    'Połącz się z intencją dzisiejszego rytuału.',
-    'Oddychaj świadomie i poczuj zbiorową energię.',
-    'Wizualizuj swoją intencję jako jasne światło.',
-    'Razem wznieśmy tę energię ku spełnieniu.',
-    'Zakończ w wdzięczności i otwartości.',
+    'Usi�d� wygodnie i zamknij oczy.',
+    'Po��cz si� z intencj� dzisiejszego rytua�u.',
+    'Oddychaj �wiadomie i poczuj zbiorow� energi�.',
+    'Wizualizuj swoj� intencj� jako jasne �wiat�o.',
+    'Razem wznie�my t� energi� ku spe�nieniu.',
+    'Zako�cz w wdzi�czno�ci i otwarto�ci.',
   ],
 };
 
 const MUSIC_OPTS = [
-  { id: 'ritual', label: 'Rytuał', emoji: '🕯️', color: '#F59E0B' },
-  { id: 'forest', label: 'Las', emoji: '🌲', color: '#34D399' },
-  { id: 'waves', label: 'Fale', emoji: '🌊', color: '#60A5FA' },
-  { id: 'deepMeditation', label: 'Głęboka', emoji: '🔮', color: '#8B5CF6' },
-  { id: 'voxscape', label: 'Głosy', emoji: '✦', color: '#EC4899' },
+  { id: 'ritual', label: 'Rytua�', emoji: '???', color: '#F59E0B' },
+  { id: 'forest', label: 'Las', emoji: '??', color: '#34D399' },
+  { id: 'waves', label: 'Fale', emoji: '??', color: '#60A5FA' },
+  { id: 'deepMeditation', label: 'G��boka', emoji: '??', color: '#8B5CF6' },
+  { id: 'voxscape', label: 'G�osy', emoji: '?', color: '#EC4899' },
 ];
 
-// ─── Main Screen ──────────────────────────────────────────────────────────────
+// ��� Main Screen ��������������������������������������������������������������
 export const RitualSessionScreen = ({ navigation, route }: any) => {
   const { t } = useTranslation();
+  const { currentTheme, isLight } = useTheme();
   const { ritual } = route?.params ?? {};
   const insets = useSafeAreaInsets();
-  const { themeName } = useAppStore();
-  const theme = getResolvedTheme(themeName);
-  const isLight = theme.background.startsWith('#F');
-
   const tc = isLight ? '#120B1E' : '#F5F0FF';
   const sc = isLight ? 'rgba(18,11,30,0.55)' : 'rgba(245,240,255,0.55)';
   const cb = isLight ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.06)';
-  const cbr = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.12)';
+  const cbr = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.12)';
 
   const phase = RITUAL_PHASES[ritual?.type] ?? DEFAULT_PHASE;
   const ACCENT = phase.color;
 
-  // ── State ──────────────────────────────────────────────────────────────────
+  // �� State ������������������������������������������������������������������
   const [joined, setJoined] = useState(false);
   const [participants, setParticipants] = useState((ritual?.participants ?? 120) as number);
   const [elapsed, setElapsed] = useState(0);
@@ -158,19 +155,19 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
   const chatScrollRef = useRef<ScrollView>(null);
   const msgIndex = useRef(3);
 
-  // ── Floating chat drawer state ─────────────────────────────────────────────
+  // �� Floating chat drawer state ���������������������������������������������
   const [chatDrawerOpen, setChatDrawerOpen] = useState(false);
   const [drawerInput, setDrawerInput] = useState('');
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false);
   const [drawerMessages, setDrawerMessages] = useState([
-    { id: 'dm1', author: 'Luna V.', initials: 'L', avatarColor: '#8B5CF6', text: 'Czuję niezwykłą energię już teraz ✨', time: 'teraz', isOwn: false },
-    { id: 'dm2', author: 'Orion K.', initials: 'O', avatarColor: '#6366F1', text: 'Przyłączam się z intencją uzdrowienia 🙏', time: '1 min', isOwn: false },
-    { id: 'dm3', author: 'Aria Sol', initials: 'A', avatarColor: '#F59E0B', text: 'Razem tworzymy silne pole 💜', time: '2 min', isOwn: false },
-    { id: 'dm4', author: 'Vera M.', initials: 'V', avatarColor: '#10B981', text: 'Spokój i wdzięczność 🌿', time: '3 min', isOwn: false },
+    { id: 'dm1', author: 'Luna V.', initials: 'L', avatarColor: '#8B5CF6', text: 'Czuj� niezwyk�� energi� ju� teraz ?', time: 'teraz', isOwn: false },
+    { id: 'dm2', author: 'Orion K.', initials: 'O', avatarColor: '#6366F1', text: 'Przy��czam si� z intencj� uzdrowienia ??', time: '1 min', isOwn: false },
+    { id: 'dm3', author: 'Aria Sol', initials: 'A', avatarColor: '#F59E0B', text: 'Razem tworzymy silne pole ??', time: '2 min', isOwn: false },
+    { id: 'dm4', author: 'Vera M.', initials: 'V', avatarColor: '#10B981', text: 'Spok�j i wdzi�czno�� ??', time: '3 min', isOwn: false },
   ]);
   const drawerScrollRef = useRef<ScrollView>(null);
 
-  const QUICK_EMOJIS = ['🙏', '✨', '🌙', '🔥', '💜', '🌿', '⭐', '🕯️'];
+  const QUICK_EMOJIS = ['??', '?', '??', '??', '??', '??', '?', '???'];
 
   const chatTranslateY = useSharedValue(SH);
   const chatOverlayOpacity = useSharedValue(0);
@@ -231,7 +228,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
     opacity: chatOverlayOpacity.value,
   }));
 
-  // ── Animations ─────────────────────────────────────────────────────────────
+  // �� Animations �������������������������������������������������������������
   const pulseV = useSharedValue(0.96);
   const ringV = useSharedValue(0.15);
   const orbGlowV = useSharedValue(0.6);
@@ -255,7 +252,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
   const ringStyle = useAnimatedStyle(() => ({ opacity: ringV.value }));
   const glowStyle = useAnimatedStyle(() => ({ opacity: orbGlowV.value }));
 
-  // ── Session timer ──────────────────────────────────────────────────────────
+  // �� Session timer ����������������������������������������������������������
   const startSession = useCallback(() => {
     setJoined(true);
     HapticsService.notify();
@@ -265,7 +262,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
 
     // TTS intro
     setTimeout(() => {
-      TTSService.speak(`Witaj w rytuale: ${phase.label}. Jesteśmy razem. Zacznijmy.`);
+      TTSService.speak(`Witaj w rytuale: ${phase.label}. Jeste�my razem. Zacznijmy.`);
     }, 800);
 
     // Session timer
@@ -292,12 +289,13 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
   }, [musicMuted, selectedMusic, phase.label, totalSecs]);
 
   const endSession = useCallback(() => {
+  const theme = currentTheme;
     if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null; }
     if (msgIntervalRef.current) { clearInterval(msgIntervalRef.current); msgIntervalRef.current = null; }
     setSessionEnded(true);
     setJoined(false);
     AudioService.pauseAmbientSound();
-    TTSService.speak('Rytuał zakończony. Zabierz ze sobą tę energię. Dziękuję, że byłeś z nami.');
+    TTSService.speak('Rytua� zako�czony. Zabierz ze sob� t� energi�. Dzi�kuj�, �e by�e� z nami.');
     HapticsService.notify();
   }, []);
 
@@ -321,7 +319,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
     const msg = {
       id: `user_${Date.now()}`,
       author: 'Ty',
-      flag: '🇵🇱',
+      flag: '????',
       text: chatInput.trim(),
       color: ACCENT,
       isOwn: true,
@@ -357,7 +355,9 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
   const Icon = (ritual?.iconName ? ICON_MAP[ritual.iconName] : undefined) ?? ritual?.icon ?? Sparkles;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: theme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <LinearGradient
         colors={isLight
           ? [`${ACCENT}22`, `${ACCENT}08`, theme.background]
@@ -366,7 +366,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
         pointerEvents="none"
       />
 
-      {/* ── Header ─────────────────────────────────────────────────────────── */}
+      {/* �� Header ����������������������������������������������������������� */}
       <View style={styles.header}>
         <Pressable onPress={() => { AudioService.pauseAmbientSound(); void TTSService.stop(); navigation.goBack(); }} hitSlop={14}>
           <ChevronLeft color={tc} size={24} strokeWidth={1.8} />
@@ -375,7 +375,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
           <View style={styles.headerBadge}>
             {ritual?.live && <View style={[styles.liveDot, { backgroundColor: '#EF4444' }]} />}
             <Text style={[styles.headerBadgeText, { color: ACCENT }]}>
-              {ritual?.live ? 'NA ŻYWO' : ritual?.type ?? 'RYTUAŁ'}
+              {ritual?.live ? 'NA �YWO' : ritual?.type ?? 'RYTUA�'}
             </Text>
           </View>
           <Text style={[styles.headerTitle, { color: tc }]} numberOfLines={1}>{phase.label}</Text>
@@ -391,7 +391,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
 
       <ScrollView ref={scrollRef} showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
 
-        {/* ── Central orb ──────────────────────────────────────────────────── */}
+        {/* �� Central orb ���������������������������������������������������� */}
         <View style={styles.orbArea}>
           {[320, 270, 220].map((d, i) => (
             <Animated.View
@@ -410,7 +410,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
           </Animated.View>
         </View>
 
-        {/* ── Session completion banner ─────────────────────────────────────── */}
+        {/* �� Session completion banner ��������������������������������������� */}
         {sessionEnded && (
           <Animated.View entering={FadeInDown.duration(600)} style={{ paddingHorizontal: layout.padding.screen, marginBottom: 16 }}>
             <LinearGradient
@@ -419,16 +419,16 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
             >
               <Star color={ACCENT} size={22} fill={ACCENT} />
               <View style={{ flex: 1 }}>
-                <Text style={[styles.endBannerTitle, { color: tc }]}>Rytuał zakończony</Text>
+                <Text style={[styles.endBannerTitle, { color: tc }]}>Rytua� zako�czony</Text>
                 <Text style={[styles.endBannerSub, { color: sc }]}>
-                  Przebywałeś {mins}:{secs} w zbiorowym polu. Dziękujemy.
+                  Przebywa�e� {mins}:{secs} w zbiorowym polu. Dzi�kujemy.
                 </Text>
               </View>
             </LinearGradient>
           </Animated.View>
         )}
 
-        {/* ── Timer + progress ──────────────────────────────────────────────── */}
+        {/* �� Timer + progress ������������������������������������������������ */}
         {joined && !sessionEnded && (
           <Animated.View entering={FadeInDown.duration(400)} style={{ paddingHorizontal: layout.padding.screen, marginBottom: 14 }}>
             <View style={[styles.timerCard, { backgroundColor: cb, borderColor: cbr }]}>
@@ -442,12 +442,12 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
               <View style={styles.progressBar}>
                 <View style={[styles.progressFill, { width: `${progress * 100}%`, backgroundColor: ACCENT }]} />
               </View>
-              <Text style={[styles.timerRemaining, { color: sc }]}>Pozostało: {remMins}:{remSecs}</Text>
+              <Text style={[styles.timerRemaining, { color: sc }]}>Pozosta�o: {remMins}:{remSecs}</Text>
             </View>
           </Animated.View>
         )}
 
-        {/* ── CTA: Join / End ───────────────────────────────────────────────── */}
+        {/* �� CTA: Join / End ������������������������������������������������� */}
         {!sessionEnded && (
           <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 18 }}>
             <Pressable onPress={joined ? endSession : startSession}>
@@ -458,16 +458,16 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
               >
                 {joined ? <Pause color="#fff" size={20} /> : <Play color="#fff" size={20} />}
                 <Text style={styles.joinBtnText}>
-                  {joined ? 'Zakończ rytuał' : 'Dołącz do rytuału'}
+                  {joined ? 'Zako�cz rytua�' : 'Do��cz do rytua�u'}
                 </Text>
               </LinearGradient>
             </Pressable>
           </View>
         )}
 
-        {/* ── Ritual steps ─────────────────────────────────────────────────── */}
+        {/* �� Ritual steps ��������������������������������������������������� */}
         <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 18 }}>
-          <Text style={[styles.sectionEye, { color: ACCENT }]}>KROKI RYTUAŁU</Text>
+          <Text style={[styles.sectionEye, { color: ACCENT }]}>KROKI RYTUA�U</Text>
           <View style={[styles.stepsCard, { backgroundColor: cb, borderColor: cbr }]}>
             {phase.steps.map((step, i) => {
               const done = stepsDone.includes(i);
@@ -487,7 +487,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
           </View>
         </View>
 
-        {/* ── Intention ─────────────────────────────────────────────────────── */}
+        {/* �� Intention ������������������������������������������������������� */}
         <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 18 }}>
           <Text style={[styles.sectionEye, { color: ACCENT }]}>TWOJA INTENCJA</Text>
           {!intentionSent ? (
@@ -495,7 +495,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
               <TextInput
                 value={intention}
                 onChangeText={setIntention}
-                placeholder="Wpisz intencję, którą wnosisz do zbiorowego pola..."
+                placeholder="Wpisz intencj�, kt�r� wnosisz do zbiorowego pola..."
                 placeholderTextColor={sc}
                 multiline
                 style={[styles.intentionInput, { color: tc }]}
@@ -505,25 +505,25 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
                 style={[styles.intentionSend, { backgroundColor: ACCENT + '22', borderColor: ACCENT + '44' }]}
               >
                 <Send size={14} color={ACCENT} />
-                <Text style={[styles.intentionSendText, { color: ACCENT }]}>Wyślij intencję do kręgu</Text>
+                <Text style={[styles.intentionSendText, { color: ACCENT }]}>Wy�lij intencj� do kr�gu</Text>
               </Pressable>
             </View>
           ) : (
             <Animated.View entering={FadeIn.duration(400)} style={[styles.intentionSent, { backgroundColor: ACCENT + '15', borderColor: ACCENT + '40' }]}>
               <CheckCircle2 color={ACCENT} size={18} />
-              <Text style={[styles.intentionSentText, { color: tc }]}>„{intention}"</Text>
+              <Text style={[styles.intentionSentText, { color: tc }]}>�{intention}"</Text>
             </Animated.View>
           )}
         </View>
 
-        {/* ── Reactions ─────────────────────────────────────────────────────── */}
+        {/* �� Reactions ������������������������������������������������������� */}
         <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 18 }}>
           <Text style={[styles.sectionEye, { color: ACCENT }]}>ZBIOROWA ENERGIA</Text>
           <View style={styles.reactionsRow}>
             {[
-              { key: 'love', emoji: '💛', label: 'Miłość', count: reactions.love },
-              { key: 'light', emoji: '✨', label: 'Światło', count: reactions.light },
-              { key: 'fire', emoji: '🔥', label: 'Przemiana', count: reactions.fire },
+              { key: 'love', emoji: '??', label: 'Mi�o��', count: reactions.love },
+              { key: 'light', emoji: '?', label: '�wiat�o', count: reactions.light },
+              { key: 'fire', emoji: '??', label: 'Przemiana', count: reactions.fire },
             ].map(r => (
               <Pressable key={r.key} onPress={() => addReaction(r.key as any)}
                 style={[styles.reactionBtn, { backgroundColor: cb, borderColor: cbr }]}>
@@ -535,12 +535,12 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
           </View>
         </View>
 
-        {/* ── Music selector ────────────────────────────────────────────────── */}
+        {/* �� Music selector �������������������������������������������������� */}
         <View style={{ marginBottom: 18 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: layout.padding.screen, marginBottom: 10 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
               <Music size={13} color={ACCENT} />
-              <Text style={[styles.sectionEye, { color: ACCENT, marginBottom: 0 }]}>MUZYKA RYTUAŁU</Text>
+              <Text style={[styles.sectionEye, { color: ACCENT, marginBottom: 0 }]}>MUZYKA RYTUA�U</Text>
             </View>
             <Pressable onPress={toggleMute} style={[styles.muteBtn, { borderColor: cbr, backgroundColor: cb }]}>
               {musicMuted ? <VolumeX size={14} color={sc} /> : <Volume2 size={14} color={ACCENT} />}
@@ -569,11 +569,11 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
           </ScrollView>
         </View>
 
-        {/* ── Live chat ─────────────────────────────────────────────────────── */}
+        {/* �� Live chat ������������������������������������������������������� */}
         <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 8 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 10 }}>
             <Eye size={13} color={ACCENT} />
-            <Text style={[styles.sectionEye, { color: ACCENT, marginBottom: 0 }]}>ŻYWY CZAT KRĘGU</Text>
+            <Text style={[styles.sectionEye, { color: ACCENT, marginBottom: 0 }]}>�YWY CZAT KR�GU</Text>
           </View>
           <View style={[styles.chatContainer, { backgroundColor: cb, borderColor: cbr }]}>
             <ScrollView ref={chatScrollRef} style={{ maxHeight: 220 }} showsVerticalScrollIndicator={false}
@@ -594,7 +594,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
               <TextInput
                 value={chatInput}
                 onChangeText={setChatInput}
-                placeholder="Napisz do kręgu..."
+                placeholder="Napisz do kr�gu..."
                 placeholderTextColor={sc}
                 style={[styles.chatInput, { color: tc }]}
                 onSubmitEditing={sendChat}
@@ -607,7 +607,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
           </View>
         </View>
 
-        {/* ── Host info ─────────────────────────────────────────────────────── */}
+        {/* �� Host info ������������������������������������������������������� */}
         {ritual?.host && (
           <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 18 }}>
             <View style={[styles.hostCard, { backgroundColor: cb, borderColor: cbr }]}>
@@ -616,7 +616,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={[styles.hostName, { color: tc }]}>{ritual.host}</Text>
-                <Text style={[styles.hostRole, { color: sc }]}>Prowadząca rytuał · Mistrzyni ceremonii</Text>
+                <Text style={[styles.hostRole, { color: sc }]}>Prowadz�ca rytua� � Mistrzyni ceremonii</Text>
               </View>
               <View style={[styles.hostOnline, { backgroundColor: '#10B981' }]} />
             </View>
@@ -626,7 +626,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
         <EndOfContentSpacer size="airy" />
       </ScrollView>
 
-      {/* ── Floating chat toggle button ──────────────────────────────────── */}
+      {/* �� Floating chat toggle button ������������������������������������ */}
       <View style={[styles.chatFab, { bottom: insets.bottom + 90 }]}>
         <Pressable
           onPress={openChatDrawer}
@@ -637,7 +637,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
         </Pressable>
       </View>
 
-      {/* ── Sliding chat drawer ─────────────────────────────────────────── */}
+      {/* �� Sliding chat drawer ������������������������������������������� */}
       {chatDrawerOpen && (
         <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
           {/* Dim overlay */}
@@ -668,7 +668,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
             <View style={[styles.chatDrawerHeader, { borderBottomColor: ACCENT + '30' }]}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                 <MessageSquare color={ACCENT} size={15} strokeWidth={2} />
-                <Text style={[styles.chatDrawerTitle, { color: '#F0EBFF' }]}>CZAT RYTUAŁU</Text>
+                <Text style={[styles.chatDrawerTitle, { color: '#F0EBFF' }]}>CZAT RYTUA�U</Text>
                 <View style={[styles.chatDrawerBadge, { backgroundColor: ACCENT + '28', borderColor: ACCENT + '50' }]}>
                   <Users size={10} color={ACCENT} />
                   <Text style={[styles.chatDrawerBadgeText, { color: ACCENT }]}>{participants.toLocaleString()}</Text>
@@ -708,9 +708,9 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
                       styles.drawerBubble,
                       msg.isOwn
                         ? { backgroundColor: ACCENT + 'CC', borderBottomRightRadius: 4 }
-                        : { backgroundColor: 'rgba(255,255,255,0.09)', borderBottomLeftRadius: 4 },
+                        : { backgroundColor: isLight ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.09)', borderBottomLeftRadius: 4, borderWidth: isLight ? 1 : 0, borderColor: isLight ? 'rgba(139,100,42,0.18)' : 'transparent' },
                     ]}>
-                      <Text style={[styles.drawerBubbleText, { color: msg.isOwn ? '#fff' : '#E8E0F8' }]}>
+                      <Text style={[styles.drawerBubbleText, { color: msg.isOwn ? '#fff' : (isLight ? tc : '#E8E0F8') }]}>
                         {msg.text}
                       </Text>
                     </View>
@@ -747,14 +747,14 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
               }]}>
                 <Pressable
                   onPress={() => setEmojiPickerOpen(v => !v)}
-                  style={[styles.drawerEmojiToggle, { borderColor: 'rgba(255,255,255,0.15)' }]}
+                  style={[styles.drawerEmojiToggle, { borderColor: isLight ? 'rgba(139,100,42,0.22)' : 'rgba(255,255,255,0.15)' }]}
                 >
-                  <Text style={{ fontSize: 18 }}>😊</Text>
+                  <Text style={{ fontSize: 18 }}>??</Text>
                 </Pressable>
                 <TextInput
                   value={drawerInput}
                   onChangeText={setDrawerInput}
-                  placeholder="Napisz do kręgu..."
+                  placeholder="Napisz do kr�gu..."
                   placeholderTextColor="rgba(200,185,255,0.40)"
                   style={[styles.drawerInput, { color: '#F0EBFF' }]}
                   onSubmitEditing={sendDrawerMessage}
@@ -772,7 +772,8 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
           </Animated.View>
         </View>
       )}
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 
@@ -847,7 +848,7 @@ const styles = StyleSheet.create({
   hostRole: { fontSize: 11, marginTop: 2 },
   hostOnline: { width: 10, height: 10, borderRadius: 5 },
 
-  // ── Floating chat FAB ──────────────────────────────────────────────────────
+  // �� Floating chat FAB ������������������������������������������������������
   chatFab: {
     position: 'absolute',
     right: 18,
@@ -868,7 +869,7 @@ const styles = StyleSheet.create({
   },
   chatFabText: { color: '#fff', fontSize: 13, fontWeight: '800', letterSpacing: 0.3 },
 
-  // ── Chat drawer ────────────────────────────────────────────────────────────
+  // �� Chat drawer ������������������������������������������������������������
   chatDrawer: {
     position: 'absolute',
     left: 0,
@@ -918,7 +919,7 @@ const styles = StyleSheet.create({
   },
   chatDrawerBadgeText: { fontSize: 10, fontWeight: '700' },
 
-  // ── Drawer messages ────────────────────────────────────────────────────────
+  // �� Drawer messages ��������������������������������������������������������
   drawerMsgRow: {
     flexDirection: 'row',
     alignItems: 'flex-end',
@@ -952,7 +953,7 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
 
-  // ── Drawer input ───────────────────────────────────────────────────────────
+  // �� Drawer input �����������������������������������������������������������
   emojiRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',

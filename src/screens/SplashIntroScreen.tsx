@@ -31,7 +31,7 @@ const { width: SW, height: SH } = Dimensions.get('window');
 const GOLD = '#CEAE72';
 const GOLD_DIM = '#CEAE7266';
 const GOLD_FAINT = '#CEAE7222';
-const SPLASH_DURATION = 4200; // ms before onDone fires
+const SPLASH_DURATION = 2400; // ms before onDone fires
 
 // ─── Metatron's Cube geometry ────────────────────────────────────────────────
 // 13 circles: 1 center + 6 inner ring + 6 outer ring

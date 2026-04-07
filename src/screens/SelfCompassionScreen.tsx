@@ -1,4 +1,4 @@
-﻿// @ts-nocheck
+// @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, Pressable, ScrollView, StyleSheet, View, Dimensions, Text, TextInput } from 'react-native';
@@ -11,7 +11,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import { ChevronLeft, Star, Heart } from 'lucide-react-native';
-import { getResolvedTheme } from '../core/theme/tokens';
+import { getResolvedTheme, isLightBg } from '../core/theme/tokens';
 import { layout } from '../core/theme/designSystem';
 import { useAppStore } from '../store/useAppStore';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
@@ -104,15 +104,19 @@ const COMPASSION_JOURNAL_PROMPTS = [
 ];
 
 export const SelfCompassionScreen = ({ navigation }: any) => {
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
+    const themeName = useAppStore(s => s.themeName);
+  const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
   const currentTheme = getResolvedTheme(themeName, userData?.preferences?.colorScheme);
-  const isDark = !currentTheme.background.startsWith('#F');
-  const isLight = !isDark;
+  const isLight = isLightBg(currentTheme.background);
+  const isDark = !isLight;
   const textColor = isLight ? '#2D0020' : '#FFF0F7';
   const subColor = isLight ? 'rgba(45,0,32,0.5)' : 'rgba(255,240,247,0.5)';
   const { t } = useTranslation();
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
 
   const [activeTab, setActiveTab] = useState<'pillars' | 'affirmations' | 'practices'>('pillars');
   const [letterText, setLetterText] = useState('');
@@ -133,7 +137,9 @@ export const SelfCompassionScreen = ({ navigation }: any) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <CompassionBg isDark={isDark} />
       <View style={styles.header}>
         <Pressable onPress={() => goBackOrToMainTab(navigation, 'Worlds')} style={styles.backBtn}>
@@ -259,7 +265,8 @@ export const SelfCompassionScreen = ({ navigation }: any) => {
         )}
         <EndOfContentSpacer />
       </ScrollView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

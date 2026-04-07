@@ -81,6 +81,13 @@ export const LANGUAGE_OPTIONS: LanguageOption[] = [
     availability: 'full',
     note: '聖域全体で完全サポート。',
   },
+  {
+    id: 'zh',
+    native: '中文',
+    label: 'Chiński',
+    availability: 'limited',
+    note: 'Obsługa dodana. Pełne zasoby chińskie zostaną dopełnione po następnym przebiegu tłumaczeń.',
+  },
 ];
 
 export const FULLY_SUPPORTED_LANGUAGE_IDS = LANGUAGE_OPTIONS

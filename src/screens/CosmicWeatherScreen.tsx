@@ -31,8 +31,7 @@ import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
-
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#60A5FA';
 
@@ -470,7 +469,7 @@ const EnergyGauge = ({ label, value, color, Icon, delay, isLight }: {
   const barStyle = useAnimatedStyle(() => ({ width: `${width.value * 100}%` }));
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
 
   return (
     <Animated.View entering={FadeInDown.delay(delay).duration(400)} style={[gauge.card, { backgroundColor: cardBg, borderColor: color + '22' }]}>
@@ -501,7 +500,7 @@ const gauge = StyleSheet.create({
 const PlanetCard = ({ planet, rank, delay, isLight }: { planet: any; rank: number; delay: number; isLight: boolean }) => {
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
   return (
     <Animated.View entering={FadeInDown.delay(delay).duration(400)}>
       <LinearGradient
@@ -611,14 +610,15 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
   const localeCode = isEnglish ? 'en-US' : 'pl-PL';
   const tr = (pl: string, en: string) => (isEnglish ? en : pl);
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const accent = ACCENT;
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
 
   const today = useMemo(() => new Date(), []);
   const cosmic = useMemo(() => computeCosmicData(today, language), [today, language]);

@@ -1,0 +1,20 @@
+{
+  "actions": {
+    "clear": "Cancella",
+    "confirm": "Conferma",
+    "cancel": "Annulla",
+    "delete": "Elimina"
+  },
+  "labels": {
+    "center": "Centro",
+    "relationships": "Cronache",
+    "agency": "Agire",
+    "lesson": "Lezione",
+    "path": "La strada"
+  },
+  "status": {
+    "todayActive": "oggi attiva",
+    "now": "ORA",
+    "past": "PASSATO"
+  }
+}

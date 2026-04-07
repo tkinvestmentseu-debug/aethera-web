@@ -9,6 +9,7 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
+  Text,
   TextInput,
   View,
 } from 'react-native';
@@ -622,28 +623,30 @@ function getElementColor(elementId: string): string {
 // ─── LO SHU MAGIC SQUARE ─────────────────────────────────────────────────────
 const LO_SHU = [[4, 9, 2], [3, 5, 7], [8, 1, 6]];
 
-// ─── ANIMAL SVG WIDGET ───────────────────────────────────────────────────────
-const AnimalWidget3D = React.memo(({ animalId, accent, size = 170 }: { animalId: string; accent: string; size?: number }) => {
+// ─── ANIMAL 3D WIDGET ────────────────────────────────────────────────────────
+const AnimalWidget3D = React.memo(({ animalId, accent, size = 200 }: { animalId: string; accent: string; size?: number }) => {
   const tiltX = useSharedValue(0);
   const tiltY = useSharedValue(0);
   const pulse = useSharedValue(1);
-  const glow = useSharedValue(0.6);
+  const glow  = useSharedValue(0.55);
+  const spin  = useSharedValue(0);
 
   useEffect(() => {
     pulse.value = withRepeat(
-      withSequence(withTiming(1.05, { duration: 2400 }), withTiming(1, { duration: 2400 })),
+      withSequence(withTiming(1.06, { duration: 2600 }), withTiming(1, { duration: 2600 })),
       -1, true,
     );
     glow.value = withRepeat(
-      withSequence(withTiming(1, { duration: 1800 }), withTiming(0.5, { duration: 1800 })),
+      withSequence(withTiming(1, { duration: 1900 }), withTiming(0.4, { duration: 1900 })),
       -1, true,
     );
+    spin.value = withRepeat(withTiming(360, { duration: 18000 }), -1, false);
   }, []);
 
   const pan = Gesture.Pan()
     .onUpdate(e => {
-      tiltX.value = Math.max(-20, Math.min(20, e.translationY * 0.12));
-      tiltY.value = Math.max(-20, Math.min(20, e.translationX * 0.12));
+      tiltX.value = Math.max(-22, Math.min(22, e.translationY * 0.14));
+      tiltY.value = Math.max(-22, Math.min(22, e.translationX * 0.14));
     })
     .onEnd(() => {
       tiltX.value = withSpring(0, { damping: 8 });
@@ -652,11 +655,21 @@ const AnimalWidget3D = React.memo(({ animalId, accent, size = 170 }: { animalId:
 
   const containerStyle = useAnimatedStyle(() => ({
     transform: [
-      { perspective: 800 },
+      { perspective: 900 },
       { rotateX: `${tiltX.value}deg` },
       { rotateY: `${tiltY.value}deg` },
       { scale: pulse.value },
     ],
+  }));
+
+  const outerRingStyle = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${spin.value}deg` }],
+    opacity: 0.55,
+  }));
+
+  const innerRingStyle = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${-spin.value * 0.6}deg` }],
+    opacity: 0.4,
   }));
 
   const glowStyle = useAnimatedStyle(() => ({
@@ -665,117 +678,150 @@ const AnimalWidget3D = React.memo(({ animalId, accent, size = 170 }: { animalId:
 
   const animal = ANIMALS.find(a => a.id === animalId);
   const elColor = getElementColor(animal?.element ?? 'water');
+  const S = size;
+  const C = S / 2;
+  const R1 = S * 0.46;  // outer ring
+  const R2 = S * 0.38;  // middle ring
+  const R3 = S * 0.28;  // inner circle
+
+  // 12 tick marks on outer ring
+  const ticks = Array.from({ length: 12 }, (_, i) => {
+    const angle = (i * 30 - 90) * Math.PI / 180;
+    const r0 = R1 - 2;
+    const r1l = i % 3 === 0 ? R1 - 8 : R1 - 5;
+    return {
+      x1: C + r0 * Math.cos(angle), y1: C + r0 * Math.sin(angle),
+      x2: C + r1l * Math.cos(angle), y2: C + r1l * Math.sin(angle),
+      major: i % 3 === 0,
+    };
+  });
+
+  // 8 diamond ornaments on middle ring
+  const diamonds = Array.from({ length: 8 }, (_, i) => {
+    const angle = (i * 45 - 22.5) * Math.PI / 180;
+    const x = C + R2 * Math.cos(angle);
+    const y = C + R2 * Math.sin(angle);
+    return { x, y, angle: i * 45 };
+  });
 
   return (
     <GestureDetector gesture={pan}>
-      <Animated.View style={[{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }, containerStyle]}>
+      <Animated.View style={[{ width: S, height: S, alignItems: 'center', justifyContent: 'center' }, containerStyle]}>
+
+        {/* Outer glow bloom */}
         <Animated.View style={[{
           position: 'absolute',
-          width: size * 0.9,
-          height: size * 0.9,
-          borderRadius: size * 0.45,
-          backgroundColor: accent + '22',
+          width: S * 0.82,
+          height: S * 0.82,
+          borderRadius: S * 0.41,
+          backgroundColor: accent + '18',
           shadowColor: accent,
           shadowOffset: { width: 0, height: 0 },
-          shadowOpacity: 0.8,
-          shadowRadius: 24,
-          elevation: 12,
+          shadowOpacity: 1,
+          shadowRadius: 32,
+          elevation: 16,
         }, glowStyle]} />
-        <Svg width={size * 0.8} height={size * 0.8} viewBox="0 0 160 160">
-          {/* Outer mystical ring */}
-          <Circle cx="80" cy="80" r="74" fill="none" stroke={accent} strokeWidth="1.5" opacity="0.4" />
-          <Circle cx="80" cy="80" r="66" fill={elColor + '15'} stroke={elColor} strokeWidth="0.8" opacity="0.6" />
-          {/* Background gradient blob */}
+
+        {/* Element colour inner bloom */}
+        <Animated.View style={[{
+          position: 'absolute',
+          width: S * 0.55,
+          height: S * 0.55,
+          borderRadius: S * 0.275,
+          backgroundColor: elColor + '20',
+          shadowColor: elColor,
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.9,
+          shadowRadius: 18,
+        }, glowStyle]} />
+
+        {/* Rotating outer ring (SVG) */}
+        <Animated.View style={[StyleSheet.absoluteFill, { alignItems: 'center', justifyContent: 'center' }, outerRingStyle]}>
+          <Svg width={S} height={S} viewBox={`0 0 ${S} ${S}`}>
+            <Defs>
+              <SvgRadialGradient id={`grad1_${animalId}`} cx="50%" cy="50%" r="50%">
+                <Stop offset="0%" stopColor={accent} stopOpacity="0.5" />
+                <Stop offset="100%" stopColor={accent} stopOpacity="0" />
+              </SvgRadialGradient>
+            </Defs>
+            {/* Outer ring */}
+            <Circle cx={C} cy={C} r={R1} fill="none" stroke={accent} strokeWidth="1.2" opacity="0.7" />
+            {/* Tick marks */}
+            {ticks.map((t, i) => (
+              <Line key={i} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2}
+                stroke={t.major ? GOLD : accent} strokeWidth={t.major ? 2 : 1} opacity={t.major ? 0.9 : 0.5}
+              />
+            ))}
+            {/* Diamond ornaments */}
+            {diamonds.map((d, i) => (
+              <Polygon key={i}
+                points={`${d.x},${d.y - 4} ${d.x + 3},${d.y} ${d.x},${d.y + 4} ${d.x - 3},${d.y}`}
+                fill={i % 2 === 0 ? GOLD : accent} opacity="0.8"
+              />
+            ))}
+          </Svg>
+        </Animated.View>
+
+        {/* Counter-rotating inner ring */}
+        <Animated.View style={[StyleSheet.absoluteFill, { alignItems: 'center', justifyContent: 'center' }, innerRingStyle]}>
+          <Svg width={S} height={S} viewBox={`0 0 ${S} ${S}`}>
+            <Circle cx={C} cy={C} r={R2} fill="none" stroke={elColor} strokeWidth="1" strokeDasharray="4,6" opacity="0.6" />
+            {/* 6 small stars on middle ring */}
+            {Array.from({ length: 6 }, (_, i) => {
+              const a = (i * 60 - 90) * Math.PI / 180;
+              const x = C + R2 * Math.cos(a);
+              const y = C + R2 * Math.sin(a);
+              return <Circle key={i} cx={x} cy={y} r="2.5" fill={GOLD} opacity="0.85" />;
+            })}
+          </Svg>
+        </Animated.View>
+
+        {/* Static inner circle + gradient fill */}
+        <Svg width={S} height={S} viewBox={`0 0 ${S} ${S}`} style={StyleSheet.absoluteFill}>
           <Defs>
-            <SvgRadialGradient id={`animalBg_${animalId}`} cx="50%" cy="50%" r="50%">
-              <Stop offset="0%" stopColor={accent} stopOpacity="0.3" />
-              <Stop offset="100%" stopColor={accent} stopOpacity="0" />
+            <SvgRadialGradient id={`innerGrad_${animalId}`} cx="50%" cy="45%" r="50%">
+              <Stop offset="0%" stopColor={accent} stopOpacity="0.28" />
+              <Stop offset="60%" stopColor={elColor} stopOpacity="0.14" />
+              <Stop offset="100%" stopColor="#000" stopOpacity="0" />
             </SvgRadialGradient>
           </Defs>
-          <Circle cx="80" cy="80" r="60" fill={`url(#animalBg_${animalId})`} />
-          {/* Simplified animal body (universal elegant shape) */}
-          {animalId === 'dragon' && (
-            <>
-              {/* Dragon body */}
-              <Path d="M60,95 Q50,75 60,60 Q70,45 80,48 Q95,50 100,65 Q108,80 100,95" fill="none" stroke={GOLD} strokeWidth="3" strokeLinecap="round"/>
-              <Ellipse cx="82" cy="52" rx="16" ry="12" fill={GOLD + '80'} stroke={GOLD} strokeWidth="1.5"/>
-              <Path d="M75,46 L72,36 L80,44" fill={accent} />
-              <Path d="M90,46 L94,36 L86,44" fill={accent} />
-              <Circle cx="77" cy="52" r="2.5" fill="#1a1a2e"/>
-              <Circle cx="87" cy="52" r="2.5" fill="#1a1a2e"/>
-              <Path d="M78,58 Q82,62 86,58" fill="none" stroke={GOLD} strokeWidth="1.5" strokeLinecap="round"/>
-              <Path d="M60,65 L45,58" stroke={accent} strokeWidth="2" strokeLinecap="round"/>
-              <Path d="M60,75 L44,72" stroke={accent} strokeWidth="2" strokeLinecap="round"/>
-              <Path d="M100,65 L115,58" stroke={accent} strokeWidth="2" strokeLinecap="round"/>
-              <Path d="M100,75 L116,72" stroke={accent} strokeWidth="2" strokeLinecap="round"/>
-              <Path d="M100,95 Q105,105 95,115 Q85,120 80,112 Q75,120 65,115 Q55,105 60,95" fill={GOLD + '60'} stroke={GOLD} strokeWidth="1.5"/>
-            </>
-          )}
-          {animalId !== 'dragon' && (
-            <>
-              {/* Generic elegant animal silhouette */}
-              <Ellipse cx="80" cy="82" rx="28" ry="24" fill={GOLD + '30'} stroke={GOLD} strokeWidth="1.5"/>
-              <Ellipse cx="80" cy="60" rx="18" ry="16" fill={GOLD + '40'} stroke={GOLD} strokeWidth="1.5"/>
-              <Circle cx="75" cy="57" r="2.5" fill="#1a1a2e"/>
-              <Circle cx="85" cy="57" r="2.5" fill="#1a1a2e"/>
-              <Path d="M77,64 Q80,67 83,64" fill="none" stroke={GOLD} strokeWidth="1.5" strokeLinecap="round"/>
-              {/* Ears or special features per animal */}
-              {(animalId === 'rabbit' || animalId === 'rat') && (
-                <>
-                  <Ellipse cx="70" cy="42" rx="4" ry="12" fill={GOLD + '50'} stroke={GOLD} strokeWidth="1"/>
-                  <Ellipse cx="90" cy="42" rx="4" ry="12" fill={GOLD + '50'} stroke={GOLD} strokeWidth="1"/>
-                </>
-              )}
-              {(animalId === 'tiger' || animalId === 'cat') && (
-                <>
-                  <Path d="M64,46 L60,36 L68,44" fill={GOLD} />
-                  <Path d="M96,46 L100,36 L92,44" fill={GOLD} />
-                  <Path d="M68,68 L56,64" stroke={GOLD} strokeWidth="1" strokeLinecap="round"/>
-                  <Path d="M68,71 L55,70" stroke={GOLD} strokeWidth="1" strokeLinecap="round"/>
-                  <Path d="M92,68 L104,64" stroke={GOLD} strokeWidth="1" strokeLinecap="round"/>
-                  <Path d="M92,71 L105,70" stroke={GOLD} strokeWidth="1" strokeLinecap="round"/>
-                </>
-              )}
-              {animalId === 'snake' && (
-                <>
-                  <Path d="M80,76 Q100,90 96,106 Q92,118 80,116 Q68,118 64,106 Q60,90 80,76" fill={GOLD + '40'} stroke={GOLD} strokeWidth="1.5"/>
-                  <Path d="M80,116 L74,124 M80,116 L86,124" stroke={GOLD} strokeWidth="1.5" strokeLinecap="round"/>
-                </>
-              )}
-              {animalId === 'horse' && (
-                <>
-                  <Path d="M70,44 L66,30" stroke={GOLD} strokeWidth="3" strokeLinecap="round"/>
-                  <Path d="M80,42 L78,28" stroke={GOLD} strokeWidth="2.5" strokeLinecap="round"/>
-                  <Path d="M90,44 L94,30" stroke={GOLD} strokeWidth="3" strokeLinecap="round"/>
-                </>
-              )}
-              {animalId === 'rooster' && (
-                <>
-                  <Path d="M80,42 Q85,34 78,30 Q74,28 76,36" fill={accent} stroke={accent} strokeWidth="1"/>
-                  <Ellipse cx="80" cy="58" rx="5" ry="3" fill={accent} opacity="0.7"/>
-                </>
-              )}
-              {animalId === 'pig' && (
-                <>
-                  <Ellipse cx="80" cy="64" rx="8" ry="5" fill={GOLD + '60'} stroke={GOLD} strokeWidth="1"/>
-                  <Circle cx="77" cy="64" r="1.5" fill="#1a1a2e"/>
-                  <Circle cx="83" cy="64" r="1.5" fill="#1a1a2e"/>
-                </>
-              )}
-            </>
-          )}
-          {/* Ornamental dots */}
-          {[0,45,90,135,180,225,270,315].map((angle, i) => {
-            const rad = (angle * Math.PI) / 180;
-            const x = 80 + 70 * Math.cos(rad);
-            const y = 80 + 70 * Math.sin(rad);
-            return <Circle key={i} cx={x} cy={y} r="2" fill={GOLD} opacity="0.5" />;
-          })}
-          {/* Animal emoji text */}
-          <SvgText x="80" y="126" textAnchor="middle" fontSize="22" fill={GOLD} opacity="0.9">
-            {animal?.emoji ?? '✦'}
-          </SvgText>
+          <Circle cx={C} cy={C} r={R3} fill={`url(#innerGrad_${animalId})`} />
+          <Circle cx={C} cy={C} r={R3} fill="none" stroke={GOLD} strokeWidth="1.5" opacity="0.5" />
+          {/* 4 cross-hair lines */}
+          <Line x1={C - R3 + 6} y1={C} x2={C + R3 - 6} y2={C} stroke={GOLD} strokeWidth="0.5" opacity="0.3" />
+          <Line x1={C} y1={C - R3 + 6} x2={C} y2={C + R3 - 6} stroke={GOLD} strokeWidth="0.5" opacity="0.3" />
         </Svg>
+
+        {/* Large emoji — the star of the show */}
+        <Text style={{
+          fontSize: size * 0.38,
+          lineHeight: size * 0.45,
+          textAlign: 'center',
+          // 3D shadow stack
+          textShadowColor: accent,
+          textShadowOffset: { width: 0, height: 0 },
+          textShadowRadius: 18,
+        }}>
+          {animal?.emoji ?? '✦'}
+        </Text>
+
+        {/* Animal name below emoji */}
+        <View style={{
+          position: 'absolute',
+          bottom: S * 0.12,
+          alignItems: 'center',
+        }}>
+          <Text style={{
+            color: GOLD,
+            fontSize: 11,
+            fontWeight: '700',
+            letterSpacing: 3,
+            opacity: 0.8,
+          }}>
+            {(animal?.id ?? '').toUpperCase()}
+          </Text>
+        </View>
+
       </Animated.View>
     </GestureDetector>
   );
@@ -1540,7 +1586,7 @@ Write in English, deep and wise, around 150 words.`,
                 <Typography variant="micro" style={{ color: subColor, fontSize: 11 }}>Energia miesiąca</Typography>
                 <Typography variant="micro" style={{ color: GOLD, fontSize: 11, fontWeight: '700' }}>{MONTH_ENERGIES[selectedMonth].energy}%</Typography>
               </View>
-              <View style={{ height: 6, backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden' }}>
+              <View style={{ height: 6, backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden' }}>
                 <View style={{ height: 6, width: `${MONTH_ENERGIES[selectedMonth].energy}%`, backgroundColor: GOLD, borderRadius: 3 }} />
               </View>
             </View>
@@ -1672,7 +1718,7 @@ Write in English, deep and wise, around 150 words.`,
                         <Typography variant="body" style={{ color: textColor, fontSize: 13, fontWeight: '600', flex: 1 }}>{area.label}</Typography>
                         <Typography variant="body" style={{ color: area.color, fontSize: 15, fontWeight: '700' }}>{area.score}%</Typography>
                       </View>
-                      <View style={{ height: 6, backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden' }}>
+                      <View style={{ height: 6, backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden' }}>
                         <View style={{ height: 6, width: `${area.score}%`, backgroundColor: area.color, borderRadius: 3 }} />
                       </View>
                     </View>

@@ -1,4 +1,4 @@
-﻿// @ts-nocheck
+// @ts-nocheck
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Dimensions, Pressable, ScrollView, StyleSheet, Text,
@@ -25,7 +25,7 @@ import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 
 // ─── Module-level animated components ───────────────────────────────────────
@@ -123,10 +123,15 @@ export function MorningRitualScreen() {
   const { t } = useTranslation();
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, meditationSessions, addMeditationSession, gratitudeEntries, addGratitudeEntry, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const meditationSessions = useAppStore(s => s.meditationSessions);
+  const addMeditationSession = useAppStore(s => s.addMeditationSession);
+  const gratitudeEntries = useAppStore(s => s.gratitudeEntries);
+  const addGratitudeEntry = useAppStore(s => s.addGratitudeEntry);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const today = new Date().toISOString().slice(0, 10);
   const todayMs = Date.now();
   const moonPhase = getMoonPhase(new Date());
@@ -360,7 +365,7 @@ export function MorningRitualScreen() {
   const textColor = isLight ? '#1A1410' : '#F0EAF8';
   const subColor = isLight ? '#6A5A48' : '#A898C8';
   const goldColor = '#F59E0B';
-  const cardBg = isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.07)';
   const cardBorder = isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)';
 
   // ── Progress bar ──────────────────────────────────────────────────────────
@@ -551,7 +556,9 @@ export function MorningRitualScreen() {
   const PHASE_LABELS: Record<string, string> = { idle: 'Przygotowanie', inhale: 'WDECH', hold1: 'TRZYMAJ', exhale: 'WYDECH', hold2: 'TRZYMAJ' };
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+
       <LinearGradient colors={colors} style={StyleSheet.absoluteFill} />
       {/* Header */}
       <View style={[s.header, { paddingHorizontal: layout.padding.screen }]}>
@@ -732,7 +739,8 @@ export function MorningRitualScreen() {
           <EndOfContentSpacer />
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 }
 

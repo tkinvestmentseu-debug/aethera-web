@@ -488,7 +488,7 @@ export const LucidDreamingScreen = ({ navigation }: any) => {
         <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 28 }}>
           <Animated.View entering={FadeInDown.delay(150).springify()}>
             <Text style={{ color: ACCENT_LIGHT, fontSize: 11, letterSpacing: 2.5, marginBottom: 14 }}>TECHNIKI WEJŚCIA</Text>
-            {TECHNIQUES.map((t) => <TechniqueCard key={t.id} item={t} />)}
+            {TECHNIQUES.map((tech) => <TechniqueCard key={tech.id} item={tech} />)}
           </Animated.View>
         </View>
 
@@ -574,17 +574,17 @@ export const LucidDreamingScreen = ({ navigation }: any) => {
         <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 28 }}>
           <Animated.View entering={FadeInDown.delay(350).springify()}>
             <Text style={{ color: ACCENT_LIGHT, fontSize: 11, letterSpacing: 2.5, marginBottom: 14 }}>TECHNIKI ZAAWANSOWANE</Text>
-            {ADVANCED_TECHNIQUES.map((t) => (
+            {ADVANCED_TECHNIQUES.map((tech) => (
               <LinearGradient
-                key={t.id}
-                colors={[t.color + '15', t.color + '08']}
-                style={{ borderRadius: 16, borderWidth: 1, borderColor: t.color + '44', padding: 16, marginBottom: 12 }}
+                key={tech.id}
+                colors={[tech.color + '15', tech.color + '08']}
+                style={{ borderRadius: 16, borderWidth: 1, borderColor: tech.color + '44', padding: 16, marginBottom: 12 }}
               >
-                <Text style={{ color: '#EDE9FE', fontSize: 14, fontWeight: '700', marginBottom: 6, letterSpacing: 0.3 }}>{t.label}</Text>
-                <Text style={{ color: 'rgba(221,214,254,0.75)', fontSize: 13, lineHeight: 19, marginBottom: 8 }}>{t.desc}</Text>
+                <Text style={{ color: '#EDE9FE', fontSize: 14, fontWeight: '700', marginBottom: 6, letterSpacing: 0.3 }}>{tech.label}</Text>
+                <Text style={{ color: 'rgba(221,214,254,0.75)', fontSize: 13, lineHeight: 19, marginBottom: 8 }}>{tech.desc}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 8 }}>
-                  <Sparkles size={13} color={t.color} style={{ marginTop: 1 }} />
-                  <Text style={{ color: 'rgba(167,139,250,0.8)', fontSize: 12, lineHeight: 17, flex: 1 }}>{t.tip}</Text>
+                  <Sparkles size={13} color={tech.color} style={{ marginTop: 1 }} />
+                  <Text style={{ color: 'rgba(167,139,250,0.8)', fontSize: 12, lineHeight: 17, flex: 1 }}>{tech.tip}</Text>
                 </View>
               </LinearGradient>
             ))}

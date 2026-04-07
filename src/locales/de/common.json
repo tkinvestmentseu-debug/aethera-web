@@ -1,0 +1,20 @@
+{
+  "actions": {
+    "clear": "Löschen",
+    "confirm": "Bestätigen",
+    "cancel": "Abbrechen",
+    "delete": "Löschen"
+  },
+  "labels": {
+    "center": "Zentrum",
+    "relationships": "Berichte",
+    "agency": "Handlungsfähigkeit",
+    "lesson": "Lektion",
+    "path": "Straße"
+  },
+  "status": {
+    "todayActive": "heute aktiv",
+    "now": "JETZT",
+    "past": "VERGANGENE"
+  }
+}

@@ -23,7 +23,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { Typography } from '../components/Typography';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#C084FC';
 
@@ -258,7 +258,7 @@ const AuraOrb = ({ dominantColor }: { dominantColor: string }) => {
 
 // ── Kirlian Photo SVG Simulation ─────────────────────────────────
 
-const KirlianPhoto = ({ mood, color }: { mood: string; color: string }) => {
+const KirlianPhoto = ({ mood, color, isLight }: { mood: string; color: string; isLight?: boolean }) => {
   const glow1 = useSharedValue(0.5);
   const glow2 = useSharedValue(0.3);
 
@@ -290,7 +290,7 @@ const KirlianPhoto = ({ mood, color }: { mood: string; color: string }) => {
 
   return (
     <View style={{ alignItems: 'center', marginVertical: 8 }}>
-      <View style={{ backgroundColor: '#050010', borderRadius: 18, overflow: 'hidden', borderWidth: 1, borderColor: color + '30' }}>
+      <View style={{ backgroundColor: isLight ? 'rgba(245,235,255,0.92)' : '#050010', borderRadius: 18, overflow: 'hidden', borderWidth: 1, borderColor: color + '30' }}>
         <Animated.View style={[StyleSheet.absoluteFill, g2Style, { backgroundColor: color + '08', borderRadius: 18 }]} />
         <Svg width={w} height={h}>
           <Defs>
@@ -365,16 +365,17 @@ function getLast7Days(): Array<{ date: Date; dateStr: string; label: string; day
 export const AuraReadingScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const accent = '#C084FC';
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
-  const divider = isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
+  const divider = isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.06)';
 
   const [activeTab, setActiveTab] = useState<TabId>('quiz');
   const [quizStep, setQuizStep] = useState(0);
@@ -828,7 +829,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
                   <Eye color={accent} size={18} strokeWidth={1.8} />
                 </Pressable>
               </View>
-              {showKirlian && <KirlianPhoto mood={kirlianMood} color={todayColor?.hex || accent} />}
+              {showKirlian && <KirlianPhoto mood={kirlianMood} color={todayColor?.hex || accent} isLight={isLight} />}
 
               {/* Today's aura */}
               <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12, marginTop: 14 }}>DZISIEJSZA AURA</Text>

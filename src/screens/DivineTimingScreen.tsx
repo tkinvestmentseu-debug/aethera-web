@@ -43,7 +43,7 @@ import { HapticsService } from '../core/services/haptics.service';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
 import { formatLocaleDate } from '../core/utils/localeFormat';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#FBBF24';
 
@@ -539,7 +539,7 @@ const ScoreBar = ({ score, accent, isLight }: { score: number; accent: string; i
     width: `${fillWidth.value * 100}%`,
   }));
   return (
-    <View style={{ height: 8, backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)', borderRadius: 999, overflow: 'hidden', marginTop: 10 }}>
+    <View style={{ height: 8, backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)', borderRadius: 999, overflow: 'hidden', marginTop: 10 }}>
       <Animated.View style={[{ height: '100%', borderRadius: 999, backgroundColor: accent }, fillStyle]} />
     </View>
   );
@@ -549,15 +549,16 @@ const ScoreBar = ({ score, accent, isLight }: { score: number; accent: string; i
 export const DivineTimingScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const accent = ACCENT;
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.10)';
 
   const today = useMemo(() => new Date(), []);
   const moonInfo = useMemo(() => getMoonPhase(today), [today]);
@@ -664,7 +665,9 @@ export const DivineTimingScreen = ({ navigation }: any) => {
   const months = ['Sty','Lut','Mar','Kwi','Maj','Cze','Lip','Sie','Wrz','Paź','Lis','Gru'];
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       {/* Background */}
       <View style={StyleSheet.absoluteFill} pointerEvents="none">
         <LinearGradient
@@ -1100,7 +1103,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
               </View>
             </View>
 
-            <View style={[st.aiInputWrap, { backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)', borderColor: cardBorder }]}>
+            <View style={[st.aiInputWrap, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)', borderColor: cardBorder }]}>
               <TextInput
                 value={aiQuery}
                 onChangeText={setAiQuery}
@@ -1126,7 +1129,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
             </Pressable>
 
             {!!aiResponse && (
-              <Animated.View entering={FadeIn.duration(400)} style={[st.aiResponseBox, { backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)', borderColor: accent + '30' }]}>
+              <Animated.View entering={FadeIn.duration(400)} style={[st.aiResponseBox, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)', borderColor: accent + '30' }]}>
                 <View style={{ flexDirection: 'row', gap: 8, marginBottom: 6 }}>
                   <Sparkles size={13} color={accent} />
                   <Text style={[st.microLabel, { color: accent }]}>ODPOWIEDŹ WYROCZNI</Text>
@@ -1140,7 +1143,8 @@ export const DivineTimingScreen = ({ navigation }: any) => {
         <EndOfContentSpacer size="standard" />
       </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

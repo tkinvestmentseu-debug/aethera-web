@@ -25,7 +25,7 @@ import {
   Heart, Zap, Sparkles,
 } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 const PAD = layout.padding.screen;
 const ACCENT = '#CEAE72';
@@ -419,7 +419,7 @@ const EnergyScale = ({
   return (
     <View style={{ gap: 10 }}>
       {/* Animated energy meter */}
-      <View style={[dc.energyMeter, { backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)' }]}>
+      <View style={[dc.energyMeter, { backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)' }]}>
         {ENERGY_LEVELS.map((lvl) => (
           <AnimatedEnergySeg key={lvl.val} lvl={lvl} selected={selected} />
         ))}
@@ -480,8 +480,8 @@ const ReflectionStep = ({
   const textColor = isLight ? '#2A1E0F' : '#F5F1EA';
   const subColor  = isLight ? '#6A5A48' : '#8A8080';
   const cardBg    = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)';
-  const cardBdr   = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
-  const inputBg   = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
+  const cardBdr   = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
+  const inputBg   = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const today  = new Date();
@@ -600,7 +600,7 @@ const AnimatedFocusCard = ({ f, index, selected, onSelect, isLight }: {
             isLight ? 'rgba(255,255,255,0.70)' : 'rgba(255,255,255,0.04)',
           ]}
           style={[dc.focusCard, {
-            borderColor: active ? f.colors[0] + 'BB' : isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)',
+            borderColor: active ? f.colors[0] + 'BB' : isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)',
             borderWidth: active ? 2 : 1,
           }]}>
           <Text style={{ fontSize: 28 }}>{f.emoji}</Text>
@@ -669,7 +669,7 @@ const CompletionScreen = ({
   const textColor = isLight ? '#2A1E0F' : '#F5F1EA';
   const subColor  = isLight ? '#6A5A48' : '#8A8080';
   const cardBg    = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)';
-  const cardBdr   = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.10)';
+  const cardBdr   = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)';
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: PAD }}>
@@ -717,7 +717,7 @@ const CompletionScreen = ({
           onPress={() => { HapticsService.impact('medium'); navigation.navigate('Journal'); }}
           style={[dc.navBtn, {
             backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.09)',
-            borderColor: isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.12)',
+            borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.12)',
           }]}>
           <BookOpen size={16} color={accent} />
           <Text style={{ color: textColor, fontSize: 14, fontWeight: '600' }}>Otwórz Dziennik</Text>
@@ -726,7 +726,7 @@ const CompletionScreen = ({
           onPress={() => { HapticsService.impact('medium'); navigation.navigate('Portal'); }}
           style={[dc.navBtn, {
             backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.09)',
-            borderColor: isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.12)',
+            borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.12)',
           }]}>
           <Star size={16} color={accent} />
           <Text style={{ color: textColor, fontSize: 14, fontWeight: '600' }}>Przejdź do Portalu</Text>
@@ -751,9 +751,9 @@ const STEPS = [
 
 export const DailyCheckInScreen = ({ navigation }: any) => {
   const insets  = useSafeAreaInsets();
-  const { themeName, dailyProgress, updateDailyProgress } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const dailyProgress = useAppStore(s => s.dailyProgress);
+  const updateDailyProgress = useAppStore(s => s.updateDailyProgress);
+  const { currentTheme, isLight } = useTheme();
   const accent  = ACCENT;
 
   const textColor = isLight ? '#2A1E0F' : '#F5F1EA';

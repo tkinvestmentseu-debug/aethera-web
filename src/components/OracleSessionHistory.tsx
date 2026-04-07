@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import i18n from '../core/i18n';
@@ -6,7 +6,7 @@ import { useOracleHistoryStore } from '../store/useOracleHistoryStore';
 import { Typography } from './Typography';
 import { useAppStore } from '../store/useAppStore';
 import { getResolvedTheme } from '../core/theme/tokens';
-
+import { useTheme } from '../core/hooks/useTheme';
 const MODE_LABELS: Record<string, string> = {
   brief:    'Zwiezle',
   balanced: 'Balans',
@@ -15,11 +15,9 @@ const MODE_LABELS: Record<string, string> = {
 
 export const OracleSessionHistory: React.FC = () => {
   const { t } = useTranslation();
-  const { themeName } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)';
+  const { isLight } = useTheme();
+  const cardBg = isLight ? 'rgba(122,95,54,0.08)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)';
 
   const sessions = useOracleHistoryStore((s) => s.sessions);
 

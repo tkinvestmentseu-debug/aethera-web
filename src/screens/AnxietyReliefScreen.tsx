@@ -14,7 +14,7 @@ import {
   ChevronLeft, Star, Wind, Heart, Brain, CheckCircle2, Zap,
   Eye, Snowflake, Activity, Footprints, Phone, Droplets,
 } from 'lucide-react-native';
-import { getResolvedTheme } from '../core/theme/tokens';
+import { getResolvedTheme, isLightBg } from '../core/theme/tokens';
 import { layout } from '../core/theme/designSystem';
 import { useAppStore } from '../store/useAppStore';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
@@ -126,15 +126,19 @@ const DAILY_HABITS = [
 ];
 
 export const AnxietyReliefScreen = ({ navigation }: any) => {
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
+    const themeName = useAppStore(s => s.themeName);
+  const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
   const currentTheme = getResolvedTheme(themeName, userData?.preferences?.colorScheme);
-  const isDark = !currentTheme.background.startsWith('#F');
+  const isDark = !isLightBg(currentTheme.background);
   const isLight = !isDark;
   const textColor = isLight ? '#012A1A' : '#E8FFF6';
   const subColor = isLight ? 'rgba(1,42,26,0.55)' : 'rgba(232,255,246,0.55)';
   const { t } = useTranslation();
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.09)' : 'rgba(255,255,255,0.09)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.09)';
 
   const [activeTab, setActiveTab] = useState<'techniques' | 'crisis' | 'habits'>('techniques');
   const [activeTech, setActiveTech] = useState<string | null>(null);
@@ -142,7 +146,9 @@ export const AnxietyReliefScreen = ({ navigation }: any) => {
   const [doneHabits, setDoneHabits] = useState<number[]>([]);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: currentTheme.background }} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={{ flex: 1}} edges={['top']}>
+
       <CalmBg isDark={isDark} />
 
       {/* Header */}
@@ -366,7 +372,8 @@ export const AnxietyReliefScreen = ({ navigation }: any) => {
 
         <EndOfContentSpacer />
       </ScrollView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

@@ -23,7 +23,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { AiService } from '../core/services/ai.service';
 import { HapticsService } from '../core/services/haptics.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 
 const GOLD = '#CEAE72';
@@ -222,16 +222,18 @@ function getMeaning(n: number): NumberMeaning {
 
 // ─── Number Card Component ────────────────────────────────────────────────────
 
-const NumberCard = ({ num, title, subtitle, meaning, entering, delay = 0 }: {
+const NumberCard = ({ num, title, subtitle, meaning, entering, delay = 0, isLight }: {
   num: number; title: string; subtitle: string; meaning: NumberMeaning;
-  entering?: any; delay?: number;
+  entering?: any; delay?: number; isLight?: boolean;
 }) => {
   const [expanded, setExpanded] = useState(false);
+  const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
 
   return (
-    <Animated.View entering={(entering ?? FadeInDown).delay(delay)} style={styles.card}>
+    <Animated.View entering={(entering ?? FadeInDown).delay(delay)} style={[styles.card, isLight && { borderColor: 'rgba(139,100,42,0.22)', backgroundColor: 'rgba(255,255,255,0.92)' }]}>
       <LinearGradient
-        colors={['rgba(255,255,255,0.06)', 'rgba(255,255,255,0.02)']}
+        colors={isLight ? ['rgba(255,255,255,0.95)', 'rgba(255,248,235,0.90)'] as const : ['rgba(255,255,255,0.06)', 'rgba(255,255,255,0.02)'] as const}
         style={styles.cardGradient}
       >
         <Pressable onPress={() => setExpanded(e => !e)} style={styles.cardHeader}>
@@ -239,8 +241,8 @@ const NumberCard = ({ num, title, subtitle, meaning, entering, delay = 0 }: {
             <Text style={styles.numBadgeText}>{num}</Text>
           </LinearGradient>
           <View style={styles.cardHeaderText}>
-            <Text style={styles.cardTitle}>{title}</Text>
-            <Text style={styles.cardSubtitle}>{subtitle}</Text>
+            <Text style={[styles.cardTitle, { color: textColor }]}>{title}</Text>
+            <Text style={[styles.cardSubtitle, { color: subColor }]}>{subtitle}</Text>
             <Text style={styles.cardKeywords}>{meaning.title} · {meaning.keywords}</Text>
           </View>
           <Text style={[styles.expandIcon, { color: GOLD }]}>{expanded ? '▲' : '▼'}</Text>
@@ -248,14 +250,14 @@ const NumberCard = ({ num, title, subtitle, meaning, entering, delay = 0 }: {
 
         {expanded && (
           <Animated.View entering={FadeInDown.duration(250)} style={styles.cardBody}>
-            <View style={styles.divider} />
-            <Text style={styles.meaningText}>{meaning.meaning}</Text>
+            <View style={[styles.divider, isLight && { backgroundColor: 'rgba(0,0,0,0.10)' }]} />
+            <Text style={[styles.meaningText, { color: textColor }]}>{meaning.meaning}</Text>
 
             <Text style={styles.sectionLabel}>CECHY</Text>
             <View style={styles.traitsRow}>
               {meaning.traits.map(t => (
-                <View key={t} style={styles.trait}>
-                  <Text style={styles.traitText}>{t}</Text>
+                <View key={t} style={[styles.trait, isLight && { backgroundColor: 'rgba(0,0,0,0.06)', borderColor: 'rgba(139,100,42,0.20)' }]}>
+                  <Text style={[styles.traitText, { color: subColor }]}>{t}</Text>
                 </View>
               ))}
             </View>
@@ -276,7 +278,7 @@ const NumberCard = ({ num, title, subtitle, meaning, entering, delay = 0 }: {
             {meaning.famous ? (
               <>
                 <Text style={styles.sectionLabel}>PRZYKŁADY</Text>
-                <Text style={styles.famousText}>{meaning.famous}</Text>
+                <Text style={[styles.famousText, { color: subColor }]}>{meaning.famous}</Text>
               </>
             ) : null}
           </Animated.View>
@@ -288,17 +290,19 @@ const NumberCard = ({ num, title, subtitle, meaning, entering, delay = 0 }: {
 
 // ─── Cycle Card (personal year/month/day) ───────────────────────────────────
 
-const CycleCard = ({ label, num, icon: Icon, color, delay = 0 }: {
-  label: string; num: number; icon: any; color: string; delay?: number;
+const CycleCard = ({ label, num, icon: Icon, color, delay = 0, isLight }: {
+  label: string; num: number; icon: any; color: string; delay?: number; isLight?: boolean;
 }) => {
   const meaning = getMeaning(num);
+  const cycleSubColor = isLight ? 'rgba(37,29,22,0.45)' : 'rgba(255,255,255,0.45)';
+  const cycleTitleColor = isLight ? 'rgba(37,29,22,0.6)' : 'rgba(255,255,255,0.60)';
   return (
-    <Animated.View entering={ZoomIn.delay(delay)} style={[styles.cycleCard]}>
+    <Animated.View entering={ZoomIn.delay(delay)} style={[styles.cycleCard, isLight && { borderColor: 'rgba(139,100,42,0.18)' }]}>
       <LinearGradient colors={[color + '22', color + '08']} style={styles.cycleCardInner}>
         <Icon color={color} size={18} strokeWidth={1.8} />
         <Text style={[styles.cycleNum, { color }]}>{num || '—'}</Text>
-        <Text style={styles.cycleLabel}>{label}</Text>
-        <Text style={styles.cycleTitle}>{num ? meaning.title : '...'}</Text>
+        <Text style={[styles.cycleLabel, { color: cycleSubColor }]}>{label}</Text>
+        <Text style={[styles.cycleTitle, { color: cycleTitleColor }]}>{num ? meaning.title : '...'}</Text>
       </LinearGradient>
     </Animated.View>
   );
@@ -309,11 +313,10 @@ const CycleCard = ({ label, num, icon: Icon, color, delay = 0 }: {
 export const NumerologyDetailScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const { currentTheme, isLight } = useTheme();
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
 
   // ─ Input state ─
   const [birthInput, setBirthInput] = useState(() => {
@@ -423,7 +426,9 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
     : (DEEP_BG as any);
 
   return (
-    <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView edges={['top']} style={{ flex: 1 }}>
+
       <LinearGradient colors={bgColors} style={StyleSheet.absoluteFill} />
 
       {/* ── Subtle background glow ── */}
@@ -470,7 +475,7 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
             >
               <Text style={[styles.inputLabel, { color: GOLD }]}>DATA URODZENIA</Text>
               <TextInput
-                style={[styles.input, { color: textColor, borderColor: GOLD + '44', backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)' }]}
+                style={[styles.input, { color: textColor, borderColor: GOLD + '44', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)' }]}
                 placeholder="DD.MM.YYYY"
                 placeholderTextColor={isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.35)'}
                 value={birthInput}
@@ -481,7 +486,7 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
               />
               <Text style={[styles.inputLabel, { color: GOLD, marginTop: 14 }]}>IMIĘ I NAZWISKO <Text style={styles.optionalTag}>(opcjonalne)</Text></Text>
               <TextInput
-                style={[styles.input, { color: textColor, borderColor: GOLD + '44', backgroundColor: isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)' }]}
+                style={[styles.input, { color: textColor, borderColor: GOLD + '44', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)' }]}
                 placeholder="Twoje imię i nazwisko"
                 placeholderTextColor={isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.35)'}
                 value={nameInput}
@@ -522,6 +527,7 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
                   meaning={getMeaning(results.lifePath)}
                   entering={FadeInDown}
                   delay={80}
+                  isLight={isLight}
                 />
               </View>
 
@@ -540,6 +546,7 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
                         meaning={getMeaning(results.expression)}
                         entering={FadeInDown}
                         delay={140}
+                        isLight={isLight}
                       />
                     )}
                     {results.soulUrge > 0 && (
@@ -550,6 +557,7 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
                         meaning={getMeaning(results.soulUrge)}
                         entering={FadeInDown}
                         delay={180}
+                        isLight={isLight}
                       />
                     )}
                   </View>
@@ -561,9 +569,9 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
                 <Text style={[styles.sectionTitle, { color: GOLD }]}>CYKLE OSOBISTE</Text>
               </Animated.View>
               <View style={styles.cyclesRow}>
-                <CycleCard label="Rok" num={results.personalYear} icon={Sun} color="#F59E0B" delay={220} />
-                <CycleCard label="Miesiąc" num={results.personalMonth} icon={Calendar} color="#8B5CF6" delay={260} />
-                <CycleCard label="Dzień" num={results.personalDay} icon={Star} color="#06B6D4" delay={300} />
+                <CycleCard label="Rok" num={results.personalYear} icon={Sun} color="#F59E0B" delay={220} isLight={isLight} />
+                <CycleCard label="Miesiąc" num={results.personalMonth} icon={Calendar} color="#8B5CF6" delay={260} isLight={isLight} />
+                <CycleCard label="Dzień" num={results.personalDay} icon={Star} color="#06B6D4" delay={300} isLight={isLight} />
               </View>
 
               {/* AI Oracle reading */}
@@ -643,7 +651,8 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
           <EndOfContentSpacer size="standard" />
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

@@ -55,23 +55,23 @@ const lightSanctuary: ThemeColors = {
   primaryLight: '#EACB9A',
   primaryDeep: '#65431C',
   secondary: '#7F91CD',
-  background: '#F7F1E8',
-  backgroundSoft: '#F1E8D9',
-  backgroundElevated: '#FFFCF6',
-  surface: '#FFF8EF',
-  elevated: 'rgba(90, 70, 35, 0.07)',
-  glassBackground: 'rgba(255, 251, 245, 0.97)',
-  glassBorder: 'rgba(122, 95, 54, 0.28)',
-  border: 'rgba(169, 122, 57, 0.24)',
-  borderLight: 'rgba(122, 95, 54, 0.14)',
-  text: '#251D16',
-  textMuted: 'rgba(37,29,22,0.88)',
-  textSoft: 'rgba(37,29,22,0.92)',
-  glow: 'rgba(229, 190, 118, 0.16)',
+  background: '#EAE1D5',
+  backgroundSoft: '#E2D8C9',
+  backgroundElevated: '#F5EEE4',
+  surface: '#FCF8F2',
+  elevated: 'rgba(90, 70, 35, 0.18)',
+  glassBackground: 'rgba(255, 255, 255, 0.99)',
+  glassBorder: 'rgba(122, 95, 54, 0.45)',
+  border: 'rgba(169, 122, 57, 0.40)',
+  borderLight: 'rgba(122, 95, 54, 0.25)',
+  text: '#1C150E',
+  textMuted: 'rgba(28,21,14,0.78)',
+  textSoft: 'rgba(28,21,14,0.88)',
+  glow: 'rgba(229, 190, 118, 0.22)',
   danger: '#C66961',
   success: '#4E9E7C',
-  gradientHero: ['#FFFDF9', '#F7EFE1', '#EFE6D8'],
-  gradientSurface: ['rgba(255,255,255,0.86)', 'rgba(255,255,255,0.48)'],
+  gradientHero: ['#FFFEFB', '#F8F1E6', '#EEE3D2'],
+  gradientSurface: ['rgba(255,255,255,0.94)', 'rgba(255,255,255,0.68)'],
   gradientAccent: ['#E8CD99', '#AF8242'],
   tabBarGradient: ['rgba(252,248,242,0.985)', 'rgba(246,238,226,0.96)'],
 };
@@ -154,21 +154,21 @@ const dawnClarity: ThemeColors = {
   primaryLight: '#E8CFA8',
   primaryDeep: '#684720',
   secondary: '#8EA3D1',
-  background: '#FBF6EE',
-  backgroundSoft: '#F5EBDD',
-  backgroundElevated: '#FFFDF8',
-  surface: '#FFF8F0',
-  elevated: 'rgba(120, 92, 54, 0.06)',
-  glassBackground: 'rgba(255, 253, 249, 0.94)',
-  glassBorder: 'rgba(140, 112, 72, 0.18)',
-  border: 'rgba(157, 116, 64, 0.24)',
-  borderLight: 'rgba(120, 92, 54, 0.14)',
-  text: '#2B2219',
-  textMuted: 'rgba(43,34,25,0.88)',
-  textSoft: 'rgba(43,34,25,0.92)',
-  glow: 'rgba(231, 201, 141, 0.16)',
-  gradientHero: ['#FFFDF9', '#F8F0E3', '#F1E6D5'],
-  gradientSurface: ['rgba(255,255,255,0.74)', 'rgba(255,255,255,0.38)'],
+  background: '#EAE1D4',
+  backgroundSoft: '#DFD4C4',
+  backgroundElevated: '#F5ECE0',
+  surface: '#FDFBF8',
+  elevated: 'rgba(120, 92, 54, 0.16)',
+  glassBackground: 'rgba(255, 255, 255, 0.99)',
+  glassBorder: 'rgba(140, 112, 72, 0.40)',
+  border: 'rgba(157, 116, 64, 0.42)',
+  borderLight: 'rgba(120, 92, 54, 0.26)',
+  text: '#18130E',
+  textMuted: 'rgba(24,19,14,0.78)',
+  textSoft: 'rgba(24,19,14,0.88)',
+  glow: 'rgba(231, 201, 141, 0.22)',
+  gradientHero: ['#FFFDFC', '#F8F0E5', '#F0E4D2'],
+  gradientSurface: ['rgba(255,255,255,0.92)', 'rgba(255,255,255,0.62)'],
   gradientAccent: ['#EBCF9A', '#B8894B'],
   tabBarGradient: ['rgba(253,250,244,0.985)', 'rgba(247,242,232,0.96)'],
 };
@@ -308,25 +308,28 @@ function makeLightTheme(dark: ThemeColors, bg: string, bgSoft: string, bgEl: str
     backgroundSoft: bgSoft,
     backgroundElevated: bgEl,
     surface: surf,
-    elevated: 'rgba(80,60,30,0.06)',
-    glassBackground: 'rgba(255,253,249,0.97)',
+    elevated: 'rgba(50,40,20,0.18)',
+    glassBackground: 'rgba(255, 255, 255, 0.85)',
+    glassBorder: 'rgba(0,0,0,0.16)',
+    border: 'rgba(0,0,0,0.14)',
+    borderLight: 'rgba(0,0,0,0.08)',
     text: textDark,
     textMuted: textMutedDark,
     textSoft: textSoftDark,
     gradientHero: [bgEl, bgSoft, bg],
-    gradientSurface: ['rgba(255,255,255,0.82)', 'rgba(255,255,255,0.44)'],
+    gradientSurface: ['rgba(255,255,255,1.0)', 'rgba(255,255,255,0.80)'],
     tabBarGradient: tabBar,
   };
 }
 
-const goldenRitualLight = makeLightTheme(goldenRitual, '#FAF5EC', '#F4EDD8', '#FFFDF6', '#FFF8EE', '#1A1005', 'rgba(26,16,5,0.88)', 'rgba(26,16,5,0.92)', ['rgba(250,245,236,0.985)', 'rgba(244,237,216,0.96)']);
-const moonMistLight     = makeLightTheme(moonMist,     '#F3F4FB', '#ECEEF8', '#FAFAFF', '#F6F7FE', '#0D0E1A', 'rgba(13,14,26,0.88)', 'rgba(13,14,26,0.92)', ['rgba(243,244,251,0.985)', 'rgba(236,238,248,0.96)']);
-const obsidianLight     = makeLightTheme(obsidianCrystal, '#F4F2FF', '#EDE9FF', '#FDFCFF', '#F9F7FF', '#0C0820', 'rgba(12,8,32,0.88)', 'rgba(12,8,32,0.92)', ['rgba(244,242,255,0.985)', 'rgba(237,233,255,0.96)']);
-const cosmicVioletLight = makeLightTheme(cosmicViolet, '#F7F3FF', '#F0EAFF', '#FEFCFF', '#FAF7FF', '#110820', 'rgba(17,8,32,0.88)', 'rgba(17,8,32,0.92)', ['rgba(247,243,255,0.985)', 'rgba(240,234,255,0.96)']);
-const crimsonSoulLight  = makeLightTheme(crimsonSoul,  '#FFF0F4', '#FFE4EE', '#FFFBFD', '#FFF5F9', '#200010', 'rgba(32,0,16,0.88)', 'rgba(32,0,16,0.92)', ['rgba(255,240,244,0.985)', 'rgba(255,228,238,0.96)']);
-const forestDepthLight  = makeLightTheme(forestDepth,  '#F1FFF5', '#E4FFEC', '#FBFFFB', '#F5FFF7', '#001A08', 'rgba(0,26,8,0.88)', 'rgba(0,26,8,0.92)', ['rgba(241,255,245,0.985)', 'rgba(228,255,236,0.96)']);
-const oceanDreamLight   = makeLightTheme(oceanDream,   '#F0FFFE', '#E2FFFE', '#FAFFFE', '#F4FFFF', '#001414', 'rgba(0,20,20,0.88)', 'rgba(0,20,20,0.92)', ['rgba(240,255,254,0.985)', 'rgba(226,255,254,0.96)']);
-const sunriseLight      = makeLightTheme(sunriseSanctum, '#FFF8EC', '#FFF0D4', '#FFFDF8', '#FFF9EE', '#1A0E00', 'rgba(26,14,0,0.88)', 'rgba(26,14,0,0.92)', ['rgba(255,248,236,0.985)', 'rgba(255,240,212,0.96)']);
+const goldenRitualLight = makeLightTheme(goldenRitual, '#EAE1D4', '#DFD4C4', '#F4EBDC', '#FFFDF9', '#1A1005', 'rgba(26,16,5,0.88)', 'rgba(26,16,5,0.92)', ['rgba(248,242,232,0.985)', 'rgba(238,230,214,0.96)']);
+const moonMistLight     = makeLightTheme(moonMist,     '#E8E9F2', '#DEE1ED', '#F2F3FA', '#FDFFFF', '#0D0E1A', 'rgba(13,14,26,0.88)', 'rgba(13,14,26,0.92)', ['rgba(238,240,248,0.985)', 'rgba(230,233,243,0.96)']);
+const obsidianLight     = makeLightTheme(obsidianCrystal, '#EBE8FB', '#E0DBF5', '#F5F3FF', '#FEFEFF', '#0C0820', 'rgba(12,8,32,0.88)', 'rgba(12,8,32,0.92)', ['rgba(240,237,253,0.985)', 'rgba(232,228,250,0.96)']);
+const cosmicVioletLight = makeLightTheme(cosmicViolet, '#EDE7F7', '#E2D9F0', '#F6F2FC', '#FEFCFF', '#110820', 'rgba(17,8,32,0.88)', 'rgba(17,8,32,0.92)', ['rgba(244,239,252,0.985)', 'rgba(236,229,248,0.96)']);
+const crimsonSoulLight  = makeLightTheme(crimsonSoul,  '#F7E6EB', '#EED8DF', '#FBF1F5', '#FFFBFD', '#200010', 'rgba(32,0,16,0.88)', 'rgba(32,0,16,0.92)', ['rgba(252,240,245,0.985)', 'rgba(245,230,237,0.96)']);
+const forestDepthLight  = makeLightTheme(forestDepth,  '#E6F5EA', '#DAEEDF', '#F2FCF5', '#FDFEFD', '#001A08', 'rgba(0,26,8,0.88)', 'rgba(0,26,8,0.92)', ['rgba(235,250,240,0.985)', 'rgba(224,244,231,0.96)']);
+const oceanDreamLight   = makeLightTheme(oceanDream,   '#E5F6F6', '#D8EFF0', '#F0FBFB', '#FCFFFE', '#001414', 'rgba(0,20,20,0.88)', 'rgba(0,20,20,0.92)', ['rgba(234,248,248,0.985)', 'rgba(222,242,244,0.96)']);
+const sunriseLight      = makeLightTheme(sunriseSanctum, '#EFE4D2', '#E6D7C2', '#F8EFDF', '#FFFDF9', '#1A0E00', 'rgba(26,14,0,0.88)', 'rgba(26,14,0,0.92)', ['rgba(248,240,226,0.985)', 'rgba(242,230,210,0.96)']);
 
 // ── Theme mode: 'dark' | 'light' | 'auto' ───────────────────────
 export type ThemeMode = 'dark' | 'light' | 'auto';
@@ -348,7 +351,7 @@ const lightThemeMap: Record<string, ThemeColors> = {
 
 const resolveAutoTheme = () => {
   const hour = new Date().getHours();
-  return hour >= 7 && hour < 19 ? dawnClarity : nightSanctuary();
+  return hour >= 6 && hour < 20 ? dawnClarity : nightSanctuary();
 };
 
 const nightSanctuary = () => darkSanctuary;
@@ -364,12 +367,12 @@ export const getResolvedTheme = (themeName: string, themeMode?: ThemeMode, at: D
 
   if (themeName === 'auto') {
     const hour = at.getHours();
-    if (mode === 'auto') return hour >= 7 && hour < 19 ? dawnClarity : nightSanctuary();
+    if (mode === 'auto') return hour >= 6 && hour < 20 ? dawnClarity : nightSanctuary();
     if (mode === 'light') return dawnClarity;
     return nightSanctuary();
   }
 
-  const effectiveLight = mode === 'light' || (mode === 'auto' && at.getHours() >= 7 && at.getHours() < 19);
+  const effectiveLight = mode === 'light' || (mode === 'auto' && at.getHours() >= 6 && at.getHours() < 20);
   if (effectiveLight) {
     return lightThemeMap[themeName] || lightSanctuary;
   }
@@ -418,6 +421,19 @@ export const radius = {
 };
 
 // Shadow styles
+/**
+ * isLightBg — perceived luminance check (ITU-R BT.601).
+ * Replaces the broken `background.startsWith('#F')` pattern which missed
+ * light themes whose backgrounds start with '#E' (e.g. #EAE1D5, #EDE7F7).
+ */
+export function isLightBg(hex: string): boolean {
+  if (!hex || hex.length < 7) return false;
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.5;
+}
+
 export const shadow = {
   md: {
     shadowColor: "#000",

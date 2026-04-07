@@ -21,7 +21,7 @@ interface PremiumTarotCardProps {
 }
 
 export const PremiumTarotCard = ({ isFlipped, onPress, cardName, isReversed }: PremiumTarotCardProps) => {
-  const { themeName } = useAppStore();
+    const themeName = useAppStore(s => s.themeName);
   const currentTheme = themes[themeName] || themes.dark;
   const flipValue = useSharedValue(0);
 

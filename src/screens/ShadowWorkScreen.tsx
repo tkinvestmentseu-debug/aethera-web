@@ -748,7 +748,7 @@ Pisz w języku użytkownika.`,
               const lastJournal = journalEntries.slice().reverse().find(e => (e.type as string) === 'shadow');
               const preview = lastJournal?.content ? lastJournal.content.replace(/\*\*[^*]+\*\*:\s*/g, '').replace(/\n/g, ' ').trim().slice(0, 80) : null;
               return (
-                <Animated.View entering={FadeInDown.delay(100).duration(500)} style={[sw.prevCard, { backgroundColor: 'rgba(255,255,255,0.04)', borderColor: lastArea ? lastArea.color + '33' : ACCENT + '28' }]}>
+                <Animated.View entering={FadeInDown.delay(100).duration(500)} style={[sw.prevCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: lastArea ? lastArea.color + '33' : ACCENT + '28' }]}>
                   <LinearGradient colors={[lastArea ? lastArea.color + '0D' : ACCENT + '0D', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
                   <Text style={[sw.prevLabel, { color: subColor }]}>SESJA POPRZEDNIA</Text>
                   <View style={sw.prevRow}>
@@ -772,7 +772,7 @@ Pisz w języku użytkownika.`,
                   <Pressable
                     key={area.id}
                     onPress={() => handleAreaSelect(area)}
-                    style={[sw.chip, activeArea?.id === area.id && { backgroundColor: area.color + '22', borderColor: area.color }]}
+                    style={[sw.chip, isLight && { backgroundColor: 'rgba(255,255,255,0.88)', borderColor: 'rgba(139,100,42,0.18)' }, activeArea?.id === area.id && { backgroundColor: area.color + '22', borderColor: area.color }]}
                   >
                     <Text style={[sw.chipText, { color: activeArea?.id === area.id ? area.color : subColor }]}>{area.label}</Text>
                   </Pressable>
@@ -794,7 +794,7 @@ Pisz w języku użytkownika.`,
                   <Pressable
                     key={i}
                     onPress={() => setActiveQuestion(i)}
-                    style={[sw.questionCard, activeQuestion === i && { backgroundColor: activeArea.color + '15', borderColor: activeArea.color + '44' }]}
+                    style={[sw.questionCard, isLight && { backgroundColor: 'rgba(255,255,255,0.88)', borderColor: 'rgba(139,100,42,0.12)' }, activeQuestion === i && { backgroundColor: activeArea.color + '15', borderColor: activeArea.color + '44' }]}
                   >
                     <View style={[sw.questionNum, { backgroundColor: activeQuestion === i ? activeArea.color : activeArea.color + '44' }]}>
                       <Text style={sw.questionNumText}>{i + 1}</Text>
@@ -897,7 +897,7 @@ Pisz w języku użytkownika.`,
                 <Pressable
                   key={i}
                   onPress={item.onPress}
-                  style={[sw.nextCard, { backgroundColor: 'rgba(255,255,255,0.04)', borderColor: item.color + '28' }]}
+                  style={[sw.nextCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: item.color + '28' }]}
                 >
                   <LinearGradient colors={[item.color + '10', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
                   <View style={[sw.nextIconBox, { backgroundColor: item.color + '18', borderColor: item.color + '33' }]}>

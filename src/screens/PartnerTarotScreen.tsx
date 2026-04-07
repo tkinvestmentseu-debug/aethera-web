@@ -40,7 +40,7 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { ALL_CARDS } from '../features/tarot/data/cards';
 import { getTarotDeckById } from '../features/tarot/data/decks';
 import { TarotCardVisual } from '../features/tarot/components/TarotCardVisual';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 
 // ─── Design Tokens ────────────────────────────────────────────────────────────
@@ -366,14 +366,14 @@ const TabBar = ({ active, onChange, isLight }: { active: number; onChange: (i: n
     { label: 'Mądrość', icon: Sparkles },
   ];
   return (
-    <View style={[tabBarStyles.wrap, { backgroundColor: isLight ? 'rgba(255,255,255,0.92)' : 'rgba(20,8,24,0.92)', borderColor: isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.08)' }]}>
+    <View style={[tabBarStyles.wrap, { backgroundColor: isLight ? 'rgba(255,255,255,0.92)' : 'rgba(20,8,24,0.92)', borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.08)' }]}>
       {TABS.map((tab, i) => {
         const Icon = tab.icon;
         const isActive = active === i;
         return (
           <Pressable key={tab.label} style={tabBarStyles.item} onPress={() => { onChange(i); HapticsService.selection(); }}>
-            <Icon size={18} color={isActive ? ACCENT : (isLight ? 'rgba(0,0,0,0.40)' : 'rgba(255,255,255,0.40)')} />
-            <Typography variant="microLabel" style={{ color: isActive ? ACCENT : (isLight ? 'rgba(0,0,0,0.40)' : 'rgba(255,255,255,0.40)'), fontSize: 10, marginTop: 2, fontWeight: isActive ? '700' : '400' }}>
+            <Icon size={18} color={isActive ? ACCENT : (isLight ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.40)')} />
+            <Typography variant="microLabel" style={{ color: isActive ? ACCENT : (isLight ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.40)'), fontSize: 10, marginTop: 2, fontWeight: isActive ? '700' : '400' }}>
               {tab.label}
             </Typography>
             {isActive && (
@@ -589,7 +589,7 @@ const ScoreBar = ({ label, icon: Icon, color, score, isLight }: { label: string;
         </View>
         <Typography variant="microLabel" style={{ color, fontSize: 12, fontWeight: '700' }}>{score}%</Typography>
       </View>
-      <View style={{ backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', height: 6, borderRadius: 3, overflow: 'hidden' }}>
+      <View style={{ backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)', height: 6, borderRadius: 3, overflow: 'hidden' }}>
         <Animated.View style={barStyle} />
       </View>
     </View>
@@ -599,9 +599,9 @@ const ScoreBar = ({ label, icon: Icon, color, score, isLight }: { label: string;
 // ─── Section Header ───────────────────────────────────────────────────────────
 const SectionLabel = ({ text, color, isLight }: { text: string; color?: string; isLight: boolean }) => (
   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14, marginTop: 6 }}>
-    <View style={{ flex: 1, height: 1, backgroundColor: color ? color + '30' : (isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)') }} />
-    <Typography variant="microLabel" style={{ color: color || (isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)'), fontSize: 10, letterSpacing: 2 }}>{text}</Typography>
-    <View style={{ flex: 1, height: 1, backgroundColor: color ? color + '30' : (isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)') }} />
+    <View style={{ flex: 1, height: 1, backgroundColor: color ? color + '30' : (isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)') }} />
+    <Typography variant="microLabel" style={{ color: color || (isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)'), fontSize: 10, letterSpacing: 2 }}>{text}</Typography>
+    <View style={{ flex: 1, height: 1, backgroundColor: color ? color + '30' : (isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)') }} />
   </View>
 );
 
@@ -644,7 +644,7 @@ const CoupleHero = ({
   }, []);
   const pulseStyle = useAnimatedStyle(() => ({ transform: [{ scale: pulse.value }] }));
   const textColor = isLight ? '#1A1A2E' : '#F0EBF4';
-  const subC = isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.50)';
+  const subC = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)';
   if (!myName && !partnerName) return null;
   return (
     <View style={{ borderRadius: 22, overflow: 'hidden', marginBottom: 16 }}>
@@ -696,9 +696,9 @@ const CoupleHero = ({
 const SpreadCard = ({ spread, isActive, onPress, isLight }: { spread: typeof SPREAD_TYPES[0]; isActive: boolean; onPress: () => void; isLight: boolean }) => {
   const SpIcon = spread.icon;
   const textColor = isLight ? '#1A1A2E' : '#F0EBF4';
-  const subC = isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.50)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.05)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)';
+  const subC = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.07)';
   return (
     <Pressable onPress={onPress} style={{ borderRadius: 18, overflow: 'hidden', marginBottom: 10 }}>
       <LinearGradient
@@ -746,7 +746,7 @@ const GCard = ({ children, style, isLight, accentBorder }: { children: React.Rea
   <View style={[{
     backgroundColor: isLight ? 'rgba(0,0,0,0.035)' : 'rgba(255,255,255,0.055)',
     borderWidth: 1,
-    borderColor: accentBorder ? accentBorder + '44' : (isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)'),
+    borderColor: accentBorder ? accentBorder + '44' : (isLight ? 'rgba(122,95,54,0.14)' : 'rgba(255,255,255,0.07)'),
     borderRadius: 20,
     padding: 18,
   }, style]}>
@@ -765,7 +765,7 @@ const ProfileCard = ({
   const lp = calcLifePath(birthDate);
   const moon = getMoonPhaseLabel(birthDate);
   const textColor = isLight ? '#1A1A2E' : '#F0EBF4';
-  const subC = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
+  const subC = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
 
   return (
     <GCard isLight={isLight} accentBorder={accentColor} style={{ marginBottom: 16 }}>
@@ -812,7 +812,7 @@ const ProfileCard = ({
 const HistoryEntry = ({ entry, isLight, onDelete }: { entry: any; isLight: boolean; onDelete: () => void }) => {
   const [expanded, setExpanded] = useState(false);
   const textColor = isLight ? '#1A1A2E' : '#F0EBF4';
-  const subC = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
+  const subC = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
   const spread = SPREAD_TYPES.find(s => s.id === entry.spreadId) || SPREAD_TYPES[0];
   const SpreadIcon = spread.icon;
 
@@ -841,7 +841,7 @@ const HistoryEntry = ({ entry, isLight, onDelete }: { entry: any; isLight: boole
         )}
       </Pressable>
       {expanded && (
-        <View style={{ marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)' }}>
+        <View style={{ marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)' }}>
           {entry.summary ? (
             <Typography style={{ color: subC, fontSize: 13, lineHeight: 20 }}>{entry.summary}</Typography>
           ) : null}
@@ -861,9 +861,11 @@ const HistoryEntry = ({ entry, isLight, onDelete }: { entry: any; isLight: boole
 export const PartnerTarotScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, userData, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
+    const userData = useAppStore(s => s.userData);
+  const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
   const scrollRef = useRef<ScrollView>(null);
 
   // ── Tab state ──
@@ -1124,9 +1126,9 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
 
   // ── Theme vars ──
   const textColor = isLight ? '#1A1A2E' : '#F0EBF4';
-  const subColor  = isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)';
+  const subColor  = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
   const cardBg    = isLight ? 'rgba(0,0,0,0.035)' : 'rgba(255,255,255,0.055)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.07)' : 'rgba(255,255,255,0.07)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.07)';
 
   // ─────────────────────────────────────────────────────────────────────────────
   // TAB: Odczyt
@@ -1806,7 +1808,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
                 const isToday = i === (new Date().getDay() === 0 ? 6 : new Date().getDay() - 1);
                 return (
                   <Animated.View key={we.day} entering={FadeInDown.delay(i * 50).springify()}
-                    style={{ alignItems: 'center', paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14, backgroundColor: isToday ? we.color + '22' : 'transparent', borderWidth: isToday ? 1.5 : 1, borderColor: isToday ? we.color + '66' : (isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.06)'), minWidth: 72 }}>
+                    style={{ alignItems: 'center', paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14, backgroundColor: isToday ? we.color + '22' : 'transparent', borderWidth: isToday ? 1.5 : 1, borderColor: isToday ? we.color + '66' : (isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.06)'), minWidth: 72 }}>
                     <Typography style={{ color: isToday ? we.color : subColor, fontSize: 10, fontWeight: '600', letterSpacing: 0.8 }}>{we.day}</Typography>
                     <Typography style={{ color: isToday ? we.color : textColor, fontSize: 12, fontWeight: '700', marginTop: 4 }}>{we.energy}</Typography>
                     {isToday && <View style={{ width: 5, height: 5, borderRadius: 2.5, backgroundColor: we.color, marginTop: 4 }} />}

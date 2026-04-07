@@ -1,0 +1,1328 @@
+{
+  "header": {
+    "eyebrow": "DAS LAND DER TRÄUME",
+    "title": "Die Symbolwelt der Nacht",
+    "favoriteLabel": "Träume",
+    "favoriteId": "Träume",
+    "formTab": "Traum"
+  },
+  "tabs": [
+    {
+      "id": "Traum",
+      "label": "Traum",
+      "icon": "🌙"
+    },
+    {
+      "id": "Symbolwelt",
+      "label": "Symbolik",
+      "icon": "📖"
+    },
+    {
+      "id": "Muster",
+      "label": "Muster",
+      "icon": "🔮"
+    },
+    {
+      "id": "Mond",
+      "label": "Der Mond",
+      "icon": "🌕"
+    },
+    {
+      "id": "lucid",
+      "label": "Bewusst",
+      "icon": "💡"
+    },
+    {
+      "id": "Kalender",
+      "label": "Kalender",
+      "icon": "📅"
+    }
+  ],
+  "calendar": {
+    "monthNames": [
+      "Januar",
+      "Februar",
+      "März",
+      "April",
+      "Mai",
+      "Juni",
+      "Juli",
+      "August",
+      "September",
+      "Oktober",
+      "November",
+      "Dezember"
+    ],
+    "weekdays": [
+      "Mo",
+      "Di",
+      "Mi",
+      "Do",
+      "Fr",
+      "Sa",
+      "So"
+    ],
+    "stats": [
+      {
+        "id": "daysWithDreams",
+        "label": "Tage voller Träume",
+        "icon": "🌙"
+      },
+      {
+        "id": "Einträge",
+        "label": "Beiträge",
+        "icon": "📝"
+      },
+      {
+        "id": "lucid",
+        "label": "Lucid",
+        "icon": "💡"
+      }
+    ],
+    "legend": [
+      {
+        "id": "normal",
+        "label": "Ein gewöhnlicher Traum"
+      },
+      {
+        "id": "lucid",
+        "label": "Lucid"
+      },
+      {
+        "id": "Albtraum",
+        "label": "Ein Albtraum"
+      }
+    ],
+    "emptyDay": "An diesem Tag wurden keine Träume aufgezeichnet",
+    "monthDetailFormat": "{{day}} {{month}}"
+  },
+  "sections": {
+    "dreamStats": [
+      {
+        "id": "Träume",
+        "label": "Träume",
+        "icon": "🌙"
+      },
+      {
+        "id": "Serie",
+        "label": "Band",
+        "icon": "🔥"
+      },
+      {
+        "id": "lucid",
+        "label": "Lucid",
+        "icon": "💡"
+      }
+    ],
+    "patternStats": [
+      {
+        "id": "gespeichert",
+        "label": "Gespeichert",
+        "icon": "🌙"
+      },
+      {
+        "id": "nightStreak",
+        "label": "Die Nacht",
+        "icon": "🔥"
+      },
+      {
+        "id": "Muster",
+        "label": "Vorlagen",
+        "icon": "🔄"
+      }
+    ],
+    "moonStats": [
+      {
+        "id": "lucid",
+        "label": "Lucid",
+        "icon": "💡"
+      },
+      {
+        "id": "prophetisch",
+        "label": "Prophetisch",
+        "icon": "🔮"
+      },
+      {
+        "id": "Serie",
+        "label": "Band",
+        "icon": "🌙"
+      }
+    ],
+    "lucidStats": [
+      {
+        "id": "lucidDreams",
+        "label": "Klarträume",
+        "icon": "💡"
+      },
+      {
+        "id": "nightStreak",
+        "label": "Die Nacht",
+        "icon": "🌙"
+      },
+      {
+        "id": "Wirksamkeit",
+        "label": "Wirksamkeit",
+        "icon": "📊"
+      }
+    ]
+  },
+  "form": {
+    "ctaTitle": "Schreibe deinen heutigen Traum auf",
+    "ctaSubtitle": "Gleich nach dem Aufwachen – noch bevor die Bilder verblassen",
+    "cardEyebrow": "EIN NEUER TRAUM",
+    "cardTitle": "Schreib es gleich nach dem Aufwachen auf",
+    "titleLabel": "TITEL DES TRAUMS",
+    "titlePlaceholder": "z. B. Ein Haus mit Kindern, Ein Flug über das Meer...",
+    "contentLabel": "TRAUMBESCHREIBUNG",
+    "contentPlaceholder": "Beschreibe deinen Traum – fang mit einer Farbe, einem Ort oder einem Gefühl an, das dir nach dem Aufwachen noch im Gedächtnis geblieben ist...",
+    "detectedSymbols": "{{count}}",
+    "dominantEmotion": "LEITEMOTIV",
+    "tagsLabel": "TAGS",
+    "clarityLabel": "DIE DEUTLICHKEIT DES TRAUMS",
+    "clarityLabels": [
+      "Nebelhaft",
+      "Schwach",
+      "Deutlich",
+      "Lebendig",
+      "Wie im Traum"
+    ],
+    "clarityPlaceholder": "Entscheide dich für Klarheit",
+    "aiLabel": "JUNG'SCHE INTERPRETATION",
+    "aiLoading": "Oracle deutet deinen Traum...",
+    "emptyTitle": "Keine gespeicherten Träume",
+    "emptyDescription": "Schreibe deinen ersten Traum gleich nach dem Aufwachen auf. Jeder Traum ist eine Botschaft aus den Tiefen der Psyche.",
+    "emptyCta": "Schreibe deinen ersten Traum auf",
+    "detailsAndAi": "Details und KI",
+    "howToRecord": "WIE MAN TRÄUME AUFZEICHNET",
+    "saveDream": "Den Traum aufschreiben",
+    "interpret": "Interpretieren",
+    "analyzing": "Ich analysiere..."
+  },
+  "symbolarium": {
+    "searchPlaceholder": "Suche nach dem Symbol...",
+    "title": "SYMBOLE ({{count}})",
+    "jungianLayer": "JUNG-SCHICHT",
+    "shadowLayer": "SCHATTENELEMENT",
+    "emptyTitle": "Keine Ergebnisse",
+    "emptyDescription": "Versuche es mit einem anderen Suchbegriff",
+    "dailySymbolEyebrow": "✨ SYMBOL DES TAGES"
+  },
+  "patterns": {
+    "aiCardTitle": "Eine Jung’sche Deutung all deiner Träume. Archetypen, der Schatten und Botschaften.",
+    "mapTitle": "KARTE DER TRAUMMUSTER",
+    "aiLoading": "Oracle untersucht die Muster deiner Träume...",
+    "recurringTitle": "SICH WIEDERHOLENDE SYMBOLE",
+    "recurringEmpty": "Schreibe mehr Träume auf, um wiederkehrende Muster zu entdecken.",
+    "emotionsTitle": "DIE HÄUFIGSTEN EMOTIONEN",
+    "emotionsEmpty": "Halte deine Träume mit Begeisterung fest, um die Statistiken zu sehen.",
+    "dreamTypesTitle": "ARTEN VON TRÄUMEN",
+    "nextActions": [
+      {
+        "id": "Schatten",
+        "title": "Arbeiten mit Schatten"
+      },
+      {
+        "id": "Mond",
+        "title": "Mondkalender"
+      },
+      {
+        "id": "Zeitschrift",
+        "title": "Reflexion speichern",
+        "subtitle": "Welches Symbol aus deinem letzten Traum passt zu deinem Leben?"
+      }
+    ],
+    "nowPrefix": "JETZT · ",
+    "aiTitle": "Analyse von KI-Mustern",
+    "aiLoadingTitle": "Ich analysiere Muster...",
+    "streakTitle": "7-TÄGIGE SERIE",
+    "streakEmpty": "Fang noch heute an und gestalte dein Traumleben.",
+    "streakActive": "Bravo! Du schreibst deine Träume seit {{count}} Nächten in Folge auf.",
+    "exploreTitle": "✦ WEITER ENTDECKEN"
+  },
+  "moon": {
+    "cycleTitle": "DER MONDSZYKLUS UND DER SCHLAF",
+    "lunarDreamsTitle": "DEINE MONDTRÄUME",
+    "lunarDreamsNote": "Wenn du das Datum jedes Traums notierst, kannst du herausfinden, in welcher Mondphase du am intensivsten träumst.",
+    "lucidTipsTitle": "WIE MAN IN EINEN BEWUSSTEN TRAUM EINTAUCHT",
+    "lucidTips": [
+      [
+        "MILD-Technik",
+        "Wiederhole kurz vor dem Schlafengehen: „Wenn ich das nächste Mal träume, werde ich mir dessen bewusst sein.“ Stelle dir vor, wie du im Traum einen Realitätscheck durchführst."
+      ],
+      [
+        "Die WILD-Technik",
+        "Das Einschlafen bei bewusster Wahrnehmung – beobachte die hypnagogischen Bilder, ohne dich darauf einzulassen, bis sich der Traum herausbildet."
+      ],
+      [
+        "Realitätstests",
+        "Frag dich mehrmals täglich: „Träume ich?“ Im Traum wird sich diese Gewohnheit automatisch einstellen."
+      ],
+      [
+        "Vollmondphase",
+        "Höchste Traumaktivität. Stelle den Wecker auf 90 Minuten nach deiner üblichen Schlafenszeit und schlafe sofort mit der Absicht ein, bewusst zu träumen."
+      ]
+    ],
+    "lunarCalendarTitle": "Vollständiger Mondkalender",
+    "lunarCalendarDescription": "Plane deine Schlafziele entsprechend dem Mondzyklus.",
+    "illuminationSuffix": "Beleuchtung",
+    "badges": {
+      "lucid": "Lucid {{mark}}",
+      "prophetic": "Das prophetische „{{mark}}“"
+    }
+  },
+  "lucid": {
+    "introEyebrow": "💡 KLARTRÄUMEN",
+    "introBody": "Bewusstes Träumen (Lucid Dreaming) ist ein Zustand, in dem man weiß, dass man träumt – und aktiv am Traum teilnehmen kann. Regelmäßiges Üben eröffnet den Zugang zum Unterbewusstsein, steigert die Kreativität und ermöglicht es, Ängste in einem sicheren Traumraum zu verarbeiten.",
+    "techniquesTitle": "INDUKTIONSTECHNIKEN",
+    "techniques": [
+      {
+        "tag": "MILD",
+        "icon": "🌿",
+        "difficulty": "Einfach",
+        "title": "MILD – Mnemonische Induktion",
+        "desc": "Wiederhole vor dem Schlafengehen folgende Affirmation: „Wenn ich das nächste Mal träume, werde ich mir dessen bewusst sein.“ Stelle dir ganz klar vor, wie du dir deines Traums bewusst wirst. Diese Technik basiert auf dem prospektiven Gedächtnis.",
+        "steps": [
+          "Setze dir kurz vor dem Einschlafen ein Ziel",
+          "Stelle dir den Moment vor, in dem du erkennst, dass du träumst",
+          "Wiederhole das Mantra 10 bis 20 Mal mit ruhiger innerer Stimme",
+          "Wenn du nachts aufwachst, wiederhole die Übung"
+        ]
+      },
+      {
+        "tag": "WBTB",
+        "icon": "⏰",
+        "difficulty": "Durchschnitt",
+        "title": "WBTB – Wake Back to Bed",
+        "desc": "Stelle den Wecker auf 5–6 Stunden nach dem Einschlafen. Steh für 30–60 Minuten auf und konzentriere dich dabei bewusst (lies mehr über luzides Träumen). Schlafe wieder ein. Die REM-Phase ist dann am längsten und intensivsten.",
+        "steps": [
+          "Stelle den Wecker auf 5 Stunden nach dem Einschlafen",
+          "Steh auf und lies 30–60 Minuten über luzides Träumen",
+          "Geh mit der festen Absicht „MILD“ oder „WILD“ wieder ins Bett",
+          "Die REM-Phase nach WBTB dauert bis zu 45–60 Minuten"
+        ]
+      },
+      {
+        "tag": "WILD",
+        "icon": "🌀",
+        "difficulty": "Fortgeschritten",
+        "title": "WILD – Durch das Erwachen ausgelöster luzider Traum",
+        "desc": "Versetze dein Bewusstsein ohne Bewusstseinsunterbrechung direkt vom Wachzustand in den Schlaf. Beobachte die hypnagogischen Bilder und Geräusche als Signal für den Übergang in den Schlaf.",
+        "steps": [
+          "Für optimale Ergebnisse mit WBTB verbinden",
+          "Bleib ruhig liegen und beobachte die hypnagogischen Visionen",
+          "Reagiere nicht emotional – sei einfach nur Zeuge",
+          "Du spürst eine Vibration oder ein „Ziehen“ – das ist der Übergang in den Schlaf"
+        ]
+      },
+      {
+        "tag": "SSILD",
+        "icon": "👁️",
+        "difficulty": "Leicht bis mittel",
+        "title": "SSILD – Durch die Sinne ausgelöster luzider Traum",
+        "desc": "Konzentriere dich abwechselnd auf das Sehen, Hören und Fühlen – und zwar über 3 bis 4 Zyklen hinweg. Analysiere nicht – beobachte einfach nur. Diese Technik verwirrt das Gehirn und beschleunigt den Übergang in die REM-Phase, wobei das Bewusstsein erhalten bleibt.",
+        "steps": [
+          "Verbinde dich nach dem Aufwachen mit WBTB für SSILD",
+          "20 Sekunden lang den Blick konzentrieren (Dunkelheit oder Bilder)",
+          "20 Sekunden für innere und äußere Geräusche",
+          "20 Sekunden lang auf deinen Körper achten – wiederhole dies 4 Mal"
+        ]
+      }
+    ],
+    "realityChecksTitle": "REALITÄTSTESTS",
+    "realityChecksEyebrow": "REALITY CHECKS – 10 MAL TÄGLICH DURCHFÜHREN",
+    "realityChecksBody": "Regelmäßige Realitätschecks werden zur Gewohnheit, die sich auch auf die Träume überträgt. Im Traum wird immer etwas nicht stimmen – genau dann wirst du aufwachen.",
+    "realityChecks": [
+      {
+        "icon": "✋",
+        "title": "Finger",
+        "desc": "Zähle deine Finger – im Traum sind es meist 6 oder 7, oder sie sind verformt."
+      },
+      {
+        "icon": "📖",
+        "title": "Text lesen",
+        "desc": "Lies den Satz, schau weg und schau wieder hin – im Traum verändert sich der Text."
+      },
+      {
+        "icon": "⏰",
+        "title": "Digitale Uhr",
+        "desc": "Im Traum ist die Zeit irrational – Zahlen ändern sich oder existieren gar nicht."
+      },
+      {
+        "icon": "👃",
+        "title": "Nase",
+        "desc": "Halte dir die Nase zu und versuche zu atmen. Im Schlaf wirst du das trotz verstopfter Nase können."
+      },
+      {
+        "icon": "💡",
+        "title": "Lichtschalter",
+        "desc": "In Träumen funktionieren Schalter oft nicht oder genau umgekehrt."
+      }
+    ],
+    "dreamSignsTitle": "DEINE TRAUMSYMBOLE",
+    "dreamSignsBody": "Traumzeichen sind sich wiederholende Elemente in deinen Träumen. Wenn du sie im Traum erkennst, erwacht dein Bewusstsein. Notiere sie nach jedem Traum in deinem Tagebuch.",
+    "dreamSignsEmpty": "Schreib ein paar Träume auf, damit Aethera deine persönlichen Traumzeichen erkennen kann.",
+    "dreamSignsCount": "{{count}}× in Träumen",
+    "tonightIntentionTitle": "GEDANKEN FÜR HEUTE ABEND",
+    "tonightBlocks": [
+      {
+        "title": "Das Ritual vor dem Schlafengehen",
+        "steps": [
+          "Schalte die Bildschirme 30 Minuten vor dem Schlafengehen aus",
+          "Schreibe dein Tagesprotokoll in drei Sätzen auf",
+          "Lies den letzten Eintrag im Traumtagebuch",
+          "Formuliere deine Absicht mit folgenden Worten: „Heute Nacht werde ich mir bewusst sein, dass ich träume“",
+          "Stell dir deinen Lieblingsort vor – das ist dein Rückzugsort im Traum"
+        ]
+      },
+      {
+        "title": "Optimale Bedingungen",
+        "steps": [
+          "Raumtemperatur: 18–20 °C",
+          "Dunkelheit – Melatonin fördert lebhafte Träume",
+          "Iss 2–3 Stunden vor dem Schlafengehen nichts mehr",
+          "Magnesiumgluconat wirkt entspannend und verbessert die REM-Schlafqualität",
+          "7,5–9 Stunden Schlaf – vollständige REM-Zyklen sind entscheidend"
+        ]
+      }
+    ]
+  },
+  "ai": {
+    "interpretSections": [
+      "SYMBOLANALYSE",
+      "SCHATTENELEMENT",
+      "BOTSCHAFT",
+      "INTEGRATIONSPRAXIS"
+    ],
+    "patternSections": [
+      "HAUPTTHEMA",
+      "SICH WIEDERHOLENDE MUSTER",
+      "Der Schatten und die Archetypen",
+      "EINE NACHRICHT AN DEN TRÄUMER",
+      "NÄCHSTER SCHRITT"
+    ],
+    "interpretPrompt": {
+      "intro": "Du bist ein Jungscher Traumdeuter mit fundierten Kenntnissen über Archetypen, Symbolik und Tiefenpsychologie.",
+      "personPrefix": "Person: {{name}}.",
+      "zodiacPrefix": "Sternzeichen: {{sign}}.",
+      "dreamPrefix": "Traum: „{{content}}“",
+      "emotionPrefix": "Das vorherrschende Gefühl: {{emotion}}.",
+      "tagPrefix": "Art des Traums: {{tags}}.",
+      "lucidNote": "Es war ein Klartraum (Lucid Dreaming).",
+      "repeatingNote": "Dieser Traum wiederholt sich – das ist ein wichtiges Zeichen.",
+      "clarityPrefix": "Deutlichkeit des Traums: {{clarity}} /5.",
+      "instruction": "Verfasse eine ausführliche Analyse, die GENAU diese Abschnitte in dieser Reihenfolge enthält:",
+      "sectionDescriptions": [
+        "SYMBOLANALYSE: Identifiziere 2–3 zentrale Symbole aus dem Traum und erläutere ihre jungianische Bedeutung. Was symbolisieren sie konkret im Kontext des angegebenen Traums? (3–4 Sätze)",
+        "DER SCHATTEN: Welcher Aspekt des Schattens (Carl Jung) kommt in diesem Traum zum Vorschein? Welcher nicht integrierte Teil der Psyche verlangt nach Aufmerksamkeit? Formuliere deine Antwort konkret und mutig. (2–3 Sätze)",
+        "AUFGABE: Was versucht das Unterbewusstsein dir mitzuteilen? Welche Wahrheit über dich selbst oder deine Situation offenbart der Traum? Schreibe direkt und tiefgründig. (2–3 Sätze)",
+        "INTEGRATIONSÜBUNG: Schlage eine konkrete Übung oder Frage vor, mit der du in den nächsten Tagen an diesem Traum arbeiten kannst. (1–2 Sätze)"
+      ],
+      "tone": "Schreibe in der Sprache des Lesers. Tonfall: warm, tiefgründig, psychologisch präzise. Vermeide Plattitüden – gehe direkt auf den Punkt.",
+      "fallback": "Oracle schweigt in dieser Nacht. Vertraue deiner Intuition – sie kennt die Antwort bereits."
+    },
+    "patternPrompt": {
+      "intro": "Du bist ein Traumdeuter mit einer Ausbildung in der Jungschen Schule.",
+      "recentDreams": "Die letzten Träume dieser Person {{count}}:",
+      "recurringSymbols": "Wiederkehrende Symbole: {{symbols}}",
+      "dominantEmotions": "Vorherrschende Emotionen: {{emotions}}",
+      "streak": "Traumphase: {{count}} Nächte in Folge.",
+      "none": "keine",
+      "instruction": "Verfasse eine eingehende Analyse der Muster, die Folgendes enthält:",
+      "sectionDescriptions": [
+        "HAUPTTHEMA: Welches psychologische Hauptthema zieht sich durch diese Träume? (2–3 Sätze)",
+        "WIEDERKEHRENDE MUSTER: Welche Symbole, Emotionen oder Erzählungen tauchen immer wieder auf? Was lässt sich daraus ableiten? (2–3 Sätze)",
+        "DER SCHATTEN UND DIE ARCHETYPEN: Welche archetypischen Energien oder Elemente des Schattens sind aktiv? (2–3 Sätze)",
+        "EINE BOTSCHAFT AN DEN TRÄUMENDEN: Was versucht das Unterbewusstsein konsequent zu vermitteln? Eine klare, direkte Botschaft. (2 Sätze)",
+        "NÄCHSTER SCHRITT: Eine konkrete Maßnahme oder Frage für die Arbeit in der kommenden Woche."
+      ],
+      "tone": "Schreibe in der Sprache des Lesers, tiefgründig und präzise.",
+      "fallback": "Die Muster sind zu subtil, um sie heute zu erkennen. Träum weiter."
+    }
+  },
+  "data": {
+    "emotions": [
+      {
+        "id": "Angst",
+        "emoji": "😨",
+        "color": "#60A5FA"
+      },
+      {
+        "id": "Freude",
+        "emoji": "😄",
+        "color": "#34D399"
+      },
+      {
+        "id": "Traurigkeit",
+        "emoji": "😢",
+        "color": "#818CF8"
+      },
+      {
+        "id": "Unruhe",
+        "emoji": "😰",
+        "color": "#F97316"
+      },
+      {
+        "id": "Ruhe",
+        "emoji": "😌",
+        "color": "#A78BFA"
+      },
+      {
+        "id": "Aufregung",
+        "emoji": "🤩",
+        "color": "#FBBF24"
+      },
+      {
+        "id": "Verloren",
+        "emoji": "😶‍🌫️",
+        "color": "#94A3B8"
+      },
+      {
+        "id": "Begeisterung",
+        "emoji": "🤩",
+        "color": "#F9A8D4"
+      }
+    ],
+    "dreamTagOptions": [
+      {
+        "id": "Albtraum",
+        "label": "Ein Albtraum",
+        "color": "#EF4444",
+        "emoji": "😱"
+      },
+      {
+        "id": "prophetisch",
+        "label": "Prophetisch",
+        "color": "#FBBF24",
+        "emoji": "🔮"
+      },
+      {
+        "id": "Wiederholung",
+        "label": "Wiederkehrende",
+        "color": "#F472B6",
+        "emoji": "🔄"
+      },
+      {
+        "id": "lucid",
+        "label": "Bewusst (lucid)",
+        "color": "#34D399",
+        "emoji": "💡"
+      },
+      {
+        "id": "heilend",
+        "label": "Heilsam",
+        "color": "#86EFAC",
+        "emoji": "💚"
+      },
+      {
+        "id": "astral",
+        "label": "Astral",
+        "color": "#C084FC",
+        "emoji": "✨"
+      }
+    ],
+    "symbolariumCategories": [
+      {
+        "id": "alle",
+        "label": "Alle",
+        "icon": "🌙"
+      },
+      {
+        "id": "Natur",
+        "label": "Natur",
+        "icon": "🌿"
+      },
+      {
+        "id": "Menschen",
+        "label": "Menschen",
+        "icon": "👤"
+      },
+      {
+        "id": "Objekte",
+        "label": "Objekte",
+        "icon": "🗝️"
+      },
+      {
+        "id": "Orte",
+        "label": "Orte",
+        "icon": "🏛️"
+      },
+      {
+        "id": "Aktien",
+        "label": "Aktien",
+        "icon": "⚡"
+      },
+      {
+        "id": "Emotionen",
+        "label": "Emotionen",
+        "icon": "💜"
+      }
+    ],
+    "extendedSymbols": [
+      {
+        "id": "e1",
+        "keyword": "Wasser",
+        "cat": "Natur",
+        "emoji": "💧",
+        "color": "#60A5FA",
+        "meaning": "Wasser in Träumen offenbart den Zustand der Emotionen und des Unterbewusstseins. Ruhiges Wasser steht für Ausgeglichenheit und das Folgen der Intuition, aufgewühltes Wasser hingegen für emotionale Überlastung oder formlose Gefühle.",
+        "jungian": "Wasser ist ein Symbol für die Anima/den Animus und das kollektive Unbewusste. Jung sah im Ozean das ursprüngliche Chaos, aus dem das Bewusstsein hervorgeht.",
+        "shadow": "Ertrinken oder eine Überschwemmung können bedeuten, dass unterdrückte Emotionen zum Vorschein kommen und nach Integration verlangen.",
+        "followUpPrompt": "Welches Gefühl verlangt heute danach, sanft benannt statt unterdrückt zu werden?"
+      },
+      {
+        "id": "e2",
+        "keyword": "Feuer",
+        "cat": "Natur",
+        "emoji": "🔥",
+        "color": "#FB923C",
+        "meaning": "Feuer steht für Verwandlung, Intensität und Energie. Wärme symbolisiert Leidenschaft und Lebenskraft, eine zerstörerische Flamme hingegen Ausgebrannte oder unkontrollierte Wut.",
+        "jungian": "In der Jungschen Symbolik ist das Feuer ein Symbol für den Geist und die Libido. Prometheus bringt das Feuer als Geschenk des Bewusstseins.",
+        "shadow": "Wenn ein Feuer Häuser oder Angehörige verschlingt, kann dies auf destruktive Aspekte des eigenen Temperaments hindeuten.",
+        "followUpPrompt": "Welche Energie will dich reinigen, und welche beginnt, dich auszubrennen?"
+      },
+      {
+        "id": "e3",
+        "keyword": "Wald",
+        "cat": "Natur",
+        "emoji": "🌳",
+        "color": "#86EFAC",
+        "meaning": "Der Wald bedeutet den Eintritt ins Unbekannte, die Begegnung mit dem Unterbewusstsein und mit dem, was noch keinen Namen hat. Er lädt dazu ein, einen verborgenen Aspekt von sich selbst zu entdecken.",
+        "jungian": "Der Wald ist ein Symbol für das kollektive Unbewusste und das Selbst (Self). Das märchenhafte Motiv des Waldes als Ort der Prüfungen und Initiationen.",
+        "shadow": "Sich im Wald zu verirren deutet darauf hin, dass man den Kontakt zu seinem inneren Kern und den Sinn für die Richtung im Leben verloren hat.",
+        "followUpPrompt": "In welchem Lebensbereich weißt du weniger, als du dir selbst vorzumachen versuchst?"
+      },
+      {
+        "id": "e4",
+        "keyword": "Nach oben",
+        "cat": "Natur",
+        "emoji": "⛰️",
+        "color": "#94A3B8",
+        "meaning": "Der Berg ist eine Herausforderung, ein Ziel und ein Weg zu einer höheren Sichtweise. Das Bergsteigen bedeutet das Streben nach einem Ziel, der Gipfel – das Erreichen oder die Erleuchtung.",
+        "jungian": "Der Berg ist der Archetyp der „axis mundi“ – der Weltachse, die Erde und Himmel verbindet. Das Bergsteigen symbolisiert die Individuation.",
+        "shadow": "Die Angst, vom Gipfel zu stürzen, offenbart die Furcht vor Erfolg oder öffentlicher Aufmerksamkeit.",
+        "followUpPrompt": "Welchen Gipfel hast du Angst zu erklimmen, weil sich dann etwas ändern wird?"
+      },
+      {
+        "id": "e5",
+        "keyword": "Ozean",
+        "cat": "Natur",
+        "emoji": "🌊",
+        "color": "#38BDF8",
+        "meaning": "Der Ozean unterstreicht das Thema des Unterbewusstseins und die Unermesslichkeit dessen, was sich der Kontrolle des Verstandes entzieht. Ein Symbol für eine Kraft, die größer ist als momentane Anspannung.",
+        "jungian": "Der Ozean ist das kollektive Unbewusste, die Ursubstanz und das ursprüngliche Chaos. Aus ihm entstehen die Archetypen.",
+        "shadow": "Vom Ozean verschluckt zu werden – eine Rückführung in einen vorindividuellen Zustand oder die Angst vor dem Verlust der Identität.",
+        "followUpPrompt": "Was ist in dir größer als Worte, möchte aber wahrgenommen werden?"
+      },
+      {
+        "id": "e6",
+        "keyword": "Blitz",
+        "cat": "Natur",
+        "emoji": "⚡",
+        "color": "#EAB308",
+        "meaning": "Ein Blitz im Traum steht für eine plötzliche Erleuchtung, einen Durchbruch oder die Zerstörung der alten Ordnung. Ein heftiges Signal aus dem Bewusstsein.",
+        "jungian": "In der Mythologie ist der Blitz ein Attribut des Vatergottes und ein Symbol für göttliches Eingreifen. Kairos – der richtige Moment.",
+        "shadow": "Von einem Blitz getroffen zu werden, kann die Angst vor einer plötzlichen Veränderung oder die Strafe für Unehrlichkeit bedeuten.",
+        "followUpPrompt": "Was in deinem Leben braucht einen radikalen Wandel und nicht nur einen weiteren kleinen Schritt?"
+      },
+      {
+        "id": "e7",
+        "keyword": "Kind",
+        "cat": "Menschen",
+        "emoji": "👶",
+        "color": "#F48DB0",
+        "meaning": "Ein Kind im Traum ist ein Symbol für einen sensiblen Teil von dir selbst, einen Neuanfang oder das Bedürfnis nach einem behutsameren Umgang mit deinen eigenen Gefühlen.",
+        "jungian": "Der Archetyp des Kindes (Puer/Puella) symbolisiert Potenzial und Möglichkeiten. Es ist das Selbst im Keimstadium.",
+        "shadow": "Ein verlassenes oder misshandeltes Kind im Traum ist eine Projektion des verletzten inneren Kindes.",
+        "followUpPrompt": "Welcher Teil von dir braucht heute Sanftheit statt Kritik?"
+      },
+      {
+        "id": "e8",
+        "keyword": "Ein Fremder",
+        "cat": "Menschen",
+        "emoji": "🧙",
+        "color": "#A3E635",
+        "meaning": "Ein Fremder im Traum ist meist die Projektion eines Aspekts deiner selbst – einer Eigenschaft, die noch nicht integriert oder die du verdrängt hast.",
+        "jungian": "Der Unbekannte kann ein Animus (der Aspekt des anderen Geschlechts in der Psyche) oder der Schatten sein.",
+        "shadow": "Wenn mir ein Fremder bedrohlich erscheint, lohnt es sich zu fragen: Welche Eigenschaft sehe ich in ihm, die ich an mir selbst nicht akzeptiere?",
+        "followUpPrompt": "Welche unbekannte Eigenschaft von mir verlangt nach Integration?"
+      },
+      {
+        "id": "e9",
+        "keyword": "Mutter",
+        "cat": "Menschen",
+        "emoji": "👩",
+        "color": "#FDA4AF",
+        "meaning": "Die Mutter vermittelt in Träumen ein Gefühl von Fürsorge, Geborgenheit und Zugehörigkeit. Sie kann auch den Mutterkomplex oder bestimmte Erwartungen symbolisieren.",
+        "jungian": "Der Archetyp der Großen Mutter – der fürsorgliche und alles umfassende Aspekt der Weiblichkeit, der Natur und des Unbewussten.",
+        "shadow": "Eine dominante oder abwesende Mutter im Traum kann auf ungelöste Beziehungsmuster aus der Kindheit hindeuten.",
+        "followUpPrompt": "Woher beziehst du heute dein Gefühl von Sicherheit und Zugehörigkeit?"
+      },
+      {
+        "id": "e10",
+        "keyword": "Vater",
+        "cat": "Menschen",
+        "emoji": "👨",
+        "color": "#93C5FD",
+        "meaning": "Der Vater symbolisiert in Träumen Autorität, Regeln, Struktur und den Animus-Aspekt. Er kann auch den Vaterkomplex verkörpern.",
+        "jungian": "Der Archetyp des alten Weisen oder des Vaters – Logos, Ordnung und bewusste Orientierung.",
+        "shadow": "Ein strenger oder abwesender Vater im Traum deutet auf verinnerlichte kritische Stimmen oder Angst vor Autoritäten hin.",
+        "followUpPrompt": "Wie sieht dein Verhältnis zu deinem inneren Kritiker und zu Regeln aus?"
+      },
+      {
+        "id": "e11",
+        "keyword": "Schlüssel",
+        "cat": "Objekte",
+        "emoji": "🗝️",
+        "color": "#FCD34D",
+        "meaning": "Ein Schlüssel ist ein Symbol für den Zugang zu einem Geheimnis, zu verborgenem Potenzial oder zu Wissen, das darauf wartet, entdeckt zu werden.",
+        "jungian": "Der Schlüssel öffnet die Tür zum Unbewussten – Initiation und Zugang zu verborgenen psychischen Ressourcen.",
+        "shadow": "Ein verlorener Schlüssel deutet darauf hin, dass du weißt, welche Frage du stellen musst, aber Angst vor der Antwort hast.",
+        "followUpPrompt": "Zu welcher Wahrheit über dich selbst hast du Zugang, scheust dich aber, sie zu nutzen?"
+      },
+      {
+        "id": "e12",
+        "keyword": "Spiegel",
+        "cat": "Objekte",
+        "emoji": "🪞",
+        "color": "#818CF8",
+        "meaning": "Ein Spiegel ist eines der stärksten Symbole – er zeigt das wahre Gesicht ohne Filter. Ein verzerrtes Bild deutet auf ein verzerrtes Selbstbild hin.",
+        "jungian": "Der Spiegel als Persona – die Maske, die wir der Welt zeigen. Aber auch der Schatten und das, was wir nicht akzeptieren.",
+        "shadow": "Ein zerbrochenes Spiegel oder ein beängstigendes Spiegelbild sind klassische Projektionen des Schattens.",
+        "followUpPrompt": "Welchen Teil von dir selbst vermeidest du zu sehen?"
+      },
+      {
+        "id": "e13",
+        "keyword": "Türen",
+        "cat": "Objekte",
+        "emoji": "🚪",
+        "color": "#C4A882",
+        "meaning": "Türen sind ein Symbol für Schwellen und Entscheidungen. Das Unterbewusstsein bereitet dich auf den Übergang zwischen verschiedenen Lebensphasen vor.",
+        "jungian": "Die Schwelle (limen) ist ein Ort der Initiation – der Übergang erfordert Mut und den symbolischen Tod des alten Ichs.",
+        "shadow": "Eine Tür, die du nicht öffnen kannst – eine innere Blockade, Angst vor dem Unbekannten.",
+        "followUpPrompt": "Vor welcher Schwelle stehst du gerade in deinem Leben?"
+      },
+      {
+        "id": "e14",
+        "keyword": "Auto",
+        "cat": "Objekte",
+        "emoji": "🚗",
+        "color": "#6EE7B7",
+        "meaning": "Das Auto symbolisiert die Kontrolle über die Richtung des Lebens. Wer fährt und wie – das spiegelt dein Gefühl der Selbstwirksamkeit wider.",
+        "jungian": "Das Fahrzeug als Ich – Zentrum bewusster Orientierung. Ein Fahrzeug, das eine Panne hat, bedeutet den Verlust des Kontrollgefühls.",
+        "shadow": "Ein Autounfall kann den Zusammenprall zweier gegensätzlicher Impulse oder Entscheidungen symbolisieren.",
+        "followUpPrompt": "Lebst du dein Leben wirklich selbst, oder fühlst du dich wie ein Passagier?"
+      },
+      {
+        "id": "e15",
+        "keyword": "Waffen",
+        "cat": "Objekte",
+        "emoji": "⚔️",
+        "color": "#F87171",
+        "meaning": "Waffen im Traum symbolisieren Aggression, Grenzen oder eine Kraft, die sowohl schützen als auch zerstören kann.",
+        "jungian": "Die Waffe als Logos und Prinzip der Unterscheidung – das Schwert trennt falsche oder zerstörerische Muster ab.",
+        "shadow": "Der Einsatz von Waffen kann unterdrückte Aggressionen symbolisieren, die nach einem Ventil suchen.",
+        "followUpPrompt": "Welche Grenzen in deinem Leben müssen geschützt oder klar abgesteckt werden?"
+      },
+      {
+        "id": "e16",
+        "keyword": "Haus",
+        "cat": "Orte",
+        "emoji": "🏠",
+        "color": "#D9B56D",
+        "meaning": "Das Haus symbolisiert die innere Welt und die psychische Struktur. Jeder Raum entspricht einem anderen Aspekt deiner Psyche.",
+        "jungian": "Das Haus als Mandala des Selbst – die Gesamtheit der Psyche. Der Keller steht für das Unbewusste, der Dachboden für vergessene Erinnerungen.",
+        "shadow": "Ein Spukhaus oder eine Ruine symbolisiert unerwünschte Aspekte des Selbst, die darauf warten, integriert zu werden.",
+        "followUpPrompt": "Welche Bereiche deiner Psyche besuchst du selten?"
+      },
+      {
+        "id": "e17",
+        "keyword": "Schule",
+        "cat": "Orte",
+        "emoji": "🏫",
+        "color": "#FCA5A5",
+        "meaning": "Eine Schule in Träumen steht für das Gefühl, beurteilt oder geprüft zu werden, oder für das Bedürfnis, etwas Wichtiges zu lernen.",
+        "jungian": "Der Archetyp der Initiation – das Überschreiten der Schwelle des Wissens und der gesellschaftlichen Erwartungen.",
+        "shadow": "Eine Prüfung, auf die du nicht vorbereitet bist – eine klassische Projektion der Angst vor der Bewertung und vor der eigenen Kompetenz.",
+        "followUpPrompt": "Wie gehst du mit dem Gefühl um, dass du jemandem deinen Wert beweisen musst?"
+      },
+      {
+        "id": "e18",
+        "keyword": "Kirche",
+        "cat": "Orte",
+        "emoji": "⛪",
+        "color": "#C084FC",
+        "meaning": "Eine Kirche oder ein Tempel symbolisiert Spiritualität, das Heilige und die Verbindung zu etwas, das über den Alltag hinausgeht.",
+        "jungian": "Temenos – der heilige Raum des Selbst. Ein Ort, an dem Bewusstsein und Unbewusstes aufeinandertreffen.",
+        "shadow": "Die Angst vor der Kirche oder ein Zutrittsverbot können eine Abkehr von der eigenen Spiritualität oder den eigenen Werten symbolisieren.",
+        "followUpPrompt": "Was ist für dich heilig und wie gehst du damit um?"
+      },
+      {
+        "id": "e19",
+        "keyword": "Brücke",
+        "cat": "Orte",
+        "emoji": "🌉",
+        "color": "#F9A8D4",
+        "meaning": "Die Brücke symbolisiert den Übergang zwischen zwei Lebensphasen oder Bewusstseinszuständen.",
+        "jungian": "Die Brücke als transzendente Funktion – sie verbindet Gegensätze und ermöglicht eine Synthese.",
+        "shadow": "Eine zerbrochene oder gefährliche Brücke deutet auf einen unterbrochenen Wandel oder die Angst vor dem Übergang hin.",
+        "followUpPrompt": "Welchen neuen Lebensabschnitt hast du begonnen, hast aber Angst, ihn zu Ende zu bringen?"
+      },
+      {
+        "id": "e20",
+        "keyword": "Labyrinth",
+        "cat": "Orte",
+        "emoji": "🌀",
+        "color": "#C084FC",
+        "meaning": "Ein Labyrinth entsteht, wenn du im Alltag nach einem Ausweg aus einer Situation suchst, für die es keine einfache Lösung gibt.",
+        "jungian": "Das Labyrinth ist ein Symbol für das Unbewusste und die Suche nach dem Zentrum – dem Selbst. Der Minotaurus ist der Schatten.",
+        "shadow": "Die Unfähigkeit, aus dem Labyrinth herauszufinden, symbolisiert Gedankenschleifen und sich wiederholende Verhaltensmuster.",
+        "followUpPrompt": "In welchem Gedanken- oder Gefühlskreislauf drehst du dich im Kreis?"
+      },
+      {
+        "id": "e21",
+        "keyword": "Flug",
+        "cat": "Aktien",
+        "emoji": "🕊️",
+        "color": "#67E8F9",
+        "meaning": "Fliegen ist ein Symbol für Freiheit, Ausdehnung und das Wiedergewinnen von Perspektive. Flugangst bedeutet, dass es einem schwerfällt, beim Aufsteigen die Kontrolle zu behalten.",
+        "jungian": "Der Flug symbolisiert die Überwindung des Egos und den Zugang zu höheren Bewusstseinszuständen.",
+        "shadow": "Angst vor der Landung – Angst vor der Rückkehr in den Alltag und zu den Verpflichtungen.",
+        "followUpPrompt": "Wo brauchst du mehr Vertrauen, anstatt krampfhaft am Kurs festzuhalten?"
+      },
+      {
+        "id": "e22",
+        "keyword": "Verfolgungsjagd",
+        "cat": "Aktien",
+        "emoji": "🏃",
+        "color": "#FB923C",
+        "meaning": "Verfolgt zu werden symbolisiert die Energie der Flucht. Der Traum deutet darauf hin, dass eine bestimmte Emotion oder ein Thema wiederkehrt, weil es nicht bewusst abgeschlossen wurde.",
+        "jungian": "Verfolgung als Schatten – das, wovor wir fliehen, gewinnt an Kraft. Jung: Das, wogegen wir uns wehren, bleibt bestehen.",
+        "shadow": "Das Monster oder die Gestalt, die uns verfolgt, ist ein nicht integrierter Aspekt des Schattens, der nach Aufmerksamkeit verlangt.",
+        "followUpPrompt": "Wovor versuchst du zu fliehen, obwohl du weißt, dass du es beim Namen nennen musst?"
+      },
+      {
+        "id": "e23",
+        "keyword": "Treppe",
+        "cat": "Aktien",
+        "emoji": "🪜",
+        "color": "#A78BFA",
+        "meaning": "Treppen symbolisieren den Übergang zwischen Bewusstseinsstufen. Das Hinaufsteigen steht für Entwicklung, das Hinabsteigen für den Abstieg in tiefere Schichten.",
+        "jungian": "Treppen als Weg der Initiation und des Wechsels zwischen psychischen Ebenen – dem Ich, dem persönlichen und dem kollektiven Unbewussten.",
+        "shadow": "Eine endlose oder einstürzende Treppe symbolisiert, dass man trotz aller Anstrengungen keinen Fortschritt erzielt.",
+        "followUpPrompt": "An welchem Punkt befindest du dich gerade emotional oder in deinem Leben?"
+      },
+      {
+        "id": "e24",
+        "keyword": "Tod",
+        "cat": "Aktien",
+        "emoji": "💀",
+        "color": "#6B7280",
+        "meaning": "Der Tod im Traum bedeutet fast nie den physischen Tod – er ist ein Symbol für das Ende einer Lebensphase und für eine Verwandlung.",
+        "jungian": "Der Archetyp von Tod und Wiedergeburt – der symbolische Tod des Egos ist die Voraussetzung für die Individuation.",
+        "shadow": "Der Tod eines geliebten Menschen im Traum kann das Ende einer Beziehung oder eines Aspekts dieser Person in dir symbolisieren.",
+        "followUpPrompt": "Was muss in dir sterben, damit etwas Neues entstehen kann?"
+      },
+      {
+        "id": "e25",
+        "keyword": "Sturz",
+        "cat": "Aktien",
+        "emoji": "⬇️",
+        "color": "#94A3B8",
+        "meaning": "Ein Sturz symbolisiert den Kontrollverlust, die Angst vor dem Scheitern oder die Notwendigkeit, auf den Boden der Tatsachen zurückzukommen und das aufgeblasene Ego abzulegen.",
+        "jungian": "Der Sturz als Hybris – die Strafe für Hochmut und die Loslösung von den Instinkten und der Erde.",
+        "shadow": "Die Angst vor dem Sturz kann die Angst vor dem Verlust der eigenen Stellung oder Identität widerspiegeln.",
+        "followUpPrompt": "Was hält dich so hoch, dass du Angst hast, vorübergehend herunterzufallen?"
+      },
+      {
+        "id": "e26",
+        "keyword": "Angst",
+        "cat": "Emotionen",
+        "emoji": "😱",
+        "color": "#EF4444",
+        "meaning": "Angst im Traum als vorherrschendes Gefühl weist auf Bereiche hin, in denen sich das Ich bedroht oder unzulänglich fühlt.",
+        "jungian": "Angst als Projektion des Schattens – wir fürchten in anderen das, was wir an uns selbst nicht akzeptieren.",
+        "shadow": "Die Auseinandersetzung mit dem Objekt der Angst ermöglicht es, einen unbekannten Teil von sich selbst zu integrieren.",
+        "followUpPrompt": "Wovor hast du wirklich Angst, wenn man die Fassade der Rationalisierung wegzieht?"
+      },
+      {
+        "id": "e27",
+        "keyword": "Liebe",
+        "cat": "Emotionen",
+        "emoji": "❤️",
+        "color": "#F43F5E",
+        "meaning": "Liebe im Traum kann den Wunsch nach Verbundenheit, die Integration von Anima und Animus oder das Bedürfnis nach Akzeptanz symbolisieren.",
+        "jungian": "Die Liebe zu einer Figur im Traum ist oft eine Projektion der eigenen Eigenschaften – des Archetyps der Anima oder des Animus.",
+        "shadow": "Eine verbotene Liebe im Traum kann auf Wünsche hindeuten, die das Ich unterdrückt.",
+        "followUpPrompt": "Welche Seiten an dir kannst du noch nicht ganz lieben?"
+      },
+      {
+        "id": "e28",
+        "keyword": "Zorn",
+        "cat": "Emotionen",
+        "emoji": "😡",
+        "color": "#EF4444",
+        "meaning": "Wut im Traum deutet auf unterdrückte Energie, Ungerechtigkeit oder überschrittene Grenzen hin, die bewusst verarbeitet werden müssen.",
+        "jungian": "Zorn als Libido-Energie, die auf Veränderungen ausgerichtet ist. Mars – die treibende Kraft der Transformation.",
+        "shadow": "Unkontrollierte Wut im Traum ist der Schatten, der nach Aufmerksamkeit verlangt. Energie, die auf ein konstruktives Ventil wartet.",
+        "followUpPrompt": "Welche Ungerechtigkeit oder Grenze verlangt heute nach deiner Stimme?"
+      },
+      {
+        "id": "e29",
+        "keyword": "Schande",
+        "cat": "Emotionen",
+        "emoji": "😔",
+        "color": "#8B5CF6",
+        "meaning": "Scham im Traum berührt tief verwurzelte Überzeugungen hinsichtlich des Selbstwertgefühls und der gesellschaftlichen Akzeptanz.",
+        "jungian": "Scham als persona – der Unterschied zwischen dem, wer wir sind, und dem, als wer wir erscheinen wollen.",
+        "shadow": "Scham ist einer der grundlegenden Mechanismen bei der Entstehung des Schattens.",
+        "followUpPrompt": "Welche Wahrheit über dich selbst schämst du dich noch zuzugeben?"
+      },
+      {
+        "id": "e30",
+        "keyword": "Der Mond",
+        "cat": "Natur",
+        "emoji": "🌕",
+        "color": "#E2D4F0",
+        "meaning": "Der Mond ist ein Symbol für Zyklen, Intuition und Bereiche, zu denen der Verstand keinen Zugang hat. Der Vollmond steht für den Höhepunkt, der Neumond für einen Neuanfang.",
+        "jungian": "Der Mond als Anima – der zyklische, instinktive, unbewusste Teil der Psyche. Luna und ihre Phasen.",
+        "shadow": "Eine Mondfinsternis kann eine blockierte Intuition oder unterdrückte Emotionalität symbolisieren.",
+        "followUpPrompt": "In welcher Lebensphase befindest du dich gerade und was verlangt das von dir?"
+      },
+      {
+        "id": "e31",
+        "keyword": "Die Sonne",
+        "cat": "Natur",
+        "emoji": "☀️",
+        "color": "#FBBF24",
+        "meaning": "Die Sonne symbolisiert Bewusstsein, Selbstwertgefühl und Lebenskraft. Sie ist die Quelle des Ichs und einer klaren Identität.",
+        "jungian": "Die Sonne als Logos und Sol – bewusste Orientierung, Verstand und Geist. Der väterliche Archetyp.",
+        "shadow": "Eine verdeckte Sonne oder eine Sonnenfinsternis ist eine vorübergehende Schwächung des Selbstwertgefühls.",
+        "followUpPrompt": "Was lässt deine innere Sonne in vollem Glanz erstrahlen?"
+      },
+      {
+        "id": "e32",
+        "keyword": "Baum",
+        "cat": "Natur",
+        "emoji": "🌳",
+        "color": "#4ADE80",
+        "meaning": "Ein Baum ist ein Symbol für die innere Struktur – die Wurzeln stehen für Überzeugungen und Herkunft, der Stamm für die Identität und die Krone für die Ziele.",
+        "jungian": "Axis mundi – der kosmische Baum, der die Unterwelt, die Erde und den Himmel verbindet. Symbol des Selbst.",
+        "shadow": "Ein verdorrter oder umgestürzter Baum symbolisiert den Verlust der Wurzeln oder eine Identitätskrise.",
+        "followUpPrompt": "Wie tief reichen deine Wurzeln und wohin führt dich die Krone?"
+      },
+      {
+        "id": "e33",
+        "keyword": "Spinne",
+        "cat": "Natur",
+        "emoji": "🕷️",
+        "color": "#6B7280",
+        "meaning": "Die Spinne symbolisiert die schöpferische Kraft, das Leben und Beziehungsgeflechte zu weben, aber auch Fallen oder Manipulation.",
+        "jungian": "Die Spinne als Archetyp der Spinnerin – das Schicksal und die verwobenen Fäden des Schicksals. Die Anima in ihrer negativen Ausprägung.",
+        "shadow": "Spinnenphobien im Traum deuten oft auf eine Angst vor weiblicher Macht oder Kontrolle hin.",
+        "followUpPrompt": "Welche Netzwerke webst du in deinem Leben – befreiende oder einschränkende?"
+      },
+      {
+        "id": "e34",
+        "keyword": "Schlange",
+        "cat": "Natur",
+        "emoji": "🐍",
+        "color": "#4ADE80",
+        "meaning": "Die Schlange ist eines der archetypischsten Symbole – für Verwandlung, Heilung und die in der Erde verborgene Weisheit.",
+        "jungian": "Die Schlange als Kundalini und Libido-Energie. Ouroboros – der Kreislauf von Tod und Wiedergeburt.",
+        "shadow": "Die angreifende Schlange steht für instinktive Kräfte und das angesammelte Unbewusste, das nach Aufmerksamkeit verlangt.",
+        "followUpPrompt": "Welche Veränderung hat in dir bereits begonnen, auch wenn du ihr noch keinen Namen gegeben hast?"
+      },
+      {
+        "id": "e35",
+        "keyword": "Vogel",
+        "cat": "Natur",
+        "emoji": "🦅",
+        "color": "#67E8F9",
+        "meaning": "Vögel verkünden Hoffnung und Freiheit. Oft laden sie dazu ein, den Blick weiter zu richten, als es der Alltag zulässt.",
+        "jungian": "Der Vogel als Animus und Geist – Bote zwischen Himmel und Erde. Bote des Unbewussten.",
+        "shadow": "Ein verletzter oder gefangener Vogel symbolisiert ein unterdrücktes Bedürfnis nach Freiheit oder Selbstentfaltung.",
+        "followUpPrompt": "Was siehst du anders, wenn du die Sache aus der Vogelperspektive betrachtest?"
+      },
+      {
+        "id": "e36",
+        "keyword": "Telefon",
+        "cat": "Objekte",
+        "emoji": "📱",
+        "color": "#6EE7B7",
+        "meaning": "Das Telefon symbolisiert Kommunikation und das Bedürfnis nach Verbindung. Wenn niemand abhebt oder kein Signal zu hören ist – eine unterbrochene Verbindung oder Schwierigkeiten, sich auszudrücken.",
+        "jungian": "Ein modernes Symbol für das Unbewusste, das versucht, Kontakt zum Ich aufzunehmen.",
+        "shadow": "Ein Telefon, das endlos klingelt, ohne dass jemand abhebt – ein Bedürfnis, das laut ruft, aber nicht gehört wird.",
+        "followUpPrompt": "Welcher Teil von dir verlangt heute nach mehr Aufmerksamkeit und Kommunikation?"
+      },
+      {
+        "id": "e37",
+        "keyword": "Geld",
+        "cat": "Objekte",
+        "emoji": "💰",
+        "color": "#FBBF24",
+        "meaning": "Geld symbolisiert im Traum Energie, Wert und Ressourcen – nicht nur materielle, sondern auch geistige und emotionale.",
+        "jungian": "Gold als Symbol des Selbst und des spirituellen Reichtums. Die alchemistische Verwandlung von Blei in Gold.",
+        "shadow": "Der Diebstahl oder Verlust von Geld deutet auf Ängste hinsichtlich des eigenen Selbstwerts oder einen Mangel an inneren Ressourcen hin.",
+        "followUpPrompt": "Nach welcher Art von Reichtum suchst du eigentlich?"
+      },
+      {
+        "id": "e38",
+        "keyword": "Zähne",
+        "cat": "Objekte",
+        "emoji": "🦷",
+        "color": "#F1F5F9",
+        "meaning": "Zähne stehen für Kontrolle, Selbstbild, den Verlust von Kraft oder Spannkraft. Ein Traum von der Zerbrechlichkeit dessen, was stabil erscheint.",
+        "jungian": "Zähne als Symbol für Macht und Aggression – Instinkte und die animalische Seite der Natur.",
+        "shadow": "Zähne, die ausfallen, sind einer der häufigsten Träume – die Angst um das eigene Image und die gesellschaftliche Akzeptanz.",
+        "followUpPrompt": "Was in deinem Leben stabil erscheint, aber eigentlich echte Zuwendung braucht?"
+      },
+      {
+        "id": "e39",
+        "keyword": "Waffen",
+        "cat": "Objekte",
+        "emoji": "🗡️",
+        "color": "#EF4444",
+        "meaning": "Waffen im Traum symbolisieren Grenzen, Aggression oder Schutzkraft. Entscheidend ist, wer sie in der Hand hält und zu welchem Zweck.",
+        "jungian": "Das Schwert als Logos – die Fähigkeit, zu trennen und Wahrheit von Lüge zu unterscheiden.",
+        "shadow": "Der Einsatz von Waffen gegenüber Angehörigen kann auf unterdrückte Aggressionen ihnen gegenüber hindeuten.",
+        "followUpPrompt": "Welche Grenzen in deinem Leben müssen klar und entschlossen gesetzt werden?"
+      },
+      {
+        "id": "e40",
+        "keyword": "Zug",
+        "cat": "Objekte",
+        "emoji": "🚂",
+        "color": "#A3A3A3",
+        "meaning": "Der Zug steht für die Richtung im Leben und das Gefühl, dass sich etwas in Bewegung gesetzt hat. Der Traum fragt, ob du deinem eigenen Rhythmus folgst oder auf fremden Gleisen fährst.",
+        "jungian": "Die Reise als Metapher für den Prozess der Individuation – unbekannte Bahnhöfe sind neue Bewusstseinsstufen.",
+        "shadow": "Den Zug zu verpassen ist ein klassischer Angsttraum, der von einer verpassten Chance oder einer Verzögerung im Leben handelt.",
+        "followUpPrompt": "Ist das Tempo, in dem du lebst, wirklich das deine?"
+      },
+      {
+        "id": "e41",
+        "keyword": "Krankenhaus",
+        "cat": "Orte",
+        "emoji": "🏥",
+        "color": "#86EFAC",
+        "meaning": "Ein Krankenhaus symbolisiert Heilung, Verletzlichkeit oder eine Zeit des Wandels. Es kann auf die Notwendigkeit hinweisen, auf sich selbst zu achten.",
+        "jungian": "Heiligtum der Heilung – ein Temenos, in dem sich die Psyche regeneriert. Chiron – der verwundete Heiler.",
+        "shadow": "Die Notwendigkeit einer Operation im Traum kann das Bedürfnis symbolisieren, intensiv an sich selbst zu arbeiten.",
+        "followUpPrompt": "Welcher Teil von dir braucht gerade echte Heilung und Erholung?"
+      },
+      {
+        "id": "e42",
+        "keyword": "Gefängnis",
+        "cat": "Orte",
+        "emoji": "⛓️",
+        "color": "#6B7280",
+        "meaning": "Ein Gefängnis symbolisiert das Gefühl der Einschränkung, des Gefangenseins in einer Situation oder einer Überzeugung, aus der es keinen Ausweg gibt.",
+        "jungian": "Das Gefängnis als Komplex – verinnerlichte Muster, die die geistige Freiheit einschränken.",
+        "shadow": "Du bist der Wächter deines eigenen Gefängnisses – du legst dir selbst Beschränkungen auf.",
+        "followUpPrompt": "In welcher Überzeugung oder welchem Muster hältst du dich gefangen?"
+      }
+    ],
+    "nocturnalPrompts": [
+      "Was in diesem Traum fühlte sich wie dein eigenes an, und was wie etwas Fremdes?",
+      "Welches Symbol ist dir in letzter Zeit immer wieder in deinen Träumen begegnet?",
+      "Wenn dieser Traum eine Botschaft wäre – was würde er sagen?",
+      "Welches Gefühl hast du aus dem Traum mit ins Wachsein genommen?",
+      "Was wolltest du in diesem Traum ändern, konntest es aber nicht?",
+      "Welche Farbe oder welcher Ort ist dir am besten in Erinnerung geblieben?",
+      "Wenn du in diesen Traum zurückkehren könntest – was würdest du anders machen?"
+    ],
+    "dailySymbols": [
+      {
+        "name": "Wasser",
+        "emoji": "🌊",
+        "color": "#60A5FA",
+        "desc": "Wasser im Traum berührt die tiefsten Schichten unserer Gefühle – jene, die wir normalerweise vor uns selbst verbergen."
+      },
+      {
+        "name": "Feuer",
+        "emoji": "🔥",
+        "color": "#FB923C",
+        "desc": "Feuer symbolisiert Verwandlung und reinigende Kraft."
+      },
+      {
+        "name": "Baum",
+        "emoji": "🌳",
+        "color": "#86EFAC",
+        "desc": "Der Baum aus deinem Traum ist ein Abbild deiner inneren Struktur und deiner Wurzeln."
+      },
+      {
+        "name": "Labyrinth",
+        "emoji": "🌀",
+        "color": "#C084FC",
+        "desc": "Ein Labyrinth entsteht, wenn man nach einem Ausweg aus einer Situation sucht, für die es keine einfache Lösung gibt."
+      },
+      {
+        "name": "Vogel",
+        "emoji": "🦅",
+        "color": "#67E8F9",
+        "desc": "Der Vogel verkündet Freiheit und neue Perspektiven von oben."
+      },
+      {
+        "name": "Spiegel",
+        "emoji": "🪞",
+        "color": "#818CF8",
+        "desc": "Der Spiegel zeigt dein wahres Gesicht, ganz ohne Filter."
+      },
+      {
+        "name": "Brücke",
+        "emoji": "🌉",
+        "color": "#F9A8D4",
+        "desc": "Die Brücke symbolisiert den Übergang zwischen verschiedenen Lebensphasen."
+      },
+      {
+        "name": "Schlüssel",
+        "emoji": "🗝️",
+        "color": "#FCD34D",
+        "desc": "Der Schlüssel ist ein Symbol für den Zugang zu Geheimnissen und verborgenem Potenzial."
+      },
+      {
+        "name": "Sturm",
+        "emoji": "⛈️",
+        "color": "#818CF8",
+        "desc": "Ein Sturm ist aufgestaute emotionale Energie, die nach Entladung sucht."
+      },
+      {
+        "name": "Haus",
+        "emoji": "🏠",
+        "color": "#D9B56D",
+        "desc": "Das Haus in deinem Traum bist du selbst – jeder Raum steht für einen Aspekt deiner Psyche."
+      },
+      {
+        "name": "Kind",
+        "emoji": "👶",
+        "color": "#F48DB0",
+        "desc": "Das Kind symbolisiert den sensiblen Teil von uns selbst und neue Anfänge."
+      },
+      {
+        "name": "Ein Fremder",
+        "emoji": "🧙",
+        "color": "#A3E635",
+        "desc": "Ein Fremder ist meist die Projektion eines nicht integrierten Aspekts des eigenen Selbst."
+      },
+      {
+        "name": "Der Mond",
+        "emoji": "🌕",
+        "color": "#E2D4F0",
+        "desc": "Der Mond ist ein Symbol für Zyklen, Intuition und Bereiche jenseits des Verstandes."
+      },
+      {
+        "name": "Die Sonne",
+        "emoji": "☀️",
+        "color": "#FBBF24",
+        "desc": "Die Sonne deiner Träume ist die Ausstrahlung deines Bewusstseins und deiner Werte."
+      },
+      {
+        "name": "Schlange",
+        "emoji": "🐍",
+        "color": "#4ADE80",
+        "desc": "Die Schlange ist ein Archetyp für Verwandlung, Heilung und verborgene Weisheit."
+      },
+      {
+        "name": "Nach oben",
+        "emoji": "⛰️",
+        "color": "#94A3B8",
+        "desc": "Ein Berg ist eine Herausforderung und der Weg zu einem höheren Blickwinkel."
+      },
+      {
+        "name": "Türen",
+        "emoji": "🚪",
+        "color": "#C4A882",
+        "desc": "Türen sind ein Symbol für Schwellen und Entscheidungen – der Durchgang lädt ein."
+      },
+      {
+        "name": "Auge",
+        "emoji": "👁️",
+        "color": "#A78BFA",
+        "desc": "Das Auge ist ein Symbol für Beobachtung, Bewusstsein und das Gesehenwerden."
+      },
+      {
+        "name": "Rad",
+        "emoji": "⭕",
+        "color": "#34D399",
+        "desc": "Der Kreis symbolisiert den Kreislauf, die Vollkommenheit und die Rückkehr zur Vollkommenheit."
+      },
+      {
+        "name": "Spinne",
+        "emoji": "🕷️",
+        "color": "#6B7280",
+        "desc": "Die Spinne ist die schöpferische Kraft, die das Leben, die Netzwerke der Beziehungen und das Schicksal webt."
+      }
+    ],
+    "moonDreamData": [
+      {
+        "phase": "Neumond",
+        "emoji": "🌑",
+        "color": "#6B7280",
+        "dreamType": "Intentionsträume",
+        "description": "Die Neumondphase ist der ideale Zeitpunkt für die Traumprogrammierung. Das Unterbewusstsein ist besonders empfänglich für Absichten und Fragen, die vor dem Schlafengehen geäußert werden.",
+        "tip": "Schreibe dir vor dem Schlafengehen folgende Frage auf: „Zeig mir, wo ich ein neues Kapitel beginnen soll.“",
+        "lucidFavorable": "false",
+        "propheticFavorable": "true"
+      },
+      {
+        "phase": "Der ankommende August",
+        "emoji": "🌒",
+        "color": "#9CA3AF",
+        "dreamType": "Träume vom Wachstum",
+        "description": "Die Energien des Wachstums begünstigen Träume von Expansion und neuen Möglichkeiten. Oft tauchen Träume von Reisen und Entdeckungen auf.",
+        "tip": "Achte auf die Symbole für einen Neuanfang – Schlüssel, Samen, die aufgehende Sonne.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "Das erste Viertel",
+        "emoji": "🌓",
+        "color": "#D1D5DB",
+        "dreamType": "Konfrontative Träume",
+        "description": "Die Spannung des Quadrats weckt Träume von Herausforderungen und Entscheidungen. Das Unterbewusstsein verarbeitet Konflikte und Dilemmata.",
+        "tip": "Achte auf die Personen, mit denen du dich streitest – sie sind Aspekte deiner selbst.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "Eine sich abzeichnende Beule",
+        "emoji": "🌔",
+        "color": "#E5E7EB",
+        "dreamType": "Integrations-Träume",
+        "description": "Der bevorstehende Vollmond verstärkt die Traumaktivität. Die Träume werden lebhafter, emotionaler und vielschichtiger.",
+        "tip": "Es lohnt sich, ein Notizbuch neben dem Bett zu haben – in dieser Zeit träumt man besonders wichtige Träume.",
+        "lucidFavorable": "true",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "Vollmond",
+        "emoji": "🌕",
+        "color": "#F9FAFB",
+        "dreamType": "Träume der Offenbarung",
+        "description": "Bei Vollmond erreicht die Traumaktivität ihren Höhepunkt. Die Träume sind dann am intensivsten, am längsten und bleiben am besten im Gedächtnis haften.",
+        "tip": "Zeit für Klarträume (Lucid Dreaming) – verstärke deine Absicht kurz vor dem Einschlafen.",
+        "lucidFavorable": "true",
+        "propheticFavorable": "true"
+      },
+      {
+        "phase": "Der sich abflachende Buckel",
+        "emoji": "🌖",
+        "color": "#D1FAE5",
+        "dreamType": "Befreiende Träume",
+        "description": "Die Energie des Loslassens begünstigt Träume von Abschieden, Enden und dem Loslassen dessen, was nicht mehr dient.",
+        "tip": "Träume in dieser Phase vermitteln oft ein Gefühl der Erleichterung und des Abschlusses.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "Das letzte Viertel",
+        "emoji": "🌗",
+        "color": "#A7F3D0",
+        "dreamType": "Reinigende Träume",
+        "description": "Zeit für Verarbeitung und Integration. Das Unterbewusstsein ordnet die Erfahrungen des gesamten Zyklus.",
+        "tip": "Träume können chaotisch sein – das ist ganz normal. Halte Ausschau nach einem zentralen Symbol.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      },
+      {
+        "phase": "Abnehmender Halbmond",
+        "emoji": "🌘",
+        "color": "#6EE7B7",
+        "dreamType": "Träume der Stille",
+        "description": "Vor dem Neumond werden die Träume ruhiger und tiefer. Es ist Zeit für Besinnung und Vorbereitung auf einen neuen Zyklus.",
+        "tip": "Eine Meditation vor dem Schlafengehen in dieser Phase stärkt die Verbindung zur Traumintuition.",
+        "lucidFavorable": "false",
+        "propheticFavorable": "false"
+      }
+    ],
+    "monthNames": [
+      "Januar",
+      "Februar",
+      "März",
+      "April",
+      "Mai",
+      "Juni",
+      "Juli",
+      "August",
+      "September",
+      "Oktober",
+      "November",
+      "Dezember"
+    ],
+    "weekdays": [
+      "Mo",
+      "Di",
+      "Mi",
+      "Do",
+      "Fr",
+      "Sa",
+      "So"
+    ],
+    "moonPhases": [
+      {
+        "max": "1,85",
+        "emoji": "🌑",
+        "label": "Neumond"
+      },
+      {
+        "max": "7,38",
+        "emoji": "🌒",
+        "label": "Der ankommende August"
+      },
+      {
+        "max": "9.22",
+        "emoji": "🌓",
+        "label": "Das erste Viertel"
+      },
+      {
+        "max": "14,77",
+        "emoji": "🌔",
+        "label": "Eine sich abzeichnende Wölbung"
+      },
+      {
+        "max": "16,61",
+        "emoji": "🌕",
+        "label": "Vollmond"
+      },
+      {
+        "max": "22:15 Uhr",
+        "emoji": "🌖",
+        "label": "Der sich abflachende Buckel"
+      },
+      {
+        "max": "23,99",
+        "emoji": "🌗",
+        "label": "Das letzte Viertel"
+      },
+      {
+        "max": "29,53",
+        "emoji": "🌘",
+        "label": "Abnehmender Halbmond"
+      }
+    ]
+  },
+  "hero": {
+    "metaLine": "{{dreams}} Träume · {{streak}} Nacht · {{lucid}} lucid"
+  },
+  "archive": {
+    "title": "MEIN TRAUMDEUTER ({{count}})",
+    "tipsTitle": "WIE MAN TRÄUME AUFZEICHNET",
+    "tips": [
+      [
+        "Unmittelbar nach dem Aufwachen",
+        "Nach 20 Minuten vergisst du 80 % der Details. Bevor du aufstehst – schreib es auf."
+      ],
+      [
+        "Beginne mit den Emotionen",
+        "Emotionen sind wichtiger als die Handlung – sie vermitteln die eigentliche Botschaft."
+      ],
+      [
+        "Ein Bild genügt",
+        "Schon eine einzige Farbe oder ein einziges Gesicht ist ein wertvoller Jungscher Hinweis."
+      ],
+      [
+        "Wiederholungen verfolgen",
+        "Ein immer wiederkehrendes Symbol ist die Stimme des Unterbewusstseins. Gib ihm deine eigene Bedeutung."
+      ]
+    ]
+  }
+}

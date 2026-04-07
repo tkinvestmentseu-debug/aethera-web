@@ -23,7 +23,10 @@ import { goBackOrToMainTab } from '../navigation/navigationFallbacks';
 import { HapticsService } from '../core/services/haptics.service';
 import { AiService } from '../core/services/ai.service';
 import { useTranslation } from 'react-i18next';
-
+import { useTheme } from '../core/hooks/useTheme';
+import { collection, addDoc, onSnapshot, query, orderBy, limit, doc, runTransaction, serverTimestamp, Timestamp } from 'firebase/firestore';
+import { db } from '../core/config/firebase.config';
+import { useAuthStore } from '../store/useAuthStore';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#F59E0B';
 
@@ -47,15 +50,13 @@ const FILTER_OPTIONS = ['Wszystkie', 'Najbardziej rezonujące', 'Najnowsze'];
 
 export const CommunityTarotScreen = ({ navigation }) => {
   const { t } = useTranslation();
+  const { currentTheme, isLight } = useTheme();
   const insets = useSafeAreaInsets();
-  const themeName = useAppStore(s => s.themeName);
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+  const currentUser = useAuthStore(s => s.currentUser);
   const textColor = isLight ? '#1A1A0A' : '#FFF9EC';
   const subColor = isLight ? 'rgba(26,26,10,0.55)' : 'rgba(255,249,236,0.55)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.07)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.07)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.10)';
 
   const [flipped, setFlipped] = useState(false);
   const [interpretations, setInterpretations] = useState(INITIAL_INTERPRETATIONS);
@@ -74,6 +75,37 @@ export const CommunityTarotScreen = ({ navigation }) => {
 
   useEffect(() => {
     glowPulse.value = withRepeat(withSequence(withTiming(1, { duration: 2000 }), withTiming(0.7, { duration: 2000 })), -1, false);
+  }, []);
+
+  useEffect(() => {
+    const q = query(
+      collection(db, 'posts'),
+      orderBy('createdAt', 'desc'),
+      limit(15),
+    );
+    const unsub = onSnapshot(q, (snap) => {
+      const tarotPosts = snap.docs
+        .map(d => ({ id: d.id, ...d.data() }))
+        .filter(p => p.type === 'TAROT');
+      if (tarotPosts.length > 0) {
+        setInterpretations(tarotPosts.map(p => ({
+          id: p.id,
+          author: p.authorEmoji ?? '✦',
+          name: p.authorName,
+          text: p.content,
+          likes: (p.reactions?.resonuje ?? 0) + (p.reactions?.prawda ?? 0),
+          time: (() => {
+            const diff = Date.now() - (p.createdAt instanceof Timestamp ? p.createdAt.toMillis() : Date.now());
+            const min = Math.floor(diff / 60000);
+            if (min < 1) return 'teraz';
+            if (min < 60) return `${min} min temu`;
+            return `${Math.floor(min / 60)}h temu`;
+          })(),
+          reactions: { '💛': p.reactions?.resonuje ?? 0, '✨': p.reactions?.prawda ?? 0, '🌸': p.reactions?.czuje ?? 0 },
+        })));
+      }
+    }, () => {});
+    return () => unsub();
   }, []);
 
   const cardFrontStyle = useAnimatedStyle(() => ({
@@ -103,6 +135,19 @@ export const CommunityTarotScreen = ({ navigation }) => {
       reactions: { '💛': 0, '✨': 0, '🌸': 0 },
     }, ...prev]);
     setMyInterpretationId(newId);
+    if (currentUser && inputText.trim()) {
+      addDoc(collection(db, 'posts'), {
+        type: 'TAROT',
+        content: inputText.trim(),
+        authorId: currentUser.uid,
+        authorName: currentUser.displayName,
+        authorEmoji: currentUser.avatarEmoji ?? '✦',
+        authorZodiac: '',
+        reactions: { resonuje: 0, prawda: 0, czuje: 0 },
+        commentCount: 0,
+        createdAt: serverTimestamp(),
+      }).catch(() => {});
+    }
     setInputText('');
   };
 
@@ -113,6 +158,16 @@ export const CommunityTarotScreen = ({ navigation }) => {
       ? { ...it, likes: likedIds.includes(id) ? it.likes - 1 : it.likes + 1 }
       : it
     ));
+    if (!likedIds.includes(id)) {
+      const ref = doc(db, 'posts', id);
+      runTransaction(db, async (tx) => {
+        const snap = await tx.get(ref);
+        if (snap.exists()) {
+          const r = snap.data().reactions ?? {};
+          tx.update(ref, { 'reactions.resonuje': (r.resonuje ?? 0) + 1 });
+        }
+      }).catch(() => {});
+    }
   };
 
   const addReaction = (key: 'heart' | 'star' | 'flower') => {
@@ -163,7 +218,9 @@ export const CommunityTarotScreen = ({ navigation }) => {
   });
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: currentTheme.background }]} edges={['top']}>
+<View style={{ flex: 1, backgroundColor: currentTheme.background }}>
+  <SafeAreaView style={[styles.safe, {}]} edges={['top']}>
+
       <LinearGradient
         colors={isLight ? ['#FFFBEB', '#FEF3C7', currentTheme.background] : ['#12090A', '#1A0E05', currentTheme.background]}
         style={StyleSheet.absoluteFill}
@@ -347,7 +404,8 @@ export const CommunityTarotScreen = ({ navigation }) => {
           <EndOfContentSpacer size="standard" />
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+</View>
   );
 };
 

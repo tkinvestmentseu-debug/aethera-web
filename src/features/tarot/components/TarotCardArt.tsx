@@ -7,6 +7,7 @@ interface TarotCardArtProps {
   textColor: string;
   width: number;
   height: number;
+  artStyle?: 'classic' | 'golden' | 'moon' | 'obsidian' | 'geometry';
 }
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -816,16 +817,112 @@ const renderMajorCard = (
   }
 };
 
+// ─── Style system ─────────────────────────────────────────────────────────────
+
+const getStyleAlphas = (accent: string, textColor: string, style: string) => {
+  switch (style) {
+    case 'golden': return {
+      a8: accent + 'FF', a5: accent + 'B3', a3: accent + '66', a2: accent + '40',
+      t8: textColor + 'FF', t5: textColor + 'CC',
+    };
+    case 'moon': return {
+      a8: accent + '7A', a5: accent + '2E', a3: accent + '18', a2: accent + '0C',
+      t8: textColor + '7A', t5: textColor + '3D',
+    };
+    case 'obsidian': return {
+      a8: accent + 'E6', a5: accent + 'A6', a3: accent + '60', a2: accent + '28',
+      t8: textColor + 'E6', t5: textColor + 'A6',
+    };
+    case 'geometry': return {
+      a8: accent + '99', a5: accent + 'CC', a3: accent + '99', a2: accent + '55',
+      t8: textColor + '80', t5: textColor + '60',
+    };
+    default: return { // classic
+      a8: accent + 'CC', a5: accent + '80', a3: accent + '4D', a2: accent + '2A',
+      t8: textColor + 'CC', t5: textColor + '80',
+    };
+  }
+};
+
+const renderArtBackground = (style: string, a8: string, a5: string, a3: string, a2: string) => {
+  switch (style) {
+    case 'golden':
+      return (
+        <G opacity={0.32}>
+          {Array.from({ length: 12 }, (_, i) => {
+            const angle = (i * 30 * Math.PI) / 180;
+            return <Line key={i} x1={cx} y1={H / 2} x2={cx + 72 * Math.cos(angle)} y2={H / 2 + 72 * Math.sin(angle)} stroke={a8} strokeWidth={0.4} />;
+          })}
+          <Circle cx={cx} cy={H / 2} r={6} fill={a3} stroke={a8} strokeWidth={0.4} />
+          <Circle cx={cx} cy={H / 2} r={20} fill="none" stroke={a5} strokeWidth={0.3} />
+          <Circle cx={cx} cy={H / 2} r={36} fill="none" stroke={a3} strokeWidth={0.3} />
+        </G>
+      );
+    case 'moon': {
+      const stars: [number, number, number][] = [
+        [14, 9, 2.1], [86, 7, 1.4], [7, 70, 1.7], [93, 64, 1.9],
+        [51, 80, 1.5], [29, 17, 1.3], [74, 27, 1.9], [88, 45, 1.4],
+      ];
+      return (
+        <G opacity={0.55}>
+          {stars.map(([sx, sy, r], i) => (
+            <Path key={i}
+              d={`M${sx},${sy - r} L${sx + r * 0.35},${sy - r * 0.35} L${sx + r},${sy} L${sx + r * 0.35},${sy + r * 0.35} L${sx},${sy + r} L${sx - r * 0.35},${sy + r * 0.35} L${sx - r},${sy} L${sx - r * 0.35},${sy - r * 0.35} Z`}
+              fill={a5}
+            />
+          ))}
+          <Path d={`M5,${H * 0.52} Q${cx},${H * 0.42} ${W - 5},${H * 0.52}`} fill="none" stroke={a3} strokeWidth={0.5} />
+        </G>
+      );
+    }
+    case 'obsidian':
+      return (
+        <G opacity={0.2}>
+          {[[-14, 0, W + 14, H], [0, 0, W, H], [14, 0, W - 14, H], [28, 0, W - 28, H]].map(([x1, y1, x2, y2], i) => (
+            <Line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={a8} strokeWidth={0.5} />
+          ))}
+          {[[W + 14, 0, -14, H], [W, 0, 0, H], [W - 14, 0, 14, H]].map(([x1, y1, x2, y2], i) => (
+            <Line key={i + 4} x1={x1} y1={y1} x2={x2} y2={y2} stroke={a8} strokeWidth={0.4} />
+          ))}
+        </G>
+      );
+    case 'geometry': {
+      const r = 19;
+      const pts: [number, number][] = [
+        [cx, H / 2],
+        [cx + r, H / 2],
+        [cx - r, H / 2],
+        [cx + r * 0.5, H / 2 - r * 0.866],
+        [cx - r * 0.5, H / 2 - r * 0.866],
+        [cx + r * 0.5, H / 2 + r * 0.866],
+        [cx - r * 0.5, H / 2 + r * 0.866],
+      ];
+      return (
+        <G opacity={0.18}>
+          {pts.map(([px, py], i) => (
+            <Circle key={i} cx={px} cy={py} r={r} fill="none" stroke={a8} strokeWidth={0.55} />
+          ))}
+        </G>
+      );
+    }
+    default: // classic — subtle dot grid
+      return (
+        <G opacity={0.28}>
+          {([25, 50, 75] as number[]).flatMap(gx =>
+            ([18, 36, 54, 70] as number[]).map(gy => (
+              <Circle key={`${gx}-${gy}`} cx={gx} cy={gy} r={0.8} fill={a3} />
+            ))
+          )}
+        </G>
+      );
+  }
+};
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-export const TarotCardArt: React.FC<TarotCardArtProps> = ({ cardId, accent, textColor, width, height }) => {
-  // Derive alpha variants
-  const a8 = accent + 'CC';   // ~80%
-  const a5 = accent + '80';   // ~50%
-  const a3 = accent + '4D';   // ~30%
-  const a2 = accent + '2A';   // ~16%
-  const t8 = textColor + 'CC';
-  const t5 = textColor + '80';
+export const TarotCardArt: React.FC<TarotCardArtProps> = ({ cardId, accent, textColor, width, height, artStyle = 'classic' }) => {
+  // Derive alpha variants based on art style
+  const { a8, a5, a3, a2, t8, t5 } = getStyleAlphas(accent, textColor, artStyle);
 
   // Parse cardId
   const majorMatch = /^(\d+)$/.exec(cardId);
@@ -847,6 +944,7 @@ export const TarotCardArt: React.FC<TarotCardArtProps> = ({ cardId, accent, text
 
   return (
     <Svg viewBox={`0 0 ${W} ${H}`} width={width} height={height}>
+      {renderArtBackground(artStyle, a8, a5, a3, a2)}
       {content}
     </Svg>
   );

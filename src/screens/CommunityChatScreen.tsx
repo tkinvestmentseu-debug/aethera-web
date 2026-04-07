@@ -7,12 +7,15 @@ import React, {
   useState,
 } from 'react';
 import {
+  Alert,
   Dimensions,
   FlatList,
   KeyboardAvoidingView,
+  Modal,
   Platform,
   Pressable,
   ScrollView,
+  Share,
   StyleSheet,
   Text,
   TextInput,
@@ -43,6 +46,11 @@ import {
   ArrowRight,
   Circle,
   Star,
+  X,
+  Lock,
+  Globe,
+  Hash,
+  Copy,
 } from 'lucide-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { getResolvedTheme } from '../core/theme/tokens';
@@ -54,7 +62,7 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../store/useAuthStore';
 import { ChatService, ChatMessage as FBChatMessage } from '../core/services/community/chat.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 const { width: SW } = Dimensions.get('window');
 const SP = layout.padding.screen; // 22
 
@@ -508,8 +516,8 @@ const RoomCard = ({
     onPress();
   };
 
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.06)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.10)';
 
   return (
     <Animated.View entering={FadeInDown.delay(index * 60).springify()}>
@@ -575,7 +583,7 @@ const RoomCard = ({
             </View>
 
             <Text
-              style={{ fontSize: 12, color: isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)', marginBottom: 2 }}
+              style={{ fontSize: 12, color: isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)', marginBottom: 2 }}
             >
               {room.description}
             </Text>
@@ -596,7 +604,7 @@ const RoomCard = ({
             <Text
               style={{
                 fontSize: 12,
-                color: isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.40)',
+                color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.40)',
                 marginTop: 2,
               }}
               numberOfLines={1}
@@ -607,7 +615,7 @@ const RoomCard = ({
 
           {/* Time + arrow */}
           <View style={{ alignItems: 'flex-end', gap: 6 }}>
-            <Text style={{ fontSize: 11, color: isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.35)' }}>
+            <Text style={{ fontSize: 11, color: isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.35)' }}>
               {room.lastTime}
             </Text>
             <ArrowRight size={16} color={room.color} />
@@ -639,13 +647,13 @@ const MessageBubble = ({
       <View style={{ alignItems: 'center', marginVertical: 14 }}>
         <View
           style={{
-            backgroundColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.08)',
+            backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.08)',
             borderRadius: 10,
             paddingHorizontal: 14,
             paddingVertical: 4,
           }}
         >
-          <Text style={{ fontSize: 12, color: isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)', letterSpacing: 1 }}>
+          <Text style={{ fontSize: 12, color: isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)', letterSpacing: 1 }}>
             {msg.text}
           </Text>
         </View>
@@ -674,7 +682,7 @@ const MessageBubble = ({
           >
             <Text style={{ fontSize: 15, color: '#1A1208', lineHeight: 22 }}>{msg.text}</Text>
           </LinearGradient>
-          <Text style={{ fontSize: 11, color: isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.30)', marginTop: 3, marginRight: 4 }}>
+          <Text style={{ fontSize: 11, color: isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.30)', marginTop: 3, marginRight: 4 }}>
             {msg.time}
           </Text>
           {msg.reactions && msg.reactions.length > 0 && (
@@ -706,7 +714,7 @@ const MessageBubble = ({
       </View>
 
       <Pressable onLongPress={() => onLongPress(msg.id)} style={{ flex: 1 }}>
-        <Text style={{ fontSize: 12, color: isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)', marginBottom: 3, marginLeft: 4 }}>
+        <Text style={{ fontSize: 12, color: isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)', marginBottom: 3, marginLeft: 4 }}>
           {msg.author}
         </Text>
 
@@ -733,8 +741,8 @@ const MessageBubble = ({
         ) : (
           <View
             style={{
-              backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.08)',
-              borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)',
+              backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.08)',
+              borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.10)',
               borderWidth: 1,
               borderRadius: 18,
               borderBottomLeftRadius: 4,
@@ -749,7 +757,7 @@ const MessageBubble = ({
           </View>
         )}
 
-        <Text style={{ fontSize: 11, color: isLight ? 'rgba(0,0,0,0.30)' : 'rgba(255,255,255,0.28)', marginTop: 3, marginLeft: 4 }}>
+        <Text style={{ fontSize: 11, color: isLight ? 'rgba(0,0,0,0.58)' : 'rgba(255,255,255,0.28)', marginTop: 3, marginLeft: 4 }}>
           {msg.time}
         </Text>
 
@@ -805,7 +813,7 @@ const ReactionMenu = ({
           shadowRadius: 16,
           elevation: 12,
           borderWidth: 1,
-          borderColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.12)',
+          borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.12)',
           zIndex: 101,
         }}
       >
@@ -833,20 +841,38 @@ const ReactionMenu = ({
 export const CommunityChatScreen = ({ navigation }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
-  const { themeName, addFavoriteItem, isFavoriteItem, removeFavoriteItem } = useAppStore();
-  const { currentUser } = useAuthStore();
-  const currentTheme = getResolvedTheme(themeName);
-  const isLight = currentTheme.background.startsWith('#F');
-
+    const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
+  const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
+  const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
+  const { currentTheme, isLight } = useTheme();
+    const currentUser = useAuthStore(s => s.currentUser);
   const textColor = isLight ? '#1A1A2E' : '#F0EBE2';
-  const subColor = isLight ? 'rgba(0,0,0,0.50)' : 'rgba(255,255,255,0.55)';
-  const cardBg = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.06)';
-  const cardBorder = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.10)';
-  const inputBg = isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.07)';
+  const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
+  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.06)';
+  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.10)';
+  const inputBg = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)';
 
   // ── View state ─────────────────────────────────────────────────────────────
   const [activeRoomId, setActiveRoomId] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState('Wszystkie');
+
+  // ── Create room modal ───────────────────────────────────────────────────────
+  const [showCreateRoom, setShowCreateRoom] = useState(false);
+  const [newRoomName, setNewRoomName] = useState('');
+  const [newRoomDesc, setNewRoomDesc] = useState('');
+  const [newRoomEmoji, setNewRoomEmoji] = useState('💬');
+  const [newRoomPrivate, setNewRoomPrivate] = useState(false);
+  const [creatingRoom, setCreatingRoom] = useState(false);
+  const [createdInviteCode, setCreatedInviteCode] = useState<string | null>(null);
+
+  // ── Join by code modal ──────────────────────────────────────────────────────
+  const [showJoinCode, setShowJoinCode] = useState(false);
+  const [joinCode, setJoinCode] = useState('');
+  const [joiningCode, setJoiningCode] = useState(false);
+
+  // ── Room options (invite code panel) ───────────────────────────────────────
+  const [showRoomOptions, setShowRoomOptions] = useState(false);
+  const [currentRoomInviteCode, setCurrentRoomInviteCode] = useState<string | null>(null);
 
   // ── Chat state ─────────────────────────────────────────────────────────────
   const [messagesByRoom, setMessagesByRoom] = useState<Record<string, ChatMessage[]>>(SEED_MESSAGES_BY_ROOM);
@@ -894,14 +920,14 @@ export const CommunityChatScreen = ({ navigation }: any) => {
         return {
           id: m.id,
           author: m.authorName,
-          isOwn: currentUser ? m.authorId === currentUser.uid : false,
+          isOwn: currentUser?.uid ? m.authorId === currentUser.uid : false,
           text: m.text,
           time: timeStr,
         };
       });
       setMessagesByRoom(prev => ({ ...prev, [roomId]: mapped }));
     });
-  }, [currentUser]);
+  }, [currentUser?.uid]);
 
   const leaveRoom = useCallback(() => {
     setActiveRoomId(null);
@@ -1016,6 +1042,59 @@ export const CommunityChatScreen = ({ navigation }: any) => {
     }
   }, [activeRoomId]);
 
+  // ── Create room ────────────────────────────────────────────────────────────
+  const handleCreateRoom = useCallback(async () => {
+    if (!newRoomName.trim()) return;
+    if (!currentUser) { Alert.alert('Wymagane logowanie', 'Zaloguj się, aby tworzyć pokoje.'); return; }
+    setCreatingRoom(true);
+    try {
+      const result = await ChatService.createRoom({
+        name: newRoomName.trim(),
+        emoji: newRoomEmoji,
+        description: newRoomDesc.trim(),
+        isPrivate: newRoomPrivate,
+        creatorId: currentUser.uid,
+        creatorName: currentUser.displayName,
+      });
+      HapticsService.notify();
+      setCreatedInviteCode(result.inviteCode);
+      setNewRoomName(''); setNewRoomDesc(''); setNewRoomEmoji('💬'); setNewRoomPrivate(false);
+    } catch {
+      Alert.alert('Błąd', 'Nie udało się utworzyć pokoju. Spróbuj ponownie.');
+    } finally {
+      setCreatingRoom(false);
+    }
+  }, [newRoomName, newRoomDesc, newRoomEmoji, newRoomPrivate, currentUser]);
+
+  // ── Join by code ───────────────────────────────────────────────────────────
+  const handleJoinByCode = useCallback(async () => {
+    const code = joinCode.trim().toUpperCase();
+    if (code.length < 4) return;
+    if (!currentUser) { Alert.alert('Wymagane logowanie', 'Zaloguj się, aby dołączyć do pokoju.'); return; }
+    setJoiningCode(true);
+    try {
+      const result = await ChatService.joinByCode(code, { uid: currentUser.uid, displayName: currentUser.displayName });
+      if (result.success && result.roomId) {
+        HapticsService.notify();
+        setShowJoinCode(false);
+        setJoinCode('');
+        Alert.alert('Dołączono!', `Witaj w pokoju „${result.roomName ?? result.roomId}"!`);
+      } else {
+        Alert.alert('Nieprawidłowy kod', 'Nie znaleziono pokoju dla podanego kodu.');
+      }
+    } catch {
+      Alert.alert('Błąd', 'Nie udało się dołączyć do pokoju.');
+    } finally {
+      setJoiningCode(false);
+    }
+  }, [joinCode, currentUser]);
+
+  // ── Share invite code ──────────────────────────────────────────────────────
+  const handleShareCode = useCallback((code: string, roomName?: string) => {
+    const msg = `Dołącz do pokoju „${roomName ?? 'Aethera'}" w aplikacji Aethera!\nKod: ${code}\nhttps://aethera.app/room/${code}`;
+    Share.share({ message: msg, title: 'Zaproszenie do pokoju Aethera' });
+  }, []);
+
   // ── Presence pulse ─────────────────────────────────────────────────────────
   const presencePulse = useSharedValue(1);
   useEffect(() => {
@@ -1072,7 +1151,15 @@ export const CommunityChatScreen = ({ navigation }: any) => {
           <Pressable
             style={[styles.headerBtn, { backgroundColor: activeRoom.color + '20', borderRadius: 10 }]}
             hitSlop={8}
-            onPress={() => HapticsService.impact('light')}
+            onPress={async () => {
+              HapticsService.impact('light');
+              // Generate/show invite code for this room
+              try {
+                const code = await ChatService.generateInviteCode(activeRoomId!);
+                setCurrentRoomInviteCode(code);
+                setShowRoomOptions(true);
+              } catch { setShowRoomOptions(true); }
+            }}
           >
             <MoreVertical size={20} color={activeRoom.color} />
           </Pressable>
@@ -1138,7 +1225,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
                 </View>
                 <View
                   style={{
-                    backgroundColor: isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.08)',
+                    backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.08)',
                     borderRadius: 18,
                     borderBottomLeftRadius: 4,
                     paddingHorizontal: 14,
@@ -1221,6 +1308,39 @@ export const CommunityChatScreen = ({ navigation }: any) => {
             </Pressable>
           </View>
         </KeyboardAvoidingView>
+
+        {/* ── Room options modal ─────────────────────────────────── */}
+        <Modal visible={showRoomOptions} transparent animationType="slide">
+          <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.65)', justifyContent: 'flex-end' }}>
+            <View style={{ backgroundColor: isLight ? '#F8F4EE' : '#120E20', borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24, paddingBottom: Math.max(insets.bottom + 16, 32), borderTopWidth: 1, borderTopColor: isLight ? 'rgba(139,100,42,0.25)' : 'rgba(206,174,114,0.18)' }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                  <Text style={{ fontSize: 24 }}>{activeRoom?.emoji}</Text>
+                  <Text style={{ fontSize: 17, fontWeight: '800', color: textColor }}>{activeRoom?.name}</Text>
+                </View>
+                <Pressable onPress={() => setShowRoomOptions(false)} hitSlop={10}><X size={22} color={subColor} /></Pressable>
+              </View>
+              {currentRoomInviteCode && (
+                <>
+                  <Text style={{ fontSize: 11, letterSpacing: 2, fontWeight: '700', color: subColor, marginBottom: 8 }}>KOD ZAPROSZENIA</Text>
+                  <LinearGradient colors={['rgba(206,174,114,0.20)', 'rgba(206,174,114,0.08)']} style={{ borderRadius: 16, borderWidth: 1, borderColor: 'rgba(206,174,114,0.35)', padding: 16, alignItems: 'center', marginBottom: 12 }}>
+                    <Text style={{ fontSize: 28, fontWeight: '800', color: textColor, letterSpacing: 6 }}>{currentRoomInviteCode}</Text>
+                  </LinearGradient>
+                  <Pressable onPress={() => handleShareCode(currentRoomInviteCode, activeRoom?.name)} style={{ marginBottom: 8 }}>
+                    <LinearGradient colors={['#CEAE72', '#B8943E']} style={{ borderRadius: 14, paddingVertical: 13, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 8 }}>
+                      <Share2 size={16} color="#1A1208" />
+                      <Text style={{ fontSize: 14, fontWeight: '700', color: '#1A1208' }}>Zaproś przez link</Text>
+                    </LinearGradient>
+                  </Pressable>
+                </>
+              )}
+              <Pressable onPress={() => { setShowRoomOptions(false); leaveRoom(); }}
+                style={{ borderRadius: 14, borderWidth: 1, borderColor: '#EF4444' + '40', paddingVertical: 13, alignItems: 'center', backgroundColor: '#EF4444' + '0E' }}>
+                <Text style={{ fontSize: 14, fontWeight: '700', color: '#EF4444' }}>Opuść pokój</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
       </SafeAreaView>
     );
   }
@@ -1301,7 +1421,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
           entering={FadeInDown.delay(140).duration(400)}
           style={styles.categoryRow}
         >
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingRight: 4 }}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingRight: 22 }}>
             {ROOM_CATEGORIES.map((cat) => {
               const active = activeCategory === cat;
               return (
@@ -1317,7 +1437,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
                       backgroundColor: active
                         ? '#6366F1'
                         : isLight
-                        ? 'rgba(0,0,0,0.06)'
+                        ? 'rgba(255,246,230,0.92)'
                         : 'rgba(255,255,255,0.08)',
                       borderColor: active ? '#6366F1' : cardBorder,
                     },
@@ -1360,30 +1480,136 @@ export const CommunityChatScreen = ({ navigation }: any) => {
         <EndOfContentSpacer />
       </ScrollView>
 
-      {/* FAB — Utwórz pokój */}
+      {/* FAB row — Utwórz pokój + Dołącz przez kod */}
       <Animated.View
         entering={FadeInUp.delay(600).springify()}
-        style={[
-          styles.fab,
-          { bottom: insets.bottom + 90 },
-        ]}
+        style={[styles.fab, { bottom: insets.bottom + 90, flexDirection: 'row', gap: 10 }]}
       >
-        <Pressable
-          onPress={() => HapticsService.impact('medium')}
-        >
+        <Pressable onPress={() => { HapticsService.impact('medium'); setShowJoinCode(true); }}>
+          <LinearGradient
+            colors={isLight ? ['rgba(99,102,241,0.15)', 'rgba(99,102,241,0.08)'] : ['rgba(255,255,255,0.12)', 'rgba(255,255,255,0.06)']}
+            start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+            style={[styles.fabInner, { borderWidth: 1, borderColor: isLight ? 'rgba(99,102,241,0.35)' : 'rgba(255,255,255,0.18)' }]}
+          >
+            <Hash size={18} color={isLight ? '#6366F1' : '#A5B4FC'} strokeWidth={2} />
+            <Text style={{ fontSize: 13, fontWeight: '700', color: isLight ? '#6366F1' : '#A5B4FC', letterSpacing: 0.3 }}>
+              Kod
+            </Text>
+          </LinearGradient>
+        </Pressable>
+        <Pressable onPress={() => { HapticsService.impact('medium'); setShowCreateRoom(true); }}>
           <LinearGradient
             colors={['#CEAE72', '#B8943E']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
+            start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
             style={styles.fabInner}
           >
             <Plus size={20} color="#1A1208" strokeWidth={2.5} />
             <Text style={{ fontSize: 13, fontWeight: '700', color: '#1A1208', letterSpacing: 0.3 }}>
-              Utwórz pokój
+              Nowy pokój
             </Text>
           </LinearGradient>
         </Pressable>
       </Animated.View>
+
+      {/* ── Modal: Utwórz pokój ─────────────────────────────────── */}
+      <Modal visible={showCreateRoom} transparent animationType="slide">
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.65)', justifyContent: 'flex-end' }}>
+          <View style={{ backgroundColor: isLight ? '#F8F4EE' : '#120E20', borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24, paddingBottom: Math.max(insets.bottom + 16, 32), borderTopWidth: 1, borderTopColor: isLight ? 'rgba(139,100,42,0.25)' : 'rgba(206,174,114,0.18)' }}>
+            {createdInviteCode ? (
+              <>
+                {/* Invite code display */}
+                <View style={{ alignItems: 'center', paddingVertical: 12 }}>
+                  <Text style={{ fontSize: 32, marginBottom: 8 }}>🎉</Text>
+                  <Text style={{ fontSize: 18, fontWeight: '800', color: textColor, marginBottom: 4 }}>Pokój stworzony!</Text>
+                  <Text style={{ fontSize: 13, color: subColor, textAlign: 'center', marginBottom: 20 }}>Udostępnij kod, aby zaprosić innych użytkowników Aethera.</Text>
+                  <LinearGradient colors={['rgba(206,174,114,0.22)', 'rgba(206,174,114,0.10)']} style={{ borderRadius: 18, borderWidth: 1, borderColor: 'rgba(206,174,114,0.40)', padding: 20, alignItems: 'center', width: '100%', marginBottom: 16 }}>
+                    <Text style={{ fontSize: 11, letterSpacing: 2.5, fontWeight: '700', color: '#CEAE72', marginBottom: 8 }}>KOD ZAPROSZENIA</Text>
+                    <Text style={{ fontSize: 32, fontWeight: '800', color: textColor, letterSpacing: 6 }}>{createdInviteCode}</Text>
+                  </LinearGradient>
+                  <View style={{ flexDirection: 'row', gap: 10, width: '100%' }}>
+                    <Pressable onPress={() => handleShareCode(createdInviteCode)} style={{ flex: 1 }}>
+                      <LinearGradient colors={['#CEAE72', '#B8943E']} style={{ borderRadius: 14, paddingVertical: 14, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 8 }}>
+                        <Share2 size={16} color="#1A1208" />
+                        <Text style={{ fontSize: 14, fontWeight: '700', color: '#1A1208' }}>Udostępnij</Text>
+                      </LinearGradient>
+                    </Pressable>
+                    <Pressable onPress={() => { setCreatedInviteCode(null); setShowCreateRoom(false); }} style={{ flex: 1, borderRadius: 14, borderWidth: 1, borderColor: cardBorder, alignItems: 'center', justifyContent: 'center', paddingVertical: 14 }}>
+                      <Text style={{ fontSize: 14, fontWeight: '600', color: textColor }}>Gotowe</Text>
+                    </Pressable>
+                  </View>
+                </View>
+              </>
+            ) : (
+              <>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+                  <Text style={{ fontSize: 18, fontWeight: '800', color: textColor }}>Utwórz pokój</Text>
+                  <Pressable onPress={() => setShowCreateRoom(false)} hitSlop={10}><X size={22} color={subColor} /></Pressable>
+                </View>
+                {/* Emoji picker */}
+                <Text style={{ fontSize: 11, letterSpacing: 1.5, fontWeight: '700', color: subColor, marginBottom: 8 }}>EMOJI POKOJU</Text>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingBottom: 14, paddingRight: 22 }}>
+                  {['💬','🔮','🧘','🌙','⭐','🔥','💜','🌸','🌊','✨','🌿','🦋','🏔','🌺','🎭'].map(e => (
+                    <Pressable key={e} onPress={() => { setNewRoomEmoji(e); HapticsService.impact('light'); }}
+                      style={{ width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center', backgroundColor: newRoomEmoji === e ? 'rgba(206,174,114,0.25)' : cardBg, borderWidth: 1.5, borderColor: newRoomEmoji === e ? '#CEAE72' : cardBorder }}>
+                      <Text style={{ fontSize: 22 }}>{e}</Text>
+                    </Pressable>
+                  ))}
+                </ScrollView>
+                {/* Name */}
+                <Text style={{ fontSize: 11, letterSpacing: 1.5, fontWeight: '700', color: subColor, marginBottom: 6 }}>NAZWA POKOJU</Text>
+                <TextInput value={newRoomName} onChangeText={setNewRoomName} placeholder="Np. Medytacja poranna..." placeholderTextColor={subColor}
+                  style={{ backgroundColor: cardBg, borderRadius: 12, borderWidth: 1, borderColor: cardBorder, color: textColor, fontSize: 15, padding: 12, marginBottom: 12 }} />
+                {/* Description */}
+                <Text style={{ fontSize: 11, letterSpacing: 1.5, fontWeight: '700', color: subColor, marginBottom: 6 }}>OPIS (opcjonalny)</Text>
+                <TextInput value={newRoomDesc} onChangeText={setNewRoomDesc} placeholder="O czym jest ten pokój?" placeholderTextColor={subColor} multiline
+                  style={{ backgroundColor: cardBg, borderRadius: 12, borderWidth: 1, borderColor: cardBorder, color: textColor, fontSize: 14, padding: 12, minHeight: 64, textAlignVertical: 'top', marginBottom: 14 }} />
+                {/* Private toggle */}
+                <Pressable onPress={() => { setNewRoomPrivate(p => !p); HapticsService.impact('light'); }}
+                  style={{ flexDirection: 'row', alignItems: 'center', gap: 12, padding: 12, borderRadius: 14, borderWidth: 1, borderColor: newRoomPrivate ? 'rgba(206,174,114,0.45)' : cardBorder, backgroundColor: newRoomPrivate ? 'rgba(206,174,114,0.10)' : cardBg, marginBottom: 16 }}>
+                  {newRoomPrivate ? <Lock size={18} color="#CEAE72" /> : <Globe size={18} color={subColor} />}
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ fontSize: 14, fontWeight: '700', color: newRoomPrivate ? '#CEAE72' : textColor }}>{newRoomPrivate ? 'Pokój prywatny' : 'Pokój publiczny'}</Text>
+                    <Text style={{ fontSize: 12, color: subColor }}>{newRoomPrivate ? 'Tylko z kodem zaproszenia' : 'Widoczny dla wszystkich'}</Text>
+                  </View>
+                  <View style={{ width: 24, height: 24, borderRadius: 12, backgroundColor: newRoomPrivate ? '#CEAE72' : 'transparent', borderWidth: 2, borderColor: newRoomPrivate ? '#CEAE72' : cardBorder, alignItems: 'center', justifyContent: 'center' }}>
+                    {newRoomPrivate && <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: '#1A1208' }} />}
+                  </View>
+                </Pressable>
+                {/* Create button */}
+                <Pressable onPress={handleCreateRoom} disabled={!newRoomName.trim() || creatingRoom}>
+                  <LinearGradient colors={newRoomName.trim() ? ['#CEAE72', '#B8943E'] : ['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.10)']} style={{ borderRadius: 14, paddingVertical: 15, alignItems: 'center' }}>
+                    <Text style={{ fontSize: 15, fontWeight: '800', color: newRoomName.trim() ? '#1A1208' : subColor }}>{creatingRoom ? 'Tworzenie...' : 'Utwórz pokój'}</Text>
+                  </LinearGradient>
+                </Pressable>
+              </>
+            )}
+          </View>
+        </View>
+      </Modal>
+
+      {/* ── Modal: Dołącz przez kod ─────────────────────────────── */}
+      <Modal visible={showJoinCode} transparent animationType="slide">
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.65)', justifyContent: 'flex-end' }}>
+          <View style={{ backgroundColor: isLight ? '#F8F4EE' : '#120E20', borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24, paddingBottom: Math.max(insets.bottom + 16, 32), borderTopWidth: 1, borderTopColor: isLight ? 'rgba(139,100,42,0.25)' : 'rgba(206,174,114,0.18)' }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <Text style={{ fontSize: 18, fontWeight: '800', color: textColor }}>Dołącz przez kod</Text>
+              <Pressable onPress={() => { setShowJoinCode(false); setJoinCode(''); }} hitSlop={10}><X size={22} color={subColor} /></Pressable>
+            </View>
+            <Text style={{ fontSize: 13, color: subColor, marginBottom: 20 }}>Wpisz 6-znakowy kod zaproszenia otrzymany od innego użytkownika Aethera.</Text>
+            <TextInput
+              value={joinCode} onChangeText={v => setJoinCode(v.toUpperCase())}
+              placeholder="np. AB1C2D" placeholderTextColor={subColor}
+              autoCapitalize="characters" maxLength={6}
+              style={{ backgroundColor: cardBg, borderRadius: 14, borderWidth: 1.5, borderColor: joinCode.length >= 4 ? '#CEAE72' : cardBorder, color: textColor, fontSize: 24, fontWeight: '800', textAlign: 'center', letterSpacing: 6, padding: 16, marginBottom: 16 }}
+            />
+            <Pressable onPress={handleJoinByCode} disabled={joinCode.trim().length < 4 || joiningCode}>
+              <LinearGradient colors={joinCode.trim().length >= 4 ? ['#CEAE72', '#B8943E'] : ['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.10)']} style={{ borderRadius: 14, paddingVertical: 15, alignItems: 'center' }}>
+                <Text style={{ fontSize: 15, fontWeight: '800', color: joinCode.trim().length >= 4 ? '#1A1208' : subColor }}>{joiningCode ? 'Dołączanie...' : 'Dołącz do pokoju'}</Text>
+              </LinearGradient>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };

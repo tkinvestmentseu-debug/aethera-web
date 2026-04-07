@@ -8,7 +8,7 @@ import { getResolvedTheme } from '../core/theme/tokens';
 import { layout } from '../core/theme/designSystem';
 import { AudioService } from '../core/services/audio.service';
 import { HapticsService } from '../core/services/haptics.service';
-
+import { useTheme } from '../core/hooks/useTheme';
 export type GlassCardVariant =
   | 'default'
   | 'elevated'
@@ -27,11 +27,10 @@ interface GlassCardProps {
 }
 
 export const GlassCard = ({ children, style, onPress, highlight, variant = 'default' }: GlassCardProps) => {
-  const { themeName, experience } = useAppStore();
-  const theme = getResolvedTheme(themeName);
+  const { experience } = useAppStore();
+  const {currentTheme, isLight} = useTheme();
+  const theme = currentTheme;
   const scale = useSharedValue(1);
-  const isLight = theme.background.startsWith('#F');
-
   const isHero = variant === 'hero';
   const isHighlight = variant === 'highlight' || !!highlight;
   const isFlatOrField = variant === 'flat' || variant === 'field';
@@ -59,12 +58,12 @@ export const GlassCard = ({ children, style, onPress, highlight, variant = 'defa
   // ── Solid background colour (NO inner gradient — eliminates "tło w tle") ──
   const backgroundColor = isLight
     ? (isHero
-        ? '#FFF8EE'
+        ? '#FFFDF7'
         : isHighlight
-        ? '#FFF4E6'
+        ? '#FFF8EC'
         : isFlatOrField
-        ? '#FDF8F2'
-        : '#FDF5EB')
+        ? '#FFFCF7'
+        : '#FFF9F1')
     : (isHero
         ? '#171C2E'
         : isHighlight
@@ -79,9 +78,9 @@ export const GlassCard = ({ children, style, onPress, highlight, variant = 'defa
     : isHero
     ? theme.primary + '99'
     : isFlatOrField
-    ? (isLight ? 'rgba(122,93,46,0.20)' : 'rgba(255,255,255,0.09)')
+    ? (isLight ? 'rgba(122,93,46,0.28)' : 'rgba(255,255,255,0.09)')
     : isLight
-    ? 'rgba(169,122,57,0.38)'
+    ? 'rgba(169,122,57,0.48)'
     : theme.primary + '66';
 
   const borderWidth = isHighlight ? 1.5 : isHero ? 1.5 : 1;
@@ -113,7 +112,7 @@ export const GlassCard = ({ children, style, onPress, highlight, variant = 'defa
     shadowColor: isLight ? '#7B5C31' : theme.primary,
     shadowOffset: { width: 0, height: isHero || isHighlight ? 14 : 8 },
     shadowOpacity: isLight
-      ? (isHighlight ? 0.22 : isHero ? 0.18 : 0.12)
+      ? (isHighlight ? 0.16 : isHero ? 0.13 : 0.08)
       : (isHighlight ? 0.60 : isHero ? 0.42 : 0.28),
     shadowRadius: isHero || isHighlight ? 28 : 18,
     elevation: isHero || isHighlight ? 14 : 9,
