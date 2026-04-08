@@ -204,10 +204,10 @@ function formatEventTime(ms: number): string {
   const now = new Date();
   const tomorrow = new Date(now);
   tomorrow.setDate(now.getDate() + 1);
-  const hhmm = d.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
+  const hhmm = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
   if (d.toDateString() === now.toDateString()) return `Dziś, ${hhmm}`;
   if (d.toDateString() === tomorrow.toDateString()) return `Jutro, ${hhmm}`;
-  return d.toLocaleDateString('pl-PL', { day: '2-digit', month: '2-digit' }) + `, ${hhmm}`;
+  return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}, ${hhmm}`;
 }
 
 function formatDuration(startMs: number, endMs: number): string {

@@ -72,7 +72,7 @@ export const ConsciousnessScreen = ({ navigation }) => {
   const subColor = isLight ? 'rgba(28,16,8,0.55)' : 'rgba(232,224,255,0.55)';
   const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
   const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.10)';
-  const [feedPosts, setFeedPosts] = useState(FEED_POSTS);
+  const [feedPosts, setFeedPosts] = useState([]);
   const [loadingPosts, setLoadingPosts] = useState(false);
   const [activeCategory, setActiveCategory] = useState('Wszystkie');
   const [liked, setLiked] = useState({});
@@ -302,6 +302,14 @@ export const ConsciousnessScreen = ({ navigation }) => {
 
           {/* Feed */}
           <View style={{ paddingHorizontal: 22, gap: 12 }}>
+            {filteredPosts.length === 0 && (
+              <View style={{ alignItems: 'center', paddingVertical: 32, opacity: 0.6 }}>
+                <Text style={{ color: ACCENT, fontSize: 24 }}>✦</Text>
+                <Text style={{ color: textColor, fontSize: 14, marginTop: 8, textAlign: 'center' }}>
+                  {loadingPosts ? 'Łączenie ze zbiorową świadomością...' : 'Bądź pierwszą duszą, która podzieli się refleksją ✦'}
+                </Text>
+              </View>
+            )}
             {filteredPosts.map((post, i) => (
               <Animated.View key={post.id} entering={FadeInDown.delay(i * 80).duration(500)}>
                 <View style={{ backgroundColor: cardBg, borderRadius: 16, borderWidth: 1, borderColor: cardBorder, overflow: 'hidden' }}>

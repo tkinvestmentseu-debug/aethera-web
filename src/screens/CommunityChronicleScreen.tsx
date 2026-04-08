@@ -87,7 +87,8 @@ export const CommunityChronicleScreen = ({ navigation }) => {
   const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
   const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.10)';
     const currentUser = useAuthStore(s => s.currentUser);
-  const [entries, setEntries] = useState(ENTRIES);
+  const [entries, setEntries] = useState([]);
+  const [loadingEntries, setLoadingEntries] = useState(true);
   const [activeCategory, setActiveCategory] = useState('Wszystkie');
   const [liked, setLiked] = useState({});
   const [bookmarked, setBookmarked] = useState({});
@@ -102,8 +103,8 @@ export const CommunityChronicleScreen = ({ navigation }) => {
 
   useEffect(() => {
     const unsub = ChroniclesService.listenToChronicles(null, (chronicles: Chronicle[]) => {
-      if (chronicles.length > 0) {
-        setEntries(chronicles.map(c => ({
+      setLoadingEntries(false);
+      setEntries(chronicles.map(c => ({
           id: c.id,
           author: c.authorName,
           initials: c.authorInitials,
@@ -117,7 +118,6 @@ export const CommunityChronicleScreen = ({ navigation }) => {
           bookmarked: false,
           body: c.body,
         })));
-      }
     });
     return () => { unsub(); if (publishTimerRef.current) clearTimeout(publishTimerRef.current); };
   }, []);
@@ -247,7 +247,7 @@ export const CommunityChronicleScreen = ({ navigation }) => {
               <View style={{ alignItems: 'center', paddingVertical: 40, opacity: 0.5 }}>
                 <BookOpen size={40} color="#888" />
                 <Text style={{ color: '#888', marginTop: 12, fontSize: 15, textAlign: 'center' }}>
-                  Brak historii w tej kategorii. Napisz pierwszą!
+                  {loadingEntries ? 'Ładowanie kronik...' : 'Brak historii w tej kategorii. Napisz pierwszą!'}
                 </Text>
               </View>
             )}

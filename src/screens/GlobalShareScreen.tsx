@@ -899,7 +899,8 @@ export const GlobalShareScreen = () => {
   const cardBorder = isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.09)';
   const cardBg = isLight ? 'rgba(255,255,255,0.80)' : 'rgba(255,255,255,0.055)';
 
-  const [posts, setPosts] = useState<FeedPost[]>(SEED_POSTS);
+  const [posts, setPosts] = useState<FeedPost[]>([]);
+  const [loadingFeed, setLoadingFeed] = useState(true);
   const [activeFilter, setActiveFilter] = useState('ALL');
   const lastFbDocRef = useRef<any>(null);
   const [showFilter, setShowFilter] = useState(false);
@@ -914,26 +915,27 @@ export const GlobalShareScreen = () => {
   useEffect(() => {
     // Load real posts from Firebase on mount
     if (currentUser) {
+      setLoadingFeed(true);
       FeedService.getPosts(currentUser.uid).then(({ posts: fbPosts, lastDoc }) => {
-        if (fbPosts.length > 0) {
-          lastFbDocRef.current = lastDoc;
-          // Map Firebase FeedPost to screen FeedPost shape
-          setPosts(fbPosts.map(p => ({
-            id: p.id,
-            author: p.authorName,
-            avatar: p.authorEmoji,
-            zodiac: p.authorZodiac,
-            country: '🌍',
-            type: p.type as any,
-            content: p.content,
-            timeAgo: formatFeedTimeAgo(p.createdAt),
-            reactions: { resonuje: p.reactions.resonuje, prawda: p.reactions.prawda, czuje: p.reactions.czuje, comments: p.commentCount },
-            anonymous: false,
-          })));
-        }
-      }).catch(() => {});
+        lastFbDocRef.current = lastDoc;
+        // Map Firebase FeedPost to screen FeedPost shape
+        setPosts(fbPosts.map(p => ({
+          id: p.id,
+          author: p.authorName,
+          avatar: p.authorEmoji,
+          zodiac: p.authorZodiac,
+          country: '🌍',
+          type: p.type as any,
+          content: p.content,
+          timeAgo: formatFeedTimeAgo(p.createdAt),
+          reactions: { resonuje: p.reactions.resonuje, prawda: p.reactions.prawda, czuje: p.reactions.czuje, comments: p.commentCount },
+          anonymous: false,
+        })));
+      }).catch(() => {}).finally(() => setLoadingFeed(false));
+    } else {
+      setLoadingFeed(false);
     }
-  }, []);
+  }, [currentUser?.uid]);
 
   const handleNewPost = (post: FeedPost) => {
     setPosts(prev => [post, ...prev]);
@@ -1063,10 +1065,10 @@ export const GlobalShareScreen = () => {
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
         ListEmptyComponent={
-          <View style={{ alignItems: 'center', paddingVertical: 40, opacity: 0.5 }}>
+          <View style={{ alignItems: 'center', paddingVertical: 40, opacity: 0.6 }}>
             <Globe size={40} color={isLight ? '#666' : '#888'} />
             <Text style={{ color: isLight ? '#666' : '#888', marginTop: 12, fontSize: 15, textAlign: 'center' }}>
-              Brak postów. Bądź pierwszy!
+              {loadingFeed ? 'Łączenie z kosmosem...' : 'Brak postów. Bądź pierwszą duszą!'}
             </Text>
           </View>
         }
