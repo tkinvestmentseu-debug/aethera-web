@@ -250,7 +250,7 @@ const EnergyLineChart = ({ data, color, isLight }: { data: ChartPoint[]; color: 
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 2 }}>
         {data.map(item => (
           <Text key={item.date} style={{ fontSize: 9, color: isLight ? '#6A5A48' : '#9A8E80' }}>
-            {new Date(item.date).toLocaleDateString(getLocaleCode(), { weekday: 'short' })}
+            {['Nd','Pn','Wt','Śr','Cz','Pt','Sb'][new Date(item.date).getDay()]}
           </Text>
         ))}
       </View>
@@ -457,7 +457,7 @@ export const EnergyJournalScreen = ({ navigation }: any) => {
       const personLine  = userData?.name        ? `Imię: ${userData.name}.` : '';
       const zodiacLine  = userData?.zodiacSign  ? ` Znak zodiaku: ${userData.zodiacSign}.` : '';
       const weekData    = last7.map(d =>
-        `${new Date(d.date).toLocaleDateString(getLocaleCode(), { weekday: 'short', day: '2-digit', month: '2-digit' })}: ${d.energy > 0 ? d.energy + '%' : 'brak odczytu'} (nastrój: ${d.mood || '—'})`
+        `${(() => { const _d = new Date(d.date); const DN = ['Nd','Pn','Wt','Śr','Cz','Pt','Sb']; return `${DN[_d.getDay()]} ${String(_d.getDate()).padStart(2,'0')}.${String(_d.getMonth()+1).padStart(2,'0')}`; })()}: ${d.energy > 0 ? d.energy + '%' : 'brak odczytu'} (nastrój: ${d.mood || '—'})`
       ).join('\n');
       const dimSummary  = DIMENSIONS.map(d => `${d.label}: ${dimensions[d.key]}/5`).join(', ');
       const inflSummary = Object.entries(influencers).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join(', ') || 'Nie zaznaczono';
@@ -650,7 +650,7 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
                 <Text style={[s.cardEyebrow, { color: accent }]}>📝 WPIS ENERGETYCZNY</Text>
                 <Text style={[s.cardTitle, { color: textColor }]}>Obserwacje dnia</Text>
                 <Text style={[s.cardBody, { color: subColor }]}>
-                  {new Date().toLocaleDateString(getLocaleCode(), { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                  {(() => { const _d = new Date(); const DN = ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota']; const MN = ['Stycznia','Lutego','Marca','Kwietnia','Maja','Czerwca','Lipca','Sierpnia','Września','Października','Listopada','Grudnia']; return `${DN[_d.getDay()]}, ${_d.getDate()} ${MN[_d.getMonth()]} ${_d.getFullYear()}`; })()}
                 </Text>
                 <TextInput
                   value={journalText}
@@ -891,7 +891,7 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
                           </View>
                           <View style={{ flex: 1 }}>
                             <Text style={[s.historyDate, { color: textColor }]}>
-                              {new Date(entry.date).toLocaleDateString(getLocaleCode(), { weekday: 'long', day: '2-digit', month: '2-digit' })}
+                              {(() => { const _d = new Date(entry.date); const DN = ['Nd','Pn','Wt','Śr','Cz','Pt','Sb']; return `${DN[_d.getDay()]} ${String(_d.getDate()).padStart(2,'0')}.${String(_d.getMonth()+1).padStart(2,'0')}`; })()}
                             </Text>
                             {moodMeta && (
                               <Text style={[s.historyMood, { color: moodMeta.color }]}>{moodMeta.label}</Text>

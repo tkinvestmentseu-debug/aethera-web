@@ -310,7 +310,7 @@ export const SpiritualHabitsScreen = ({ navigation }: any) => {
               {/* Date + Moon */}
               <View style={s.overviewRow}>
                 <Text style={[s.overviewDate, { color: textColor }]}>
-                  {new Date().toLocaleDateString(getLocaleCode(), { weekday: 'long', day: 'numeric', month: 'long' })}
+                  {(() => { const _d = new Date(); const DN = ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota']; const MN = ['Stycznia','Lutego','Marca','Kwietnia','Maja','Czerwca','Lipca','Sierpnia','Września','Października','Listopada','Grudnia']; return `${DN[_d.getDay()]}, ${_d.getDate()} ${MN[_d.getMonth()]}`; })()}
                 </Text>
                 <Text style={s.moonEmoji}>{moonPhase}</Text>
               </View>

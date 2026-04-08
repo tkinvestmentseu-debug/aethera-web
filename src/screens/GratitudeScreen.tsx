@@ -390,7 +390,7 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
       return;
     }
     const items = filled.length > 0 ? filled : (todayEntry?.items || []);
-    const dateStr = new Date().toLocaleDateString(getLocaleCode(), { day: 'numeric', month: 'long', year: 'numeric' });
+    const _gd = new Date(); const MONTHS_LONG_G = ['Stycznia','Lutego','Marca','Kwietnia','Maja','Czerwca','Lipca','Sierpnia','Września','Października','Listopada','Grudnia']; const dateStr = `${_gd.getDate()} ${MONTHS_LONG_G[_gd.getMonth()]} ${_gd.getFullYear()}`;
     const shareText = `✦ WDZIĘCZNOŚĆ — ${dateStr}\n\n${items.map((it, i) => `${i + 1}. ${it}`).join('\n')}${aiReflection ? `\n\n${aiReflection}` : ''}\n\n— zapisano w Aethera`;
     try {
       await Share.share({ message: shareText, title: 'Moja wdzięczność — Aethera' });

@@ -552,8 +552,8 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
     playAnswerAnimation(key);
 
     const now = new Date();
-    const ts = now.toLocaleTimeString('pl', { hour: '2-digit', minute: '2-digit' });
-    const date = now.toLocaleDateString('pl', { day: '2-digit', month: '2-digit' });
+    const ts = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+    const date = `${String(now.getDate()).padStart(2,'0')}.${String(now.getMonth()+1).padStart(2,'0')}`;
     const catId = activeCategory ?? 'wolna';
 
     setHistory(prev => [{ q: question.trim(), ak: key, ts, date, note: '', category: catId }, ...prev].slice(0, 10));

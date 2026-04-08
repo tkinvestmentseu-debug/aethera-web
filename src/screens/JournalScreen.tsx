@@ -390,11 +390,9 @@ export const JournalScreen = ({ navigation }: any) => {
   const renderEntry = ({ item, index }: { item: JournalEntry; index: number }) => {
     const preview = (item.content || item.interpretation || '').slice(0, 110);
     const moodEmoji = item.mood ? MOOD_EMOJI[item.mood] ?? '' : '';
-    const dateStr = new Date(item.date).toLocaleDateString(getLocaleCode(), {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-    });
+    const _jd = new Date(item.date);
+    const MONTHS_SHORT = ['Sty','Lut','Mar','Kwi','Maj','Cze','Lip','Sie','Wrz','Paź','Lis','Gru'];
+    const dateStr = `${_jd.getDate()} ${MONTHS_SHORT[_jd.getMonth()]} ${_jd.getFullYear()}`;
 
     return (
       <Animated.View entering={FadeInDown.delay(index * 40).duration(380)}>

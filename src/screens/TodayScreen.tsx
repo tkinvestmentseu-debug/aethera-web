@@ -422,7 +422,7 @@ export const TodayScreen = ({ navigation }: any) => {
             <View style={ts.focusMeta}>
               <CalendarDays color={accent + 'AA'} size={13} strokeWidth={1.6} />
               <Text style={[ts.focusDate, { color: subColor }]}>
-                {new Date().toLocaleDateString(i18n.language?.startsWith('en') ? 'en-GB' : 'pl-PL', { weekday: 'long', day: 'numeric', month: 'long' })}
+                {(() => { const _d = new Date(); const DAYS_PL = ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota']; const MONTHS_PL = ['Stycznia','Lutego','Marca','Kwietnia','Maja','Czerwca','Lipca','Sierpnia','Września','Października','Listopada','Grudnia']; return `${DAYS_PL[_d.getDay()]}, ${_d.getDate()} ${MONTHS_PL[_d.getMonth()]}`; })()}
               </Text>
             </View>
           </Animated.View>

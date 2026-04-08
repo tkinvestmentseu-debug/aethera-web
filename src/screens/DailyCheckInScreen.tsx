@@ -766,10 +766,11 @@ export const DailyCheckInScreen = ({ navigation }: any) => {
   const moonPhase = useMemo(() => getMoonPhase(), []);
   const today     = useMemo(() => new Date(), []);
   const todayStr  = useMemo(() => fmtDate(today), []);
-  const todayDisplay = useMemo(() =>
-    today.toLocaleDateString(getLocaleCode(), { weekday: 'long', day: 'numeric', month: 'long' }),
-    [],
-  );
+  const todayDisplay = useMemo(() => {
+    const DN = ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'];
+    const MN = ['Stycznia','Lutego','Marca','Kwietnia','Maja','Czerwca','Lipca','Sierpnia','Września','Października','Listopada','Grudnia'];
+    return `${DN[today.getDay()]}, ${today.getDate()} ${MN[today.getMonth()]}`;
+  }, []);
 
   // ── State ───────────────────────────────────────────────────────────────────
   const [step,       setStep]       = useState(0);
