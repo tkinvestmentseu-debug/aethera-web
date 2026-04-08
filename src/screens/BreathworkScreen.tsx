@@ -311,7 +311,7 @@ const mountedRef = useRef(true);
   const formatSessionDate = (dateStr: string) => {
     try {
       const d = new Date(dateStr);
-      return d.toLocaleDateString(getLocaleCode(), { day: 'numeric', month: 'short' });
+      const MONTHS_S = ['Sty','Lut','Mar','Kwi','Maj','Cze','Lip','Sie','Wrz','Paź','Lis','Gru']; return `${d.getDate()} ${MONTHS_S[d.getMonth()]}`;
     } catch {
       return dateStr;
     }

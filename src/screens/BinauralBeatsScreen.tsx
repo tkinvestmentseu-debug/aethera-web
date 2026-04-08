@@ -1246,7 +1246,7 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
                             {freq?.emoji} {sess.freqLabel} · {formatSessionTime(sess.durationSeconds)}
                           </Text>
                           <Text style={[styles.historyDate, { color: subColor }]}>
-                            {sess.date ? `${d.toLocaleDateString(getLocaleCode(), { day: 'numeric', month: 'short' })} · ${d.toLocaleTimeString(getLocaleCode(), { hour: '2-digit', minute: '2-digit' })}` : '—'}
+                            {sess.date ? (() => { const MS = ['Sty','Lut','Mar','Kwi','Maj','Cze','Lip','Sie','Wrz','Paź','Lis','Gru']; return `${d.getDate()} ${MS[d.getMonth()]} · ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; })() : '—'}
                           </Text>
                         </View>
                         <View style={{ flexDirection: 'row', gap: 2 }}>

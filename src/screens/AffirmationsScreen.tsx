@@ -502,7 +502,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
       const prog = dailyProgress[dateStr] || {};
       return {
         date: dateStr,
-        day: d.toLocaleDateString(getLocaleCode(), { weekday: 'short' }),
+        day: ['Nd','Pn','Wt','Śr','Cz','Pt','Sb'][d.getDay()],
         done: prog.affirmationRead === true,
         category: prog.affirmationCategory || null,
       };

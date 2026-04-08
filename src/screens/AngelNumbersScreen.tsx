@@ -1126,7 +1126,7 @@ Pisz tylko sam przekaz.`;
                   <View style={an.dayNumberHeader}>
                     <Calendar size={14} color="rgba(255,255,255,0.80)" />
                     <Text style={[an.dayNumberLabel, isLight && { color: 'rgba(37,29,22,0.72)' }]}>
-                      PRZEKAZ DNIA — {today.toLocaleDateString(getLocaleCode(), { day: 'numeric', month: 'long' }).toUpperCase()}
+                      {(() => { const MN = ['STYCZNIA','LUTEGO','MARCA','KWIETNIA','MAJA','CZERWCA','LIPCA','SIERPNIA','WRZEŚNIA','PAŹDZIERNIKA','LISTOPADA','GRUDNIA']; return `PRZEKAZ DNIA — ${today.getDate()} ${MN[today.getMonth()]}`; })()}
                     </Text>
                   </View>
                   <Text style={[an.dayNumberMain, isLight && { color: 'rgba(37,29,22,0.90)' }]}>{todayNumber}</Text>
@@ -1725,7 +1725,7 @@ Pisz tylko sam przekaz.`;
                         ) : null}
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 5 }}>
                           <Text style={[an.historyDate, { color: subColor }]}>
-                            {s.timestamp ? `${dt.toLocaleDateString(getLocaleCode(), { day: 'numeric', month: 'short' })} · ${dt.toLocaleTimeString(getLocaleCode(), { hour: '2-digit', minute: '2-digit' })}` : '—'}
+                            {s.timestamp ? (() => { const MS = ['Sty','Lut','Mar','Kwi','Maj','Cze','Lip','Sie','Wrz','Paź','Lis','Gru']; return `${dt.getDate()} ${MS[dt.getMonth()]} · ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`; })() : '—'}
                           </Text>
                           {s.location ? (
                             <Text style={[{ fontSize: 11, color: subColor }]}>📍 {s.location}</Text>
