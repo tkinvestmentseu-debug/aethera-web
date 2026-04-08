@@ -395,6 +395,7 @@ interface PostCardProps {
 const PostCard = React.memo(({ post, isLight, index, onComment }: PostCardProps) => {
   const [reactions, setReactions] = useState(post.reactions);
   const [activeReaction, setActiveReaction] = useState<string | null>(null);
+  const currentUser = useAuthStore(s => s.currentUser);
   const def = POST_TYPES[post.type];
   const cardBg = isLight ? 'rgba(255,255,255,0.80)' : 'rgba(255,255,255,0.055)';
   const cardBorder = isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.09)';
@@ -402,11 +403,16 @@ const PostCard = React.memo(({ post, isLight, index, onComment }: PostCardProps)
   const subColor = isLight ? 'rgba(40,30,60,0.54)' : 'rgba(200,190,220,0.52)';
 
   const toggle = (key: 'resonuje' | 'prawda' | 'czuje') => {
-    setActiveReaction(prev => prev === key ? null : key);
+    const isActive = activeReaction === key;
+    setActiveReaction(isActive ? null : key);
     setReactions(prev => ({
       ...prev,
-      [key]: activeReaction === key ? prev[key] - 1 : prev[key] + 1,
+      [key]: isActive ? Math.max(0, prev[key] - 1) : prev[key] + 1,
     }));
+    HapticsService.impact('light');
+    if (currentUser && typeof post.id === 'string' && post.id.length > 8) {
+      FeedService.toggleReaction(post.id, currentUser.uid, key as any).catch(() => {});
+    }
   };
 
   return (
@@ -608,6 +614,7 @@ const FilterPanel = ({ visible, onClose, isLight }: { visible: boolean; onClose:
 // ─────────────────────────────────────────────────────────────────────────────
 const ComposeModal = ({ visible, onClose, onSubmit, isLight }: { visible: boolean; onClose: () => void; onSubmit: (post: FeedPost) => void; isLight: boolean }) => {
   const { t } = useTranslation();
+  const currentUser = useAuthStore(s => s.currentUser);
   const [selectedType, setSelectedType] = useState<PostTypeKey>('REFLEKSJA');
   const [text, setText] = useState('');
   const [tarotCardInput, setTarotCardInput] = useState('');
@@ -631,8 +638,8 @@ const ComposeModal = ({ visible, onClose, onSubmit, isLight }: { visible: boolea
     const AVATARS = ['🌙', '⭐', '✨', '🌿', '💎', '🔥', '🌺', '🌊', '🕊️', '🌸'];
     const newPost: FeedPost = {
       id: `user_${Date.now()}`,
-      author: isAnonymous ? 'Anonimowa dusza' : 'Ty',
-      avatar: isAnonymous ? '🌫️' : AVATARS[Math.floor(Math.random() * AVATARS.length)],
+      author: isAnonymous ? 'Anonimowa dusza' : (currentUser?.displayName ?? 'Ty'),
+      avatar: isAnonymous ? '🌫️' : (currentUser?.avatarEmoji ?? AVATARS[Math.floor(Math.random() * AVATARS.length)]),
       zodiac: '',
       country: '🇵🇱',
       type: selectedType,
