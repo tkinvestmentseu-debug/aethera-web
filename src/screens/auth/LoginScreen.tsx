@@ -14,8 +14,17 @@ import { auth } from '../../core/config/firebase.config';
 import { AuthService } from '../../core/services/auth.service';
 import { hydrateUserProfile, useAuthStore } from '../../store/useAuthStore';
 import { useTranslation } from 'react-i18next';
-import { MoonStar, Mail, Lock, ArrowRight } from 'lucide-react-native';
+import Svg, { Circle, Line, G } from 'react-native-svg';
+import { Mail, Lock, ArrowRight } from 'lucide-react-native';
 import { Typography } from '../../components/Typography';
+
+// ── Static star field (module-level — deterministic, no random) ───────────────
+const STARS_BG = Array.from({ length: 32 }, (_, i) => ({
+  x: (i * 137.508 + 11) % W,
+  y: (i * 89.317 + 23) % H,
+  r: i % 5 === 0 ? 1.5 : i % 3 === 0 ? 1.1 : 0.7,
+  o: 0.15 + (i % 7) * 0.07,
+}));
 
 const { width: W, height: H } = Dimensions.get('window');
 
@@ -128,6 +137,28 @@ const OrbPulse = () => {
 
   return (
     <View style={ls.orbWrapper}>
+      {/* Sacred geometry backdrop — static SVG */}
+      <View style={{ position: 'absolute', width: 160, height: 160, alignItems: 'center', justifyContent: 'center' }}>
+        <Svg width={160} height={160}>
+          <G opacity={0.22}>
+            {/* Outer hex ring dots */}
+            {Array.from({ length: 6 }, (_, i) => {
+              const a = (i / 6) * Math.PI * 2 - Math.PI / 2;
+              return <Circle key={i} cx={80 + 72 * Math.cos(a)} cy={80 + 72 * Math.sin(a)} r={2.5} fill={GOLD} opacity={0.7} />;
+            })}
+            {/* Star-of-David lines */}
+            {([[0,2],[2,4],[4,0],[1,3],[3,5],[5,1]] as [number,number][]).map(([a, b], i) => {
+              const ax = 80 + 72 * Math.cos((a / 6) * Math.PI * 2 - Math.PI / 2);
+              const ay = 80 + 72 * Math.sin((a / 6) * Math.PI * 2 - Math.PI / 2);
+              const bx = 80 + 72 * Math.cos((b / 6) * Math.PI * 2 - Math.PI / 2);
+              const by = 80 + 72 * Math.sin((b / 6) * Math.PI * 2 - Math.PI / 2);
+              return <Line key={i} x1={ax} y1={ay} x2={bx} y2={by} stroke={GOLD} strokeWidth={0.7} opacity={0.5} />;
+            })}
+            <Circle cx={80} cy={80} r={70} stroke={PURPLE_SOFT} strokeWidth={0.7} fill="none" strokeDasharray="4 8" />
+            <Circle cx={80} cy={80} r={50} stroke={GOLD} strokeWidth={0.5} fill="none" strokeDasharray="2 6" />
+          </G>
+        </Svg>
+      </View>
       {/* outer dissipating ring */}
       <RNAnimated.View style={[ls.orbRingOuter, { transform: [{ scale: ring2 }], opacity: r2Op }]} />
       {/* inner pulse ring */}
@@ -135,12 +166,12 @@ const OrbPulse = () => {
       {/* core */}
       <View style={ls.orbCore}>
         <LinearGradient
-          colors={['rgba(212,168,67,0.35)', 'rgba(124,58,237,0.50)', 'rgba(10,8,28,0.85)']}
+          colors={['rgba(212,168,67,0.40)', 'rgba(124,58,237,0.55)', 'rgba(10,8,28,0.88)']}
           start={{ x: 0.3, y: 0 }} end={{ x: 0.7, y: 1 }}
           style={StyleSheet.absoluteFillObject}
         />
         <RNAnimated.View style={[ls.orbGoldGlow, { opacity: glow }]} />
-        <MoonStar color={GOLD} size={36} strokeWidth={1.2} />
+        <Typography style={{ fontSize: 32, color: GOLD, lineHeight: 36 }}>✦</Typography>
       </View>
     </View>
   );
@@ -276,6 +307,18 @@ export const LoginScreen = ({ navigation }: any) => {
       <View style={ls.blobTopLeft}   pointerEvents="none" />
       <View style={ls.blobBottomRight} pointerEvents="none" />
 
+      {/* Static star field */}
+      <View style={StyleSheet.absoluteFill} pointerEvents="none">
+        {STARS_BG.map((s, i) => (
+          <View key={i} style={{
+            position: 'absolute', left: s.x, top: s.y,
+            width: s.r * 2, height: s.r * 2, borderRadius: s.r,
+            backgroundColor: i % 5 === 0 ? GOLD : '#FFFFFF',
+            opacity: s.o,
+          }} />
+        ))}
+      </View>
+
       {/* Floating particles */}
       <View style={StyleSheet.absoluteFill} pointerEvents="none">
         {PARTICLES.map((p, i) => <Particle key={i} {...p} />)}
@@ -321,8 +364,15 @@ export const LoginScreen = ({ navigation }: any) => {
           {/* ── Form card ── */}
           <Animated.View entering={FadeInUp.delay(350).duration(800)} style={ls.formCard}>
             <LinearGradient
-              colors={['rgba(255,255,255,0.04)', 'rgba(124,58,237,0.04)', 'rgba(255,255,255,0.02)']}
+              colors={['rgba(255,255,255,0.05)', 'rgba(124,58,237,0.06)', 'rgba(255,255,255,0.02)']}
               style={StyleSheet.absoluteFillObject}
+            />
+            {/* Gold top accent line */}
+            <LinearGradient
+              colors={['transparent', GOLD + 'CC', 'transparent']}
+              start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+              style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1.5 }}
+              pointerEvents="none"
             />
 
             {/* Email */}
@@ -395,10 +445,17 @@ export const LoginScreen = ({ navigation }: any) => {
                 style={({ pressed }) => [{ opacity: pressed ? 0.88 : 1 }]}
               >
                 <LinearGradient
-                  colors={['#9B6EF3', PURPLE_CORE, '#5B21B6']}
+                  colors={['#8B5CF6', PURPLE_CORE, '#4C1D95']}
                   start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
                   style={ls.btn}
                 >
+                  {/* shimmer top highlight */}
+                  <LinearGradient
+                    colors={['rgba(255,255,255,0.18)', 'rgba(255,255,255,0.0)']}
+                    start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+                    style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 28, borderRadius: 16 }}
+                    pointerEvents="none"
+                  />
                   {loading
                     ? <ActivityIndicator color="#fff" />
                     : (
@@ -486,11 +543,12 @@ const ls = StyleSheet.create({
   },
 
   logoWordmark: {
-    fontSize: 30,
-    fontWeight: '800',
-    letterSpacing: 8,
+    fontSize: 28,
+    fontWeight: '200',
+    letterSpacing: 10,
     color: WHITE_HIGH,
     textAlign: 'center',
+    textTransform: 'uppercase',
   },
   logoSubtitle: {
     fontSize: 14,

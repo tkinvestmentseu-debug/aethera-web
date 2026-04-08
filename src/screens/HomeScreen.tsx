@@ -388,7 +388,7 @@ const wn = StyleSheet.create({
 // ── ACTION TILE — glassy, glowing, rounded ─────────────────────
 // Press glow ring + glass morphism, NO looping animations
 
-const ActionTile = React.memo(({ icon: Icon, label, sublabel, accent, onPress, delay = 0, isLight = false }: { icon: any; label: string; sublabel: string; accent: string; onPress: () => void; delay?: number; isLight?: boolean }) => {
+const ActionTile = React.memo(({ icon: Icon, label, sublabel, accent, onPress, delay = 0, isLight = false, fullWidth = false }: { icon: any; label: string; sublabel: string; accent: string; onPress: () => void; delay?: number; isLight?: boolean; fullWidth?: boolean }) => {
   const scale = useSharedValue(1);
   const glow = useSharedValue(0);
 
@@ -414,7 +414,7 @@ const ActionTile = React.memo(({ icon: Icon, label, sublabel, accent, onPress, d
   const subColor = isLight ? 'rgba(28,18,6,0.56)' : 'rgba(215,205,190,0.56)';
 
   return (
-    <Animated.View entering={FadeIn.delay(delay).duration(300)} style={[at.wrap, { width: TILE_W }]}>
+    <Animated.View entering={FadeIn.delay(delay).duration(300)} style={[at.wrap, { width: fullWidth ? SW - 44 : TILE_W }]}>
       {/* Outer glow halo on press */}
       <Animated.View
         pointerEvents="none"
@@ -680,7 +680,7 @@ const renderContent = (id: string, navigation: any, dailyPlan: DailySoulPlan, us
         <ActionTile icon={Brain} label={tr('home.ty.shadowWork', 'Praca z cieniem', 'Shadow Work')} sublabel={tr('home.ty.shadowWorkSub', 'Jungowska eksploracja nieświadomości', 'Jungian exploration of the unconscious')} accent={ac} onPress={() => navigation.navigate('ShadowWork')} delay={180} isLight={isLight} />
         <ActionTile icon={Sparkles} label={tr('home.ty.mantra', 'Generator Mantry', 'Mantra Generator')} sublabel={tr('home.ty.mantraSub', 'Spersonalizowana mantra wedyjska', 'A personalized Vedic mantra')} accent={ac} onPress={() => navigation.navigate('MantraGenerator')} delay={240} isLight={isLight} />
         <ActionTile icon={Target} label={tr('home.ty.visionBoard', 'Tablica Manifestacji', 'Manifestation Board')} sublabel={tr('home.ty.visionBoardSub', 'Kosmiczna mapa 9 intencji', 'A cosmic map of 9 intentions')} accent={ac} onPress={() => navigation.navigate('VisionBoard')} delay={300} isLight={isLight} />
-        <ActionTile icon={CheckSquare2} label={tr('home.ty.habits', 'Nawyki Duchowe', 'Spiritual Habits')} sublabel={tr('home.ty.habitsSub', 'Śledź 12 codziennych praktyk', 'Track 12 daily practices')} accent="#10B981" onPress={() => navigation.navigate('SpiritualHabits')} delay={360} isLight={isLight} />
+        <ActionTile icon={CheckSquare2} label={tr('home.ty.habits', 'Nawyki Duchowe', 'Spiritual Habits')} sublabel={tr('home.ty.habitsSub', 'Śledź 12 codziennych praktyk', 'Track 12 daily practices')} accent="#10B981" onPress={() => navigation.navigate('SpiritualHabits')} delay={360} isLight={isLight} fullWidth />
       </View>
       <MetricsStrip accent={ac} isLight={isLight} items={[{ val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') }, { val: dailyPlan.energyScore + '%', label: tr('home.metric.energy', 'ENERGIA', 'ENERGY') }, { val: String(entries.length), label: tr('home.metric.entries', 'WPISY', 'ENTRIES') }, { val: dailyDraw ? '✓' : '○', label: tr('home.metric.card', 'KARTA', 'CARD') }]} />
       <SectionDivider label={tr('home.explore', 'EKSPLORUJ', 'EXPLORE')} accent={ac} />
@@ -766,7 +766,7 @@ const renderContent = (id: string, navigation: any, dailyPlan: DailySoulPlan, us
         <ActionTile icon={Flower2} label={tr('home.support.gratitude', 'Wdzięczność', 'Gratitude')} sublabel={tr('home.support.gratitudeSub', 'Trzy sloty wdzięczności i refleksja', 'Three gratitude slots and reflection')} accent={ac} onPress={() => navigation.navigate('Gratitude')} delay={60} isLight={isLight} />
         <ActionTile icon={Layers} label={tr('home.support.chakras', 'Chakry', 'Chakras')} sublabel={tr('home.support.chakrasSub', '7 centrów energetycznych ciała', '7 energetic centers of the body')} accent={ac} onPress={() => navigation.navigate('Chakra')} delay={120} isLight={isLight} />
         <ActionTile icon={Waves} label={tr('home.support.soundBath', 'Kąpiel dźwiękowa', 'Sound Bath')} sublabel={tr('home.support.soundBathSub', '5 pejzaży dźwiękowych z timerem', '5 soundscapes with a timer')} accent={ac} onPress={() => navigation.navigate('SoundBath')} delay={180} isLight={isLight} />
-        <ActionTile icon={Gem} label={tr('home.support.crystals', 'Kryształy', 'Crystals')} sublabel={tr('home.support.crystalsSub', 'Przewodnik i odczyt kryształowy', 'Crystal guide and crystal reading')} accent={ac} onPress={() => navigation.navigate('CrystalGuide')} delay={240} isLight={isLight} />
+        <ActionTile icon={Gem} label={tr('home.support.crystals', 'Kryształy', 'Crystals')} sublabel={tr('home.support.crystalsSub', 'Przewodnik i odczyt kryształowy', 'Crystal guide and crystal reading')} accent={ac} onPress={() => navigation.navigate('CrystalGuide')} delay={240} isLight={isLight} fullWidth />
       </View>
       <MetricsStrip accent={ac} isLight={isLight} items={[{ val: String(entries.length), label: tr('home.metric.entries', 'WPISY', 'ENTRIES') }, { val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') }, { val: tr('home.metric.active', 'Aktywne', 'Active'), label: tr('home.metric.affirmations', 'AFIRMACJE', 'AFFIRMATIONS') }, { val: dailyPlan.moonPhase?.icon || '🌙', label: tr('home.metric.moon', 'KSIĘŻYC', 'MOON') }]} />
       <SectionDivider label={tr('home.support.ecosystem', 'EKOSYSTEM WSPARCIA', 'SUPPORT ECOSYSTEM')} accent={ac} />
@@ -1012,8 +1012,10 @@ export const HomeScreen = ({ navigation, route }: any) => {
             </Animated.View>
           )}
 
-          {/* COSMIC NEWS STRIP */}
-          <CosmicNewsStrip isLight={isLight} accent={activeSurface.accent} />
+          {/* COSMIC NEWS STRIP — negative margin escapes parent paddingHorizontal:22 */}
+          <View style={{ marginHorizontal: -22 }}>
+            <CosmicNewsStrip isLight={isLight} accent={activeSurface.accent} />
+          </View>
 
           {/* WORLD HERO — Living Portal */}
           <Animated.View key={activeSurface.id} entering={FadeIn.duration(280)} style={hs.heroSection}>

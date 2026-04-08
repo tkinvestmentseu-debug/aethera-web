@@ -12,9 +12,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
 const { width: SW } = Dimensions.get('window');
-const CARD_W = Math.min(SW * 0.78, 300);
-const CARD_H = 116;
-const GAP = 10;
+const CARD_W = Math.min(SW * 0.84, 340);
+const CARD_H = 196;
+const GAP = 12;
 
 // ─── Dane kosmiczne ────────────────────────────────────────────────────────────
 
@@ -236,46 +236,103 @@ interface NewsItem {
 }
 
 const NewsCard = React.memo(({ item, isLight }: { item: NewsItem; isLight: boolean }) => {
+  const col = item.categoryColor;
   if (isLight) {
     return (
-      <View style={[s.cardLight, { width: CARD_W }]}>
-        {/* Left accent bar */}
-        <View style={[s.accentBar, { backgroundColor: item.categoryColor }]} />
-        {/* Big emoji background */}
+      <View style={[s.cardLight, { width: CARD_W, borderColor: col + '44' }]}>
+        {/* Glass gradient */}
+        <LinearGradient
+          colors={[col + '18', col + '08', 'rgba(255,255,255,0.0)']}
+          start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+          style={StyleSheet.absoluteFill}
+          pointerEvents="none"
+        />
+        {/* Top gloss */}
+        <LinearGradient
+          colors={['rgba(255,255,255,0.85)', 'rgba(255,255,255,0.0)']}
+          start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 40, borderTopLeftRadius: 22, borderTopRightRadius: 22 }}
+          pointerEvents="none"
+        />
+        {/* Left accent stripe */}
+        <LinearGradient
+          colors={[col, col + 'AA', col + '00']}
+          start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+          style={s.accentStripe}
+          pointerEvents="none"
+        />
+        {/* Big emoji bg */}
         <View style={s.bgEmojiWrap} pointerEvents="none">
-          <Text style={s.bgEmoji}>{item.bigEmoji}</Text>
+          <Text style={[s.bgEmoji, { color: col }]}>{item.bigEmoji}</Text>
+        </View>
+        {/* Sparkle dots */}
+        <View style={s.sparkleWrap} pointerEvents="none">
+          <Text style={[s.sparkle, { color: col, opacity: 0.7 }]}>✦</Text>
+          <Text style={[s.sparkleSm, { color: col, opacity: 0.4 }]}>✦</Text>
         </View>
         <View style={s.cardInner}>
-          <View style={[s.pill, { backgroundColor: item.categoryColor + '22', borderColor: item.categoryColor + '66' }]}>
-            <Text style={[s.pillText, { color: item.categoryColor }]}>{item.category}</Text>
+          {/* Pill badge */}
+          <View style={[s.pill, { backgroundColor: col + '28', borderColor: col + '66' }]}>
+            <Text style={[s.pillText, { color: col }]}>{item.category}</Text>
           </View>
-          <Text style={s.headlineLight} numberOfLines={1}>{item.headline}</Text>
-          <Text style={s.bodyLight} numberOfLines={2}>{item.body}</Text>
+          <Text style={s.headlineLight} numberOfLines={2}>{item.headline}</Text>
+          <Text style={s.bodyLight} numberOfLines={3}>{item.body}</Text>
+          {/* Bottom accent line */}
+          <View style={[s.bottomLine, { backgroundColor: col + '55' }]} />
         </View>
       </View>
     );
   }
   return (
-    <LinearGradient
-      colors={item.darkGrad}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={[s.cardDark, { width: CARD_W }]}
-    >
-      {/* Left accent bar */}
-      <View style={[s.accentBar, { backgroundColor: item.categoryColor }]} />
-      {/* Big emoji background (decorative) */}
+    <View style={[s.cardDark, { width: CARD_W }]}>
+      {/* Deep gradient bg */}
+      <LinearGradient
+        colors={[item.darkGrad[0], item.darkGrad[1], col + '22']}
+        start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+        style={StyleSheet.absoluteFill}
+        pointerEvents="none"
+      />
+      {/* Top gloss highlight */}
+      <LinearGradient
+        colors={['rgba(255,255,255,0.14)', 'rgba(255,255,255,0.0)']}
+        start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 44, borderTopLeftRadius: 22, borderTopRightRadius: 22 }}
+        pointerEvents="none"
+      />
+      {/* Radial glow bottom-right */}
+      <LinearGradient
+        colors={[col + '00', col + '33']}
+        start={{ x: 0.2, y: 0 }} end={{ x: 1, y: 1 }}
+        style={StyleSheet.absoluteFill}
+        pointerEvents="none"
+      />
+      {/* Left accent stripe */}
+      <LinearGradient
+        colors={[col, col + 'BB', col + '00']}
+        start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+        style={s.accentStripe}
+        pointerEvents="none"
+      />
+      {/* Big emoji bg */}
       <View style={s.bgEmojiWrap} pointerEvents="none">
-        <Text style={s.bgEmoji}>{item.bigEmoji}</Text>
+        <Text style={[s.bgEmoji, { color: col }]}>{item.bigEmoji}</Text>
+      </View>
+      {/* Sparkle decorations */}
+      <View style={s.sparkleWrap} pointerEvents="none">
+        <Text style={[s.sparkle, { color: col, opacity: 0.6 }]}>✦</Text>
+        <Text style={[s.sparkleSm, { color: col, opacity: 0.3 }]}>✦</Text>
       </View>
       <View style={s.cardInner}>
-        <View style={[s.pill, { backgroundColor: item.categoryColor + '28', borderColor: item.categoryColor + '55' }]}>
-          <Text style={[s.pillText, { color: item.categoryColor }]}>{item.category}</Text>
+        {/* Pill badge */}
+        <View style={[s.pill, { backgroundColor: col + '30', borderColor: col + '66' }]}>
+          <Text style={[s.pillText, { color: col }]}>{item.category}</Text>
         </View>
-        <Text style={s.headlineDark} numberOfLines={1}>{item.headline}</Text>
-        <Text style={s.bodyDark} numberOfLines={2}>{item.body}</Text>
+        <Text style={s.headlineDark} numberOfLines={2}>{item.headline}</Text>
+        <Text style={s.bodyDark} numberOfLines={3}>{item.body}</Text>
+        {/* Bottom accent line */}
+        <View style={[s.bottomLine, { backgroundColor: col + '66' }]} />
       </View>
-    </LinearGradient>
+    </View>
   );
 });
 
@@ -418,85 +475,107 @@ const s = StyleSheet.create({
   // ── Dark card ──
   cardDark: {
     height: CARD_H,
-    borderRadius: 20,
+    borderRadius: 22,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.08)',
+    borderColor: 'rgba(255,255,255,0.13)',
+    shadowColor: '#8B5CF6',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.35,
+    shadowRadius: 18,
+    elevation: 10,
   },
   // ── Light card ──
   cardLight: {
     height: CARD_H,
-    borderRadius: 20,
+    borderRadius: 22,
     overflow: 'hidden',
     backgroundColor: 'rgba(255,255,255,0.96)',
     borderWidth: 1.5,
-    borderColor: 'rgba(139,100,42,0.14)',
-    // shadow
-    shadowColor: '#8B5CF6',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.10,
-    shadowRadius: 12,
-    elevation: 4,
+    shadowColor: '#6B3FA0',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.18,
+    shadowRadius: 18,
+    elevation: 8,
   },
-  accentBar: {
+  // Left gradient stripe
+  accentStripe: {
     position: 'absolute',
     left: 0,
     top: 0,
     bottom: 0,
-    width: 3,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
+    width: 4,
+    borderTopLeftRadius: 22,
+    borderBottomLeftRadius: 22,
   },
   bgEmojiWrap: {
     position: 'absolute',
-    right: -4,
-    top: -6,
-    opacity: 0.12,
+    right: 8,
+    bottom: 10,
+    opacity: 0.18,
   },
   bgEmoji: {
-    fontSize: 72,
+    fontSize: 90,
+  },
+  sparkleWrap: {
+    position: 'absolute',
+    right: 16,
+    top: 12,
+    alignItems: 'flex-end',
+    gap: 4,
+  },
+  sparkle: { fontSize: 16, lineHeight: 18 },
+  sparkleSm: { fontSize: 10, lineHeight: 12 },
+  bottomLine: {
+    height: 2,
+    borderRadius: 1,
+    marginTop: 4,
+    width: '40%',
   },
   cardInner: {
     flex: 1,
-    paddingLeft: 18,
-    paddingRight: 14,
-    paddingTop: 12,
-    paddingBottom: 10,
-    gap: 5,
+    paddingLeft: 20,
+    paddingRight: 40,
+    paddingTop: 18,
+    paddingBottom: 16,
+    gap: 7,
+    justifyContent: 'center',
   },
   pill: {
     alignSelf: 'flex-start',
     borderRadius: 20,
     borderWidth: 1,
-    paddingHorizontal: 9,
-    paddingVertical: 2,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
   },
   pillText: {
     fontSize: 10,
-    fontWeight: '700',
-    letterSpacing: 0.5,
+    fontWeight: '800',
+    letterSpacing: 0.8,
   },
   headlineDark: {
-    fontSize: 15,
-    fontWeight: '700',
-    letterSpacing: -0.2,
+    fontSize: 17,
+    fontWeight: '800',
+    letterSpacing: -0.3,
     color: '#F0EBF8',
+    lineHeight: 22,
   },
   headlineLight: {
-    fontSize: 15,
-    fontWeight: '700',
-    letterSpacing: -0.2,
+    fontSize: 17,
+    fontWeight: '800',
+    letterSpacing: -0.3,
     color: '#1A1340',
+    lineHeight: 22,
   },
   bodyDark: {
-    fontSize: 12,
-    lineHeight: 16,
-    color: 'rgba(210,200,235,0.82)',
+    fontSize: 12.5,
+    lineHeight: 18,
+    color: 'rgba(220,210,245,0.80)',
   },
   bodyLight: {
-    fontSize: 12,
-    lineHeight: 16,
-    color: 'rgba(30,20,60,0.65)',
+    fontSize: 12.5,
+    lineHeight: 18,
+    color: 'rgba(30,20,60,0.68)',
   },
   dots: {
     flexDirection: 'row',

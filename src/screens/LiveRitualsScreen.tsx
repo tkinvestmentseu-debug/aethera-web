@@ -857,7 +857,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
 
   // ─── MODALS ────────────────────────────────────────────────────────────────
 
-  const DetailModal = () => {
+  const renderDetailModal = () => {
     if (!selectedRitual) return null;
     const r = selectedRitual;
     const Icon = r.icon;
@@ -946,7 +946,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
     );
   };
 
-  const CreateModal = () => (
+  const renderCreateModal = () => (
     <Modal visible={showCreate} transparent animationType="slide">
       <View style={styles.modalOverlay}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ width: '100%' }}>
@@ -1111,8 +1111,8 @@ export const LiveRitualsScreen = ({ navigation }) => {
         <EndOfContentSpacer size="standard" />
       </ScrollView>
 
-      <DetailModal />
-      <CreateModal />
+      {renderDetailModal()}
+      {renderCreateModal()}
         </SafeAreaView>
 </View>
   );

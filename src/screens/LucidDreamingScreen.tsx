@@ -433,7 +433,7 @@ export const LucidDreamingScreen = ({ navigation }: any) => {
   };
 
   const lucidCount   = safeShadowWorkSessions.length; // repurposing as example stat
-  const todayDate    = new Date().toLocaleDateString(getLocaleCode(), { weekday: 'long', day: 'numeric', month: 'long' });
+  const todayDate = (() => { const d = new Date(); return `${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()}`; })();
 
   return (
 <View style={{ flex: 1, backgroundColor: isLight ? currentTheme.background : '#0D0A1A' }}>

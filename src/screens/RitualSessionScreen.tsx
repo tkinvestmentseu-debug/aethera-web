@@ -9,7 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Animated, {
   FadeIn, FadeInDown, FadeInUp,
   useAnimatedStyle, useSharedValue,
-  withRepeat, withSequence, withSpring, withTiming,
+  withRepeat, withSequence, withSpring, withTiming, cancelAnimation,
 } from 'react-native-reanimated';
 import {
   ChevronLeft, Flame, Globe2, Heart, MoonStar,
@@ -246,6 +246,11 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
       withSequence(withTiming(1, { duration: 2000 }), withTiming(0.55, { duration: 2000 })),
       -1, false,
     );
+    return () => {
+      cancelAnimation(pulseV);
+      cancelAnimation(ringV);
+      cancelAnimation(orbGlowV);
+    };
   }, []);
 
   const pulseStyle = useAnimatedStyle(() => ({ transform: [{ scale: pulseV.value }] }));
@@ -288,8 +293,9 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
     }, 4500);
   }, [musicMuted, selectedMusic, phase.label, totalSecs]);
 
-  const endSession = useCallback(() => {
   const theme = currentTheme;
+
+  const endSession = useCallback(() => {
     if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null; }
     if (msgIntervalRef.current) { clearInterval(msgIntervalRef.current); msgIntervalRef.current = null; }
     setSessionEnded(true);
