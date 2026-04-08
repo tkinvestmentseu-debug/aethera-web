@@ -82,6 +82,8 @@ export const ConsciousnessScreen = ({ navigation }) => {
   const [postCategory, setPostCategory] = useState('Przemyślenia');
   const [commentModal, setCommentModal] = useState(null);
   const [commentText, setCommentText] = useState('');
+  const [comments, setComments] = useState([]);
+  const [loadingComments, setLoadingComments] = useState(false);
 
   const orb = useSharedValue(0.85);
   const orbStyle = useAnimatedStyle(() => ({
@@ -128,6 +130,35 @@ export const ConsciousnessScreen = ({ navigation }) => {
     : feedPosts.filter(p => p.category === activeCategory);
 
   const totalVotes = QUESTION.votes.tak + QUESTION.votes.nie + QUESTION.votes.nwiem;
+
+  const openComments = (post) => {
+    setCommentModal(post);
+    setComments([]);
+    setLoadingComments(true);
+    // Try to load real comments if post has a string id (Firebase)
+    if (typeof post.id === 'string') {
+      FeedService.getComments(post.id)
+        .then(fbComments => setComments(fbComments))
+        .catch(() => {})
+        .finally(() => setLoadingComments(false));
+    } else {
+      setLoadingComments(false);
+    }
+  };
+
+  const sendComment = async () => {
+    if (!commentText.trim() || !commentModal || !currentUser) return;
+    const text = commentText.trim();
+    setCommentText('');
+    if (typeof commentModal.id === 'string') {
+      await FeedService.addComment(commentModal.id, { uid: currentUser.uid, displayName: currentUser.displayName ?? 'Dusza' }, text).catch(() => {});
+      FeedService.getComments(commentModal.id).then(setComments).catch(() => {});
+    } else {
+      // Local-only fallback for seed posts
+      const initials = (currentUser.displayName ?? 'Dusza').slice(0, 2).toUpperCase();
+      setComments(prev => [...prev, { id: String(Date.now()), authorName: currentUser.displayName ?? 'Dusza', text, initials }]);
+    }
+  };
 
   return (
 <View style={{ flex: 1, backgroundColor: currentTheme.background }}>
@@ -300,7 +331,7 @@ export const ConsciousnessScreen = ({ navigation }) => {
                         <Text style={{ color: subColor, fontSize: 12 }}>{post.likes + (liked[post.id] ? 1 : 0)}</Text>
                       </TouchableOpacity>
                       <TouchableOpacity
-                        onPress={() => setCommentModal(post)}
+                        onPress={() => openComments(post)}
                         style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}
                       >
                         <MessageCircle size={15} color={subColor} />
@@ -414,27 +445,34 @@ export const ConsciousnessScreen = ({ navigation }) => {
                 <X size={20} color={subColor} />
               </TouchableOpacity>
             </View>
-            {[
-              { initials: 'AK', text: 'To dokładnie opisuje moją wczorajszą medytację!' },
-              { initials: 'PM', text: 'Dziękuję, że to piszesz. Nie jestem sama w tym doświadczeniu.' },
-              { initials: 'JS', text: 'Piękne. Takie chwile to dotknięcie prawdy.' },
-            ].map((c, i) => (
-              <View key={i} style={{ flexDirection: 'row', gap: 10, marginBottom: 12 }}>
-                <View style={{ width: 32, height: 32, borderRadius: 16, backgroundColor: ACCENT + '30', alignItems: 'center', justifyContent: 'center' }}>
-                  <Text style={{ color: ACCENT, fontSize: 11, fontWeight: '700' }}>{c.initials}</Text>
+            {loadingComments ? (
+              <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', paddingVertical: 12 }}>Ładowanie...</Text>
+            ) : comments.length === 0 ? (
+              <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', paddingVertical: 12 }}>Bądź pierwszą/pierwszym, kto skomentuje ✦</Text>
+            ) : (
+              comments.map((c, i) => (
+                <View key={c.id ?? i} style={{ flexDirection: 'row', gap: 10, marginBottom: 12 }}>
+                  <View style={{ width: 32, height: 32, borderRadius: 16, backgroundColor: ACCENT + '30', alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ color: ACCENT, fontSize: 11, fontWeight: '700' }}>{(c.authorName ?? c.initials ?? '?').slice(0, 2).toUpperCase()}</Text>
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <Text style={{ color: ACCENT, fontSize: 11, fontWeight: '700', marginBottom: 2 }}>{c.authorName ?? ''}</Text>
+                    <Text style={{ color: textColor, fontSize: 13, lineHeight: 20 }}>{c.text}</Text>
+                  </View>
                 </View>
-                <Text style={{ color: textColor, fontSize: 13, flex: 1, lineHeight: 20 }}>{c.text}</Text>
-              </View>
-            ))}
+              ))
+            )}
             <View style={{ flexDirection: 'row', gap: 10, marginTop: 8 }}>
               <TextInput
                 value={commentText}
                 onChangeText={setCommentText}
                 placeholder="Twój komentarz..."
                 placeholderTextColor={subColor}
+                returnKeyType="send"
+                onSubmitEditing={sendComment}
                 style={{ flex: 1, color: textColor, backgroundColor: cardBg, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 10, fontSize: 13, borderWidth: 1, borderColor: cardBorder }}
               />
-              <TouchableOpacity onPress={() => setCommentText('')}
+              <TouchableOpacity onPress={sendComment}
                 style={{ backgroundColor: ACCENT, borderRadius: 12, paddingHorizontal: 14, alignItems: 'center', justifyContent: 'center' }}>
                 <Send size={16} color="#fff" />
               </TouchableOpacity>

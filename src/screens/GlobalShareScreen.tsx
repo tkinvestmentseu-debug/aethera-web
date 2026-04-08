@@ -787,6 +787,9 @@ const CommentsModal = ({
   isLight,
 }: { post: FeedPost | null; visible: boolean; onClose: () => void; isLight: boolean }) => {
   const [commentText, setCommentText] = useState('');
+  const [comments, setComments] = useState([]);
+  const [loadingComments, setLoadingComments] = useState(false);
+  const currentUser = useAuthStore(s => s.currentUser);
   const insets = useSafeAreaInsets();
 
   const bg = isLight ? '#FFFFFF' : '#130D22';
@@ -797,13 +800,26 @@ const CommentsModal = ({
   const cardBorder = isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.09)';
   const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
 
+  useEffect(() => {
+    if (!visible || !post) return;
+    setComments([]);
+    setLoadingComments(true);
+    FeedService.getComments(post.id)
+      .then(setComments)
+      .catch(() => {})
+      .finally(() => setLoadingComments(false));
+  }, [visible, post?.id]);
+
+  const sendComment = async () => {
+    if (!commentText.trim() || !post || !currentUser) return;
+    const text = commentText.trim();
+    setCommentText('');
+    await FeedService.addComment(post.id, { uid: currentUser.uid, displayName: currentUser.displayName ?? 'Dusza' }, text).catch(() => {});
+    FeedService.getComments(post.id).then(setComments).catch(() => {});
+  };
+
   if (!post) return null;
   const def = POST_TYPES[post.type];
-  const comments = SEED_COMMENTS[post.id] ?? [
-    { id: 'c1', author: 'Luna', avatar: '🌙', text: 'Pięknie napisane. Czuję tę energię.', likes: 7 },
-    { id: 'c2', author: 'Solaris', avatar: '☀️', text: 'Dziękuję za podzielenie się tym. To wiele dla mnie znaczy.', likes: 12 },
-    { id: 'c3', author: 'Astrid', avatar: '⭐', text: 'Dokładnie tego potrzebowałam dziś przeczytać.', likes: 9 },
-  ];
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
@@ -824,23 +840,23 @@ const CommentsModal = ({
           {/* Comments list */}
           <Text style={[s.commentsTitle, { color: textColor }]}>Komentarze ({comments.length})</Text>
           <ScrollView style={{ maxHeight: 260 }} showsVerticalScrollIndicator={false}>
-            {comments.map((c, i) => (
-              <Animated.View key={c.id} entering={FadeInDown.delay(i * 50)} style={[s.commentItem, { borderBottomColor: cardBorder }]}>
-                <View style={[s.commentAvatar, { backgroundColor: def.color + '22' }]}>
-                  <Text style={{ fontSize: 16 }}>{c.avatar}</Text>
-                </View>
-                <View style={{ flex: 1 }}>
-                  <View style={s.postMetaRow}>
-                    <Text style={[s.commentAuthor, { color: textColor }]}>{c.author}</Text>
-                    <Pressable onPress={() => HapticsService.impact()} style={s.commentLikeBtn}>
-                      <Heart size={11} color={subColor} />
-                      <Text style={[s.commentLikeCount, { color: subColor }]}>{c.likes}</Text>
-                    </Pressable>
+            {loadingComments ? (
+              <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', paddingVertical: 16 }}>Ładowanie...</Text>
+            ) : comments.length === 0 ? (
+              <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', paddingVertical: 16 }}>Bądź pierwszą osobą, która skomentuje ✦</Text>
+            ) : (
+              comments.map((c, i) => (
+                <Animated.View key={c.id} entering={FadeInDown.delay(i * 50)} style={[s.commentItem, { borderBottomColor: cardBorder }]}>
+                  <View style={[s.commentAvatar, { backgroundColor: def.color + '22' }]}>
+                    <Text style={{ fontSize: 14, fontWeight: '700', color: def.color }}>{(c.authorName ?? '?').slice(0, 2).toUpperCase()}</Text>
                   </View>
-                  <Text style={[s.commentText, { color: subColor }]}>{c.text}</Text>
-                </View>
-              </Animated.View>
-            ))}
+                  <View style={{ flex: 1 }}>
+                    <Text style={[s.commentAuthor, { color: textColor }]}>{c.authorName}</Text>
+                    <Text style={[s.commentText, { color: subColor }]}>{c.text}</Text>
+                  </View>
+                </Animated.View>
+              ))
+            )}
           </ScrollView>
 
           {/* Input */}
@@ -852,11 +868,11 @@ const CommentsModal = ({
               value={commentText}
               onChangeText={setCommentText}
               returnKeyType="send"
-              onSubmitEditing={() => { if (commentText.trim().length >= 2) { HapticsService.impact(); setCommentText(''); } }}
+              onSubmitEditing={sendComment}
             />
             <Pressable
               style={[s.commentSendBtn, { backgroundColor: commentText.trim().length >= 2 ? ACCENT : ACCENT + '44' }]}
-              onPress={() => { if (commentText.trim().length >= 2) { HapticsService.impact(); setCommentText(''); } }}
+              onPress={sendComment}
             >
               <Send size={15} color="#FFF" />
             </Pressable>

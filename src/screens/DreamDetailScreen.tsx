@@ -171,9 +171,8 @@ export const DreamDetailScreen = ({ navigation, route }: any) => {
   );
 
   // Format date nicely
-  const formattedDate = dreamDate.toLocaleDateString(getLocaleCode(), {
-    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
-  });
+  const MONTHS_LONG = ['Stycznia','Lutego','Marca','Kwietnia','Maja','Czerwca','Lipca','Sierpnia','Września','Października','Listopada','Grudnia'];
+  const formattedDate = `${dreamDate.getDate()} ${MONTHS_LONG[dreamDate.getMonth()]} ${dreamDate.getFullYear()}`;
 
   // ── Parsed AI sections ─────────────────────────────────────────────────────
   const parsedSections = useMemo(() => {

@@ -1,6 +1,6 @@
 import {
-  collection, doc, addDoc, setDoc, getDoc, getDocs,
-  onSnapshot, query, orderBy, runTransaction, serverTimestamp, Timestamp,
+  collection, doc, addDoc, setDoc, getDoc, getDocs, collectionGroup,
+  onSnapshot, query, orderBy, limit, runTransaction, serverTimestamp, Timestamp,
 } from 'firebase/firestore';
 import { db } from '../../config/firebase.config';
 
@@ -48,10 +48,10 @@ export const ChallengesService = {
     });
   },
 
-  async joinChallenge(challengeId: string, userId: string): Promise<void> {
+  async joinChallenge(challengeId: string, userId: string, displayName?: string): Promise<void> {
     const partRef = doc(db, 'challenges', challengeId, 'participants', userId);
     if ((await getDoc(partRef)).exists()) return;
-    await setDoc(partRef, { joinedAt: serverTimestamp(), completedDays: [], streak: 0 });
+    await setDoc(partRef, { joinedAt: serverTimestamp(), completedDays: [], streak: 0, userId, displayName: displayName ?? 'Dusza' });
     await runTransaction(db, async tx => {
       const ref = doc(db, 'challenges', challengeId);
       const snap = await tx.get(ref);
@@ -83,6 +83,22 @@ export const ChallengesService = {
     if (!snap.exists()) return null;
     const d = snap.data();
     return { joinedAt: d.joinedAt instanceof Timestamp ? d.joinedAt.toMillis() : 0, completedDays: d.completedDays ?? [], streak: d.streak ?? 0 };
+  },
+
+  async getLeaderboard(): Promise<Array<{ userId: string; displayName: string; streak: number; days: number }>> {
+    try {
+      const q = query(collectionGroup(db, 'participants'), orderBy('streak', 'desc'), limit(10));
+      const snap = await getDocs(q);
+      return snap.docs.map(d => {
+        const data = d.data();
+        return {
+          userId: data.userId ?? d.id,
+          displayName: data.displayName ?? `Dusza`,
+          streak: data.streak ?? 0,
+          days: (data.completedDays ?? []).length,
+        };
+      });
+    } catch { return []; }
   },
 
   async createCustom(user: { uid: string; displayName: string }, data: { title: string; days: number; task: string }): Promise<void> {

@@ -72,9 +72,13 @@ export const SpiritualChallengesScreen = ({ navigation }) => {
   const createSentTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Firebase: real participant counts & IDs keyed by challenge title (lowercased)
   const [fbChallenges, setFbChallenges] = useState<FBChallenge[]>([]);
+  const [leaderboard, setLeaderboard] = useState(RANKING);
 
   useEffect(() => {
     ChallengesService.seedIfNeeded().catch(() => {});
+    ChallengesService.getLeaderboard().then(lb => {
+      if (lb.length > 0) setLeaderboard(lb.map(e => ({ label: e.displayName, info: `${e.days}-dniowa seria`, stars: e.streak })));
+    }).catch(() => {});
     const unsub = ChallengesService.listenToChallenges(chs => {
       setFbChallenges(chs);
       // Restore joined state from Firebase
@@ -111,7 +115,7 @@ export const SpiritualChallengesScreen = ({ navigation }) => {
     setJoinedIds(prev => isJoined ? prev.filter(x => x !== id) : [...prev, id]);
     if (!isJoined && currentUser) {
       const fb = getFbChallenge(id);
-      if (fb) ChallengesService.joinChallenge(fb.id, currentUser.uid).catch(() => {});
+      if (fb) ChallengesService.joinChallenge(fb.id, currentUser.uid, currentUser.displayName ?? 'Dusza').catch(() => {});
     }
   };
 
@@ -270,7 +274,7 @@ export const SpiritualChallengesScreen = ({ navigation }) => {
 
           {/* Ranking */}
           <Text style={[styles.sectionTitle, { color: sc, marginTop: 24 }]}>SPOŁECZNY RANKING</Text>
-          {RANKING.map((r, i) => (
+          {leaderboard.map((r, i) => (
             <View key={i} style={[styles.rankRow, { backgroundColor: cb, borderColor: cbr }]}>
               <Text style={[styles.rankNum, { color: ACCENT }]}>#{i + 1}</Text>
               <Text style={[styles.rankLabel, { color: tc }]}>{r.label}</Text>

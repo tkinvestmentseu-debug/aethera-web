@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { getLocaleCode } from '../core/utils/localeFormat';
 import {
   Dimensions, KeyboardAvoidingView, Platform, Pressable, ScrollView, TextInput,
   StyleSheet, Text, View, Modal,
@@ -223,18 +222,22 @@ export const SoulMatchScreen = ({ navigation }) => {
     setExpandedId(prev => (prev === id ? null : id));
   };
 
+  const getDateStr = () => {
+    const d = new Date();
+    return `${d.getDate()}.${d.getMonth() + 1} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+  };
+
   const handleConnect = (profile: typeof profiles[0]) => {
     HapticsService.notify();
     if (!connectedIds.includes(profile.id)) {
       setConnectedIds(prev => [...prev, profile.id]);
-      const dateStr = new Date().toLocaleDateString(getLocaleCode(), { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
       const iceBreaker = getIceBreaker(profile.id);
       setSentIntentions(prev => [{
         id: profile.id,
         name: profile.name,
         compat: profile.compat,
         question: iceBreaker,
-        date: dateStr,
+        date: getDateStr(),
       }, ...prev]);
       // Write connection to Firebase
       if (currentUser) {
@@ -250,12 +253,16 @@ export const SoulMatchScreen = ({ navigation }) => {
     HapticsService.notify();
     const prof = profiles.find(p => p.id === profileId);
     if (prof) {
-      const dateStr = new Date().toLocaleDateString(getLocaleCode(), { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
       setSentIntentions(prev => [{
-        id: prof.id, name: prof.name, compat: prof.compat, question: msg, date: dateStr,
+        id: prof.id, name: prof.name, compat: prof.compat, question: msg, date: getDateStr(),
       }, ...prev]);
     }
     setIntentionInputs(prev => ({ ...prev, [profileId]: '' }));
+    // Navigate to private chat
+    if (currentUser && navigation) {
+      const roomId = [currentUser.uid, profileId].sort().join('_');
+      navigation.navigate('CommunityChat', { roomId, roomName: prof?.name ?? 'Soul' });
+    }
   };
 
   // ─── Render helpers ───────────────────────────────────────────────────────

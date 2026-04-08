@@ -1036,7 +1036,7 @@ export const DreamsScreen = ({ navigation }: any) => {
                               <View style={{ flex: 1 }}>
                                 <Text style={[ds.archiveTitle, { color: textColor }]}>{entry.title}</Text>
                                 <Text style={[ds.archiveDate, { color: subColor }]}>
-                                  {new Date(entry.date).toLocaleDateString(getLocaleCode(), { weekday: 'long', day: 'numeric', month: 'long' })}
+                                  {(() => { const _d = new Date(entry.date); return `${_d.getDate()}.${_d.getMonth() + 1}.${_d.getFullYear()}`; })()}
                                 </Text>
                               </View>
                               <View style={{ alignItems: 'flex-end', gap: 4 }}>
@@ -1444,7 +1444,8 @@ export const DreamsScreen = ({ navigation }: any) => {
                         d.setDate(d.getDate() - (6 - i));
                         const dateStr = d.toISOString().slice(0, 10);
                         const hasDream = dreamArchive.some(e => e.date.slice(0, 10) === dateStr);
-                        const dayName = d.toLocaleDateString(getLocaleCode(), { weekday: 'short' });
+                        const DAY_SHORT = ['Nd','Pn','Wt','Śr','Cz','Pt','Sb'];
+                        const dayName = DAY_SHORT[d.getDay()];
                         return (
                           <View key={i} style={{ flex: 1, alignItems: 'center', gap: 4 }}>
                             <View style={{
