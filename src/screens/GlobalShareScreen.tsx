@@ -393,6 +393,8 @@ interface PostCardProps {
 }
 
 const PostCard = React.memo(({ post, isLight, index, onComment }: PostCardProps) => {
+  const { t } = useTranslation();
+
   const [reactions, setReactions] = useState(post.reactions);
   const [activeReaction, setActiveReaction] = useState<string | null>(null);
   const currentUser = useAuthStore(s => s.currentUser);

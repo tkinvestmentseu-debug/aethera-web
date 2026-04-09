@@ -614,6 +614,8 @@ const MATURITY_MEANINGS: Record<number, string> = {
 
 // ── Glow circle component ────────────────────────────────────
 const NumberGlowBadge = ({ value, size = 72, isLight, pulse = false }: { value: number; size?: number; isLight: boolean; pulse?: boolean }) => {
+  const { t } = useTranslation();
+
   const meta = getMeta(value);
   const isMaster = value === 11 || value === 22 || value === 33;
   const glowAnim = useSharedValue(0.6);
@@ -691,6 +693,8 @@ const NumberGlowBadge = ({ value, size = 72, isLight, pulse = false }: { value: 
 const NumberCard = ({ label, value, meta, eyebrow, isLight, sublabel }: {
   label: string; value: number; meta: typeof NUMBER_META[1]; eyebrow: string; isLight: boolean; sublabel?: string;
 }) => {
+  const { t } = useTranslation();
+
   const [expanded, setExpanded] = useState(false);
   const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.07)';
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
@@ -907,6 +911,8 @@ const LetterRow = ({ name, isLight }: { name: string; isLight: boolean }) => {
 const PinnacleTimeline = ({ pinnacles, birthDate, accent, isLight }: {
   pinnacles: ReturnType<typeof calcPinnacles>; birthDate: string; accent: string; isLight: boolean;
 }) => {
+  const { t } = useTranslation();
+
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
   const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.60)';
   const birthYear = new Date(birthDate).getFullYear();

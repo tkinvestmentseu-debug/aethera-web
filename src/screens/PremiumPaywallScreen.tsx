@@ -216,6 +216,8 @@ const CosmicBackground = React.memo(() => {
 // ─── Crown hero ───────────────────────────────────────────────────────────────
 
 const CrownHero = React.memo(() => {
+  const { t } = useTranslation();
+
   const scale = useSharedValue(1);
   const glow = useSharedValue(0.5);
 

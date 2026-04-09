@@ -284,6 +284,8 @@ const TarotCard3D = ({
   cardName: string; isReversed: boolean; suitColor: string;
   arcanaType: 'major' | 'minor'; cardNumber: number; isLight: boolean;
 }) => {
+  const { t } = useTranslation();
+
   const tiltX = useSharedValue(0);
   const tiltY = useSharedValue(0);
   const scale = useSharedValue(0.85);
@@ -534,6 +536,8 @@ const AIOracleSection = ({
   cardName: string; isReversed: boolean; position: string;
   suitColor: string; isLight: boolean;
 }) => {
+  const { t } = useTranslation();
+
   const [aiText, setAiText] = useState('');
   const [loading, setLoading] = useState(false);
   const [expanded, setExpanded] = useState(false);

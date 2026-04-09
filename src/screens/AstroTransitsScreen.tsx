@@ -82,6 +82,8 @@ const PLANETS = [
 const ZODIAC_GLYPHS = ['♈', '♉', '♊', '♋', '♌', '♍', '♎', '♏', '♐', '♑', '♒', '♓'];
 
 const SolarSystemWidget = ({ accent }: { accent: string }) => {
+  const { t } = useTranslation();
+
   const anim0 = useSharedValue(PLANETS[0].phase * 360);
   const anim1 = useSharedValue(PLANETS[1].phase * 360);
   const anim2 = useSharedValue(PLANETS[2].phase * 360);

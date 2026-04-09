@@ -78,7 +78,9 @@ const RevealCard = React.memo(({
   chips?: string[];
   challenge?: string;
   delay: number;
-}) => (
+}) => {
+  const { t } = useTranslation();
+  return (
   <Animated.View entering={FadeInDown.delay(delay).duration(700).springify().damping(16)}>
     <View style={s.card}>
       <LinearGradient
@@ -123,7 +125,8 @@ const RevealCard = React.memo(({
       ) : null}
     </View>
   </Animated.View>
-));
+);
+});
 
 // ─── Main screen ───────────────────────────────────────────────────────────────
 export const SpiritualProfileRevealScreen = ({ navigation }) => {

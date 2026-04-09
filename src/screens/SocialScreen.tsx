@@ -157,6 +157,8 @@ const FEATURE_TILES = [
 
 // ── Animated 3D Globe Hero ───────────────────────────────────────────────────
 const AetherGlobe = React.memo(({ accent, textColor, subColor, isLight }) => {
+  const { t } = useTranslation();
+
   const spin = useSharedValue(0);
   const centerGlow = useSharedValue(0.8);
   const outerRing = useSharedValue(1);

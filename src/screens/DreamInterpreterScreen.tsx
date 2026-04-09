@@ -224,6 +224,8 @@ const JUNGIAN_QUESTIONS = [
 
 // ─── Animated Moon Hero component ─────────────────────────────────────────────
 const DreamMoonHero = ({ isLight }: { isLight: boolean }) => {
+  const { t } = useTranslation();
+
   const breathScale = useSharedValue(1);
   const glowOpacity = useSharedValue(0.3);
 

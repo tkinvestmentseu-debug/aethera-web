@@ -167,6 +167,8 @@ const PASSIVE_IDS: string[] = ['energy', 'streak', 'archetype'];
 // AetherEye 3D interactive hero widget
 // ─────────────────────────────────────────────────────────────────────────────
 const AetherEye = React.memo(({ accent, isLight }: { accent: string; isLight: boolean }) => {
+  const { t } = useTranslation();
+
   const irisRot     = useSharedValue(0);
   const irisRot2    = useSharedValue(0);
   const glowOpacity = useSharedValue(0.55);

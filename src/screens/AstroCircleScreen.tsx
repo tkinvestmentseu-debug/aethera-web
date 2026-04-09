@@ -215,6 +215,8 @@ const PostCard = React.memo(({ post, textColor, subColor, isLight, currentUserId
 
 // ─── Transit Card ─────────────────────────────────────────────────────────────
 const TransitCard = React.memo(({ transit, textColor, subColor, isLight }) => {
+  const { t } = useTranslation();
+
   const cardBg = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)';
   const borderColor = isLight ? 'rgba(139,100,42,0.15)' : 'rgba(255,255,255,0.07)';
   return (
@@ -237,6 +239,8 @@ const TransitCard = React.memo(({ transit, textColor, subColor, isLight }) => {
 
 // ─── Create Post Modal ────────────────────────────────────────────────────────
 const CreatePostModal = React.memo(({ visible, onClose, onSubmit, textColor, subColor, isLight }) => {
+  const { t } = useTranslation();
+
   const [text, setText] = useState('');
   const [category, setCategory] = useState('Doświadczenia');
 

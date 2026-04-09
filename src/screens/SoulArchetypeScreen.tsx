@@ -521,6 +521,8 @@ const DailyPracticesSection = ({
   textColor: string;
   subColor: string;
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Animated.View entering={FadeInDown.delay(200).duration(500)}>
       <View style={[styles.practiceSectionWrap, { borderColor: color + '30' }]}>

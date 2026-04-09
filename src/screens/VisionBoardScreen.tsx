@@ -93,6 +93,8 @@ const VisionBoardBg = ({ isLight }: { isLight: boolean }) => (
 
 // ── Circular progress ring ────────────────────────────────────────────────────
 const ProgressRing = ({ filled, total, isLight }: { filled: number; total: number; isLight: boolean }) => {
+  const { t } = useTranslation();
+
   const R = 44;
   const CIRCUM = 2 * Math.PI * R;
   const dash = (filled / total) * CIRCUM;

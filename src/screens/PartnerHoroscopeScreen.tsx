@@ -35,6 +35,8 @@ const AnimGaugeCircle = Animated.createAnimatedComponent(Circle);
 
 // ── DUAL ZODIAC WHEEL WIDGET ────────────────────────────────────
 const DualZodiacWheel = ({ accent }: { accent: string }) => {
+  const { t } = useTranslation();
+
   const rot1 = useSharedValue(0);
   const rot2 = useSharedValue(0);
   const pulse = useSharedValue(0);

@@ -193,6 +193,8 @@ const AnimatedCandle = ({ x, y, delay = 0 }: { x: number; y: number; delay?: num
 
 // ─── Tarot Table SVG Background ──────────────────────────────────────────────
 const TarotTableScene = ({ phase }: { phase: string }) => {
+  const { t } = useTranslation();
+
   const { isLight } = useTheme();
   const glow = useSharedValue(0.5);
   useEffect(() => {
@@ -366,6 +368,8 @@ interface FlipCardProps {
 }
 
 const FlipCard = ({ card, isReversed, deckId, slotLabel, index, isActive, revealed, onReveal }: FlipCardProps) => {
+  const { t } = useTranslation();
+
   const flip = useSharedValue(revealed ? 1 : 0);
   const pulse = useSharedValue(1);
   const lift = useSharedValue(0);
@@ -537,6 +541,8 @@ const InterpretationBlock = ({
   card: any; isReversed: boolean; slotLabel: string; interpretation: string;
   deckId: string; accentColor: string; index: number; isLight?: boolean;
 }) => {
+  const { t } = useTranslation();
+
   const cardName = resolveUserFacingText(card.name);
   const orientLabel = isReversed ? 'ODWRÓCONA' : 'PROSTA';
 
@@ -609,6 +615,8 @@ interface ChatMsg {
 }
 
 const ChatMessage = ({ msg, deckId, accentColor }: { msg: ChatMsg; deckId: string; accentColor: string }) => {
+  const { t } = useTranslation();
+
   const isOracle = msg.role === 'oracle';
   const { isLight } = useTheme();
 
@@ -722,6 +730,8 @@ const IntroSheet = ({
   energyLevel, setEnergyLevel, insetsBottom,
   localDeckId, setLocalDeckId, onDeckPress,
 }: any) => {
+  const { t } = useTranslation();
+
   const { isLight } = useTheme();
 
   const sectionBg = isLight ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.04)';

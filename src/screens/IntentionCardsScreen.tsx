@@ -272,6 +272,8 @@ const CardPreview = React.memo(({ color, glyph, text, size = 'large', category =
 
 // ─── Animated 3D flip hero card ───────────────────────────────────────────────
 const FlipHeroCard = ({ color, glyph, text, isLight }) => {
+  const { t } = useTranslation();
+
   const rotateY = useSharedValue(0);
   const [flipped, setFlipped] = useState(false);
   const W = SW - SP * 2;

@@ -213,6 +213,8 @@ const CommunityMilestoneCard = React.memo(({ milestone, textColor, subColor, isL
 
 // ─── Add Milestone Modal ───────────────────────────────────────────────────────
 const AddMilestoneModal = React.memo(({ visible, onClose, onSubmit, textColor, subColor, isLight }) => {
+  const { t } = useTranslation();
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('spirituality');

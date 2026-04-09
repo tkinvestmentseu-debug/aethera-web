@@ -214,6 +214,8 @@ const EnergyRadar = ({
 
 // ── 7-day line chart ──────────────────────────────────────────────────────────
 const EnergyLineChart = ({ data, color, isLight }: { data: ChartPoint[]; color: string; isLight: boolean }) => {
+  const { t } = useTranslation();
+
   const W = SW - 88, H = 120;
   if (data.length < 2) return (
     <View style={{ height: H, alignItems: 'center', justifyContent: 'center' }}>

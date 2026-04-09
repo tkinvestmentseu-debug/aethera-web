@@ -259,6 +259,8 @@ const AuraOrb = ({ dominantColor }: { dominantColor: string }) => {
 // ── Kirlian Photo SVG Simulation ─────────────────────────────────
 
 const KirlianPhoto = ({ mood, color, isLight }: { mood: string; color: string; isLight?: boolean }) => {
+  const { t } = useTranslation();
+
   const glow1 = useSharedValue(0.5);
   const glow2 = useSharedValue(0.3);
 

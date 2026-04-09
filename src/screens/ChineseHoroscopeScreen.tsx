@@ -888,6 +888,8 @@ const ElementsPentagon = React.memo(({ userElementId, accent }: { userElementId:
 
 // ─── ANIMATED ARC ────────────────────────────────────────────────────────────
 const AnimatedArc = React.memo(({ score, color, size = 120, isLight }: { score: number; color: string; size?: number; isLight?: boolean }) => {
+  const { t } = useTranslation();
+
   const progress = useSharedValue(0);
   useEffect(() => {
     progress.value = withTiming(score / 100, { duration: 1200 });

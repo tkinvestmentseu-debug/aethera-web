@@ -426,6 +426,8 @@ const RuneBg = ({ isLight }: { isLight: boolean }) => (
 // ── RUNE CIRCLE HERO ──────────────────────────────────────────────────────────
 
 const RuneCircleHero = ({ isLight }: { isLight: boolean }) => {
+  const { t } = useTranslation();
+
   const R = 100;
   const cx = SW / 2;
   const cy = 130;
@@ -610,6 +612,8 @@ const RuneFlashcard = ({ rune, onNext, onPrev, index, total, isLight, textColor,
 // ── MEDITATION VIEW ────────────────────────────────────────────────────────────
 
 const RuneMeditation = ({ rune, isLight, textColor, subColor }: { rune: Rune; isLight: boolean; textColor: string; subColor: string }) => {
+  const { t } = useTranslation();
+
   const [active, setActive] = useState(false);
   const [phase, setPhase] = useState<'inhale'|'hold'|'exhale'|'pause'>('inhale');
   const [count, setCount] = useState(0);

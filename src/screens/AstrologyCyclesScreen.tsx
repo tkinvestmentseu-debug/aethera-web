@@ -239,6 +239,8 @@ const AstrologyCyclesBg = ({ isLight }: { isLight: boolean }) => (
 // ── TIMELINE BAR ──────────────────────────────────────────────
 
 const TimelineBar = ({ retro, isLight }: { retro: Retrograde; isLight: boolean }) => {
+  const { t } = useTranslation();
+
   // Show a 1-year window centred on today
   const now = new Date();
   const windowStart = new Date(now);

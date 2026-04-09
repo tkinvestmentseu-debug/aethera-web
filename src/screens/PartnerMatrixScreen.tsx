@@ -37,6 +37,8 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 // ── DUAL MATRIX SVG WIDGET ───────────────────────────────────────
 const DualMatrixWidget = ({ accentA, accentB }: { accentA: string; accentB: string }) => {
+  const { t } = useTranslation();
+
   const rot = useSharedValue(0);
   const pulse = useSharedValue(0);
   const tiltX = useSharedValue(0);
@@ -172,6 +174,8 @@ const GAUGE_R = 68;
 const GAUGE_CIRCUM = 2 * Math.PI * GAUGE_R;
 
 const CompatibilityGauge = ({ score, accent }: { score: number; accent: string }) => {
+  const { t } = useTranslation();
+
   const progress = useSharedValue(0);
   useEffect(() => {
     progress.value = withDelay(400, withTiming(score / 100, { duration: 1400 }));

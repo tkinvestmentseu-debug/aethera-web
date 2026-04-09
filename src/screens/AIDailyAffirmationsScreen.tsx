@@ -250,6 +250,8 @@ function buildWeekData(): WeekDay[] {
 }
 
 const WeekCalendar = React.memo(({ accent, textColor, subColor, cardBg }: any) => {
+  const { t } = useTranslation();
+
   const [week] = useState(buildWeekData);
   const [ratings, setRatings] = useState<number[]>(week.map((d) => d.rating));
 
@@ -450,6 +452,8 @@ const pm = StyleSheet.create({
 
 // ─── AI generation controls ─────────────────────────────────────────────────
 const GenControls = React.memo(({ tone, setTone, length, setLength, style, setStyle, accent, textColor, subColor, cardBg }: any) => {
+  const { t } = useTranslation();
+
   const ToggleRow = ({ label, options, value, onChange }: any) => (
     <View style={gc.row}>
       <Text style={[gc.rowLabel, { color: subColor }]}>{label}</Text>
@@ -562,6 +566,8 @@ interface SavedAffirmation {
 }
 
 const AffirmationJournal = React.memo(({ saved, setSaved, accent, textColor, subColor, cardBg }: any) => {
+  const { t } = useTranslation();
+
   const [editId, setEditId] = useState<string | null>(null);
   const [editText, setEditText] = useState('');
 

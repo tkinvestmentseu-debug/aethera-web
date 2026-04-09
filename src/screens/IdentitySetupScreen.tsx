@@ -315,6 +315,8 @@ const EnergyBadge = ({ value }: { value: number }) => {
 // ─── Zodiac Card ─────────────────────────────────────────────────────────────
 
 const ZodiacCard = ({ sign }: { sign: { name: string; symbol: string } | null }) => {
+  const { t } = useTranslation();
+
   if (!sign) return null;
   return (
     <Animated.View entering={FadeInDown.springify()} style={styles.zodiacCard}>

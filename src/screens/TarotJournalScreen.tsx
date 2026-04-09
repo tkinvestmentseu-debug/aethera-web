@@ -276,6 +276,8 @@ const ReadingCard = React.memo(({
   onSaveReflection,
   onAiInsight,
 }: any) => {
+  const { t } = useTranslation();
+
   const [expanded, setExpanded]     = useState(false);
   const [editMode, setEditMode]     = useState(false);
   const [localText, setLocalText]   = useState(reflection ?? '');

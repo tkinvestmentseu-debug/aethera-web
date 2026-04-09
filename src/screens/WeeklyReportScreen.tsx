@@ -293,6 +293,8 @@ const MoodBar = ({ score, index, colWidth, isLight }: {
 const MoodTrendChart = ({
   scores, accent, isLight,
 }: { scores: number[]; accent: string; isLight: boolean }) => {
+  const { t } = useTranslation();
+
   const COL_W   = CHART_W / 7;
   const avgScore = scores.reduce((a, b) => a + b, 0) / 7;
   const avgY     = MOOD_BAR_MAX_H - (avgScore / 100) * MOOD_BAR_MAX_H;
@@ -368,6 +370,8 @@ const PracticeDot = ({ color, delay, isLight }: { color: string; delay: number; 
 const PracticeTimeline = ({
   grid, accent, isLight,
 }: { grid: Record<string, boolean[]>; accent: string; isLight: boolean }) => {
+  const { t } = useTranslation();
+
   const textColor = isLight ? '#2A1E0F' : '#F5F1EA';
   const subColor  = isLight ? '#6A5A48' : '#8A8080';
 
@@ -445,6 +449,8 @@ function makeRadarPolygon(scores: number[], frac: number): string {
 const EnergyRadar = ({
   current, previous, accent, isLight,
 }: { current: number[]; previous: number[]; accent: string; isLight: boolean }) => {
+  const { t } = useTranslation();
+
   const progress = useSharedValue(1);
 
   useEffect(() => {
@@ -556,6 +562,8 @@ const TopMoments = ({
   bestMoodDay: string; longestMedMin: number; mostJournalWords: number;
   accent: string; isLight: boolean;
 }) => {
+  const { t } = useTranslation();
+
   const textColor = isLight ? '#2A1E0F' : '#F5F1EA';
   const subColor  = isLight ? '#6A5A48' : '#8A8080';
   const cardBg    = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)';
@@ -613,6 +621,8 @@ const BADGE_TEMPLATES = [
 const Achievements = ({
   stats, accent, isLight,
 }: { stats: any; accent: string; isLight: boolean }) => {
+  const { t } = useTranslation();
+
   const unlocked = BADGE_TEMPLATES.filter(b => b.condition(stats));
   if (unlocked.length === 0) return null;
 
@@ -650,6 +660,8 @@ const AIInsightsCard = ({
   weekDates: Date[]; moodScores: number[]; practiceDays: number;
   userData: any; accent: string; isLight: boolean;
 }) => {
+  const { t } = useTranslation();
+
   const [loading, setLoading]   = useState(false);
   const [insight, setInsight]   = useState<string | null>(null);
   const [error, setError]       = useState(false);
@@ -824,6 +836,8 @@ const WEEK_AFFIRMATIONS = [
 const WeeklyAffirmationCard = ({
   weekNum, accent, isLight,
 }: { weekNum: number; accent: string; isLight: boolean }) => {
+  const { t } = useTranslation();
+
   const affirmation = WEEK_AFFIRMATIONS[weekNum % WEEK_AFFIRMATIONS.length];
   const pulse = useSharedValue(0.92);
 

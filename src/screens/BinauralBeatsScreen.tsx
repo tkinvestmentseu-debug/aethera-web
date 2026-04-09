@@ -204,6 +204,8 @@ const BrainwaveViz = ({
 }: {
   color: string; beatHz: number; active: boolean;
 }) => {
+  const { t } = useTranslation();
+
   const phaseAnim = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     if (!active) { phaseAnim.setValue(0); return; }

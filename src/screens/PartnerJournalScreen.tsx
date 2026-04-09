@@ -157,6 +157,8 @@ const PartnerJournalBg = ({ isLight }) => (
 // Two interlocking hearts with sacred geometry (vesica piscis) + shimmer + pan-tilt
 
 const SoulMapWidget = ({ accent, isLight }) => {
+  const { t } = useTranslation();
+
   const tiltX = useSharedValue(-5);
   const tiltY = useSharedValue(0);
   const shimmer = useSharedValue(0);
@@ -366,6 +368,8 @@ const EntryCard = ({ entry, isLight }) => {
 // ─── Setup Form ───────────────────────────────────────────────────────────────
 
 const SetupForm = ({ onSave, isLight, textColor, subColor, cardBg, cardBorder, onFieldFocus }) => {
+  const { t } = useTranslation();
+
   const [name, setName] = useState('');
   const today = new Date();
   const [bdDay, setBdDay] = useState(1);
@@ -495,6 +499,8 @@ const intentionSlots = [
 ];
 
 const IntentionBoard = ({ isLight, textColor, subColor, cardBg, cardBorder, accent }) => {
+  const { t } = useTranslation();
+
   const [intentions, setIntentions] = useState({ i1: '', i2: '', i3: '' });
   const [agreed, setAgreed] = useState({ i1: false, i2: false, i3: false });
   const [saved, setSaved] = useState(false);
@@ -594,6 +600,8 @@ const MILESTONE_DEFAULTS = [
 ];
 
 const RelationshipTimeline = ({ isLight, textColor, subColor, cardBg, cardBorder, accent }) => {
+  const { t } = useTranslation();
+
   const [dates, setDates] = useState({});
   const [notes, setNotes] = useState({});
   const [editing, setEditing] = useState(null);
@@ -674,6 +682,8 @@ const RelationshipTimeline = ({ isLight, textColor, subColor, cardBg, cardBorder
 // ─── Love Language Profile ────────────────────────────────────────────────────
 
 const LoveLanguageProfile = ({ partnerName, isLight, textColor, subColor, cardBg, cardBorder, accent }) => {
+  const { t } = useTranslation();
+
   const [myLang, setMyLang] = useState(null);
   const [partnerLang, setPartnerLang] = useState(null);
 
@@ -744,6 +754,8 @@ const LoveLanguageProfile = ({ partnerName, isLight, textColor, subColor, cardBg
 // ─── Conflict Resolution Rituals ─────────────────────────────────────────────
 
 const ConflictRituals = ({ isLight, textColor, subColor, cardBg, cardBorder, accent }) => {
+  const { t } = useTranslation();
+
   const [activeStep, setActiveStep] = useState(null);
 
   return (
@@ -795,6 +807,8 @@ const ConflictRituals = ({ isLight, textColor, subColor, cardBg, cardBorder, acc
 // ─── Daily Gratitude to Partner ───────────────────────────────────────────────
 
 const DailyGratitude = ({ partnerName, isLight, textColor, subColor, cardBg, cardBorder, accent }) => {
+  const { t } = useTranslation();
+
   const today = new Date().toISOString().slice(0, 10);
   const [log, setLog] = useState<Array<{ date: string; text: string }>>([]);
   const [input, setInput] = useState('');
@@ -905,6 +919,8 @@ const VISION_HORIZONS = [
 ];
 
 const FutureVisionBoard = ({ isLight, textColor, subColor, cardBg, cardBorder, accent }) => {
+  const { t } = useTranslation();
+
   const [visions, setVisions] = useState({ '1y': '', '5y': '', life: '' });
   const [saved, setSaved] = useState(false);
   const visionSavedTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -966,6 +982,8 @@ const OracleRelationship = ({
   partnerData, myPath, partnerPath, compat,
   partnerEntries, isLight, textColor, subColor, cardBg, cardBorder, accent,
 }) => {
+  const { t } = useTranslation();
+
   const [query, setQuery] = useState('');
   const [answer, setAnswer] = useState('');
   const [loading, setLoading] = useState(false);

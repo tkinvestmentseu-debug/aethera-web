@@ -334,6 +334,8 @@ const DistributionBarChart = ({ data, accent, subColor, cardBg }: any) => {
 
 // ── Streak Calendar (12 weeks GitHub-style) ────────────────────────
 const StreakCalendar = ({ entries, meditationSessions, breathworkSessions, accent, subColor }: any) => {
+  const { t } = useTranslation();
+
   const WEEKS = 12;
   const DAYS = 7;
   const CELL = Math.floor((SW - 44 - 24) / WEEKS) - 2;

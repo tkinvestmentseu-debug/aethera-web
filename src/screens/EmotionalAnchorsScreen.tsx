@@ -227,6 +227,8 @@ const AnchorWave = ({ active }: { active: boolean }) => {
 
 // ─── Countdown ring for NLP timer ────────────────────────────────────────────
 const CountdownRing = ({ seconds, total }: { seconds: number; total: number }) => {
+  const { t } = useTranslation();
+
   const R = 34;
   const CIRC = 2 * Math.PI * R;
   const progress = seconds / total;

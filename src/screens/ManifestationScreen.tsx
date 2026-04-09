@@ -85,6 +85,8 @@ const PARTICLES = Array.from({ length: 12 }, (_, i) => ({
 }));
 
 const GoldenSpiralWidget = ({ accent }: { accent: string }) => {
+  const { t } = useTranslation();
+
   const rot1 = useSharedValue(0);
   const rot2 = useSharedValue(360);
   const pulse = useSharedValue(0.92);

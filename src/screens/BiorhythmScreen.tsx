@@ -182,6 +182,8 @@ const BioChart = ({
 
 // ─── Loading dots ─────────────────────────────────────────────────────────────
 const LoadingDots = ({ color }: { color: string }) => {
+  const { t } = useTranslation();
+
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, paddingVertical: 4 }}>
       <ActivityIndicator size="small" color={color} />

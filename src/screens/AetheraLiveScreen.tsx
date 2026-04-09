@@ -237,6 +237,8 @@ const FloatingReaction = React.memo(({ emoji, onDone }) => {
 
 // ─── Live Now Banner ──────────────────────────────────────────────────────────
 const LiveNowBanner = React.memo(({ streams, onPress }) => {
+  const { t } = useTranslation();
+
   const liveStreams = streams.filter(s => s.status === 'live');
   const pulse = useSharedValue(1);
   useEffect(() => {
@@ -289,6 +291,8 @@ const LiveNowBanner = React.memo(({ streams, onPress }) => {
 
 // ─── Stream Card ──────────────────────────────────────────────────────────────
 const StreamCard = React.memo(({ stream, onPress, index }) => {
+  const { t } = useTranslation();
+
   const elapsed = stream.status === 'live'
     ? Math.floor((Date.now() - (stream.startedAt?.toDate?.() || stream.startedAt).getTime()) / 60000)
     : null;
@@ -378,6 +382,8 @@ const StreamCard = React.memo(({ stream, onPress, index }) => {
 
 // ─── Schedule Card ────────────────────────────────────────────────────────────
 const ScheduleCard = React.memo(({ session, reminded, onToggleReminder, index }) => {
+  const { t } = useTranslation();
+
   const catColor = CAT_COLORS[session.type] || '#818CF8';
   return (
     <Animated.View entering={FadeInDown.delay(index * 60).duration(360)}>
@@ -508,6 +514,8 @@ const HostCard = React.memo(({ host, followed, onToggleFollow, index }) => {
 
 // ─── Archive Card ─────────────────────────────────────────────────────────────
 const ArchiveCard = React.memo(({ item, index }) => {
+  const { t } = useTranslation();
+
   const catColor = CAT_COLORS[item.type] || '#818CF8';
   return (
     <Animated.View entering={FadeInDown.delay(index * 70).duration(380)}>
@@ -544,6 +552,8 @@ const ArchiveCard = React.memo(({ item, index }) => {
 
 // ─── Go Live Modal ─────────────────────────────────────────────────────────────
 const GoLiveModal = React.memo(({ visible, onClose, onSubmit }) => {
+  const { t } = useTranslation();
+
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('Medytacja');
   const [description, setDescription] = useState('');
@@ -616,6 +626,8 @@ const GoLiveModal = React.memo(({ visible, onClose, onSubmit }) => {
 
 // ─── Viewer Modal ──────────────────────────────────────────────────────────────
 const ViewerModal = React.memo(({ stream, visible, onClose, currentUser }) => {
+  const { t } = useTranslation();
+
   const [floatingReactions, setFloatingReactions] = useState([]);
   const [question, setQuestion] = useState('');
   const [questions, setQuestions] = useState([]);

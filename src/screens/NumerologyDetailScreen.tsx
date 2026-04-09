@@ -226,6 +226,8 @@ const NumberCard = ({ num, title, subtitle, meaning, entering, delay = 0, isLigh
   num: number; title: string; subtitle: string; meaning: NumberMeaning;
   entering?: any; delay?: number; isLight?: boolean;
 }) => {
+  const { t } = useTranslation();
+
   const [expanded, setExpanded] = useState(false);
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
   const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
