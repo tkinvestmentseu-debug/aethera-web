@@ -610,18 +610,19 @@ const styles = StyleSheet.create({
   },
 
   logoMark: {
-    fontSize: 22,
+    fontSize: 20,
+    fontFamily: 'Raleway_300Light',
     color: GOLD,
     textAlign: 'center',
-    letterSpacing: 8,
+    letterSpacing: 10,
     marginBottom: 4,
     opacity: 0.95,
   },
   logoText: {
     fontSize: 38,
-    fontWeight: '200',
+    fontFamily: 'Cinzel_400Regular',
     color: GOLD,
-    letterSpacing: 10,
+    letterSpacing: 12,
     textAlign: 'center',
   },
 
@@ -650,19 +651,19 @@ const styles = StyleSheet.create({
   },
 
   subtitleText: {
-    fontSize: 16,
-    fontWeight: '300',
+    fontSize: 14,
+    fontFamily: 'Raleway_300Light',
     color: '#E8DEC8',
-    letterSpacing: 4,
+    letterSpacing: 5,
     textAlign: 'center',
   },
 
   taglineText: {
     marginTop: 16,
     fontSize: 13,
-    fontWeight: '400',
+    fontFamily: 'Raleway_400Regular',
     color: '#B8A88A',
-    letterSpacing: 1.5,
+    letterSpacing: 2,
     textAlign: 'center',
   },
 
