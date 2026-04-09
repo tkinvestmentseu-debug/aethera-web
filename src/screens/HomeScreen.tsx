@@ -682,7 +682,7 @@ const renderContent = (id: string, navigation: any, dailyPlan: DailySoulPlan, us
                 <Sparkles color={ac} size={32} strokeWidth={1.5} />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2.2, color: ac, marginBottom: 4 }}>{t('home.dzisiejsza_praktyka', 'DZISIEJSZA PRAKTYKA')}</Text>
+                <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2.2, color: ac, marginBottom: 4 }}>{tr('home.dzisiejsza_praktyka', 'DZISIEJSZA PRAKTYKA', 'DAILY PRACTICE')}</Text>
                 <Text style={{ fontSize: 18, fontWeight: '700', letterSpacing: -0.3, color: isLight ? '#2C1A0E' : '#F5F1EA', lineHeight: 24 }}>
                   {dailyPlan.ritualGuidance?.featured?.title || tr('home.ty.morningRitual', 'Poranny Rytuał', 'Morning Ritual')}
                 </Text>
@@ -1001,7 +1001,7 @@ export const HomeScreen = ({ navigation, route }: any) => {
         {/* HEADER */}
         <View style={hs.header}>
           <View style={{ flex: 1, marginRight: 10 }}>
-            <Text style={[hs.brand, { color: isLight ? '#A97A39' : '#CEAE72' }]}>{t('home.aethera', '✦ AETHERA')}</Text>
+            <Text style={[hs.brand, { color: isLight ? '#A97A39' : '#CEAE72' }]}>{tr('home.aethera', '✦ AETHERA', '✦ AETHERA')}</Text>
             <Text style={[hs.greeting, { color: textColor }]} numberOfLines={1} adjustsFontSizeToFit>
               {getTimeGreeting(firstName)}
             </Text>
@@ -1094,7 +1094,7 @@ export const HomeScreen = ({ navigation, route }: any) => {
 
           {/* QUICK ACTION RIBBON */}
           <Animated.View entering={FadeInDown.delay(120).duration(300)} style={{ marginBottom: 22 }}>
-            <Text style={[hs.ribbonLabel, { color: activeSurface.accent + 'AA' }]}>{t('home.szybki_dostep', 'SZYBKI DOSTĘP')}</Text>
+            <Text style={[hs.ribbonLabel, { color: activeSurface.accent + 'AA' }]}>{tr('home.szybki_dostep', 'SZYBKI DOSTĘP', 'QUICK ACCESS')}</Text>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
