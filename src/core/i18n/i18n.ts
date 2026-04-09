@@ -75,18 +75,23 @@ const deepMerge = <T extends JsonRecord>(base: T, ...sources: JsonRecord[]): T =
 const plTranslation = deepMerge(plData as JsonRecord, plExtraData as JsonRecord, plTarotData as JsonRecord, plContentData as JsonRecord);
 const enTranslation = deepMerge(enData as JsonRecord, enExtraData as JsonRecord, enTarotData as JsonRecord, enContentData as JsonRecord);
 
+// Other languages use English tarot data as fallback (card names, meanings)
+// so tarot.cards.major.X.name etc. always resolve to at least English instead of raw keys
+const withTarotFallback = (data: JsonRecord) =>
+  deepMerge(enTarotData as JsonRecord, data);
+
 const legacyResources = {
   pl: { translation: plTranslation },
   en: { translation: enTranslation },
-  es: { translation: esData as JsonRecord },
-  pt: { translation: ptData as JsonRecord },
-  de: { translation: deData as JsonRecord },
-  fr: { translation: frData as JsonRecord },
-  it: { translation: itData as JsonRecord },
-  ru: { translation: ruData as JsonRecord },
-  ar: { translation: arData as JsonRecord },
-  ja: { translation: jaData as JsonRecord },
-  zh: { translation: zhData as JsonRecord },
+  es: { translation: withTarotFallback(esData as JsonRecord) },
+  pt: { translation: withTarotFallback(ptData as JsonRecord) },
+  de: { translation: withTarotFallback(deData as JsonRecord) },
+  fr: { translation: withTarotFallback(frData as JsonRecord) },
+  it: { translation: withTarotFallback(itData as JsonRecord) },
+  ru: { translation: withTarotFallback(ruData as JsonRecord) },
+  ar: { translation: withTarotFallback(arData as JsonRecord) },
+  ja: { translation: withTarotFallback(jaData as JsonRecord) },
+  zh: { translation: withTarotFallback(zhData as JsonRecord) },
 };
 
 const namespaceLoaders: Record<SupportedLanguage, Record<string, NamespaceLoader>> = {
@@ -218,7 +223,7 @@ if (!i18n.isInitialized) {
     .init({
       resources: legacyResources,
       lng: 'pl',
-      fallbackLng: 'pl',
+      fallbackLng: ['en', 'pl'],
       supportedLngs: ['pl', 'en', 'es', 'pt', 'de', 'fr', 'it', 'ru', 'ar', 'ja', 'zh'],
       ns: ['translation', 'common'],
       defaultNS: 'translation',

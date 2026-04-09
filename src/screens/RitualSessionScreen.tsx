@@ -481,7 +481,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
     HapticsService.notify();
     if (!musicMuted) AudioService.playAmbientForSession(selectedMusic as any);
     setTimeout(() => {
-      TTSService.speak(`Witaj w rytuale: ${phase.label}. Jesteśmy razem. Zacznijmy.`);
+      TTSService.speak(t('ritualSession.tts_start', `Witaj w rytuale: {{name}}. Jesteśmy razem. Zacznijmy.`, { name: phase.label }));
     }, 800);
 
     intervalRef.current = setInterval(() => {
@@ -528,7 +528,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
     setSessionEnded(true);
     setJoined(false);
     AudioService.pauseAmbientSound();
-    TTSService.speak('Rytuał zakończony. Zabierz ze sobą tę energię. Dziękujemy, że byłeś z nami.');
+    TTSService.speak(t('ritualSession.tts_end', 'Rytuał zakończony. Zabierz ze sobą tę energię. Dziękujemy, że byłeś z nami.'));
     HapticsService.impact('heavy');
     triggerCompletionBurst();
     checkProgress.value = withTiming(1, { duration: 1200 });

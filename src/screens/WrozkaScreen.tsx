@@ -544,7 +544,9 @@ const InterpretationBlock = ({
   const { t } = useTranslation();
 
   const cardName = resolveUserFacingText(card.name);
-  const orientLabel = isReversed ? 'ODWRÓCONA' : 'PROSTA';
+  const orientLabel = isReversed
+    ? t('wrozka.odwrocona_label', 'ODWRÓCONA').toUpperCase()
+    : t('wrozka.prosta_label', 'PROSTA').toUpperCase();
 
   return (
     <Animated.View entering={FadeInUp.delay(100).springify()} style={[ib.container, {
@@ -569,7 +571,7 @@ const InterpretationBlock = ({
             <View style={[ib.orientBadge, { backgroundColor: accentColor + '22', borderColor: accentColor + '55' }]}>
               <Text style={[ib.orientText, { color: accentColor }]}>{orientLabel}</Text>
             </View>
-            <Text style={[ib.suitLabel, { color: isLight ? 'rgba(60,30,100,0.45)' : 'rgba(245,241,234,0.35)' }]}>{card.suit === 'major' ? 'Arcana Większa' : `Arcana Mniejsza · ${card.suit}`}</Text>
+            <Text style={[ib.suitLabel, { color: isLight ? 'rgba(60,30,100,0.45)' : 'rgba(245,241,234,0.35)' }]}>{card.suit === 'major' ? t('wrozka.arcana_wieksza', 'Arcana Większa') : `${t('wrozka.arcana_mniejsza', 'Arcana Mniejsza')} · ${card.suit}`}</Text>
           </View>
         </View>
       </View>
@@ -1873,7 +1875,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                 </View>
                 <Text style={wr.drawnCardName}>{resolveUserFacingText(drawnCardModal.card.name)}</Text>
                 <Text style={wr.drawnCardOrient}>
-                  {drawnCardModal.isReversed ? '🔄 Odwrócona' : '✦ Prosta'} · Arcana Większa
+                  {drawnCardModal.isReversed ? `🔄 ${t('wrozka.odwrocona', 'Odwrócona')}` : `✦ ${t('wrozka.prosta', 'Prosta')}`} · {t('wrozka.arcana_wieksza', 'Arcana Większa')}
                 </Text>
               </>
             )}

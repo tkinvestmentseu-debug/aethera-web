@@ -490,7 +490,7 @@ export const TodayScreen = ({ navigation }: any) => {
                 >
                   <Text style={ts.moodEmoji}>{m.icon}</Text>
                   <Text style={[ts.moodLabel, { color: selectedMood === m.key ? m.color : subColor }]}>
-                    {m.label}
+                    {t(`today.mood_${m.key}`, m.label)}
                   </Text>
                 </Pressable>
               ))}
@@ -549,7 +549,7 @@ export const TodayScreen = ({ navigation }: any) => {
             {MORNING_RITUALS.map(r => (
               <RitualCheckbox
                 key={r.key}
-                label={r.label}
+                label={t(`today.morning_ritual_${r.key}`, r.label)}
                 done={!!morningDone[r.key]}
                 accent={mintAccent}
                 isLight={isLight}
@@ -578,7 +578,7 @@ export const TodayScreen = ({ navigation }: any) => {
             {EVENING_RITUALS.map(r => (
               <RitualCheckbox
                 key={r.key}
-                label={r.label}
+                label={t(`today.evening_ritual_${r.key}`, r.label)}
                 done={!!eveningDone[r.key]}
                 accent={violetAccent}
                 isLight={isLight}

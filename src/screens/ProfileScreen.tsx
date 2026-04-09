@@ -78,10 +78,9 @@ const BACKGROUND_OPTIONS = [
 ] as const;
 
 const MOTION_OPTIONS = [
-  { id: 'minimal', label: 'Oszczędny', sub: 'Minimum animacji' },
-  { id: 'standard', label: 'Wyważone', sub: 'Domyślny balans' },
-  { id: 'rich', label: 'Pogłębiony', sub: 'Pełna płynność' },
-  { id: 'quiet', label: 'Cichy', sub: 'Najspokojniejszy tryb' },
+  { id: 'minimal', label: 'Kamień', emoji: '🪨', sub: 'Cisza i bezruch', desc: 'Tylko esencja — żadnych rozproszonych efektów. Dla tych, którzy szukają głębokiej ciszy.' },
+  { id: 'standard', label: 'Świeca', emoji: '🕯️', sub: 'Spokojny blask', desc: 'Miękki, żywy rytm animacji. Jak płomień — obecny, ale nie przytłaczający.' },
+  { id: 'rich', label: 'Gwiezdny Wir', emoji: '✨', sub: 'Pełna magia kosmosu', desc: 'Wszystkie efekty na pełnej mocy. Taniec gwiazd i kosmiczna energia.' },
 ];
 
 const SOUNDSCAPE_OPTIONS = [
@@ -1061,7 +1060,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
                 })}
               </View>
             </View>
-            <EntryRow icon={SlidersHorizontal} label={t('profile.tryb_ruchu_1', 'Tryb ruchu')} value={MOTION_OPTIONS.find(m => m.id === experience.motionStyle)?.label || 'Wywazone'} onPress={() => setShowMotionModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={SlidersHorizontal} label={t('profile.czestotliwosc_animacji', 'Częstotliwość animacji')} value={(() => { const opt = MOTION_OPTIONS.find(m => m.id === experience.motionStyle); return opt ? `${opt.emoji}  ${opt.label}` : '🕯️  Świeca'; })()} onPress={() => setShowMotionModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
           </PremiumCard>
 
           {/* ── 4. MOTYW & WYGLĄD ── */}
@@ -1180,20 +1179,51 @@ export const ProfileScreen = ({ navigation, route }: any) => {
         })}
       </BottomModal>
 
-      {/* Tryb ruchu */}
-      <BottomModal visible={showMotionModal} onClose={() => setShowMotionModal(false)} title={t('profile.tryb_ruchu', 'Tryb ruchu')} accent={accent}>
-        {MOTION_OPTIONS.map(opt => {
-          const active = experience.motionStyle === opt.id;
-          return (
-            <Pressable key={opt.id} onPress={() => { setExperience({ motionStyle: opt.id as any }); setShowMotionModal(false); }} style={[pStyles.modalOption, active && { borderColor: accent + '66', backgroundColor: accent + '10' }]}>
-              <View style={{ flex: 1 }}>
-                <Text style={[pStyles.modalOptionLabel, active && { color: accent }]}>{opt.label}</Text>
-                <Text style={pStyles.modalOptionSub}>{opt.sub}</Text>
-              </View>
-              {active && <Check color={accent} size={18} />}
-            </Pressable>
-          );
-        })}
+      {/* Częstotliwość animacji */}
+      <BottomModal visible={showMotionModal} onClose={() => setShowMotionModal(false)} title={t('profile.czestotliwosc_animacji', 'Częstotliwość animacji')} accent={accent}>
+        <Text style={{ fontSize: 13, color: isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)', textAlign: 'center', marginBottom: 18, letterSpacing: 0.3 }}>
+          Wybierz intensywność efektów wizualnych
+        </Text>
+        <View style={{ gap: 10 }}>
+          {MOTION_OPTIONS.map(opt => {
+            const active = (experience.motionStyle === opt.id) || (experience.motionStyle === 'quiet' && opt.id === 'minimal');
+            return (
+              <Pressable
+                key={opt.id}
+                onPress={() => { setExperience({ motionStyle: opt.id as any }); HapticsService.selection(); setShowMotionModal(false); }}
+                style={{
+                  borderRadius: 18,
+                  borderWidth: active ? 1.5 : 1,
+                  borderColor: active ? accent : (isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)'),
+                  backgroundColor: active ? accent + '18' : (isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.04)'),
+                  padding: 16,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 14,
+                }}
+              >
+                <View style={{
+                  width: 56, height: 56, borderRadius: 28, alignItems: 'center', justifyContent: 'center',
+                  backgroundColor: active ? accent + '28' : (isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.08)'),
+                  borderWidth: active ? 1 : 0,
+                  borderColor: active ? accent + '55' : 'transparent',
+                }}>
+                  <Text style={{ fontSize: 28 }}>{opt.emoji}</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={{ fontSize: 17, fontFamily: 'Cinzel_600SemiBold', color: active ? accent : (isLight ? '#251D16' : '#F5F1EA'), marginBottom: 2 }}>{opt.label}</Text>
+                  <Text style={{ fontSize: 12, fontFamily: 'Raleway_700Bold', letterSpacing: 0.8, color: active ? accent + 'CC' : (isLight ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.45)'), textTransform: 'uppercase', marginBottom: 5 }}>{opt.sub}</Text>
+                  <Text style={{ fontSize: 12, fontFamily: 'Raleway_400Regular', color: isLight ? 'rgba(0,0,0,0.55)' : 'rgba(255,255,255,0.55)', lineHeight: 17 }}>{opt.desc}</Text>
+                </View>
+                {active && (
+                  <View style={{ width: 22, height: 22, borderRadius: 11, backgroundColor: accent, alignItems: 'center', justifyContent: 'center' }}>
+                    <Check color="#fff" size={13} strokeWidth={2.5} />
+                  </View>
+                )}
+              </Pressable>
+            );
+          })}
+        </View>
       </BottomModal>
 
       {/* Język */}

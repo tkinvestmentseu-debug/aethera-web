@@ -407,6 +407,16 @@ export const DailyTarotScreen = ({ navigation }: any) => {
   const [showYearCardModal, setShowYearCardModal] = useState(false);
   const mainScrollRef = useRef<ScrollView>(null);
 
+  // Localized day names (short + full)
+  const daysShort = [
+    t('common.day_short_sun', 'Nd'), t('common.day_short_mon', 'Pn'), t('common.day_short_tue', 'Wt'),
+    t('common.day_short_wed', 'Śr'), t('common.day_short_thu', 'Cz'), t('common.day_short_fri', 'Pt'), t('common.day_short_sat', 'So'),
+  ];
+  const daysFull = [
+    t('common.day_full_sun', 'Niedziela'), t('common.day_full_mon', 'Poniedziałek'), t('common.day_full_tue', 'Wtorek'),
+    t('common.day_full_wed', 'Środa'), t('common.day_full_thu', 'Czwartek'), t('common.day_full_fri', 'Piątek'), t('common.day_full_sat', 'Sobota'),
+  ];
+
   const textColor = isLight ? '#1A1410' : '#F0EBE2';
   const subColor = isLight ? '#6A5A48' : '#B0A393';
   const dividerColor = isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.06)';
@@ -438,6 +448,13 @@ export const DailyTarotScreen = ({ navigation }: any) => {
   const shadowAspect = SHADOW_ASPECTS[todayCardIdx] || SHADOW_ASPECTS[0];
   const cardPerspective = CARD_PERSPECTIVES[todayCardIdx] || CARD_PERSPECTIVES[0];
 
+  const perspectiveTabLabels: Record<PerspectiveTab, string> = {
+    'Ogólnie':   t('dailyTarot.tab_general',  'Ogólnie'),
+    'Miłość':    t('dailyTarot.tab_love',     'Miłość'),
+    'Kariera':   t('dailyTarot.tab_career',   'Kariera'),
+    'Duchowość': t('dailyTarot.tab_spirit',   'Duchowość'),
+  };
+
   const last30 = useMemo(() => {
     return Array.from({ length: 30 }, (_, i) => {
       const d = new Date(today);
@@ -455,9 +472,9 @@ export const DailyTarotScreen = ({ navigation }: any) => {
       d.setDate(today.getDate() - dow + i);
       const ds = d.toISOString().split('T')[0];
       const idx = seedCard(ds, 0);
-      return { label: DAYS_SHORT[i], fullLabel: DAYS_FULL[i], isToday: ds === todayStr, idx, color: MAJOR_ACCENT[idx], name: MAJOR_NAMES[idx], ds };
+      return { label: daysShort[i], fullLabel: daysFull[i], isToday: ds === todayStr, idx, color: MAJOR_ACCENT[idx], name: MAJOR_NAMES[idx], ds };
     });
-  }, []);
+  }, [daysShort, daysFull]);
 
   const monthPatterns = useMemo(() => {
     const currentMonth = today.getMonth();
@@ -614,7 +631,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, borderRadius: 999, backgroundColor: ACCENT + '14', borderWidth: 1, borderColor: ACCENT + '28', paddingHorizontal: 12, paddingVertical: 7 }}>
                     <Calendar color={ACCENT} size={12} />
-                    <Text style={{ fontSize: 11, fontWeight: '600', color: ACCENT }}>{DAYS_FULL[dayOfWeek]}</Text>
+                    <Text style={{ fontSize: 11, fontWeight: '600', color: ACCENT }}>{daysFull[dayOfWeek]}</Text>
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, borderRadius: 999, backgroundColor: ACCENT + '14', borderWidth: 1, borderColor: ACCENT + '28', paddingHorizontal: 12, paddingVertical: 7 }}>
                     <Hash color={ACCENT} size={12} />
@@ -731,7 +748,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, borderRadius: 999, backgroundColor: ACCENT + '14', borderWidth: 1, borderColor: ACCENT + '28', paddingHorizontal: 10, paddingVertical: 5 }}>
                     <Calendar color={ACCENT} size={11} />
-                    <Text style={{ fontSize: 10, fontWeight: '600', color: ACCENT }}>{DAYS_FULL[dayOfWeek]}</Text>
+                    <Text style={{ fontSize: 10, fontWeight: '600', color: ACCENT }}>{daysFull[dayOfWeek]}</Text>
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, borderRadius: 999, backgroundColor: ACCENT + '14', borderWidth: 1, borderColor: ACCENT + '28', paddingHorizontal: 10, paddingVertical: 5 }}>
                     <Hash color={ACCENT} size={11} />
@@ -771,9 +788,10 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                   onFlip={() => setCardFlipped((v) => !v)}
                   isLight={isLight}
                   accent={ACCENT}
+                  imageSource={deck?.imageMap?.[activeDraw.card.id] ?? undefined}
                 />
                 <Text style={{ fontSize: 11, color: subColor, marginTop: 12, textAlign: 'center' }}>
-                  Dotknij kartę, by {cardFlipped ? 'zobaczyć tył' : 'zobaczyć przód'}
+                  {cardFlipped ? t('dailyTarot.touch_see_back', 'Dotknij kartę, by zobaczyć tył') : t('dailyTarot.touch_see_front', 'Dotknij kartę, by zobaczyć przód')}
                 </Text>
               </Animated.View>
 
@@ -785,7 +803,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                 >
                   <FlipHorizontal color={ACCENT} size={13} />
                   <Text style={{ fontSize: 11, fontWeight: '700', color: ACCENT }}>
-                    {showReversed ? 'Znaczenie odwrócone' : 'Pokaż odwrócenie'}
+                    {showReversed ? t('dailyTarot.reversed_meaning', 'Znaczenie odwrócone') : t('dailyTarot.show_reversed', 'Pokaż odwrócenie')}
                   </Text>
                 </Pressable>
                 <Pressable
@@ -846,7 +864,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                             borderColor: activeTab === tab ? ACCENT : ACCENT + '30',
                           }}
                         >
-                          <Text style={{ fontSize: 12, fontWeight: '700', color: ACCENT, letterSpacing: 0.3 }}>{tab}</Text>
+                          <Text style={{ fontSize: 12, fontWeight: '700', color: ACCENT, letterSpacing: 0.3 }}>{perspectiveTabLabels[tab]}</Text>
                         </Pressable>
                       ))}
                     </View>
@@ -855,7 +873,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                     shadowColor: ACCENT, shadowOpacity: isLight ? 0.12 : 0.08, shadowRadius: 12, shadowOffset: { width: 0, height: 4 }, elevation: isLight ? 4 : 2,
                   }}>
                     <LinearGradient colors={[ACCENT + (isLight ? '18' : '10'), 'transparent']} style={StyleSheet.absoluteFillObject} />
-                    <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1, color: ACCENT, marginBottom: 10 }}>{activeTab.toUpperCase()}</Text>
+                    <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1, color: ACCENT, marginBottom: 10 }}>{perspectiveTabLabels[activeTab].toUpperCase()}</Text>
                     <Text style={{ fontSize: 14, lineHeight: 24, color: textColor }}>
                       {cardPerspective[activeTab]}
                     </Text>
@@ -900,7 +918,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                     </Text>
                     <View style={{ width: 40, height: 1, backgroundColor: ACCENT + '55', marginVertical: 18 }} />
                     <Text style={{ fontSize: 11, color: ACCENT + 'AA', letterSpacing: 1.5, fontWeight: '600' }}>
-                      {DAYS_FULL[dayOfWeek].toUpperCase()} · {moonPhase.emoji} {moonPhase.name.toUpperCase()}
+                      {daysFull[dayOfWeek].toUpperCase()} · {moonPhase.emoji} {moonPhase.name.toUpperCase()}
                     </Text>
                   </LinearGradient>
                 </View>

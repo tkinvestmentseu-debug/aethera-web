@@ -76,7 +76,21 @@
       "hrAgo": "hr ago",
       "daysAgo": "days ago"
     },
-    "all": "All"
+    "all": "All",
+    "day_short_sun": "Su",
+    "day_short_mon": "Mo",
+    "day_short_tue": "Tu",
+    "day_short_wed": "We",
+    "day_short_thu": "Th",
+    "day_short_fri": "Fr",
+    "day_short_sat": "Sa",
+    "day_full_sun": "Sunday",
+    "day_full_mon": "Monday",
+    "day_full_tue": "Tuesday",
+    "day_full_wed": "Wednesday",
+    "day_full_thu": "Thursday",
+    "day_full_fri": "Friday",
+    "day_full_sat": "Saturday"
   },
   "nav": {
     "portal": "Portal",
@@ -4349,7 +4363,15 @@
     "interpreta_wzorca": "MODEL INTERPRETATION",
     "notatka_do_karty": "A Note to the Chart",
     "co_ta_karta_mowi_ci": "What's this card telling you today? Free thought, observation, painting...",
-    "domknij_prace_z_karta": "DO CLOSE WORK WITH KARTA"
+    "domknij_prace_z_karta": "DO CLOSE WORK WITH KARTA",
+    "touch_see_back": "Touch card to see back",
+    "touch_see_front": "Touch card to see front",
+    "reversed_meaning": "Reversed meaning",
+    "show_reversed": "Show reversal",
+    "tab_general": "General",
+    "tab_love": "Love",
+    "tab_career": "Career",
+    "tab_spirit": "Spirituality"
   },
   "divineTiming": {
     "aktywny": "ACTIVE",
@@ -5200,7 +5222,9 @@
     "prowadz_ca_rytua_mistrzyni_ceremoni": "Lead the whole ritual Master of the ceremony",
     "czat": "Chat",
     "czat_rytua_u": "RYTHUA",
-    "napisz_do_kr_gu_1": "Write to krgu..."
+    "napisz_do_kr_gu_1": "Write to krgu...",
+    "tts_start": "Welcome to the ritual: {{name}}. We are together. Let's begin.",
+    "tts_end": "Ritual complete. Carry this energy with you. Thank you for being with us."
   },
   "runeCast": {
     "medytacja": "MEDITATION",
@@ -5675,7 +5699,7 @@
     "zapal_swiece": "LIGHT THE CANDLE",
     "wrozka_odczytuje_karte": "Fortune Teller reads the card...",
     "wrozka_aethera": "AETHERA FORTUNE TELLER",
-    "odwrocona": "reversed",
+    "odwrocona": "Reversed",
     "rytual_tarota": "Tarot Ritual",
     "w_co_dzis_chcesz_sie": "What do you wish to explore today?",
     "odwrocone_karty": "Reversed cards",
@@ -5697,7 +5721,12 @@
     "czy_chcesz_kontynuowa_poprzednia_se": "Do you want to continue the previous session with the Fortune Teller?",
     "zacznij_od_nowa": "Start over",
     "imie_osoby": "Person's name...",
-    "zadaj_pytanie_lub_popros_o": "Ask a question or request the next card..."
+    "zadaj_pytanie_lub_popros_o": "Ask a question or request the next card...",
+    "arcana_wieksza": "Major Arcana",
+    "arcana_mniejsza": "Minor Arcana",
+    "odwrocona_label": "REVERSED",
+    "prosta_label": "UPRIGHT",
+    "prosta": "Upright"
   },
   "yearCard": {
     "teraz": "NOW",
@@ -6498,5 +6527,44 @@
     "layersSection": "7 Aura Layers",
     "layersDesc": "Each layer of aura stores a different aspect of your existence — touch to discover details.",
     "practicesSection": "Aura Care"
+  },
+  "today": {
+    "mood_great": "Great",
+    "mood_good": "Good",
+    "mood_okay": "Okay",
+    "mood_low": "Low",
+    "morning_ritual_breath": "Morning breath (3 min)",
+    "morning_ritual_affirmation": "Read daily affirmation",
+    "morning_ritual_intention": "Write today's intention",
+    "morning_ritual_gratitude": "Three things of gratitude",
+    "evening_ritual_review": "Brief review of the day",
+    "evening_ritual_journal": "Journal entry",
+    "evening_ritual_release": "Release the day's tension",
+    "evening_ritual_sleepIntent": "Sleep intention",
+    "mood": {
+      "eyebrow": "MOOD CHECK",
+      "title": "How are you feeling?"
+    },
+    "morning": {
+      "eyebrow": "MORNING RITUAL",
+      "titleDone": "Morning complete ✓",
+      "titlePartial": "done"
+    },
+    "evening": {
+      "eyebrow": "EVENING RITUAL",
+      "titleDone": "Evening complete ✓",
+      "titlePartial": "done"
+    },
+    "progress": {
+      "eyebrow": "DAILY PROGRESS",
+      "titleEmpty": "Start with the first step",
+      "titleDone": "All practices completed ❆",
+      "titlePartial": "practices done"
+    },
+    "metric": {
+      "morning": "MORNING",
+      "evening": "EVENING",
+      "journal": "ENTRIES"
+    }
   }
 }

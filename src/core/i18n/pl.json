@@ -76,7 +76,21 @@
       "hrAgo": "godz. temu",
       "daysAgo": "dni temu"
     },
-    "all": "Wszystkie"
+    "all": "Wszystkie",
+    "day_short_sun": "Nd",
+    "day_short_mon": "Pn",
+    "day_short_tue": "Wt",
+    "day_short_wed": "Śr",
+    "day_short_thu": "Cz",
+    "day_short_fri": "Pt",
+    "day_short_sat": "So",
+    "day_full_sun": "Niedziela",
+    "day_full_mon": "Poniedziałek",
+    "day_full_tue": "Wtorek",
+    "day_full_wed": "Środa",
+    "day_full_thu": "Czwartek",
+    "day_full_fri": "Piątek",
+    "day_full_sat": "Sobota"
   },
   "nav": {
     "portal": "Portal",
@@ -4349,7 +4363,15 @@
     "interpreta_wzorca": "INTERPRETACJA WZORCA",
     "notatka_do_karty": "NOTATKA DO KARTY",
     "co_ta_karta_mowi_ci": "Co ta karta mówi ci dziś? Wolna myśl, obserwacja, obraz...",
-    "domknij_prace_z_karta": "DOMKNIJ PRACĘ Z KARTĄ"
+    "domknij_prace_z_karta": "DOMKNIJ PRACĘ Z KARTĄ",
+    "touch_see_back": "Dotknię kartę, by zobaczyć tył",
+    "touch_see_front": "Dotknię kartę, by zobaczyć przód",
+    "reversed_meaning": "Znaczenie odwrócone",
+    "show_reversed": "Pokaż odwrócenie",
+    "tab_general": "Ogólnie",
+    "tab_love": "Miłość",
+    "tab_career": "Kariera",
+    "tab_spirit": "Duchowość"
   },
   "divineTiming": {
     "aktywny": "AKTYWNY",
@@ -5200,7 +5222,9 @@
     "prowadz_ca_rytua_mistrzyni_ceremoni": "Prowadz�ca rytua� � Mistrzyni ceremonii",
     "czat": "Czat",
     "czat_rytua_u": "CZAT RYTUA�U",
-    "napisz_do_kr_gu_1": "Napisz do kr�gu..."
+    "napisz_do_kr_gu_1": "Napisz do kr�gu...",
+    "tts_start": "Witaj w rytuale: {{name}}. Jesteśmy razem. Zacznijmy.",
+    "tts_end": "Rytuał zakończony. Zabierz ze sobą tę energię. Dziękujemy, że byłeś z nami."
   },
   "runeCast": {
     "medytacja": "MEDYTACJA",
@@ -5675,7 +5699,7 @@
     "zapal_swiece": "ZAPAL ŚWIECĘ",
     "wrozka_odczytuje_karte": "Wróżka odczytuje kartę...",
     "wrozka_aethera": "WRÓŻKA AETHERA",
-    "odwrocona": "odwrócona",
+    "odwrocona": "Odwrócona",
     "rytual_tarota": "Rytuał Tarota",
     "w_co_dzis_chcesz_sie": "W co dziś chcesz się wgłębić?",
     "odwrocone_karty": "Odwrócone karty",
@@ -5697,7 +5721,12 @@
     "czy_chcesz_kontynuowa_poprzednia_se": "Czy chcesz kontynuować poprzednią sesję z Wróżką?",
     "zacznij_od_nowa": "Zacznij od nowa",
     "imie_osoby": "Imię osoby...",
-    "zadaj_pytanie_lub_popros_o": "Zadaj pytanie lub poproś o kolejną kartę..."
+    "zadaj_pytanie_lub_popros_o": "Zadaj pytanie lub poproś o kolejną kartę...",
+    "arcana_wieksza": "Arcana Większa",
+    "arcana_mniejsza": "Arcana Mniejsza",
+    "odwrocona_label": "ODWÓCÓNA",
+    "prosta_label": "PROSTA",
+    "prosta": "Prosta"
   },
   "yearCard": {
     "teraz": "TERAZ",
@@ -6498,5 +6527,44 @@
     "layersSection": "7 Warstw Aury",
     "layersDesc": "Każda warstwa aury przechowuje inny aspekt Twojego istnienia — dotknij, aby odkryć szczegóły.",
     "practicesSection": "Pielęgnacja Aury"
+  },
+  "today": {
+    "mood_great": "Świetnie",
+    "mood_good": "Dobrze",
+    "mood_okay": "Ujdzie",
+    "mood_low": "Słabo",
+    "morning_ritual_breath": "Poranny oddech (3 min)",
+    "morning_ritual_affirmation": "Przeczytaj afirmację dnia",
+    "morning_ritual_intention": "Zapisz intencję na dziś",
+    "morning_ritual_gratitude": "Trzy rzeczy wdzięczności",
+    "evening_ritual_review": "Krótki przegląd dnia",
+    "evening_ritual_journal": "Wpis w dzienniku",
+    "evening_ritual_release": "Puść napięcie dnia",
+    "evening_ritual_sleepIntent": "Intencja snu",
+    "mood": {
+      "eyebrow": "NASTRÓJ DNIA",
+      "title": "Jak się teraz czujesz?"
+    },
+    "morning": {
+      "eyebrow": "RYTUĄŁ PORANNY",
+      "titleDone": "Poranek zamknięty ✓",
+      "titlePartial": "gotowe"
+    },
+    "evening": {
+      "eyebrow": "RYTUĄŁ WIECZORNY",
+      "titleDone": "Wieczór zamknięty ✓",
+      "titlePartial": "gotowe"
+    },
+    "progress": {
+      "eyebrow": "POSTĘP DNIA",
+      "titleEmpty": "Zacznij od pierwszego kroku",
+      "titleDone": "Wszystkie praktyki ukończone ❆",
+      "titlePartial": "praktyk wykonanych"
+    },
+    "metric": {
+      "morning": "RANEK",
+      "evening": "WIECZÓR",
+      "journal": "WPISY"
+    }
   }
 }
