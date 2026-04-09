@@ -31,10 +31,10 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 
 const { width: SW } = Dimensions.get('window');
-// ─── Teal/Cyan/Emerald color identity ─────────────────────────────────────────
-const ACCENT = '#2DD4BF';
-const ACCENT2 = '#34D399';
-const ACCENT3 = '#06B6D4';
+// ─── Warm Violet/Fuchsia/Rose color identity ─────────────────────────────────
+const ACCENT = '#E879F9';
+const ACCENT2 = '#C084FC';
+const ACCENT3 = '#F0ABFC';
 const HERO_H = 300;
 const ORB_CENTER = HERO_H / 2 - 10;
 
@@ -74,13 +74,13 @@ const ZODIAC_AURA: Record<string, { color: string; name: string; meaning: string
 
 const DEFAULT_AURA = { color: 'Fioletowa', name: 'Fioletowa', meaning: 'Intuicja i Duchowość', hex: '#A855F7', gradient: ['#C084FC', '#A855F7', '#7C3AED'] };
 
-// ─── Aura ring data — teal/cyan/emerald spectrum ──────────────────────────────
+// ─── Aura ring data — warm violet/rose spectrum ───────────────────────────────
 const AURA_RINGS = [
-  { r: 56,  color: '#2DD4BF', opacity: 0.60, period: 3000, delay: 0,    dir: 1,  rotatePeriod: 20000 },
-  { r: 72,  color: '#06B6D4', opacity: 0.48, period: 4200, delay: 500,  dir: -1, rotatePeriod: 30000 },
-  { r: 88,  color: '#34D399', opacity: 0.40, period: 5500, delay: 1000, dir: 1,  rotatePeriod: 45000 },
-  { r: 104, color: '#67E8F9', opacity: 0.30, period: 6500, delay: 1600, dir: -1, rotatePeriod: 55000 },
-  { r: 120, color: '#10B981', opacity: 0.22, period: 7800, delay: 2200, dir: 1,  rotatePeriod: 65000 },
+  { r: 56,  color: '#E879F9', opacity: 0.60, period: 3000, delay: 0,    dir: 1,  rotatePeriod: 20000 },
+  { r: 72,  color: '#C084FC', opacity: 0.48, period: 4200, delay: 500,  dir: -1, rotatePeriod: 30000 },
+  { r: 88,  color: '#F0ABFC', opacity: 0.40, period: 5500, delay: 1000, dir: 1,  rotatePeriod: 45000 },
+  { r: 104, color: '#F9A8D4', opacity: 0.30, period: 6500, delay: 1600, dir: -1, rotatePeriod: 55000 },
+  { r: 120, color: '#D946EF', opacity: 0.22, period: 7800, delay: 2200, dir: 1,  rotatePeriod: 65000 },
 ];
 
 // ─── Daily check-in aura colors ───────────────────────────────────────────────
@@ -393,7 +393,7 @@ const LayerAccordion = React.memo(({ layer }: { layer: typeof AURA_LAYERS[0] }) 
           <View style={[s.layerNumBadge, { backgroundColor: layer.color + '22' }]}>
             <Text style={[s.layerNum, { color: layer.color }]}>{layer.n}</Text>
           </View>
-          {open ? <ChevronUp size={16} color="#2DD4BF" /> : <ChevronDown size={16} color="#06B6D4" />}
+          {open ? <ChevronUp size={16} color="#E879F9" /> : <ChevronDown size={16} color="#C084FC" />}
         </View>
         {open && (
           <View style={s.layerBody}>
@@ -595,9 +595,9 @@ Odpowiedź sformułuj poetycko, mistycznie i inspirująco. Mów bezpośrednio do
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
     <SafeAreaView style={s.safeArea} edges={['top']}>
-      {/* Deep teal cosmic background */}
+      {/* Warm violet-to-deep-rose aura background */}
       <LinearGradient
-        colors={['#030F0F', '#041616', '#061A1A']}
+        colors={['#1A0A2E', '#2D1054', '#1A0A2E']}
         style={StyleSheet.absoluteFill}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -606,7 +606,7 @@ Odpowiedź sformułuj poetycko, mistycznie i inspirująco. Mów bezpośrednio do
       {/* Header */}
       <View style={[s.header, { paddingTop: insets.top > 0 ? 0 : 8 }]}>
         <Pressable onPress={() => goBackOrToMainTab(navigation, 'Portal')} style={s.backBtn} hitSlop={10}>
-          <ChevronLeft size={24} color="#2DD4BF" />
+          <ChevronLeft size={24} color="#E879F9" />
         </Pressable>
         <Text style={s.headerTitle}>{t('aura.title', 'Aura')}</Text>
         <View style={{ width: 40 }} />
@@ -641,10 +641,13 @@ Odpowiedź sformułuj poetycko, mistycznie i inspirująco. Mów bezpośrednio do
               <Text style={s.sectionTitle}>Kolor Twojej Aury Dziś</Text>
             </View>
           </View>
+          <Text style={s.sectionDesc}>
+            Wybierz kolor, który najlepiej oddaje Twoją dzisiejszą energię — intuicyjnie, bez zastanowienia. Buduj świadomość swojej aury każdego dnia.
+          </Text>
 
           <View style={s.checkinCard}>
             <LinearGradient
-              colors={['rgba(45,212,191,0.08)', 'rgba(6,182,212,0.04)']}
+              colors={['rgba(232,121,249,0.08)', 'rgba(192,132,252,0.04)']}
               style={s.checkinCardInner}
             >
               <View style={s.checkinGrid}>
@@ -694,10 +697,13 @@ Odpowiedź sformułuj poetycko, mistycznie i inspirująco. Mów bezpośrednio do
             <CalendarDays size={18} color={ACCENT3} />
             <Text style={s.sectionTitle}>Historia tygodnia</Text>
           </View>
+          <Text style={s.sectionDesc}>
+            Śledź wzorce energetyczne swojej aury przez ostatnie 7 dni. Powtarzające się kolory ujawniają dominujący stan Twojego pola.
+          </Text>
 
           <View style={s.weekCard}>
             <LinearGradient
-              colors={['rgba(6,182,212,0.08)', 'rgba(45,212,191,0.04)']}
+              colors={['rgba(192,132,252,0.08)', 'rgba(232,121,249,0.04)']}
               style={s.weekCardInner}
             >
               <View style={s.weekRow}>
@@ -707,7 +713,7 @@ Odpowiedź sformułuj poetycko, mistycznie i inspirująco. Mów bezpośrednio do
                       s.weekCircle,
                       day.entry
                         ? { backgroundColor: day.entry.hex, borderColor: day.entry.hex + '88', borderWidth: 1.5 }
-                        : { backgroundColor: 'transparent', borderColor: 'rgba(45,212,191,0.35)', borderWidth: 1.5, borderStyle: 'dashed' },
+                        : { backgroundColor: 'transparent', borderColor: 'rgba(192,132,252,0.40)', borderWidth: 1.5, borderStyle: 'dashed' },
                     ]} />
                     <Text style={s.weekDayLabel}>{day.label}</Text>
                   </View>
@@ -734,10 +740,13 @@ Odpowiedź sformułuj poetycko, mistycznie i inspirująco. Mów bezpośrednio do
             <Eye size={18} color={ACCENT} />
             <Text style={s.sectionTitle}>{t('aura.readSection', 'Odczyt Aury AI')}</Text>
           </View>
+          <Text style={s.sectionDesc}>
+            Sztuczna inteligencja analizuje zdjęcie i odczytuje kolory, warstwy oraz energetyczny przekaz Twojej aury — mistycznie i precyzyjnie.
+          </Text>
 
           <View style={s.cameraCard}>
             <LinearGradient
-              colors={['rgba(45,212,191,0.08)', 'rgba(6,182,212,0.04)']}
+              colors={['rgba(232,121,249,0.08)', 'rgba(192,132,252,0.04)']}
               style={s.cameraCardInner}
             >
               <Text style={s.cameraCardDesc}>
@@ -829,6 +838,9 @@ Odpowiedź sformułuj poetycko, mistycznie i inspirująco. Mów bezpośrednio do
             <Zap size={18} color={ACCENT} />
             <Text style={s.sectionTitle}>{t('aura.colorsSection', 'Kolory Aury')}</Text>
           </View>
+          <Text style={[s.sectionDesc, { paddingHorizontal: layout.padding.screen }]}>
+            Każdy kolor aury niesie unikalną wibrację i przesłanie. Przesuń, aby poznać słowa kluczowe i znaczenie każdego odcienia.
+          </Text>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -860,6 +872,9 @@ Odpowiedź sformułuj poetycko, mistycznie i inspirująco. Mów bezpośrednio do
             <Gem size={18} color={ACCENT} />
             <Text style={s.sectionTitle}>{t('aura.practicesSection', 'Pielęgnacja Aury')}</Text>
           </View>
+          <Text style={s.sectionDesc}>
+            Regularne praktyki wzmacniają, oczyszczają i harmonizują Twoje pole auretyczne. Dotknij praktyki, aby przejść do powiązanego modułu.
+          </Text>
           {CARE_PRACTICES.map(p => (
             <Pressable
               key={p.title}
@@ -903,7 +918,7 @@ Odpowiedź sformułuj poetycko, mistycznie i inspirująco. Mów bezpośrednio do
 const s = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#050310',
+    backgroundColor: '#1A0A2E',
   },
   header: {
     flexDirection: 'row',
@@ -916,7 +931,7 @@ const s = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'rgba(192,132,252,0.12)',
+    backgroundColor: 'rgba(232,121,249,0.14)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -1029,9 +1044,18 @@ const s = StyleSheet.create({
     fontSize: 10,
     fontWeight: '700',
     letterSpacing: 3,
-    color: 'rgba(45,212,191,0.65)',
+    color: 'rgba(232,121,249,0.75)',
     textTransform: 'uppercase',
     marginBottom: 2,
+  },
+
+  // ── Section description ──
+  sectionDesc: {
+    fontSize: 13,
+    color: 'rgba(196,181,253,0.70)',
+    lineHeight: 19,
+    marginBottom: 12,
+    marginTop: -6,
   },
 
   // ── Daily check-in card ──
@@ -1039,7 +1063,7 @@ const s = StyleSheet.create({
     borderRadius: 20,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'rgba(45,212,191,0.28)',
+    borderColor: 'rgba(232,121,249,0.30)',
   },
   checkinCardInner: {
     padding: 16,
@@ -1076,7 +1100,7 @@ const s = StyleSheet.create({
     height: 58,
     borderRadius: 29,
     borderWidth: 1.5,
-    borderColor: 'rgba(45,212,191,0.45)',
+    borderColor: 'rgba(232,121,249,0.50)',
   },
   checkinColorName: {
     fontSize: 10,
@@ -1090,7 +1114,7 @@ const s = StyleSheet.create({
     borderRadius: 20,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'rgba(6,182,212,0.25)',
+    borderColor: 'rgba(192,132,252,0.30)',
   },
   weekCardInner: {
     padding: 18,
@@ -1121,7 +1145,7 @@ const s = StyleSheet.create({
     marginTop: 14,
     paddingTop: 12,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(45,212,191,0.15)',
+    borderTopColor: 'rgba(192,132,252,0.18)',
     gap: 4,
   },
   todayBannerText: {

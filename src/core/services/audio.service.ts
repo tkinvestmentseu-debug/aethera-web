@@ -505,6 +505,47 @@ export class AudioService {
     this.preferences = { ...this.preferences, ambientEnabled: true };
     await this.playAmbientSound(soundscape);
   }
+
+  /**
+   * Pick a random track from the startup pool and play it as background music for
+   * the current session. The user's saved `backgroundMusicCategory` preference is
+   * NOT overwritten — this only affects the active playback for this launch.
+   *
+   * The pool is intentionally diverse so each app open feels sonically fresh.
+   * If the user has background music disabled, this call is a no-op.
+   */
+  static readonly STARTUP_MUSIC_POOL: BackgroundMusicCategory[] = [
+    'celestial',
+    'deepMeditation',
+    'healing',
+    'relaxing',
+    'nature',
+    'forestMist',
+    'serene',
+    'drift',
+    'voxscape',
+    'zen',
+  ];
+
+  static async playStartupAmbient(): Promise<void> {
+    if (!this.preferences.backgroundMusicEnabled) {
+      this.lastAction = 'Startup ambient pominięty — muzyka tła wyłączona w ustawieniach.';
+      return;
+    }
+    const pool = AudioService.STARTUP_MUSIC_POOL;
+    const randomTrack = pool[Math.floor(Math.random() * pool.length)];
+    this.lastAction = `Startup ambient: losowy utwór "${randomTrack}" wybrany z puli ${pool.length} ścieżek.`;
+    // Override the active category for this session without persisting to user prefs.
+    // We use a temporary preferences patch so playBackgroundMusic() plays the right track.
+    const savedCategory = this.preferences.backgroundMusicCategory;
+    this.preferences = { ...this.preferences, backgroundMusicCategory: randomTrack };
+    // Force a fresh play (activeMusicCategory might already equal savedCategory).
+    this.activeMusicCategory = null;
+    await this.playMusicForSession(randomTrack);
+    // Restore the user's saved category in preferences so the Settings page still
+    // reflects their chosen value (only the running player is the random one).
+    this.preferences = { ...this.preferences, backgroundMusicCategory: savedCategory };
+  }
   private static async warmPlayer(player: NullablePlayer) {
     if (!player?.sound) return;
     const snapMusic = this.musicRequestId;

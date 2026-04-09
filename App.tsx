@@ -127,8 +127,11 @@ export default function App() {
       await AudioService.primeSessionAudio(
         experience.backgroundMusicCategory,
         experience.ambientSoundscape,
-        ['deepMeditation', 'celestial', 'relaxing', 'nature'],
+        AudioService.STARTUP_MUSIC_POOL,
       );
+      // Play a randomly-selected track from the startup pool so each launch
+      // sounds different. The user's saved music category preference is preserved.
+      void AudioService.playStartupAmbient();
       await AudioService.preloadBootAudio();
     })();
   }, [experience.ambientSoundscape, experience.backgroundMusicCategory]);

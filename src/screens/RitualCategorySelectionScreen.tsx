@@ -202,6 +202,7 @@ interface RitualCardProps {
 }
 
 const RitualCard: React.FC<RitualCardProps> = ({ ritual, color, isLight, onPress, delay }) => {
+  const { t } = useTranslation();
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
   const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';
   const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.05)';
@@ -486,6 +487,7 @@ const SeasonalChips: React.FC<{
 
 // ── MINI RITUAL CARD ──────────────────────────────────────────
 const MiniRitualCard: React.FC<{ isLight: boolean }> = ({ isLight }) => {
+  const { t } = useTranslation();
   const [timerRunning, setTimerRunning] = useState(false);
   const [secondsLeft, setSecondsLeft] = useState(MINI_TOTAL_SECONDS);
   const [activeStep, setActiveStep] = useState(0);

@@ -22,11 +22,90 @@ export interface Ritual {
 }
 
 const SEED_RITUALS = [
-  { title: 'Krąg Księżycowy', type: 'KSIĘŻYC', element: 'Woda', description: 'Medytacja podczas pełni księżyca — połącz się z energią nocy.', tips: ['Zapal białą świecę', 'Medytuj przy oknie', 'Wypisz intencje'], duration: 30, maxParticipants: 50, isLive: true },
-  { title: 'Ogień Przemiany', type: 'OGIEŃ', element: 'Ogień', description: 'Rytuał uwalniania — spalanie tego, co już nie służy.', tips: ['Przygotuj papier i ołówek', 'Napisz co chcesz uwolnić', 'Wizualizuj przemianę'], duration: 20, maxParticipants: 30, isLive: true },
-  { title: 'Głęboka Medytacja', type: 'MEDYTACJA', element: 'Ziemia', description: 'Grupowa medytacja uziemienia i spokoju.', tips: ['Usiądź wygodnie', 'Zamknij oczy', 'Oddychaj głęboko'], duration: 45, maxParticipants: 100, isLive: false },
-  { title: 'Harmonizacja Czakr', type: 'CZAKRY', element: 'Eter', description: 'Praca z energią czakr i balansowanie aury.', tips: ['Skup się na sercu', 'Wizualizuj kolory', 'Oddychaj świadomie'], duration: 35, maxParticipants: 40, isLive: false },
-  { title: 'Kąpiel Dźwiękowa', type: 'WODA', element: 'Dźwięk', description: 'Uzdrawiające fale dźwiękowe — misy tybetańskie.', tips: ['Połóż się wygodnie', 'Zrelaksuj mięśnie', 'Pozwól dźwiękowi przepływać'], duration: 40, maxParticipants: 60, isLive: false },
+  {
+    title: 'Poranne Przebudzenie Duszy',
+    type: 'PORANEK', element: 'Ogień',
+    description: 'Obudź ciało i ducha o wschodzie słońca. Krótka praktyka oddechu, powitanie słońca i ustawienie intencji na cały dzień. Idealne na świeżym powietrzu lub przy otwartym oknie.',
+    tips: ['Wstań 10 minut przed wschodem słońca', 'Przygotuj szklankę ciepłej wody z cytryną', 'Zanim otworzysz telefon — ustal trzy intencje dnia'],
+    duration: 15, maxParticipants: 500, isLive: true,
+  },
+  {
+    title: 'Pełnia Księżyca — Rytuał Wdzięczności',
+    type: 'KSIĘŻYC', element: 'Woda',
+    description: 'Celebracja pełni z intencjami wdzięczności i manifestacji. Pełnia to szczyt energii cyklu — czas zbierania plonów i ładowania kryształów. Wielka moc zbiorowej synchronizacji.',
+    tips: ['Wyjdź na zewnątrz, aby fizycznie zobaczyć księżyc', 'Przygotuj kryształy do ładowania w świetle księżyca', 'Napisz listę wdzięczności z przynajmniej 10 punktami'],
+    duration: 50, maxParticipants: 500, isLive: true,
+  },
+  {
+    title: 'Ogniste Oczyszczanie Aury',
+    type: 'OGIEŃ', element: 'Ogień',
+    description: 'Praca z energią ognia do głębokiego oczyszczania pola energetycznego. Spalamy wszystko, co zbędne — lęk, wstyd, stare wzorce. Jedna z najsilniejszych praktyk grupowych.',
+    tips: ['Miej dostęp do otwartego okna przed sesją', 'Postaw szklankę wody obok siebie', 'Zamknij oczy i podążaj za głosem prowadzącego'],
+    duration: 30, maxParticipants: 100, isLive: false,
+  },
+  {
+    title: 'Aktywacja Czakry Serca — Miłość Bezwarunkowa',
+    type: 'CZAKRY', element: 'Powietrze',
+    description: 'Otwieramy i balansujemy czakrę Anahata przez pranajamę, wizualizację zielonego światła i mantry. Praca z miłością bezwarunkową do siebie i innych — najgłębszy poziom uzdrawiania.',
+    tips: ['Usiądź wygodnie ze skrzyżowanymi nogami lub na krześle', 'Połóż obie dłonie na centrum klatki piersiowej', 'Przygotuj się na głębokie emocje — to znak uzdrawiania'],
+    duration: 35, maxParticipants: 200, isLive: false,
+  },
+  {
+    title: 'Kąpiel Dźwiękowa — Misy Kryształowe 432 Hz',
+    type: 'WODA', element: 'Woda',
+    description: 'Zanurzenie w harmonicznych falach dźwiękowych mis kryształowych i gongów tybetańskich. Rezonans 432 Hz harmonizuje całe pole energetyczne i odprowadza napięcia z ciała na poziomie komórkowym.',
+    tips: ['Połóż się na macie lub w łóżku — wygoda jest kluczowa', 'Używaj słuchawek stereo dla pełnego efektu przestrzennego', 'Nie planuj żadnych aktywności przez godzinę po sesji'],
+    duration: 60, maxParticipants: 50, isLive: false,
+  },
+  {
+    title: 'Zbiorowe Pole Ciszy',
+    type: 'MEDYTACJA', element: 'Przestrzeń',
+    description: 'Milczenie jako najgłębsza praktyka. Dołącz do setek ludzi siedzących razem w ciszy — energia zbiorowa amplifikuje każdą indywidualną sesję wielokrotnie. Czas na pełną obecność.',
+    tips: ['Stwórz ciche i przyciemnione miejsce do siedzenia', 'Nie nastawiaj żadnych alarmów na czas sesji', 'Po sesji zostań jeszcze kilka minut w spokoju'],
+    duration: 20, maxParticipants: 1000, isLive: false,
+  },
+  {
+    title: 'Afirmacje Obfitości — Manifestacja',
+    type: 'AFIRMACJE', element: 'Eter',
+    description: 'Grupowe recytowanie afirmacji obfitości w stanie głębokiej receptywności. Kiedy wiele umysłów skupia się na tym samym, rzeczywistość odpowiada. Praca z podświadomością przez powtarzanie.',
+    tips: ['Przed sesją wypisz 3 rzeczy, za które jesteś wdzięczny/a', 'Mów afirmacje głośno — wibracja dźwięku wzmacnia efekt', 'Wizualizuj każdą afirmację jako już spełnioną rzeczywistość'],
+    duration: 25, maxParticipants: 300, isLive: false,
+  },
+  {
+    title: 'Taniec Duszy — Ruch bez Oceniania',
+    type: 'TANIEC', element: 'Ogień',
+    description: 'Uwolnienie ciała przez spontaniczny, świadomy ruch przy rytmicznej muzyce. Bez choreografii, bez oceniania — tylko Twoje ciało i dźwięk. Doskonałe na uwolnienie emocji zatrzymanych w mięśniach.',
+    tips: ['Zrób wolne miejsce wokół siebie — minimum 1,5m w każdą stronę', 'Zacznij od powolnego ruchu i pozwól ciału przyspieszyć naturalnie', 'Zamknij oczy gdy poczujesz się bezpiecznie — to wzmacnia doświadczenie'],
+    duration: 40, maxParticipants: 80, isLive: false,
+  },
+  {
+    title: 'Uzdrawianie Dźwiękiem — Solfeggio 528 Hz',
+    type: 'UZDRAWIANIE', element: 'Woda',
+    description: 'Głęboka praca z tonem miłości 528 Hz, zwanym DNA Repair Frequency. Sesja skupia się na uzdrawianiu na poziomie komórkowym — fizycznym i emocjonalnym. Połączona z wizualizacją zielonego światła.',
+    tips: ['Możesz siedzieć lub leżeć — ważne, by być w pełni komfortowo', 'Połóż jedną dłoń na sercu, drugą na brzuchu', 'Oddychaj spokojnie i wyobrażaj sobie zielone, uzdrawiające światło'],
+    duration: 40, maxParticipants: 200, isLive: false,
+  },
+  {
+    title: 'Oczyszczanie Energii — Szałwia i Intencja',
+    type: 'INTENCJA', element: 'Ogień',
+    description: 'Naucz się prawidłowo oczyszczać przestrzeń życiową szałwią, palo santo i innymi ziołami. Rytuał grupowy ze wspólnym ustawieniem pola ochronnego wokół domu i bliskich.',
+    tips: ['Przygotuj szałwię lub kadzidło wieczorem przed rytuałem', 'Otwórz wszystkie okna i drzwi balkonowe przed rozpoczęciem', 'Poruszaj się zgodnie z ruchem wskazówek zegara, zaczynając od wejścia'],
+    duration: 25, maxParticipants: 50, isLive: false,
+  },
+  {
+    title: 'Wieczorne Uziemienie — 7 Czakr',
+    type: 'CZAKRY', element: 'Ziemia',
+    description: 'Kompleksowy skan i harmonizacja wszystkich 7 czakr od Muladhara do Sahasrara. Idealne na koniec dnia — usuwa nagromadzoną energię obcą i resetuje pole do czystości przed snem.',
+    tips: ['Przeprowadź krótki skan ciała przed sesją — zauważ napięcia', 'Trzymaj w pobliżu czarne kryształy (obsydian, turmalin) do uziemienia', 'Sesja może wywołać głęboki sen — to bardzo pożądany efekt'],
+    duration: 55, maxParticipants: 300, isLive: false,
+  },
+  {
+    title: 'Medytacja Ciszy — Astralna Podróż',
+    type: 'MEDYTACJA', element: 'Przestrzeń',
+    description: 'Kontemplacja nocnego nieba jako brama do wewnętrznej ciszy i astralnej projekcji. Prowadzona wizualizacja przez konstelacje — podróż do centrum własnej świadomości.',
+    tips: ['Wyjdź na zewnątrz lub usiądź przy oknie z widokiem na niebo', 'Znajdź jedną gwiazdę i skupiaj na niej wzrok przez pierwsze 5 minut', 'Kiedy prowadzący poprosi — pozwól myślom odpłynąć jak chmury'],
+    duration: 35, maxParticipants: 500, isLive: false,
+  },
 ];
 
 export const RitualsService = {

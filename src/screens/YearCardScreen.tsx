@@ -265,6 +265,7 @@ const TEXT_R = 94;
 function YearWheelWidget({ personalYear, currentMonth, yearData, isLight }: {
   personalYear: number; currentMonth: number; yearData: any; isLight?: boolean;
 }) {
+  const { t } = useTranslation();
   const rotateOuter = useSharedValue(0);
   const pulse = useSharedValue(1);
   const tiltX = useSharedValue(0);
@@ -499,6 +500,7 @@ function MonthCard({
   index: number; currentMonth: number; yearData: any;
   isLight: boolean; textColor: string; subColor: string; borderColor: string;
 }) {
+  const { t } = useTranslation();
   const [expanded, setExpanded] = useState(index === currentMonth);
   const isCurrent = index === currentMonth;
   const color = SEASON_COLORS[index];
