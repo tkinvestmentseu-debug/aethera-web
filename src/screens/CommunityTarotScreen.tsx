@@ -1,9 +1,10 @@
 // @ts-nocheck
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
-  Dimensions, KeyboardAvoidingView, Platform, Pressable,
+  Dimensions, Image, KeyboardAvoidingView, Platform, Pressable,
   ScrollView, StyleSheet, Text, TextInput, View, Share,
 } from 'react-native';
+import { RIDER_WAITE_IMAGE_MAP } from '../features/tarot/data/riderWaiteImages';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Path, Circle, Star as SvgStar } from 'react-native-svg';
@@ -29,6 +30,8 @@ import { db } from '../core/config/firebase.config';
 import { useAuthStore } from '../store/useAuthStore';
 const { width: SW } = Dimensions.get('window');
 const ACCENT = '#F59E0B';
+
+const CARD_NAMES = ['Mag','Kapłanka','Cesarzowa','Cesarz','Papież','Kochankowie','Rydwan','Siła','Pustelnik','Koło Fortuny','Sprawiedliwość','Wisielec','Śmierć','Umiarkowanie','Diabeł','Wieża','Gwiazda','Księżyc','Słońce','Sąd','Świat','Głupiec'];
 
 const INITIAL_INTERPRETATIONS = [
   { id: '1', author: '🌙', name: 'Marzena K.', text: 'Ta karta przynosi wieść o odrodzeniu — zaufaj procesowi i pozwól gwiazdom prowadzić.', likes: 47, time: '2h temu', reactions: { '💛': 12, '✨': 8, '🌸': 5 } },
@@ -69,6 +72,11 @@ export const CommunityTarotScreen = ({ navigation }) => {
   const [myInterpretationId, setMyInterpretationId] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState('');
+
+  const todayCardIdx = useMemo(() => {
+    const d = new Date();
+    return (d.getFullYear() * 400 + d.getMonth() * 31 + d.getDate()) % 22;
+  }, []);
 
   const flipValue = useSharedValue(0);
   const glowPulse = useSharedValue(0.7);
@@ -248,17 +256,16 @@ export const CommunityTarotScreen = ({ navigation }) => {
               <View style={[styles.glowRing, { borderColor: ACCENT + '40' }]} />
             </Animated.View>
             <Pressable onPress={handleFlip} style={styles.cardWrapper}>
-              <Animated.View style={[styles.tarotCard, { backgroundColor: ACCENT + '15', borderColor: ACCENT + '50' }, cardFrontStyle]}>
-                <Text style={[styles.cardNum, { color: ACCENT + 'AA' }]}>{t('communityTarot.xvii', 'XVII')}</Text>
-                <Svg width={60} height={60} viewBox="0 0 60 60">
-                  <Circle cx={30} cy={20} r={10} fill={ACCENT + '60'} />
-                  {[...Array(8)].map((_, i) => (
-                    <Path key={i} d={`M30,20 L${30 + 14 * Math.cos(i * 45 * Math.PI / 180)},${20 + 14 * Math.sin(i * 45 * Math.PI / 180)}`} stroke={ACCENT} strokeWidth={1.5} />
-                  ))}
-                  <Path d="M10,45 Q30,35 50,45" stroke={ACCENT + '80'} strokeWidth={2} fill="none" />
-                </Svg>
-                <Text style={[styles.cardName, { color: ACCENT }]}>{t('communityTarot.gwiazda', 'Gwiazda')}</Text>
-                <Text style={[styles.cardHint, { color: subColor }]}>{t('communityTarot.dotknij_by_obrocic', 'Dotknij, by obrócić')}</Text>
+              <Animated.View style={[styles.tarotCard, { borderColor: ACCENT + '50' }, cardFrontStyle]}>
+                <Image
+                  source={RIDER_WAITE_IMAGE_MAP[String(todayCardIdx)]}
+                  style={{ width: '100%', height: '100%', borderRadius: 14 }}
+                  resizeMode="cover"
+                />
+                <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: 12, borderBottomLeftRadius: 14, borderBottomRightRadius: 14, backgroundColor: 'rgba(0,0,0,0.45)' }}>
+                  <Text style={[styles.cardName, { color: '#FFF' }]}>{CARD_NAMES[todayCardIdx]}</Text>
+                  <Text style={[styles.cardHint, { color: 'rgba(255,255,255,0.7)' }]}>{t('communityTarot.dotknij_by_obrocic', 'Dotknij, by obrócić')}</Text>
+                </View>
               </Animated.View>
               <Animated.View style={[styles.tarotCard, { backgroundColor: ACCENT + '25', borderColor: ACCENT + '70', alignItems: 'center', justifyContent: 'center' }, cardBackStyle]}>
                 <Text style={[styles.cardMeaning, { color: textColor }]}>{t('communityTarot.nadzieja_odnowienie_wiara_w_przyszl', 'Nadzieja · Odnowienie · Wiara w przyszłość')}</Text>
@@ -418,7 +425,7 @@ const styles = StyleSheet.create({
   heroSection: { alignItems: 'center', justifyContent: 'center', marginTop: 8, marginBottom: 8 },
   glowRing: { position: 'absolute', width: 200, height: 280, borderRadius: 16, borderWidth: 20, opacity: 0.3 },
   cardWrapper: { zIndex: 2 },
-  tarotCard: { width: 160, height: 240, borderRadius: 16, borderWidth: 2, alignItems: 'center', justifyContent: 'center', gap: 8, padding: 16 },
+  tarotCard: { width: 160, height: 240, borderRadius: 16, borderWidth: 2, overflow: 'hidden' },
   cardNum: { fontSize: 14, fontWeight: '700', letterSpacing: 2 },
   cardName: { fontSize: 18, fontWeight: '800', letterSpacing: 1 },
   cardMeaning: { fontSize: 13, textAlign: 'center', lineHeight: 20, padding: 12 },

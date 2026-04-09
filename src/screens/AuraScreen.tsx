@@ -171,34 +171,34 @@ const AURA_LAYERS = [
 // ─── Care practices ────────────────────────────────────────────────────────────
 const CARE_PRACTICES = [
   {
-    icon: '🧘', title: 'Medytacja białego światła',
-    desc: 'Wizualizacja białego i złotego światła przenikającego przez wszystkie warstwy aury usuwa gęste energie i ładuje pole witalnością.',
-    targetScreen: 'Meditation',
+    icon: '🌈', title: 'Oddech Koloru',
+    desc: 'Wizualizuj konkretny kolor wchodzący z oddechem do każdej warstwy aury. Czerwony — eteryczna, pomarańczowy — emocjonalna, żółty — mentalna.',
+    targetScreen: null,
   },
   {
-    icon: '💎', title: 'Kryształy uzdrawiające',
-    desc: 'Selenit oczyszcza, kwarc górski amplifikuje, ametyst chroni. Ułóż je wokół siebie lub noś przy sobie przez cały dzień.',
-    targetScreen: 'CrystalGuide',
+    icon: '🔮', title: 'Bańka Ochronna',
+    desc: 'Wyobraź sobie lustrzaną bańkę wokół całego ciała — odbija negatywne energie i przepuszcza tylko miłość i światło.',
+    targetScreen: null,
   },
   {
-    icon: '🧂', title: 'Kąpiel solna',
-    desc: 'Sól morska lub himalajska w kąpieli absorbuje negatywne energie z pola auretycznego. Dodaj olejek lawendowy i intencję uwalniania.',
-    targetScreen: 'SaltBath',
+    icon: '⚡', title: 'Skanowanie Energetyczne',
+    desc: 'Powoli przesuń dłoń 5–10 cm od ciała od stóp do głowy. Ciepło, mrowienie i pulsowanie wskazują aktywne ośrodki energetyczne.',
+    targetScreen: null,
   },
   {
-    icon: '🌿', title: 'Smudging ziołowy',
-    desc: 'Dym szałwii, palo santo lub kadzidła oczyszcza aurę mechanicznie — przesuń dym powoli wzdłuż całego ciała od stóp do głowy.',
-    targetScreen: 'Cleansing',
+    icon: '🌿', title: 'Uziemienie Aury',
+    desc: 'Stań boso. Wyobraź sobie złote korzenie wychodzące z podeszew stóp głęboko w ziemię — wyprowadź nadmiar energii, naładuj polem Ziemi.',
+    targetScreen: null,
   },
   {
-    icon: '🎵', title: 'Terapia dźwiękiem',
-    desc: 'Misy tybetańskie, gongi i binaural beats na 432 Hz rozbijają gęste wzorce energetyczne i harmonizują wszystkie 7 warstw aury.',
-    targetScreen: 'SoundBath',
+    icon: '✨', title: 'Naładowanie Słoneczne',
+    desc: 'Stań w słońcu (lub wyobraź sobie to) z otwartymi dłońmi ku górze. Promieniowanie słoneczne ładuje warstwę eteryczną w ciągu 10 minut.',
+    targetScreen: null,
   },
   {
-    icon: '🌅', title: 'Kontakt z naturą',
-    desc: 'Chodzenie boso po trawie (earthing) bezpośrednio ładuje eteryczną warstwę aury jonami ujemnymi z powierzchni Ziemi.',
-    targetScreen: 'Portal',
+    icon: '🌊', title: 'Reset Wodny',
+    desc: 'Prysznic z intencją: wyobraź sobie, że woda zmywa wszystkie przylgnięte energie innych osób, miejsc i sytuacji z ostatnich 24 godzin.',
+    targetScreen: null,
   },
 ];
 
@@ -881,8 +881,8 @@ Odpowiedź sformułuj poetycko, mistycznie i inspirująco. Mów bezpośrednio do
               style={({ pressed }) => [s.practiceCard, pressed && { opacity: 0.85 }]}
               onPress={() => {
                 HapticsService.impact('light');
-                if (p.targetScreen && p.targetScreen !== 'Portal') {
-                  try { navigation.navigate(p.targetScreen); } catch {}
+                if (p.targetScreen) {
+                  try { navigation.navigate(p.targetScreen as string); } catch {}
                 }
               }}
             >

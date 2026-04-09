@@ -1179,7 +1179,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
         <KeyboardAvoidingView
           style={{ flex: 1 }}
           behavior="padding"
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
         >
           <ScrollView
             ref={scrollRef}
@@ -1398,9 +1398,40 @@ export const CommunityChatScreen = ({ navigation }: any) => {
         </View>
       </Animated.View>
 
+      {/* FAB row — Utwórz pokój + Dołącz przez kod */}
+      <Animated.View
+        entering={FadeInUp.delay(600).springify()}
+        style={{ flexDirection: 'row', paddingHorizontal: SP, paddingVertical: 12, gap: 10 }}
+      >
+        <Pressable onPress={() => { HapticsService.impact('medium'); setShowJoinCode(true); }}>
+          <LinearGradient
+            colors={isLight ? ['rgba(99,102,241,0.15)', 'rgba(99,102,241,0.08)'] : ['rgba(255,255,255,0.12)', 'rgba(255,255,255,0.06)']}
+            start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+            style={[styles.fabInner, { borderWidth: 1, borderColor: isLight ? 'rgba(99,102,241,0.35)' : 'rgba(255,255,255,0.18)' }]}
+          >
+            <Hash size={18} color={isLight ? '#6366F1' : '#A5B4FC'} strokeWidth={2} />
+            <Text style={{ fontSize: 13, fontWeight: '700', color: isLight ? '#6366F1' : '#A5B4FC', letterSpacing: 0.3 }}>
+              {t('communityChat.kod', 'Kod')}
+            </Text>
+          </LinearGradient>
+        </Pressable>
+        <Pressable onPress={() => { HapticsService.impact('medium'); setShowCreateRoom(true); }}>
+          <LinearGradient
+            colors={['#CEAE72', '#B8943E']}
+            start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+            style={styles.fabInner}
+          >
+            <Plus size={20} color="#1A1208" strokeWidth={2.5} />
+            <Text style={{ fontSize: 13, fontWeight: '700', color: '#1A1208', letterSpacing: 0.3 }}>
+              {t('communityChat.nowy_pokoj', 'Nowy pokój')}
+            </Text>
+          </LinearGradient>
+        </Pressable>
+      </Animated.View>
+
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: SP, paddingBottom: insets.bottom + 100 }}
+        contentContainerStyle={{ paddingHorizontal: SP, paddingBottom: insets.bottom + 24 }}
       >
         {/* Online presence bar */}
         <Animated.View
@@ -1479,37 +1510,6 @@ export const CommunityChatScreen = ({ navigation }: any) => {
 
         <EndOfContentSpacer />
       </ScrollView>
-
-      {/* FAB row — Utwórz pokój + Dołącz przez kod */}
-      <Animated.View
-        entering={FadeInUp.delay(600).springify()}
-        style={[styles.fab, { bottom: insets.bottom + 90, flexDirection: 'row', gap: 10 }]}
-      >
-        <Pressable onPress={() => { HapticsService.impact('medium'); setShowJoinCode(true); }}>
-          <LinearGradient
-            colors={isLight ? ['rgba(99,102,241,0.15)', 'rgba(99,102,241,0.08)'] : ['rgba(255,255,255,0.12)', 'rgba(255,255,255,0.06)']}
-            start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-            style={[styles.fabInner, { borderWidth: 1, borderColor: isLight ? 'rgba(99,102,241,0.35)' : 'rgba(255,255,255,0.18)' }]}
-          >
-            <Hash size={18} color={isLight ? '#6366F1' : '#A5B4FC'} strokeWidth={2} />
-            <Text style={{ fontSize: 13, fontWeight: '700', color: isLight ? '#6366F1' : '#A5B4FC', letterSpacing: 0.3 }}>
-              {t('communityChat.kod', 'Kod')}
-            </Text>
-          </LinearGradient>
-        </Pressable>
-        <Pressable onPress={() => { HapticsService.impact('medium'); setShowCreateRoom(true); }}>
-          <LinearGradient
-            colors={['#CEAE72', '#B8943E']}
-            start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-            style={styles.fabInner}
-          >
-            <Plus size={20} color="#1A1208" strokeWidth={2.5} />
-            <Text style={{ fontSize: 13, fontWeight: '700', color: '#1A1208', letterSpacing: 0.3 }}>
-              {t('communityChat.nowy_pokoj', 'Nowy pokój')}
-            </Text>
-          </LinearGradient>
-        </Pressable>
-      </Animated.View>
 
       {/* ── Modal: Utwórz pokój ─────────────────────────────────── */}
       <Modal visible={showCreateRoom} transparent animationType="slide">

@@ -98,10 +98,10 @@ const GlassWidgetCard = React.memo(({
         borderRadius: 20,
         overflow: 'hidden',
         borderWidth: 1,
-        borderColor: isLight ? 'rgba(255,255,255,0.70)' : 'rgba(255,255,255,0.10)',
+        borderColor: isLight ? 'rgba(100,70,30,0.30)' : 'rgba(255,255,255,0.10)',
       }, style]}
     >
-      <View style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.24)' : 'rgba(255,255,255,0.04)', borderRadius: 20 }}>
+      <View style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.04)', borderRadius: 20 }}>
         {/* Top highlight edge */}
         <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, borderTopLeftRadius: 20, borderTopRightRadius: 20, backgroundColor: 'rgba(255,255,255,0.28)' }} pointerEvents="none" />
         {/* Accent top glow */}
@@ -1161,9 +1161,9 @@ export const PortalScreen = ({ navigation }: any) => {
   const insets = useSafeAreaInsets();
   const accentColor = currentTheme.primary || ACCENT_DEFAULT;
   const textColor = isLight ? '#1A1410' : '#F5F1EA';
-  const subColor = isLight ? '#5A3E22' : '#B0A393';
-  const cardBg = isLight ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.06)';
-  const cardBorder = isLight ? 'rgba(139,100,42,0.35)' : 'rgba(255,255,255,0.08)';
+  const subColor = isLight ? '#3D2810' : '#B0A393';
+  const cardBg = isLight ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.06)';
+  const cardBorder = isLight ? 'rgba(100,70,30,0.45)' : 'rgba(255,255,255,0.08)';
 
   const [dailyPlan] = useState(() => SoulEngineService.generateDailyPlan());
   const [copiedAffirmation, setCopiedAffirmation] = useState(false);
@@ -2168,8 +2168,8 @@ export const PortalScreen = ({ navigation }: any) => {
           {/* ── 2. Soul message / greeting card ── */}
           {!!dailyCache.soulMessage && (
             <Animated.View entering={FadeInDown.delay(50).duration(280)} style={{ marginBottom: 18, borderRadius: 18, overflow: 'hidden', shadowColor: accentColor, shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.22, shadowRadius: 18, elevation: 8 }}>
-              <BlurView intensity={isLight ? 55 : 35} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 18, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.72)' : accentColor + '28' }}>
-                <View style={{ flexDirection: 'row', gap: 14, padding: 16, backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+              <BlurView intensity={isLight ? 55 : 35} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 18, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(100,70,30,0.30)' : accentColor + '28' }}>
+                <View style={{ flexDirection: 'row', gap: 14, padding: 16, backgroundColor: isLight ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.04)' }}>
                   <LinearGradient colors={[accentColor + '18', 'transparent'] as const} style={StyleSheet.absoluteFill} />
                   <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.28)' }} pointerEvents="none" />
                   <View style={[ps.soulBorder, { backgroundColor: accentColor }]} />
@@ -2530,8 +2530,8 @@ export const PortalScreen = ({ navigation }: any) => {
               </Text>
             </View>
             <View style={{ borderRadius: 20, overflow: 'hidden', shadowColor: accentColor, shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.16, shadowRadius: 16, elevation: 7 }}>
-            <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 20, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.70)' : accentColor + '22' }}>
-            <View style={[ps.checklistCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent', borderWidth: 0 }]}>
+            <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 20, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(100,70,30,0.30)' : accentColor + '22' }}>
+            <View style={[ps.checklistCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent', borderWidth: 0 }]}>
               <LinearGradient colors={[accentColor + '10', 'transparent'] as const} style={StyleSheet.absoluteFill} />
               <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.25)' }} pointerEvents="none" />
               <ChecklistItem
@@ -2602,8 +2602,8 @@ export const PortalScreen = ({ navigation }: any) => {
               <Text style={[ps.sectionSub, { color: cosmicWeather.color }]}>{'★'.repeat(cosmicWeather.overall)}</Text>
             </View>
             <View style={{ borderRadius: 20, overflow: 'hidden', shadowColor: cosmicWeather.color, shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.20, shadowRadius: 18, elevation: 8 }}>
-              <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 20, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.70)' : cosmicWeather.color + '30' }}>
-                <Pressable onPress={() => navigation.navigate('CosmicWeather')} style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+              <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 20, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(100,70,30,0.30)' : cosmicWeather.color + '30' }}>
+                <Pressable onPress={() => navigation.navigate('CosmicWeather')} style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.04)' }}>
                   <LinearGradient colors={[cosmicWeather.color + '14', 'transparent'] as const} style={StyleSheet.absoluteFill} />
                   <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.25)' }} pointerEvents="none" />
                   <View style={[ps.wRow, { padding: 16 }]}>
@@ -2714,8 +2714,8 @@ export const PortalScreen = ({ navigation }: any) => {
               <Text style={[ps.sectionSub, { color: '#A78BFA' }]}>{t('portal.dzien_osobisty', 'Dzień osobisty')}</Text>
             </View>
             <View style={{ borderRadius: 20, overflow: 'hidden', shadowColor: '#A78BFA', shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.20, shadowRadius: 18, elevation: 8 }}>
-              <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 20, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.70)' : '#A78BFA30' }}>
-                <Pressable onPress={() => navigation.navigate('Numerology')} style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+              <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 20, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(100,70,30,0.30)' : '#A78BFA30' }}>
+                <Pressable onPress={() => navigation.navigate('Numerology')} style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.04)' }}>
                   <LinearGradient colors={['#A78BFA18', '#6366F10A', 'transparent'] as const} style={StyleSheet.absoluteFill} />
                   <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.25)' }} pointerEvents="none" />
                   <View style={[ps.numCard, { backgroundColor: 'transparent', borderColor: 'transparent', borderWidth: 0 }]}>
@@ -2764,9 +2764,9 @@ export const PortalScreen = ({ navigation }: any) => {
             <View style={ps.ritualPortalGrid}>
               {/* Karta dnia portal tile */}
               <View style={{ borderRadius: 22, overflow: 'hidden', shadowColor: '#CEAE72', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.22, shadowRadius: 18, elevation: 8 }}>
-                <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 22, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.72)' : '#CEAE7230' }}>
+                <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 22, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(100,70,30,0.30)' : '#CEAE7230' }}>
                   <Pressable onPress={() => navigation.navigate('DailyTarot')} style={{ overflow: 'hidden' }}>
-                    <View style={{ padding: 18, backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+                    <View style={{ padding: 18, backgroundColor: isLight ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.04)' }}>
                       <LinearGradient colors={['#CEAE7220', 'transparent'] as const} style={StyleSheet.absoluteFill} />
                       <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.32)' }} pointerEvents="none" />
                       <View style={[ps.ritualPortalIcon, { backgroundColor: '#CEAE721E', borderWidth: 1, borderColor: '#CEAE7244' }]}>
@@ -2785,9 +2785,9 @@ export const PortalScreen = ({ navigation }: any) => {
 
               {/* Kryształ dnia portal tile */}
               <View style={{ borderRadius: 22, overflow: 'hidden', shadowColor: '#A78BFA', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.22, shadowRadius: 18, elevation: 8 }}>
-                <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 22, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.72)' : '#A78BFA30' }}>
+                <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 22, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(100,70,30,0.30)' : '#A78BFA30' }}>
                   <Pressable onPress={() => navigation.navigate('CrystalBall', { mode: 'daily' })} style={{ overflow: 'hidden' }}>
-                    <View style={{ padding: 18, backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+                    <View style={{ padding: 18, backgroundColor: isLight ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.04)' }}>
                       <LinearGradient colors={['#A78BFA20', 'transparent'] as const} style={StyleSheet.absoluteFill} />
                       <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.32)' }} pointerEvents="none" />
                       <View style={[ps.ritualPortalIcon, { backgroundColor: '#A78BFA1E', borderWidth: 1, borderColor: '#A78BFA44' }]}>
@@ -2806,9 +2806,9 @@ export const PortalScreen = ({ navigation }: any) => {
 
               {/* Oddech portal tile */}
               <View style={{ borderRadius: 22, overflow: 'hidden', shadowColor: '#38BDF8', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.22, shadowRadius: 18, elevation: 8 }}>
-                <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 22, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.72)' : '#38BDF830' }}>
+                <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 22, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(100,70,30,0.30)' : '#38BDF830' }}>
                   <Pressable onPress={() => navigation.navigate('Breathwork')} style={{ overflow: 'hidden' }}>
-                    <View style={{ padding: 18, backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+                    <View style={{ padding: 18, backgroundColor: isLight ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.04)' }}>
                       <LinearGradient colors={['#38BDF820', 'transparent'] as const} style={StyleSheet.absoluteFill} />
                       <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.32)' }} pointerEvents="none" />
                       <View style={[ps.ritualPortalIcon, { backgroundColor: '#38BDF81E', borderWidth: 1, borderColor: '#38BDF844' }]}>
@@ -2878,9 +2878,9 @@ export const PortalScreen = ({ navigation }: any) => {
                     <BlurView
                       intensity={isLight ? 48 : 28}
                       tint={isLight ? 'light' : 'dark'}
-                      style={{ borderRadius: 22, overflow: 'hidden', borderWidth: 1.5, borderColor: isLight ? 'rgba(255,255,255,0.72)' : item.color + '55' }}
+                      style={{ borderRadius: 22, overflow: 'hidden', borderWidth: 1.5, borderColor: isLight ? 'rgba(100,70,30,0.35)' : item.color + '55' }}
                     >
-                      <View style={{ paddingVertical: 18, paddingHorizontal: 16, alignItems: 'flex-start', minHeight: 120, backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+                      <View style={{ paddingVertical: 18, paddingHorizontal: 16, alignItems: 'flex-start', minHeight: 120, backgroundColor: isLight ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.04)' }}>
                         <LinearGradient
                           colors={[item.color + '22', item.color + '08', 'transparent'] as const}
                           style={StyleSheet.absoluteFill}
@@ -3060,7 +3060,7 @@ const ps = StyleSheet.create({
   wSub: { fontSize: 12, lineHeight: 18 },
 
   // Energy bar
-  barTrack: { height: 5, borderRadius: 3, backgroundColor: 'rgba(255,255,255,0.1)', overflow: 'hidden' },
+  barTrack: { height: 5, borderRadius: 3, backgroundColor: 'rgba(120,80,30,0.12)', overflow: 'hidden' },
   barFill: { height: 5, borderRadius: 3 },
   energyScore: { fontSize: 18, fontWeight: '700' },
 

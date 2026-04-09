@@ -897,12 +897,12 @@ export function ColorTherapyScreen({ navigation }) {
       <ScrollView
         ref={scrollRef}
         style={{ flex: 1 }}
-        contentContainerStyle={{ paddingHorizontal: layout.padding.screen, paddingBottom: 20 }}
+        contentContainerStyle={{ paddingHorizontal: layout.padding.screen, paddingBottom: 40 }}
         showsVerticalScrollIndicator={false}
       >
         {/* ── MANDALA HERO ──────────────────────────────────── */}
         <Animated.View entering={FadeInDown.duration(700).delay(80)}>
-          <View style={[styles.mandalaHeroCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
+          <View style={[styles.mandalaHeroCard, { backgroundColor: cardBg, borderColor: cardBorder, overflow: 'visible' }]}>
             <Text style={[styles.mandalaHint, { color: subColor }]}>
               {t('colorTherapy.dotknij_mandale_przechyl_dlonia', 'Dotknij mandalę · przechyl dłonią')}
             </Text>
@@ -1563,6 +1563,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     alignItems: 'center',
     overflow: 'visible',
+    minHeight: MANDALA_SIZE + 120,
   },
   mandalaHint: {
     fontSize: 10,

@@ -29,22 +29,22 @@ const AnimatedLine = Animated.createAnimatedComponent(Line);
 const { width: SW, height: SH } = Dimensions.get('window');
 
 // ── Stable seeded star positions (deterministic, no Math.random on render) ──
-const STARS = Array.from({ length: 25 }, (_, i) => ({
+const STARS = Array.from({ length: 40 }, (_, i) => ({
   id: i,
   x: ((i * 127 + 43) % 97) / 97 * SW,
   y: ((i * 83 + 17) % 89) / 89 * SH,
-  r: 0.5 + (i % 3) * 0.8,           // 0.5 / 1.3 / 2.1 px
+  r: 0.8 + (i % 4) * 0.7,           // 0.8 / 1.5 / 2.2 / 2.9 px
   delay: i * 400,
   period: 3000 + (i * 600) % 5000,  // 3000–8000 ms
 }));
 
 // ── Nebula dots (larger, very low opacity, slowly drifting) ─────
-const NEBULA = Array.from({ length: 8 }, (_, i) => ({
+const NEBULA = Array.from({ length: 10 }, (_, i) => ({
   id: i,
   x: ((i * 211 + 31) % 91) / 91 * SW,
   y: ((i * 173 + 57) % 83) / 83 * SH,
   r: 4 + (i % 5),                   // 4–8 px
-  baseOpacity: 0.03 + (i % 6) * 0.008, // 0.03–0.07
+  baseOpacity: 0.05 + (i % 6) * 0.015, // 0.05–0.125
   driftX: ((i % 2 === 0) ? 1 : -1) * (8 + (i % 8)),   // ±8–15 px
   driftY: ((i % 3 === 0) ? 1 : -1) * (6 + (i % 7)),
   period: 20000 + i * 2500,          // 20–40 s
@@ -55,6 +55,7 @@ const SHOOTING_STARS = [
   { id: 0, y: SH * 0.08, length: SW * 0.28, delay: 2000,  period: 18000 },
   { id: 1, y: SH * 0.22, length: SW * 0.22, delay: 9500,  period: 24000 },
   { id: 2, y: SH * 0.14, length: SW * 0.18, delay: 16000, period: 30000 },
+  { id: 3, y: SH * 0.35, length: SW * 0.20, delay: 23000, period: 28000 },
 ];
 
 // ── Single twinkling star ─────────────────────────────────────────
@@ -67,7 +68,7 @@ const TwinkleStar = React.memo(({ star, color }: { star: typeof STARS[number]; c
       withRepeat(
         withSequence(
           withTiming(0.05, { duration: star.period * 0.4 }),
-          withTiming(0.55, { duration: star.period * 0.2 }),
+          withTiming(0.75, { duration: star.period * 0.2 }),
           withTiming(0.05, { duration: star.period * 0.4 }),
         ),
         -1,
