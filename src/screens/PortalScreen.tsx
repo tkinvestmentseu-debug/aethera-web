@@ -151,7 +151,7 @@ const PulsingNumber = React.memo(({ num, color }: { num: number; color: string }
   const s = useAnimatedStyle(() => ({ transform: [{ scale: scale.value }] }));
   return (
     <Animated.View style={[{ width: 56, height: 56, borderRadius: 20, backgroundColor: color + '22', borderWidth: 2, borderColor: color + '55', alignItems: 'center', justifyContent: 'center' }, s]}>
-      <Text style={{ fontSize: 32, fontWeight: '900', color, letterSpacing: -2 }}>{num}</Text>
+      <Text style={{ fontSize: 32, fontFamily: 'Cinzel_700Bold', color, letterSpacing: 0 }}>{num}</Text>
     </Animated.View>
   );
 });
@@ -381,8 +381,8 @@ const AetherEye = React.memo(({ accent, isLight }: { accent: string; isLight: bo
 
         {/* Brand text */}
         <View style={{ position: 'absolute', bottom: 8, left: 0, right: 0, alignItems: 'center' }}>
-          <Text style={{ fontSize: 15, fontWeight: '900', letterSpacing: 5.5, color: accent }}>{t('portal.aethera', '✦ AETHERA ✦')}</Text>
-          <Text style={{ fontSize: 10, letterSpacing: 2, color: accent, opacity: 0.55, marginTop: 4 }}>{t('portal.twoj_mistyczny_portal', 'Twój mistyczny portal')}</Text>
+          <Text style={{ fontSize: 14, fontFamily: 'Cinzel_700Bold', letterSpacing: 6, color: accent }}>{t('portal.aethera', '✦ AETHERA ✦')}</Text>
+          <Text style={{ fontSize: 10, fontFamily: 'Raleway_400Regular', letterSpacing: 2.5, color: accent, opacity: 0.55, marginTop: 4 }}>{t('portal.twoj_mistyczny_portal', 'Twój mistyczny portal')}</Text>
         </View>
       </Animated.View>
     </GestureDetector>
@@ -1126,8 +1126,8 @@ const MiniStatCard = React.memo(({ item, cardBg, textColor }: { item: { id: stri
       <Animated.View style={[StyleSheet.absoluteFill, glowStyle, { backgroundColor: item.color + '33', borderRadius: 20 }]} />
       <LinearGradient colors={[item.color + '1A', 'transparent'] as const} style={StyleSheet.absoluteFill} />
       <Text style={{ fontSize: 32, marginBottom: 6 }}>{item.emoji}</Text>
-      <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 2, marginBottom: 6, color: item.color }}>{item.label}</Text>
-      <Text style={{ fontSize: 22, fontWeight: '900', letterSpacing: -0.5, textAlign: 'center', color: textColor }} numberOfLines={1}>{item.value}</Text>
+      <Text style={{ fontSize: 9, fontFamily: 'Raleway_700Bold', letterSpacing: 2, marginBottom: 6, color: item.color }}>{item.label}</Text>
+      <Text style={{ fontSize: 22, fontFamily: 'Cinzel_700Bold', letterSpacing: 0, textAlign: 'center', color: textColor }} numberOfLines={1}>{item.value}</Text>
     </View>
   );
 });

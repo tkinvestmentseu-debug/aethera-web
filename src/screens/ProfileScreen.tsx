@@ -618,8 +618,8 @@ export const ProfileScreen = ({ navigation, route }: any) => {
               {/* Title bar */}
               <View style={{ paddingHorizontal: layout.padding.screen, paddingTop: 6, paddingBottom: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Animated.View entering={FadeInDown.delay(50).duration(400)}>
-                  <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 3.2, color: accent + 'CC', marginBottom: 2 }}>{t('profile.aethera', '✦ AETHERA')}</Text>
-                  <Text style={{ fontSize: 22, fontWeight: '800', letterSpacing: -0.6, color: isLight ? '#1A1410' : '#F0EBE2' }}>
+                  <Text style={{ fontSize: 9, fontFamily: 'Raleway_700Bold', letterSpacing: 3.5, color: accent + 'CC', marginBottom: 2 }}>{t('profile.aethera', '✦ AETHERA')}</Text>
+                  <Text style={{ fontSize: 22, fontFamily: 'Cinzel_600SemiBold', letterSpacing: 0.2, color: isLight ? '#1A1410' : '#F0EBE2' }}>
                     {tr('profile.title', 'Profil i Ustawienia', 'Profile & Settings')}
                   </Text>
                 </Animated.View>
@@ -681,7 +681,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
                 </View>
 
                 {/* Name + streak inline */}
-                <Text style={{ fontSize: 30, fontWeight: '800', letterSpacing: -0.8, color: isLight ? '#1A1410' : '#F5F1EA', marginBottom: 4 }}>
+                <Text style={{ fontSize: 30, fontFamily: 'Cinzel_400Regular', letterSpacing: 1, color: isLight ? '#1A1410' : '#F5F1EA', marginBottom: 4 }}>
                   {firstName}
                 </Text>
                 {streaks.current > 0 && (

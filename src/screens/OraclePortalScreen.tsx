@@ -771,8 +771,8 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                             }}>
                               <item.Icon color={item.color} size={20} strokeWidth={1.6} />
                             </View>
-                            <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 1.5, color: item.color }}>{item.eyebrow}</Text>
-                            <Text style={{ fontSize: 13, fontWeight: '800', letterSpacing: -0.1, color: textColor }}>{item.label}</Text>
+                            <Text style={{ fontSize: 9, fontFamily: 'Raleway_700Bold', letterSpacing: 1.8, color: item.color }}>{item.eyebrow}</Text>
+                            <Text style={{ fontSize: 13, fontFamily: 'Cinzel_400Regular', letterSpacing: 0, color: textColor }}>{item.label}</Text>
                             <Text style={{ fontSize: 11, lineHeight: 16, color: subColor, opacity: 0.9 }}>{item.desc}</Text>
                           </View>
                         </Pressable>
@@ -1133,7 +1133,7 @@ const op = StyleSheet.create({
     shadowColor: '#A78BFA', shadowOpacity: 0.20, shadowRadius: 12, shadowOffset: { width: 0, height: 4 }, elevation: 5,
   },
   tab: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 10, borderRadius: 18, flexDirection: 'row', gap: 5, overflow: 'hidden' },
-  tabText: { fontSize: 12, fontWeight: '700', letterSpacing: 0.3 },
+  tabText: { fontSize: 11, fontFamily: 'Raleway_700Bold', letterSpacing: 0.8 },
 
   hero: {
     borderRadius: 28, borderWidth: 1, padding: 28, overflow: 'hidden',
