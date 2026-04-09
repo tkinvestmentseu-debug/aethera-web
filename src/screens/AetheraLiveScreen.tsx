@@ -569,7 +569,8 @@ const GoLiveModal = React.memo(({ visible, onClose, onSubmit }) => {
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
-      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0} style={{ flex: 1 }}>
         <Pressable style={sh.modalOverlay} onPress={onClose} />
         <View style={[sh.modalSheet, { backgroundColor: '#12101E' }]}>
           <View style={[sh.modalHandle, { backgroundColor: 'rgba(255,255,255,0.20)' }]} />
@@ -737,7 +738,8 @@ const ViewerModal = React.memo(({ stream, visible, onClose, currentUser }) => {
             </View>
           </LinearGradient>
 
-          <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0} style={{ flex: 1 }}>
             <ScrollView
               ref={chatRef}
               style={{ flex: 1, paddingHorizontal: SP }}

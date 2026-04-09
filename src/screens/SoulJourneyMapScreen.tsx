@@ -231,7 +231,8 @@ const AddMilestoneModal = React.memo(({ visible, onClose, onSubmit, textColor, s
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
-      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0} style={{ flex: 1 }}>
         <Pressable style={{ flex: 1 }} onPress={onClose} />
         <View style={[sh.modalSheet, { backgroundColor: isLight ? '#FAF8F5' : '#12101E' }]}>
           <View style={[sh.modalHandle, { backgroundColor: isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.2)' }]} />

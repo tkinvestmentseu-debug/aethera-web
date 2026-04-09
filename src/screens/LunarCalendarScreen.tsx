@@ -1871,7 +1871,8 @@ return (
 
       {/* JOURNAL MODAL */}
       <Modal visible={showJournalModal} animationType="slide" transparent presentationStyle="overFullScreen">
-        <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0} style={{ flex: 1 }}>
           <View style={lc.modalOverlay}>
             <View style={[lc.modalSheet, { backgroundColor: isLight ? '#FAFAFA' : '#0A0818' }]}>
               <LinearGradient colors={[ACCENT + '14', 'transparent']} style={StyleSheet.absoluteFillObject as any} />

@@ -665,7 +665,8 @@ const ComposeModal = ({ visible, onClose, onSubmit, isLight }: { visible: boolea
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
-      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0} style={{ flex: 1 }}>
         <Pressable style={s.composeOverlay} onPress={onClose} />
         <View style={[s.composeSheet, { backgroundColor: bg, paddingBottom: insets.bottom + 16 }]}>
           <LinearGradient
@@ -834,7 +835,8 @@ const CommentsModal = ({
 
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
-      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0} style={{ flex: 1 }}>
         <Pressable style={s.composeOverlay} onPress={onClose} />
         <View style={[s.commentsSheet, { backgroundColor: bg, paddingBottom: insets.bottom + 16 }]}>
           <View style={s.filterHandle} />

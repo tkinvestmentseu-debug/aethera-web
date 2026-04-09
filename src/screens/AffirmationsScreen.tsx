@@ -733,7 +733,8 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
           </View>
         )}
 
-      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0} style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={[af.scroll, { paddingBottom: screenContracts.bottomInset(insets.bottom, 'detail') + 8 }]} showsVerticalScrollIndicator={false}>
 
           {/* HERO FEATURED */}

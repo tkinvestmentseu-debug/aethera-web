@@ -2245,7 +2245,7 @@ FINANSE:
 
       {/* "Dla kogoś" Modal */}
       <Modal visible={showFsModal} transparent animationType="slide" onRequestClose={() => setShowFsModal(false)}>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }} keyboardVerticalOffset={0}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }} keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
           <Pressable style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)' }} onPress={() => setShowFsModal(false)} />
           <LinearGradient
             colors={isLight ? ['#FFFFFF', '#F5F0E8'] : ['#1A0A0A', '#140610']}

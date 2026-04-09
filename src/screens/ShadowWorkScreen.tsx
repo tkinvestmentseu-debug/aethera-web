@@ -638,7 +638,8 @@ Pisz w języku użytkownika.`,
     <View style={[sw.container, { backgroundColor: currentTheme.background }]}>
       {!isLight && <ShadowBg />}
       <SafeAreaView edges={['top']} style={sw.safe}>
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
           {/* HEADER */}
           <View style={sw.header}>
             <Pressable onPress={() => goBackOrToMainTab(navigation, 'Home')} style={sw.backBtn} hitSlop={20}>

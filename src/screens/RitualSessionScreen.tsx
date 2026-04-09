@@ -1095,7 +1095,7 @@ export const RitualSessionScreen = ({ navigation, route }: any) => {
                   ))}
                 </View>
               )}
-              <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={0}>
+              <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
                 <View style={[sh.drawerInputRow, { borderTopColor: ACCENT + '25', paddingBottom: insets.bottom > 0 ? insets.bottom : 10 }]}>
                   <Pressable onPress={() => setEmojiPickerOpen(v => !v)}
                     style={[sh.drawerEmojiToggle, { borderColor: 'rgba(255,255,255,0.15)' }]}>

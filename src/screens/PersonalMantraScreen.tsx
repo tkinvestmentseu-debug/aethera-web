@@ -691,7 +691,8 @@ ZASADY:
       </View>
 
       {/* ── Scrollable content ── */}
-      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0} style={{ flex: 1 }}>
         <ScrollView
           ref={scrollRef}
           showsVerticalScrollIndicator={false}

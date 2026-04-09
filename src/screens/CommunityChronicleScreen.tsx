@@ -329,7 +329,8 @@ export const CommunityChronicleScreen = ({ navigation }) => {
       <Modal visible={showWriteModal} transparent animationType="slide">
         <TouchableWithoutFeedback onPress={() => setShowWriteModal(false)}>
           <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'flex-end' }}>
-            <KeyboardAvoidingView behavior="padding">
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
               <ScrollView
                 style={{ maxHeight: '90%', backgroundColor: isLight ? '#FFFFFF' : '#12101E', borderTopLeftRadius: 28, borderTopRightRadius: 28 }}
                 keyboardShouldPersistTaps="handled"

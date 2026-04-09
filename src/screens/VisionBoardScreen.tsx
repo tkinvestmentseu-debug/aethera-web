@@ -524,7 +524,8 @@ export function VisionBoardScreen({ navigation }: any) {
 
       {/* Intention Modal */}
       <Modal visible={!!modalArea} animationType="slide" transparent onRequestClose={closeModal}>
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0} style={{ flex: 1 }}>
         <View style={styles.modalOverlay}>
           <Pressable style={StyleSheet.absoluteFill} onPress={closeModal} />
           <View style={[

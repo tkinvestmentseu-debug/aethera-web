@@ -1486,7 +1486,8 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
           MODAL: JOURNAL SAVE
       ══════════════════════════════════════════════ */}
       <Modal visible={showJournalSave} transparent animationType="slide" onRequestClose={() => setShowJournalSave(false)}>
-        <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0} style={{ flex: 1 }}>
           <View style={rc.bottomSheetOverlay}>
             <Pressable style={StyleSheet.absoluteFill} onPress={() => setShowJournalSave(false)} />
             <View style={[rc.bottomSheet, { backgroundColor: isLight ? '#FAF7FF' : '#110A24' }]}>

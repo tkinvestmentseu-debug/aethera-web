@@ -528,7 +528,8 @@ const CreateEventModal = React.memo(function CreateEventModal({
           </Pressable>
         </View>
 
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0} style={{ flex: 1 }}>
           <ScrollView
             contentContainerStyle={{ padding: P, paddingBottom: 40 }}
             showsVerticalScrollIndicator={false}

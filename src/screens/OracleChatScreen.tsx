@@ -1568,7 +1568,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
             <PremiumButton label={t('oracle.zamknij_historie', 'Zamknij historię')} onPress={() => setShowHistory(false)} variant="secondary" style={{ marginTop: 20 }} />
           </ScrollView>
         ) : (
-          <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={0}>
+          <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
             <ScrollView
               ref={scrollViewRef}
               contentContainerStyle={[

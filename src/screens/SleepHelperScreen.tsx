@@ -1273,7 +1273,8 @@ return (
 
       {/* Dream intention modal */}
       <Modal visible={showIntentionModal} transparent animationType="slide" onRequestClose={() => setShowIntentionModal(false)}>
-        <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0} style={{ flex: 1 }}>
           <Pressable style={styles.modalOverlay} onPress={() => setShowIntentionModal(false)}>
             <Pressable
               onPress={e => e.stopPropagation()}

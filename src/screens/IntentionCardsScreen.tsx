@@ -536,7 +536,8 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
   const isPelniaPhase = moonDay >= 14 && moonDay <= 17;
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
       <SafeAreaView style={[s.root, { backgroundColor: currentTheme.background }]} edges={['top']}>
         <IntentionCardsBg isLight={isLight} />
 

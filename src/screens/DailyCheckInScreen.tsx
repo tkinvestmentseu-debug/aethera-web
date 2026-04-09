@@ -895,7 +895,8 @@ export const DailyCheckInScreen = ({ navigation }: any) => {
         ) : (
           <KeyboardAvoidingView
             style={{ flex: 1 }}
-            behavior="padding">
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
             {/* ── Cinematic Header ── */}
             <LinearGradient
               colors={isLight

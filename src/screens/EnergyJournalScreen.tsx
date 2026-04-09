@@ -518,7 +518,8 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
           </Pressable>
         </View>
 
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
           <ScrollView
             contentContainerStyle={[s.scroll, { paddingBottom: screenContracts.bottomInset(insets.bottom, 'standard') + 24 }]}
             showsVerticalScrollIndicator={false}
