@@ -273,6 +273,7 @@ const ORB_CX = ORB_SIZE / 2;
 const ORB_CY = ORB_SIZE / 2;
 
 function AchievementOrb({ unlockedCount, totalCount }: { unlockedCount: number; totalCount: number }) {
+  const { t } = useTranslation();
   const rotate1 = useSharedValue(0);
   const rotate2 = useSharedValue(0);
   const pulse = useSharedValue(1);
@@ -497,6 +498,7 @@ function ConstellationMap({ achievements, stats }: { achievements: any[]; stats:
 function AchievementCard({ item, stats, isLight, index }: {
   item: any; stats: any; isLight: boolean; index: number;
 }) {
+  const { t } = useTranslation();
   const progress = item.getProgress(stats);
   const earned = progress >= item.maxProgress;
   const pct = item.maxProgress > 0 ? Math.min(1, progress / item.maxProgress) : 0;
