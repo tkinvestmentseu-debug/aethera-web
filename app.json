@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Aethera — Duchowy Asystent AI",
-    "slug": "aethera-duniAI",
+    "slug": "aethera",
     "version": "1.0.0",
     "description": "Aethera to premium aplikacja duchowego rozwoju z AI. Horoskopy, Tarot, Medytacje, Rytuały, Oracle AI i wspólnota duchowa.",
     "keywords": ["horoskop", "tarot", "medytacja", "astrologia", "rytuały", "oracle", "duchowość", "afirmacje", "numerologia", "aethera"],
