@@ -11,7 +11,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Svg, { Circle, Path, G, Ellipse, Defs, RadialGradient, Stop } from 'react-native-svg';
 import Animated, {
   FadeInDown, FadeInUp, useSharedValue, useAnimatedStyle,
-  withRepeat, withTiming, withSequence, Easing,
+  withRepeat, withTiming, withSequence, Easing, cancelAnimation,
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import {
@@ -19,8 +19,9 @@ import {
   ArrowRight, BookOpen, Brain, Star, Eye, TrendingUp,
   Feather, Archive, Wand2, MoonStar, ScrollText, Trash2,
   Tag, RotateCcw, BarChart2, ChevronDown, ChevronUp, X,
-  Sun, Zap, Heart, AlertTriangle, Repeat2, Lightbulb,
+  Sun, Zap, Heart, AlertTriangle, Repeat2, Lightbulb, Mic,
 } from 'lucide-react-native';
+import { VoiceDreamSheet } from '../components/VoiceDreamSheet';
 import { useAppStore } from '../store/useAppStore';
 import { useJournalStore } from '../store/useJournalStore';
 import { getResolvedTheme } from '../core/theme/tokens';
@@ -37,6 +38,9 @@ import { formatLocaleDate } from '../core/utils/localeFormat';
 import { useTheme } from '../core/hooks/useTheme';
 const { width: SW, height: SH } = Dimensions.get('window');
 const ACCENT = '#818CF8';
+
+// Module-level animated component for FAB (NEVER inside component body)
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const extractSymbols = (text: string, symbols: Array<{ keyword: string }>) =>
   symbols.filter(s => text.toLowerCase().includes(s.keyword.toLowerCase())).slice(0, 6);
@@ -478,6 +482,22 @@ export const DreamsScreen = ({ navigation }: any) => {
   const [aiLoading,    setAiLoading]    = useState(false);
   const [aiResult,     setAiResult]     = useState('');
   const [showForm,     setShowForm]     = useState(false);
+  const [showVoiceSheet, setShowVoiceSheet] = useState(false);
+
+  // ── FAB pulse animation ───────────────────────────────────────────────────
+  const fabScale = useSharedValue(1);
+  useEffect(() => {
+    fabScale.value = withRepeat(
+      withSequence(
+        withTiming(1.05, { duration: 1000 }),
+        withTiming(1.0,  { duration: 1000 }),
+      ),
+      -1,
+      true,
+    );
+    return () => { cancelAnimation(fabScale); };
+  }, []);
+  const fabAnimStyle = useAnimatedStyle(() => ({ transform: [{ scale: fabScale.value }] }));
 
   // ── Symbolarium state ─────────────────────────────────────────────────────
   const [search,         setSearch]       = useState('');
@@ -1831,6 +1851,60 @@ export const DreamsScreen = ({ navigation }: any) => {
 
             <EndOfContentSpacer size="standard" />
           </ScrollView>
+
+          {/* ── VOICE DREAM FAB ──────────────────────────────────────────── */}
+          {!showForm && (
+            <View style={{
+              position: 'absolute',
+              right: 20,
+              bottom: insets.bottom + 22,
+              alignItems: 'center',
+            }}
+              pointerEvents="box-none"
+            >
+              <AnimatedPressable
+                onPress={() => { HapticsService.impact('medium'); setShowVoiceSheet(true); }}
+                style={[fabAnimStyle, {
+                  width: 64,
+                  height: 64,
+                  borderRadius: 32,
+                  overflow: 'hidden',
+                  shadowColor: '#6D28D9',
+                  shadowOffset: { width: 0, height: 8 },
+                  shadowOpacity: 0.45,
+                  shadowRadius: 18,
+                  elevation: 12,
+                }]}
+              >
+                <LinearGradient
+                  colors={['#6D28D9', '#4F46E5']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+                >
+                  <Mic color="#FFF" size={26} strokeWidth={1.6} />
+                </LinearGradient>
+              </AnimatedPressable>
+              <Text style={{
+                fontSize: 9,
+                fontWeight: '700',
+                color: ACCENT,
+                letterSpacing: 0.5,
+                marginTop: 5,
+                textShadowColor: 'rgba(0,0,0,0.5)',
+                textShadowOffset: { width: 0, height: 1 },
+                textShadowRadius: 3,
+              }}>
+                Nagraj sen
+              </Text>
+            </View>
+          )}
+
+          {/* ── VOICE DREAM SHEET ────────────────────────────────────────── */}
+          <VoiceDreamSheet
+            visible={showVoiceSheet}
+            onClose={() => setShowVoiceSheet(false)}
+          />
 
           {/* FLOATING FORM FOOTER — action buttons when dream form is open */}
           {activeTab === 'sen' && showForm && (

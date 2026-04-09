@@ -194,70 +194,152 @@ const AppLoadingScreen = () => {
     </View>
   );
 };
-// ─── Raised Social Center Button ─────────────────────────────────────────────
+// ─── Raised Social Center Button — PREMIUM ───────────────────────────────────
 const SocialTabButton = ({ children, onPress, accessibilityState, style }: any) => {
   const focused = accessibilityState?.selected;
-  const scaleAnim = useRef(new RNAnimated.Value(1)).current;
-  const glowAnim = useRef(new RNAnimated.Value(0)).current;
-  const { t } = useTranslation();
+  const scaleAnim  = useRef(new RNAnimated.Value(1)).current;
+  const pulse1     = useRef(new RNAnimated.Value(0)).current;
+  const pulse2     = useRef(new RNAnimated.Value(0)).current;
+  const ringRotate = useRef(new RNAnimated.Value(0)).current;
+  const starSpin   = useRef(new RNAnimated.Value(0)).current;
   const { currentTheme: theme, isLight } = useTheme();
-  const accent = theme.primary || '#CEAE72';
+  const accent  = theme.primary || '#CEAE72';
+  const accent2 = '#C084FC';
+
   useEffect(() => {
+    // Outer pulsing aura — two rings at different phases
+    RNAnimated.loop(RNAnimated.sequence([
+      RNAnimated.timing(pulse1, { toValue: 1, duration: 2200, useNativeDriver: true }),
+      RNAnimated.timing(pulse1, { toValue: 0, duration: 2200, useNativeDriver: true }),
+    ])).start();
+    RNAnimated.loop(RNAnimated.sequence([
+      RNAnimated.delay(1100),
+      RNAnimated.timing(pulse2, { toValue: 1, duration: 2200, useNativeDriver: true }),
+      RNAnimated.timing(pulse2, { toValue: 0, duration: 2200, useNativeDriver: true }),
+    ])).start();
+    // Slow orbit ring rotation
     RNAnimated.loop(
-      RNAnimated.sequence([
-        RNAnimated.timing(glowAnim, { toValue: 1, duration: 1800, useNativeDriver: true }),
-        RNAnimated.timing(glowAnim, { toValue: 0, duration: 1800, useNativeDriver: true }),
-      ])
+      RNAnimated.timing(ringRotate, { toValue: 1, duration: 8000, useNativeDriver: true })
+    ).start();
+    // Star counter-rotation (slower)
+    RNAnimated.loop(
+      RNAnimated.timing(starSpin, { toValue: 1, duration: 14000, useNativeDriver: true })
     ).start();
   }, []);
 
   const handlePress = () => {
     RNAnimated.sequence([
-      RNAnimated.timing(scaleAnim, { toValue: 0.88, duration: 100, useNativeDriver: true }),
-      RNAnimated.spring(scaleAnim, { toValue: 1, friction: 4, tension: 200, useNativeDriver: true }),
+      RNAnimated.timing(scaleAnim, { toValue: 0.82, duration: 90, useNativeDriver: true }),
+      RNAnimated.spring(scaleAnim, { toValue: 1, friction: 3, tension: 260, useNativeDriver: true }),
     ]).start();
     onPress?.();
   };
 
-  const glowOpacity = glowAnim.interpolate({ inputRange: [0, 1], outputRange: [0.3, 0.8] });
-  const glowScale = glowAnim.interpolate({ inputRange: [0, 1], outputRange: [1, 1.3] });
+  const aura1Opacity = pulse1.interpolate({ inputRange: [0, 1], outputRange: [0, 0.45] });
+  const aura1Scale   = pulse1.interpolate({ inputRange: [0, 1], outputRange: [1.0, 1.55] });
+  const aura2Opacity = pulse2.interpolate({ inputRange: [0, 1], outputRange: [0, 0.28] });
+  const aura2Scale   = pulse2.interpolate({ inputRange: [0, 1], outputRange: [1.0, 1.75] });
+  const ringDeg      = ringRotate.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '360deg'] });
+  const starDeg      = starSpin.interpolate({ inputRange: [0, 1], outputRange: ['360deg', '0deg'] });
+
+  // Hexagon-ish button: 58×58 with higher borderRadius looks like a squircle
+  const btnSize = focused ? 56 : 52;
+  const btnRadius = focused ? 18 : 16;
 
   return (
-    <Pressable onPress={handlePress} style={[style, { alignItems: 'center', justifyContent: 'flex-start', flex: 1, paddingTop: 4 }]}>
+    <Pressable onPress={handlePress} style={[style, { alignItems: 'center', justifyContent: 'center', flex: 1 }]}>
       <RNAnimated.View style={{ transform: [{ scale: scaleAnim }], alignItems: 'center' }}>
-        {/* Glow ring */}
+
+        {/* Aura ring 1 */}
         <RNAnimated.View pointerEvents="none" style={{
-          position: 'absolute', top: -6, width: 56, height: 56, borderRadius: 28,
-          backgroundColor: accent, opacity: glowOpacity, transform: [{ scale: glowScale }],
+          position: 'absolute', top: -(btnSize * 0.18), width: btnSize, height: btnSize,
+          borderRadius: btnRadius, backgroundColor: accent,
+          opacity: aura1Opacity, transform: [{ scale: aura1Scale }],
         }} />
-        {/* Button body */}
+        {/* Aura ring 2 — wider, softer */}
+        <RNAnimated.View pointerEvents="none" style={{
+          position: 'absolute', top: -(btnSize * 0.18), width: btnSize, height: btnSize,
+          borderRadius: btnRadius, backgroundColor: accent2,
+          opacity: aura2Opacity, transform: [{ scale: aura2Scale }],
+        }} />
+
+        {/* Orbiting dot ring */}
+        <RNAnimated.View pointerEvents="none" style={{
+          position: 'absolute', top: -(btnSize * 0.18) - 6,
+          width: btnSize + 12, height: btnSize + 12,
+          transform: [{ rotate: ringDeg }],
+        }}>
+          {[0,60,120,180,240,300].map((deg, i) => {
+            const r = (btnSize + 12) / 2;
+            const rad = (deg * Math.PI) / 180;
+            const x = r + r * Math.cos(rad) - 3;
+            const y = r + r * Math.sin(rad) - 3;
+            const dotSize = i % 2 === 0 ? 4 : 3;
+            return (
+              <View key={i} style={{
+                position: 'absolute', left: x, top: y,
+                width: dotSize, height: dotSize, borderRadius: dotSize / 2,
+                backgroundColor: i % 2 === 0 ? accent : accent2,
+                opacity: focused ? 0.9 : 0.5,
+              }} />
+            );
+          })}
+        </RNAnimated.View>
+
+        {/* Main button body — squircle gradient */}
         <LinearGradient
           colors={focused
-            ? [accent, '#C084FC', accent + 'BB']
-            : isLight ? ['rgba(240,230,220,0.95)', 'rgba(255,248,235,0.98)', 'rgba(235,225,210,0.92)'] : ['#2A1F4A', '#1A1230', '#110C22']}
+            ? [accent, accent2, '#818CF8']
+            : isLight
+              ? ['rgba(245,238,225,0.98)', 'rgba(255,250,240,0.99)']
+              : ['#221640', '#180F32', '#100A24']}
+          start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
           style={{
-            width: 48, height: 48, borderRadius: 24,
+            width: btnSize, height: btnSize, borderRadius: btnRadius,
             alignItems: 'center', justifyContent: 'center',
-            borderWidth: 2,
-            borderColor: focused ? accent : isLight ? accent + '55' : '#7C3AED55',
-            shadowColor: accent, shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: focused ? 0.7 : 0.4, shadowRadius: 14, elevation: 10,
+            borderWidth: focused ? 0 : 1.5,
+            borderColor: focused ? 'transparent' : isLight ? accent + '44' : accent + '55',
+            shadowColor: focused ? accent : accent,
+            shadowOffset: { width: 0, height: focused ? 6 : 3 },
+            shadowOpacity: focused ? 0.85 : 0.35,
+            shadowRadius: focused ? 18 : 10,
+            elevation: focused ? 16 : 8,
           }}
         >
-          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-            <Globe2 color={focused ? (isLight ? '#fff' : '#fff') : accent} size={18} strokeWidth={focused ? 2 : 1.5} />
+          {/* Inner glow overlay */}
+          {focused && (
             <View style={{
-              position: 'absolute',
-              bottom: -3, right: -3,
-              width: 10, height: 10, borderRadius: 5,
-              backgroundColor: '#F472B6',
-              borderWidth: 1.5, borderColor: focused ? (isLight ? accent : '#fff') : (isLight ? 'rgba(180,160,130,0.6)' : '#1A1230'),
+              position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+              borderRadius: btnRadius, backgroundColor: 'rgba(255,255,255,0.12)',
             }} />
-          </View>
+          )}
+          {/* Globe icon */}
+          <Globe2
+            color={focused ? '#fff' : accent}
+            size={focused ? 22 : 20}
+            strokeWidth={focused ? 2.2 : 1.6}
+          />
+          {/* Rotating star accent */}
+          <RNAnimated.Text pointerEvents="none" style={{
+            position: 'absolute', bottom: 5, right: 5,
+            fontSize: 8, color: focused ? 'rgba(255,255,255,0.9)' : accent2,
+            transform: [{ rotate: starDeg }],
+          }}>✦</RNAnimated.Text>
         </LinearGradient>
-        <Text style={{ color: focused ? accent : accent + 'BB', fontSize: 9, fontWeight: '700', marginTop: 3, letterSpacing: 0.2 }}>
-          {'Wspólnota'}
-        </Text>
+
+        {/* Label */}
+        <LinearGradient
+          colors={focused ? [accent, accent2] : ['transparent', 'transparent']}
+          start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+          style={{ borderRadius: 4, paddingHorizontal: focused ? 4 : 0, marginTop: 3 }}
+        >
+          <Text style={{
+            color: focused ? '#fff' : (isLight ? accent + 'CC' : accent + 'AA'),
+            fontSize: 9, fontWeight: '800', letterSpacing: 0.4,
+          }}>
+            {'Wspólnota'}
+          </Text>
+        </LinearGradient>
       </RNAnimated.View>
     </Pressable>
   );
@@ -382,7 +464,8 @@ const lazy_RitualSessionScreen_108 = () => ws(require('../screens/RitualSessionS
 const lazy_LucidDreamingScreen_109 = () => ws(require('../screens/LucidDreamingScreen').LucidDreamingScreen);
 const lazy_SleepRitualScreen_110 = () => ws(require('../screens/SleepRitualScreen').SleepRitualScreen);
 const lazy_FireCeremonyScreen_111 = () => ws(require('../screens/FireCeremonyScreen').FireCeremonyScreen);
-const lazy_AncestralConnectionScreen_112 = () => ws(require('../screens/AncestralConnectionScreen').AncestralConnectionScreen);
+const lazy_AncestralConnectionScreen_112 = () => ws(require("../screens/AncestralConnectionScreen").AncestralConnectionScreen);
+const lazy_AuraScreen_130 = () => ws(require("../screens/AuraScreen").AuraScreen);
 const lazy_ReleaseLettersScreen_113 = () => ws(require('../screens/ReleaseLettersScreen').ReleaseLettersScreen);
 const lazy_ProtectionRitualScreen_114 = () => ws(require('../screens/ProtectionRitualScreen').ProtectionRitualScreen);
 const lazy_SaltBathScreen_115 = () => ws(require('../screens/SaltBathScreen').SaltBathScreen);
@@ -406,29 +489,68 @@ const lazy_AstroNoteScreen_132 = () => ws(require('../screens/AstroNoteScreen').
 const lazy_NightSymbolatorScreen_133 = () => ws(require('../screens/NightSymbolatorScreen').NightSymbolatorScreen);
 const lazy_NumerologyDetailScreen_134 = () => ws(require('../screens/NumerologyDetailScreen').NumerologyDetailScreen);
 const lazy_SearchScreen_135 = () => ws(require('../screens/SearchScreen').SearchScreen);
+const lazy_AetheraLiveScreen_136 = () => ws(require('../screens/AetheraLiveScreen').AetheraLiveScreen);
+const lazy_SoulJourneyMapScreen_137 = () => ws(require('../screens/SoulJourneyMapScreen').SoulJourneyMapScreen);
+const lazy_AstroCircleScreen_138 = () => ws(require('../screens/AstroCircleScreen').AstroCircleScreen);
+const lazy_SpiritualProgressScreen_139 = () => ws(require('../screens/SpiritualProgressScreen').SpiritualProgressScreen);
+const lazy_CustomRitualBuilderScreen_140 = () => ws(require('../screens/CustomRitualBuilderScreen').CustomRitualBuilderScreen);
+const lazy_NotificationSettingsScreen_141 = () => ws(require('../screens/NotificationSettingsScreen').NotificationSettingsScreen);
+const lazy_TermsOfServiceScreen_142 = () => ws(require('../screens/TermsOfServiceScreen').TermsOfServiceScreen);
+const lazy_PrivacyPolicyScreen_143 = () => ws(require('../screens/PrivacyPolicyScreen').PrivacyPolicyScreen);
 
 
 const MainTabs = () => {
   const insets = useSafeAreaInsets();
   const { t } = useTranslation();
   const { currentTheme, isLight } = useTheme();
-  const inactiveColor = isLight ? 'rgba(80,60,40,0.42)' : 'rgba(255,255,255,0.38)';
+  const inactiveColor = isLight ? 'rgba(80,60,40,0.38)' : 'rgba(255,255,255,0.32)';
   const renderTabLabel = (label: string, focused: boolean, color: string, icon: React.ComponentType<any>) => {
     const Icon = icon;
+    const accent = currentTheme.primary;
     return (
-      <View style={{ alignItems: 'center', gap: 3, paddingTop: 6 }}>
-        <View style={{
-          width: 46, height: 26, borderRadius: 13,
-          alignItems: 'center', justifyContent: 'center',
-          backgroundColor: focused ? currentTheme.primary + (isLight ? '1C' : '24') : 'transparent',
-          borderWidth: focused ? 1 : 0,
-          borderColor: focused ? currentTheme.primary + '40' : 'transparent',
+      <View style={{ alignItems: 'center', gap: 2, paddingTop: 5 }}>
+        {/* Icon container — pill with gradient when focused */}
+        {focused ? (
+          <LinearGradient
+            colors={[accent + '30', accent + '18']}
+            start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+            style={{
+              width: 48, height: 28, borderRadius: 14,
+              alignItems: 'center', justifyContent: 'center',
+              borderWidth: 1, borderColor: accent + '55',
+              shadowColor: accent, shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.4, shadowRadius: 6, elevation: 4,
+            }}
+          >
+            <Icon color={accent} size={17} strokeWidth={2.3} />
+          </LinearGradient>
+        ) : (
+          <View style={{
+            width: 48, height: 28, borderRadius: 14,
+            alignItems: 'center', justifyContent: 'center',
+          }}>
+            <Icon color={inactiveColor} size={16} strokeWidth={1.5} />
+          </View>
+        )}
+        {/* Label */}
+        <Text style={{
+          fontSize: 9,
+          fontWeight: focused ? '800' : '500',
+          color: focused ? accent : inactiveColor,
+          letterSpacing: focused ? 0.3 : 0.1,
         }}>
-          <Icon color={focused ? currentTheme.primary : inactiveColor} size={17} strokeWidth={focused ? 2.2 : 1.5} />
-        </View>
-        <Text style={{ fontSize: 9, fontWeight: focused ? '700' : '500', color: focused ? currentTheme.primary : inactiveColor, letterSpacing: 0.2 }}>
           {label}
         </Text>
+        {/* Active dot */}
+        {focused && (
+          <View style={{
+            width: 4, height: 4, borderRadius: 2,
+            backgroundColor: accent,
+            marginTop: -1,
+            shadowColor: accent, shadowOffset: { width: 0, height: 0 },
+            shadowOpacity: 0.8, shadowRadius: 4,
+          }} />
+        )}
       </View>
     );
   };
@@ -463,12 +585,11 @@ const MainTabs = () => {
         },
         tabBarBackground: () => (
           <View style={StyleSheet.absoluteFill}>
-            <BlurView tint={isLight ? 'light' : 'dark'} intensity={60} style={StyleSheet.absoluteFill} />
+            {/* Bottom nav is ALWAYS dark/cosmic — never light */}
+            <BlurView tint="dark" intensity={80} style={StyleSheet.absoluteFill} />
             <LinearGradient
-              colors={isLight
-                ? ['rgba(255,255,255,0.88)', 'rgba(252,248,240,0.92)']
-                : ['rgba(20,16,30,0.92)', 'rgba(14,10,22,0.96)']}
-              style={[StyleSheet.absoluteFillObject, { borderTopLeftRadius: 28, borderTopRightRadius: 28, borderTopWidth: 1, borderLeftWidth: 0, borderRightWidth: 0, borderBottomWidth: 0, borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' }]}
+              colors={['rgba(12,8,24,0.96)', 'rgba(7,4,16,0.99)']}
+              style={[StyleSheet.absoluteFillObject, { borderTopLeftRadius: 28, borderTopRightRadius: 28, borderTopWidth: 1, borderLeftWidth: 0, borderRightWidth: 0, borderBottomWidth: 0, borderColor: 'rgba(255,255,255,0.10)' }]}
             />
             {/* Top shimmer line */}
             <LinearGradient
@@ -479,7 +600,7 @@ const MainTabs = () => {
           </View>
         ),
         tabBarActiveTintColor: currentTheme.primary,
-        tabBarInactiveTintColor: isLight ? 'rgba(80,60,40,0.42)' : 'rgba(255,255,255,0.38)',
+        tabBarInactiveTintColor: 'rgba(255,255,255,0.38)', // always light on dark bar
         tabBarShowLabel: true,
         tabBarItemStyle: { paddingVertical: 0, minHeight: 0, minWidth: 0, flex: 1, justifyContent: 'center', alignItems: 'center' },
         tabBarIconStyle: { display: 'none' },
@@ -600,8 +721,41 @@ export const AppNavigator = () => {
   // Using React Navigation's recommended auth pattern: conditional screen groups
   // inside ONE navigator. This prevents NavigationContainer from remounting when
   // auth state changes (which would break SplashIntroScreen's timer callbacks).
+
+  // ─── Deep Linking configuration ───────────────────────────────────────────
+  const linking: any = {
+    prefixes: ['aethera://', 'https://aethera.pl'],
+    config: {
+      screens: {
+        Main: {
+          screens: {
+            Portal: {
+              screens: {
+                Home: 'home',
+                Today: 'today',
+              },
+            },
+            Oracle: {
+              screens: {
+                OraclePortal: 'oracle',
+                OracleChat: 'oracle/chat',
+              },
+            },
+          },
+        },
+        Horoscope: 'horoscope',
+        Journal: 'journal',
+        Meditation: 'meditation',
+        SpiritualProgress: 'progress',
+        Paywall: 'premium',
+        NotificationSettings: 'notifications/settings',
+      },
+    },
+  };
+
   return (
     <NavigationContainer
+      linking={linking}
       onStateChange={() => {
         // Defer audio ops until AFTER navigation animation finishes — prevents 2-3s lag
         InteractionManager.runAfterInteractions(() => {
@@ -758,11 +912,15 @@ export const AppNavigator = () => {
             <Stack.Screen name="GlobalShare" getComponent={lazy_GlobalShareScreen_106} />
             <Stack.Screen name="CommunityChat" getComponent={lazy_CommunityChatScreen_107} />
             <Stack.Screen name="CommunityEvents" getComponent={lazy_CommunityEventsScreen_108b} />
+            <Stack.Screen name="AetheraLive" getComponent={lazy_AetheraLiveScreen_136} />
+            <Stack.Screen name="SoulJourneyMap" getComponent={lazy_SoulJourneyMapScreen_137} />
+            <Stack.Screen name="AstroCircle" getComponent={lazy_AstroCircleScreen_138} />
             <Stack.Screen name="RitualSession" getComponent={lazy_RitualSessionScreen_108} />
             <Stack.Screen name="LucidDreaming" getComponent={lazy_LucidDreamingScreen_109} />
             <Stack.Screen name="SleepRitual" getComponent={lazy_SleepRitualScreen_110} />
             <Stack.Screen name="FireCeremony" getComponent={lazy_FireCeremonyScreen_111} />
             <Stack.Screen name="AncestralConnection" getComponent={lazy_AncestralConnectionScreen_112} />
+            <Stack.Screen name="Aura" getComponent={lazy_AuraScreen_130} />
             <Stack.Screen name="ReleaseLetters" getComponent={lazy_ReleaseLettersScreen_113} />
             <Stack.Screen name="ProtectionRitual" getComponent={lazy_ProtectionRitualScreen_114} />
             <Stack.Screen name="SaltBath" getComponent={lazy_SaltBathScreen_115} />
@@ -786,6 +944,11 @@ export const AppNavigator = () => {
             <Stack.Screen name="NightSymbolator" getComponent={lazy_NightSymbolatorScreen_133} />
             <Stack.Screen name="NumerologyDetail" getComponent={lazy_NumerologyDetailScreen_134} />
             <Stack.Screen name="Search" getComponent={lazy_SearchScreen_135} options={{ animation: 'slide_from_bottom', gestureEnabled: true }} />
+            <Stack.Screen name="SpiritualProgress" getComponent={lazy_SpiritualProgressScreen_139} />
+            <Stack.Screen name="CustomRitualBuilder" getComponent={lazy_CustomRitualBuilderScreen_140} />
+            <Stack.Screen name="NotificationSettings" getComponent={lazy_NotificationSettingsScreen_141} />
+            <Stack.Screen name="TermsOfService" getComponent={lazy_TermsOfServiceScreen_142} />
+            <Stack.Screen name="PrivacyPolicy" getComponent={lazy_PrivacyPolicyScreen_143} />
             <Stack.Screen name="Welcome" component={WelcomeScreenWrapper} />
           </Stack.Group>
         )}

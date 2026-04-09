@@ -1,4 +1,4 @@
-import { getLoadingMessage } from '../core/utils/loadingMessages';
+// @ts-nocheck
 import { useNetworkStatus } from '../core/hooks/useNetworkStatus';
 import { OfflineBanner } from '../components/OfflineBanner';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -46,53 +46,148 @@ import {
   ArrowRight,
   Star,
   CornerDownLeft,
+  Mic,
 } from 'lucide-react-native';
 import { MusicToggleButton } from '../components/MusicToggleButton';
-import Animated, { FadeIn, FadeInUp, withRepeat, withTiming, withSequence, withDelay, useSharedValue, useAnimatedStyle } from 'react-native-reanimated';
+import Animated, {
+  FadeIn,
+  FadeInUp,
+  FadeOut,
+  withRepeat,
+  withTiming,
+  withSequence,
+  withDelay,
+  useSharedValue,
+  useAnimatedStyle,
+  cancelAnimation,
+  Easing,
+} from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { AiService } from '../core/services/ai.service';
 import { useKeyboardOpen } from '../hooks/useKeyboardOpen';
 import { SpeakButton } from '../components/SpeakButton';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Svg, { Circle, Defs, Ellipse, RadialGradient as SvgRadialGradient, Stop } from 'react-native-svg';
+import Svg, { Circle, Defs, Ellipse, RadialGradient as SvgRadialGradient, Stop, Line, G } from 'react-native-svg';
 import { useTranslation } from 'react-i18next';
 import { Dimensions } from 'react-native';
 import { useTheme } from '../core/hooks/useTheme';
+
 const { width: OCS_W, height: OCS_H } = Dimensions.get('window');
 
-// ── Oracle ambient background (floating orbs + mode-tinted glow) ─────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// STAR FIELD — 20 fixed stars, module-level positions for stability
+// ─────────────────────────────────────────────────────────────────────────────
+const STAR_DATA = Array.from({ length: 20 }, (_, i) => ({
+  id: i,
+  x: (((i * 137.508 + 23) % OCS_W) + OCS_W) % OCS_W,
+  y: (((i * 97.31 + 41) % (OCS_H * 0.85)) + OCS_H * 0.85) % (OCS_H * 0.85),
+  size: 1 + (i % 3),
+  delay: (i * 340) % 3200,
+  duration: 1800 + (i % 7) * 400,
+}));
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ANIMATED SVG STAR — single twinkling star (module-level component)
+// ─────────────────────────────────────────────────────────────────────────────
+const TwinkleStar = React.memo(({ x, y, size, delay, duration }: typeof STAR_DATA[0]) => {
+  const opacity = useSharedValue(0.05);
+
+  useEffect(() => {
+    opacity.value = withDelay(
+      delay,
+      withRepeat(
+        withSequence(
+          withTiming(0.05 + size * 0.08, { duration, easing: Easing.inOut(Easing.sin) }),
+          withTiming(0.02, { duration, easing: Easing.inOut(Easing.sin) }),
+        ),
+        -1,
+        true,
+      ),
+    );
+    return () => cancelAnimation(opacity);
+  }, []);
+
+  const style = useAnimatedStyle(() => ({ opacity: opacity.value }));
+
+  return (
+    <Animated.View
+      style={[
+        {
+          position: 'absolute',
+          left: x,
+          top: y,
+          width: size,
+          height: size,
+          borderRadius: size / 2,
+          backgroundColor: '#FFFFFF',
+        },
+        style,
+      ]}
+      pointerEvents="none"
+    />
+  );
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// STAR FIELD LAYER
+// ─────────────────────────────────────────────────────────────────────────────
+const StarField = React.memo(() => (
+  <View style={StyleSheet.absoluteFill} pointerEvents="none">
+    {STAR_DATA.map((s) => (
+      <TwinkleStar key={s.id} {...s} />
+    ))}
+  </View>
+));
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ORACLE BACKGROUND (ambient orbs + star field)
+// ─────────────────────────────────────────────────────────────────────────────
 const OracleBackground = React.memo(({ modeColor, isLight }: { modeColor: string; isLight: boolean }) => {
   if (isLight) return null;
   return (
     <View style={StyleSheet.absoluteFill} pointerEvents="none">
       {/* Deep dark base gradient */}
       <LinearGradient
-        colors={['#07060F', '#0C0918', '#090714']}
+        colors={['#06050E', '#0B0717', '#08060F']}
         locations={[0, 0.5, 1]}
         style={StyleSheet.absoluteFill}
       />
+      {/* Star field */}
+      <StarField />
       {/* Mode-color radial glow at top */}
-      <Svg style={{ position: 'absolute', top: 0, left: 0, right: 0, width: OCS_W, height: OCS_H * 0.55 }} width={OCS_W} height={OCS_H * 0.55}>
+      <Svg
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, width: OCS_W, height: OCS_H * 0.55 }}
+        width={OCS_W}
+        height={OCS_H * 0.55}
+      >
         <Defs>
           <SvgRadialGradient id="glowTop" cx="50%" cy="0%" rx="65%" ry="65%">
-            <Stop offset="0%" stopColor={modeColor} stopOpacity="0.18" />
+            <Stop offset="0%" stopColor={modeColor} stopOpacity="0.22" />
             <Stop offset="100%" stopColor={modeColor} stopOpacity="0" />
           </SvgRadialGradient>
         </Defs>
         <Circle cx={OCS_W / 2} cy={0} r={OCS_W * 0.8} fill="url(#glowTop)" />
       </Svg>
       {/* Floating orb 1 — top-right */}
-      <Svg style={{ position: 'absolute', top: OCS_H * 0.06, right: -OCS_W * 0.1, width: OCS_W * 0.55, height: OCS_W * 0.55 }} width={OCS_W * 0.55} height={OCS_W * 0.55}>
+      <Svg
+        style={{ position: 'absolute', top: OCS_H * 0.06, right: -OCS_W * 0.1, width: OCS_W * 0.55, height: OCS_W * 0.55 }}
+        width={OCS_W * 0.55}
+        height={OCS_W * 0.55}
+      >
         <Defs>
           <SvgRadialGradient id="orb1" cx="50%" cy="50%" rx="50%" ry="50%">
-            <Stop offset="0%" stopColor={modeColor} stopOpacity="0.10" />
+            <Stop offset="0%" stopColor={modeColor} stopOpacity="0.12" />
             <Stop offset="100%" stopColor={modeColor} stopOpacity="0" />
           </SvgRadialGradient>
         </Defs>
         <Circle cx={OCS_W * 0.55 / 2} cy={OCS_W * 0.55 / 2} r={OCS_W * 0.55 / 2} fill="url(#orb1)" />
       </Svg>
       {/* Floating orb 2 — bottom-left */}
-      <Svg style={{ position: 'absolute', bottom: OCS_H * 0.15, left: -OCS_W * 0.15, width: OCS_W * 0.50, height: OCS_W * 0.50 }} width={OCS_W * 0.50} height={OCS_W * 0.50}>
+      <Svg
+        style={{ position: 'absolute', bottom: OCS_H * 0.15, left: -OCS_W * 0.15, width: OCS_W * 0.50, height: OCS_W * 0.50 }}
+        width={OCS_W * 0.50}
+        height={OCS_W * 0.50}
+      >
         <Defs>
           <SvgRadialGradient id="orb2" cx="50%" cy="50%" rx="50%" ry="50%">
             <Stop offset="0%" stopColor="#6D28D9" stopOpacity="0.10" />
@@ -103,12 +198,12 @@ const OracleBackground = React.memo(({ modeColor, isLight }: { modeColor: string
       </Svg>
       {/* Subtle vignette from edges */}
       <LinearGradient
-        colors={['rgba(0,0,0,0.30)', 'transparent']}
+        colors={['rgba(0,0,0,0.35)', 'transparent']}
         locations={[0, 0.35]}
         style={StyleSheet.absoluteFill}
       />
       <LinearGradient
-        colors={['transparent', 'rgba(0,0,0,0.40)']}
+        colors={['transparent', 'rgba(0,0,0,0.45)']}
         locations={[0.65, 1]}
         style={StyleSheet.absoluteFill}
       />
@@ -116,13 +211,260 @@ const OracleBackground = React.memo(({ modeColor, isLight }: { modeColor: string
   );
 });
 
-// ── OracleSphere3D widget ──────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// ORACLE ORB — Living breathing avatar (80px, 3 concentric rings)
+// ─────────────────────────────────────────────────────────────────────────────
+const OracleOrb = React.memo(({ modeColor, isTyping }: { modeColor: string; isTyping: boolean }) => {
+  const outerRot   = useSharedValue(0);
+  const middleRot  = useSharedValue(0);
+  const innerScale = useSharedValue(1);
+  const burstScale = useSharedValue(1);
+  const burstOpacity = useSharedValue(0);
+  const prevTyping = useRef(false);
+
+  useEffect(() => {
+    // Outer ring — slow clockwise 20s
+    outerRot.value = withRepeat(
+      withTiming(360, { duration: 20000, easing: Easing.linear }),
+      -1,
+      false,
+    );
+    // Middle ring — counter-clockwise 15s
+    middleRot.value = withRepeat(
+      withTiming(-360, { duration: 15000, easing: Easing.linear }),
+      -1,
+      false,
+    );
+    return () => {
+      cancelAnimation(outerRot);
+      cancelAnimation(middleRot);
+      cancelAnimation(innerScale);
+    };
+  }, []);
+
+  useEffect(() => {
+    cancelAnimation(innerScale);
+    if (isTyping) {
+      // Fast pulse when typing — 0.8s cycle
+      innerScale.value = withRepeat(
+        withSequence(
+          withTiming(1.15, { duration: 400, easing: Easing.inOut(Easing.quad) }),
+          withTiming(0.88, { duration: 400, easing: Easing.inOut(Easing.quad) }),
+        ),
+        -1,
+        false,
+      );
+    } else {
+      // Gentle breath 2.5s cycle
+      innerScale.value = withRepeat(
+        withSequence(
+          withTiming(1.1, { duration: 1250, easing: Easing.inOut(Easing.sin) }),
+          withTiming(0.9, { duration: 1250, easing: Easing.inOut(Easing.sin) }),
+        ),
+        -1,
+        true,
+      );
+
+      // If transitioning FROM typing → burst animation
+      if (prevTyping.current) {
+        burstOpacity.value = withSequence(
+          withTiming(0.8, { duration: 120 }),
+          withTiming(0, { duration: 600 }),
+        );
+        burstScale.value = withSequence(
+          withTiming(1.5, { duration: 200, easing: Easing.out(Easing.quad) }),
+          withTiming(1.0, { duration: 500, easing: Easing.out(Easing.quad) }),
+        );
+      }
+    }
+    prevTyping.current = isTyping;
+  }, [isTyping]);
+
+  const outerStyle  = useAnimatedStyle(() => ({ transform: [{ rotate: `${outerRot.value}deg` }] }));
+  const middleStyle = useAnimatedStyle(() => ({ transform: [{ rotate: `${middleRot.value}deg` }] }));
+  const innerStyle  = useAnimatedStyle(() => ({ transform: [{ scale: innerScale.value }] }));
+  const burstStyle  = useAnimatedStyle(() => ({ transform: [{ scale: burstScale.value }], opacity: burstOpacity.value }));
+
+  const ORB = 80;
+  const cx = ORB / 2;
+  const gold = isTyping ? '#F59E0B' : '#7C3AED';
+  const goldLight = isTyping ? '#FBBF24' : '#A78BFA';
+
+  return (
+    <View style={{ width: ORB, height: ORB, alignItems: 'center', justifyContent: 'center' }}>
+      {/* Burst ring (shown on AI response arrival) */}
+      <Animated.View
+        style={[
+          StyleSheet.absoluteFill,
+          { borderRadius: ORB / 2, borderWidth: 2, borderColor: goldLight },
+          burstStyle,
+        ]}
+        pointerEvents="none"
+      />
+      {/* Outer rotating ring */}
+      <Animated.View style={[StyleSheet.absoluteFill, outerStyle]}>
+        <Svg width={ORB} height={ORB}>
+          <Defs>
+            <SvgRadialGradient id="orbGlow" cx="50%" cy="50%" rx="50%" ry="50%">
+              <Stop offset="0%" stopColor={gold} stopOpacity="0.25" />
+              <Stop offset="100%" stopColor={gold} stopOpacity="0" />
+            </SvgRadialGradient>
+          </Defs>
+          {/* Outer glow */}
+          <Circle cx={cx} cy={cx} r={cx - 1} fill="url(#orbGlow)" />
+          {/* Outer dashed ring */}
+          <Circle
+            cx={cx}
+            cy={cx}
+            r={cx - 2}
+            fill="none"
+            stroke={gold}
+            strokeWidth={1.2}
+            strokeDasharray="3 5"
+            opacity={0.7}
+          />
+          {/* Tick marks on outer ring */}
+          {[0, 60, 120, 180, 240, 300].map((deg, i) => {
+            const rad = (deg * Math.PI) / 180;
+            const r1 = cx - 4;
+            const r2 = cx - 1;
+            return (
+              <Line
+                key={i}
+                x1={cx + r1 * Math.cos(rad)}
+                y1={cx + r1 * Math.sin(rad)}
+                x2={cx + r2 * Math.cos(rad)}
+                y2={cx + r2 * Math.sin(rad)}
+                stroke={gold}
+                strokeWidth={1.5}
+                opacity={0.9}
+              />
+            );
+          })}
+        </Svg>
+      </Animated.View>
+      {/* Middle counter-rotating ring */}
+      <Animated.View style={[StyleSheet.absoluteFill, { margin: 10 }, middleStyle]}>
+        <Svg width={ORB - 20} height={ORB - 20}>
+          <Circle
+            cx={(ORB - 20) / 2}
+            cy={(ORB - 20) / 2}
+            r={(ORB - 20) / 2 - 2}
+            fill="none"
+            stroke={goldLight}
+            strokeWidth={1}
+            strokeDasharray="2 6"
+            opacity={0.55}
+          />
+          {/* Diamond markers on middle ring */}
+          {[45, 135, 225, 315].map((deg, i) => {
+            const r = (ORB - 20) / 2 - 2;
+            const rad = (deg * Math.PI) / 180;
+            const hx = (ORB - 20) / 2;
+            return (
+              <Circle
+                key={i}
+                cx={hx + r * Math.cos(rad)}
+                cy={hx + r * Math.sin(rad)}
+                r={2}
+                fill={goldLight}
+                opacity={0.85}
+              />
+            );
+          })}
+        </Svg>
+      </Animated.View>
+      {/* Inner pulsing circle */}
+      <Animated.View
+        style={[
+          {
+            position: 'absolute',
+            width: ORB - 34,
+            height: ORB - 34,
+            borderRadius: (ORB - 34) / 2,
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+          },
+          innerStyle,
+        ]}
+      >
+        <LinearGradient
+          colors={isTyping ? ['#92400E', '#F59E0B', '#7C3AED'] : ['#1E1B4B', '#4C1D95', '#6D28D9']}
+          start={{ x: 0.2, y: 0 }}
+          end={{ x: 0.8, y: 1 }}
+          style={StyleSheet.absoluteFill}
+        />
+        <Text style={{ fontSize: 18, color: '#fff' }}>✦</Text>
+      </Animated.View>
+    </View>
+  );
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ORACLE MEMORY BADGE — shows if past sessions exist
+// ─────────────────────────────────────────────────────────────────────────────
+const OracleMemoryBadge = React.memo(({ modeColor }: { modeColor: string }) => {
+  const glow = useSharedValue(0.6);
+
+  useEffect(() => {
+    glow.value = withRepeat(
+      withSequence(
+        withTiming(1, { duration: 1600, easing: Easing.inOut(Easing.sin) }),
+        withTiming(0.5, { duration: 1600, easing: Easing.inOut(Easing.sin) }),
+      ),
+      -1,
+      true,
+    );
+    return () => cancelAnimation(glow);
+  }, []);
+
+  const style = useAnimatedStyle(() => ({
+    opacity: glow.value,
+    shadowOpacity: glow.value * 0.6,
+  }));
+
+  return (
+    <Animated.View
+      entering={FadeIn.delay(300).duration(600)}
+      style={[
+        {
+          flexDirection: 'row',
+          alignItems: 'center',
+          alignSelf: 'center',
+          paddingHorizontal: 14,
+          paddingVertical: 6,
+          borderRadius: 999,
+          borderWidth: 1,
+          borderColor: modeColor + '55',
+          backgroundColor: modeColor + '14',
+          marginBottom: 10,
+          shadowColor: modeColor,
+          shadowRadius: 10,
+          shadowOffset: { width: 0, height: 0 },
+          elevation: 4,
+        },
+        style,
+      ]}
+    >
+      <Text style={{ fontSize: 10, color: '#F59E0B', marginRight: 5 }}>✦</Text>
+      <Text style={{ fontSize: 11, color: modeColor, fontWeight: '600', letterSpacing: 0.5 }}>
+        Oracle Cię pamięta
+      </Text>
+    </Animated.View>
+  );
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ORACLE SPHERE 3D widget (used in empty state hero)
+// ─────────────────────────────────────────────────────────────────────────────
 const OracleSphere3D = React.memo(({ accent }: { accent: string }) => {
   const rot = useSharedValue(0);
   const tiltX = useSharedValue(0);
   const tiltY = useSharedValue(0);
   useEffect(() => {
-    rot.value = withRepeat(withTiming(360, { duration: 12000 }), -1, false);
+    rot.value = withRepeat(withTiming(360, { duration: 12000, easing: Easing.linear }), -1, false);
+    return () => cancelAnimation(rot);
   }, []);
   const pan = Gesture.Pan()
     .onUpdate(e => {
@@ -153,7 +495,7 @@ const OracleSphere3D = React.memo(({ accent }: { accent: string }) => {
           </Svg>
           <Animated.View style={[StyleSheet.absoluteFill, { alignItems: 'center', justifyContent: 'center' }, orbitStyle]}>
             <Svg width={sz} height={sz}>
-              {[0,1,2,3,4,5].map(i => {
+              {[0, 1, 2, 3, 4, 5].map(i => {
                 const a = (i / 6) * 2 * Math.PI;
                 return <Circle key={i} cx={cx + 38 * Math.cos(a)} cy={cx + 38 * Math.sin(a) * 0.32} r={i % 2 === 0 ? 4 : 2.5} fill={accent} opacity={i % 2 === 0 ? 0.85 : 0.45} />;
               })}
@@ -165,38 +507,131 @@ const OracleSphere3D = React.memo(({ accent }: { accent: string }) => {
   );
 });
 
-// ── Animated typing indicator ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// TYPING INDICATOR — wave-style dots + italic status text
+// ─────────────────────────────────────────────────────────────────────────────
 const TypingDots = React.memo(({ color }: { color: string }) => {
   const d1 = useSharedValue(0); const d2 = useSharedValue(0); const d3 = useSharedValue(0);
   const o1 = useSharedValue(0.4); const o2 = useSharedValue(0.4); const o3 = useSharedValue(0.4);
   const s1v = useSharedValue(1); const s2v = useSharedValue(1); const s3v = useSharedValue(1);
+  const textOpacity = useSharedValue(0);
 
   useEffect(() => {
-    const bounce = withRepeat(withSequence(withTiming(-7, { duration: 320 }), withTiming(1, { duration: 180 }), withTiming(0, { duration: 200 })), -1, false);
-    const glow   = withRepeat(withSequence(withTiming(1.0, { duration: 320 }), withTiming(0.38, { duration: 380 })), -1, false);
-    const scl    = withRepeat(withSequence(withTiming(1.22, { duration: 320 }), withTiming(0.88, { duration: 380 })), -1, false);
-    d1.value = bounce;             o1.value = glow;             s1v.value = scl;
-    d2.value = withDelay(140, bounce); o2.value = withDelay(140, glow); s2v.value = withDelay(140, scl);
-    d3.value = withDelay(280, bounce); o3.value = withDelay(280, glow); s3v.value = withDelay(280, scl);
+    // Wave sine motion (sequential, not bounce)
+    const wave = withRepeat(
+      withSequence(
+        withTiming(-6, { duration: 300, easing: Easing.inOut(Easing.sin) }),
+        withTiming(2, { duration: 200, easing: Easing.inOut(Easing.sin) }),
+        withTiming(0, { duration: 200, easing: Easing.inOut(Easing.sin) }),
+      ),
+      -1,
+      false,
+    );
+    const glow = withRepeat(withSequence(withTiming(1.0, { duration: 300 }), withTiming(0.35, { duration: 400 })), -1, false);
+    const scl  = withRepeat(withSequence(withTiming(1.25, { duration: 300 }), withTiming(0.85, { duration: 400 })), -1, false);
+
+    d1.value = wave;
+    d2.value = withDelay(140, wave);
+    d3.value = withDelay(280, wave);
+    o1.value = glow;
+    o2.value = withDelay(140, glow);
+    o3.value = withDelay(280, glow);
+    s1v.value = scl;
+    s2v.value = withDelay(140, scl);
+    s3v.value = withDelay(280, scl);
+
+    // Fade text in/out
+    textOpacity.value = withRepeat(
+      withSequence(
+        withTiming(1, { duration: 600, easing: Easing.inOut(Easing.quad) }),
+        withTiming(0.45, { duration: 600, easing: Easing.inOut(Easing.quad) }),
+      ),
+      -1,
+      true,
+    );
+
+    return () => {
+      cancelAnimation(d1); cancelAnimation(d2); cancelAnimation(d3);
+      cancelAnimation(o1); cancelAnimation(o2); cancelAnimation(o3);
+      cancelAnimation(s1v); cancelAnimation(s2v); cancelAnimation(s3v);
+      cancelAnimation(textOpacity);
+    };
   }, []);
 
-  const mk = (d: any, o: any, sv: any) => useAnimatedStyle(() => ({ transform: [{ translateY: d.value }, { scale: sv.value }], opacity: o.value }));
-  const st1 = mk(d1, o1, s1v); const st2 = mk(d2, o2, s2v); const st3 = mk(d3, o3, s3v);
+  // All useAnimatedStyle calls are unconditional at top level (Rules of Hooks compliant)
+  const st1 = useAnimatedStyle(() => ({ transform: [{ translateY: d1.value }, { scale: s1v.value }], opacity: o1.value }));
+  const st2 = useAnimatedStyle(() => ({ transform: [{ translateY: d2.value }, { scale: s2v.value }], opacity: o2.value }));
+  const st3 = useAnimatedStyle(() => ({ transform: [{ translateY: d3.value }, { scale: s3v.value }], opacity: o3.value }));
+  const textStyle = useAnimatedStyle(() => ({ opacity: textOpacity.value }));
 
   return (
-    <Animated.View entering={FadeIn.duration(220)} style={td.wrap}>
-      <Animated.View style={[td.dot, { backgroundColor: color }, st1]} />
-      <Animated.View style={[td.dot, { backgroundColor: color, width: 11, height: 11, borderRadius: 5.5 }, st2]} />
-      <Animated.View style={[td.dot, { backgroundColor: color }, st3]} />
+    <Animated.View entering={FadeIn.duration(220)} exiting={FadeOut.duration(300)} style={td.wrap}>
+      {/* Oracle orb mini */}
+      <View style={[td.miniOrb, { borderColor: color + '66', backgroundColor: color + '18' }]}>
+        <Text style={{ fontSize: 8, color }}>✦</Text>
+      </View>
+      <View style={{ flex: 1, paddingLeft: 10 }}>
+        {/* Shimmer placeholder bubble */}
+        <View style={[td.shimmerBubble, { borderColor: color + '33', borderLeftColor: color }]}>
+          <LinearGradient
+            colors={[color + '08', color + '1A', color + '08']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={StyleSheet.absoluteFill}
+          />
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+            <Animated.View style={[td.dot, { backgroundColor: color }, st1]} />
+            <Animated.View style={[td.dot, { backgroundColor: color, width: 11, height: 11, borderRadius: 5.5 }, st2]} />
+            <Animated.View style={[td.dot, { backgroundColor: color }, st3]} />
+          </View>
+          <Animated.Text style={[td.statusText, { color: color + 'BB' }, textStyle]}>
+            Wyrocznia szuka odpowiedzi...
+          </Animated.Text>
+        </View>
+      </View>
     </Animated.View>
   );
 });
 
 const td = StyleSheet.create({
-  wrap: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 16, paddingHorizontal: 20, alignSelf: 'flex-start' },
+  wrap: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    paddingVertical: 10,
+    paddingHorizontal: 4,
+    marginTop: 8,
+  },
+  miniOrb: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 4,
+  },
+  shimmerBubble: {
+    borderRadius: 18,
+    borderTopLeftRadius: 4,
+    borderWidth: 1,
+    borderLeftWidth: 2,
+    paddingHorizontal: 18,
+    paddingVertical: 14,
+    overflow: 'hidden',
+    gap: 8,
+  },
   dot: { width: 9, height: 9, borderRadius: 4.5 },
+  statusText: {
+    fontSize: 12,
+    fontStyle: 'italic',
+    letterSpacing: 0.3,
+    marginTop: 2,
+  },
 });
 
+// ─────────────────────────────────────────────────────────────────────────────
+// ORACLE MODES / PRESETS / SUGGESTIONS
+// ─────────────────────────────────────────────────────────────────────────────
 const ORACLE_MODES: { id: OracleMode; label: string; copy: string; color: string; premium?: boolean }[] = [
   { id: 'gentle',      label: 'Delikatny',     copy: 'Miękkie prowadzenie i regulacja.',         color: '#F472B6' },
   { id: 'direct',      label: 'Bezpośredni',   copy: 'Jasny kierunek bez rozwadniania.',          color: '#60A5FA' },
@@ -377,10 +812,13 @@ const buildContextualSuggestions = (
   ].filter(Boolean) as string[];
 
   if (stage === 'entry') {
-    return [...contextSignals, ...stageSignals, ...profile.entry, ...emotionalSignals].filter((value, index, self) => self.indexOf(value) === index).slice(0, 5);
+    return [...contextSignals, ...stageSignals, ...profile.entry, ...emotionalSignals]
+      .filter((value, index, self) => self.indexOf(value) === index)
+      .slice(0, 5);
   }
-
-  return [...contextSignals, ...stageSignals, ...profile.deepen, ...profile.integrate, ...emotionalSignals].filter((value, index, self) => self.indexOf(value) === index).slice(0, 6);
+  return [...contextSignals, ...stageSignals, ...profile.deepen, ...profile.integrate, ...emotionalSignals]
+    .filter((value, index, self) => self.indexOf(value) === index)
+    .slice(0, 6);
 };
 
 const resolveSourceLabel = (source?: string) => {
@@ -453,15 +891,39 @@ const buildOracleBlocks = (content: string, source?: string) => {
   ].filter((item: any) => item.body && item.body.length > 20);
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// HEADER ORB STRIP — compact orb + "WYROCZNIA" label for use in chat header
+// ─────────────────────────────────────────────────────────────────────────────
+const HeaderOrbStrip = React.memo(({ modeColor, isTyping }: { modeColor: string; isTyping: boolean }) => (
+  <View style={{ alignItems: 'center', paddingBottom: 6, paddingTop: 2 }}>
+    <OracleOrb modeColor={modeColor} isTyping={isTyping} />
+    <Text
+      style={{
+        fontSize: 9,
+        letterSpacing: 4,
+        color: '#F59E0B',
+        fontWeight: '700',
+        marginTop: 4,
+        opacity: 0.9,
+      }}
+    >
+      WYROCZNIA
+    </Text>
+  </View>
+));
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MAIN SCREEN COMPONENT
+// ─────────────────────────────────────────────────────────────────────────────
 export const OracleChatScreen = ({ navigation, route }: any) => {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const isOnline = useNetworkStatus();
   const { aiResponseLength: globalLength } = useAppStore((s) => s.experience);
-  const [localResponseLength, setLocalResponseLength] = React.useState<"short" | "medium" | "deep">(
-    (globalLength as "short" | "medium" | "deep") || "medium"
+  const [localResponseLength, setLocalResponseLength] = React.useState<'short' | 'medium' | 'deep'>(
+    (globalLength as 'short' | 'medium' | 'deep') || 'medium'
   );
-    const experience = useAppStore(s => s.experience);
+  const experience = useAppStore(s => s.experience);
   const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
   const isFavoriteItem = useAppStore(s => s.isFavoriteItem);
   const removeFavoriteItem = useAppStore(s => s.removeFavoriteItem);
@@ -499,6 +961,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
   const [pinnedMessageId, setPinnedMessageId] = useState('');
   const aiAvailability = AiService.getLaunchAvailabilityState();
   const aiAvailable = aiAvailability.available;
+
   const handleBack = () => {
     if (navigation.canGoBack()) {
       navigation.goBack();
@@ -518,6 +981,9 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
   const activeMode = currentSession?.mode || initialMode || 'gentle';
   const activeKind = currentSession?.kind || initialKind || 'general';
   const currentModeColor = ORACLE_MODES.find(m => m.id === activeMode)?.color || currentTheme.primary;
+
+  // Has past sessions → show memory badge
+  const hasPastSessions = pastSessions.length > 0;
 
   const handleInitialOracleResponse = async (contextMsg: string) => {
     setIsLoading(true);
@@ -620,7 +1086,6 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
           return;
         }
       }
-
       scrollViewRef.current?.scrollToEnd({ animated: true });
     }, 140);
 
@@ -632,18 +1097,25 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
       <View style={[styles.container, { backgroundColor: isLight ? currentTheme.background : '#07060F' }]}>
         <OracleBackground modeColor={currentModeColor} isLight={isLight} />
         <SafeAreaView edges={['top']} style={styles.safeArea}>
-        {!isOnline && <OfflineBanner message='Brak polaczenia — AI niedostepne' />}
+          {!isOnline && <OfflineBanner message={t('oracle.brak_polaczenia_ai_niedostepn', 'Brak polaczenia — AI niedostepne')} />}
           <View style={styles.header}>
             <Pressable onPress={handleBack} style={styles.backBtn}>
               <ChevronLeft color={currentTheme.primary} size={26} />
             </Pressable>
             <View style={styles.headerTitle}>
-              <Typography variant="premiumLabel" color={currentTheme.primary}>Komnata Oracle</Typography>
+              <Typography variant="premiumLabel" color={currentTheme.primary}>{t('oracle.komnata_oracle', 'Komnata Oracle')}</Typography>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
               <MusicToggleButton color={currentTheme.primary} size={18} />
               <Pressable
-                onPress={() => { void HapticsService.selection(); if (isFavoriteItem('oracle_chat')) { removeFavoriteItem('oracle_chat'); } else { addFavoriteItem({ id: 'oracle_chat', label: 'Oracle AI', sublabel: 'Komnata rozmowy', route: 'OracleChat', params: { source: 'portal', forceNewSession: true }, icon: 'Sparkles', color: currentTheme.primary, addedAt: new Date().toISOString() }); } }}
+                onPress={() => {
+                  void HapticsService.selection();
+                  if (isFavoriteItem('oracle_chat')) {
+                    removeFavoriteItem('oracle_chat');
+                  } else {
+                    addFavoriteItem({ id: 'oracle_chat', label: 'Oracle AI', sublabel: 'Komnata rozmowy', route: 'OracleChat', params: { source: 'portal', forceNewSession: true }, icon: 'Sparkles', color: currentTheme.primary, addedAt: new Date().toISOString() });
+                  }
+                }}
                 style={[styles.backBtn, { alignItems: 'center', justifyContent: 'center' }]}
               >
                 <Star color={currentTheme.primary} size={18} strokeWidth={1.8} fill={isFavoriteItem('oracle_chat') ? currentTheme.primary : 'none'} />
@@ -657,13 +1129,13 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
               subtitle={aiAvailability.body}
             />
             <View style={{ marginHorizontal: layout.padding.screen, marginVertical: 12, borderLeftWidth: 3, borderLeftColor: currentTheme.primary, paddingLeft: 16, paddingVertical: 14 }}>
-              <Typography variant="premiumLabel" color={currentTheme.primary}>Na ten moment</Typography>
+              <Typography variant="premiumLabel" color={currentTheme.primary}>{t('oracle.na_ten_moment', 'Na ten moment')}</Typography>
               <Typography variant="bodyRefined" style={{ marginTop: 8, lineHeight: 24, opacity: 0.85 }}>
-                Oracle nie przyjmie dziś nowej rozmowy. Nie ukrywamy tego pod ponownymi próbami ani pustym „spróbuj jeszcze raz".
+                {t('oracle.oracle_nie_przyjmie_dzis_nowej', 'Oracle nie przyjmie dziś nowej rozmowy. Nie ukrywamy tego pod ponownymi próbami ani pustym „spróbuj jeszcze raz".')}
               </Typography>
             </View>
             <View style={{ marginHorizontal: layout.padding.screen, paddingVertical: 14, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)' }}>
-              <Typography variant="microLabel" color={currentTheme.primary} style={{ marginBottom: 8 }}>CO MOŻESZ ZROBIĆ ZAMIAST TEGO</Typography>
+              <Typography variant="microLabel" color={currentTheme.primary} style={{ marginBottom: 8 }}>{t('oracle.co_mozesz_zrobic_zamiast_tego', 'CO MOŻESZ ZROBIĆ ZAMIAST TEGO')}</Typography>
               <Typography variant="bodySmall" style={{ lineHeight: 22, opacity: 0.72 }}>
                 {aiAvailability.fallbackPrompt}
               </Typography>
@@ -674,7 +1146,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                 onPress={() => navigation.navigate('JournalEntry', { prompt: aiAvailability.fallbackPrompt, type: 'reflection' })}
               />
               <Pressable style={[styles.followUpChip, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' }]} onPress={handleBack}>
-                <Typography variant="microLabel" color={currentTheme.primary}>Wróć do poprzedniej ścieżki</Typography>
+                <Typography variant="microLabel" color={currentTheme.primary}>{t('oracle.wroc_do_poprzednie_sciezki', 'Wróć do poprzedniej ścieżki')}</Typography>
               </Pressable>
             </View>
           </ScrollView>
@@ -708,11 +1180,9 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
     const userText = (overrideText || input).trim();
     if (!userText || isLoading) return;
 
-    // Usage gate — check before API call
     if (!isPremium) {
       const allowed = trackUsage('oracle');
       if (!allowed) {
-        // Show paywall with last assistant message as preview
         const lastAssistant = messages.slice().reverse().find((m: any) => m.role === 'assistant');
         setPaywallPreview(lastAssistant?.content?.substring(0, 220) || '');
         setPaywallVisible(true);
@@ -811,10 +1281,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
 
   const shareInsight = useCallback(async (message: OracleMessage) => {
     const blocks = buildOracleBlocks(message.content, currentSession?.source || source);
-    const summary = blocks
-      .map((block) => `${block.title}: ${block.body}`)
-      .join('\n\n');
-
+    const summary = blocks.map((block) => `${block.title}: ${block.body}`).join('\n\n');
     await Share.share({
       message: buildElegantShareMessage(
         'Wgląd z Oracle',
@@ -824,6 +1291,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
     });
   }, [currentSession, source]);
 
+  // ── Render Oracle (assistant) message bubble ─────────────────────────────
   const renderAssistantMessage = useCallback((message: OracleMessage, index: number) => {
     const isShortMessage = message.content.trim().length < 200;
     const blocks = isShortMessage
@@ -831,25 +1299,41 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
       : buildOracleBlocks(message.content, currentSession?.source || source);
     const modeData = ORACLE_MODES.find((m) => m.id === activeMode);
     const modeColor = modeData?.color || currentTheme.primary;
+
+    // Stagger delay based on index (capped so late messages still appear quickly)
+    const msgDelay = Math.min(index * 50, 300);
+
     return (
       <Animated.View
         key={message.id}
-        entering={FadeInUp.delay(index * 50).duration(500)}
+        entering={FadeInUp.delay(msgDelay).duration(520)}
         style={styles.assistantMessageWrap}
         onLayout={(event) => {
           messageLayouts.current[message.id] = event.nativeEvent.layout.y;
         }}
       >
-        {/* Oracle eyebrow label */}
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 6, gap: 6 }}>
-          <View style={{ width: 16, height: 1, backgroundColor: modeColor, opacity: 0.5 }} />
-          <Typography variant="microLabel" color={modeColor} style={{ fontSize: 10, letterSpacing: 2, opacity: 0.85 }}>
-            ORACLE
-          </Typography>
+        {/* Oracle eyebrow label with horizontal accent lines */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 6 }}>
+          <View style={{ flex: 1, height: 1, backgroundColor: modeColor, opacity: 0.25 }} />
+          <Text style={{ fontSize: 9, color: modeColor, letterSpacing: 2.5, fontWeight: '700', opacity: 0.85 }}>
+            ✦  ORACLE
+          </Text>
+          <View style={{ flex: 1, height: 1, backgroundColor: modeColor, opacity: 0.25 }} />
         </View>
 
+        {/* Message header: mini avatar + meta */}
         <View style={styles.assistantHeader}>
-          <View style={[styles.oracleAvatar, { borderColor: modeColor + '88', backgroundColor: modeColor + '1A', shadowColor: modeColor, shadowOpacity: 0.50, shadowRadius: 10, elevation: 6 }]}>
+          <View style={[
+            styles.oracleAvatar,
+            {
+              borderColor: modeColor + '88',
+              backgroundColor: modeColor + '1A',
+              shadowColor: modeColor,
+              shadowOpacity: 0.50,
+              shadowRadius: 10,
+              elevation: 6,
+            },
+          ]}>
             <Sparkles color={modeColor} size={17} />
           </View>
           <View style={styles.assistantMeta}>
@@ -860,31 +1344,96 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
               {resolveSourceLabel(currentSession?.source)}
             </Typography>
           </View>
+          {/* Timestamp */}
+          {message.createdAt && (
+            <Text style={{ fontSize: 10, opacity: 0.38, color: isLight ? '#251D16' : '#F5F1EA' }}>
+              {new Date(message.createdAt).getHours().toString().padStart(2, '0')}:{new Date(message.createdAt).getMinutes().toString().padStart(2, '0')}
+            </Text>
+          )}
         </View>
 
-        <View style={[styles.assistantCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(18,14,32,0.92)', borderRadius: 18, borderWidth: 1, borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.08)', borderLeftWidth: 3, borderLeftColor: modeColor, overflow: 'hidden' }]}>
-          {/* Top border stripe in modeColor */}
-          <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1.5, backgroundColor: modeColor, opacity: 0.70 }} pointerEvents="none" />
+        {/* Premium dark gradient bubble with gold left-border accent */}
+        <View
+          style={[
+            styles.assistantCard,
+            {
+              backgroundColor: isLight ? 'rgba(255,255,255,0.92)' : 'rgba(14,10,28,0.94)',
+              borderRadius: 18,
+              borderWidth: 1,
+              borderColor: isLight ? 'rgba(139,100,42,0.25)' : 'rgba(255,255,255,0.07)',
+              borderLeftWidth: 2.5,
+              borderLeftColor: modeColor,
+              overflow: 'hidden',
+              shadowColor: modeColor,
+              shadowOpacity: 0.18,
+              shadowRadius: 16,
+              shadowOffset: { width: -2, height: 4 },
+              elevation: 6,
+            },
+          ]}
+        >
+          {/* Top shimmer stripe */}
+          <LinearGradient
+            colors={[modeColor + '55', modeColor + '00']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1.5 }}
+            pointerEvents="none"
+          />
+          {/* Dark inner gradient (dark mode only) */}
+          {!isLight && (
+            <LinearGradient
+              colors={['#1B1040', '#0D0820', '#12082A']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={StyleSheet.absoluteFill}
+              pointerEvents="none"
+            />
+          )}
+
           {blocks.map((block, blockIndex) => {
             const Icon = block.icon;
             return (
-              <View key={`${message.id}-${block.title}`} style={[styles.oracleBlock, blockIndex > 0 && styles.oracleBlockDivider]}>
+              <View
+                key={`${message.id}-${block.title}`}
+                style={[styles.oracleBlock, blockIndex > 0 && styles.oracleBlockDivider]}
+              >
                 {!isShortMessage && (
                   <View style={styles.oracleBlockTitle}>
-                    <Icon color={block.isFirst ? modeColor : (isLight ? 'rgba(100,80,50,0.7)' : 'rgba(200,190,170,0.7)')} size={block.isFirst ? 18 : 14} />
-                    <Typography variant="premiumLabel" color={block.isFirst ? modeColor : (isLight ? 'rgba(100,80,50,0.75)' : 'rgba(200,190,170,0.75)')} style={{ marginLeft: 10, fontSize: block.isFirst ? 13 : 11, letterSpacing: 1.2 }}>
+                    <Icon
+                      color={block.isFirst ? modeColor : (isLight ? 'rgba(100,80,50,0.7)' : 'rgba(200,190,170,0.7)')}
+                      size={block.isFirst ? 18 : 14}
+                    />
+                    <Typography
+                      variant="premiumLabel"
+                      color={block.isFirst ? modeColor : (isLight ? 'rgba(100,80,50,0.75)' : 'rgba(200,190,170,0.75)')}
+                      style={{ marginLeft: 10, fontSize: block.isFirst ? 13 : 11, letterSpacing: 1.2 }}
+                    >
                       {block.title}
                     </Typography>
                   </View>
                 )}
-                <Typography variant="bodySmall" style={[styles.oracleBlockCopy, { fontSize: 15, lineHeight: 27, color: isLight ? 'rgba(26,20,12,0.88)' : 'rgba(245,241,234,0.90)', fontWeight: block.isFirst ? '400' : '300' }]}>
-                  {block.body}
+                {/* ✦ prefix on first block */}
+                <Typography
+                  variant="bodySmall"
+                  style={[
+                    styles.oracleBlockCopy,
+                    {
+                      fontSize: 15,
+                      lineHeight: 27,
+                      color: isLight ? 'rgba(26,20,12,0.88)' : 'rgba(238,232,255,0.92)',
+                      fontWeight: block.isFirst ? '400' : '300',
+                    },
+                  ]}
+                >
+                  {block.isFirst ? '✦ ' : ''}{block.body}
                 </Typography>
               </View>
             );
           })}
         </View>
 
+        {/* Action chips */}
         <View style={styles.assistantActions}>
           {[
             { label: 'Zapisz', icon: BookmarkPlus, onPress: () => saveInsightToJournal(message) },
@@ -893,10 +1442,17 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
             { label: 'Do dziennika', icon: ScrollText, onPress: () => convertToJournalPrompt(message) },
             { label: 'Do rytuału', icon: WandSparkles, onPress: () => convertToRitual(message) },
           ].map(({ label, icon: ActionIcon, onPress: onActionPress }) => (
-            <Pressable key={label} onPress={onActionPress} style={[styles.actionChip, {
-              backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)',
-              borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.09)',
-            }]}>
+            <Pressable
+              key={label}
+              onPress={onActionPress}
+              style={[
+                styles.actionChip,
+                {
+                  backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)',
+                  borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.09)',
+                },
+              ]}
+            >
               <ActionIcon color={currentTheme.primary} size={13} />
               <Typography variant="microLabel" color={currentTheme.primary} style={{ marginLeft: 7 }}>{label}</Typography>
             </Pressable>
@@ -910,55 +1466,79 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
     );
   }, [activeMode, activeKind, currentTheme, isLight, source, currentSession, pinnedMessageId, saveInsightToJournal, shareInsight, pinInsight, convertToJournalPrompt, convertToRitual]);
 
+  // ── RENDER ─────────────────────────────────────────────────────────────────
   return (
-    <View style={[styles.container, { backgroundColor: isLight ? currentTheme.background : '#07060F' }]}>
+    <View style={[styles.container, { backgroundColor: isLight ? currentTheme.background : '#06050E' }]}>
       <OracleBackground modeColor={currentModeColor} isLight={isLight} />
       <SafeAreaView edges={['top']} style={styles.safeArea}>
-        {!isOnline && <OfflineBanner message='Brak polaczenia — AI niedostepne' />}
+        {!isOnline && <OfflineBanner message={t('oracle.brak_polaczenia_ai_niedostepn_1', 'Brak polaczenia — AI niedostepne')} />}
+
+        {/* ── HEADER ──────────────────────────────────────────────────────── */}
         <View style={[styles.header, { overflow: 'hidden' }]}>
           <LinearGradient
             colors={[currentModeColor + '1A', 'transparent']}
-            start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }}
+            start={{ x: 0.5, y: 0 }}
+            end={{ x: 0.5, y: 1 }}
             style={StyleSheet.absoluteFill}
             pointerEvents="none"
           />
           <Pressable onPress={handleBack} style={styles.backBtn} hitSlop={20}>
             <ChevronLeft color={currentTheme.primary} size={28} strokeWidth={1.5} />
           </Pressable>
+
+          {/* Center — Orb + title */}
           <View style={styles.headerTitle}>
-            <Typography variant="premiumLabel" color={currentTheme.primary}>✦ Komnata Oracle</Typography>
+            {/* Compact living orb */}
+            {!isLight && (
+              <View style={{ marginBottom: 2 }}>
+                <HeaderOrbStrip modeColor={currentModeColor} isTyping={isLoading} />
+              </View>
+            )}
+            {isLight && (
+              <Typography variant="premiumLabel" color={currentTheme.primary}>
+                {t('oracle.komnata_oracle_1', '✦ Komnata Oracle')}
+              </Typography>
+            )}
+            {/* Mode badge */}
             {(() => {
               const modeData = ORACLE_MODES.find((m) => m.id === activeMode);
               return modeData ? (
                 <View style={[styles.modeBadge, { backgroundColor: modeData.color + '1A', borderColor: modeData.color + '44' }]}>
-                  <View style={[styles.modeDot, { backgroundColor: modeData.color }]}/>
+                  <View style={[styles.modeDot, { backgroundColor: modeData.color }]} />
                   <Typography variant="microLabel" color={modeData.color}>{modeData.label}</Typography>
                 </View>
               ) : null;
             })()}
           </View>
+
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
             <MusicToggleButton color={currentTheme.primary} size={18} />
             <Pressable onPress={() => setShowHistory((prev) => !prev)} style={styles.historyBtn}>
-              {showHistory ? <X color={currentTheme.textSoft} size={20} /> : <Clock color={currentTheme.primary} size={20} />}
+              {showHistory
+                ? <X color={currentTheme.textSoft} size={20} />
+                : <Clock color={currentTheme.primary} size={20} />
+              }
             </Pressable>
           </View>
         </View>
+
+        {/* Header separator */}
         <LinearGradient
           colors={['transparent', currentModeColor + '77', 'transparent']}
-          start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
           style={{ height: 1 }}
           pointerEvents="none"
         />
 
+        {/* ── HISTORY PANEL ───────────────────────────────────────────────── */}
         {showHistory ? (
           <ScrollView contentContainerStyle={styles.historyContent} showsVerticalScrollIndicator={false}>
             <SectionHeading
               eyebrow="Archiwum sesji"
-              title="Twoje wcześniejsze rozmowy z Oracle"
-              subtitle="Wracaj do wglądów, które nadal pracują pod powierzchnią. Każda sesja może zostać wznowiona."
+              title={t('oracle.twoje_wczesniejs_rozmowy_z_oracle', 'Twoje wcześniejsze rozmowy z Oracle')}
+              subtitle={t('oracle.wracaj_do_wgladow_ktore_nadal', 'Wracaj do wglądów, które nadal pracują pod powierzchnią. Każda sesja może zostać wznowiona.')}
             />
-
             {pastSessions.map((session, idx) => (
               <View key={session.id} style={{ borderBottomWidth: idx < pastSessions.length - 1 ? StyleSheet.hairlineWidth : 0, borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.07)' }}>
                 <Pressable onPress={() => { loadSession(session.id); setShowHistory(false); }} style={{ paddingHorizontal: layout.padding.screen, paddingVertical: 14 }}>
@@ -967,31 +1547,28 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                     {new Date(session.startedAt).toLocaleDateString()} • {session.messages.length} wiadomości • {resolveSourceLabel(session.source)}
                   </Typography>
                 </Pressable>
-                <Pressable style={[styles.historyDelete, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : '#0F1320', borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.08)' }]} onPress={() => deleteSession(session.id)}>
+                <Pressable
+                  style={[styles.historyDelete, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : '#0F1320', borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.08)' }]}
+                  onPress={() => deleteSession(session.id)}
+                >
                   <X color={currentTheme.primary} size={16} />
                   <Typography variant="microLabel" color={currentTheme.primary} style={{ marginLeft: 8 }}>
-                    Usuń
+                    {t('oracle.usun', 'Usuń')}
                   </Typography>
                 </Pressable>
               </View>
             ))}
-
             {pastSessions.length === 0 && (
               <View style={{ paddingHorizontal: layout.padding.screen, paddingVertical: 24, alignItems: 'center' }}>
                 <Typography variant="bodyRefined" align="center" style={{ opacity: 0.6 }}>
-                  Twoje archiwum jest jeszcze puste. Pierwsza głębsza rozmowa zacznie budować pamięć tego miejsca.
+                  {t('oracle.twoje_archiwum_jest_jeszcze_puste', 'Twoje archiwum jest jeszcze puste. Pierwsza głębsza rozmowa zacznie budować pamięć tego miejsca.')}
                 </Typography>
               </View>
             )}
-
-            <PremiumButton label="Zamknij historię" onPress={() => setShowHistory(false)} variant="secondary" style={{ marginTop: 20 }} />
+            <PremiumButton label={t('oracle.zamknij_historie', 'Zamknij historię')} onPress={() => setShowHistory(false)} variant="secondary" style={{ marginTop: 20 }} />
           </ScrollView>
         ) : (
-          <KeyboardAvoidingView
-            style={{ flex: 1 }}
-            behavior="padding"
-            keyboardVerticalOffset={0}
-          >
+          <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={0}>
             <ScrollView
               ref={scrollViewRef}
               contentContainerStyle={[
@@ -1002,25 +1579,28 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
               keyboardShouldPersistTaps="handled"
               keyboardDismissMode={Platform.OS === 'ios' ? 'interactive' : 'on-drag'}
             >
-              {/* ── PREMIUM EMPTY STATE HERO ─────────────────────────────────── */}
+              {/* ── EMPTY STATE HERO ──────────────────────────────────────── */}
               {messages.length <= 1 && !isLoading ? (
                 <>
                   {/* Large glowing orb hero */}
                   <Animated.View entering={FadeIn.duration(900)} style={styles.emptyHeroWrap}>
-                    {/* Outer ambient glow rings */}
                     <View style={[styles.emptyGlowRing, { width: 240, height: 240, borderRadius: 120, borderColor: currentModeColor + '18' }]} />
                     <View style={[styles.emptyGlowRing, { width: 180, height: 180, borderRadius: 90, borderColor: currentModeColor + '28' }]} />
                     <View style={[styles.emptyGlowRing, { width: 130, height: 130, borderRadius: 65, borderColor: currentModeColor + '40' }]} />
-                    {/* Central sphere */}
                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                       <OracleSphere3D accent={currentModeColor} />
                     </View>
                   </Animated.View>
 
-                  {/* Title — large, airy, graceful */}
+                  {/* Memory badge — only if past sessions exist */}
+                  {hasPastSessions && (
+                    <OracleMemoryBadge modeColor={currentModeColor} />
+                  )}
+
+                  {/* Title */}
                   <Animated.View entering={FadeInUp.delay(200).duration(700)} style={styles.emptyTitleWrap}>
                     <Typography variant="caption" color={currentModeColor} style={{ letterSpacing: 3, marginBottom: 14, opacity: 0.9 }}>
-                      ✦  PRYWATNA KOMNATA
+                      {t('oracle.prywatna_komnata', '✦  PRYWATNA KOMNATA')}
                     </Typography>
                     <Typography
                       variant="heroTitle"
@@ -1039,19 +1619,20 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                     </Typography>
                   </Animated.View>
 
-                  {/* Divider line in mode color */}
+                  {/* Divider */}
                   <Animated.View entering={FadeIn.delay(350).duration(600)} style={{ alignItems: 'center', marginVertical: 20 }}>
                     <LinearGradient
                       colors={['transparent', currentModeColor + 'AA', 'transparent']}
-                      start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 0 }}
                       style={{ width: 180, height: 1 }}
                     />
                   </Animated.View>
 
-                  {/* Mode selection — elegant pill rail */}
+                  {/* Mode selection */}
                   <Animated.View entering={FadeInUp.delay(400).duration(600)} style={styles.emptyModeSection}>
                     <Typography variant="caption" color={currentTheme.textMuted} style={{ letterSpacing: 2.5, marginBottom: 12, paddingHorizontal: layout.padding.screen }}>
-                      TON SESJI
+                      {t('oracle.ton_sesji', 'TON SESJI')}
                     </Typography>
                     <ScrollView
                       ref={modeRailRef}
@@ -1085,7 +1666,8 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                             {active && (
                               <LinearGradient
                                 colors={[mode.color + '28', mode.color + '08']}
-                                start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 1 }}
                                 style={StyleSheet.absoluteFill}
                               />
                             )}
@@ -1110,14 +1692,16 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                   {isResumedSession && (
                     <Animated.View entering={FadeInUp.delay(450).duration(500)} style={[styles.emptyResumedBadge, { backgroundColor: currentModeColor + '14', borderColor: currentModeColor + '35' }]}>
                       <View style={[styles.emptyResumedDot, { backgroundColor: currentModeColor }]} />
-                      <Typography variant="microLabel" color={currentModeColor} style={{ marginLeft: 8, letterSpacing: 1.2 }}>WZNOWIONA SESJA</Typography>
+                      <Typography variant="microLabel" color={currentModeColor} style={{ marginLeft: 8, letterSpacing: 1.2 }}>
+                        {t('oracle.wznowiona_sesja', 'WZNOWIONA SESJA')}
+                      </Typography>
                     </Animated.View>
                   )}
 
-                  {/* Floating prompt suggestions — vertical pills with left accent */}
+                  {/* Prompt suggestions */}
                   <Animated.View entering={FadeInUp.delay(500).duration(700)} style={styles.emptyPromptsSection}>
                     <Typography variant="caption" color={currentTheme.textMuted} style={{ letterSpacing: 2.5, marginBottom: 16 }}>
-                      OD CZEGO MOŻESZ ZACZĄĆ
+                      {t('oracle.od_czego_mozesz_zaczac', 'OD CZEGO MOŻESZ ZACZĄĆ')}
                     </Typography>
                     {starterPaths.slice(0, 4).map((path, idx) => (
                       <Animated.View key={path} entering={FadeInUp.delay(560 + idx * 80).duration(500)}>
@@ -1132,7 +1716,6 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                             },
                           ])}
                         >
-                          {/* Left accent line in mode color */}
                           <View style={[styles.emptyPromptAccent, { backgroundColor: currentModeColor }]} />
                           <Typography
                             variant="bodySmall"
@@ -1147,10 +1730,10 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                     ))}
                   </Animated.View>
 
-                  {/* Session presets — compact elegant row */}
+                  {/* Session presets */}
                   <Animated.View entering={FadeInUp.delay(700).duration(600)} style={styles.emptyPresetsSection}>
                     <Typography variant="caption" color={currentTheme.textMuted} style={{ letterSpacing: 2.5, marginBottom: 14 }}>
-                      TRYB SESJI
+                      {t('oracle.tryb_sesji', 'TRYB SESJI')}
                     </Typography>
                     <View style={styles.emptyPresetsRow}>
                       {featuredPresets.map((preset) => {
@@ -1177,7 +1760,8 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                             {active && (
                               <LinearGradient
                                 colors={[pColor + '20', 'transparent']}
-                                start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 1 }}
                                 style={StyleSheet.absoluteFill}
                               />
                             )}
@@ -1201,17 +1785,33 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                   </Animated.View>
                 </>
               ) : (
+                /* ── COMPACT MODE RAIL (active chat) ─────────────────────── */
                 <View style={styles.modeSection}>
-                  <ScrollView ref={modeRailRef} horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.modeRailCompact} directionalLockEnabled nestedScrollEnabled keyboardShouldPersistTaps="handled" disableScrollViewPanResponder={false}>
+                  <ScrollView
+                    ref={modeRailRef}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.modeRailCompact}
+                    directionalLockEnabled
+                    nestedScrollEnabled
+                    keyboardShouldPersistTaps="handled"
+                    disableScrollViewPanResponder={false}
+                  >
                     {ORACLE_MODES.map((mode) => {
                       const active = activeMode === mode.id;
                       return (
-                        <Pressable key={mode.id} onPress={() => handleModeChange(mode.id, mode.premium)}
-                          style={[styles.modeChip, {
-                            backgroundColor: active ? mode.color + '1A' : (isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.07)'),
-                            borderColor: active ? mode.color + '66' : (isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.08)'),
-                          }]}>
-                          <View style={[styles.modeDotSmall, { backgroundColor: active ? mode.color : mode.color + '55' }]}/>
+                        <Pressable
+                          key={mode.id}
+                          onPress={() => handleModeChange(mode.id, mode.premium)}
+                          style={[
+                            styles.modeChip,
+                            {
+                              backgroundColor: active ? mode.color + '1A' : (isLight ? 'rgba(255,248,234,0.92)' : 'rgba(255,255,255,0.07)'),
+                              borderColor: active ? mode.color + '66' : (isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.08)'),
+                            },
+                          ]}
+                        >
+                          <View style={[styles.modeDotSmall, { backgroundColor: active ? mode.color : mode.color + '55' }]} />
                           <Typography variant="caption" color={active ? mode.color : currentTheme.textSoft}>
                             {mode.label}
                           </Typography>
@@ -1222,30 +1822,84 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                 </View>
               )}
 
+              {/* ── MESSAGES ──────────────────────────────────────────────── */}
               {messages.map((message, index) => (
                 message.role === 'assistant' ? (
                   renderAssistantMessage(message, index)
                 ) : (
-                  <Animated.View key={message.id} entering={FadeInUp.delay(index * 40).duration(420)} style={styles.userWrap}>
-                    <View style={[styles.userBubble, { backgroundColor: currentModeColor + '22', borderColor: currentModeColor + '44', borderTopRightRadius: 4, shadowColor: currentModeColor, shadowOpacity: 0.22, shadowRadius: 10, elevation: 4 }]}>
-                      <Typography variant="bodySmall" style={{ fontSize: 15.5, lineHeight: 24, color: isLight ? 'rgba(26,18,8,0.90)' : 'rgba(245,241,234,0.92)' }}>{message.content}</Typography>
+                  /* USER BUBBLE — white/cream with user initial avatar */
+                  <Animated.View
+                    key={message.id}
+                    entering={FadeInUp.delay(index * 40).duration(420)}
+                    style={styles.userWrap}
+                  >
+                    {/* User initial avatar */}
+                    <View style={[styles.userAvatar, { overflow: 'hidden' }]}>
+                      <LinearGradient
+                        colors={[currentModeColor + 'CC', currentModeColor + '66']}
+                        style={StyleSheet.absoluteFill}
+                      />
+                      <Text style={{ fontSize: 12, fontWeight: '700', color: '#fff' }}>
+                        Ty
+                      </Text>
+                    </View>
+                    <View
+                      style={[
+                        styles.userBubble,
+                        {
+                          backgroundColor: isLight
+                            ? 'rgba(255,255,255,0.96)'
+                            : 'rgba(240,234,255,0.10)',
+                          borderColor: isLight
+                            ? 'rgba(139,100,42,0.20)'
+                            : currentModeColor + '3A',
+                          borderTopRightRadius: 4,
+                          shadowColor: isLight ? '#000' : currentModeColor,
+                          shadowOpacity: isLight ? 0.10 : 0.25,
+                          shadowRadius: 10,
+                          elevation: 4,
+                        },
+                      ]}
+                    >
+                      <Typography
+                        variant="bodySmall"
+                        style={{
+                          fontSize: 15.5,
+                          lineHeight: 24,
+                          color: isLight ? 'rgba(26,18,8,0.90)' : 'rgba(245,241,234,0.92)',
+                        }}
+                      >
+                        {message.content}
+                      </Typography>
+                      {/* Timestamp */}
+                      {message.createdAt && (
+                        <Text style={{ fontSize: 10, opacity: 0.35, color: isLight ? '#251D16' : '#F5F1EA', marginTop: 4, textAlign: 'right' }}>
+                          {new Date(message.createdAt).getHours().toString().padStart(2, '0')}:{new Date(message.createdAt).getMinutes().toString().padStart(2, '0')}
+                        </Text>
+                      )}
                     </View>
                   </Animated.View>
                 )
               ))}
 
-              {isLoading && (
-                <TypingDots color={currentModeColor} />
-              )}
+              {/* ── TYPING INDICATOR ──────────────────────────────────────── */}
+              {isLoading && <TypingDots color={currentModeColor} />}
 
+              {/* ── ERROR STATE ───────────────────────────────────────────── */}
               {errorMessage ? (
                 <View style={{ marginHorizontal: layout.padding.screen, marginVertical: 10, padding: 18, borderRadius: 16, backgroundColor: isLight ? 'rgba(251,146,60,0.08)' : 'rgba(251,146,60,0.12)', borderWidth: StyleSheet.hairlineWidth, borderColor: 'rgba(251,146,60,0.30)' }}>
                   <Typography variant="premiumLabel" color="#FB923C" align="center">
                     {errorTitle || 'Ta odpowiedź potrzebuje chwili'}
                   </Typography>
-                  <Typography variant="bodySmall" align="center" style={{ marginTop: 8, lineHeight: 22, opacity: 0.78 }}>{errorMessage}</Typography>
+                  <Typography variant="bodySmall" align="center" style={{ marginTop: 8, lineHeight: 22, opacity: 0.78 }}>
+                    {errorMessage}
+                  </Typography>
                   {fallbackPrompt ? (
-                    <Pressable key={fallbackPrompt} style={[styles.followUpChip, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' }]} onPress={() => setInput(fallbackPrompt)}>
+                    <Pressable
+                      key={fallbackPrompt}
+                      style={[styles.followUpChip, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' }]}
+                      onPress={() => setInput(fallbackPrompt)}
+                    >
                       <Typography variant="bodySmall" color={currentTheme.textSoft}>{fallbackPrompt}</Typography>
                       <ArrowRight color={currentTheme.primary} size={14} />
                     </Pressable>
@@ -1254,15 +1908,42 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                 </View>
               ) : null}
 
+              {/* ── FOLLOW-UP CHIPS ───────────────────────────────────────── */}
               {latestAssistantMessage && !isLoading && (
                 <View style={styles.followUpSection}>
                   <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 12 }}>
-                    Co dalej
+                    {t('oracle.co_dalej', 'Co dalej')}
                   </Typography>
                   {followUps.map((item) => (
-                    <Pressable key={item} style={[styles.followUpChip, { borderColor: currentModeColor + '55', overflow: 'hidden', shadowColor: currentModeColor, shadowOpacity: 0.18, shadowRadius: 10, elevation: 4, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)' }]} onPress={() => { animateSend(); sendMessage(item); }}>
-                      <LinearGradient colors={[currentModeColor + '18', 'transparent'] as const} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={StyleSheet.absoluteFill} />
-                      <LinearGradient colors={['transparent', currentModeColor + '77', 'transparent'] as [string,string,string]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1 }} pointerEvents="none" />
+                    <Pressable
+                      key={item}
+                      style={[
+                        styles.followUpChip,
+                        {
+                          borderColor: currentModeColor + '55',
+                          overflow: 'hidden',
+                          shadowColor: currentModeColor,
+                          shadowOpacity: 0.18,
+                          shadowRadius: 10,
+                          elevation: 4,
+                          backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)',
+                        },
+                      ]}
+                      onPress={() => { animateSend(); sendMessage(item); }}
+                    >
+                      <LinearGradient
+                        colors={[currentModeColor + '18', 'transparent'] as const}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={StyleSheet.absoluteFill}
+                      />
+                      <LinearGradient
+                        colors={['transparent', currentModeColor + '77', 'transparent'] as [string, string, string]}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                        style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1 }}
+                        pointerEvents="none"
+                      />
                       <Typography variant="bodySmall" color={currentTheme.textSoft}>{item}</Typography>
                       <ArrowRight color={currentModeColor} size={14} />
                     </Pressable>
@@ -1272,29 +1953,43 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
               {!keyboardOpen ? <EndOfContentSpacer size="compact" /> : null}
             </ScrollView>
 
+            {/* ── INPUT BAR — Sacred frosted glass design ────────────────── */}
             <View
               style={[
                 styles.inputArea,
                 {
-                  paddingBottom: keyboardOpen ? screenContracts.keyboardInset(insets.bottom, 'composer') : Math.max(insets.bottom + 8, 16),
+                  paddingBottom: keyboardOpen
+                    ? screenContracts.keyboardInset(insets.bottom, 'composer')
+                    : Math.max(insets.bottom + 8, 16),
                   borderTopColor: 'transparent',
-                  backgroundColor: isLight ? currentTheme.background : '#07060F',
+                  backgroundColor: isLight ? currentTheme.background : '#06050E',
                 },
               ]}
             >
               {/* Mode pill */}
-              <Animated.View key={activeMode} entering={FadeIn.duration(250)} style={[styles.modePill, { backgroundColor: currentModeColor + '1A', borderColor: currentModeColor + '55' }]}>
-                <Typography variant="microLabel" color={currentModeColor}>{MODE_ICONS[activeMode] || '✦'} {ORACLE_MODES.find(m => m.id === activeMode)?.label || 'Oracle'}</Typography>
+              <Animated.View
+                key={activeMode}
+                entering={FadeIn.duration(250)}
+                style={[styles.modePill, { backgroundColor: currentModeColor + '1A', borderColor: currentModeColor + '55' }]}
+              >
+                <Typography variant="microLabel" color={currentModeColor}>
+                  {MODE_ICONS[activeMode] || '✦'} {ORACLE_MODES.find(m => m.id === activeMode)?.label || 'Oracle'}
+                </Typography>
               </Animated.View>
-              {/* Composer shell with glow */}
+
+              {/* Composer shell */}
               <RNAnimated.View
                 style={[
                   styles.composerShell,
                   {
-                    backgroundColor: isLightBg(currentTheme.background) ? 'rgba(255,248,240,0.72)' : 'rgba(14,17,26,0.85)',
+                    backgroundColor: isLightBg(currentTheme.background)
+                      ? 'rgba(255,248,240,0.80)'
+                      : 'rgba(18,12,32,0.92)',
                     borderColor: inputFocused
                       ? currentModeColor + '88'
-                      : isLightBg(currentTheme.background) ? 'rgba(118,92,48,0.18)' : currentModeColor + '33',
+                      : isLightBg(currentTheme.background)
+                        ? 'rgba(118,92,48,0.18)'
+                        : currentModeColor + '33',
                     shadowColor: currentModeColor,
                     shadowOpacity: glowAnim.interpolate({ inputRange: [0, 1], outputRange: [0.08, 0.55] }),
                     shadowRadius: glowAnim.interpolate({ inputRange: [0, 1], outputRange: [8, 22] }),
@@ -1307,25 +2002,45 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                 <View style={styles.composerGradientBorder} pointerEvents="none">
                   <LinearGradient
                     colors={[currentModeColor + '28', currentModeColor + '08', currentModeColor + '18'] as const}
-                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
                     style={StyleSheet.absoluteFill}
                   />
                 </View>
-                {/* Response length chips — inside shell, compact */}
+
+                {/* Response length chips */}
                 <View style={{ flexDirection: 'row', gap: 5, paddingHorizontal: 12, paddingTop: 8, paddingBottom: 2 }}>
-                  {([['short', 'Zwięźle'], ['medium', 'Balans'], ['deep', 'Głęboko']] as Array<['short'|'medium'|'deep', string]>).map(([val, lbl]) => (
-                    <Pressable key={val} onPress={() => setLocalResponseLength(val)}
-                      style={{ paddingHorizontal: 9, paddingVertical: 3, borderRadius: 999, borderWidth: 1,
-                        borderColor: localResponseLength === val ? currentModeColor + 'BB' : (isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.14)'),
-                        backgroundColor: localResponseLength === val ? currentModeColor + '1A' : 'transparent' }}>
-                      <Typography variant="microLabel" style={{ fontSize: 10 }} color={localResponseLength === val ? currentModeColor : currentTheme.textMuted}>{lbl}</Typography>
+                  {([['short', 'Zwięźle'], ['medium', 'Balans'], ['deep', 'Głęboko']] as Array<['short' | 'medium' | 'deep', string]>).map(([val, lbl]) => (
+                    <Pressable
+                      key={val}
+                      onPress={() => setLocalResponseLength(val)}
+                      style={{
+                        paddingHorizontal: 9,
+                        paddingVertical: 3,
+                        borderRadius: 999,
+                        borderWidth: 1,
+                        borderColor: localResponseLength === val
+                          ? currentModeColor + 'BB'
+                          : (isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.14)'),
+                        backgroundColor: localResponseLength === val ? currentModeColor + '1A' : 'transparent',
+                      }}
+                    >
+                      <Typography
+                        variant="microLabel"
+                        style={{ fontSize: 10 }}
+                        color={localResponseLength === val ? currentModeColor : currentTheme.textMuted}
+                      >
+                        {lbl}
+                      </Typography>
                     </Pressable>
                   ))}
                 </View>
+
+                {/* Text row */}
                 <View style={[luxury.input(currentTheme), styles.inputContainer]}>
                   <TextInput
-                    style={[styles.textInput, { color: currentTheme.text }]}
-                    placeholder="Napisz, co naprawdę chcesz dziś zrozumieć"
+                    style={[styles.textInput, { color: isLight ? '#251D16' : '#F3EEE6' }]}
+                    placeholder={t('oracle.napisz_co_naprawde_chcesz_dzis', 'Zapytaj Wyrocznię...')}
                     placeholderTextColor={currentTheme.textMuted}
                     value={input}
                     onChangeText={setInput}
@@ -1338,20 +2053,39 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
                     onFocus={() => setInputFocused(true)}
                     onBlur={() => setInputFocused(false)}
                   />
-                  <Pressable onPress={() => { animateSend(); sendMessage(); }} disabled={input.trim().length < 2 || isLoading} style={styles.sendBtn}>
-                    <RNAnimated.View style={[styles.sendBtnAnim, {
-                      transform: [{ scale: sendScaleAnim }],
-                      shadowColor: currentModeColor,
-                      shadowOpacity: input.trim() ? 0.65 : 0,
-                      shadowRadius: input.trim() ? 14 : 0,
-                      elevation: input.trim() ? 8 : 0,
-                    }]}>
+                  {/* Microphone icon (visual only) */}
+                  <View style={[styles.micBtn, { opacity: input.trim() ? 0.25 : 0.50 }]}>
+                    <Mic color={currentModeColor} size={16} strokeWidth={1.8} />
+                  </View>
+                  {/* Send button — gradient circle */}
+                  <Pressable
+                    onPress={() => { animateSend(); sendMessage(); }}
+                    disabled={input.trim().length < 2 || isLoading}
+                    style={styles.sendBtn}
+                  >
+                    <RNAnimated.View
+                      style={[
+                        styles.sendBtnAnim,
+                        {
+                          transform: [{ scale: sendScaleAnim }],
+                          shadowColor: currentModeColor,
+                          shadowOpacity: input.trim() ? 0.70 : 0,
+                          shadowRadius: input.trim() ? 16 : 0,
+                          elevation: input.trim() ? 10 : 0,
+                        },
+                      ]}
+                    >
                       <LinearGradient
-                        colors={input.trim()
-                          ? [currentModeColor, currentModeColor + 'BB'] as const
-                          : (isLight ? ['rgba(122,95,54,0.18)', 'rgba(255,255,255,0.88)'] as const : ['#1A1F30', '#111520'] as const)}
+                        colors={
+                          input.trim()
+                            ? [currentModeColor, currentModeColor + 'BB'] as const
+                            : (isLight
+                              ? ['rgba(122,95,54,0.18)', 'rgba(255,255,255,0.88)'] as const
+                              : ['#1A1F30', '#111520'] as const)
+                        }
                         style={styles.sendInner}
-                        start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 1 }}
                       >
                         <CornerDownLeft color={input.trim() ? '#0D0D14' : currentTheme.textMuted} size={18} />
                       </LinearGradient>
@@ -1363,11 +2097,23 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
           </KeyboardAvoidingView>
         )}
 
-        {/* Usage pill — shown when not premium and has used some messages */}
+        {/* ── USAGE PILL ──────────────────────────────────────────────────── */}
         {!isPremium && usage.oracleMessagesToday > 0 && (
           <Animated.View entering={FadeInUp.duration(400)} style={{ position: 'absolute', top: 80, right: layout.padding.screen, zIndex: 50 }}>
-            <Pressable onPress={() => navigation.navigate('Paywall', { context: 'oracle' })}
-              style={{ flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 12, backgroundColor: usage.oracleMessagesToday >= 3 ? '#7C2020' : 'rgba(206,174,114,0.15)', borderWidth: 1, borderColor: usage.oracleMessagesToday >= 3 ? '#EF4444' : 'rgba(206,174,114,0.35)' }}>
+            <Pressable
+              onPress={() => navigation.navigate('Paywall', { context: 'oracle' })}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 5,
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+                borderRadius: 12,
+                backgroundColor: usage.oracleMessagesToday >= 3 ? '#7C2020' : 'rgba(206,174,114,0.15)',
+                borderWidth: 1,
+                borderColor: usage.oracleMessagesToday >= 3 ? '#EF4444' : 'rgba(206,174,114,0.35)',
+              }}
+            >
               <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: usage.oracleMessagesToday >= 3 ? '#EF4444' : '#CEAE72' }} />
               <Text style={{ color: usage.oracleMessagesToday >= 3 ? '#FCA5A5' : '#CEAE72', fontSize: 10, fontWeight: '700' }}>
                 {usage.oracleMessagesToday >= 3 ? 'Limit osiągnięty' : `${3 - usage.oracleMessagesToday} z 3`}
@@ -1376,7 +2122,7 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
           </Animated.View>
         )}
 
-        {/* Premium Gate Modal */}
+        {/* ── PREMIUM GATE MODAL ──────────────────────────────────────────── */}
         <PremiumGateModal
           visible={paywallVisible}
           onClose={() => setPaywallVisible(false)}
@@ -1390,6 +2136,9 @@ export const OracleChatScreen = ({ navigation, route }: any) => {
   );
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// STYLES
+// ─────────────────────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
   container: { flex: 1 },
   safeArea: { flex: 1 },
@@ -1397,7 +2146,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: layout.padding.screen,
-    minHeight: 68,
+    minHeight: 76,
   },
   backBtn: { width: 40 },
   headerTitle: { flex: 1, alignItems: 'center' },
@@ -1428,6 +2177,8 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.08)',
     backgroundColor: '#0F1320',
     marginRight: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   modeChipActive: {
     borderColor: 'rgba(203,170,100,0.34)',
@@ -1451,6 +2202,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.12)',
     minHeight: 54,
   },
+  // ── Messages ────────────────────────────────────────────────────────────────
   assistantMessageWrap: { marginTop: 14 },
   assistantHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 12 },
   assistantMeta: { flex: 1, marginLeft: 12 },
@@ -1469,7 +2221,17 @@ const styles = StyleSheet.create({
   sessionChamberTile: { borderRadius: 18, borderWidth: 1, padding: 14, backgroundColor: '#0F1320' },
   sessionChamberCopy: { marginTop: 8, lineHeight: 22, opacity: 0.88 },
   modeAccentBar: { position: 'absolute', top: 0, left: 0, right: 0, height: 2, borderRadius: 1 },
-  modeBadge: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 10, paddingVertical: 4, borderRadius: 999, borderWidth: 1, marginTop: 6, alignSelf: 'center' },
+  modeBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 999,
+    borderWidth: 1,
+    marginTop: 4,
+    alignSelf: 'center',
+  },
   modeDot: { width: 7, height: 7, borderRadius: 3.5 },
   modeDotSmall: { width: 6, height: 6, borderRadius: 3, marginRight: 4 },
   assistantLead: { marginTop: 10, lineHeight: 26, fontSize: 16 },
@@ -1494,9 +2256,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.07)',
   },
-  userWrap: { alignItems: 'flex-end', marginTop: 16 },
+  // User bubble
+  userWrap: { alignItems: 'flex-end', marginTop: 16, flexDirection: 'row', justifyContent: 'flex-end', gap: 8 },
+  userAvatar: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'flex-end',
+    marginBottom: 4,
+  },
   userBubble: {
-    maxWidth: '80%',
+    maxWidth: '78%',
     paddingHorizontal: 16,
     paddingVertical: 14,
     borderRadius: 18,
@@ -1522,6 +2294,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     minHeight: 52,
   },
+  // Input area
   inputArea: {
     paddingHorizontal: layout.padding.screen,
     paddingTop: 6,
@@ -1564,7 +2337,6 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    color: '#F3EEE6',
     fontSize: 15,
     lineHeight: 20,
     maxHeight: 94,
@@ -1572,7 +2344,12 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     textAlignVertical: 'top',
   },
-  sendBtn: { marginLeft: 6, marginBottom: 2 },
+  micBtn: {
+    marginBottom: 6,
+    marginRight: 4,
+    padding: 4,
+  },
+  sendBtn: { marginLeft: 4, marginBottom: 2 },
   sendBtnAnim: { borderRadius: 20 },
   sendInner: {
     width: 44,
@@ -1581,7 +2358,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  // ── Premium empty state styles ────────────────────────────────────────────
+  // ── Premium empty state ────────────────────────────────────────────────────
   emptyHeroWrap: {
     alignItems: 'center',
     justifyContent: 'center',

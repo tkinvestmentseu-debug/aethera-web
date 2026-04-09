@@ -17,7 +17,10 @@
     "i18n:master:catalog": "node scripts/i18n/build-master-catalog.cjs",
     "i18n:master:pl": "node scripts/i18n/generate-master-pl.cjs",
     "i18n:master:translate": "node scripts/i18n/translate-master.cjs",
-    "i18n:master:validate": "node scripts/i18n/validate-master.cjs"
+    "i18n:master:validate": "node scripts/i18n/validate-master.cjs",
+    "i18n:sync": "python -X utf8 scripts/i18n/i18n-sync.py",
+    "i18n:sync:check": "python -X utf8 scripts/i18n/i18n-sync.py --check",
+    "i18n:sync:dry": "python -X utf8 scripts/i18n/i18n-sync.py --dry-run"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.1.1",
@@ -27,6 +30,7 @@
     "@react-navigation/bottom-tabs": "^7.15.5",
     "@react-navigation/native": "^7.1.33",
     "@react-navigation/native-stack": "^7.14.4",
+    "@shopify/react-native-skia": "2.2.12",
     "date-fns": "^4.1.0",
     "expo": "~54.0.33",
     "expo-asset": "~12.0.12",

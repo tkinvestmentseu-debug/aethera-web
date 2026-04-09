@@ -8,6 +8,7 @@ import {
   ActivityIndicator, Share, Dimensions, Pressable, ScrollView, StyleSheet, Text, View,
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { BlurView } from 'expo-blur';
 import {
   BookOpen, ChevronRight, Compass, Eye, EyeOff,
   Flame, Heart, Layers, Moon, MoonStar, Sparkles, Star, Sun, Waves, Wind, X,
@@ -81,6 +82,59 @@ const ShimmerBar = React.memo(({ colors }: { colors: [string, string, string] })
       <Animated.View style={[{ position: 'absolute', top: 0, bottom: 0, width: 60, backgroundColor: 'rgba(255,255,255,0.5)' }, barStyle]} />
     </View>
   );
+});
+
+// ── Glass widget card wrapper ─────────────────────────────────
+const GlassWidgetCard = React.memo(({
+  children, accentColor, isLight, style, onPress,
+}: {
+  children: React.ReactNode; accentColor: string; isLight: boolean; style?: any; onPress?: () => void;
+}) => {
+  const inner = (
+    <BlurView
+      intensity={isLight ? 52 : 32}
+      tint={isLight ? 'light' : 'dark'}
+      style={[{
+        borderRadius: 20,
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: isLight ? 'rgba(255,255,255,0.70)' : 'rgba(255,255,255,0.10)',
+      }, style]}
+    >
+      <View style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.24)' : 'rgba(255,255,255,0.04)', borderRadius: 20 }}>
+        {/* Top highlight edge */}
+        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, borderTopLeftRadius: 20, borderTopRightRadius: 20, backgroundColor: 'rgba(255,255,255,0.28)' }} pointerEvents="none" />
+        {/* Accent top glow */}
+        <LinearGradient
+          colors={[accentColor + '18', 'transparent']}
+          start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 44, borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
+          pointerEvents="none"
+        />
+        <View style={{ padding: 16 }}>
+          {children}
+        </View>
+      </View>
+    </BlurView>
+  );
+  if (onPress) {
+    return (
+      <Pressable onPress={onPress} style={[gwc.outer, { shadowColor: accentColor }]}>
+        {inner}
+      </Pressable>
+    );
+  }
+  return <View style={[gwc.outer, { shadowColor: accentColor }]}>{inner}</View>;
+});
+
+const gwc = StyleSheet.create({
+  outer: {
+    borderRadius: 20,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.22,
+    shadowRadius: 20,
+    elevation: 10,
+  },
 });
 
 // ── Pulsing number badge ──────────────────────────────────────
@@ -325,8 +379,8 @@ const AetherEye = React.memo(({ accent, isLight }: { accent: string; isLight: bo
 
         {/* Brand text */}
         <View style={{ position: 'absolute', bottom: 8, left: 0, right: 0, alignItems: 'center' }}>
-          <Text style={{ fontSize: 15, fontWeight: '900', letterSpacing: 5.5, color: accent }}>✦ AETHERA ✦</Text>
-          <Text style={{ fontSize: 10, letterSpacing: 2, color: accent, opacity: 0.55, marginTop: 4 }}>Twój mistyczny portal</Text>
+          <Text style={{ fontSize: 15, fontWeight: '900', letterSpacing: 5.5, color: accent }}>{t('portal.aethera', '✦ AETHERA ✦')}</Text>
+          <Text style={{ fontSize: 10, letterSpacing: 2, color: accent, opacity: 0.55, marginTop: 4 }}>{t('portal.twoj_mistyczny_portal', 'Twój mistyczny portal')}</Text>
         </View>
       </Animated.View>
     </GestureDetector>
@@ -1489,7 +1543,7 @@ export const PortalScreen = ({ navigation }: any) => {
                 </Text>
                 {planet.isRetrograde && (
                   <View style={[ps.retroPill, { backgroundColor: '#F87171' + '1A', borderColor: '#F87171' + '66' }]}>
-                    <Text style={{ color: '#F87171', fontSize: 9, fontWeight: '800', letterSpacing: 0.8 }}>℞ RETRO</Text>
+                    <Text style={{ color: '#F87171', fontSize: 9, fontWeight: '800', letterSpacing: 0.8 }}>{t('portal.retro', '℞ RETRO')}</Text>
                   </View>
                 )}
               </View>
@@ -1555,7 +1609,7 @@ export const PortalScreen = ({ navigation }: any) => {
         <View style={[ps.affCatBadge, { backgroundColor: catColor + '22', borderColor: catColor + '44' }]}>
           <Text style={[ps.affCatText, { color: catColor }]}>✦ {categoryLabels[affirmation.category] || CATEGORY_LABELS[affirmation.category]}</Text>
         </View>
-        <Text style={[ps.affEyebrow, { color: catColor }]}>💫 AFIRMACJA DNIA</Text>
+        <Text style={[ps.affEyebrow, { color: catColor }]}>{t('portal.afirmacja_dnia', '💫 AFIRMACJA DNIA')}</Text>
       </View>
       <Text style={[ps.affText, { color: textColor }]}>{displayAffirmation.text}</Text>
       <View style={ps.affFooter}>
@@ -1938,7 +1992,7 @@ export const PortalScreen = ({ navigation }: any) => {
             <Text style={[ps.wEyebrow, { color: '#F472B6' }]}>{tr('portal.gratitude.streak', 'PASMO WDZIĘCZNOŚCI', 'GRATITUDE STREAK')}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 6 }}>
               <Text style={{ color: '#F472B6', fontSize: 36, fontWeight: '800', lineHeight: 42 }}>{streak}</Text>
-              <Text style={{ color: subColor, fontSize: 13 }}>dni wdzięczności</Text>
+              <Text style={{ color: subColor, fontSize: 13 }}>{t('portal.dni_wdziecznos', 'dni wdzięczności')}</Text>
             </View>
             <Text style={[ps.wSub, { color: subColor }]}>
               {todayGratitude.length > 0 ? `Dziś: ${todayGratitude.length} zapisów` : 'Dodaj dzisiaj swoje podziękowania'}
@@ -2000,10 +2054,10 @@ export const PortalScreen = ({ navigation }: any) => {
         {/* Brand + settings row */}
         <Animated.View entering={FadeInDown.duration(280)} style={[ps.brandRow, { borderBottomColor: isLight ? 'rgba(169,122,57,0.14)' : 'rgba(206,174,114,0.12)' }]}>
           <Animated.View style={shimmerStyle}>
-            <Text style={[ps.brandName, { color: isLight ? '#A97A39' : '#CEAE72' }]}>✦ AETHERA</Text>
+            <Text style={[ps.brandName, { color: isLight ? '#A97A39' : '#CEAE72' }]}>{t('portal.aethera_1', '✦ AETHERA')}</Text>
           </Animated.View>
           <Text style={[ps.brandTagline, { color: isLight ? '#8A6A40' : 'rgba(206,174,114,0.65)' }]}>
-            DuniAI & Oracle · Twój portal
+            {t('portal.duniai_oracle_twoj_portal', 'DuniAI & Oracle · Twój portal')}
           </Text>
           <View style={{ marginLeft: 'auto', flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <Pressable
@@ -2025,7 +2079,7 @@ export const PortalScreen = ({ navigation }: any) => {
                 }}
               >
                 <Crown size={13} color="#CEAE72" strokeWidth={1.8} />
-                <Text style={{ fontSize: 11, fontWeight: '700', color: '#CEAE72', letterSpacing: 0.3 }}>Premium</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', color: '#CEAE72', letterSpacing: 0.3 }}>{t('portal.premium', 'Premium')}</Text>
               </Pressable>
             )}
             {isPremium && (
@@ -2036,7 +2090,7 @@ export const PortalScreen = ({ navigation }: any) => {
                 borderWidth: 1, borderColor: 'rgba(206,174,114,0.35)',
               }}>
                 <Crown size={12} color="#CEAE72" strokeWidth={2} />
-                <Text style={{ fontSize: 11, fontWeight: '700', color: '#CEAE72', letterSpacing: 0.2 }}>Mistrz</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', color: '#CEAE72', letterSpacing: 0.2 }}>{t('portal.mistrz', 'Mistrz')}</Text>
               </Pressable>
             )}
             <Pressable onPress={() => navigation.navigate('Profile')} style={{ padding: 4 }}>
@@ -2053,14 +2107,35 @@ export const PortalScreen = ({ navigation }: any) => {
           </View>
         </Animated.View>
 
-        {/* Page tabs */}
-        <View style={[ps.pageTabs, { borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)' }]}>
-          <Pressable onPress={() => goToPage(0)} style={[ps.pageTab, { borderBottomColor: activePage === 0 ? accentColor : 'transparent' }]}>
-            <Text style={[ps.pageTabText, { color: activePage === 0 ? accentColor : subColor }]}>✦ Twój Portal</Text>
-          </Pressable>
-          <Pressable onPress={() => goToPage(1)} style={[ps.pageTab, { borderBottomColor: activePage === 1 ? accentColor : 'transparent' }]}>
-            <Text style={[ps.pageTabText, { color: activePage === 1 ? accentColor : subColor }]}>🪐 Kosmos</Text>
-          </Pressable>
+        {/* Page tabs — glass pill style */}
+        <View style={[ps.pageTabs, { borderBottomColor: isLight ? 'rgba(139,100,42,0.18)' : 'rgba(255,255,255,0.07)' }]}>
+          {[
+            { label: t('portal.twoj_portal', '✦ Twój Portal'), idx: 0 },
+            { label: t('portal.kosmos', '🪐 Kosmos'), idx: 1 },
+          ].map(({ label, idx }) => {
+            const active = activePage === idx;
+            return (
+              <Pressable key={idx} onPress={() => goToPage(idx)} style={[ps.pageTab, { borderBottomColor: 'transparent' }]}>
+                {active && (
+                  <LinearGradient
+                    colors={[accentColor + '22', accentColor + '08']}
+                    start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }}
+                    style={{ position: 'absolute', left: 6, right: 6, top: 4, bottom: 4, borderRadius: 10 }}
+                    pointerEvents="none"
+                  />
+                )}
+                <Text style={[ps.pageTabText, { color: active ? accentColor : subColor }]}>{label}</Text>
+                {active && (
+                  <LinearGradient
+                    colors={[accentColor, accentColor + '55']}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                    style={{ position: 'absolute', bottom: 0, left: 16, right: 16, height: 2, borderRadius: 1 }}
+                    pointerEvents="none"
+                  />
+                )}
+              </Pressable>
+            );
+          })}
         </View>
 
         {/* Two-page horizontal pager */}
@@ -2090,15 +2165,18 @@ export const PortalScreen = ({ navigation }: any) => {
 
           {/* ── 2. Soul message / greeting card ── */}
           {!!dailyCache.soulMessage && (
-            <Animated.View entering={FadeInDown.delay(50).duration(280)} style={{ marginBottom: 18 }}>
-              <View style={[ps.soulCard, { backgroundColor: cardBg, borderColor: accentColor + '33' }]}>
-                <LinearGradient colors={[accentColor + '14', 'transparent'] as const} style={StyleSheet.absoluteFill} />
-                <View style={[ps.soulBorder, { backgroundColor: accentColor }]} />
-                <View style={{ flex: 1 }}>
-                  <Text style={[ps.wEyebrow, { color: accentColor, marginBottom: 6 }]}>✦ PRZESŁANIE DNIA</Text>
-                  <Text style={[ps.soulText, { color: textColor }]}>{dailyCache.soulMessage}</Text>
+            <Animated.View entering={FadeInDown.delay(50).duration(280)} style={{ marginBottom: 18, borderRadius: 18, overflow: 'hidden', shadowColor: accentColor, shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.22, shadowRadius: 18, elevation: 8 }}>
+              <BlurView intensity={isLight ? 55 : 35} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 18, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.72)' : accentColor + '28' }}>
+                <View style={{ flexDirection: 'row', gap: 14, padding: 16, backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+                  <LinearGradient colors={[accentColor + '18', 'transparent'] as const} style={StyleSheet.absoluteFill} />
+                  <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.28)' }} pointerEvents="none" />
+                  <View style={[ps.soulBorder, { backgroundColor: accentColor }]} />
+                  <View style={{ flex: 1 }}>
+                    <Text style={[ps.wEyebrow, { color: accentColor, marginBottom: 6 }]}>{t('portal.przeslanie_dnia', '✦ PRZESŁANIE DNIA')}</Text>
+                    <Text style={[ps.soulText, { color: textColor }]}>{dailyCache.soulMessage}</Text>
+                  </View>
                 </View>
-              </View>
+              </BlurView>
             </Animated.View>
           )}
 
@@ -2106,7 +2184,7 @@ export const PortalScreen = ({ navigation }: any) => {
           <Animated.View entering={FadeInDown.delay(90).duration(260)} style={{ marginBottom: 12 }}>
             <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' }}>
               <View>
-                <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 3, color: subColor, marginBottom: 6 }}>DZISIEJSZE PRZESŁANIA</Text>
+                <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 3, color: subColor, marginBottom: 6 }}>{t('portal.dzisiejsze_przeslania', 'DZISIEJSZE PRZESŁANIA')}</Text>
                 <LinearGradient colors={[accentColor, accentColor + '33']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 2, width: 48, borderRadius: 1 }} />
               </View>
               <Text style={{ fontSize: 11, fontWeight: '600', color: accentColor, opacity: 0.8 }}>
@@ -2140,7 +2218,7 @@ export const PortalScreen = ({ navigation }: any) => {
                   {aiContentLoading ? (
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                       <ActivityIndicator size="small" color="#60A5FA" />
-                      <Text style={{ fontSize: 12, color: '#60A5FA', opacity: 0.7 }}>Pobieranie świeżego horoskopu...</Text>
+                      <Text style={{ fontSize: 12, color: '#60A5FA', opacity: 0.7 }}>{t('portal.pobieranie_swiezego_horoskopu', 'Pobieranie świeżego horoskopu...')}</Text>
                     </View>
                   ) : (
                     <Text style={{ fontSize: 14, lineHeight: 22, color: isLight ? '#1E3A5F' : 'rgba(214,230,254,0.9)', fontWeight: '400', letterSpacing: 0.1 }}>{dailyHoroscope}</Text>
@@ -2164,7 +2242,7 @@ export const PortalScreen = ({ navigation }: any) => {
                 <View style={{ padding: 16 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16, gap: 8 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: catColor + '20', borderRadius: 20, paddingHorizontal: 12, paddingVertical: 5, borderWidth: 1, borderColor: catColor + '35' }}>
-                      <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 2.2, color: catColor }}>💫 AFIRMACJA DNIA</Text>
+                      <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 2.2, color: catColor }}>{t('portal.afirmacja_dnia_1', '💫 AFIRMACJA DNIA')}</Text>
                     </View>
                     <View style={{ flex: 1 }} />
                     <Pressable onPress={handleNextAffirmation} style={{ width: 32, height: 32, borderRadius: 16, backgroundColor: catColor + '22', borderWidth: 1, borderColor: catColor + '44', alignItems: 'center', justifyContent: 'center' }}>
@@ -2193,7 +2271,7 @@ export const PortalScreen = ({ navigation }: any) => {
                 <View style={{ padding: 16 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: '#6366F120', borderRadius: 20, paddingHorizontal: 12, paddingVertical: 5, borderWidth: 1, borderColor: '#6366F135' }}>
-                      <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 2.2, color: '#818CF8' }}>☽ FAZA KSIĘŻYCA</Text>
+                      <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 2.2, color: '#818CF8' }}>{t('portal.faza_ksiezyca', '☽ FAZA KSIĘŻYCA')}</Text>
                     </View>
                     <View style={{ flex: 1 }} />
                     <Text style={{ fontSize: 13, fontWeight: '700', color: isLight ? '#4338CA' : '#A5B4FC' }}>{moonPhase.illumination}% oświetlenia</Text>
@@ -2449,8 +2527,11 @@ export const PortalScreen = ({ navigation }: any) => {
                 {[todayProgress.tarotDrawn, todayProgress.journalWritten, todayProgress.ritualCompleted, todayProgress.affirmationRead, (todayProgress as any).restAndReflection].filter(Boolean).length}/5
               </Text>
             </View>
-            <View style={[ps.checklistCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-              <LinearGradient colors={[accentColor + '08', 'transparent'] as const} style={StyleSheet.absoluteFill} />
+            <View style={{ borderRadius: 20, overflow: 'hidden', shadowColor: accentColor, shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.16, shadowRadius: 16, elevation: 7 }}>
+            <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 20, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.70)' : accentColor + '22' }}>
+            <View style={[ps.checklistCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent', borderWidth: 0 }]}>
+              <LinearGradient colors={[accentColor + '10', 'transparent'] as const} style={StyleSheet.absoluteFill} />
+              <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.25)' }} pointerEvents="none" />
               <ChecklistItem
                 label={tr('portal.practice.tarotCard', 'Karta Tarota', 'Tarot Card')}
                 checked={!!todayProgress.tarotDrawn}
@@ -2470,17 +2551,19 @@ export const PortalScreen = ({ navigation }: any) => {
                 accent={accentColor} textColor={textColor} cardBg={cardBg} cardBorder={cardBorder}
               />
               <ChecklistItem
-                label="Afirmacja"
+                label={t('portal.afirmacja', 'Afirmacja')}
                 checked={!!todayProgress.affirmationRead}
                 onToggle={() => handleChecklistToggle('affirmationRead')}
                 accent={accentColor} textColor={textColor} cardBg={cardBg} cardBorder={cardBorder}
               />
               <ChecklistItem
-                label="Odpoczynek i refleksja"
+                label={t('portal.odpoczynek_i_refleksja', 'Odpoczynek i refleksja')}
                 checked={!!(todayProgress as any).restAndReflection}
                 onToggle={() => handleChecklistToggle('restAndReflection')}
                 accent={accentColor} textColor={textColor} cardBg={cardBg} cardBorder={cardBorder}
               />
+            </View>
+            </BlurView>
             </View>
           </Animated.View>
 
@@ -2499,7 +2582,7 @@ export const PortalScreen = ({ navigation }: any) => {
           {/* ── Kosmos page header row ── */}
           <View style={ps.kosmosHeaderRow}>
             <View>
-              <Text style={[ps.kosmosHeaderEyebrow, { color: isLight ? '#7C5E9A' : '#A78BFA' }]}>🌌 KOSMOS</Text>
+              <Text style={[ps.kosmosHeaderEyebrow, { color: isLight ? '#7C5E9A' : '#A78BFA' }]}>{t('portal.kosmos_1', '🌌 KOSMOS')}</Text>
               <Text style={[ps.kosmosHeaderTitle, { color: textColor }]}>{tr('portal.cosmos.title', 'Planety & Energia', 'Planets & Energy')}</Text>
             </View>
             <MusicToggleButton color={isLight ? '#7C5E9A' : '#A78BFA'} size={18} />
@@ -2509,48 +2592,53 @@ export const PortalScreen = ({ navigation }: any) => {
           <Animated.View entering={FadeInDown.delay(210).duration(440)} style={{ marginBottom: 14 }}>
             <View style={ps.kosmosSectionHead}>
               <View style={{ flex: 1 }}>
-                <Text style={[ps.kosmosSectionTitle, { color: cosmicWeather.color }]}>🌌 POGODA KOSMICZNA</Text>
+                <Text style={[ps.kosmosSectionTitle, { color: cosmicWeather.color }]}>{t('portal.pogoda_kosmiczna', '🌌 POGODA KOSMICZNA')}</Text>
                 <View style={ps.kosmosSectionUnderline}>
                   <LinearGradient colors={[cosmicWeather.color, cosmicWeather.color + '44', 'transparent'] as const} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 2, borderRadius: 1, width: '55%' }} />
                 </View>
               </View>
               <Text style={[ps.sectionSub, { color: cosmicWeather.color }]}>{'★'.repeat(cosmicWeather.overall)}</Text>
             </View>
-            <Pressable onPress={() => navigation.navigate('CosmicWeather')} style={[ps.wCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-              <LinearGradient colors={[cosmicWeather.color + '14', 'transparent'] as const} style={StyleSheet.absoluteFill} />
-              <View style={ps.wRow}>
-                <View style={[ps.wIconWrap, { backgroundColor: cosmicWeather.color + '20' }]}>
-                  <Text style={{ fontSize: 24 }}>🌌</Text>
-                </View>
-                <View style={ps.wText}>
-                  <Text style={[ps.wEyebrow, { color: cosmicWeather.color }]}>{tr('portal.cosmos.energy', 'ENERGIA KOSMICZNA', 'COSMIC ENERGY')}</Text>
-                  <Text style={[ps.wTitle, { color: textColor }]}>{cosmicWeather.label}</Text>
-                  <View style={{ gap: 5, marginTop: 6 }}>
-                    {[
-                      { label: 'Umysł', val: cosmicWeather.mental, color: '#60A5FA' },
-                      { label: 'Emocje', val: cosmicWeather.emotional, color: '#F472B6' },
-                      { label: 'Duch', val: cosmicWeather.spiritual, color: '#A78BFA' },
-                    ].map(aspect => (
-                      <View key={aspect.label} style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                        <Text style={{ color: aspect.color, fontSize: 10, fontWeight: '700', width: 40 }}>{aspect.label}</Text>
-                        <View style={{ flex: 1, height: 4, backgroundColor: aspect.color + '22', borderRadius: 2, overflow: 'hidden' }}>
-                          <View style={{ width: `${aspect.val}%`, height: '100%', backgroundColor: aspect.color, borderRadius: 2 }} />
-                        </View>
-                        <Text style={{ color: aspect.color, fontSize: 10, fontWeight: '600', width: 28, textAlign: 'right' }}>{aspect.val}%</Text>
+            <View style={{ borderRadius: 20, overflow: 'hidden', shadowColor: cosmicWeather.color, shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.20, shadowRadius: 18, elevation: 8 }}>
+              <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 20, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.70)' : cosmicWeather.color + '30' }}>
+                <Pressable onPress={() => navigation.navigate('CosmicWeather')} style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+                  <LinearGradient colors={[cosmicWeather.color + '14', 'transparent'] as const} style={StyleSheet.absoluteFill} />
+                  <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.25)' }} pointerEvents="none" />
+                  <View style={[ps.wRow, { padding: 16 }]}>
+                    <View style={[ps.wIconWrap, { backgroundColor: cosmicWeather.color + '22', borderWidth: 1, borderColor: cosmicWeather.color + '44' }]}>
+                      <Text style={{ fontSize: 24 }}>🌌</Text>
+                    </View>
+                    <View style={ps.wText}>
+                      <Text style={[ps.wEyebrow, { color: cosmicWeather.color }]}>{tr('portal.cosmos.energy', 'ENERGIA KOSMICZNA', 'COSMIC ENERGY')}</Text>
+                      <Text style={[ps.wTitle, { color: textColor }]}>{cosmicWeather.label}</Text>
+                      <View style={{ gap: 5, marginTop: 6 }}>
+                        {[
+                          { label: 'Umysł', val: cosmicWeather.mental, color: '#60A5FA' },
+                          { label: 'Emocje', val: cosmicWeather.emotional, color: '#F472B6' },
+                          { label: 'Duch', val: cosmicWeather.spiritual, color: '#A78BFA' },
+                        ].map(aspect => (
+                          <View key={aspect.label} style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                            <Text style={{ color: aspect.color, fontSize: 10, fontWeight: '700', width: 40 }}>{aspect.label}</Text>
+                            <View style={{ flex: 1, height: 4, backgroundColor: aspect.color + '22', borderRadius: 2, overflow: 'hidden' }}>
+                              <View style={{ width: `${aspect.val}%`, height: '100%', backgroundColor: aspect.color, borderRadius: 2 }} />
+                            </View>
+                            <Text style={{ color: aspect.color, fontSize: 10, fontWeight: '600', width: 28, textAlign: 'right' }}>{aspect.val}%</Text>
+                          </View>
+                        ))}
                       </View>
-                    ))}
+                    </View>
+                    <ChevronRight color={subColor} size={16} />
                   </View>
-                </View>
-                <ChevronRight color={subColor} size={16} />
-              </View>
-            </Pressable>
+                </Pressable>
+              </BlurView>
+            </View>
           </Animated.View>
 
           {/* ── 9. Planetary Positions ── */}
           <Animated.View entering={FadeInDown.delay(215).duration(440)} style={{ marginBottom: 14 }}>
             <View style={ps.kosmosSectionHead}>
               <View style={{ flex: 1 }}>
-                <Text style={[ps.kosmosSectionTitle, { color: '#818CF8' }]}>🪐 PLANETY DZIŚ</Text>
+                <Text style={[ps.kosmosSectionTitle, { color: '#818CF8' }]}>{t('portal.planety_dzis', '🪐 PLANETY DZIŚ')}</Text>
                 <View style={ps.kosmosSectionUnderline}>
                   <LinearGradient colors={['#818CF8', '#A78BFA', 'transparent'] as const} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 2, borderRadius: 1, width: '60%' }} />
                 </View>
@@ -2568,13 +2656,13 @@ export const PortalScreen = ({ navigation }: any) => {
           <Animated.View entering={FadeInDown.delay(220).duration(440)} style={{ marginBottom: 14 }}>
             <View style={ps.kosmosSectionHead}>
               <View style={{ flex: 1 }}>
-                <Text style={[ps.kosmosSectionTitle, { color: '#34D399' }]}>⚡ POZIOM ENERGII</Text>
+                <Text style={[ps.kosmosSectionTitle, { color: '#34D399' }]}>{t('portal.poziom_energii', '⚡ POZIOM ENERGII')}</Text>
                 <View style={ps.kosmosSectionUnderline}>
                   <LinearGradient colors={['#34D399', '#A78BFA', 'transparent'] as const} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 2, borderRadius: 1, width: '50%' }} />
                 </View>
               </View>
               <Pressable onPress={() => navigation.navigate('DailyCheckIn')}>
-                <Text style={[ps.sectionSub, { color: accentColor }]}>Uzupełnij →</Text>
+                <Text style={[ps.sectionSub, { color: accentColor }]}>{t('portal.uzupelnij', 'Uzupełnij →')}</Text>
               </Pressable>
             </View>
             <View style={[ps.energyGaugeCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
@@ -2616,30 +2704,37 @@ export const PortalScreen = ({ navigation }: any) => {
           <Animated.View entering={FadeInDown.delay(280).duration(440)} style={{ marginBottom: 14 }}>
             <View style={ps.kosmosSectionHead}>
               <View style={{ flex: 1 }}>
-                <Text style={[ps.kosmosSectionTitle, { color: '#A78BFA' }]}>🔢 NUMEROLOGIA</Text>
+                <Text style={[ps.kosmosSectionTitle, { color: '#A78BFA' }]}>{t('portal.numerologi', '🔢 NUMEROLOGIA')}</Text>
                 <View style={ps.kosmosSectionUnderline}>
                   <LinearGradient colors={['#A78BFA', '#C4B5FD', 'transparent'] as const} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 2, borderRadius: 1, width: '45%' }} />
                 </View>
               </View>
-              <Text style={[ps.sectionSub, { color: '#A78BFA' }]}>Dzień osobisty</Text>
+              <Text style={[ps.sectionSub, { color: '#A78BFA' }]}>{t('portal.dzien_osobisty', 'Dzień osobisty')}</Text>
             </View>
-            <Pressable onPress={() => navigation.navigate('Numerology')} style={[ps.numCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-              <LinearGradient colors={['#A78BFA18', '#6366F10A', 'transparent'] as const} style={StyleSheet.absoluteFill} />
-              <View style={ps.numBadge}>
-                <LinearGradient
-                  colors={[accentColor + 'CC', accentColor + '88'] as const}
-                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-                  style={ps.numBadgeGrad}
-                >
-                  <Text style={ps.numBadgeText}>{personalDay.num}</Text>
-                </LinearGradient>
-              </View>
-              <View style={{ flex: 1 }}>
-                <Text style={[ps.wEyebrow, { color: '#A78BFA', marginBottom: 8 }]}>TWÓJ DZIEŃ OSOBISTY</Text>
-                <Text style={[ps.numMeaning, { color: textColor }]}>{personalDay.meaning}</Text>
-              </View>
-              <ChevronRight color={subColor} size={16} />
-            </Pressable>
+            <View style={{ borderRadius: 20, overflow: 'hidden', shadowColor: '#A78BFA', shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.20, shadowRadius: 18, elevation: 8 }}>
+              <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 20, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.70)' : '#A78BFA30' }}>
+                <Pressable onPress={() => navigation.navigate('Numerology')} style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+                  <LinearGradient colors={['#A78BFA18', '#6366F10A', 'transparent'] as const} style={StyleSheet.absoluteFill} />
+                  <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.25)' }} pointerEvents="none" />
+                  <View style={[ps.numCard, { backgroundColor: 'transparent', borderColor: 'transparent', borderWidth: 0 }]}>
+                    <View style={ps.numBadge}>
+                      <LinearGradient
+                        colors={[accentColor + 'CC', accentColor + '88'] as const}
+                        start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                        style={ps.numBadgeGrad}
+                      >
+                        <Text style={ps.numBadgeText}>{personalDay.num}</Text>
+                      </LinearGradient>
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      <Text style={[ps.wEyebrow, { color: '#A78BFA', marginBottom: 8 }]}>{t('portal.twoj_dzien_osobisty', 'TWÓJ DZIEŃ OSOBISTY')}</Text>
+                      <Text style={[ps.numMeaning, { color: textColor }]}>{personalDay.meaning}</Text>
+                    </View>
+                    <ChevronRight color={subColor} size={16} />
+                  </View>
+                </Pressable>
+              </BlurView>
+            </View>
           </Animated.View>
 
           {/* ── 12. Astronomical Events (conditional) ── */}
@@ -2647,12 +2742,12 @@ export const PortalScreen = ({ navigation }: any) => {
             <Animated.View entering={FadeInDown.delay(300).duration(440)} style={{ marginBottom: 14 }}>
               <View style={ps.kosmosSectionHead}>
                 <View style={{ flex: 1 }}>
-                  <Text style={[ps.kosmosSectionTitle, { color: '#60A5FA' }]}>✦ WYDARZENIA ASTRONOMICZNE</Text>
+                  <Text style={[ps.kosmosSectionTitle, { color: '#60A5FA' }]}>{t('portal.wydarzenia_astronomic', '✦ WYDARZENIA ASTRONOMICZNE')}</Text>
                   <View style={ps.kosmosSectionUnderline}>
                     <LinearGradient colors={['#60A5FA', '#38BDF8', 'transparent'] as const} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 2, borderRadius: 1, width: '70%' }} />
                   </View>
                 </View>
-                <Text style={[ps.sectionSub, { color: '#60A5FA' }]}>Najbliższe 90 dni</Text>
+                <Text style={[ps.sectionSub, { color: '#60A5FA' }]}>{t('portal.najblizsze_90_dni', 'Najbliższe 90 dni')}</Text>
               </View>
               {renderAstroEvents()}
             </Animated.View>
@@ -2665,44 +2760,68 @@ export const PortalScreen = ({ navigation }: any) => {
               <Text style={[ps.sectionSub, { color: accentColor }]}>{tr('portal.ritualPortals.sub', '3 komnaty na teraz', '3 chambers for now')}</Text>
             </View>
             <View style={ps.ritualPortalGrid}>
-              <Pressable onPress={() => navigation.navigate('DailyTarot')} style={[ps.ritualPortalTile, { borderColor: '#CEAE7240', backgroundColor: cardBg }]}>
-                <LinearGradient colors={['#CEAE7218', 'transparent'] as const} style={StyleSheet.absoluteFill} />
-                <View style={[ps.ritualPortalIcon, { backgroundColor: '#CEAE721E' }]}>
-                  <Eye color="#CEAE72" size={18} strokeWidth={1.8} />
-                </View>
-              <Text style={[ps.ritualPortalLabel, { color: '#CEAE72' }]}>{tr('portal.ritualPortal.card.label', 'Karta dnia', 'Card of the day')}</Text>
-              <Text style={[ps.ritualPortalTitle, { color: textColor }]}>{tr('portal.ritualPortal.card.title', 'Wejdź po symbol, który ustawia ton dnia.', 'Enter the symbol that sets the tone of the day.')}</Text>
-              <View style={ps.ritualPortalFoot}>
-                  <Text style={[ps.ritualPortalMeta, { color: subColor }]}>{tr('portal.ritualPortal.card.meta', 'Reveal • interpretacja • integracja', 'Reveal • interpretation • integration')}</Text>
-                  <ChevronRight color={subColor} size={14} />
+              {/* Karta dnia portal tile */}
+              <View style={{ borderRadius: 22, overflow: 'hidden', shadowColor: '#CEAE72', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.22, shadowRadius: 18, elevation: 8 }}>
+                <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 22, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.72)' : '#CEAE7230' }}>
+                  <Pressable onPress={() => navigation.navigate('DailyTarot')} style={{ overflow: 'hidden' }}>
+                    <View style={{ padding: 18, backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+                      <LinearGradient colors={['#CEAE7220', 'transparent'] as const} style={StyleSheet.absoluteFill} />
+                      <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.32)' }} pointerEvents="none" />
+                      <View style={[ps.ritualPortalIcon, { backgroundColor: '#CEAE721E', borderWidth: 1, borderColor: '#CEAE7244' }]}>
+                        <Eye color="#CEAE72" size={18} strokeWidth={1.8} />
+                      </View>
+                      <Text style={[ps.ritualPortalLabel, { color: '#CEAE72' }]}>{tr('portal.ritualPortal.card.label', 'Karta dnia', 'Card of the day')}</Text>
+                      <Text style={[ps.ritualPortalTitle, { color: textColor, letterSpacing: 0.4 }]}>{tr('portal.ritualPortal.card.title', 'Wejdź po symbol, który ustawia ton dnia.', 'Enter the symbol that sets the tone of the day.')}</Text>
+                      <View style={ps.ritualPortalFoot}>
+                        <Text style={[ps.ritualPortalMeta, { color: subColor }]}>{tr('portal.ritualPortal.card.meta', 'Reveal • interpretacja • integracja', 'Reveal • interpretation • integration')}</Text>
+                        <ChevronRight color={subColor} size={14} />
+                      </View>
+                    </View>
+                  </Pressable>
+                </BlurView>
               </View>
-              </Pressable>
 
-              <Pressable onPress={() => navigation.navigate('CrystalBall', { mode: 'daily' })} style={[ps.ritualPortalTile, { borderColor: '#A78BFA40', backgroundColor: cardBg }]}>
-                <LinearGradient colors={['#A78BFA18', 'transparent'] as const} style={StyleSheet.absoluteFill} />
-                <View style={[ps.ritualPortalIcon, { backgroundColor: '#A78BFA1E' }]}>
-                  <Sparkles color="#A78BFA" size={18} strokeWidth={1.8} />
-                </View>
-                <Text style={[ps.ritualPortalLabel, { color: '#A78BFA' }]}>{tr('portal.ritualPortal.crystal.label', 'Kryształ dnia', 'Crystal of the day')}</Text>
-                <Text style={[ps.ritualPortalTitle, { color: textColor }]}>{tr('portal.ritualPortal.crystal.title', 'Otwórz właściwości, mini-rytuał i spokojne prowadzenie energii.', 'Open the properties, mini ritual, and a calm current of guidance.')}</Text>
-                <View style={ps.ritualPortalFoot}>
-                  <Text style={[ps.ritualPortalMeta, { color: subColor }]}>{tr('portal.ritualPortal.crystal.meta', 'Właściwości • rytuał • afirmacja', 'Properties • ritual • affirmation')}</Text>
-                  <ChevronRight color={subColor} size={14} />
-                </View>
-              </Pressable>
+              {/* Kryształ dnia portal tile */}
+              <View style={{ borderRadius: 22, overflow: 'hidden', shadowColor: '#A78BFA', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.22, shadowRadius: 18, elevation: 8 }}>
+                <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 22, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.72)' : '#A78BFA30' }}>
+                  <Pressable onPress={() => navigation.navigate('CrystalBall', { mode: 'daily' })} style={{ overflow: 'hidden' }}>
+                    <View style={{ padding: 18, backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+                      <LinearGradient colors={['#A78BFA20', 'transparent'] as const} style={StyleSheet.absoluteFill} />
+                      <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.32)' }} pointerEvents="none" />
+                      <View style={[ps.ritualPortalIcon, { backgroundColor: '#A78BFA1E', borderWidth: 1, borderColor: '#A78BFA44' }]}>
+                        <Sparkles color="#A78BFA" size={18} strokeWidth={1.8} />
+                      </View>
+                      <Text style={[ps.ritualPortalLabel, { color: '#A78BFA' }]}>{tr('portal.ritualPortal.crystal.label', 'Kryształ dnia', 'Crystal of the day')}</Text>
+                      <Text style={[ps.ritualPortalTitle, { color: textColor, letterSpacing: 0.4 }]}>{tr('portal.ritualPortal.crystal.title', 'Otwórz właściwości, mini-rytuał i spokojne prowadzenie energii.', 'Open the properties, mini ritual, and a calm current of guidance.')}</Text>
+                      <View style={ps.ritualPortalFoot}>
+                        <Text style={[ps.ritualPortalMeta, { color: subColor }]}>{tr('portal.ritualPortal.crystal.meta', 'Właściwości • rytuał • afirmacja', 'Properties • ritual • affirmation')}</Text>
+                        <ChevronRight color={subColor} size={14} />
+                      </View>
+                    </View>
+                  </Pressable>
+                </BlurView>
+              </View>
 
-              <Pressable onPress={() => navigation.navigate('Breathwork')} style={[ps.ritualPortalTile, { borderColor: '#38BDF840', backgroundColor: cardBg }]}>
-                <LinearGradient colors={['#38BDF818', 'transparent'] as const} style={StyleSheet.absoluteFill} />
-                <View style={[ps.ritualPortalIcon, { backgroundColor: '#38BDF81E' }]}>
-                  <Wind color="#38BDF8" size={18} strokeWidth={1.8} />
-                </View>
-                <Text style={[ps.ritualPortalLabel, { color: '#38BDF8' }]}>{tr('portal.ritualPortal.breath.label', 'Oddech', 'Breath')}</Text>
-                <Text style={[ps.ritualPortalTitle, { color: textColor }]}>{tr('portal.ritualPortal.breath.title', 'Wejdź w świadomy oddech, gdy potrzebujesz ukojenia.', 'Enter a conscious breath when you need soothing.')}</Text>
-                <View style={ps.ritualPortalFoot}>
-                  <Text style={[ps.ritualPortalMeta, { color: subColor }]}>Oczyszczenie • spokój • centrowanie</Text>
-                  <ChevronRight color={subColor} size={14} />
-                </View>
-              </Pressable>
+              {/* Oddech portal tile */}
+              <View style={{ borderRadius: 22, overflow: 'hidden', shadowColor: '#38BDF8', shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.22, shadowRadius: 18, elevation: 8 }}>
+                <BlurView intensity={isLight ? 50 : 30} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 22, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.72)' : '#38BDF830' }}>
+                  <Pressable onPress={() => navigation.navigate('Breathwork')} style={{ overflow: 'hidden' }}>
+                    <View style={{ padding: 18, backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+                      <LinearGradient colors={['#38BDF820', 'transparent'] as const} style={StyleSheet.absoluteFill} />
+                      <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.32)' }} pointerEvents="none" />
+                      <View style={[ps.ritualPortalIcon, { backgroundColor: '#38BDF81E', borderWidth: 1, borderColor: '#38BDF844' }]}>
+                        <Wind color="#38BDF8" size={18} strokeWidth={1.8} />
+                      </View>
+                      <Text style={[ps.ritualPortalLabel, { color: '#38BDF8' }]}>{tr('portal.ritualPortal.breath.label', 'Oddech', 'Breath')}</Text>
+                      <Text style={[ps.ritualPortalTitle, { color: textColor, letterSpacing: 0.4 }]}>{tr('portal.ritualPortal.breath.title', 'Wejdź w świadomy oddech, gdy potrzebujesz ukojenia.', 'Enter a conscious breath when you need soothing.')}</Text>
+                      <View style={ps.ritualPortalFoot}>
+                        <Text style={[ps.ritualPortalMeta, { color: subColor }]}>{t('portal.oczyszczen_spokoj_centrowani', 'Oczyszczenie • spokój • centrowanie')}</Text>
+                        <ChevronRight color={subColor} size={14} />
+                      </View>
+                    </View>
+                  </Pressable>
+                </BlurView>
+              </View>
             </View>
           </Animated.View>
 
@@ -2742,26 +2861,50 @@ export const PortalScreen = ({ navigation }: any) => {
                 <Animated.View key={item.route + i} entering={FadeInUp.delay(520 + i * 35).duration(250)} style={ps.quickTileWrap}>
                   <Pressable
                     onPress={() => { void HapticsService.selection(); navigation.navigate(item.route as any); }}
-                    style={({ pressed }) => [
-                      ps.quickTile,
-                      { borderColor: item.color + '66', opacity: pressed ? 0.82 : 1, shadowColor: item.color, shadowOpacity: 0.28, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, elevation: 7 },
-                    ]}
+                    style={({ pressed }) => ({
+                      opacity: pressed ? 0.82 : 1,
+                      borderRadius: 22,
+                      overflow: 'hidden',
+                      shadowColor: item.color,
+                      shadowOpacity: pressed ? 0.10 : 0.28,
+                      shadowRadius: 16,
+                      shadowOffset: { width: 0, height: 6 },
+                      elevation: 8,
+                      minHeight: 120,
+                    })}
                   >
-                    <LinearGradient
-                      colors={[item.color + '28', item.color + '0C', 'transparent'] as const}
-                      style={StyleSheet.absoluteFill}
-                      start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-                    />
-                    <LinearGradient
-                      colors={['transparent', item.color + '99', 'transparent'] as [string,string,string]}
-                      start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-                      style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1 }}
-                      pointerEvents="none"
-                    />
-                    <View style={{ position: 'absolute', top: 8, right: 10, width: 6, height: 6, borderTopWidth: 1.4, borderRightWidth: 1.4, borderColor: item.color + '88' }} pointerEvents="none" />
-                    <Text style={{ fontSize: 28, marginBottom: 6 }}>{item.emoji}</Text>
-                    <Text style={[ps.quickTileLabel, { color: item.color }]}>{item.label}</Text>
-                    <Text style={[ps.quickTileDesc, { color: subColor }]} numberOfLines={1}>{item.desc}</Text>
+                    <BlurView
+                      intensity={isLight ? 48 : 28}
+                      tint={isLight ? 'light' : 'dark'}
+                      style={{ borderRadius: 22, overflow: 'hidden', borderWidth: 1.5, borderColor: isLight ? 'rgba(255,255,255,0.72)' : item.color + '55' }}
+                    >
+                      <View style={{ paddingVertical: 18, paddingHorizontal: 16, alignItems: 'flex-start', minHeight: 120, backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+                        <LinearGradient
+                          colors={[item.color + '22', item.color + '08', 'transparent'] as const}
+                          style={StyleSheet.absoluteFill}
+                          start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                        />
+                        {/* top highlight */}
+                        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.32)' }} pointerEvents="none" />
+                        {/* Gradient top border */}
+                        <LinearGradient
+                          colors={['transparent', item.color + 'AA', 'transparent'] as [string,string,string]}
+                          start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                          style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1 }}
+                          pointerEvents="none"
+                        />
+                        <View style={{ position: 'absolute', top: 8, right: 10, width: 6, height: 6, borderTopWidth: 1.4, borderRightWidth: 1.4, borderColor: item.color + '88' }} pointerEvents="none" />
+                        {/* Icon circle with gradient */}
+                        <LinearGradient
+                          colors={[item.color + '40', item.color + '18']}
+                          style={{ width: 48, height: 48, borderRadius: 16, alignItems: 'center', justifyContent: 'center', marginBottom: 10, borderWidth: 1, borderColor: item.color + '44' }}
+                        >
+                          <Text style={{ fontSize: 26 }}>{item.emoji}</Text>
+                        </LinearGradient>
+                        <Text style={[ps.quickTileLabel, { color: item.color, letterSpacing: 0.5 }]}>{item.label}</Text>
+                        <Text style={[ps.quickTileDesc, { color: subColor }]} numberOfLines={1}>{item.desc}</Text>
+                      </View>
+                    </BlurView>
                   </Pressable>
                 </Animated.View>
               ))}

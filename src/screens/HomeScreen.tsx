@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View, Dimensions, ActivityIndicator, InteractionManager } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ArrowRight, Sparkles, Moon, Star, Flame, Droplets, Heart, BookOpen, Layers, Waves, Wind, ChevronRight, Brain, Zap, Eye, Hash, Users, Compass, Sun, Flower2, Calendar, Target, Gem, CheckSquare2, Search } from 'lucide-react-native';
+import { ArrowRight, Sparkles, Moon, Star, Flame, Droplets, Heart, BookOpen, Layers, Waves, Wind, ChevronRight, Brain, Zap, Eye, Hash, Users, Compass, Sun, Flower2, Calendar, Target, Gem, CheckSquare2, Search, Shield } from 'lucide-react-native';
 
 import Svg, { Circle, Path, Line, G, Ellipse, Rect, Defs, RadialGradient, Stop } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -27,6 +27,7 @@ import { AiService } from '../core/services/ai.service';
 import { navigateToMainTab } from '../navigation/navigationFallbacks';
 import { AudioService } from '../core/services/audio.service';
 import { CosmicNewsStrip } from '../components/CosmicNewsStrip';
+import { CosmicBackground } from '../components/CosmicBackground';
 
 import Animated, {
   FadeInDown, FadeIn,
@@ -286,6 +287,25 @@ const DreamsWorldBackground = () => (
   </View>
 );
 
+
+const AuraWorldBackground = () => (
+  <View style={StyleSheet.absoluteFill} pointerEvents="none">
+    <LinearGradient colors={['#0A0118', '#0E0225', '#130330']} style={StyleSheet.absoluteFill} />
+    <Svg width={SW} height={SW} style={StyleSheet.absoluteFill} opacity={0.28}>
+      <G>
+        {[80,110,140,170,200].map((r,i) => (
+          <Circle key={i} cx={SW/2} cy={SW*0.38} r={r} fill="none" stroke="#8B5CF6"
+            strokeWidth={0.7} opacity={0.12 + i*0.04} strokeDasharray={i%2===0?"4 6":"3 8"} />
+        ))}
+        {Array.from({length:20},(_,i)=>(
+          <Circle key={i} cx={(i*137+31)%SW} cy={(i*97+19)%(SW*0.8)} r={i%5===0?2:1}
+            fill={i%3===0?'#A78BFA':i%3===1?'#EC4899':'#60A5FA'} opacity={0.18} />
+        ))}
+      </G>
+    </Svg>
+  </View>
+);
+
 // ── WORLD CONFIG ──────────────────────────────────────────────
 
 const getWorldSymbol = (id: string, accent: string, cx: number) => {
@@ -297,6 +317,7 @@ const getWorldSymbol = (id: string, accent: string, cx: number) => {
     case 'support': return (<G>{Array.from({length:6},(_,i)=>(<G key={i} transform={`rotate(${i*60} ${cx} ${cx})`}><Ellipse cx={cx} cy={cx-22} rx={10} ry={22} fill={accent+'14'} stroke={accent+'44'} strokeWidth={0.8} /></G>))}<Path d={`M ${cx} ${cx+10} C ${cx-18} ${cx-2} ${cx-26} ${cx-16} ${cx} ${cx-28} C ${cx+26} ${cx-16} ${cx+18} ${cx-2} ${cx} ${cx+10} Z`} fill={accent+'28'} stroke={accent} strokeWidth={1.2} /><Circle cx={cx} cy={cx} r={5} fill={accent} opacity={0.9} /></G>);
     case 'cleansing': return (<G><Circle cx={cx} cy={cx} r={44} fill="none" stroke={accent+'22'} strokeWidth={0.7} strokeDasharray="4 8" /><Circle cx={cx} cy={cx-18} r={13} fill={accent+'1A'} stroke={accent+'66'} strokeWidth={1} /><Circle cx={cx} cy={cx-18} r={4} fill={accent+'77'} />{[0,1,2,3].map(i=>(<Path key={i} d={`M ${cx-36+i*3},${cx+12} Q ${cx-18+i*2},${cx+2-i*3} ${cx},${cx+12} Q ${cx+18-i*2},${cx+22+i*3} ${cx+36-i*3},${cx+12}`} stroke={accent} strokeWidth={1.3-i*0.25} fill="none" strokeLinecap="round" opacity={0.55-i*0.1} />))}</G>);
     case 'rituals': return (<G><Circle cx={cx} cy={cx+8} r={44} fill="none" stroke={accent} strokeWidth={0.8} opacity={0.28} strokeDasharray="4 7" /><Circle cx={cx} cy={cx+8} r={32} fill="none" stroke={accent} strokeWidth={0.8} opacity={0.20} strokeDasharray="4 7" /><Path d={`M ${cx} ${cx+16} C ${cx-14} ${cx} ${cx-18} ${cx-14} ${cx} ${cx-30} C ${cx+18} ${cx-14} ${cx+14} ${cx} ${cx} ${cx+16} Z`} fill={accent+'44'} stroke={accent+'88'} strokeWidth={1.2} /><Path d={`M ${cx} ${cx+12} C ${cx-7} ${cx+4} ${cx-9} ${cx-6} ${cx} ${cx-18} C ${cx+9} ${cx-6} ${cx+7} ${cx+4} ${cx} ${cx+12} Z`} fill={accent+'88'} /><Circle cx={cx} cy={cx-4} r={3.5} fill={accent} opacity={0.95} /></G>);
+    case 'aura': return (<G>{[38,46,52].map((r,i)=>(<Circle key={i} cx={cx} cy={cx} r={r} fill="none" stroke={accent} strokeWidth={0.8-i*0.1} opacity={0.5-i*0.12} strokeDasharray={i===1?"3 5":"4 4"} />))}{Array.from({length:8},(_,i)=>{const a=i*45*Math.PI/180;return(<Line key={i} x1={cx+Math.cos(a)*20} y1={cx+Math.sin(a)*20} x2={cx+Math.cos(a)*38} y2={cx+Math.sin(a)*38} stroke={accent} strokeWidth={0.8} opacity={0.6} />)})}<Circle cx={cx} cy={cx} r={7} fill={accent+'33'} stroke={accent} strokeWidth={1.2} /><Circle cx={cx} cy={cx} r={3} fill={accent} opacity={0.95} /></G>);
     default: return (<G><Circle cx={cx} cy={cx} r={42} fill="none" stroke={accent+'22'} strokeWidth={0.7} strokeDasharray="5 9" /><Circle cx={cx-4} cy={cx-2} r={28} fill={accent+'18'} stroke={accent+'55'} strokeWidth={1.2} /><Circle cx={cx} cy={cx} r={5} fill={accent+'66'} /><Circle cx={cx} cy={cx} r={2} fill={accent} opacity={0.9} /></G>);
   }
 };
@@ -343,6 +364,7 @@ const SURFACES = [
   { id: 'cleansing', title: 'Oczyszczanie', eyebrow: 'UWOLNIENIE I ODDECH',  BG: CleansingWorldBackground, accent: '#34D399' },
   { id: 'rituals',   title: 'Rytuały',      eyebrow: 'INTENCJA I CEREMONIA', BG: RitualsWorldBackground,   accent: '#F97316' },
   { id: 'dreams',    title: 'Sny',          eyebrow: 'SYMBOL NOCY',          BG: DreamsWorldBackground,    accent: '#8B7FD4' },
+  { id: 'aura',      title: 'Aura',         eyebrow: 'POLE ENERGETYCZNE',    BG: AuraWorldBackground,      accent: '#8B5CF6' },
 ];
 
 const WORLD_DESCS: Record<string, string> = {
@@ -354,6 +376,7 @@ const WORLD_DESCS: Record<string, string> = {
   cleansing: 'Uwolnij to, co ciąży. Oddech to pierwszy rytuał.',
   rituals: 'Intencja w ceremonii — każdy rytuał zmienia przestrzeń.',
   dreams: 'Nocne obrazy niosą prawdziwszy język niż dzienne słowa.',
+  aura: 'Twoje pole energetyczne — kolory, warstwy i ich mistyczne znaczenie.',
 };
 
 // ── WORLD PILL NAVIGATION ─────────────────────────────────────
@@ -659,7 +682,7 @@ const renderContent = (id: string, navigation: any, dailyPlan: DailySoulPlan, us
                 <Sparkles color={ac} size={32} strokeWidth={1.5} />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2.2, color: ac, marginBottom: 4 }}>DZISIEJSZA PRAKTYKA</Text>
+                <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2.2, color: ac, marginBottom: 4 }}>{t('home.dzisiejsza_praktyka', 'DZISIEJSZA PRAKTYKA')}</Text>
                 <Text style={{ fontSize: 18, fontWeight: '700', letterSpacing: -0.3, color: isLight ? '#2C1A0E' : '#F5F1EA', lineHeight: 24 }}>
                   {dailyPlan.ritualGuidance?.featured?.title || tr('home.ty.morningRitual', 'Poranny Rytuał', 'Morning Ritual')}
                 </Text>
@@ -971,11 +994,14 @@ export const HomeScreen = ({ navigation, route }: any) => {
         }
       </View>
 
+      {/* Cosmic particle / star layer — always on top of world bg, behind content */}
+      <CosmicBackground isLight={isLight} />
+
       <SafeAreaView edges={['top']} style={hs.safe}>
         {/* HEADER */}
         <View style={hs.header}>
           <View style={{ flex: 1, marginRight: 10 }}>
-            <Text style={[hs.brand, { color: isLight ? '#A97A39' : '#CEAE72' }]}>✦ AETHERA</Text>
+            <Text style={[hs.brand, { color: isLight ? '#A97A39' : '#CEAE72' }]}>{t('home.aethera', '✦ AETHERA')}</Text>
             <Text style={[hs.greeting, { color: textColor }]} numberOfLines={1} adjustsFontSizeToFit>
               {getTimeGreeting(firstName)}
             </Text>
@@ -1021,12 +1047,12 @@ export const HomeScreen = ({ navigation, route }: any) => {
           <Animated.View key={activeSurface.id} entering={FadeIn.duration(280)} style={hs.heroSection}>
             {/* Glassmorphism hero card */}
             <View style={[hs.heroCard, {
-              borderColor: activeSurface.accent + (isLight ? '44' : '2A'),
+              borderColor: isLight ? activeSurface.accent + '55' : activeSurface.accent + '40',
               shadowColor: activeSurface.accent,
-              shadowOpacity: isLight ? 0.18 : 0.28,
-              shadowRadius: 28,
-              shadowOffset: { width: 0, height: 8 },
-              elevation: 14,
+              shadowOpacity: isLight ? 0.22 : 0.38,
+              shadowRadius: 36,
+              shadowOffset: { width: 0, height: 10 },
+              elevation: 18,
             }]}>
               <LinearGradient
                 colors={isLight
@@ -1068,7 +1094,7 @@ export const HomeScreen = ({ navigation, route }: any) => {
 
           {/* QUICK ACTION RIBBON */}
           <Animated.View entering={FadeInDown.delay(120).duration(300)} style={{ marginBottom: 22 }}>
-            <Text style={[hs.ribbonLabel, { color: activeSurface.accent + 'AA' }]}>SZYBKI DOSTĘP</Text>
+            <Text style={[hs.ribbonLabel, { color: activeSurface.accent + 'AA' }]}>{t('home.szybki_dostep', 'SZYBKI DOSTĘP')}</Text>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -1082,9 +1108,9 @@ export const HomeScreen = ({ navigation, route }: any) => {
           </Animated.View>
 
           {/* PER-WORLD CONTENT */}
-          <View key={activeSurface.id + '_content'}>
+          <Animated.View key={activeSurface.id + '_content'} entering={FadeInDown.delay(200).duration(360)}>
             {renderContent(activeSurface.id, navigation, dailyPlan, userData, entries, streaks, dailyDraw, dailyTarotPreview, pastReadings, pastSessions, tarotDeck, isPremium, isLight, addFavoriteItem, tr)}
-          </View>
+          </Animated.View>
 
           <EndOfContentSpacer size="standard" />
         </ScrollView>

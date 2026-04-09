@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { BlurView } from 'expo-blur';
 import { useAppStore } from '../store/useAppStore';
 import { useAuthStore } from '../store/useAuthStore';
 import { useJournalStore } from '../store/useJournalStore';
@@ -157,10 +158,12 @@ const CustomToggle = React.memo(({ value, onToggle, accent }: { value: boolean; 
   );
 });
 
-// ── Avatar Pulse Ring ──────────────────────────────────────────
+// ── Avatar Pulse Ring + rotating zodiac arc ────────────────────
 const AvatarPulseRing = React.memo(({ accent }: { accent: string }) => {
   const scale = useSharedValue(1);
   const opacity = useSharedValue(0.7);
+  const rotate = useSharedValue(0);
+  const rotateRev = useSharedValue(0);
 
   useEffect(() => {
     scale.value = withRepeat(
@@ -179,6 +182,8 @@ const AvatarPulseRing = React.memo(({ accent }: { accent: string }) => {
       -1,
       false,
     );
+    rotate.value = withRepeat(withTiming(360, { duration: 14000, easing: Easing.linear }), -1, false);
+    rotateRev.value = withRepeat(withTiming(-360, { duration: 22000, easing: Easing.linear }), -1, false);
   }, []);
 
   const ringStyle = useAnimatedStyle(() => ({
@@ -186,17 +191,68 @@ const AvatarPulseRing = React.memo(({ accent }: { accent: string }) => {
     opacity: opacity.value,
   }));
 
+  const outerRingStyle = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${rotate.value}deg` }],
+  }));
+
+  const innerRingStyle = useAnimatedStyle(() => ({
+    transform: [{ rotate: `${rotateRev.value}deg` }],
+  }));
+
+  // 12 tick marks around the outer ring
+  const ticks = Array.from({ length: 12 }, (_, i) => {
+    const angle = (i / 12) * Math.PI * 2;
+    const r = 75;
+    const tickLen = i % 3 === 0 ? 8 : 4;
+    return {
+      x1: 80 + (r - tickLen) * Math.cos(angle),
+      y1: 80 + (r - tickLen) * Math.sin(angle),
+      x2: 80 + r * Math.cos(angle),
+      y2: 80 + r * Math.sin(angle),
+    };
+  });
+
   return (
-    <Animated.View
-      style={[{
-        position: 'absolute',
-        width: 130,
-        height: 130,
-        borderRadius: 65,
-        borderWidth: 2,
-        borderColor: accent,
-      }, ringStyle]}
-    />
+    <>
+      {/* Outer rotating ring with ticks */}
+      <Animated.View
+        style={[{ position: 'absolute', width: 160, height: 160, borderRadius: 80, alignItems: 'center', justifyContent: 'center' }, outerRingStyle]}
+        pointerEvents="none"
+      >
+        <View style={{ width: 160, height: 160, borderRadius: 80, borderWidth: 1, borderColor: accent + '44', borderStyle: 'dashed', position: 'absolute' }} />
+        {ticks.map((t, i) => (
+          <View
+            key={i}
+            style={{
+              position: 'absolute',
+              left: t.x1,
+              top: t.y1,
+              width: 1.5,
+              height: Math.sqrt((t.x2 - t.x1) ** 2 + (t.y2 - t.y1) ** 2),
+              backgroundColor: accent + (i % 3 === 0 ? 'CC' : '55'),
+              transformOrigin: '0 0',
+              transform: [{ rotate: `${Math.atan2(t.y2 - t.y1, t.x2 - t.x1) + Math.PI / 2}rad` }],
+            }}
+          />
+        ))}
+      </Animated.View>
+      {/* Inner counter-rotating ring */}
+      <Animated.View
+        style={[{ position: 'absolute', width: 142, height: 142, borderRadius: 71, borderWidth: 1, borderColor: accent + '30' }, innerRingStyle]}
+        pointerEvents="none"
+      />
+      {/* Pulsing glow ring */}
+      <Animated.View
+        style={[{
+          position: 'absolute',
+          width: 130,
+          height: 130,
+          borderRadius: 65,
+          borderWidth: 2,
+          borderColor: accent,
+        }, ringStyle]}
+      />
+    </>
   );
 });
 
@@ -271,38 +327,61 @@ const PremiumCard = React.memo(({
       marginBottom: 10,
       borderRadius: 22,
       overflow: 'hidden',
-      borderWidth: 1,
-      borderLeftWidth: 3,
-      borderLeftColor: accent + 'CC',
-      borderColor: isLight ? 'rgba(169,122,57,0.18)' : 'rgba(255,255,255,0.10)',
-      backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)',
       shadowColor: accent,
-      shadowOpacity: 0.12,
-      shadowRadius: 14,
-      shadowOffset: { width: 0, height: 6 },
-      elevation: 8,
+      shadowOpacity: isLight ? 0.14 : 0.28,
+      shadowRadius: 20,
+      shadowOffset: { width: 0, height: 8 },
+      elevation: 10,
     }, style]}
   >
-    {/* Top gradient strip */}
-    <LinearGradient
-      colors={[accent + '44', 'transparent']}
-      start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-      style={{ height: 2, width: '100%' }}
-    />
-    {children}
+    <BlurView
+      intensity={isLight ? 55 : 35}
+      tint={isLight ? 'light' : 'dark'}
+      style={{
+        borderRadius: 22,
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderLeftWidth: 3,
+        borderLeftColor: accent + 'CC',
+        borderColor: isLight ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.10)',
+      }}
+    >
+      {/* Inner glass layer */}
+      <View style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.28)' : 'rgba(255,255,255,0.04)' }}>
+        {/* Top gradient strip */}
+        <LinearGradient
+          colors={[accent + '55', accent + '11', 'transparent']}
+          start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+          style={{ height: 2, width: '100%' }}
+        />
+        {/* Top highlight edge */}
+        <View style={{ position: 'absolute', top: 2, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.22)' }} pointerEvents="none" />
+        {children}
+      </View>
+    </BlurView>
   </Animated.View>
 ));
 
 // ── Section Header (premium) ───────────────────────────────────
 const SectionHeader = React.memo(({ icon: Icon, label, color, delay = 0 }: { icon: any; label: string; color: string; delay?: number }) => (
-  <Animated.View entering={FadeInDown.delay(delay).duration(400)} style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 22, paddingTop: 26, paddingBottom: 10 }}>
+  <Animated.View entering={FadeInDown.delay(delay).duration(400)} style={{ paddingHorizontal: 22, paddingTop: 26, paddingBottom: 10 }}>
+    {/* Thin gradient divider line */}
     <LinearGradient
-      colors={[color + '33', color + '18']}
-      style={{ width: 36, height: 36, borderRadius: 12, borderWidth: 1, borderColor: color + '44', alignItems: 'center', justifyContent: 'center' }}
-    >
-      <Icon color={color} size={17} strokeWidth={1.8} />
-    </LinearGradient>
-    <Text style={{ fontSize: 11, fontWeight: '800', letterSpacing: 2.0, color, textTransform: 'uppercase' }}>{label}</Text>
+      colors={[color + '44', color + '22', 'transparent']}
+      start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+      style={{ height: 1, marginBottom: 14, borderRadius: 1 }}
+    />
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+      <LinearGradient
+        colors={[color + '33', color + '14']}
+        style={{ width: 36, height: 36, borderRadius: 12, borderWidth: 1, borderColor: color + '44', alignItems: 'center', justifyContent: 'center' }}
+      >
+        <Icon color={color} size={17} strokeWidth={1.8} />
+      </LinearGradient>
+      <Text style={{ fontSize: 11, fontWeight: '800', letterSpacing: 2.0, color, textTransform: 'uppercase', flex: 1 }}>{label}</Text>
+      {/* Short accent bar */}
+      <View style={{ width: 20, height: 2, backgroundColor: color + '50', borderRadius: 1 }} />
+    </View>
   </Animated.View>
 ));
 
@@ -539,7 +618,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
               {/* Title bar */}
               <View style={{ paddingHorizontal: layout.padding.screen, paddingTop: 6, paddingBottom: 12, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Animated.View entering={FadeInDown.delay(50).duration(400)}>
-                  <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 3.2, color: accent + 'CC', marginBottom: 2 }}>✦ AETHERA</Text>
+                  <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 3.2, color: accent + 'CC', marginBottom: 2 }}>{t('profile.aethera', '✦ AETHERA')}</Text>
                   <Text style={{ fontSize: 22, fontWeight: '800', letterSpacing: -0.6, color: isLight ? '#1A1410' : '#F0EBE2' }}>
                     {tr('profile.title', 'Profil i Ustawienia', 'Profile & Settings')}
                   </Text>
@@ -553,7 +632,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
                       : (
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20, backgroundColor: 'rgba(206,174,114,0.12)', borderWidth: 1, borderColor: 'rgba(206,174,114,0.38)' }}>
                           <Crown color="#CEAE72" size={13} strokeWidth={1.8} />
-                          <Text style={{ fontSize: 11, fontWeight: '700', color: '#CEAE72', letterSpacing: 0.3 }}>Premium</Text>
+                          <Text style={{ fontSize: 11, fontWeight: '700', color: '#CEAE72', letterSpacing: 0.3 }}>{t('profile.premium', 'Premium')}</Text>
                         </View>
                       )
                     }
@@ -659,10 +738,17 @@ export const ProfileScreen = ({ navigation, route }: any) => {
                   ].map((s) => {
                     const Icon = s.icon;
                     return (
-                      <View key={s.label} style={{ flex: 1, alignItems: 'center', paddingVertical: 16, paddingHorizontal: 6, borderRadius: 20, backgroundColor: isLight ? 'rgba(255,255,255,0.80)' : 'rgba(255,255,255,0.06)', borderWidth: 1, borderColor: isLight ? 'rgba(169,122,57,0.20)' : 'rgba(255,255,255,0.10)', shadowColor: accent, shadowOpacity: isLight ? 0.12 : 0.10, shadowRadius: 10, shadowOffset: { width: 0, height: 4 }, elevation: 4 }}>
-                        <Text style={{ fontSize: 18, marginBottom: 5 }}>{s.emoji}</Text>
-                        <Text style={{ fontSize: 24, fontWeight: '800', color: accent, letterSpacing: -1 }}>{s.val}</Text>
-                        <Text style={{ fontSize: 10, color: rowSubColor, fontWeight: '700', letterSpacing: 0.3, marginTop: 3, textAlign: 'center' }}>{s.label}</Text>
+                      <View key={s.label} style={{ flex: 1, borderRadius: 20, overflow: 'hidden', shadowColor: accent, shadowOpacity: isLight ? 0.16 : 0.24, shadowRadius: 14, shadowOffset: { width: 0, height: 6 }, elevation: 7 }}>
+                        <BlurView intensity={isLight ? 60 : 40} tint={isLight ? 'light' : 'dark'} style={{ borderRadius: 20, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.80)' : 'rgba(255,255,255,0.12)' }}>
+                          <View style={{ alignItems: 'center', paddingVertical: 16, paddingHorizontal: 6, backgroundColor: isLight ? 'rgba(255,255,255,0.30)' : 'rgba(255,255,255,0.05)' }}>
+                            {/* top highlight */}
+                            <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.35)' }} pointerEvents="none" />
+                            <LinearGradient colors={[accent + '22', 'transparent']} style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 40, borderTopLeftRadius: 20, borderTopRightRadius: 20 }} pointerEvents="none" />
+                            <Text style={{ fontSize: 18, marginBottom: 5 }}>{s.emoji}</Text>
+                            <Text style={{ fontSize: 24, fontWeight: '800', color: accent, letterSpacing: -1 }}>{s.val}</Text>
+                            <Text style={{ fontSize: 10, color: rowSubColor, fontWeight: '700', letterSpacing: 0.3, marginTop: 3, textAlign: 'center' }}>{s.label}</Text>
+                          </View>
+                        </BlurView>
                       </View>
                     );
                   })}
@@ -675,7 +761,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
           {/* ── QUICK ACCESS TILES ── */}
           <Animated.View entering={FadeInDown.delay(60).duration(500)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 20, marginBottom: 6 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
-              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2.2, color: rowSubColor }}>SZYBKI DOSTĘP</Text>
+              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2.2, color: rowSubColor }}>{t('profile.szybki_dostep', 'SZYBKI DOSTĘP')}</Text>
               <View style={{ width: 32, height: 1, backgroundColor: accent + '40' }} />
             </View>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
@@ -695,25 +781,32 @@ export const ProfileScreen = ({ navigation, route }: any) => {
                     key={item.label}
                     onPress={() => { void HapticsService.selection(); item.onPress(); }}
                     style={({ pressed }) => ({
-                      width: tileW, alignItems: 'center', paddingVertical: 15, paddingHorizontal: 4,
-                      borderRadius: 22, borderWidth: 1,
-                      borderColor: isLight ? item.color + '28' : item.color + '30',
-                      backgroundColor: isLight ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.055)',
+                      width: tileW,
                       opacity: pressed ? 0.75 : 1,
-                      gap: 8,
+                      borderRadius: 22,
+                      overflow: 'hidden',
                       shadowColor: item.color,
-                      shadowOpacity: pressed ? 0.04 : isLight ? 0.14 : 0.12,
-                      shadowRadius: 10, shadowOffset: { width: 0, height: 4 },
-                      elevation: 4,
+                      shadowOpacity: pressed ? 0.04 : isLight ? 0.18 : 0.20,
+                      shadowRadius: 12, shadowOffset: { width: 0, height: 5 },
+                      elevation: 6,
                     })}
                   >
-                    <LinearGradient
-                      colors={[item.color + '28', item.color + '10']}
-                      style={{ width: 44, height: 44, borderRadius: 16, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: item.color + '22' }}
+                    <BlurView
+                      intensity={isLight ? 50 : 32}
+                      tint={isLight ? 'light' : 'dark'}
+                      style={{ borderRadius: 22, overflow: 'hidden', borderWidth: 1, borderColor: isLight ? 'rgba(255,255,255,0.72)' : item.color + '30' }}
                     >
-                      <Text style={{ fontSize: 22 }}>{item.emoji}</Text>
-                    </LinearGradient>
-                    <Text style={{ fontSize: 9, fontWeight: '800', color: isLight ? '#3A2A1A' : item.color + 'EE', letterSpacing: 0.2, textAlign: 'center' }}>{item.label}</Text>
+                      <View style={{ alignItems: 'center', paddingVertical: 15, paddingHorizontal: 4, gap: 8, backgroundColor: isLight ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.04)' }}>
+                        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.30)' }} pointerEvents="none" />
+                        <LinearGradient
+                          colors={[item.color + '33', item.color + '11']}
+                          style={{ width: 44, height: 44, borderRadius: 16, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: item.color + '44' }}
+                        >
+                          <Text style={{ fontSize: 22 }}>{item.emoji}</Text>
+                        </LinearGradient>
+                        <Text style={{ fontSize: 9, fontWeight: '800', color: isLight ? '#3A2A1A' : item.color + 'EE', letterSpacing: 0.2, textAlign: 'center' }}>{item.label}</Text>
+                      </View>
+                    </BlurView>
                   </Pressable>
                 );
               })}
@@ -748,7 +841,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
                       <Text style={{ fontSize: 19, fontWeight: '800', color: isLight ? '#3A2610' : '#F5EDD8', letterSpacing: 0.3 }}>
                         {subscriptionPlan === 'lifetime' ? '👑 Mistrz Lifetime' : subscriptionPlan === 'yearly' ? '⭐ Plan Mistrz' : '✨ Plan Dusza'}
                       </Text>
-                      <Text style={{ fontSize: 12, color: isLight ? '#7A5222' : 'rgba(206,174,114,0.72)', marginTop: 3 }}>Aktywne członkostwo Premium</Text>
+                      <Text style={{ fontSize: 12, color: isLight ? '#7A5222' : 'rgba(206,174,114,0.72)', marginTop: 3 }}>{t('profile.aktywne_czlonkostw_premium', 'Aktywne członkostwo Premium')}</Text>
                     </View>
                     <View style={{ paddingHorizontal: 10, paddingVertical: 5, backgroundColor: 'rgba(206,174,114,0.15)', borderRadius: 20, borderWidth: 1, borderColor: 'rgba(206,174,114,0.35)' }}>
                       <ChevronRight size={14} color="#CEAE72" strokeWidth={2.5} />
@@ -764,7 +857,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
                     ))}
                   </View>
                   <LinearGradient colors={['rgba(206,174,114,0.08)', 'rgba(206,174,114,0.15)']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ borderRadius: 14, paddingVertical: 11, paddingHorizontal: 18, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderWidth: 1, borderColor: 'rgba(206,174,114,0.22)' }}>
-                    <Text style={{ fontSize: 12, fontWeight: '700', color: isLight ? '#7A5222' : 'rgba(206,174,114,0.80)', letterSpacing: 0.3 }}>Zarządzaj pakietem · uaktualnij plan</Text>
+                    <Text style={{ fontSize: 12, fontWeight: '700', color: isLight ? '#7A5222' : 'rgba(206,174,114,0.80)', letterSpacing: 0.3 }}>{t('profile.zarzadzaj_pakietem_uaktualnij_plan', 'Zarządzaj pakietem · uaktualnij plan')}</Text>
                     <ChevronRight size={14} color="#CEAE72" strokeWidth={2.2} />
                   </LinearGradient>
                 </LinearGradient>
@@ -776,16 +869,16 @@ export const ProfileScreen = ({ navigation, route }: any) => {
                   <LinearGradient colors={['transparent', '#CEAE72', 'transparent']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 1, marginBottom: 20 }} />
                   {/* ODBLOKUJ badge */}
                   <View style={{ position: 'absolute', top: 18, right: 18, backgroundColor: isLight ? 'rgba(206,174,114,0.25)' : 'rgba(206,174,114,0.20)', borderWidth: 1, borderColor: 'rgba(206,174,114,0.50)', borderRadius: 20, paddingHorizontal: 12, paddingVertical: 5 }}>
-                    <Text style={{ fontSize: 10, fontWeight: '800', color: '#CEAE72', letterSpacing: 1 }}>✦ ODBLOKUJ</Text>
+                    <Text style={{ fontSize: 10, fontWeight: '800', color: '#CEAE72', letterSpacing: 1 }}>{t('profile.odblokuj', '✦ ODBLOKUJ')}</Text>
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14, marginBottom: 18 }}>
                     <View style={{ width: 58, height: 58, borderRadius: 29, backgroundColor: 'rgba(206,174,114,0.18)', borderWidth: 2, borderColor: 'rgba(206,174,114,0.45)', alignItems: 'center', justifyContent: 'center', shadowColor: '#CEAE72', shadowOpacity: 0.40, shadowRadius: 14, elevation: 8 }}>
                       <Crown size={28} color="#CEAE72" strokeWidth={1.4} />
                     </View>
                     <View style={{ flex: 1, paddingRight: 64 }}>
-                      <Text style={{ fontSize: 18, fontWeight: '800', color: isLight ? '#3A2610' : '#F5EDD8', letterSpacing: 0.3 }}>Aethera Premium</Text>
+                      <Text style={{ fontSize: 18, fontWeight: '800', color: isLight ? '#3A2610' : '#F5EDD8', letterSpacing: 0.3 }}>{t('profile.aethera_premium', 'Aethera Premium')}</Text>
                       <Text style={{ fontSize: 12, color: isLight ? '#7A5222' : 'rgba(206,174,114,0.68)', marginTop: 3, lineHeight: 17 }}>
-                        Pełne sanktuarium duszy — bez limitów
+                        {t('profile.pelne_sanktuariu_duszy_bez_limitow', 'Pełne sanktuarium duszy — bez limitów')}
                       </Text>
                     </View>
                   </View>
@@ -797,7 +890,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
                     ))}
                   </View>
                   <LinearGradient colors={['#8A6818', '#CEAE72', '#E8C87A', '#CEAE72']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ borderRadius: 16, paddingVertical: 15, alignItems: 'center', shadowColor: '#CEAE72', shadowOpacity: 0.50, shadowRadius: 12, elevation: 8 }}>
-                    <Text style={{ fontSize: 14, fontWeight: '800', color: '#1A0E04', letterSpacing: 0.5 }}>✦ Odkryj plany Premium</Text>
+                    <Text style={{ fontSize: 14, fontWeight: '800', color: '#1A0E04', letterSpacing: 0.5 }}>{t('profile.odkryj_plany_premium', '✦ Odkryj plany Premium')}</Text>
                   </LinearGradient>
                 </LinearGradient>
               )}
@@ -805,32 +898,32 @@ export const ProfileScreen = ({ navigation, route }: any) => {
           </Animated.View>
 
           {/* ── ROK OSOBISTY ── */}
-          <SectionHeader icon={Calendar} label="Mój rok osobisty" color={accent} delay={100} />
+          <SectionHeader icon={Calendar} label={t('profile.moj_rok_osobisty', 'Mój rok osobisty')} color={accent} delay={100} />
           <PremiumCard accent={accent} isLight={isLight} delay={110}>
-            <EntryRow icon={Star} label="Rok osobisty" value={personalYear ? `Cykl ${personalYear} · ${personalYear === 1 ? 'Nowe początki' : personalYear === 2 ? 'Partnerstwo' : personalYear === 3 ? 'Ekspresja' : personalYear === 4 ? 'Praca' : personalYear === 5 ? 'Zmiana' : personalYear === 6 ? 'Miłość' : personalYear === 7 ? 'Duchowość' : personalYear === 8 ? 'Moc' : 'Spełnienie'}` : 'Uzupełnij datę'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-            <EntryRow icon={Compass} label="Miesięczna wibracja" value={monthlyVibration ? `Cykl ${monthlyVibration} · aktywna` : 'Brak daty'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-            <EntryRow icon={Sun} label="Dzień osobisty" value={personalDay ? `Cykl ${personalDay} · dziś` : '—'} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Star} label={t('profile.rok_osobisty', 'Rok osobisty')} value={personalYear ? `Cykl ${personalYear} · ${personalYear === 1 ? 'Nowe początki' : personalYear === 2 ? 'Partnerstwo' : personalYear === 3 ? 'Ekspresja' : personalYear === 4 ? 'Praca' : personalYear === 5 ? 'Zmiana' : personalYear === 6 ? 'Miłość' : personalYear === 7 ? 'Duchowość' : personalYear === 8 ? 'Moc' : 'Spełnienie'}` : 'Uzupełnij datę'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Compass} label={t('profile.miesieczna_wibracja', 'Miesięczna wibracja')} value={monthlyVibration ? `Cykl ${monthlyVibration} · aktywna` : 'Brak daty'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Sun} label={t('profile.dzien_osobisty', 'Dzień osobisty')} value={personalDay ? `Cykl ${personalDay} · dziś` : '—'} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
           </PremiumCard>
 
           {/* ── 1. TOŻSAMOŚĆ ── */}
-          <SectionHeader icon={User} label="Tożsamość" color={accent} delay={140} />
+          <SectionHeader icon={User} label={t('profile.tozsamosc', 'Tożsamość')} color={accent} delay={140} />
           <PremiumCard accent={accent} isLight={isLight} delay={150}>
-            <EntryRow icon={User} label="Imię i profil" value={firstName} onPress={() => navigation.navigate('IdentitySetup')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-            <EntryRow icon={Star} label="Znak zodiaku" value={sign ? (ZODIAC_LABELS[sign] || sign) : 'Uzupełnij datę urodzenia'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-            <EntryRow icon={Sparkles} label="Archetyp dnia" value={archetype ? resolveUserFacingText(archetype.title) : 'Obliczany...'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-            <EntryRow icon={Flame} label="Talia tarota" value={selectedDeck?.name || 'Klasyczna'} onPress={() => setShowTarotDeckModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={User} label={t('profile.imie_i_profil', 'Imię i profil')} value={firstName} onPress={() => navigation.navigate('IdentitySetup')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Star} label={t('profile.znak_zodiaku', 'Znak zodiaku')} value={sign ? (ZODIAC_LABELS[sign] || sign) : 'Uzupełnij datę urodzenia'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Sparkles} label={t('profile.archetyp_dnia', 'Archetyp dnia')} value={archetype ? resolveUserFacingText(archetype.title) : 'Obliczany...'} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Flame} label={t('profile.talia_tarota_1', 'Talia tarota')} value={selectedDeck?.name || 'Klasyczna'} onPress={() => setShowTarotDeckModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
           </PremiumCard>
 
           {/* ── 2. DOSTROJENIE ORACLE ── */}
-          <SectionHeader icon={Sparkles} label="Dostrojenie Oracle" color={accent} delay={180} />
+          <SectionHeader icon={Sparkles} label={t('profile.dostrojeni_oracle', 'Dostrojenie Oracle')} color={accent} delay={180} />
           <PremiumCard accent={accent} isLight={isLight} delay={190}>
             <EntryRow icon={Globe} label={tr('profile.languageLabel', 'Język', 'Language')} value={LANGUAGE_OPTIONS.find(o => o.id === language)?.native || 'Polski'} onPress={() => setShowLanguageModal(true)} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-            <EntryRow icon={Sparkles} label="Nurt guidance" value={GUIDANCE_OPTIONS.find(o => o.id === userData.primaryGuidanceMode)?.label || 'Mieszane'} onPress={() => setShowGuidanceModal(true)} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-            <EntryRow icon={Flame} label="Talia tarota" value={selectedDeck?.name || 'Klasyczna'} onPress={() => setShowTarotDeckModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Sparkles} label={t('profile.nurt_guidance_1', 'Nurt guidance')} value={GUIDANCE_OPTIONS.find(o => o.id === userData.primaryGuidanceMode)?.label || 'Mieszane'} onPress={() => setShowGuidanceModal(true)} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Flame} label={t('profile.talia_tarota_2', 'Talia tarota')} value={selectedDeck?.name || 'Klasyczna'} onPress={() => setShowTarotDeckModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
           </PremiumCard>
 
           {/* ── 3. DŹWIĘK & AURA ── */}
-          <SectionHeader icon={Music} label="Dźwięk i aura" color={accent} delay={220} />
+          <SectionHeader icon={Music} label={t('profile.dzwiek_i_aura', 'Dźwięk i aura')} color={accent} delay={220} />
           {/* Audio runtime status */}
           <Animated.View entering={FadeInDown.delay(225).duration(400)} style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 6, paddingHorizontal: 22 }}>
             <View style={{ width: 7, height: 7, borderRadius: 3.5, backgroundColor: audioRuntimeState === 'ready' ? '#34D399' : audioRuntimeState === 'failed' ? '#F87171' : '#FBBF24' }} />
@@ -845,8 +938,8 @@ export const ProfileScreen = ({ navigation, route }: any) => {
             <View style={{ borderLeftWidth: 3, borderLeftColor: accent + 'CC' }}>
               <LinearGradient colors={[accent + '44', 'transparent']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ height: 2 }} />
               <View style={{ padding: 18 }}>
-                <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2.0, color: accent, marginBottom: 8 }}>STUDIO DOŚWIADCZENIA</Text>
-                <Text style={{ fontSize: 14, lineHeight: 22, color: rowTextColor, fontWeight: '600' }}>Tu ustawiasz nie tylko głośność. Budujesz atmosferę całej aplikacji: muzykę, pejzaż tła, sygnały dotyku i poziom ceremonialności kontaktu.</Text>
+                <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2.0, color: accent, marginBottom: 8 }}>{t('profile.studio_doswiadcze', 'STUDIO DOŚWIADCZENIA')}</Text>
+                <Text style={{ fontSize: 14, lineHeight: 22, color: rowTextColor, fontWeight: '600' }}>{t('profile.tu_ustawiasz_nie_tylko_glosnosc', 'Tu ustawiasz nie tylko głośność. Budujesz atmosferę całej aplikacji: muzykę, pejzaż tła, sygnały dotyku i poziom ceremonialności kontaktu.')}</Text>
                 <View style={{ flexDirection: 'row', gap: 8, marginTop: 12, flexWrap: 'wrap' }}>
                   {['muzyka', 'ambient', 'dotyk i sygnały'].map((chip) => (
                     <View key={chip} style={{ paddingHorizontal: 11, paddingVertical: 6, borderRadius: 999, borderWidth: 1, borderColor: accent + '30', backgroundColor: accent + '10' }}>
@@ -856,7 +949,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
                 </View>
                 {/* Live status */}
                 <View style={{ marginTop: 16, borderRadius: 16, borderWidth: 1, borderColor: accent + '24', backgroundColor: isLight ? 'rgba(255,255,255,0.65)' : 'rgba(255,255,255,0.04)', padding: 14 }}>
-                  <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.5, color: accent, marginBottom: 10 }}>LIVE STATUS</Text>
+                  <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.5, color: accent, marginBottom: 10 }}>{t('profile.live_status', 'LIVE STATUS')}</Text>
                   <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
                     {['PRELOAD ' + (audioDiagnostic.preloadReady ? 'GOTOWY' : 'W TOKU'), 'MUZYKA ' + activeMusicLabel.toUpperCase(), 'AMBIENT ' + activeAmbientLabel.toUpperCase()].map((item) => (
                       <View key={item} style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 12, borderWidth: 1, borderColor: accent + '28', backgroundColor: accent + '0E' }}>
@@ -871,7 +964,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
           </Animated.View>
 
           <PremiumCard accent={accent} isLight={isLight} delay={240}>
-            <ToggleRow icon={Music} label="Muzyka tła" value={experience.backgroundMusicEnabled} onToggle={() => { setExperience({ backgroundMusicEnabled: !experience.backgroundMusicEnabled }); }} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <ToggleRow icon={Music} label={t('profile.muzyka_tla', 'Muzyka tła')} value={experience.backgroundMusicEnabled} onToggle={() => { setExperience({ backgroundMusicEnabled: !experience.backgroundMusicEnabled }); }} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
             {/* Music volume */}
             <View style={{ paddingHorizontal: 18, paddingBottom: 8, opacity: experience.backgroundMusicEnabled ? 1 : 0.4 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
@@ -882,7 +975,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
             </View>
             {/* Music category */}
             <View style={{ marginTop: 4, marginBottom: 4, opacity: experience.backgroundMusicEnabled ? 1 : 0.45, paddingHorizontal: 18 }}>
-              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: currentTheme.textSoft, marginBottom: 8 }}>STYL MUZYKI</Text>
+              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: currentTheme.textSoft, marginBottom: 8 }}>{t('profile.styl_muzyki', 'STYL MUZYKI')}</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
                 {MUSIC_CATEGORY_OPTIONS.map(opt => (
                   <Pressable key={opt.id} onPress={() => {
@@ -896,7 +989,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
                 ))}
               </View>
             </View>
-            <ToggleRow icon={Waves} label="Ambient rytuałów" value={ambientSoundEnabled} onToggle={() => { setAmbientSoundEnabled(!ambientSoundEnabled); }} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <ToggleRow icon={Waves} label={t('profile.ambient_rytualow', 'Ambient rytuałów')} value={ambientSoundEnabled} onToggle={() => { setAmbientSoundEnabled(!ambientSoundEnabled); }} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
             {/* Ambient volume */}
             <View style={{ paddingHorizontal: 18, paddingBottom: 8, opacity: ambientSoundEnabled ? 1 : 0.4 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
@@ -907,7 +1000,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
             </View>
             {/* Soundscape */}
             <View style={{ marginTop: 4, marginBottom: 4, opacity: ambientSoundEnabled ? 1 : 0.45, paddingHorizontal: 18 }}>
-              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: currentTheme.textSoft, marginBottom: 8 }}>KRAJOBRAZ DŹWIĘKOWY</Text>
+              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: currentTheme.textSoft, marginBottom: 8 }}>{t('profile.krajobraz_dzwiekowy', 'KRAJOBRAZ DŹWIĘKOWY')}</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
                 {SOUNDSCAPE_OPTIONS.map(opt => (
                   <Pressable key={opt.id} onPress={() => {
@@ -921,9 +1014,9 @@ export const ProfileScreen = ({ navigation, route }: any) => {
                 ))}
               </View>
             </View>
-            <ToggleRow icon={Sparkles} label="Dźwięki dotyku" value={experience.touchSoundEnabled} onToggle={() => setExperience({ touchSoundEnabled: !experience.touchSoundEnabled })} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-            <ToggleRow icon={RotateCcw} label="Sygnał domknięcia rytuału" value={experience.ritualCompletionSoundEnabled} onToggle={() => setExperience({ ritualCompletionSoundEnabled: !experience.ritualCompletionSoundEnabled })} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-            <ToggleRow icon={Vibrate} label="Haptyka" value={experience.hapticsEnabled} onToggle={() => setExperience({ hapticsEnabled: !experience.hapticsEnabled })} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <ToggleRow icon={Sparkles} label={t('profile.dzwieki_dotyku', 'Dźwięki dotyku')} value={experience.touchSoundEnabled} onToggle={() => setExperience({ touchSoundEnabled: !experience.touchSoundEnabled })} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <ToggleRow icon={RotateCcw} label={t('profile.sygnal_domkniecia_rytualu', 'Sygnał domknięcia rytuału')} value={experience.ritualCompletionSoundEnabled} onToggle={() => setExperience({ ritualCompletionSoundEnabled: !experience.ritualCompletionSoundEnabled })} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <ToggleRow icon={Vibrate} label={t('profile.haptyka', 'Haptyka')} value={experience.hapticsEnabled} onToggle={() => setExperience({ hapticsEnabled: !experience.hapticsEnabled })} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
             {/* Test buttons */}
             <View style={{ flexDirection: 'row', gap: 8, paddingHorizontal: 16, paddingBottom: 12, paddingTop: 4 }}>
               <Pressable onPress={() => { HapticsService.impact('medium'); }} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingVertical: 11, borderRadius: 14, borderWidth: 1, borderColor: currentTheme.primary + '44', backgroundColor: currentTheme.primary + '12' }}>
@@ -936,7 +1029,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
             {/* Voice */}
             <View style={{ paddingHorizontal: 16, paddingBottom: 14, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: currentTheme.borderLight }}>
               <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.5, color: accent, marginBottom: 4, marginTop: 12 }}>{tr('profile.voiceHeading', 'GŁOS LEKTORA', 'VOICE GUIDE')}</Text>
-              <Text style={{ fontSize: 10, color: rowSubColor, marginBottom: 10 }}>Azure Neural TTS — naturalny ludzki głos</Text>
+              <Text style={{ fontSize: 10, color: rowSubColor, marginBottom: 10 }}>{t('profile.azure_neural_tts_naturalny_ludzki', 'Azure Neural TTS — naturalny ludzki głos')}</Text>
               <View style={{ flexDirection: 'row', gap: 10 }}>
                 {[{ id: 'nova', label: '🎙 Zofia', sub: 'Damski · Neural' }, { id: 'onyx', label: '🎙 Marek', sub: 'Męski · Neural' }].map((opt) => {
                   const active = (experience.narratorVoice ?? 'nova') === opt.id;
@@ -950,7 +1043,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
                 })}
               </View>
               <Pressable onPress={() => { const voice = experience.narratorVoice ?? 'nova'; TTSService.setVoice(voice); void TTSService.speak('Witaj w Aetherze. Jestem Twoim duchowym przewodnikiem.', undefined, undefined, voice); HapticsService.impact('light'); }} style={{ marginTop: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, paddingVertical: 11, borderRadius: 14, borderWidth: 1, borderColor: accent + '44', backgroundColor: accent + '0E' }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', color: accent, letterSpacing: 0.5 }}>▶ POSŁUCHAJ PRÓBKI</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', color: accent, letterSpacing: 0.5 }}>{t('profile.posluchaj_probki', '▶ POSŁUCHAJ PRÓBKI')}</Text>
               </Pressable>
             </View>
             {/* Text scale */}
@@ -968,15 +1061,15 @@ export const ProfileScreen = ({ navigation, route }: any) => {
                 })}
               </View>
             </View>
-            <EntryRow icon={SlidersHorizontal} label="Tryb ruchu" value={MOTION_OPTIONS.find(m => m.id === experience.motionStyle)?.label || 'Wywazone'} onPress={() => setShowMotionModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={SlidersHorizontal} label={t('profile.tryb_ruchu_1', 'Tryb ruchu')} value={MOTION_OPTIONS.find(m => m.id === experience.motionStyle)?.label || 'Wywazone'} onPress={() => setShowMotionModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
           </PremiumCard>
 
           {/* ── 4. MOTYW & WYGLĄD ── */}
-          <SectionHeader icon={Palette} label="Motyw i wygląd" color={accent} delay={280} />
+          <SectionHeader icon={Palette} label={t('profile.motyw_i_wyglad', 'Motyw i wygląd')} color={accent} delay={280} />
           {/* Display mode */}
           <PremiumCard accent={accent} isLight={isLight} delay={290} style={{ marginBottom: 12 }}>
             <View style={{ padding: 16 }}>
-              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.6, color: accent, marginBottom: 12 }}>TRYB WYŚWIETLANIA</Text>
+              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.6, color: accent, marginBottom: 12 }}>{t('profile.tryb_wyswietlan', 'TRYB WYŚWIETLANIA')}</Text>
               <View style={{ flexDirection: 'row', gap: 8 }}>
                 {([{ id: 'auto' as ThemeMode, label: 'Auto', Icon: RotateCcw }, { id: 'light' as ThemeMode, label: 'Jasny', Icon: Sun }, { id: 'dark' as ThemeMode, label: 'Ciemny', Icon: Moon }]).map(({ id, label, Icon }) => {
                   const active = themeMode === id;
@@ -994,8 +1087,8 @@ export const ProfileScreen = ({ navigation, route }: any) => {
           {/* Theme grid */}
           <Animated.View entering={FadeInDown.delay(310).duration(500)} style={{ marginHorizontal: 18, marginBottom: 12 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.8, color: rowSubColor }}>MOTYW STYLU</Text>
-              {themeMode === 'auto' && <Text style={{ fontSize: 10, color: accent, fontWeight: '600' }}>Tryb auto aktywny</Text>}
+              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.8, color: rowSubColor }}>{t('profile.motyw_stylu', 'MOTYW STYLU')}</Text>
+              {themeMode === 'auto' && <Text style={{ fontSize: 10, color: accent, fontWeight: '600' }}>{t('profile.tryb_auto_aktywny', 'Tryb auto aktywny')}</Text>}
             </View>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
               {THEMES_LIST.map((themeId) => {
@@ -1027,15 +1120,15 @@ export const ProfileScreen = ({ navigation, route }: any) => {
           </Animated.View>
 
           <PremiumCard accent={accent} isLight={isLight} delay={330}>
-            <EntryRow icon={Eye} label="Tło sanktuarium" value={BACKGROUND_OPTIONS.find(b => b.id === experience.backgroundStyle)?.label || 'Subtelne niebo'} onPress={() => setShowBgModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Eye} label={t('profile.tlo_sanktuariu_1', 'Tło sanktuarium')} value={BACKGROUND_OPTIONS.find(b => b.id === experience.backgroundStyle)?.label || 'Subtelne niebo'} onPress={() => setShowBgModal(true)} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
           </PremiumCard>
 
           {/* ── 5. APLIKACJA ── */}
-          <SectionHeader icon={Settings2} label="Aplikacja" color={accent} delay={360} />
+          <SectionHeader icon={Settings2} label={t('profile.aplikacja', 'Aplikacja')} color={accent} delay={360} />
           <PremiumCard accent={accent} isLight={isLight} delay={370}>
             {/* AI response length */}
             <View style={{ paddingHorizontal: 16, paddingTop: 14, paddingBottom: 12 }}>
-              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.8, color: accent, marginBottom: 12 }}>STYL ODPOWIEDZI AI</Text>
+              <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 1.8, color: accent, marginBottom: 12 }}>{t('profile.styl_odpowiedzi_ai', 'STYL ODPOWIEDZI AI')}</Text>
               {([
                 { val: 'short', label: 'Krótko i konkretnie', desc: 'Zwięzłe, szybki wgląd' },
                 { val: 'medium', label: 'Wyważone', desc: 'Balans głębi i skrótowości' },
@@ -1056,13 +1149,13 @@ export const ProfileScreen = ({ navigation, route }: any) => {
           </PremiumCard>
 
           {/* ── 6. KONTO ── */}
-          <SectionHeader icon={Shield} label="Konto" color={accent} delay={400} />
+          <SectionHeader icon={Shield} label={t('profile.konto', 'Konto')} color={accent} delay={400} />
           <PremiumCard accent={accent} isLight={isLight} delay={410}>
-            <EntryRow icon={HelpCircle} label="Przewodnik po Aetherze" value="Jak korzystać" onPress={() => setShowGuideModal(true)} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-            <EntryRow icon={BarChart2} label="Raport duszy" value="Wzory i podsumowania" onPress={() => navigation.navigate('Reports')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-            <EntryRow icon={Star} label="Ulubione wglądy" value={favoriteEntries === 0 ? 'Nic jeszcze nie zapisano' : `${favoriteEntries} zapisanych`} onPress={() => navigation.navigate('Journal')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-            <EntryRow icon={BookOpen} label="Biblioteka wiedzy" value="Symbole i święta tradycja" onPress={() => navigation.navigate('Knowledge')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
-            <EntryRow icon={ScrollText} label="Kolejny krok" value="Zapisz kierunek" onPress={() => navigation.navigate('JournalEntry', { prompt: 'Jaki jest teraz mój najlepszy następny krok w Aetherze i czego naprawdę potrzebuję: ukojenia, wglądu, rytuału czy działania?', type: 'reflection' })} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={HelpCircle} label={t('profile.przewodnik_po_aetherze_1', 'Przewodnik po Aetherze')} value="Jak korzystać" onPress={() => setShowGuideModal(true)} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={BarChart2} label={t('profile.raport_duszy', 'Raport duszy')} value="Wzory i podsumowania" onPress={() => navigation.navigate('Reports')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={Star} label={t('profile.ulubione_wglady', 'Ulubione wglądy')} value={favoriteEntries === 0 ? 'Nic jeszcze nie zapisano' : `${favoriteEntries} zapisanych`} onPress={() => navigation.navigate('Journal')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={BookOpen} label={t('profile.biblioteka_wiedzy', 'Biblioteka wiedzy')} value="Symbole i święta tradycja" onPress={() => navigation.navigate('Knowledge')} accent={accent} textColor={rowTextColor} subColor={rowSubColor} />
+            <EntryRow icon={ScrollText} label={t('profile.kolejny_krok', 'Kolejny krok')} value="Zapisz kierunek" onPress={() => navigation.navigate('JournalEntry', { prompt: 'Jaki jest teraz mój najlepszy następny krok w Aetherze i czego naprawdę potrzebuję: ukojenia, wglądu, rytuału czy działania?', type: 'reflection' })} accent={accent} last textColor={rowTextColor} subColor={rowSubColor} />
           </PremiumCard>
 
           {/* ── WYLOGUJ ── */}
@@ -1075,7 +1168,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
       {/* ══ MODALS ══ */}
 
       {/* Tło */}
-      <BottomModal visible={showBgModal} onClose={() => setShowBgModal(false)} title="Tło sanktuarium" accent={accent}>
+      <BottomModal visible={showBgModal} onClose={() => setShowBgModal(false)} title={t('profile.tlo_sanktuariu', 'Tło sanktuarium')} accent={accent}>
         {BACKGROUND_OPTIONS.map(opt => {
           const active = experience.backgroundStyle === opt.id;
           return (
@@ -1088,7 +1181,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
       </BottomModal>
 
       {/* Tryb ruchu */}
-      <BottomModal visible={showMotionModal} onClose={() => setShowMotionModal(false)} title="Tryb ruchu" accent={accent}>
+      <BottomModal visible={showMotionModal} onClose={() => setShowMotionModal(false)} title={t('profile.tryb_ruchu', 'Tryb ruchu')} accent={accent}>
         {MOTION_OPTIONS.map(opt => {
           const active = experience.motionStyle === opt.id;
           return (
@@ -1104,7 +1197,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
       </BottomModal>
 
       {/* Język */}
-      <BottomModal visible={showLanguageModal} onClose={() => setShowLanguageModal(false)} title="Język" accent={accent}>
+      <BottomModal visible={showLanguageModal} onClose={() => setShowLanguageModal(false)} title={t('profile.jezyk', 'Język')} accent={accent}>
         {LANGUAGE_OPTIONS.map(opt => {
           const active = language === opt.id;
           return (
@@ -1117,7 +1210,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
       </BottomModal>
 
       {/* Guidance */}
-      <BottomModal visible={showGuidanceModal} onClose={() => setShowGuidanceModal(false)} title="Nurt guidance" accent={accent}>
+      <BottomModal visible={showGuidanceModal} onClose={() => setShowGuidanceModal(false)} title={t('profile.nurt_guidance', 'Nurt guidance')} accent={accent}>
         {GUIDANCE_OPTIONS.map(opt => {
           const active = userData.primaryGuidanceMode === opt.id;
           return (
@@ -1133,7 +1226,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
       </BottomModal>
 
       {/* Talia tarota */}
-      <BottomModal visible={showTarotDeckModal} onClose={() => setShowTarotDeckModal(false)} title="Talia tarota" accent={accent}>
+      <BottomModal visible={showTarotDeckModal} onClose={() => setShowTarotDeckModal(false)} title={t('profile.talia_tarota', 'Talia tarota')} accent={accent}>
         {TAROT_DECKS.map(deck => {
           const active = selectedDeckId === deck.id;
           return (
@@ -1149,7 +1242,7 @@ export const ProfileScreen = ({ navigation, route }: any) => {
       </BottomModal>
 
       {/* Avatar */}
-      <BottomModal visible={showAvatarModal} onClose={() => setShowAvatarModal(false)} title="Portret sanktuarium" accent={accent}>
+      <BottomModal visible={showAvatarModal} onClose={() => setShowAvatarModal(false)} title={t('profile.portret_sanktuariu', 'Portret sanktuarium')} accent={accent}>
         <View style={{ alignItems: 'center', paddingVertical: 20 }}>
           <ProfileAvatar uri={userData.avatarUri} name={firstName} fallbackText={firstName.charAt(0).toUpperCase()} size={90} primary={accent} borderColor={accent + '44'} backgroundColor={isLight ? '#FFF8EE' : '#1A2236'} textColor={accent} />
         </View>
@@ -1159,13 +1252,13 @@ export const ProfileScreen = ({ navigation, route }: any) => {
         </Pressable>
         {hasAvatar && (
           <Pressable onPress={handleRemoveAvatar} style={[pStyles.modalOption, { borderColor: 'rgba(200,100,90,0.3)', backgroundColor: 'rgba(200,100,90,0.06)' }]}>
-            <Text style={[pStyles.modalOptionLabel, { flex: 1, color: '#C66961' }]}>Usuń portret</Text>
+            <Text style={[pStyles.modalOptionLabel, { flex: 1, color: '#C66961' }]}>{t('profile.usun_portret', 'Usuń portret')}</Text>
           </Pressable>
         )}
       </BottomModal>
 
       {/* Przewodnik */}
-      <BottomModal visible={showGuideModal} onClose={() => setShowGuideModal(false)} title="Przewodnik po Aetherze" accent={accent}>
+      <BottomModal visible={showGuideModal} onClose={() => setShowGuideModal(false)} title={t('profile.przewodnik_po_aetherze', 'Przewodnik po Aetherze')} accent={accent}>
         <View style={{ paddingHorizontal: 18, paddingTop: 8, paddingBottom: 16 }}>
           {[
             {

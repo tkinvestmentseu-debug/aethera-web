@@ -18,6 +18,7 @@ import { resolveUserFacingText } from '../core/utils/contentResolver';
 import { AiService } from '../core/services/ai.service';
 import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { buildTarotCardInterpretation } from '../features/tarot/utils/tarotInterpretation';
+import { TarotCardFlip } from '../components/TarotCardFlip';
 import { AudioService } from '../core/services/audio.service';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Svg, { Circle, Ellipse, G, Path, Line, Polygon, Rect, Defs, RadialGradient as SvgRadialGradient, Stop } from 'react-native-svg';
@@ -44,6 +45,8 @@ const NUMEROLOGY_NAMES: Record<number, string> = {
 };
 const MAJOR_NAMES = ['Szaleniec','Mag','Kapłanka','Cesarzowa','Cesarz','Hierofant','Kochankowie','Rydwan','Siła','Pustelnik','Koło Fortuny','Sprawiedliwość','Wisielec','Śmierć','Umiarkowanie','Diabeł','Wieża','Gwiazda','Księżyc','Słońce','Sąd','Świat'];
 const MAJOR_ACCENT = ['#A78BFA','#CEAE72','#60A5FA','#34D399','#E8705A','#F97316','#F472B6','#CEAE72','#E8705A','#9CA3AF','#F9A8D4','#34D399','#818CF8','#6B7280','#A78BFA','#F59E0B','#EF4444','#60A5FA','#818CF8','#FBBF24','#F97316','#34D399'];
+const MAJOR_ACCENT2 = ['#7C3AED','#B8860B','#2563EB','#059669','#C0392B','#D97706','#DB2777','#A07830','#C0392B','#4B5563','#EC4899','#047857','#4F46E5','#374151','#6D28D9','#B45309','#DC2626','#2563EB','#4338CA','#D97706','#EA580C','#047857'];
+const MAJOR_SYMBOLS = ['🃏','✨','🌙','🌿','⚔️','🏛️','💕','🏆','🦁','🕯️','🎡','⚖️','🙃','💀','🏺','🐐','⚡','⭐','🌑','☀️','📯','🌍'];
 
 // ── Multi-perspective tab interpretations ──────────────────────────────────────
 type PerspectiveTab = 'Ogólnie' | 'Miłość' | 'Kariera' | 'Duchowość';
@@ -349,65 +352,6 @@ const CardBackGeometry = React.memo(({ accent, size }: { accent: string; size: n
   );
 });
 
-// ── 3D flip card component ─────────────────────────────────────────────────────
-const FlipCard3D = React.memo(({ accent, card, deck, isReversed, isFlipped, onFlip, isLight }: {
-  accent: string; card: any; deck: any; isReversed: boolean; isFlipped: boolean; onFlip: () => void; isLight?: boolean;
-}) => {
-  const rotation = useSharedValue(0);
-  const prevFlipped = useRef(false);
-
-  useEffect(() => {
-    if (isFlipped !== prevFlipped.current) {
-      prevFlipped.current = isFlipped;
-      rotation.value = withTiming(isFlipped ? 180 : 0, { duration: 650 });
-    }
-  }, [isFlipped]);
-
-  const frontStyle = useAnimatedStyle(() => ({
-    transform: [
-      { perspective: 800 },
-      { rotateY: `${interpolate(rotation.value, [0, 180], [0, 180])}deg` },
-    ],
-    backfaceVisibility: 'hidden',
-    position: 'absolute',
-    top: 0, left: 0, right: 0, bottom: 0,
-    opacity: interpolate(rotation.value, [0, 90, 91, 180], [1, 0, 0, 0]),
-  }));
-
-  const backStyle = useAnimatedStyle(() => ({
-    transform: [
-      { perspective: 800 },
-      { rotateY: `${interpolate(rotation.value, [0, 180], [180, 360])}deg` },
-    ],
-    backfaceVisibility: 'hidden',
-    position: 'absolute',
-    top: 0, left: 0, right: 0, bottom: 0,
-    opacity: interpolate(rotation.value, [0, 89, 90, 180], [0, 0, 1, 1]),
-  }));
-
-  const cardW = SW - 80;
-  const cardH = cardW * 1.6;
-
-  return (
-    <Pressable onPress={onFlip} style={{ width: cardW, height: cardH, alignSelf: 'center' }}>
-      <View style={{ width: cardW, height: cardH, position: 'relative' }}>
-        {/* Back face — sacred geometry */}
-        <Animated.View style={[frontStyle, { width: cardW, height: cardH, borderRadius: 18, overflow: 'hidden', alignItems: 'center', justifyContent: 'center', backgroundColor: accent + '12', borderWidth: 1.5, borderColor: accent + '44' }]}>
-          <LinearGradient colors={isLight ? ['#FBF5E6', '#F0E6D0', '#E8D8BE'] : ['#0C0A14', '#181028', '#0F0820']} style={StyleSheet.absoluteFillObject} />
-          <CardBackGeometry accent={accent} size={cardW * 0.72} />
-          <View style={{ position: 'absolute', bottom: 20, alignItems: 'center' }}>
-            <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2.5, color: accent + 'AA' }}>DOTKNIJ BY ODSŁONIĆ</Text>
-          </View>
-        </Animated.View>
-        {/* Front face — actual card */}
-        <Animated.View style={[backStyle, { width: cardW, height: cardH, borderRadius: 18, overflow: 'hidden', alignItems: 'center', justifyContent: 'center' }]}>
-          <TarotCardVisual deck={deck} card={card} isReversed={isReversed} size="large" subtitle={isReversed ? 'Odwrócona' : 'Energia dnia'} />
-        </Animated.View>
-      </View>
-    </Pressable>
-  );
-});
-
 // ── Portal 3D orb ──────────────────────────────────────────────────────────────
 const TarotPortal3D = React.memo(({ accent }: { accent: string }) => {
   const pulse = useSharedValue(0.92);
@@ -621,9 +565,9 @@ export const DailyTarotScreen = ({ navigation }: any) => {
           <View style={dt.topBar}>
             <Pressable onPress={() => navigation.canGoBack() ? navigation.goBack() : navigation.goBack()} style={dt.topAction}>
               <ChevronLeft color={ACCENT} size={20} />
-              <Typography variant="microLabel" color={ACCENT} style={{ marginLeft: 6 }}>Wróć</Typography>
+              <Typography variant="microLabel" color={ACCENT} style={{ marginLeft: 6 }}>{t('dailyTarot.wroc', 'Wróć')}</Typography>
             </Pressable>
-            <Typography variant="premiumLabel" color={ACCENT}>🃏 KARTA DNIA</Typography>
+            <Typography variant="premiumLabel" color={ACCENT}>{t('dailyTarot.karta_dnia', '🃏 KARTA DNIA')}</Typography>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
               <Pressable onPress={handleShare}><Share2 color={ACCENT} size={16} /></Pressable>
               <Pressable onPress={() => { if (isFavoriteItem('daily_tarot')) { removeFavoriteItem('daily_tarot'); } else { addFavoriteItem({ id: 'daily_tarot', label: 'Karta dnia', route: 'DailyTarot', params: {}, icon: 'Star', color: ACCENT, addedAt: new Date().toISOString() }); } }}>
@@ -639,12 +583,12 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               {/* ── Entry heading ── */}
               <View style={{ paddingHorizontal: layout.padding.screen, alignItems: 'center', marginBottom: 28 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginBottom: 10 }}>CEREMONIA PORANKA</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginBottom: 10 }}>{t('dailyTarot.ceremonia_poranka', 'CEREMONIA PORANKA')}</Text>
                 <Text style={{ fontSize: 26, fontWeight: '300', letterSpacing: 0.5, color: textColor, textAlign: 'center', lineHeight: 34, marginBottom: 12 }}>
                   Jeden znak.{'\n'}Jeden ton. Jeden kierunek.
                 </Text>
                 <Text style={{ fontSize: 14, lineHeight: 23, color: subColor, textAlign: 'center' }}>
-                  To nie jest szybkie losowanie. To dzienny rytuał, który wraca raz na dobę i zostawia jeden wyraźny sygnał do niesienia przez cały dzień.
+                  {t('dailyTarot.to_nie_jest_szybkie_losowanie', 'To nie jest szybkie losowanie. To dzienny rytuał, który wraca raz na dobę i zostawia jeden wyraźny sygnał do niesienia przez cały dzień.')}
                 </Text>
               </View>
 
@@ -685,7 +629,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                   <LinearGradient colors={isLight ? ['#FBF5E6', '#F0E6D0', '#E8D8BE'] : ['#0C0A14', '#181028', '#0F0820']} style={StyleSheet.absoluteFillObject} />
                   <CardBackGeometry accent={ACCENT} size={(SW - 80) * 0.7} />
                   <View style={{ position: 'absolute', bottom: 24, alignItems: 'center' }}>
-                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2.5, color: ACCENT + 'AA' }}>KARTA CZEKA NA CIEBIE</Text>
+                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2.5, color: ACCENT + 'AA' }}>{t('dailyTarot.karta_czeka_na_ciebie', 'KARTA CZEKA NA CIEBIE')}</Text>
                   </View>
                 </View>
               </Animated.View>
@@ -694,7 +638,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               {/* ── Ritual preparation ── */}
               <View style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 8 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 18 }}>RYTUAŁ PRZED ODSŁONIĘCIEM</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 18 }}>{t('dailyTarot.rytual_przed_odslonieci', 'RYTUAŁ PRZED ODSŁONIĘCIEM')}</Text>
                 {RITUAL_STEPS.map((step, i) => (
                   <View key={step.n}>
                     {i > 0 && <View style={{ height: 1, backgroundColor: dividerColor, marginVertical: 12 }} />}
@@ -715,7 +659,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               {/* ── Three layers intro ── */}
               <View style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 28 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 18 }}>TAROTOWY PORTAL DNIA</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 18 }}>{t('dailyTarot.tarotowy_portal_dnia', 'TAROTOWY PORTAL DNIA')}</Text>
                 {[
                   { icon: Gem, title: 'Symbol', copy: 'Jedna karta, która zbiera energię dnia do jednego znaku.' },
                   { icon: Eye, title: 'Wgląd', copy: 'Nie szybka wróżba, tylko świadome odczytanie tonu dnia.' },
@@ -743,7 +687,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               {/* ── Jak czytać kartę (pre-reveal) ── */}
               <Animated.View entering={FadeInDown.delay(300).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 8 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 16 }}>💡 JAK CZYTAĆ KARTĘ</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 16 }}>{t('dailyTarot.jak_czytac_karte', '💡 JAK CZYTAĆ KARTĘ')}</Text>
                 {[
                   { icon: Eye,    title: 'Symbole',  copy: 'Zatrzymaj się na jednym obrazie — postaci, przedmiocie lub kolorze, który przyciąga wzrok. To on niesie pierwsze przesłanie.' },
                   { icon: Layers, title: 'Kolor',    copy: 'Dominujące barwy karty mają temperaturę emocjonalną. Złoto i czerwień aktywizują, błękit i fiolet pogłębiają, zieleń uzdrawia.' },
@@ -771,9 +715,9 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               <View style={{ paddingHorizontal: layout.padding.screen, paddingTop: 18, paddingBottom: 8 }}>
                 <Text style={{ fontSize: 13, lineHeight: 22, color: subColor, textAlign: 'center', marginBottom: 20 }}>
-                  Ten ekran ma przypominać mały rytuał, nie zwykłe narzędzie. Karta dnia nie ma Cię przytłoczyć — ma zostawić jeden czysty motyw, który niesiesz dalej.
+                  {t('dailyTarot.ten_ekran_ma_przypomina_maly', 'Ten ekran ma przypominać mały rytuał, nie zwykłe narzędzie. Karta dnia nie ma Cię przytłoczyć — ma zostawić jeden czysty motyw, który niesiesz dalej.')}
                 </Text>
-                <PremiumButton label="Odkryj kartę dnia" onPress={handleReveal} />
+                <PremiumButton label={t('dailyTarot.odkryj_karte_dnia', 'Odkryj kartę dnia')} onPress={handleReveal} />
               </View>
             </>
           ) : (
@@ -806,31 +750,28 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                 </Text>
                 {activeDraw.isReversed && (
                   <View style={{ paddingHorizontal: 14, paddingVertical: 6, borderRadius: 999, backgroundColor: ACCENT + '18', borderWidth: 1, borderColor: ACCENT + '35' }}>
-                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.2, color: ACCENT }}>Energia odwrócona</Text>
+                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.2, color: ACCENT }}>{t('dailyTarot.energia_odwrocona', 'Energia odwrócona')}</Text>
                   </View>
                 )}
               </View>
 
-              {/* ── 3D Flip card hero with glow ── */}
+              {/* ── 3D Holographic Flip card hero ── */}
               <Animated.View entering={FadeIn.delay(100).duration(700)} style={{ alignItems: 'center', marginBottom: 16 }}>
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                  {/* Ambient glow ring */}
-                  {didRevealToday && (
-                    <View style={{ position: 'absolute', width: SW - 60, height: (SW - 60) * 1.6, borderRadius: 22,
-                      shadowColor: ACCENT, shadowOpacity: isLight ? 0.30 : 0.55, shadowRadius: 32, shadowOffset: { width: 0, height: 0 },
-                      elevation: 14, backgroundColor: 'transparent',
-                    }} pointerEvents="none" />
-                  )}
-                  <FlipCard3D
-                    accent={ACCENT}
-                    card={activeDraw.card}
-                    deck={deck}
-                    isReversed={showReversed ? !activeDraw.isReversed : activeDraw.isReversed}
-                    isFlipped={cardFlipped}
-                    onFlip={() => setCardFlipped((v) => !v)}
-                    isLight={isLight}
-                  />
-                </View>
+                <TarotCardFlip
+                  cardName={resolveUserFacingText(activeDraw.card.name)}
+                  cardSymbol={MAJOR_SYMBOLS[todayCardIdx] ?? '✦'}
+                  cardMeaning={(() => {
+                    const full = NUMEROLOGY_NAMES[todayCardIdx] ?? '';
+                    const dashIdx = full.indexOf('—');
+                    return dashIdx !== -1 ? full.slice(dashIdx + 1).trim() : full;
+                  })()}
+                  cardColor={[MAJOR_ACCENT[todayCardIdx] ?? ACCENT, MAJOR_ACCENT2[todayCardIdx] ?? '#4A3060']}
+                  isReversed={showReversed ? !activeDraw.isReversed : activeDraw.isReversed}
+                  isFlipped={cardFlipped}
+                  onFlip={() => setCardFlipped((v) => !v)}
+                  isLight={isLight}
+                  accent={ACCENT}
+                />
                 <Text style={{ fontSize: 11, color: subColor, marginTop: 12, textAlign: 'center' }}>
                   Dotknij kartę, by {cardFlipped ? 'zobaczyć tył' : 'zobaczyć przód'}
                 </Text>
@@ -852,7 +793,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                   style={{ flexDirection: 'row', alignItems: 'center', gap: 7, borderRadius: 999, borderWidth: 1, borderColor: ACCENT + '44', backgroundColor: ACCENT + '0A', paddingHorizontal: 14, paddingVertical: 8 }}
                 >
                   <Share2 color={ACCENT} size={13} />
-                  <Text style={{ fontSize: 11, fontWeight: '700', color: ACCENT }}>Udostępnij</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', color: ACCENT }}>{t('dailyTarot.udostepnij', 'Udostępnij')}</Text>
                 </Pressable>
               </Animated.View>
 
@@ -860,12 +801,12 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               {/* ── Narrative lead ── */}
               <View style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 20 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 14 }}>NARRACJA DNIA</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 14 }}>{t('dailyTarot.narracja_dnia', 'NARRACJA DNIA')}</Text>
                 <Text style={{ fontSize: 16, lineHeight: 28, color: textColor, marginBottom: 12 }}>
-                  Nie traktuj tej karty jak suchej informacji. To klimat, napięcie i kierunek, który chce wejść do dzisiejszych decyzji.
+                  {t('dailyTarot.nie_traktuj_tej_karty_jak', 'Nie traktuj tej karty jak suchej informacji. To klimat, napięcie i kierunek, który chce wejść do dzisiejszych decyzji.')}
                 </Text>
                 <Text style={{ fontSize: 14, lineHeight: 24, color: subColor }}>
-                  Najbardziej premium odczyt zaczyna się tam, gdzie przestajesz pytać, czy karta jest dobra, i zaczynasz pytać, gdzie ona już dziś działa.
+                  {t('dailyTarot.najbardzie_premium_odczyt_zaczyna_s', 'Najbardziej premium odczyt zaczyna się tam, gdzie przestajesz pytać, czy karta jest dobra, i zaczynasz pytać, gdzie ona już dziś działa.')}
                 </Text>
               </View>
 
@@ -873,7 +814,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               {/* ── Esencja ── */}
               <View style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 20 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 14 }}>ESENCJA I ZNACZENIE</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 14 }}>{t('dailyTarot.esencja_i_znaczenie', 'ESENCJA I ZNACZENIE')}</Text>
                 <Text style={{ fontSize: 15, lineHeight: 26, color: textColor }}>
                   {showReversed
                     ? resolveUserFacingText(activeDraw.card.meaningReversed)
@@ -888,7 +829,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                 <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 16 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 }}>
                     <Layers color={ACCENT} size={14} strokeWidth={1.8} />
-                    <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>PERSPEKTYWY KARTY</Text>
+                    <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('dailyTarot.perspektyw_karty', 'PERSPEKTYWY KARTY')}</Text>
                   </View>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
                     <View style={{ flexDirection: 'row', gap: 8 }}>
@@ -926,7 +867,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               {/* ── Ton emocjonalny ── */}
               <View style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 20 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 14 }}>TON EMOCJONALNY</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 14 }}>{t('dailyTarot.ton_emocjonaln', 'TON EMOCJONALNY')}</Text>
                 <Text style={{ fontSize: 15, lineHeight: 26, color: textColor }}>{interpretation?.relationLine}</Text>
               </View>
 
@@ -934,7 +875,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               {/* ── Jeden ruch na dziś ── */}
               <View style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 20 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 14 }}>JEDEN RUCH NA DZIŚ</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 14 }}>{t('dailyTarot.jeden_ruch_na_dzis', 'JEDEN RUCH NA DZIŚ')}</Text>
                 <Text style={{ fontSize: 15, lineHeight: 26, color: textColor }}>{interpretation?.adviceLine}</Text>
               </View>
 
@@ -944,7 +885,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay(100).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 20 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <Sparkles color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>AFIRMACJA KARTY</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('dailyTarot.afirmacja_karty', 'AFIRMACJA KARTY')}</Text>
                 </View>
                 <View style={{ borderRadius: 20, overflow: 'hidden', borderWidth: 1.5, borderColor: ACCENT + '35' }}>
                   <LinearGradient
@@ -971,7 +912,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay(110).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 20 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                   <Target color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>JAK WDROŻYĆ TO W ŻYCIE</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('dailyTarot.jak_wdrozyc_to_w_zycie', 'JAK WDROŻYĆ TO W ŻYCIE')}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 18 }}>
                   <Sun color={subColor} size={11} />
@@ -1000,7 +941,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                     <>
                       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                         <ZoneIcon color={zone.color} size={14} strokeWidth={1.8} />
-                        <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>CIAŁO I KARTA</Text>
+                        <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('dailyTarot.cialo_i_karta', 'CIAŁO I KARTA')}</Text>
                       </View>
                       <View style={{ borderRadius: 16, backgroundColor: zone.color + '0D', borderWidth: 1, borderColor: zone.color + '33', padding: 18, flexDirection: 'row', gap: 16, alignItems: 'flex-start' }}>
                         <View style={{ width: 48, height: 48, borderRadius: 14, backgroundColor: zone.color + '20', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
@@ -1008,12 +949,12 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                         </View>
                         <View style={{ flex: 1 }}>
                           <Text style={{ fontSize: 13, fontWeight: '700', color: zone.color, marginBottom: 2, letterSpacing: 0.5 }}>{zone.zone}</Text>
-                          <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1, color: subColor, marginBottom: 8 }}>STREFA REZONANSU</Text>
+                          <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1, color: subColor, marginBottom: 8 }}>{t('dailyTarot.strefa_rezonansu', 'STREFA REZONANSU')}</Text>
                           <Text style={{ fontSize: 13, lineHeight: 21, color: subColor }}>{zone.desc}</Text>
                         </View>
                       </View>
                       <Text style={{ fontSize: 12, lineHeight: 18, color: subColor, marginTop: 12, textAlign: 'center' }}>
-                        Połóż rękę na tej części ciała i oddychaj przez chwilę z tą kartą.
+                        {t('dailyTarot.poloz_reke_na_tej_czesci', 'Połóż rękę na tej części ciała i oddychaj przez chwilę z tą kartą.')}
                       </Text>
                     </>
                   );
@@ -1026,7 +967,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay(130).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 20 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <Moon color={'#818CF8'} size={14} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>ASPEKT CIENIA</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('dailyTarot.aspekt_cienia', 'ASPEKT CIENIA')}</Text>
                 </View>
                 <View style={{ borderRadius: 16, overflow: 'hidden', borderWidth: 1, borderColor: '#818CF8' + '30' }}>
                   <LinearGradient
@@ -1054,7 +995,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay(140).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 20 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <Hash color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>POŁĄCZENIE NUMEROLOGICZNE</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('dailyTarot.polaczenie_numerologi', 'POŁĄCZENIE NUMEROLOGICZNE')}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16, marginBottom: 16 }}>
                   <View style={{ width: 58, height: 58, borderRadius: 16, backgroundColor: ACCENT + '18', borderWidth: 1, borderColor: ACCENT + '40', alignItems: 'center', justifyContent: 'center' }}>
@@ -1082,7 +1023,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay(150).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 20 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <Sun color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>KARTA W KONTEKŚCIE ROKU</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('dailyTarot.karta_w_kontekscie_roku', 'KARTA W KONTEKŚCIE ROKU')}</Text>
                   <Pressable
                     onPress={() => setShowYearCardModal(true)}
                     style={{ marginLeft: 'auto', flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 10, paddingVertical: 4, borderRadius: 999, backgroundColor: MAJOR_ACCENT[yearCardIdx] + '20', borderWidth: 1, borderColor: MAJOR_ACCENT[yearCardIdx] + '44' }}
@@ -1120,9 +1061,9 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               {/* ── Pytanie do refleksji ── */}
               <View style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 20 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 14 }}>PYTANIE DO REFLEKSJI</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 14 }}>{t('dailyTarot.pytanie_do_refleksji', 'PYTANIE DO REFLEKSJI')}</Text>
                 <Text style={{ fontSize: 15, lineHeight: 26, color: textColor, fontStyle: 'italic' }}>
-                  Co w tej karcie porusza mnie najbardziej i gdzie ta energia już próbuje przebić się do mojego dnia?
+                  {t('dailyTarot.co_w_tej_karcie_porusza', 'Co w tej karcie porusza mnie najbardziej i gdzie ta energia już próbuje przebić się do mojego dnia?')}
                 </Text>
               </View>
 
@@ -1130,7 +1071,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               {/* ── Integracja: three layers ── */}
               <View style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 8 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 18 }}>TRZY WARSTWY ODCZYTU</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 18 }}>{t('dailyTarot.trzy_warstwy_odczytu', 'TRZY WARSTWY ODCZYTU')}</Text>
                 {[
                   { icon: Gem, title: 'Symbol', copy: 'Zobacz, jaki archetyp i jaki ruch psychiczny karta wnosi do dzisiejszego pola.' },
                   { icon: Eye, title: 'Napięcie', copy: 'Sprawdź, gdzie energia karty może już działać w ciele, relacji albo decyzji.' },
@@ -1158,7 +1099,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               {/* ── Integracja atmosfera ── */}
               <View style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 20 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 14 }}>INTEGRACJA KARTY</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 14 }}>{t('dailyTarot.integracja_karty', 'INTEGRACJA KARTY')}</Text>
                 {cardAtmosphere.map((line, i) => (
                   <View key={i} style={{ flexDirection: 'row', gap: 10, alignItems: 'flex-start', marginBottom: i < cardAtmosphere.length - 1 ? 14 : 0 }}>
                     <View style={{ width: 7, height: 7, borderRadius: 3.5, backgroundColor: ACCENT, marginTop: 9, flexShrink: 0 }} />
@@ -1173,9 +1114,9 @@ export const DailyTarotScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay(200).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 20 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                   <Calendar color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>ROZKŁAD TYGODNIA — 7 DNI</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('dailyTarot.rozklad_tygodnia_7_dni', 'ROZKŁAD TYGODNIA — 7 DNI')}</Text>
                 </View>
-                <Text style={{ fontSize: 12, color: subColor, marginBottom: 16 }}>Dotknij dnia, by zobaczyć jego kartę</Text>
+                <Text style={{ fontSize: 12, color: subColor, marginBottom: 16 }}>{t('dailyTarot.dotknij_dnia_by_zobaczyc_jego', 'Dotknij dnia, by zobaczyć jego kartę')}</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
                   {weekDays.map((d, idx) => (
                     <Pressable
@@ -1228,7 +1169,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay(210).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 22, paddingBottom: 16 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <Moon color={weekCardColor} size={14} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>KARTA TYGODNIA</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('dailyTarot.karta_tygodnia', 'KARTA TYGODNIA')}</Text>
                   <View style={{ marginLeft: 'auto', paddingHorizontal: 10, paddingVertical: 3, borderRadius: 999, backgroundColor: weekCardColor + '20', borderWidth: 1, borderColor: weekCardColor + '44' }}>
                     <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 1, color: weekCardColor }}>TYG. {weekNum}</Text>
                   </View>
@@ -1241,7 +1182,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                     </View>
                     <View style={{ flex: 1 }}>
                       <Text style={{ fontSize: 18, fontWeight: '700', color: weekCardColor, letterSpacing: -0.3 }}>{MAJOR_NAMES[weekCardIdx]}</Text>
-                      <Text style={{ fontSize: 11, color: subColor, marginTop: 2 }}>Arkana Większa · Karta tygodnia</Text>
+                      <Text style={{ fontSize: 11, color: subColor, marginTop: 2 }}>{t('dailyTarot.arkana_wieksza_karta_tygodnia', 'Arkana Większa · Karta tygodnia')}</Text>
                     </View>
                   </View>
                   <Text style={{ fontSize: 14, lineHeight: 23, color: textColor }}>
@@ -1254,7 +1195,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               {/* ── JAK CZYTAĆ KARTĘ ── */}
               <Animated.View entering={FadeInDown.delay(220).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 20 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 16 }}>💡 JAK CZYTAĆ KARTĘ</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 16 }}>{t('dailyTarot.jak_czytac_karte_1', '💡 JAK CZYTAĆ KARTĘ')}</Text>
                 {[
                   { icon: Eye,    title: 'Symbole',  copy: 'Zatrzymaj się na jednym obrazie — postaci, przedmiocie lub kolorze, który przyciąga wzrok. To on niesie pierwsze przesłanie.' },
                   { icon: Layers, title: 'Kolor',    copy: 'Dominujące barwy karty mają temperaturę emocjonalną. Złoto i czerwień aktywizują, błękit i fiolet pogłębiają, zieleń uzdrawia.' },
@@ -1284,7 +1225,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay(230).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 22, paddingBottom: 20 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <NotebookPen color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>PYTANIA DO REFLEKSJI</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('dailyTarot.pytania_do_refleksji', 'PYTANIA DO REFLEKSJI')}</Text>
                 </View>
                 {REFLECTION_PROMPTS.map((q, i) => (
                   <Pressable
@@ -1307,7 +1248,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay(240).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 20 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <MessageSquare color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>ZAPYTAJ WYROCZNIĘ O KARTĘ</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('dailyTarot.zapytaj_wyrocznie_o_karte', 'ZAPYTAJ WYROCZNIĘ O KARTĘ')}</Text>
                 </View>
                 <View style={{ borderRadius: 16, backgroundColor: cardBg, borderWidth: 1, borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)', overflow: 'hidden', marginBottom: 12 }}>
                   <TextInput
@@ -1345,17 +1286,17 @@ export const DailyTarotScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay(250).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 22, paddingBottom: 20 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                   <Calendar color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>HISTORIA KART</Text>
-                  <Text style={{ marginLeft: 'auto', fontSize: 10, color: subColor }}>30 dni</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('dailyTarot.historia_kart', 'HISTORIA KART')}</Text>
+                  <Text style={{ marginLeft: 'auto', fontSize: 10, color: subColor }}>{t('dailyTarot.30_dni', '30 dni')}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', gap: 6, marginBottom: 14 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
                     <View style={{ width: 10, height: 10, borderRadius: 3, backgroundColor: ACCENT }} />
-                    <Text style={{ fontSize: 10, color: subColor }}>Arkana Większa</Text>
+                    <Text style={{ fontSize: 10, color: subColor }}>{t('dailyTarot.arkana_wieksza', 'Arkana Większa')}</Text>
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, marginLeft: 12 }}>
                     <View style={{ width: 10, height: 10, borderRadius: 3, backgroundColor: '#60A5FA' }} />
-                    <Text style={{ fontSize: 10, color: subColor }}>Arkana Mniejsze</Text>
+                    <Text style={{ fontSize: 10, color: subColor }}>{t('dailyTarot.arkana_mniejsze', 'Arkana Mniejsze')}</Text>
                   </View>
                 </View>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 5 }}>
@@ -1386,10 +1327,10 @@ export const DailyTarotScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay(260).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 22, paddingBottom: 20 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <TrendingUp color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>WZORCE MIESIĘCZNE</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('dailyTarot.wzorce_miesieczne', 'WZORCE MIESIĘCZNE')}</Text>
                 </View>
                 {monthPatterns.length === 0 ? (
-                  <Text style={{ fontSize: 13, color: subColor }}>Brak danych z tego miesiąca.</Text>
+                  <Text style={{ fontSize: 13, color: subColor }}>{t('dailyTarot.brak_danych_z_tego_miesiaca', 'Brak danych z tego miesiąca.')}</Text>
                 ) : (
                   <>
                     {monthPatterns.map((p, i) => {
@@ -1410,7 +1351,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
                       );
                     })}
                     <View style={{ marginTop: 14, borderRadius: 13, backgroundColor: ACCENT + '0A', borderWidth: 1, borderColor: ACCENT + '25', padding: 14 }}>
-                      <Text style={{ fontSize: 11, fontWeight: '700', color: ACCENT, marginBottom: 6, letterSpacing: 0.8 }}>INTERPRETACJA WZORCA</Text>
+                      <Text style={{ fontSize: 11, fontWeight: '700', color: ACCENT, marginBottom: 6, letterSpacing: 0.8 }}>{t('dailyTarot.interpreta_wzorca', 'INTERPRETACJA WZORCA')}</Text>
                       <Text style={{ fontSize: 13, lineHeight: 21, color: subColor }}>
                         {MONTHLY_PATTERN_NOTES[monthPatterns[0]?.idx] || 'Miesiąc przynosi wyraźny wzorzec energetyczny.'}
                       </Text>
@@ -1425,13 +1366,13 @@ export const DailyTarotScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay(270).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 22, paddingBottom: 20 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16 }}>
                   <PenLine color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>NOTATKA DO KARTY</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('dailyTarot.notatka_do_karty', 'NOTATKA DO KARTY')}</Text>
                 </View>
                 <View style={{ borderRadius: 16, backgroundColor: cardBg, borderWidth: 1, borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)', overflow: 'hidden' }}>
                   <TextInput
                     value={cardNote}
                     onChangeText={(t) => { setCardNote(t); setNoteSaved(false); }}
-                    placeholder="Co ta karta mówi ci dziś? Wolna myśl, obserwacja, obraz..."
+                    placeholder={t('dailyTarot.co_ta_karta_mowi_ci', 'Co ta karta mówi ci dziś? Wolna myśl, obserwacja, obraz...')}
                     placeholderTextColor={subColor}
                     multiline
                     style={{ fontSize: 14, lineHeight: 22, color: textColor, padding: 16, minHeight: 90, textAlignVertical: 'top' }}
@@ -1460,7 +1401,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               {/* ── DOMKNIJ PRACĘ Z KARTĄ ── */}
               <View style={{ paddingHorizontal: layout.padding.screen, paddingTop: 24, paddingBottom: 28 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 16 }}>DOMKNIJ PRACĘ Z KARTĄ</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 16 }}>{t('dailyTarot.domknij_prace_z_karta', 'DOMKNIJ PRACĘ Z KARTĄ')}</Text>
                 {actions.map((action, i) => {
                   const Icon = action.icon as any;
                   return (
@@ -1486,7 +1427,7 @@ export const DailyTarotScreen = ({ navigation }: any) => {
 
               {/* ── CO DALEJ? ── */}
               <Animated.View entering={FadeInDown.delay(290).duration(500)} style={{ paddingHorizontal: layout.padding.screen, paddingTop: 22, paddingBottom: 24 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 14 }}>✦ CO DALEJ?</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 14 }}>{t('dailyTarot.co_dalej', '✦ CO DALEJ?')}</Text>
                 {[
                   { icon: Star,         label: 'Tarot — pełna ceremonia',  sub: 'Głębszy rozkład kart — trójka, krzyż celtycki',                             route: 'Tarot',         params: undefined, color: ACCENT },
                   { icon: BookOpen,     label: 'Dziennik — trop z karty',  sub: 'Co karta dnia mówi mi o moim obecnym cyklu życia?',                         route: 'JournalEntry',  params: { prompt: 'Co karta dnia mówi mi o moim obecnym cyklu życia?', type: 'tarot' }, color: '#A78BFA' },

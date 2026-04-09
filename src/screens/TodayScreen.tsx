@@ -5,6 +5,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { BlurView } from 'expo-blur';
 import Svg, { Circle, G, Path } from 'react-native-svg';
 import Animated, { FadeInDown, FadeIn, useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import {
@@ -224,29 +225,51 @@ const ql = StyleSheet.create({
 const SectionCard = ({ accent, isLight, children, delay = 0 }: {
   accent: string; isLight: boolean; children: React.ReactNode; delay?: number;
 }) => (
-  <Animated.View entering={FadeInDown.delay(delay).duration(320)} style={[sc.card, {
-    backgroundColor: isLight ? 'rgba(255,255,255,0.94)' : 'rgba(255,255,255,0.05)',
-    borderColor: isLight ? accent + '44' : accent + '28',
+  <Animated.View entering={FadeInDown.delay(delay).duration(320)} style={[sc.outerShadow, {
     shadowColor: accent,
   }]}>
-    <LinearGradient
-      colors={isLight
-        ? [accent + '14', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)'] as [string, string, string]
-        : [accent + '20', 'transparent', 'transparent'] as [string, string, string]}
-      start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-      style={StyleSheet.absoluteFillObject}
-    />
-    {/* Top accent bar */}
-    <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2.5, borderTopLeftRadius: 20, borderTopRightRadius: 20, backgroundColor: accent + '66' }} pointerEvents="none" />
-    {children}
+    <BlurView
+      intensity={isLight ? 58 : 36}
+      tint={isLight ? 'light' : 'dark'}
+      style={[sc.card, {
+        borderColor: isLight ? 'rgba(255,255,255,0.72)' : accent + '22',
+      }]}
+    >
+      {/* Inner glass tint layer */}
+      <View style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.26)' : 'rgba(255,255,255,0.04)', borderRadius: 20 }}>
+        <LinearGradient
+          colors={isLight
+            ? [accent + '18', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)'] as [string, string, string]
+            : [accent + '1C', 'transparent', 'transparent'] as [string, string, string]}
+          start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+          style={StyleSheet.absoluteFillObject}
+        />
+        {/* Top highlight edge */}
+        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, borderTopLeftRadius: 20, borderTopRightRadius: 20, backgroundColor: 'rgba(255,255,255,0.30)' }} pointerEvents="none" />
+        {/* Top accent bar */}
+        <LinearGradient
+          colors={[accent + '88', accent + '33', 'transparent']}
+          start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2.5, borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
+          pointerEvents="none"
+        />
+        <View style={{ padding: 18 }}>
+          {children}
+        </View>
+      </View>
+    </BlurView>
   </Animated.View>
 );
 
 const sc = StyleSheet.create({
+  outerShadow: {
+    marginBottom: 14,
+    borderRadius: 20,
+    shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.18, shadowRadius: 22, elevation: 9,
+  },
   card: {
-    borderRadius: 20, borderWidth: 1.2,
-    padding: 18, marginBottom: 14, overflow: 'hidden',
-    shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.16, shadowRadius: 20, elevation: 8,
+    borderRadius: 20, borderWidth: 1,
+    overflow: 'hidden',
   },
 });
 
@@ -403,28 +426,43 @@ export const TodayScreen = ({ navigation }: any) => {
         >
 
           {/* ── DZISIEJSZY FOKUS ── */}
-          <Animated.View entering={FadeInDown.delay(40).duration(340)} style={[ts.focusCard, {
-            backgroundColor: isLight ? 'rgba(255,255,255,0.96)' : 'rgba(255,255,255,0.05)',
-            borderColor: isLight ? accent + '55' : accent + '30',
-          }]}>
-            <LinearGradient
-              colors={isLight
-                ? [accent + '18', 'rgba(255,255,255,0)'] as [string, string]
-                : [accent + '1A', 'transparent'] as [string, string]}
-              start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
-              style={StyleSheet.absoluteFillObject}
-            />
-            <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2.5, borderTopLeftRadius: 18, borderTopRightRadius: 18, backgroundColor: accent + '77' }} pointerEvents="none" />
-            <Text style={[ts.focusEyebrow, { color: accent }]}>
-              {tr('today.focus.eyebrow', 'FOKUS DNIA', 'FOCUS OF THE DAY')}
-            </Text>
-            <Text style={[ts.focusPhrase, { color: textColor }]}>{focusPhrase}</Text>
-            <View style={ts.focusMeta}>
-              <CalendarDays color={accent + 'AA'} size={13} strokeWidth={1.6} />
-              <Text style={[ts.focusDate, { color: subColor }]}>
-                {(() => { const _d = new Date(); const DAYS_PL = ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota']; const MONTHS_PL = ['Stycznia','Lutego','Marca','Kwietnia','Maja','Czerwca','Lipca','Sierpnia','Września','Października','Listopada','Grudnia']; return `${DAYS_PL[_d.getDay()]}, ${_d.getDate()} ${MONTHS_PL[_d.getMonth()]}`; })()}
-              </Text>
-            </View>
+          <Animated.View entering={FadeInDown.delay(40).duration(340)} style={[ts.focusCardOuter, { shadowColor: accent }]}>
+            <BlurView
+              intensity={isLight ? 65 : 42}
+              tint={isLight ? 'light' : 'dark'}
+              style={[ts.focusCard, { borderColor: isLight ? 'rgba(255,255,255,0.80)' : accent + '33' }]}
+            >
+              <View style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.28)' : 'rgba(255,255,255,0.04)' }}>
+                <LinearGradient
+                  colors={isLight
+                    ? [accent + '22', 'rgba(255,255,255,0)'] as [string, string]
+                    : [accent + '1E', 'transparent'] as [string, string]}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                  style={StyleSheet.absoluteFillObject}
+                />
+                {/* Top highlight */}
+                <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, backgroundColor: 'rgba(255,255,255,0.38)' }} pointerEvents="none" />
+                {/* Gradient accent bar */}
+                <LinearGradient
+                  colors={[accent + 'AA', accent + '44', 'transparent']}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
+                  style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2.5, borderTopLeftRadius: 18, borderTopRightRadius: 18 }}
+                  pointerEvents="none"
+                />
+                <View style={{ padding: 18 }}>
+                  <Text style={[ts.focusEyebrow, { color: accent }]}>
+                    {tr('today.focus.eyebrow', 'FOKUS DNIA', 'FOCUS OF THE DAY')}
+                  </Text>
+                  <Text style={[ts.focusPhrase, { color: textColor }]}>{focusPhrase}</Text>
+                  <View style={ts.focusMeta}>
+                    <CalendarDays color={accent + 'AA'} size={13} strokeWidth={1.6} />
+                    <Text style={[ts.focusDate, { color: subColor }]}>
+                      {(() => { const _d = new Date(); const DAYS_PL = ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota']; const MONTHS_PL = ['Stycznia','Lutego','Marca','Kwietnia','Maja','Czerwca','Lipca','Sierpnia','Września','Października','Listopada','Grudnia']; return `${DAYS_PL[_d.getDay()]}, ${_d.getDate()} ${MONTHS_PL[_d.getMonth()]}`; })()}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </BlurView>
           </Animated.View>
 
           {/* ── NASTRÓJ DNIA ── */}
@@ -617,11 +655,13 @@ const ts = StyleSheet.create({
   scroll: { paddingHorizontal: layout.padding.screen, paddingTop: 18 },
 
   // Focus card
+  focusCardOuter: {
+    marginBottom: 14, borderRadius: 18,
+    shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.18, shadowRadius: 20, elevation: 8,
+  },
   focusCard: {
-    borderRadius: 18, borderWidth: 1.2,
-    padding: 18, marginBottom: 14, overflow: 'hidden',
-    shadowColor: '#CEAE72',
-    shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.14, shadowRadius: 16, elevation: 6,
+    borderRadius: 18, borderWidth: 1,
+    overflow: 'hidden',
   },
   focusEyebrow: { fontSize: 10, fontWeight: '700', letterSpacing: 2.2, marginBottom: 8 },
   focusPhrase: { fontSize: 19, fontWeight: '300', lineHeight: 28, letterSpacing: 0.1, fontFamily: 'serif', marginBottom: 12 },
