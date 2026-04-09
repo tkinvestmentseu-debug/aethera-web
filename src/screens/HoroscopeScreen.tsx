@@ -499,24 +499,24 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
             {viewMode === 'other' ? (
               <>
                 <Users color={currentTheme.primary} size={48} strokeWidth={1.2}/>
-                <Text style={[hs.emptyTitle, { color: currentTheme.primary }]}>Wybierz datę urodzenia</Text>
+                <Text style={[hs.emptyTitle, { color: currentTheme.primary }]}>{t('horoscope.wybierz_date_urodzenia', 'Wybierz datę urodzenia')}</Text>
                 <Text style={[hs.emptySub, { color: isLight ? '#6A5A48' : '#9A8E80' }]}>
-                  Podaj datę urodzenia drugiej osoby, aby wyświetlić jej znak i horoskop.
+                  {t('horoscope.podaj_date_urodzenia_drugiej_osoby', 'Podaj datę urodzenia drugiej osoby, aby wyświetlić jej znak i horoskop.')}
                 </Text>
                 <Pressable onPress={() => setShowPicker(true)} style={[hs.emptyBtn, { backgroundColor: currentTheme.primary }]}>
-                  <Text style={[hs.emptyBtnText, { color: '#FFF' }]}>Wybierz datę →</Text>
+                  <Text style={[hs.emptyBtnText, { color: '#FFF' }]}>{t('horoscope.wybierz_date', 'Wybierz datę →')}</Text>
                 </Pressable>
               </>
             ) : (
               <>
                 <Sparkles color={currentTheme.primary} size={48} strokeWidth={1.2}/>
-                <Text style={[hs.emptyTitle, { color: currentTheme.primary }]}>Uzupełnij datę urodzenia</Text>
+                <Text style={[hs.emptyTitle, { color: currentTheme.primary }]}>{t('horoscope.uzupelnij_date_urodzenia', 'Uzupełnij datę urodzenia')}</Text>
                 <Text style={[hs.emptySub, { color: isLight ? '#6A5A48' : '#9A8E80' }]}>
-                  Horoskop potrzebuje daty urodzenia, aby pokazać Twój znak, ton dnia i personalne prognozy.
+                  {t('horoscope.horoskop_potrzebuje_daty_urodzenia_', 'Horoskop potrzebuje daty urodzenia, aby pokazać Twój znak, ton dnia i personalne prognozy.')}
                 </Text>
                 <Pressable onPress={() => navigateToMainTab(navigation, 'Profile')}
                   style={[hs.emptyBtn, { backgroundColor: currentTheme.primary }]}>
-                  <Text style={[hs.emptyBtnText, { color: '#FFF' }]}>Przejdź do Profilu</Text>
+                  <Text style={[hs.emptyBtnText, { color: '#FFF' }]}>{t('horoscope.przejdz_do_profilu', 'Przejdź do Profilu')}</Text>
                 </Pressable>
               </>
             )}
@@ -525,8 +525,8 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
         <PremiumDatePickerSheet
           visible={showPicker}
           mode="date"
-          title="Data urodzenia tej osoby"
-          description="Tylko do jednorazowego odczytu znaku."
+          title={t('horoscope.data_urodzenia_tej_osoby', 'Data urodzenia tej osoby')}
+          description={t('horoscope.tylko_do_jednorazow_odczytu_znaku', 'Tylko do jednorazowego odczytu znaku.')}
           value={otherDateValue}
           maximumDate={new Date()}
           onCancel={() => setShowPicker(false)}
@@ -555,7 +555,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
             <ChevronLeft color={accent} size={26} strokeWidth={1.6}/>
           </Pressable>
           <View style={hs.headerCenter}>
-            <Text style={[hs.headerEyebrow, { color: accent }]}>♈ HOROSKOP</Text>
+            <Text style={[hs.headerEyebrow, { color: accent }]}>{t('horoscope.horoskop', '♈ HOROSKOP')}</Text>
             <Text style={[hs.headerTitle, { color: textColor }]}>
               {zodiac ? ZODIAC_LABELS[activeSign] : 'Twój znak'}
             </Text>
@@ -694,7 +694,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
           {zodiac && (
             <Animated.View entering={FadeInDown.delay(160).duration(500)}>
               <View style={[hs.hubSection, { paddingHorizontal: 0 }]}>
-                <Text style={[hs.hubSectionLabel, { color: accent }]}>INNE MODUŁY HOROSKOPU</Text>
+                <Text style={[hs.hubSectionLabel, { color: accent }]}>{t('horoscope.inne_moduly_horoskopu', 'INNE MODUŁY HOROSKOPU')}</Text>
                 {[
                   { label: 'Zodiak chiński',      desc: 'Twój chiński znak i element',           icon: Globe,      color: '#FB923C', onPress: () => navigation?.navigate('ChineseHoroscope') },
                   { label: 'Zgodność znaków',     desc: 'Energia połączenia dwóch znaków',       icon: Heart,      color: '#F472B6', onPress: () => navigation?.navigate('Compatibility') },
@@ -746,7 +746,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   <Animated.View entering={FadeInDown.delay(80).duration(480)}>
                     <View style={[hs.card, { borderColor: accent + '33', backgroundColor: cardBg }]}>
                       <LinearGradient colors={[accent + '18', 'transparent']} style={StyleSheet.absoluteFill}/>
-                      <Text style={[hs.eyebrow, { color: accent }]}>TON DNIA</Text>
+                      <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.ton_dnia', 'TON DNIA')}</Text>
                       <Text style={[hs.cardTitle, { color: textColor }]}>{dailyPlan.astrologyGuidance.headline}</Text>
                       <Text style={[hs.cardBody, { color: subColor }]}>{dailyPlan.astrologyGuidance.support}</Text>
                     </View>
@@ -759,7 +759,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   </Animated.View>
                   <Animated.View entering={FadeInDown.delay(160).duration(480)}>
                     <View style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
-                      <Text style={[hs.eyebrow, { color: accent }]}>RYTM DNIA</Text>
+                      <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.rytm_dnia', 'RYTM DNIA')}</Text>
                       {([
                         { time: 'Rano', copy: DAILY_FOCUS[activeSign].morning, icon: Sun },
                         { time: 'Południe', copy: DAILY_FOCUS[activeSign].afternoon, icon: Zap },
@@ -783,7 +783,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   {chineseSign && (
                     <Animated.View entering={FadeInDown.delay(200).duration(480)}>
                       <View style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
-                        <Text style={[hs.eyebrow, { color: accent }]}>WARSTWA CHIŃSKA — DZIŚ</Text>
+                        <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.warstwa_chinska_dzis', 'WARSTWA CHIŃSKA — DZIŚ')}</Text>
                         <Text style={[hs.cardTitle, { color: textColor }]}>
                           {chineseSign.element} · {chineseSign.id.charAt(0).toUpperCase() + chineseSign.id.slice(1)}
                         </Text>
@@ -792,7 +792,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                         </Text>
                         <Pressable onPress={() => navigation.navigate('ChineseHoroscope')}
                           style={[hs.linkRow, { borderTopColor: accent + '18' }]}>
-                          <Text style={[hs.linkText, { color: accent }]}>Otwórz chiński horoskop</Text>
+                          <Text style={[hs.linkText, { color: accent }]}>{t('horoscope.otworz_chinski_horoskop', 'Otwórz chiński horoskop')}</Text>
                           <ArrowRight color={accent} size={14}/>
                         </Pressable>
                       </View>
@@ -815,7 +815,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   </Animated.View>
                   <Animated.View entering={FadeInDown.delay(120).duration(480)}>
                     <View style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
-                      <Text style={[hs.eyebrow, { color: accent }]}>OBSZARY W TYM TYGODNIU</Text>
+                      <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.obszary_w_tym_tygodniu', 'OBSZARY W TYM TYGODNIU')}</Text>
                       {AREAS_CONFIG.map(area => (
                         <View key={area.key} style={[hs.areaRow, { borderBottomColor: accent + '14' }]}>
                           <Text style={[hs.areaRowLabel, { color: textColor }]}>{area.label}</Text>
@@ -830,7 +830,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   {chineseSign && (
                     <Animated.View entering={FadeInDown.delay(160).duration(480)}>
                       <View style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
-                        <Text style={[hs.eyebrow, { color: accent }]}>CHIŃSKI — TYDZIEŃ</Text>
+                        <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.chinski_tydzien', 'CHIŃSKI — TYDZIEŃ')}</Text>
                         <Text style={[hs.cardTitle, { color: textColor }]}>
                           {chineseSign.element} · {chineseSign.id.charAt(0).toUpperCase() + chineseSign.id.slice(1)}
                         </Text>
@@ -839,7 +839,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                         </Text>
                         <Pressable onPress={() => navigation.navigate('ChineseHoroscope')}
                           style={[hs.linkRow, { borderTopColor: accent + '18' }]}>
-                          <Text style={[hs.linkText, { color: accent }]}>Pełny chiński horoskop</Text>
+                          <Text style={[hs.linkText, { color: accent }]}>{t('horoscope.pelny_chinski_horoskop', 'Pełny chiński horoskop')}</Text>
                           <ArrowRight color={accent} size={14}/>
                         </Pressable>
                       </View>
@@ -862,7 +862,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   </Animated.View>
                   <Animated.View entering={FadeInDown.delay(120).duration(480)}>
                     <View style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
-                      <Text style={[hs.eyebrow, { color: accent }]}>SFERY ŻYCIA W TYM MIESIĄCU</Text>
+                      <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.sfery_zycia_w_tym_miesiacu', 'SFERY ŻYCIA W TYM MIESIĄCU')}</Text>
                       {([
                         { area: 'love' as const, label: 'Miłość' },
                         { area: 'work' as const, label: 'Praca' },
@@ -881,7 +881,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   {chineseSign && (
                     <Animated.View entering={FadeInDown.delay(160).duration(480)}>
                       <View style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
-                        <Text style={[hs.eyebrow, { color: accent }]}>CHIŃSKI — MIESIĄC</Text>
+                        <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.chinski_miesiac', 'CHIŃSKI — MIESIĄC')}</Text>
                         <Text style={[hs.cardTitle, { color: textColor }]}>
                           {chineseSign.element} · {chineseSign.id.charAt(0).toUpperCase() + chineseSign.id.slice(1)}
                         </Text>
@@ -890,7 +890,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                         </Text>
                         <Pressable onPress={() => navigation.navigate('ChineseHoroscope')}
                           style={[hs.linkRow, { borderTopColor: accent + '18' }]}>
-                          <Text style={[hs.linkText, { color: accent }]}>Pełny chiński horoskop</Text>
+                          <Text style={[hs.linkText, { color: accent }]}>{t('horoscope.pelny_chinski_horoskop_1', 'Pełny chiński horoskop')}</Text>
                           <ArrowRight color={accent} size={14}/>
                         </Pressable>
                       </View>
@@ -913,7 +913,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   </Animated.View>
                   <Animated.View entering={FadeInDown.delay(120).duration(480)}>
                     <View style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
-                      <Text style={[hs.eyebrow, { color: accent }]}>TWÓJ HOROSKOPOWY PROFIL</Text>
+                      <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.twoj_horoskopow_profil', 'TWÓJ HOROSKOPOWY PROFIL')}</Text>
                       <View style={hs.traitsRow}>
                         {ZODIAC_TRAITS[activeSign].map(trait => (
                           <View key={trait} style={[hs.traitPill, { backgroundColor: accent + '14', borderColor: accent + '33' }]}>
@@ -929,7 +929,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   {chineseSign && (
                     <Animated.View entering={FadeInDown.delay(160).duration(480)}>
                       <View style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
-                        <Text style={[hs.eyebrow, { color: accent }]}>CHIŃSKI — ROK</Text>
+                        <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.chinski_rok', 'CHIŃSKI — ROK')}</Text>
                         <Text style={[hs.cardTitle, { color: textColor }]}>
                           {chineseSign.element} · {chineseSign.id.charAt(0).toUpperCase() + chineseSign.id.slice(1)}
                         </Text>
@@ -938,7 +938,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                         </Text>
                         <Pressable onPress={() => navigation.navigate('ChineseHoroscope')}
                           style={[hs.linkRow, { borderTopColor: accent + '18' }]}>
-                          <Text style={[hs.linkText, { color: accent }]}>Pełny chiński horoskop</Text>
+                          <Text style={[hs.linkText, { color: accent }]}>{t('horoscope.pelny_chinski_horoskop_2', 'Pełny chiński horoskop')}</Text>
                           <ArrowRight color={accent} size={14}/>
                         </Pressable>
                       </View>
@@ -955,7 +955,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
               <Animated.View entering={FadeInDown.delay(60).duration(480)}>
                 <View style={[hs.card, { borderColor: accent + '33', backgroundColor: cardBg }]}>
                   <LinearGradient colors={[accent + '14', 'transparent']} style={StyleSheet.absoluteFill}/>
-                  <Text style={[hs.eyebrow, { color: accent }]}>PLANETA WŁADCA</Text>
+                  <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.planeta_wladca', 'PLANETA WŁADCA')}</Text>
                   <Text style={[hs.cardTitle, { color: textColor }]}>{ZODIAC_PLANETS[activeSign]}</Text>
                   <Text style={[hs.cardBody, { color: subColor }]}>
                     Planeta {ZODIAC_PLANETS[activeSign]} rządzi Twoim znakiem i kształtuje dominujące energie, sposób wyrażania siebie i główne lekcje życiowe.
@@ -965,17 +965,17 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
 
               <Animated.View entering={FadeInDown.delay(100).duration(480)}>
                 <View style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
-                  <Text style={[hs.eyebrow, { color: accent }]}>CIEŃ ZNAKU</Text>
+                  <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.cien_znaku', 'CIEŃ ZNAKU')}</Text>
                   <Text style={[hs.cardBody, { color: textColor }]}>{ZODIAC_SHADOW[activeSign]}</Text>
                   <Text style={[hs.cardBodySub, { color: subColor }]}>
-                    Każdy znak ma swoje wyzwania. Świadomość cienia jest pierwszym krokiem do integracji.
+                    {t('horoscope.kazdy_znak_ma_swoje_wyzwania', 'Każdy znak ma swoje wyzwania. Świadomość cienia jest pierwszym krokiem do integracji.')}
                   </Text>
                 </View>
               </Animated.View>
 
               <Animated.View entering={FadeInDown.delay(140).duration(480)}>
                 <View style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
-                  <Text style={[hs.eyebrow, { color: accent }]}>NAJLEPSZA ZGODNOŚĆ</Text>
+                  <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.najlepsza_zgodnosc', 'NAJLEPSZA ZGODNOŚĆ')}</Text>
                   <View style={hs.compatRow}>
                     {ZODIAC_COMPATIBILITY[activeSign].map(sign => (
                       <Pressable key={sign} onPress={() => navigation.navigate('Compatibility')}
@@ -987,7 +987,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   </View>
                   <Pressable onPress={() => navigation.navigate('Compatibility')}
                     style={[hs.linkRow, { borderTopColor: accent + '18' }]}>
-                    <Text style={[hs.linkText, { color: accent }]}>Sprawdź pełną zgodność</Text>
+                    <Text style={[hs.linkText, { color: accent }]}>{t('horoscope.sprawdz_pelna_zgodnosc', 'Sprawdź pełną zgodność')}</Text>
                     <ArrowRight color={accent} size={14}/>
                   </Pressable>
                 </View>
@@ -1024,7 +1024,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
 
               <Animated.View entering={FadeInDown.delay(200).duration(480)}>
                 <View style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
-                  <Text style={[hs.eyebrow, { color: accent }]}>WSZYSTKIE 12 ZNAKÓW</Text>
+                  <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.wszystkie_12_znakow', 'WSZYSTKIE 12 ZNAKÓW')}</Text>
                   <View style={hs.allSignsGrid}>
                     {(['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'] as ZodiacSign[]).map(sign => (
                       <View key={sign}
@@ -1065,7 +1065,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                   {/* Score */}
                   <View style={hs.scoreWrap}>
                     <Text style={[hs.scoreBig, { color: accent }]}>{dayScore[activeArea]}%</Text>
-                    <Text style={[hs.scoreLabel, { color: subColor }]}>dzisiaj</Text>
+                    <Text style={[hs.scoreLabel, { color: subColor }]}>{t('horoscope.dzisiaj', 'dzisiaj')}</Text>
                   </View>
 
                   {/* Progress bar */}
@@ -1083,7 +1083,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
               {/* Raport wszystkich obszarów */}
               <Animated.View entering={FadeInDown.delay(80).duration(480)}>
                 <View style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
-                  <Text style={[hs.eyebrow, { color: accent }]}>PODSUMOWANIE DNIA</Text>
+                  <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.podsumowan_dnia', 'PODSUMOWANIE DNIA')}</Text>
                   {AREAS_CONFIG.map(area => (
                     <View key={area.key} style={[hs.areaRow, { borderBottomColor: accent + '14' }]}>
                       <Text style={[hs.areaRowLabel, { color: textColor }]}>{area.label}</Text>
@@ -1104,14 +1104,14 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
               <Animated.View entering={FadeInDown.delay(60).duration(480)}>
                 <View style={[hs.card, { borderColor: accent + '33', backgroundColor: cardBg }]}>
                   <LinearGradient colors={[accent + '18', 'transparent']} style={StyleSheet.absoluteFill}/>
-                  <Text style={[hs.eyebrow, { color: accent }]}>SYGNAŁ DNIA</Text>
+                  <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.sygnal_dnia', 'SYGNAŁ DNIA')}</Text>
                   <Text style={[hs.cardTitle, { color: textColor }]}>{dailyPlan.patternSignal}</Text>
                 </View>
               </Animated.View>
 
               <Animated.View entering={FadeInDown.delay(100).duration(480)}>
                 <View style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
-                  <Text style={[hs.eyebrow, { color: accent }]}>RYTM KSIĘŻYCA</Text>
+                  <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.rytm_ksiezyca', 'RYTM KSIĘŻYCA')}</Text>
                   <Text style={[hs.heroSign, { color: accent, fontSize: 32 }]}>
                     {dailyPlan.moonPhase.icon}
                   </Text>
@@ -1135,12 +1135,12 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
 
               <Animated.View entering={FadeInDown.delay(180).duration(480)}>
                 <View style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
-                  <Text style={[hs.eyebrow, { color: accent }]}>NA CO UWAŻAĆ DZIŚ</Text>
+                  <Text style={[hs.eyebrow, { color: accent }]}>{t('horoscope.na_co_uwazac_dzis', 'NA CO UWAŻAĆ DZIŚ')}</Text>
                   <Text style={[hs.cardBody, { color: subColor }]}>
                     {dailyPlan.astrologyGuidance.support}
                   </Text>
                   <View style={[hs.shadowBanner, { backgroundColor: accent + '10', borderColor: accent + '22', marginTop: 12 }]}>
-                    <Text style={[hs.shadowLabel, { color: accent }]}>Cień: </Text>
+                    <Text style={[hs.shadowLabel, { color: accent }]}>{t('horoscope.cien', 'Cień:')} </Text>
                     <Text style={[hs.shadowText, { color: subColor }]}>{ZODIAC_SHADOW[activeSign]}</Text>
                   </View>
                 </View>
@@ -1150,7 +1150,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
 
           {/* ── SEKCJA SZYBKICH AKCJI ── */}
           <Animated.View entering={FadeInDown.delay(200).duration(480)}>
-            <Text style={[hs.sectionTitle, { color: accent }]}>PRZEJDŹ DALEJ</Text>
+            <Text style={[hs.sectionTitle, { color: accent }]}>{t('horoscope.przejdz_dalej', 'PRZEJDŹ DALEJ')}</Text>
             <View style={hs.actionsGrid}>
               {([
                 { icon: Moon, label: 'Chiński horoskop', sub: 'Żywioł i rytm roku', route: 'ChineseHoroscope', color: accent },
@@ -1188,9 +1188,9 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
               <LinearGradient colors={[accent + '18', 'transparent']} style={StyleSheet.absoluteFill}/>
               <Brain color={accent} size={24} strokeWidth={1.6}/>
               <View style={{ flex: 1, marginLeft: 14 }}>
-                <Text style={[hs.aiTitle, { color: accent }]}>Notatka po horoskopie</Text>
+                <Text style={[hs.aiTitle, { color: accent }]}>{t('horoscope.notatka_po_horoskopie', 'Notatka po horoskopie')}</Text>
                 <Text style={[hs.aiSub, { color: subColor }]}>
-                  Przełóż dzisiejszy ton horoskopu na własne decyzje, granice, relacje i jeden konkretny ruch na teraz.
+                  {t('horoscope.przeloz_dzisiejszy_ton_horoskopu_na', 'Przełóż dzisiejszy ton horoskopu na własne decyzje, granice, relacje i jeden konkretny ruch na teraz.')}
                 </Text>
               </View>
               <ArrowRight color={accent} size={18}/>
@@ -1204,9 +1204,9 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                 onPress={() => navigation.navigate('JournalEntry', { prompt: `Mój znak ${zodiac ? ZODIAC_LABELS[activeSign] : ''}: ${dailyPlan.astrologyGuidance.headline}`, type: 'reflection' })}
                 style={[hs.card, { borderColor: accent + '28', backgroundColor: cardBg }]}>
                 <BookOpen color={accent} size={18}/>
-                <Text style={[hs.eyebrow, { color: accent, marginTop: 8 }]}>ZAPISZ WGLĄD DNIA</Text>
+                <Text style={[hs.eyebrow, { color: accent, marginTop: 8 }]}>{t('horoscope.zapisz_wglad_dnia', 'ZAPISZ WGLĄD DNIA')}</Text>
                 <Text style={[hs.cardBody, { color: subColor }]}>
-                  AI chwilowo niedostępne. Zapisz najważniejszy sygnał astrologiczny na dziś.
+                  {t('horoscope.ai_chwilowo_niedostepn_zapisz_najwa', 'AI chwilowo niedostępne. Zapisz najważniejszy sygnał astrologiczny na dziś.')}
                 </Text>
               </Pressable>
             </Animated.View>
@@ -1215,7 +1215,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
           {/* ── CO DALEJ? ── */}
           {zodiac && (
             <Animated.View entering={FadeInDown.delay(380).duration(480)} style={{ marginTop: 4 }}>
-              <Text style={[hs.sectionTitle, { color: accent, marginBottom: 10 }]}>✦ CO DALEJ?</Text>
+              <Text style={[hs.sectionTitle, { color: accent, marginBottom: 10 }]}>{t('horoscope.co_dalej', '✦ CO DALEJ?')}</Text>
               {([
                 { icon: Users, label: 'Horoskop partnera', sub: 'Odczyt znaku dla bliskiej osoby', route: 'PartnerHoroscope', color: '#C06898' },
                 { icon: Star,  label: 'Gwiazdy i niebo',   sub: 'Mapa nieba i planetarne cykle',  route: 'Stars',            color: '#5B8FD4' },
@@ -1252,17 +1252,17 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
           <Pressable onPress={e => e.stopPropagation()} style={[hs.fsSheet, { backgroundColor: currentTheme.backgroundElevated, overflow: 'hidden', borderTopColor: accent + '44', borderTopWidth: 1, borderLeftColor: accent + '22', borderLeftWidth: 1, borderRightColor: accent + '22', borderRightWidth: 1 }]}>
             <LinearGradient colors={[accent + '18', 'transparent']} start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }} style={StyleSheet.absoluteFill} pointerEvents="none" />
             <View style={{ width: 36, height: 4, borderRadius: 2, backgroundColor: accent + '44', alignSelf: 'center', marginBottom: 18 }}/>
-            <Text style={[hs.fsTitle, { color: textColor }]}>Horoskop dla kogoś</Text>
-            <Text style={[hs.fsSub, { color: subColor }]}>Podaj imię i wybierz znak zodiaku osoby, dla której chcesz zobaczyć horoskop.</Text>
+            <Text style={[hs.fsTitle, { color: textColor }]}>{t('horoscope.horoskop_dla_kogos', 'Horoskop dla kogoś')}</Text>
+            <Text style={[hs.fsSub, { color: subColor }]}>{t('horoscope.podaj_imie_i_wybierz_znak', 'Podaj imię i wybierz znak zodiaku osoby, dla której chcesz zobaczyć horoskop.')}</Text>
             <MysticalInput
               value={fsNameInput}
               onChangeText={setFsNameInput}
-              placeholder="Imię osoby (opcjonalnie)..."
+              placeholder={t('horoscope.imie_osoby_opcjonalni', 'Imię osoby (opcjonalnie)...')}
               placeholderTextColor={subColor}
               style={{ color: textColor }}
               containerStyle={{ marginBottom: 14 }}
             />
-            <Text style={[hs.fsPickerLabel, { color: accent }]}>ZNAK ZODIAKU</Text>
+            <Text style={[hs.fsPickerLabel, { color: accent }]}>{t('horoscope.znak_zodiaku', 'ZNAK ZODIAKU')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={hs.fsSignScroll} contentContainerStyle={hs.fsSignScrollContent}>
               {(['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'] as ZodiacSign[]).map(sign => (
                 <Pressable
@@ -1283,7 +1283,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
                 onPress={() => { setForSomeone(false); setPartnerSign(null); setPartnerName(''); setShowFsModal(false); }}
                 style={[hs.fsCta, { backgroundColor: 'rgba(255,100,100,0.15)', borderColor: '#FB7185', borderWidth: 1, marginTop: 10 }]}
               >
-                <Text style={[hs.fsCtaText, { color: '#FB7185' }]}>Mój horoskop</Text>
+                <Text style={[hs.fsCtaText, { color: '#FB7185' }]}>{t('horoscope.moj_horoskop', 'Mój horoskop')}</Text>
               </Pressable>
             )}
             <Pressable
@@ -1297,7 +1297,7 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
               }}
               style={[hs.fsCta, { backgroundColor: fsSignInput ? accent : accent + '55', marginTop: forSomeone ? 8 : 16 }]}
             >
-              <Text style={[hs.fsCtaText, { color: '#FFF' }]}>Pokaż horoskop</Text>
+              <Text style={[hs.fsCtaText, { color: '#FFF' }]}>{t('horoscope.pokaz_horoskop', 'Pokaż horoskop')}</Text>
             </Pressable>
           </Pressable>
         </Pressable>
@@ -1306,8 +1306,8 @@ export const HoroscopeScreen = ({ navigation, route }: any) => {
       <PremiumDatePickerSheet
         visible={showPicker}
         mode="date"
-        title="Data urodzenia drugiej osoby"
-        description="Tylko do jednorazowego odczytu znaku."
+        title={t('horoscope.data_urodzenia_drugiej_osoby', 'Data urodzenia drugiej osoby')}
+        description={t('horoscope.tylko_do_jednorazow_odczytu_znaku_1', 'Tylko do jednorazowego odczytu znaku.')}
         value={otherDateValue}
         maximumDate={new Date()}
         onCancel={() => setShowPicker(false)}

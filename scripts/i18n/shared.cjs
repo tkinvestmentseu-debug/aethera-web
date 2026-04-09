@@ -3,6 +3,7 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const SRC_I18N = path.join(ROOT, 'src', 'core', 'i18n');
+const SRC_LOCALES = path.join(ROOT, 'src', 'locales');
 const TOOLS_I18N = path.join(ROOT, 'tools', 'i18n-resources');
 const REPORTS_DIR = path.join(TOOLS_I18N, 'reports');
 
@@ -13,6 +14,11 @@ const readJson = (filePath) => JSON.parse(stripBom(fs.readFileSync(filePath, 'ut
 const writeJson = (filePath, value) => {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
+};
+
+const writeText = (filePath, value) => {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, value, 'utf8');
 };
 
 const flattenObject = (input, prefix = '', output = {}) => {
@@ -34,6 +40,29 @@ const flattenObject = (input, prefix = '', output = {}) => {
   return output;
 };
 
+const unflattenObject = (input) => {
+  const output = {};
+
+  Object.entries(input).forEach(([dotKey, value]) => {
+    const parts = dotKey.split('.');
+    let current = output;
+
+    for (let index = 0; index < parts.length - 1; index += 1) {
+      const part = parts[index];
+      const next = parts[index + 1];
+      const nextIsIndex = /^\d+$/.test(next);
+      if (current[part] == null) {
+        current[part] = nextIsIndex ? [] : {};
+      }
+      current = current[part];
+    }
+
+    current[parts[parts.length - 1]] = value;
+  });
+
+  return output;
+};
+
 const getLocaleFiles = () =>
   fs.readdirSync(SRC_I18N)
     .filter((file) => file.endsWith('.json'))
@@ -41,6 +70,27 @@ const getLocaleFiles = () =>
 
 const getPrimaryLocaleFiles = () =>
   getLocaleFiles().filter((file) => !/-content|-data|-tarot/.test(path.basename(file)));
+
+const getNamespaceLocaleFiles = (language = 'pl') => {
+  const dir = path.join(SRC_LOCALES, language);
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir)
+    .filter((file) => file.endsWith('.json'))
+    .map((file) => path.join(dir, file));
+};
+
+const loadEnvFile = (filePath) => {
+  if (!fs.existsSync(filePath)) return;
+  for (const line of fs.readFileSync(filePath, 'utf8').split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eqIdx = trimmed.indexOf('=');
+    if (eqIdx === -1) continue;
+    const key = trimmed.slice(0, eqIdx).trim();
+    const value = trimmed.slice(eqIdx + 1).trim().replace(/^["']|["']$/g, '');
+    if (!process.env[key]) process.env[key] = value;
+  }
+};
 
 const loadLocaleBundle = () => {
   const bundle = {};
@@ -105,17 +155,22 @@ const hasPolishResidue = (text, languageBase) => {
 module.exports = {
   ROOT,
   SRC_I18N,
+  SRC_LOCALES,
   TOOLS_I18N,
   REPORTS_DIR,
   readJson,
   writeJson,
+  writeText,
   flattenObject,
+  unflattenObject,
   getLocaleFiles,
   getPrimaryLocaleFiles,
+  getNamespaceLocaleFiles,
   loadLocaleBundle,
   loadLanguageBase,
   loadGlossary,
   loadTranslationMemory,
+  loadEnvFile,
   normalizeText,
   getSourceFiles,
   extractStringLiterals,

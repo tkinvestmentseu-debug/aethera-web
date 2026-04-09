@@ -1045,7 +1045,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
   // ── Create room ────────────────────────────────────────────────────────────
   const handleCreateRoom = useCallback(async () => {
     if (!newRoomName.trim()) return;
-    if (!currentUser) { Alert.alert('Wymagane logowanie', 'Zaloguj się, aby tworzyć pokoje.'); return; }
+    if (!currentUser) { Alert.alert(t('communityChat.wymagane_logowanie', 'Wymagane logowanie'), t('communityChat.zaloguj_sie_aby_tworzyc_pokoje', 'Zaloguj się, aby tworzyć pokoje.')); return; }
     setCreatingRoom(true);
     try {
       const result = await ChatService.createRoom({
@@ -1060,7 +1060,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
       setCreatedInviteCode(result.inviteCode);
       setNewRoomName(''); setNewRoomDesc(''); setNewRoomEmoji('💬'); setNewRoomPrivate(false);
     } catch {
-      Alert.alert('Błąd', 'Nie udało się utworzyć pokoju. Spróbuj ponownie.');
+      Alert.alert(t('communityChat.blad', 'Błąd'), t('communityChat.nie_udalo_sie_utworzyc_pokoju', 'Nie udało się utworzyć pokoju. Spróbuj ponownie.'));
     } finally {
       setCreatingRoom(false);
     }
@@ -1070,7 +1070,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
   const handleJoinByCode = useCallback(async () => {
     const code = joinCode.trim().toUpperCase();
     if (code.length < 4) return;
-    if (!currentUser) { Alert.alert('Wymagane logowanie', 'Zaloguj się, aby dołączyć do pokoju.'); return; }
+    if (!currentUser) { Alert.alert(t('communityChat.wymagane_logowanie_1', 'Wymagane logowanie'), t('communityChat.zaloguj_sie_aby_dolaczyc_do', 'Zaloguj się, aby dołączyć do pokoju.')); return; }
     setJoiningCode(true);
     try {
       const result = await ChatService.joinByCode(code, { uid: currentUser.uid, displayName: currentUser.displayName });
@@ -1080,10 +1080,10 @@ export const CommunityChatScreen = ({ navigation }: any) => {
         setJoinCode('');
         Alert.alert('Dołączono!', `Witaj w pokoju „${result.roomName ?? result.roomId}"!`);
       } else {
-        Alert.alert('Nieprawidłowy kod', 'Nie znaleziono pokoju dla podanego kodu.');
+        Alert.alert(t('communityChat.nieprawidl_kod', 'Nieprawidłowy kod'), t('communityChat.nie_znaleziono_pokoju_dla_podanego', 'Nie znaleziono pokoju dla podanego kodu.'));
       }
     } catch {
-      Alert.alert('Błąd', 'Nie udało się dołączyć do pokoju.');
+      Alert.alert(t('communityChat.blad_1', 'Błąd'), t('communityChat.nie_udalo_sie_dolaczyc_do', 'Nie udało się dołączyć do pokoju.'));
     } finally {
       setJoiningCode(false);
     }
@@ -1192,7 +1192,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
               <View style={{ alignItems: 'center', paddingVertical: 40, opacity: 0.5 }}>
                 <Circle size={40} color={isLight ? '#666' : '#888'} />
                 <Text style={{ color: isLight ? '#666' : '#888', marginTop: 12, fontSize: 15, textAlign: 'center' }}>
-                  Nikt jeszcze nie napisał. Zacznij rozmowę!
+                  {t('communityChat.nikt_jeszcze_nie_napisal_zacznij', 'Nikt jeszcze nie napisał. Zacznij rozmowę!')}
                 </Text>
               </View>
             )}
@@ -1235,7 +1235,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
                     gap: 4,
                   }}
                 >
-                  <Text style={{ fontSize: 12, color: subColor, marginRight: 4 }}>{typingAuthor} pisze</Text>
+                  <Text style={{ fontSize: 12, color: subColor, marginRight: 4 }}>{typingAuthor} {t('communityChat.pisze', 'pisze')}</Text>
                   <TypingDots color={activeRoom.color} />
                 </View>
               </Animated.View>
@@ -1269,7 +1269,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
               value={inputText}
               onChangeText={setInputText}
               onSubmitEditing={sendMessage}
-              placeholder="Napisz wiadomość..."
+              placeholder={t('communityChat.napisz_wiadomosc', 'Napisz wiadomość...')}
               placeholderTextColor={subColor}
               style={[
                 styles.textInput,
@@ -1322,21 +1322,21 @@ export const CommunityChatScreen = ({ navigation }: any) => {
               </View>
               {currentRoomInviteCode && (
                 <>
-                  <Text style={{ fontSize: 11, letterSpacing: 2, fontWeight: '700', color: subColor, marginBottom: 8 }}>KOD ZAPROSZENIA</Text>
+                  <Text style={{ fontSize: 11, letterSpacing: 2, fontWeight: '700', color: subColor, marginBottom: 8 }}>{t('communityChat.kod_zaproszeni', 'KOD ZAPROSZENIA')}</Text>
                   <LinearGradient colors={['rgba(206,174,114,0.20)', 'rgba(206,174,114,0.08)']} style={{ borderRadius: 16, borderWidth: 1, borderColor: 'rgba(206,174,114,0.35)', padding: 16, alignItems: 'center', marginBottom: 12 }}>
                     <Text style={{ fontSize: 28, fontWeight: '800', color: textColor, letterSpacing: 6 }}>{currentRoomInviteCode}</Text>
                   </LinearGradient>
                   <Pressable onPress={() => handleShareCode(currentRoomInviteCode, activeRoom?.name)} style={{ marginBottom: 8 }}>
                     <LinearGradient colors={['#CEAE72', '#B8943E']} style={{ borderRadius: 14, paddingVertical: 13, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 8 }}>
                       <Share2 size={16} color="#1A1208" />
-                      <Text style={{ fontSize: 14, fontWeight: '700', color: '#1A1208' }}>Zaproś przez link</Text>
+                      <Text style={{ fontSize: 14, fontWeight: '700', color: '#1A1208' }}>{t('communityChat.zapros_przez_link', 'Zaproś przez link')}</Text>
                     </LinearGradient>
                   </Pressable>
                 </>
               )}
               <Pressable onPress={() => { setShowRoomOptions(false); leaveRoom(); }}
                 style={{ borderRadius: 14, borderWidth: 1, borderColor: '#EF4444' + '40', paddingVertical: 13, alignItems: 'center', backgroundColor: '#EF4444' + '0E' }}>
-                <Text style={{ fontSize: 14, fontWeight: '700', color: '#EF4444' }}>Opuść pokój</Text>
+                <Text style={{ fontSize: 14, fontWeight: '700', color: '#EF4444' }}>{t('communityChat.opusc_pokoj', 'Opuść pokój')}</Text>
               </Pressable>
             </View>
           </View>
@@ -1375,7 +1375,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
           <ChevronLeft size={24} color={textColor} />
         </Pressable>
 
-        <Text style={[styles.headerTitle, { color: textColor }]}>CZATY WSPÓLNOTY</Text>
+        <Text style={[styles.headerTitle, { color: textColor }]}>{t('communityChat.czaty_wspolnoty', 'CZATY WSPÓLNOTY')}</Text>
 
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
           <Pressable
@@ -1411,7 +1411,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
             <PulseDot color="#22C55E" />
           </Animated.View>
           <Text style={{ flex: 1, fontSize: 14, color: textColor, fontWeight: '500', marginLeft: 8 }}>
-            1,247 dusz online teraz
+            {t('communityChat.1_247_dusz_online_teraz', '1,247 dusz online teraz')}
           </Text>
           <OnlineOrb />
         </Animated.View>
@@ -1462,7 +1462,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
         {/* Section label */}
         <Animated.View entering={FadeInDown.delay(180).duration(350)} style={{ marginBottom: 12 }}>
           <Text style={{ fontSize: 11, fontWeight: '700', color: subColor, letterSpacing: 1.5 }}>
-            POKOJE ROZMÓW
+            {t('communityChat.pokoje_rozmow', 'POKOJE ROZMÓW')}
           </Text>
         </Animated.View>
 
@@ -1493,7 +1493,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
           >
             <Hash size={18} color={isLight ? '#6366F1' : '#A5B4FC'} strokeWidth={2} />
             <Text style={{ fontSize: 13, fontWeight: '700', color: isLight ? '#6366F1' : '#A5B4FC', letterSpacing: 0.3 }}>
-              Kod
+              {t('communityChat.kod', 'Kod')}
             </Text>
           </LinearGradient>
         </Pressable>
@@ -1505,7 +1505,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
           >
             <Plus size={20} color="#1A1208" strokeWidth={2.5} />
             <Text style={{ fontSize: 13, fontWeight: '700', color: '#1A1208', letterSpacing: 0.3 }}>
-              Nowy pokój
+              {t('communityChat.nowy_pokoj', 'Nowy pokój')}
             </Text>
           </LinearGradient>
         </Pressable>
@@ -1520,21 +1520,21 @@ export const CommunityChatScreen = ({ navigation }: any) => {
                 {/* Invite code display */}
                 <View style={{ alignItems: 'center', paddingVertical: 12 }}>
                   <Text style={{ fontSize: 32, marginBottom: 8 }}>🎉</Text>
-                  <Text style={{ fontSize: 18, fontWeight: '800', color: textColor, marginBottom: 4 }}>Pokój stworzony!</Text>
-                  <Text style={{ fontSize: 13, color: subColor, textAlign: 'center', marginBottom: 20 }}>Udostępnij kod, aby zaprosić innych użytkowników Aethera.</Text>
+                  <Text style={{ fontSize: 18, fontWeight: '800', color: textColor, marginBottom: 4 }}>{t('communityChat.pokoj_stworzony', 'Pokój stworzony!')}</Text>
+                  <Text style={{ fontSize: 13, color: subColor, textAlign: 'center', marginBottom: 20 }}>{t('communityChat.udostepnij_kod_aby_zaprosic_innych', 'Udostępnij kod, aby zaprosić innych użytkowników Aethera.')}</Text>
                   <LinearGradient colors={['rgba(206,174,114,0.22)', 'rgba(206,174,114,0.10)']} style={{ borderRadius: 18, borderWidth: 1, borderColor: 'rgba(206,174,114,0.40)', padding: 20, alignItems: 'center', width: '100%', marginBottom: 16 }}>
-                    <Text style={{ fontSize: 11, letterSpacing: 2.5, fontWeight: '700', color: '#CEAE72', marginBottom: 8 }}>KOD ZAPROSZENIA</Text>
+                    <Text style={{ fontSize: 11, letterSpacing: 2.5, fontWeight: '700', color: '#CEAE72', marginBottom: 8 }}>{t('communityChat.kod_zaproszeni_1', 'KOD ZAPROSZENIA')}</Text>
                     <Text style={{ fontSize: 32, fontWeight: '800', color: textColor, letterSpacing: 6 }}>{createdInviteCode}</Text>
                   </LinearGradient>
                   <View style={{ flexDirection: 'row', gap: 10, width: '100%' }}>
                     <Pressable onPress={() => handleShareCode(createdInviteCode)} style={{ flex: 1 }}>
                       <LinearGradient colors={['#CEAE72', '#B8943E']} style={{ borderRadius: 14, paddingVertical: 14, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 8 }}>
                         <Share2 size={16} color="#1A1208" />
-                        <Text style={{ fontSize: 14, fontWeight: '700', color: '#1A1208' }}>Udostępnij</Text>
+                        <Text style={{ fontSize: 14, fontWeight: '700', color: '#1A1208' }}>{t('communityChat.udostepnij', 'Udostępnij')}</Text>
                       </LinearGradient>
                     </Pressable>
                     <Pressable onPress={() => { setCreatedInviteCode(null); setShowCreateRoom(false); }} style={{ flex: 1, borderRadius: 14, borderWidth: 1, borderColor: cardBorder, alignItems: 'center', justifyContent: 'center', paddingVertical: 14 }}>
-                      <Text style={{ fontSize: 14, fontWeight: '600', color: textColor }}>Gotowe</Text>
+                      <Text style={{ fontSize: 14, fontWeight: '600', color: textColor }}>{t('communityChat.gotowe', 'Gotowe')}</Text>
                     </Pressable>
                   </View>
                 </View>
@@ -1542,11 +1542,11 @@ export const CommunityChatScreen = ({ navigation }: any) => {
             ) : (
               <>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-                  <Text style={{ fontSize: 18, fontWeight: '800', color: textColor }}>Utwórz pokój</Text>
+                  <Text style={{ fontSize: 18, fontWeight: '800', color: textColor }}>{t('communityChat.utworz_pokoj', 'Utwórz pokój')}</Text>
                   <Pressable onPress={() => setShowCreateRoom(false)} hitSlop={10}><X size={22} color={subColor} /></Pressable>
                 </View>
                 {/* Emoji picker */}
-                <Text style={{ fontSize: 11, letterSpacing: 1.5, fontWeight: '700', color: subColor, marginBottom: 8 }}>EMOJI POKOJU</Text>
+                <Text style={{ fontSize: 11, letterSpacing: 1.5, fontWeight: '700', color: subColor, marginBottom: 8 }}>{t('communityChat.emoji_pokoju', 'EMOJI POKOJU')}</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingBottom: 14, paddingRight: 22 }}>
                   {['💬','🔮','🧘','🌙','⭐','🔥','💜','🌸','🌊','✨','🌿','🦋','🏔','🌺','🎭'].map(e => (
                     <Pressable key={e} onPress={() => { setNewRoomEmoji(e); HapticsService.impact('light'); }}
@@ -1556,20 +1556,20 @@ export const CommunityChatScreen = ({ navigation }: any) => {
                   ))}
                 </ScrollView>
                 {/* Name */}
-                <Text style={{ fontSize: 11, letterSpacing: 1.5, fontWeight: '700', color: subColor, marginBottom: 6 }}>NAZWA POKOJU</Text>
-                <TextInput value={newRoomName} onChangeText={setNewRoomName} placeholder="Np. Medytacja poranna..." placeholderTextColor={subColor}
+                <Text style={{ fontSize: 11, letterSpacing: 1.5, fontWeight: '700', color: subColor, marginBottom: 6 }}>{t('communityChat.nazwa_pokoju', 'NAZWA POKOJU')}</Text>
+                <TextInput value={newRoomName} onChangeText={setNewRoomName} placeholder={t('communityChat.np_medytacja_poranna', 'Np. Medytacja poranna...')} placeholderTextColor={subColor}
                   style={{ backgroundColor: cardBg, borderRadius: 12, borderWidth: 1, borderColor: cardBorder, color: textColor, fontSize: 15, padding: 12, marginBottom: 12 }} />
                 {/* Description */}
-                <Text style={{ fontSize: 11, letterSpacing: 1.5, fontWeight: '700', color: subColor, marginBottom: 6 }}>OPIS (opcjonalny)</Text>
-                <TextInput value={newRoomDesc} onChangeText={setNewRoomDesc} placeholder="O czym jest ten pokój?" placeholderTextColor={subColor} multiline
+                <Text style={{ fontSize: 11, letterSpacing: 1.5, fontWeight: '700', color: subColor, marginBottom: 6 }}>{t('communityChat.opis_opcjonalny', 'OPIS (opcjonalny)')}</Text>
+                <TextInput value={newRoomDesc} onChangeText={setNewRoomDesc} placeholder={t('communityChat.o_czym_jest_ten_pokoj', 'O czym jest ten pokój?')} placeholderTextColor={subColor} multiline
                   style={{ backgroundColor: cardBg, borderRadius: 12, borderWidth: 1, borderColor: cardBorder, color: textColor, fontSize: 14, padding: 12, minHeight: 64, textAlignVertical: 'top', marginBottom: 14 }} />
                 {/* Private toggle */}
                 <Pressable onPress={() => { setNewRoomPrivate(p => !p); HapticsService.impact('light'); }}
                   style={{ flexDirection: 'row', alignItems: 'center', gap: 12, padding: 12, borderRadius: 14, borderWidth: 1, borderColor: newRoomPrivate ? 'rgba(206,174,114,0.45)' : cardBorder, backgroundColor: newRoomPrivate ? 'rgba(206,174,114,0.10)' : cardBg, marginBottom: 16 }}>
                   {newRoomPrivate ? <Lock size={18} color="#CEAE72" /> : <Globe size={18} color={subColor} />}
                   <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: 14, fontWeight: '700', color: newRoomPrivate ? '#CEAE72' : textColor }}>{newRoomPrivate ? 'Pokój prywatny' : 'Pokój publiczny'}</Text>
-                    <Text style={{ fontSize: 12, color: subColor }}>{newRoomPrivate ? 'Tylko z kodem zaproszenia' : 'Widoczny dla wszystkich'}</Text>
+                    <Text style={{ fontSize: 14, fontWeight: '700', color: newRoomPrivate ? '#CEAE72' : textColor }}>{newRoomPrivate ? t('communityChat.pokoj_prywatny', 'Pokój prywatny') : t('communityChat.pokoj_publiczny', 'Pokój publiczny')}</Text>
+                    <Text style={{ fontSize: 12, color: subColor }}>{newRoomPrivate ? t('communityChat.tylko_z_kodem', 'Tylko z kodem zaproszenia') : t('communityChat.widoczny_dla_wszystkich', 'Widoczny dla wszystkich')}</Text>
                   </View>
                   <View style={{ width: 24, height: 24, borderRadius: 12, backgroundColor: newRoomPrivate ? '#CEAE72' : 'transparent', borderWidth: 2, borderColor: newRoomPrivate ? '#CEAE72' : cardBorder, alignItems: 'center', justifyContent: 'center' }}>
                     {newRoomPrivate && <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: '#1A1208' }} />}
@@ -1578,7 +1578,7 @@ export const CommunityChatScreen = ({ navigation }: any) => {
                 {/* Create button */}
                 <Pressable onPress={handleCreateRoom} disabled={!newRoomName.trim() || creatingRoom}>
                   <LinearGradient colors={newRoomName.trim() ? ['#CEAE72', '#B8943E'] : ['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.10)']} style={{ borderRadius: 14, paddingVertical: 15, alignItems: 'center' }}>
-                    <Text style={{ fontSize: 15, fontWeight: '800', color: newRoomName.trim() ? '#1A1208' : subColor }}>{creatingRoom ? 'Tworzenie...' : 'Utwórz pokój'}</Text>
+                    <Text style={{ fontSize: 15, fontWeight: '800', color: newRoomName.trim() ? '#1A1208' : subColor }}>{creatingRoom ? t('communityChat.tworzenie', 'Tworzenie...') : t('communityChat.utworz_pokoj_btn', 'Utwórz pokój')}</Text>
                   </LinearGradient>
                 </Pressable>
               </>
@@ -1592,19 +1592,19 @@ export const CommunityChatScreen = ({ navigation }: any) => {
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.65)', justifyContent: 'flex-end' }}>
           <View style={{ backgroundColor: isLight ? '#F8F4EE' : '#120E20', borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24, paddingBottom: Math.max(insets.bottom + 16, 32), borderTopWidth: 1, borderTopColor: isLight ? 'rgba(139,100,42,0.25)' : 'rgba(206,174,114,0.18)' }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-              <Text style={{ fontSize: 18, fontWeight: '800', color: textColor }}>Dołącz przez kod</Text>
+              <Text style={{ fontSize: 18, fontWeight: '800', color: textColor }}>{t('communityChat.dolacz_przez_kod', 'Dołącz przez kod')}</Text>
               <Pressable onPress={() => { setShowJoinCode(false); setJoinCode(''); }} hitSlop={10}><X size={22} color={subColor} /></Pressable>
             </View>
-            <Text style={{ fontSize: 13, color: subColor, marginBottom: 20 }}>Wpisz 6-znakowy kod zaproszenia otrzymany od innego użytkownika Aethera.</Text>
+            <Text style={{ fontSize: 13, color: subColor, marginBottom: 20 }}>{t('communityChat.wpisz_6_znakowy_kod_zaproszeni', 'Wpisz 6-znakowy kod zaproszenia otrzymany od innego użytkownika Aethera.')}</Text>
             <TextInput
               value={joinCode} onChangeText={v => setJoinCode(v.toUpperCase())}
-              placeholder="np. AB1C2D" placeholderTextColor={subColor}
+              placeholder={t('communityChat.np_ab1c2d', 'np. AB1C2D')} placeholderTextColor={subColor}
               autoCapitalize="characters" maxLength={6}
               style={{ backgroundColor: cardBg, borderRadius: 14, borderWidth: 1.5, borderColor: joinCode.length >= 4 ? '#CEAE72' : cardBorder, color: textColor, fontSize: 24, fontWeight: '800', textAlign: 'center', letterSpacing: 6, padding: 16, marginBottom: 16 }}
             />
             <Pressable onPress={handleJoinByCode} disabled={joinCode.trim().length < 4 || joiningCode}>
               <LinearGradient colors={joinCode.trim().length >= 4 ? ['#CEAE72', '#B8943E'] : ['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.10)']} style={{ borderRadius: 14, paddingVertical: 15, alignItems: 'center' }}>
-                <Text style={{ fontSize: 15, fontWeight: '800', color: joinCode.trim().length >= 4 ? '#1A1208' : subColor }}>{joiningCode ? 'Dołączanie...' : 'Dołącz do pokoju'}</Text>
+                <Text style={{ fontSize: 15, fontWeight: '800', color: joinCode.trim().length >= 4 ? '#1A1208' : subColor }}>{joiningCode ? t('communityChat.dolaczanie', 'Dołączanie...') : t('communityChat.dolacz_do_pokoju_btn', 'Dołącz do pokoju')}</Text>
               </LinearGradient>
             </Pressable>
           </View>

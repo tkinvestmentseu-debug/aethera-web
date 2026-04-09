@@ -98,9 +98,7 @@ type SessionPartner = {
 
 export const CompatibilityScreen = ({ navigation, route }: any) => {
   const { t } = useTranslation();
-  const isEnglish = i18n.language?.startsWith('en');
-  const localeCode = isEnglish ? 'en-US' : 'pl-PL';
-  const tr = (pl: string, en: string) => (isEnglish ? en : pl);
+  const localeCode = i18n.language?.startsWith('en') ? 'en-US' : 'pl-PL';
   const insets = useSafeAreaInsets();
     const userData = useAppStore(s => s.userData);
   const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
@@ -228,8 +226,8 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
   const nextStepNavRows = compatibility && sessionPartner ? [
     {
       key: 'journal',
-      label: 'Zapisz refleksję',
-      desc: 'Otwórz dziennik z gotowym pytaniem',
+      label: t('compatibility.zapisz_refleksje', 'Zapisz refleksję'),
+      desc: t('compatibility.otworz_dziennik', 'Otwórz dziennik z gotowym pytaniem'),
       onPress: () => navigation.navigate('JournalEntry', {
         prompt: `Analizuję zgodność z osobą o imieniu ${sessionPartner?.name}. Wspólne centrum relacji daje ${compatibility.center}, oś relacji ${compatibility.right}, energia działania ${compatibility.top}, lekcja ${compatibility.bottom}.\n\n${compatibilityQuestions[0] ?? ''}`,
         type: 'reflection',
@@ -261,8 +259,8 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
     },
     {
       key: 'share',
-      label: 'Udostępnij obraz relacji',
-      desc: 'Podziel się wynikiem',
+      label: t('compatibility.udostepnij_obraz', 'Udostępnij obraz relacji'),
+      desc: t('compatibility.podziel_sie', 'Podziel się wynikiem'),
       onPress: handleShare,
     },
   ] : [];
@@ -297,11 +295,11 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
                   <ChevronLeft color={currentTheme.primary} size={30} strokeWidth={1.5} />
                 </Pressable>
                 <View style={styles.headerCopy}>
-                  <Typography variant="premiumLabel" color={currentTheme.primary} style={styles.headerLabel}>Relacje</Typography>
-                  <Typography variant="screenTitle">{tr('Zgodność energetyczna', 'Energetic compatibility')}</Typography>
+                  <Typography variant="premiumLabel" color={currentTheme.primary} style={styles.headerLabel}>{t('compatibility.relacje', 'Relacje')}</Typography>
+                  <Typography variant="screenTitle">{t('compatibility.zgodnosc_energetyczna', 'Zgodność energetyczna')}</Typography>
                 </View>
                 <Pressable
-                  onPress={() => { if (isFavoriteItem('compatibility')) { removeFavoriteItem('compatibility'); } else { addFavoriteItem({ id: 'compatibility', label: tr('Zgodność', 'Compatibility'), sublabel: tr('Zgodność energetyczna', 'Energetic compatibility'), route: 'Compatibility', params: {}, icon: 'Heart', color: currentTheme.primary, addedAt: new Date().toISOString() }); } }}
+                  onPress={() => { if (isFavoriteItem('compatibility')) { removeFavoriteItem('compatibility'); } else { addFavoriteItem({ id: 'compatibility', label: t('compatibility.zgodnosc', 'Zgodność'), sublabel: t('compatibility.zgodnosc_energetyczna', 'Zgodność energetyczna'), route: 'Compatibility', params: {}, icon: 'Heart', color: currentTheme.primary, addedAt: new Date().toISOString() }); } }}
                   style={[styles.backBtn, { alignItems: 'center', justifyContent: 'center' }]}
                   hitSlop={12}
                 >
@@ -317,9 +315,9 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
 
                   {/* ── Intro: clean italic description, no card box ── */}
                   <View style={styles.introSection}>
-                    <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 10 }}>Sesja połączenia</Typography>
+                    <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 10 }}>{t('compatibility.sesja_polaczenia', 'Sesja połączenia')}</Typography>
                     <Typography variant="bodySmall" style={[styles.introCopy, { color: subColor }]}>
-                      To chwilowa sesja zgodności. Wpisz tylko dane tej osoby — Aethera nie tworzy z nich nowego profilu ani nie nadpisuje Twojego kontekstu.
+                      {t('compatibility.to_chwilowa_sesja_zgodnosci_wpisz', 'To chwilowa sesja zgodności. Wpisz tylko dane tej osoby — Aethera nie tworzy z nich nowego profilu ani nie nadpisuje Twojego kontekstu.')}
                     </Typography>
                   </View>
 
@@ -334,12 +332,12 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
                       <Users color={currentTheme.primary} size={32} strokeWidth={1.5} />
                     </View>
                     <Typography variant="subtitle" style={[styles.formTitle, { color: textColor }]}>
-                      {tr('Dodaj osobę, z którą chcesz sprawdzić połączenie', 'Add the person whose connection you want to read')}
+                      {t('compatibility.dodaj_osobe', 'Dodaj osobę, z którą chcesz sprawdzić połączenie')}
                     </Typography>
 
                     {/* Gender selector */}
                     <View style={{ width: '100%', marginBottom: 20 }}>
-                      <Typography variant="microLabel" color={currentTheme.primary} style={{ marginBottom: 10 }}>Płeć partnera</Typography>
+                      <Typography variant="microLabel" color={currentTheme.primary} style={{ marginBottom: 10 }}>{t('compatibility.plec_partnera', 'Płeć partnera')}</Typography>
                       <View style={{ flexDirection: 'row', gap: 10 }}>
                         {(['on', 'ona'] as const).map(g => (
                           <Pressable key={g} onPress={() => setPartnerGender(g)}
@@ -359,11 +357,11 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
 
                     {/* Name */}
                     <View style={styles.inputGroup}>
-                      <Typography variant="label" style={[styles.fieldLabel, { color: textColor }]}>Imię</Typography>
+                      <Typography variant="label" style={[styles.fieldLabel, { color: textColor }]}>{t('compatibility.imie', 'Imię')}</Typography>
                       <MysticalInput
                         value={partnerName}
                         onChangeText={setPartnerName}
-                        placeholder={tr('Imię tej osoby', 'This person’s name')}
+                        placeholder={t('compatibility.imie_tej_osoby', 'Imię tej osoby')}
                         placeholderTextColor={currentTheme.textMuted}
                         returnKeyType="done"
                         onFocusScroll={() => focusIntoView(180)}
@@ -373,22 +371,22 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
 
                     {/* Birth date */}
                     <View style={styles.inputGroup}>
-                      <Typography variant="label" style={[styles.fieldLabel, { color: textColor }]}>Data urodzenia</Typography>
+                      <Typography variant="label" style={[styles.fieldLabel, { color: textColor }]}>{t('compatibility.data_urodzenia', 'Data urodzenia')}</Typography>
                       <Pressable style={[luxury.input(currentTheme), styles.infoTrigger]} onPress={() => setPickerMode('birthDate')}>
                         <Calendar color={currentTheme.primary} size={20} strokeWidth={1.5} />
                         <Typography variant="bodyRefined" style={{ color: partnerBirthDate ? currentTheme.text : currentTheme.textMuted }}>
-                          {partnerBirthDate ? new Date(partnerBirthDate).toLocaleDateString(localeCode) : tr('Wybierz datę', 'Choose a date')}
+                          {partnerBirthDate ? new Date(partnerBirthDate).toLocaleDateString(localeCode) : t('compatibility.wybierz_date', 'Wybierz datę')}
                         </Typography>
                       </Pressable>
                     </View>
 
                     {/* Birth place */}
                     <View style={styles.inputGroup}>
-                      <Typography variant="label" style={[styles.fieldLabel, { color: textColor }]}>Miejsce urodzenia</Typography>
+                      <Typography variant="label" style={[styles.fieldLabel, { color: textColor }]}>{t('compatibility.miejsce_urodzenia', 'Miejsce urodzenia')}</Typography>
                       <MysticalInput
                         value={partnerBirthPlace}
                         onChangeText={setPartnerBirthPlace}
-                        placeholder={tr('Opcjonalnie, jeśli je znasz', 'Optional, if you know it')}
+                        placeholder={t('compatibility.opcjonalnie', 'Opcjonalnie, jeśli je znasz')}
                         placeholderTextColor={currentTheme.textMuted}
                         returnKeyType="done"
                         onFocusScroll={() => focusIntoView(380)}
@@ -399,7 +397,7 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
                     {/* Birth time */}
                     <View style={styles.inputGroup}>
                       <View style={styles.timeHeader}>
-                        <Typography variant="label" style={[styles.fieldLabel, { color: textColor }]}>Godzina urodzenia</Typography>
+                        <Typography variant="label" style={[styles.fieldLabel, { color: textColor }]}>{t('compatibility.godzina_urodzenia', 'Godzina urodzenia')}</Typography>
                         <Pressable
                           style={[styles.timeChip, hasBirthTime && { borderColor: currentTheme.primary, backgroundColor: accentBg }]}
                           onPress={() => setHasBirthTime((value) => !value)}
@@ -417,10 +415,7 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
                       ) : (
                         // inline note — no card wrapper
                         <Typography variant="bodySmall" style={[styles.optionalNote, { color: subColor }]}>
-                          {tr(
-                            'Gdy ją znasz, pomoże dodać subtelniejszy kontekst astrologiczny do relacji. Do podstawowej zgodności nie jest wymagana.',
-                            'If you know it, it adds a subtler astrological layer to the bond. It is not required for the core compatibility reading.',
-                          )}
+                          {t('compatibility.gdy_ja_znasz', 'Gdy ją znasz, pomoże dodać subtelniejszy kontekst astrologiczny do relacji. Do podstawowej zgodności nie jest wymagana.')}
                         </Typography>
                       )}
                     </View>
@@ -433,7 +428,7 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
                   <View style={styles.contextSection}>
                     <View style={[styles.contextAccent, { backgroundColor: currentTheme.primary }]} />
                     <View style={{ flex: 1 }}>
-                      <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 6 }}>{tr('Kontekst tej osoby', 'Their context')}</Typography>
+                      <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 6 }}>{t('compatibility.kontekst_tej_osoby', 'Kontekst tej osoby')}</Typography>
                       <Typography variant="subtitle" style={[styles.contextName, { color: textColor }]}>{sessionPartner?.name}</Typography>
                       {!!partnerContext && (
                         <Typography variant="bodySmall" style={[styles.contextMeta, { color: subColor }]}>{partnerContext}</Typography>
@@ -445,19 +440,16 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
 
                   {/* ── Compat deck: subtle surface for numbers ── */}
                   <View style={[styles.compatDeck, { backgroundColor: surfaceBg, borderColor: surfaceBorder }]}>
-                    <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 6 }}>{tr('Rdzeń tej sesji relacyjnej', 'Core of this relationship session')}</Typography>
+                    <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 6 }}>{t('compatibility.rdzen_sesji', 'Rdzeń tej sesji relacyjnej')}</Typography>
                     <Typography variant="bodySmall" style={[styles.compatLead, { color: subColor }]}>
-                      {tr(
-                        'To nie jest suchy wynik zgodności. To mapa napięcia, przyciągania i bezpiecznego rytmu.',
-                        'This is not a dry compatibility score. It is a map of tension, attraction and the rhythm that keeps the bond safe.',
-                      )}
+                      {t('compatibility.to_nie_jest_suchy', 'To nie jest suchy wynik zgodności. To mapa napięcia, przyciągania i bezpiecznego rytmu.')}
                     </Typography>
                     <View style={[styles.compatDivider, { backgroundColor: dividerColor }]} />
                     <View style={styles.compatGrid}>
                       {[
                         { label: 'Centrum', value: compatibility.center },
-                        { label: tr('Relacje', 'Bond'), value: compatibility.right },
-                        { label: tr('Lekcja', 'Lesson'), value: compatibility.bottom },
+                        { label: t('compatibility.relacje', 'Relacje'), value: compatibility.right },
+                        { label: t('compatibility.lekcja', 'Lekcja'), value: compatibility.bottom },
                       ].map((item, idx) => (
                         <View key={item.label} style={[
                           styles.compatTile,
@@ -493,7 +485,7 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
                         <Sparkles color={currentTheme.primary} size={22} strokeWidth={1.5} />
                       </View>
                       <View style={{ flex: 1 }}>
-                        <Typography variant="microLabel" color={currentTheme.primary} style={{ marginBottom: 4 }}>Energia tej relacji</Typography>
+                        <Typography variant="microLabel" color={currentTheme.primary} style={{ marginBottom: 4 }}>{t('compatibility.energia_tej_relacji', 'Energia tej relacji')}</Typography>
                         <Typography variant="cardTitle" color={currentTheme.primary}>Wibracja {compatibility.center}</Typography>
                       </View>
                     </View>
@@ -506,7 +498,7 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
 
                   {/* ── Detail: clean rows with left accent ── */}
                   <View style={styles.detailSection}>
-                    <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 16 }}>Szerszy obraz relacji</Typography>
+                    <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 16 }}>{t('compatibility.szerszy_obraz_relacji', 'Szerszy obraz relacji')}</Typography>
                     {relationshipNarrative.map((paragraph, idx) => (
                       <View key={idx} style={[styles.detailRow, { borderLeftColor: currentTheme.primary + '55' }]}>
                         <Typography variant="bodySmall" style={[styles.detailCopy, { color: subColor }]}>
@@ -521,9 +513,9 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
                   {/* ── Journal reflection questions ── */}
                   {compatibilityQuestions.length > 0 && (
                     <View style={styles.questionsSection}>
-                      <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 4 }}>Pytania do refleksji</Typography>
+                      <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 4 }}>{t('compatibility.pytania_do_refleksji', 'Pytania do refleksji')}</Typography>
                       <Typography variant="bodySmall" style={[{ marginBottom: 16, color: subColor }]}>
-                        Otwórz jedno z nich w dzienniku i pozwól, by odpowiedź sama przyszła.
+                        {t('compatibility.otworz_jedno_z_nich_w', 'Otwórz jedno z nich w dzienniku i pozwól, by odpowiedź sama przyszła.')}
                       </Typography>
                       {compatibilityQuestions.map((question, idx) => (
                         <Pressable
@@ -548,14 +540,14 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
                   {/* ── Obszary relacji: 4 scored cards ── */}
                   {relationAreas && (
                     <View style={styles.areasSection}>
-                      <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 4 }}>Obszary relacji</Typography>
+                      <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 4 }}>{t('compatibility.obszary_relacji', 'Obszary relacji')}</Typography>
                       <Typography variant="bodySmall" style={[{ marginBottom: 18, color: subColor }]}>
-                        Cztery wymiary Waszej więzi — każdy odczytany z wibracji tej pary.
+                        {t('compatibility.cztery_wymiary_waszej_wiezi_kazdy', 'Cztery wymiary Waszej więzi — każdy odczytany z wibracji tej pary.')}
                       </Typography>
                       {[
                         {
                           key: 'milosc',
-                          label: 'Miłość',
+                          label: t('compatibility.milosc', 'Miłość'),
                           color: '#E879A0',
                           pct: relationAreas.milosc,
                           desc: 'Głębokość emocjonalnego połączenia i zdolność do wzajemnej czułości. Im wyższa wibracja, tym silniejszy magnetyzm dusz — i tym ważniejsze, by nie gasić go codzienną rutyną. Miłość tu jest żywa, lecz wymaga świadomej pielęgnacji.',
@@ -569,7 +561,7 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
                         },
                         {
                           key: 'wartosci',
-                          label: 'Wartości',
+                          label: t('compatibility.wartosci', 'Wartości'),
                           color: '#34D399',
                           pct: relationAreas.wartosci,
                           desc: 'Spójność fundamentów — tego, co dla Was obojga naprawdę ważne. Gdzie wartości się pokrywają, relacja buduje się stabilnie i naturalnie. Rozbieżności nie muszą dzielić — jeśli są nazwane z szacunkiem, stają się źródłem wzajemnej mądrości.',
@@ -608,9 +600,9 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
 
                   {/* ── Next steps: clean nav rows ── */}
                   <View style={styles.nextStepsSection}>
-                    <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 4 }}>Pogłęb tę relację dalej</Typography>
+                    <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 4 }}>{t('compatibility.pogleb_te_relacje_dalej', 'Pogłęb tę relację dalej')}</Typography>
                     <Typography variant="bodySmall" style={[{ marginBottom: 16, color: subColor }]}>
-                      Zobacz tę więź z kilku stron — dopiero połączenie warstw pokazuje pełniejszy obraz.
+                      {t('compatibility.zobacz_te_wiez_z_kilku', 'Zobacz tę więź z kilku stron — dopiero połączenie warstw pokazuje pełniejszy obraz.')}
                     </Typography>
                     {nextStepNavRows.map((row, idx) => (
                       <Pressable
@@ -634,23 +626,23 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
 
                   {/* ── Co dalej? quick links ── */}
                   <View style={styles.codalejSection}>
-                    <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 4 }}>Co dalej?</Typography>
+                    <Typography variant="premiumLabel" color={currentTheme.primary} style={{ marginBottom: 4 }}>{t('compatibility.co_dalej', 'Co dalej?')}</Typography>
                     <Typography variant="bodySmall" style={[{ marginBottom: 16, color: subColor }]}>
-                      Trzy ścieżki, które prowadzą głębiej w tajemnicę tej relacji.
+                      {t('compatibility.trzy_sciezki_ktore_prowadza_glebiej', 'Trzy ścieżki, które prowadzą głębiej w tajemnicę tej relacji.')}
                     </Typography>
                     {[
                       {
                         key: 'tarot',
                         icon: <Sparkles color={currentTheme.primary} size={18} strokeWidth={1.5} />,
-                        label: 'Miłosny rozkład',
-                        desc: 'Karty Tarota dla tej pary',
+                        label: t('compatibility.milosny_rozklad', 'Miłosny rozkład'),
+                        desc: t('compatibility.karty_tarota', 'Karty Tarota dla tej pary'),
                         onPress: () => navigation.navigate('Tarot'),
                       },
                       {
                         key: 'journal',
                         icon: <MapPin color={currentTheme.primary} size={18} strokeWidth={1.5} />,
-                        label: 'Wspólny dziennik',
-                        desc: 'Zapisz refleksję o tej relacji',
+                        label: t('compatibility.wspólny_dziennik', 'Wspólny dziennik'),
+                        desc: t('compatibility.zapisz_refleksje_relacji', 'Zapisz refleksję o tej relacji'),
                         onPress: () => navigation.navigate('JournalEntry', {
                           prompt: `Reflektuję nad relacją z ${sessionPartner?.name}. Co chcę powiedzieć tej osobie, czego jeszcze nie powiedziałem/am?`,
                           type: 'reflection',
@@ -659,8 +651,8 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
                       {
                         key: 'numerology',
                         icon: <ArrowRight color={currentTheme.primary} size={18} strokeWidth={1.5} />,
-                        label: 'Głębsza liczba',
-                        desc: 'Numerologia tej więzi',
+                        label: t('compatibility.glębsza_liczba', 'Głębsza liczba'),
+                        desc: t('compatibility.numerologia_wiezi', 'Numerologia tej więzi'),
                         onPress: () => navigation.navigate('Numerology'),
                       },
                     ].map((item, idx, arr) => (
@@ -682,7 +674,7 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
                   {/* ── Reset ── */}
                   <Pressable style={styles.resetBtn} onPress={resetSession}>
                     <RotateCcw color={currentTheme.textMuted} size={14} />
-                    <Typography variant="label" color={currentTheme.textMuted} style={styles.resetLabel}>Sprawdź inną osobę</Typography>
+                    <Typography variant="label" color={currentTheme.textMuted} style={styles.resetLabel}>{t('compatibility.sprawdz_inna_osobe', 'Sprawdź inną osobę')}</Typography>
                   </Pressable>
                 </Animated.View>
               )}
@@ -705,7 +697,7 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
               >
                 {!partnerName.trim() || !partnerBirthDate ? (
                   <Typography variant="caption" style={[styles.footerHint, { color: subColor }]}>
-                    Uzupełnij imię i datę urodzenia, aby otworzyć zgodność tej relacji.
+                    {t('compatibility.uzupelnij_imie_i_date_urodzenia', 'Uzupełnij imię i datę urodzenia, aby otworzyć zgodność tej relacji.')}
                   </Typography>
                 ) : null}
                 <Pressable
@@ -713,7 +705,7 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
                   onPress={startSession}
                   disabled={!partnerName.trim() || !partnerBirthDate}
                 >
-                  <Typography variant="premiumLabel" color={currentTheme.background}>Pokaż zgodność</Typography>
+                  <Typography variant="premiumLabel" color={currentTheme.background}>{t('compatibility.pokaz_zgodnosc', 'Pokaż zgodność')}</Typography>
                 </Pressable>
               </View>
             )}
@@ -723,8 +715,8 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
       <PremiumDatePickerSheet
         visible={pickerMode === 'birthDate'}
         mode="date"
-        title="Data urodzenia tej osoby"
-        description="To nadal jest lekka sesja zgodności. Uzupełniasz tylko to, co potrzebne do czytelnego obrazu relacji."
+        title={t('compatibility.data_urodzenia_tej_osoby', 'Data urodzenia tej osoby')}
+        description={t('compatibility.to_nadal_jest_lekka_sesja', 'To nadal jest lekka sesja zgodności. Uzupełniasz tylko to, co potrzebne do czytelnego obrazu relacji.')}
         value={new Date(partnerBirthDate || '1995-01-01')}
         maximumDate={new Date()}
         onCancel={() => setPickerMode(null)}
@@ -736,8 +728,8 @@ export const CompatibilityScreen = ({ navigation, route }: any) => {
       <PremiumDatePickerSheet
         visible={pickerMode === 'birthTime'}
         mode="time"
-        title="Godzina urodzenia tej osoby"
-        description="Pole opcjonalne. Dodaj je tylko wtedy, gdy chcesz subtelniejszego astrologicznego kontekstu."
+        title={t('compatibility.godzina_urodzenia_tej_osoby', 'Godzina urodzenia tej osoby')}
+        description={t('compatibility.pole_opcjonalne_dodaj_je_tylko', 'Pole opcjonalne. Dodaj je tylko wtedy, gdy chcesz subtelniejszego astrologicznego kontekstu.')}
         value={birthTimeValue}
         onCancel={() => setPickerMode(null)}
         onConfirm={(value) => {

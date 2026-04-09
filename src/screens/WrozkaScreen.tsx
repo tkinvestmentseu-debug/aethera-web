@@ -301,7 +301,7 @@ const TarotTableScene = ({ phase }: { phase: string }) => {
       {phase === 'intro' && (
         <View style={{ position: 'absolute', bottom: 18, left: 0, right: 0, alignItems: 'center' }}>
           <Text style={{ color: isLight ? 'rgba(139,100,42,0.55)' : GOLD_DIM, fontSize: 10, letterSpacing: 3.5, fontWeight: '600' }}>
-            ZAPAL ŚWIECĘ
+            {t('wrozka.zapal_swiece', 'ZAPAL ŚWIECĘ')}
           </Text>
         </View>
       )}
@@ -433,7 +433,7 @@ const FlipCard = ({ card, isReversed, deckId, slotLabel, index, isActive, reveal
           <CardBackSVG w={CARD_W} h={CARD_H} glowing={isActive && !revealed} />
           {isActive && !revealed && (
             <View style={{ position: 'absolute', bottom: 4, left: 0, right: 0, alignItems: 'center' }}>
-              <Text style={{ color: GOLD, fontSize: 8, letterSpacing: 1.5, fontWeight: '700' }}>DOTKNIJ</Text>
+              <Text style={{ color: GOLD, fontSize: 8, letterSpacing: 1.5, fontWeight: '700' }}>{t('wrozka.dotknij', 'DOTKNIJ')}</Text>
             </View>
           )}
         </Animated.View>
@@ -576,7 +576,7 @@ const InterpretationBlock = ({
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: accentColor }} />
           <Text style={{ color: isLight ? 'rgba(60,30,100,0.50)' : 'rgba(245,241,234,0.4)', fontSize: 13, fontStyle: 'italic' }}>
-            Wróżka odczytuje kartę...
+            {t('wrozka.wrozka_odczytuje_karte', 'Wróżka odczytuje kartę...')}
           </Text>
         </View>
       )}
@@ -623,7 +623,7 @@ const ChatMessage = ({ msg, deckId, accentColor }: { msg: ChatMsg; deckId: strin
             <Text style={{ color: '#FFE5A0', fontSize: 14, fontWeight: '700' }}>✦</Text>
           </LinearGradient>
           <View style={{ marginLeft: 8 }}>
-            <Text style={{ color: GOLD, fontSize: 9, letterSpacing: 2.5, fontWeight: '800' }}>WRÓŻKA AETHERA</Text>
+            <Text style={{ color: GOLD, fontSize: 9, letterSpacing: 2.5, fontWeight: '800' }}>{t('wrozka.wrozka_aethera', 'WRÓŻKA AETHERA')}</Text>
             <View style={{ flexDirection: 'row', gap: 3, marginTop: 2 }}>
               {[0,1,2].map(i => <View key={i} style={{ width: 4, height: 4, borderRadius: 2, backgroundColor: GOLD, opacity: 0.5 + i * 0.2 }} />)}
             </View>
@@ -662,7 +662,7 @@ const ChatMessage = ({ msg, deckId, accentColor }: { msg: ChatMsg; deckId: strin
                 {msg.extraCard.isReversed && (
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                     <View style={{ width: 5, height: 5, borderRadius: 3, backgroundColor: '#F87171' }} />
-                    <Text style={{ color: '#F87171', fontSize: 10, fontWeight: '600' }}>odwrócona</Text>
+                    <Text style={{ color: '#F87171', fontSize: 10, fontWeight: '600' }}>{t('wrozka.odwrocona', 'odwrócona')}</Text>
                   </View>
                 )}
               </View>
@@ -748,13 +748,13 @@ const IntroSheet = ({
 
         {/* Title row */}
         <View style={{ alignItems: 'center', marginBottom: 20 }}>
-          <Text style={[is.title, { color: textPrimary }]}>Rytuał Tarota</Text>
-          <Text style={[is.subtitle, { color: textMuted }]}>W co dziś chcesz się wgłębić?</Text>
+          <Text style={[is.title, { color: textPrimary }]}>{t('wrozka.rytual_tarota', 'Rytuał Tarota')}</Text>
+          <Text style={[is.subtitle, { color: textMuted }]}>{t('wrozka.w_co_dzis_chcesz_sie', 'W co dziś chcesz się wgłębić?')}</Text>
         </View>
 
         {/* ── Section: Energia ── */}
         <View style={[is.section, { backgroundColor: sectionBg, borderColor: sectionBorder }]}>
-          <Text style={[is.sectionLabel, { color: labelColor }]}>✦ TWOJA ENERGIA TERAZ</Text>
+          <Text style={[is.sectionLabel, { color: labelColor }]}>{t('wrozka.twoja_energia_teraz', '✦ TWOJA ENERGIA TERAZ')}</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={{ flexDirection: 'row', gap: 8, paddingRight: 8 }}>
               {ENERGY_LEVELS.map(e => (
@@ -777,7 +777,7 @@ const IntroSheet = ({
 
         {/* ── Section: Temat ── */}
         <View style={[is.section, { backgroundColor: sectionBg, borderColor: sectionBorder }]}>
-          <Text style={[is.sectionLabel, { color: labelColor }]}>◎ TEMAT ODCZYTU</Text>
+          <Text style={[is.sectionLabel, { color: labelColor }]}>{t('wrozka.temat_odczytu', '◎ TEMAT ODCZYTU')}</Text>
           <View style={is.topicGrid}>
             {TOPICS.map(t => (
               <Pressable
@@ -797,7 +797,7 @@ const IntroSheet = ({
 
         {/* ── Section: Talia ── */}
         <View style={[is.section, { backgroundColor: sectionBg, borderColor: sectionBorder }]}>
-          <Text style={[is.sectionLabel, { color: labelColor }]}>✧ TWOJA TALIA</Text>
+          <Text style={[is.sectionLabel, { color: labelColor }]}>{t('wrozka.twoja_talia', '✧ TWOJA TALIA')}</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={{ flexDirection: 'row', gap: 12, paddingRight: 12 }}>
               {TAROT_DECKS.map(deck => {
@@ -851,7 +851,7 @@ const IntroSheet = ({
                           borderRadius: 6, backgroundColor: 'rgba(0,0,0,0.70)',
                           borderWidth: 1, borderColor: '#F472B660',
                         }}>
-                          <Text style={{ color: '#F472B6', fontSize: 8, fontWeight: '800', letterSpacing: 0.5 }}>PREMIUM</Text>
+                          <Text style={{ color: '#F472B6', fontSize: 8, fontWeight: '800', letterSpacing: 0.5 }}>{t('wrozka.premium', 'PREMIUM')}</Text>
                         </View>
                       )}
                       {/* Selected check */}
@@ -889,7 +889,7 @@ const IntroSheet = ({
 
         {/* ── Section: Układ kart ── */}
         <View style={[is.section, { backgroundColor: sectionBg, borderColor: sectionBorder }]}>
-          <Text style={[is.sectionLabel, { color: labelColor }]}>⊕ UKŁAD KART</Text>
+          <Text style={[is.sectionLabel, { color: labelColor }]}>{t('wrozka.uklad_kart', '⊕ UKŁAD KART')}</Text>
           <View style={{ gap: 8 }}>
             {SPREADS.map(sp => (
               <Pressable
@@ -918,7 +918,7 @@ const IntroSheet = ({
 
         {/* ── Section: Opcje dodatkowe (reversals + for someone) ── */}
         <View style={[is.section, { backgroundColor: sectionBg, borderColor: sectionBorder }]}>
-          <Text style={[is.sectionLabel, { color: labelColor }]}>⚙ OPCJE</Text>
+          <Text style={[is.sectionLabel, { color: labelColor }]}>{t('wrozka.opcje', '⚙ OPCJE')}</Text>
 
           {/* Allow reversals toggle */}
           <Pressable
@@ -928,7 +928,7 @@ const IntroSheet = ({
           >
             <View style={{ flex: 1 }}>
               <Text style={{ color: allowReversals ? GOLD : textPrimary, fontSize: 14, fontWeight: '600' }}>
-                Odwrócone karty
+                {t('wrozka.odwrocone_karty', 'Odwrócone karty')}
               </Text>
               <Text style={[is.spreadDesc, { color: textMuted }]}>
                 {allowReversals ? 'Karty mogą pojawiać się odwrócone (25%)' : 'Tylko karty proste — łatwiejszy odczyt'}
@@ -947,7 +947,7 @@ const IntroSheet = ({
               forSomeone && { borderColor: '#A78BFA80', backgroundColor: 'rgba(167,139,250,0.08)' }]}
           >
             <Text style={{ color: forSomeone ? '#A78BFA' : textPrimary, fontSize: 14, fontWeight: '600', flex: 1 }}>
-              Odczyt dla kogoś innego
+              {t('wrozka.odczyt_dla_kogos_innego', 'Odczyt dla kogoś innego')}
             </Text>
             <View style={[{ width: 22, height: 22, borderRadius: 11, borderWidth: 1.5,
               alignItems: 'center', justifyContent: 'center' },
@@ -960,7 +960,7 @@ const IntroSheet = ({
             <TextInput
               value={someoneName}
               onChangeText={setSomeoneName}
-              placeholder="Imię osoby..."
+              placeholder={t('wrozka.imie_osoby', 'Imię osoby...')}
               placeholderTextColor={isLight ? 'rgba(100,60,160,0.40)' : 'rgba(245,241,234,0.30)'}
               style={[is.nameInput, { color: isLight ? '#2D1A50' : '#F5F1EA' }, isLight && { borderColor: 'rgba(167,139,250,0.40)', backgroundColor: 'rgba(167,139,250,0.06)' }]}
             />
@@ -971,7 +971,7 @@ const IntroSheet = ({
         <Pressable onPress={onStart} style={is.startBtn}>
           <LinearGradient colors={['#7C3AED', '#5B21B6']} style={is.startBtnGrad}>
             <Flame size={16} color={GOLD} />
-            <Text style={is.startBtnText}>Zapal świecę · Zacznij odczyt</Text>
+            <Text style={is.startBtnText}>{t('wrozka.zapal_swiece_zacznij_odczyt', 'Zapal świecę · Zacznij odczyt')}</Text>
           </LinearGradient>
         </Pressable>
 
@@ -1498,7 +1498,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
             <ChevronLeft size={22} color={GOLD} />
           </Pressable>
           <View style={{ alignItems: 'center' }}>
-            <Text style={[wr.headerTitle, { color: isLight ? '#5B21B6' : GOLD }]}>WRÓŻKA</Text>
+            <Text style={[wr.headerTitle, { color: isLight ? '#5B21B6' : GOLD }]}>{t('wrozka.wrozka', 'WRÓŻKA')}</Text>
             {phase !== 'intro' && (
               <Text style={[wr.headerSub, { color: isLight ? 'rgba(60,30,100,0.60)' : 'rgba(245,241,234,0.45)' }]}>{topicLabel}{forLabel ? ` · ${forLabel}` : ''}</Text>
             )}
@@ -1528,10 +1528,10 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
             {/* Tagline */}
             <View style={{ alignItems: 'center', paddingTop: 14, paddingBottom: 10 }}>
               <Text style={{ color: isLight ? 'rgba(139,100,42,0.70)' : GOLD_DIM, fontSize: 11, letterSpacing: 3, fontWeight: '700' }}>
-                RYTUAŁ TAROTA
+                {t('wrozka.rytual_tarota_1', 'RYTUAŁ TAROTA')}
               </Text>
               <Text style={{ color: isLight ? 'rgba(80,50,120,0.55)' : 'rgba(245,241,234,0.45)', fontSize: 12, marginTop: 4, letterSpacing: 0.3 }}>
-                Talia zostanie przetasowana tylko dla Ciebie
+                {t('wrozka.talia_zostanie_przetasowa_tylko_dla', 'Talia zostanie przetasowana tylko dla Ciebie')}
               </Text>
             </View>
             <IntroSheet
@@ -1607,7 +1607,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                   borderColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(206,174,114,0.20)',
                 }]}>
                   <Sparkles size={12} color={GOLD} />
-                  <Text style={[wr.interpretingText, { color: isLight ? 'rgba(80,50,20,0.70)' : GOLD_DIM }]}>Wróżka odczytuje kartę...</Text>
+                  <Text style={[wr.interpretingText, { color: isLight ? 'rgba(80,50,20,0.70)' : GOLD_DIM }]}>{t('wrozka.wrozka_odczytuje_karte_1', 'Wróżka odczytuje kartę...')}</Text>
                 </Animated.View>
               )}
 
@@ -1618,7 +1618,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                     <View style={wr.chatDividerLine} />
                     <View style={wr.chatDividerBadge}>
                       <MessageCircle size={11} color={GOLD} />
-                      <Text style={wr.chatDividerText}>ROZMOWA Z WRÓŻKĄ</Text>
+                      <Text style={wr.chatDividerText}>{t('wrozka.rozmowa_z_wrozka', 'ROZMOWA Z WRÓŻKĄ')}</Text>
                     </View>
                     <View style={wr.chatDividerLine} />
                   </View>
@@ -1627,7 +1627,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                   {chatMessages.length <= 1 && (
                     <View style={{ marginHorizontal: 18, marginBottom: 14 }}>
                       <Text style={{ color: isLight ? 'rgba(100,60,160,0.60)' : GOLD_DIM, fontSize: 9, letterSpacing: 2.5, fontWeight: '700', marginBottom: 8 }}>
-                        SZYBKIE PYTANIA
+                        {t('wrozka.szybkie_pytania', 'SZYBKIE PYTANIA')}
                       </Text>
                       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -18 }} contentContainerStyle={{ paddingHorizontal: 18, gap: 8, flexDirection: 'row' }}>
                         {QUESTION_CATEGORIES.map(cat => (
@@ -1661,7 +1661,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                           style={wr.saveQuoteBtn}
                         >
                           <Text style={{ fontSize: 12 }}>💫</Text>
-                          <Text style={wr.saveQuoteBtnText}>Zapisz cytat</Text>
+                          <Text style={wr.saveQuoteBtnText}>{t('wrozka.zapisz_cytat', 'Zapisz cytat')}</Text>
                         </Pressable>
                       )}
                       {/* ── Feature 3: Draw card button after last oracle message ── */}
@@ -1672,8 +1672,8 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                             style={wr.drawCardBtnGrad}
                           >
                             <Text style={{ fontSize: 16 }}>🃏</Text>
-                            <Text style={wr.drawCardBtnText}>Dobierz kartę</Text>
-                            <Text style={wr.drawCardBtnSub}>losuj z Arcana Większa</Text>
+                            <Text style={wr.drawCardBtnText}>{t('wrozka.dobierz_karte', 'Dobierz kartę')}</Text>
+                            <Text style={wr.drawCardBtnSub}>{t('wrozka.losuj_z_arcana_wieksza', 'losuj z Arcana Większa')}</Text>
                           </LinearGradient>
                         </Pressable>
                       )}
@@ -1686,7 +1686,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                       borderColor: isLight ? 'rgba(100,60,200,0.20)' : 'rgba(206,174,114,0.20)',
                     }]}>
                       <Sparkles size={12} color={GOLD} />
-                      <Text style={{ color: isLight ? '#5B21B6' : GOLD_DIM, fontSize: 13, fontStyle: 'italic' }}>Wróżka odpowiada...</Text>
+                      <Text style={{ color: isLight ? '#5B21B6' : GOLD_DIM, fontSize: 13, fontStyle: 'italic' }}>{t('wrozka.wrozka_odpowiada', 'Wróżka odpowiada...')}</Text>
                     </View>
                   )}
                 </Animated.View>
@@ -1699,7 +1699,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                     <View style={wr.chatDividerLine} />
                     <View style={wr.chatDividerBadge}>
                       <BookOpen size={11} color={GOLD} />
-                      <Text style={wr.chatDividerText}>HISTORIA ODCZYTÓW</Text>
+                      <Text style={wr.chatDividerText}>{t('wrozka.historia_odczytow', 'HISTORIA ODCZYTÓW')}</Text>
                     </View>
                     <View style={wr.chatDividerLine} />
                   </View>
@@ -1769,7 +1769,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                     color: isLight ? 'rgba(100,60,200,0.55)' : 'rgba(206,174,114,0.55)',
                     marginBottom: 8,
                   }}>
-                    ✦ Dotknij, by porozmawiać z wróżką ✦
+                    {t('wrozka.dotknij_by_porozmawia_z_wrozka', '✦ Dotknij, by porozmawiać z wróżką ✦')}
                   </Text>
                 )}
                 <View style={[wr.chatInputRow, {
@@ -1779,7 +1779,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                     ref={inputRef}
                     value={chatInput}
                     onChangeText={setChatInput}
-                    placeholder="Zadaj pytanie lub poproś o kolejną kartę..."
+                    placeholder={t('wrozka.zadaj_pytanie_lub_popros_o', 'Zadaj pytanie lub poproś o kolejną kartę...')}
                     placeholderTextColor={isLight ? 'rgba(60,30,100,0.38)' : 'rgba(245,241,234,0.26)'}
                     style={[wr.chatInput, {
                       color: isLight ? '#2D1A50' : '#F5F1EA',
@@ -1803,7 +1803,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
                   </Pressable>
                 </View>
                 <Text style={[wr.chatHint, { color: isLight ? 'rgba(80,50,120,0.50)' : 'rgba(245,241,234,0.28)' }]}>
-                  Przesuń w dół, aby ukryć klawiaturę · wpisz „wyłóż kartę", by dobrać nową
+                  {t('wrozka.przesun_w_dol_aby_ukryc', 'Przesuń w dół, aby ukryć klawiaturę · wpisz „wyłóż kartę", by dobrać nową')}
                 </Text>
               </View>
             )}
@@ -1815,22 +1815,22 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
           <View style={{ backgroundColor: isLight ? '#FAF6FF' : '#0F0625', borderRadius: 20, padding: 24, width: '100%', maxWidth: 340, borderWidth: 1, borderColor: isLight ? 'rgba(100,60,200,0.25)' : 'rgba(206,174,114,0.30)' }}>
             <Text style={{ fontSize: 22, textAlign: 'center', marginBottom: 6 }}>✦</Text>
             <Text style={{ color: isLight ? '#2D1A50' : '#F5F1EA', fontSize: 17, fontWeight: '900', textAlign: 'center', marginBottom: 8 }}>
-              Masz niedokończony odczyt
+              {t('wrozka.masz_niedokoncz_odczyt', 'Masz niedokończony odczyt')}
             </Text>
             <Text style={{ color: isLight ? 'rgba(60,30,100,0.65)' : 'rgba(245,241,234,0.60)', fontSize: 14, textAlign: 'center', lineHeight: 20, marginBottom: 22 }}>
-              Czy chcesz kontynuować poprzednią sesję z Wróżką?
+              {t('wrozka.czy_chcesz_kontynuowa_poprzednia_se', 'Czy chcesz kontynuować poprzednią sesję z Wróżką?')}
             </Text>
             <Pressable
               onPress={restoreSession}
               style={{ backgroundColor: '#7C3AED', borderRadius: 14, padding: 14, alignItems: 'center', marginBottom: 10 }}
             >
-              <Text style={{ color: '#fff', fontWeight: '900', fontSize: 15 }}>✦ Kontynuuj sesję</Text>
+              <Text style={{ color: '#fff', fontWeight: '900', fontSize: 15 }}>{t('wrozka.kontynuuj_sesje', '✦ Kontynuuj sesję')}</Text>
             </Pressable>
             <Pressable
               onPress={() => { clearWrozkaSession(); setShowContinuePrompt(false); }}
               style={{ padding: 12, alignItems: 'center' }}
             >
-              <Text style={{ color: isLight ? 'rgba(60,30,100,0.55)' : 'rgba(245,241,234,0.45)', fontSize: 14 }}>Zacznij od nowa</Text>
+              <Text style={{ color: isLight ? 'rgba(60,30,100,0.55)' : 'rgba(245,241,234,0.45)', fontSize: 14 }}>{t('wrozka.zacznij_od_nowa', 'Zacznij od nowa')}</Text>
             </Pressable>
           </View>
         </View>
@@ -1849,7 +1849,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
               colors={['#1A0638', '#0F0420']}
               style={[StyleSheet.absoluteFill, { borderRadius: 24 }]}
             />
-            <Text style={wr.drawnCardModalTitle}>✦ DOBRANA KARTA ✦</Text>
+            <Text style={wr.drawnCardModalTitle}>{t('wrozka.dobrana_karta', '✦ DOBRANA KARTA ✦')}</Text>
             {drawnCardModal && (
               <>
                 <View style={wr.drawnCardVisual}>
@@ -1868,7 +1868,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
               </>
             )}
             <Pressable onPress={() => setDrawnCardModal(null)} style={wr.drawnCardClose}>
-              <Text style={{ color: GOLD, fontSize: 13, fontWeight: '700', letterSpacing: 1.5 }}>ZAMKNIJ</Text>
+              <Text style={{ color: GOLD, fontSize: 13, fontWeight: '700', letterSpacing: 1.5 }}>{t('wrozka.zamknij', 'ZAMKNIJ')}</Text>
             </Pressable>
           </Pressable>
         </Pressable>
@@ -1889,7 +1889,7 @@ Zinterpretuj tę kartę dla pozycji "${slotLabel}" w kontekście tematu: ${topic
             />
             <View style={[wr.sqHandle, { backgroundColor: isLight ? 'rgba(100,60,160,0.20)' : 'rgba(255,255,255,0.18)' }]} />
             <View style={wr.sqHeader}>
-              <Text style={[wr.sqTitle, { color: isLight ? '#5B21B6' : GOLD }]}>💫 ZAPISANE CYTATY</Text>
+              <Text style={[wr.sqTitle, { color: isLight ? '#5B21B6' : GOLD }]}>{t('wrozka.zapisane_cytaty', '💫 ZAPISANE CYTATY')}</Text>
               <Pressable onPress={() => setShowSavedQuotes(false)} hitSlop={12}>
                 <X size={20} color={isLight ? 'rgba(60,30,100,0.55)' : GOLD_DIM} />
               </Pressable>

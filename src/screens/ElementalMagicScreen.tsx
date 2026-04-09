@@ -741,10 +741,10 @@ export default function ElementalMagicScreen() {
         </Pressable>
         <View style={s.headerTitle}>
           <Typography variant="title" style={{ color: textColor, fontSize: 17, fontWeight: '700' }}>
-            Magia Żywiołów
+            {t('elementalMagic.magia_zywiolow', 'Magia Żywiołów')}
           </Typography>
           <Typography variant="caption" style={{ color: subColor, fontSize: 11, marginTop: 2 }}>
-            OGIEŃ • WODA • ZIEMIA • POWIETRZE • DUCH
+            {t('elementalMagic.ogien_woda_ziemia_powietrze_duch', 'OGIEŃ • WODA • ZIEMIA • POWIETRZE • DUCH')}
           </Typography>
         </View>
         <Pressable onPress={() => { if (isFavoriteItem('elemental_magic')) { removeFavoriteItem('elemental_magic'); } else { addFavoriteItem({ id: 'elemental_magic', label: 'Magia Żywiołów', route: 'ElementalMagic', params: {}, icon: 'Flame', color: accent, addedAt: new Date().toISOString() }); } }} hitSlop={12}>
@@ -762,15 +762,15 @@ export default function ElementalMagicScreen() {
           <PentagramWidget3D accent={accent} />
 
           <View style={s.section}>
-            <Typography style={s.sectionLabel}>PENTAGRAM ŻYWIOŁÓW</Typography>
+            <Typography style={s.sectionLabel}>{t('elementalMagic.pentagram_zywiolow', 'PENTAGRAM ŻYWIOŁÓW')}</Typography>
             <Typography variant="body" style={{ color: subColor, fontSize: 13, lineHeight: 20 }}>
-              Obróć widget, aby poczuć żywioły w przestrzeni. Każdy punkt pentagramu to inny żywioł.
+              {t('elementalMagic.obroc_widget_aby_poczuc_zywioly', 'Obróć widget, aby poczuć żywioły w przestrzeni. Każdy punkt pentagramu to inny żywioł.')}
             </Typography>
           </View>
 
           {/* DOMINANT ELEMENT */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <Typography style={s.sectionLabel}>TWÓJ DOMINUJĄCY ŻYWIOŁ</Typography>
+            <Typography style={s.sectionLabel}>{t('elementalMagic.twoj_dominujacy_zywiol', 'TWÓJ DOMINUJĄCY ŻYWIOŁ')}</Typography>
             <LinearGradient
               colors={[birthEl.color + '22', birthEl.color + '0A']}
               style={[s.card, { borderColor: birthEl.color + '35' }]}>
@@ -780,7 +780,7 @@ export default function ElementalMagicScreen() {
                 </View>
                 <View style={{ flex: 1 }}>
                   <Typography style={{ color: subColor, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 2 }}>
-                    ŻYWIOŁ URODZENIA
+                    {t('elementalMagic.zywiol_urodzenia', 'ŻYWIOŁ URODZENIA')}
                   </Typography>
                   <Typography style={{ color: textColor, fontSize: 20, fontWeight: '800' }}>
                     {birthEl.polishName}
@@ -795,7 +795,7 @@ export default function ElementalMagicScreen() {
               </Typography>
               <View style={{ marginBottom: 12 }}>
                 <Typography style={{ color: textColor, fontSize: 12, fontWeight: '700', marginBottom: 6 }}>
-                  TWOJE MOCNE STRONY
+                  {t('elementalMagic.twoje_mocne_strony', 'TWOJE MOCNE STRONY')}
                 </Typography>
                 {birthEl.strengths.map((s2, i) => (
                   <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 4 }}>
@@ -806,7 +806,7 @@ export default function ElementalMagicScreen() {
               </View>
               <View>
                 <Typography style={{ color: textColor, fontSize: 12, fontWeight: '700', marginBottom: 6 }}>
-                  CIEŃ DO PRACY
+                  {t('elementalMagic.cien_do_pracy', 'CIEŃ DO PRACY')}
                 </Typography>
                 {birthEl.shadow.map((sh, i) => (
                   <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 4 }}>
@@ -818,7 +818,7 @@ export default function ElementalMagicScreen() {
               <Pressable onPress={() => { setShowQuiz(true); setCurrentQuestion(0); resetQuiz(); }}
                 style={[s.btn, { backgroundColor: birthEl.color + '22', borderWidth: 1, borderColor: birthEl.color + '40', marginTop: 16 }]}>
                 <Typography style={{ color: birthEl.color, fontSize: 14, fontWeight: '700' }}>
-                  Zrób ankietę żywiołów
+                  {t('elementalMagic.zrob_ankiete_zywiolow', 'Zrób ankietę żywiołów')}
                 </Typography>
               </Pressable>
             </LinearGradient>
@@ -830,7 +830,7 @@ export default function ElementalMagicScreen() {
               <View style={[s.modalBox, { backgroundColor: currentTheme.background, borderColor: cardBorder }]}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
                   <Typography style={{ color: textColor, fontSize: 16, fontWeight: '700' }}>
-                    Ankieta żywiołów
+                    {t('elementalMagic.ankieta_zywiolow', 'Ankieta żywiołów')}
                   </Typography>
                   <Pressable onPress={() => setShowQuiz(false)} hitSlop={10}>
                     <Typography style={{ color: subColor, fontSize: 22 }}>✕</Typography>
@@ -869,7 +869,7 @@ export default function ElementalMagicScreen() {
                 ) : (
                   <ScrollView showsVerticalScrollIndicator={false}>
                     <Typography style={{ color: textColor, fontSize: 16, fontWeight: '700', marginBottom: 14 }}>
-                      Twój balans żywiołów
+                      {t('elementalMagic.twoj_balans_zywiolow', 'Twój balans żywiołów')}
                     </Typography>
                     {ELEMENTS.map(el => {
                       const score = quizResult[el.id] || 0;
@@ -906,7 +906,7 @@ export default function ElementalMagicScreen() {
                       );
                     })()}
                     <Pressable onPress={resetQuiz} style={[s.btn, { backgroundColor: accent + '20', borderWidth: 1, borderColor: accent + '40' }]}>
-                      <Typography style={{ color: accent, fontSize: 14, fontWeight: '700' }}>Zrób ponownie</Typography>
+                      <Typography style={{ color: accent, fontSize: 14, fontWeight: '700' }}>{t('elementalMagic.zrob_ponownie', 'Zrób ponownie')}</Typography>
                     </Pressable>
                   </ScrollView>
                 )}
@@ -916,7 +916,7 @@ export default function ElementalMagicScreen() {
 
           {/* ELEMENT PROFILES */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <Typography style={s.sectionLabel}>PROFILE ŻYWIOŁÓW</Typography>
+            <Typography style={s.sectionLabel}>{t('elementalMagic.profile_zywiolow', 'PROFILE ŻYWIOŁÓW')}</Typography>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}
               contentContainerStyle={{ paddingRight: 16, marginBottom: 14 }}>
               {ELEMENTS.map(el => (
@@ -957,15 +957,15 @@ export default function ElementalMagicScreen() {
                   ))}
                 </View>
                 <View style={{ marginBottom: 12 }}>
-                  <Typography style={{ color: subColor, fontSize: 11, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>ZNAKI ZODIAKU</Typography>
+                  <Typography style={{ color: subColor, fontSize: 11, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>{t('elementalMagic.znaki_zodiaku', 'ZNAKI ZODIAKU')}</Typography>
                   <Typography style={{ color: textColor, fontSize: 13 }}>{activeEl.zodiacSigns.join(' · ')}</Typography>
                 </View>
                 <View style={{ marginBottom: 12 }}>
-                  <Typography style={{ color: subColor, fontSize: 11, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>CHAKRY</Typography>
+                  <Typography style={{ color: subColor, fontSize: 11, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>{t('elementalMagic.chakry', 'CHAKRY')}</Typography>
                   <Typography style={{ color: textColor, fontSize: 13 }}>{activeEl.chakras.join(' · ')}</Typography>
                 </View>
                 <View style={{ marginBottom: 12 }}>
-                  <Typography style={{ color: subColor, fontSize: 11, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>ZASTOSOWANIA MAGICZNE</Typography>
+                  <Typography style={{ color: subColor, fontSize: 11, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>{t('elementalMagic.zastosowan_magiczne', 'ZASTOSOWANIA MAGICZNE')}</Typography>
                   {activeEl.magicalUses.map((mu, i) => (
                     <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 4 }}>
                       <Sparkles size={12} color={activeEl.color} style={{ marginTop: 3 }} />
@@ -974,7 +974,7 @@ export default function ElementalMagicScreen() {
                   ))}
                 </View>
                 <View>
-                  <Typography style={{ color: subColor, fontSize: 11, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>CZAS DNIA I KIERUNEK</Typography>
+                  <Typography style={{ color: subColor, fontSize: 11, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>{t('elementalMagic.czas_dnia_i_kierunek', 'CZAS DNIA I KIERUNEK')}</Typography>
                   <Typography style={{ color: textColor, fontSize: 13 }}>
                     {activeEl.timeOfDay} · {activeEl.direction}
                   </Typography>
@@ -985,7 +985,7 @@ export default function ElementalMagicScreen() {
 
           {/* TODAY'S ELEMENTAL WEATHER */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <Typography style={s.sectionLabel}>POGODA ŻYWIOŁÓW DZIŚ</Typography>
+            <Typography style={s.sectionLabel}>{t('elementalMagic.pogoda_zywiolow_dzis', 'POGODA ŻYWIOŁÓW DZIŚ')}</Typography>
             <LinearGradient
               colors={[todayEl.color + '28', todayEl.color + '0E']}
               style={[s.card, { borderColor: todayEl.color + '40' }]}>
@@ -995,7 +995,7 @@ export default function ElementalMagicScreen() {
                 </View>
                 <View>
                   <Typography style={{ color: subColor, fontSize: 10, fontWeight: '700', letterSpacing: 2 }}>
-                    AKTYWNY ŻYWIOŁ DZIŚ
+                    {t('elementalMagic.aktywny_zywiol_dzis', 'AKTYWNY ŻYWIOŁ DZIŚ')}
                   </Typography>
                   <Typography style={{ color: textColor, fontSize: 18, fontWeight: '800' }}>
                     {todayEl.polishName}
@@ -1021,7 +1021,7 @@ export default function ElementalMagicScreen() {
 
           {/* ELEMENTAL PRACTICES */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <Typography style={s.sectionLabel}>PRAKTYKI ŻYWIOŁÓW</Typography>
+            <Typography style={s.sectionLabel}>{t('elementalMagic.praktyki_zywiolow', 'PRAKTYKI ŻYWIOŁÓW')}</Typography>
             {ELEMENTAL_PRACTICES.map((practice, i) => {
               const el = ELEMENTS.find(e => e.id === practice.element)!;
               const isOpen = expandedPractice === i;
@@ -1053,12 +1053,12 @@ export default function ElementalMagicScreen() {
                       </Typography>
                       <View style={{ marginBottom: 12 }}>
                         <Typography style={{ color: textColor, fontSize: 12, fontWeight: '700', marginBottom: 4 }}>
-                          MATERIAŁY
+                          {t('elementalMagic.materialy', 'MATERIAŁY')}
                         </Typography>
                         <Typography style={{ color: subColor, fontSize: 13 }}>{practice.materials}</Typography>
                       </View>
                       <Typography style={{ color: textColor, fontSize: 12, fontWeight: '700', marginBottom: 8 }}>
-                        KROKI
+                        {t('elementalMagic.kroki', 'KROKI')}
                       </Typography>
                       {practice.steps.map((step, j) => (
                         <View key={j} style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 10, marginBottom: 8 }}>
@@ -1077,7 +1077,7 @@ export default function ElementalMagicScreen() {
 
           {/* ELEMENTAL RITUAL */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <Typography style={s.sectionLabel}>RYTUAŁ ŻYWIOŁU DNIA</Typography>
+            <Typography style={s.sectionLabel}>{t('elementalMagic.rytual_zywiolu_dnia', 'RYTUAŁ ŻYWIOŁU DNIA')}</Typography>
             <View style={[s.card, { borderColor: todayEl.color + '30', marginBottom: 12 }]}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 6 }}>
                 <Typography style={{ fontSize: 18 }}>{todayEl.symbol}</Typography>
@@ -1086,7 +1086,7 @@ export default function ElementalMagicScreen() {
                 </Typography>
               </View>
               <Typography style={{ color: subColor, fontSize: 13 }}>
-                Tapnij każdy krok, aby oznaczyć postęp. Rytuał trwa 20-40 minut.
+                {t('elementalMagic.tapnij_kazdy_krok_aby_oznaczyc', 'Tapnij każdy krok, aby oznaczyć postęp. Rytuał trwa 20-40 minut.')}
               </Typography>
             </View>
             {RITUAL_STEPS.map((step, i) => {
@@ -1131,7 +1131,7 @@ export default function ElementalMagicScreen() {
                   colors={[todayEl.color + '28', todayEl.color + '10']}
                   style={[s.card, { borderColor: todayEl.color + '40', marginTop: 6 }]}>
                   <Typography style={{ color: todayEl.color, fontSize: 15, fontWeight: '800', textAlign: 'center', marginBottom: 6 }}>
-                    Rytuał ukończony
+                    {t('elementalMagic.rytual_ukonczony', 'Rytuał ukończony')}
                   </Typography>
                   <Typography style={{ color: subColor, fontSize: 13, textAlign: 'center', lineHeight: 20 }}>
                     Pięknie. Żywioł {todayEl.polishName} pracuje z tobą. Noś tę energię przez resztę dnia.
@@ -1143,10 +1143,10 @@ export default function ElementalMagicScreen() {
 
           {/* BALANCE ASSESSMENT */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <Typography style={s.sectionLabel}>OCENA BALANSU ŻYWIOŁÓW</Typography>
+            <Typography style={s.sectionLabel}>{t('elementalMagic.ocena_balansu_zywiolow', 'OCENA BALANSU ŻYWIOŁÓW')}</Typography>
             <View style={[s.card]}>
               <Typography style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 16 }}>
-                Przesuń suwaki, aby ocenić swój aktualny balans każdego żywiołu (0 = nieobecny, 100 = dominujący).
+                {t('elementalMagic.przesun_suwaki_aby_ocenic_swoj', 'Przesuń suwaki, aby ocenić swój aktualny balans każdego żywiołu (0 = nieobecny, 100 = dominujący).')}
               </Typography>
               {ELEMENTS.map(el => (
                 <View key={el.id} style={s.sliderRow}>
@@ -1172,7 +1172,7 @@ export default function ElementalMagicScreen() {
               ))}
             </View>
             <Typography style={{ color: textColor, fontSize: 13, fontWeight: '700', marginBottom: 10, marginTop: 4 }}>
-              REKOMENDACJE
+              {t('elementalMagic.rekomendac', 'REKOMENDACJE')}
             </Typography>
             {ELEMENTS.map(el => {
               const val = balance[el.id];
@@ -1198,10 +1198,10 @@ export default function ElementalMagicScreen() {
                   colors={[accent + '20', accent + '08']}
                   style={[s.card, { borderColor: accent + '35' }]}>
                   <Typography style={{ color: accent, fontSize: 14, fontWeight: '700', textAlign: 'center' }}>
-                    Twój balans żywiołów jest harmonijny
+                    {t('elementalMagic.twoj_balans_zywiolow_jest_harmonijn', 'Twój balans żywiołów jest harmonijny')}
                   </Typography>
                   <Typography style={{ color: subColor, fontSize: 13, textAlign: 'center', marginTop: 6 }}>
-                    Wszystkie żywioły działają w zdrowym zakresie. Kontynuuj swoją praktykę.
+                    {t('elementalMagic.wszystkie_zywioly_dzialaja_w_zdrowy', 'Wszystkie żywioły działają w zdrowym zakresie. Kontynuuj swoją praktykę.')}
                   </Typography>
                 </LinearGradient>
               </Animated.View>
@@ -1210,12 +1210,12 @@ export default function ElementalMagicScreen() {
 
           {/* ORACLE AI */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <Typography style={s.sectionLabel}>WYROCZNIA ŻYWIOŁÓW</Typography>
+            <Typography style={s.sectionLabel}>{t('elementalMagic.wyrocznia_zywiolow', 'WYROCZNIA ŻYWIOŁÓW')}</Typography>
             <View style={[s.card, { borderColor: accent + '25', backgroundColor: accent + '08' }]}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                 <Wand2 size={18} color={accent} />
                 <Typography style={{ color: textColor, fontSize: 14, fontWeight: '700' }}>
-                  Elementalna Wyrocznia
+                  {t('elementalMagic.elementaln_wyrocznia', 'Elementalna Wyrocznia')}
                 </Typography>
               </View>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 10 }}>
@@ -1236,7 +1236,7 @@ export default function ElementalMagicScreen() {
                 style={[s.oracleInput, { color: textColor, borderColor: cardBorder, backgroundColor: cardBg }]}
                 value={oracleInput}
                 onChangeText={setOracleInput}
-                placeholder="Zapytaj wyrocznię o żywioły, balans lub praktykę…"
+                placeholder={t('elementalMagic.zapytaj_wyrocznie_o_zywioly_balans', 'Zapytaj wyrocznię o żywioły, balans lub praktykę…')}
                 placeholderTextColor={subColor}
                 multiline
               />
@@ -1256,7 +1256,7 @@ export default function ElementalMagicScreen() {
                   <View style={{ marginTop: 14 }}>
                     <View style={{ height: 1, backgroundColor: cardBorder, marginBottom: 14 }} />
                     <Typography style={{ color: subColor, fontSize: 11, fontWeight: '700', letterSpacing: 1.5, marginBottom: 8 }}>
-                      ODPOWIEDŹ WYROCZNI
+                      {t('elementalMagic.odpowiedz_wyroczni', 'ODPOWIEDŹ WYROCZNI')}
                     </Typography>
                     <Typography style={{ color: textColor, fontSize: 14, lineHeight: 24 }}>
                       {oracleResponse}

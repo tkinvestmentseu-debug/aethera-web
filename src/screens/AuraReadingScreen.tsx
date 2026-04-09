@@ -327,7 +327,7 @@ const KirlianPhoto = ({ mood, color, isLight }: { mood: string; color: string; i
           <Circle cx={cx} cy={cy - 44} r={16} fill="#050010" fillOpacity={0.85} stroke={color} strokeWidth={0.5} strokeOpacity={0.4} />
         </Svg>
         <Animated.View style={[{ position: 'absolute', bottom: 10, left: 0, right: 0, alignItems: 'center' }, g1Style]}>
-          <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: color }}>FOTOGRAFIA KIRLIAŃSKA</Text>
+          <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: color }}>{t('auraReading.fotografia_kirlianska', 'FOTOGRAFIA KIRLIAŃSKA')}</Text>
         </Animated.View>
       </View>
       <Text style={{ fontSize: 11, color: color + 'AA', marginTop: 8, textAlign: 'center' }}>Nastrój: {mood || 'neutralny'} · Symulacja energetyczna</Text>
@@ -494,8 +494,8 @@ export const AuraReadingScreen = ({ navigation }: any) => {
             <ChevronLeft color={accent} size={22} strokeWidth={1.8} />
           </Pressable>
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: accent }}>CZYTANIE AURY</Text>
-            <Text style={{ fontSize: 13, color: subColor, marginTop: 2 }}>Pole energetyczne i jego kolory</Text>
+            <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: accent }}>{t('auraReading.czytanie_aury', 'CZYTANIE AURY')}</Text>
+            <Text style={{ fontSize: 13, color: subColor, marginTop: 2 }}>{t('auraReading.pole_energetycz_i_jego_kolory', 'Pole energetyczne i jego kolory')}</Text>
           </View>
           <Pressable onPress={() => { if (isFavoriteItem('aura_reading')) { removeFavoriteItem('aura_reading'); } else { addFavoriteItem({ id: 'aura_reading', label: 'Czytanie Aury', route: 'AuraReading', params: {}, icon: 'Eye', color: accent, addedAt: new Date().toISOString() }); } }} hitSlop={14}>
             <Star color={isFavoriteItem('aura_reading') ? accent : accent + '66'} size={18} strokeWidth={1.8} fill={isFavoriteItem('aura_reading') ? accent : 'none'} />
@@ -527,7 +527,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
           {activeTab === 'quiz' && (
             <>
               <AuraOrb dominantColor={dominantAura.hex} />
-              <Text style={{ fontSize: 10, color: subColor, textAlign: 'center', marginBottom: 16, marginTop: -8 }}>Przesuń kulę aby zobaczyć głębię</Text>
+              <Text style={{ fontSize: 10, color: subColor, textAlign: 'center', marginBottom: 16, marginTop: -8 }}>{t('auraReading.przesun_kule_aby_zobaczyc_glebie', 'Przesuń kulę aby zobaczyć głębię')}</Text>
 
               {!quizDone ? (
                 <Animated.View key={quizStep} entering={FadeInDown.duration(350)}>
@@ -555,7 +555,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
               ) : (
                 <Animated.View entering={FadeInDown.duration(480)}>
                   <LinearGradient colors={[dominantAura.hex + '28', dominantAura.hex + '10', 'transparent']} style={{ borderRadius: 22, padding: 22, borderWidth: 1, borderColor: dominantAura.hex + '50', marginBottom: 16 }}>
-                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: dominantAura.hex, marginBottom: 10 }}>TWOJA DOMINUJĄCA AURA</Text>
+                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: dominantAura.hex, marginBottom: 10 }}>{t('auraReading.twoja_dominujaca_aura', 'TWOJA DOMINUJĄCA AURA')}</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14, marginBottom: 16 }}>
                       <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: dominantAura.hex + '40', borderWidth: 2, borderColor: dominantAura.hex }} />
                       <View style={{ flex: 1 }}>
@@ -567,7 +567,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
 
                     {/* Spiritual meaning */}
                     <View style={{ padding: 14, borderRadius: 14, backgroundColor: dominantAura.hex + '12', borderWidth: 1, borderColor: dominantAura.hex + '25', marginBottom: 14 }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: dominantAura.hex, marginBottom: 6 }}>ZNACZENIE DUCHOWE</Text>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: dominantAura.hex, marginBottom: 6 }}>{t('auraReading.znaczenie_duchowe', 'ZNACZENIE DUCHOWE')}</Text>
                       <Text style={{ fontSize: 13, lineHeight: 20, color: textColor, fontStyle: 'italic' }}>{dominantAura.spiritualMeaning}</Text>
                     </View>
 
@@ -589,7 +589,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
 
                   {/* How to strengthen */}
                   <Animated.View entering={FadeInDown.delay(100).duration(400)} style={{ padding: 18, borderRadius: 18, borderWidth: 1, borderColor: dominantAura.hex + '35', backgroundColor: dominantAura.hex + '07', marginBottom: 14 }}>
-                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: dominantAura.hex, marginBottom: 10 }}>JAK WZMOCNIĆ AURĘ</Text>
+                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: dominantAura.hex, marginBottom: 10 }}>{t('auraReading.jak_wzmocnic_aure', 'JAK WZMOCNIĆ AURĘ')}</Text>
                     {dominantAura.howToStrengthen?.map((tip, i) => (
                       <View key={i} style={{ flexDirection: 'row', gap: 8, marginBottom: 6 }}>
                         <Text style={{ color: dominantAura.hex, fontSize: 14 }}>✦</Text>
@@ -600,7 +600,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
 
                   {/* Shadows section */}
                   <Animated.View entering={FadeInDown.delay(150).duration(400)} style={{ padding: 18, borderRadius: 18, borderWidth: 1, borderColor: '#F9731630', backgroundColor: '#F9731608', marginBottom: 14 }}>
-                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: '#F97316', marginBottom: 10 }}>CIEŃ AURY — OBSZARY DO PRACY</Text>
+                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: '#F97316', marginBottom: 10 }}>{t('auraReading.cien_aury_obszary_do_pracy', 'CIEŃ AURY — OBSZARY DO PRACY')}</Text>
                     {dominantAura.shadows?.map((shadow, i) => (
                       <View key={i} style={{ flexDirection: 'row', gap: 8, marginBottom: 6 }}>
                         <Text style={{ color: '#F97316', fontSize: 14 }}>◐</Text>
@@ -611,12 +611,12 @@ export const AuraReadingScreen = ({ navigation }: any) => {
 
                   {aiReading ? (
                     <Animated.View entering={FadeInDown.delay(180).duration(400)} style={{ padding: 18, borderRadius: 18, borderWidth: 1, borderColor: accent + '30', backgroundColor: cardBg, marginBottom: 14 }}>
-                      <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 10 }}>✦ ODCZYT AURETYCZNY AI</Text>
+                      <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 10 }}>{t('auraReading.odczyt_auretyczny_ai', '✦ ODCZYT AURETYCZNY AI')}</Text>
                       <Text style={{ fontSize: 14, lineHeight: 24, color: textColor, fontStyle: 'italic' }}>{aiReading}</Text>
                     </Animated.View>
                   ) : (
                     <Pressable onPress={generateAiReading} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, padding: 16, borderRadius: 16, borderWidth: 1, borderColor: accent + '40', backgroundColor: accent + '10', marginBottom: 14 }}>
-                      {aiLoading ? <Text style={{ color: accent }}>Wczytywanie odczytu...</Text> : <><Eye color={accent} size={17} strokeWidth={1.8} /><Text style={{ fontSize: 15, fontWeight: '700', color: accent }}>Zinterpretuj aurę z AI</Text></>}
+                      {aiLoading ? <Text style={{ color: accent }}>{t('auraReading.wczytywani_odczytu', 'Wczytywanie odczytu...')}</Text> : <><Eye color={accent} size={17} strokeWidth={1.8} /><Text style={{ fontSize: 15, fontWeight: '700', color: accent }}>{t('auraReading.zinterpret_aure_z_ai', 'Zinterpretuj aurę z AI')}</Text></>}
                     </Pressable>
                   )}
 
@@ -626,7 +626,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
                     if (!med) return null;
                     return (
                       <Animated.View entering={FadeInDown.delay(200).duration(400)} style={{ padding: 18, borderRadius: 18, borderWidth: 1, borderColor: dominantAura.hex + '40', backgroundColor: dominantAura.hex + '08', marginBottom: 14 }}>
-                        <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: dominantAura.hex, marginBottom: 10 }}>✦ MEDYTACJA AURY</Text>
+                        <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: dominantAura.hex, marginBottom: 10 }}>{t('auraReading.medytacja_aury', '✦ MEDYTACJA AURY')}</Text>
                         <Text style={{ fontSize: 16, fontWeight: '700', color: textColor, marginBottom: 12 }}>{med.title}</Text>
                         {med.steps.map((step, i) => (
                           <View key={i} style={{ flexDirection: 'row', gap: 10, marginBottom: 8 }}>
@@ -638,7 +638,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
                         ))}
                         <Pressable onPress={() => { HapticsService.impact('light'); navigation.navigate('Meditation'); }} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 12, paddingVertical: 12, borderRadius: 12, backgroundColor: dominantAura.hex + '20', borderWidth: 1, borderColor: dominantAura.hex + '40' }}>
                           <Brain color={dominantAura.hex} size={15} strokeWidth={1.8} />
-                          <Text style={{ fontSize: 14, fontWeight: '700', color: dominantAura.hex }}>Zacznij medytację</Text>
+                          <Text style={{ fontSize: 14, fontWeight: '700', color: dominantAura.hex }}>{t('auraReading.zacznij_medytacje', 'Zacznij medytację')}</Text>
                         </Pressable>
                       </Animated.View>
                     );
@@ -647,7 +647,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
                   {/* Reading History */}
                   {readingHistory.length > 0 && (
                     <Animated.View entering={FadeInDown.delay(300).duration(400)} style={{ padding: 18, borderRadius: 18, borderWidth: 1, borderColor: cardBorder, backgroundColor: cardBg, marginBottom: 14 }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: accent, marginBottom: 12 }}>HISTORIA ODCZYTÓW</Text>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: accent, marginBottom: 12 }}>{t('auraReading.historia_odczytow', 'HISTORIA ODCZYTÓW')}</Text>
                       {readingHistory.map((entry, i) => {
                         const c = AURA_COLORS.find(ac => ac.id === entry.colorId);
                         return (
@@ -669,7 +669,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
                   <Pressable onPress={resetQuiz} style={{ alignItems: 'center', paddingVertical: 10 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                       <RefreshCw color={subColor} size={13} strokeWidth={1.8} />
-                      <Text style={{ fontSize: 13, color: subColor }}>Resetuj quiz</Text>
+                      <Text style={{ fontSize: 13, color: subColor }}>{t('auraReading.resetuj_quiz', 'Resetuj quiz')}</Text>
                     </View>
                   </Pressable>
                 </Animated.View>
@@ -681,8 +681,8 @@ export const AuraReadingScreen = ({ navigation }: any) => {
           {activeTab === 'kolory' && (
             <>
               <Animated.View entering={FadeInDown.duration(350)} style={{ marginBottom: 16 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>ENCYKLOPEDIA KOLORÓW AURY</Text>
-                <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 14 }}>Każdy kolor aury niesie unikalną wibrację i opowieść duszy. Dotknij koloru, aby zgłębić jego pełne znaczenie.</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>{t('auraReading.encykloped_kolorow_aury', 'ENCYKLOPEDIA KOLORÓW AURY')}</Text>
+                <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 14 }}>{t('auraReading.kazdy_kolor_aury_niesie_unikalna', 'Każdy kolor aury niesie unikalną wibrację i opowieść duszy. Dotknij koloru, aby zgłębić jego pełne znaczenie.')}</Text>
                 {AURA_COLORS.map((c, i) => {
                   const isDominant = quizDone && c.id === dominantAura.id;
                   return (
@@ -693,7 +693,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
                           <View style={{ flex: 1 }}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                               <Text style={{ fontSize: 15, fontWeight: '700', color: textColor }}>{c.name}</Text>
-                              {isDominant && <View style={{ paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8, backgroundColor: c.hex + '25' }}><Text style={{ fontSize: 10, fontWeight: '700', color: c.hex }}>TWOJA AURA</Text></View>}
+                              {isDominant && <View style={{ paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8, backgroundColor: c.hex + '25' }}><Text style={{ fontSize: 10, fontWeight: '700', color: c.hex }}>{t('auraReading.twoja_aura', 'TWOJA AURA')}</Text></View>}
                             </View>
                             <Text style={{ fontSize: 12, color: subColor }}>{c.chakra} · {c.keywords.join(', ')}</Text>
                           </View>
@@ -719,8 +719,8 @@ export const AuraReadingScreen = ({ navigation }: any) => {
           {activeTab === 'warstwy' && (
             <>
               <Animated.View entering={FadeInDown.duration(350)}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>7 CIAŁ AURETYCZNYCH</Text>
-                <Text style={{ fontSize: 13, lineHeight: 20, color: subColor, marginBottom: 16 }}>Każdy człowiek otoczony jest siedmiowarstwowym polem energetycznym. Każda warstwa przechowuje inny wymiar Twojego istnienia. Dotknij warstwy, aby rozwinąć szczegóły.</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>{t('auraReading.7_cial_auretyczny', '7 CIAŁ AURETYCZNYCH')}</Text>
+                <Text style={{ fontSize: 13, lineHeight: 20, color: subColor, marginBottom: 16 }}>{t('auraReading.kazdy_czlowiek_otoczony_jest_siedmi', 'Każdy człowiek otoczony jest siedmiowarstwowym polem energetycznym. Każda warstwa przechowuje inny wymiar Twojego istnienia. Dotknij warstwy, aby rozwinąć szczegóły.')}</Text>
 
                 {AURA_LAYERS.map((layer, i) => {
                   const isExpanded = expandedLayer === layer.n;
@@ -761,8 +761,8 @@ export const AuraReadingScreen = ({ navigation }: any) => {
 
                 {/* Aura-Chakra Connection Map */}
                 <View style={{ height: 1, backgroundColor: divider, marginVertical: 20 }} />
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>✦ MAPA POŁĄCZEŃ: AURA — CZAKRY</Text>
-                <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 14 }}>Każda warstwa auretyczna rezonuje z odpowiadającą jej czakrą — to kosmologiczny tandem, który kształtuje Twoje doświadczenie.</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>{t('auraReading.mapa_polaczen_aura_czakry', '✦ MAPA POŁĄCZEŃ: AURA — CZAKRY')}</Text>
+                <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 14 }}>{t('auraReading.kazda_warstwa_auretyczna_rezonuje_z', 'Każda warstwa auretyczna rezonuje z odpowiadającą jej czakrą — to kosmologiczny tandem, który kształtuje Twoje doświadczenie.')}</Text>
                 {AURA_CHAKRA_MAP.map((item, i) => (
                   <Animated.View key={i} entering={FadeInDown.delay(i * 50).duration(380)} style={{ flexDirection: 'row', gap: 12, alignItems: 'center', padding: 14, borderRadius: 14, borderWidth: 1, borderColor: item.color + '30', backgroundColor: item.color + '07', marginBottom: 8 }}>
                     <View style={{ width: 38, height: 38, borderRadius: 19, backgroundColor: item.color + '25', alignItems: 'center', justifyContent: 'center', borderWidth: 1.5, borderColor: item.color + '50' }}>
@@ -792,12 +792,12 @@ export const AuraReadingScreen = ({ navigation }: any) => {
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={{ fontSize: 22, fontWeight: '800', color: accent }}>{streak} {streak === 1 ? 'dzień' : 'dni'} z rzędu</Text>
-                  <Text style={{ fontSize: 13, color: subColor, marginTop: 2 }}>Śledź swoją aurę każdego dnia</Text>
+                  <Text style={{ fontSize: 13, color: subColor, marginTop: 2 }}>{t('auraReading.sledz_swoja_aure_kazdego_dnia', 'Śledź swoją aurę każdego dnia')}</Text>
                 </View>
               </LinearGradient>
 
               {/* 7-day calendar strip */}
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 10 }}>OSTATNIE 7 DNI</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 10 }}>{t('auraReading.ostatnie_7_dni', 'OSTATNIE 7 DNI')}</Text>
               <View style={{ flexDirection: 'row', gap: 8, marginBottom: 20, justifyContent: 'space-between' }}>
                 {last7Days.map((day) => {
                   const entry = dayEntries.find(e => e.dateStr === day.dateStr);
@@ -815,13 +815,13 @@ export const AuraReadingScreen = ({ navigation }: any) => {
               </View>
 
               {/* Kirlian photo simulation */}
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12 }}>✦ SYMULACJA FOTOGRAFII KIRLIAŃSKIEJ</Text>
-              <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 12 }}>Wpisz swój nastrój i wygeneruj symulację zdjęcia energetycznego swojej aury.</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12 }}>{t('auraReading.symulacja_fotografii_kirlianski', '✦ SYMULACJA FOTOGRAFII KIRLIAŃSKIEJ')}</Text>
+              <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 12 }}>{t('auraReading.wpisz_swoj_nastroj_i_wygeneruj', 'Wpisz swój nastrój i wygeneruj symulację zdjęcia energetycznego swojej aury.')}</Text>
               <View style={{ flexDirection: 'row', gap: 10, marginBottom: 14 }}>
                 <TextInput
                   value={kirlianMood}
                   onChangeText={setKirlianMood}
-                  placeholder="np. spokojny, podniecony, zmęczony..."
+                  placeholder={t('auraReading.np_spokojny_podniecony_zmeczony', 'np. spokojny, podniecony, zmęczony...')}
                   placeholderTextColor={subColor + '80'}
                   style={{ flex: 1, padding: 12, borderRadius: 12, borderWidth: 1, borderColor: cardBorder, backgroundColor: cardBg, color: textColor, fontSize: 13 }}
                 />
@@ -832,7 +832,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
               {showKirlian && <KirlianPhoto mood={kirlianMood} color={todayColor?.hex || accent} isLight={isLight} />}
 
               {/* Today's aura */}
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12, marginTop: 14 }}>DZISIEJSZA AURA</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12, marginTop: 14 }}>{t('auraReading.dzisiejsza_aura', 'DZISIEJSZA AURA')}</Text>
               {todayColor ? (
                 <View style={{ padding: 18, borderRadius: 18, borderWidth: 1, borderColor: todayColor.hex + '50', backgroundColor: todayColor.hex + '10', marginBottom: 16, flexDirection: 'row', alignItems: 'center', gap: 14 }}>
                   <View style={{ width: 48, height: 48, borderRadius: 24, backgroundColor: todayColor.hex + '40', borderWidth: 2, borderColor: todayColor.hex }} />
@@ -848,11 +848,11 @@ export const AuraReadingScreen = ({ navigation }: any) => {
               ) : (
                 <Pressable onPress={() => setShowColorPicker(true)} style={{ padding: 18, borderRadius: 18, borderWidth: 1, borderColor: accent + '40', backgroundColor: accent + '08', marginBottom: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
                   <Calendar color={accent} size={16} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 15, fontWeight: '700', color: accent }}>Ustaw aurę dnia</Text>
+                  <Text style={{ fontSize: 15, fontWeight: '700', color: accent }}>{t('auraReading.ustaw_aure_dnia', 'Ustaw aurę dnia')}</Text>
                 </Pressable>
               )}
 
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: subColor, marginBottom: 10 }}>WYBIERZ KOLOR</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: subColor, marginBottom: 10 }}>{t('auraReading.wybierz_kolor', 'WYBIERZ KOLOR')}</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginBottom: 20 }}>
                 {AURA_COLORS.map(c => {
                   const isSelected = todayEntry?.colorId === c.id;
@@ -867,7 +867,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
 
               {dayEntries.length > 0 && (
                 <>
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12 }}>ZAPISANE OBSERWACJE</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12 }}>{t('auraReading.zapisane_obserwacje', 'ZAPISANE OBSERWACJE')}</Text>
                   {[...dayEntries].reverse().map((entry, i) => {
                     const c = AURA_COLORS.find(ac => ac.id === entry.colorId);
                     if (!c) return null;
@@ -893,8 +893,8 @@ export const AuraReadingScreen = ({ navigation }: any) => {
           {activeTab === 'kombinacje' && (
             <Animated.View entering={FadeInDown.duration(350)}>
               {/* Aura + Crystal */}
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>✦ AURA + KRYSZTAŁ</Text>
-              <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 14 }}>Każda aura rezonuje z konkretnymi kryształami, które wzmacniają jej naturalne właściwości.</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>{t('auraReading.aura_krysztal', '✦ AURA + KRYSZTAŁ')}</Text>
+              <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 14 }}>{t('auraReading.kazda_aura_rezonuje_z_konkretnym', 'Każda aura rezonuje z konkretnymi kryształami, które wzmacniają jej naturalne właściwości.')}</Text>
               {AURA_COLORS.map((c, i) => (
                 <Animated.View key={c.id} entering={FadeInDown.delay(i * 35).duration(350)} style={{ marginBottom: 12 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 6 }}>
@@ -915,10 +915,10 @@ export const AuraReadingScreen = ({ navigation }: any) => {
               <View style={{ height: 1, backgroundColor: divider, marginVertical: 20 }} />
 
               {/* Partner Aura Compatibility */}
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>✦ ZGODNOŚĆ AUR PARTNERÓW</Text>
-              <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 14 }}>Co się dzieje gdy dwie aury spotkają się? Wybierz dwa kolory i odkryj ich energetyczną dynamikę.</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>{t('auraReading.zgodnosc_aur_partnerow', '✦ ZGODNOŚĆ AUR PARTNERÓW')}</Text>
+              <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 14 }}>{t('auraReading.co_sie_dzieje_gdy_dwie', 'Co się dzieje gdy dwie aury spotkają się? Wybierz dwa kolory i odkryj ich energetyczną dynamikę.')}</Text>
 
-              <Text style={{ fontSize: 11, color: subColor, marginBottom: 8 }}>PIERWSZA AURA</Text>
+              <Text style={{ fontSize: 11, color: subColor, marginBottom: 8 }}>{t('auraReading.pierwsza_aura', 'PIERWSZA AURA')}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, marginBottom: 14 }}>
                 {AURA_COLORS.map(c => (
                   <Pressable key={c.id} onPress={() => { setPartnerColorA(c.id); HapticsService.impact('light'); }} style={{ alignItems: 'center', gap: 6, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14, borderWidth: 1.5, borderColor: partnerColorA === c.id ? c.hex : c.hex + '40', backgroundColor: partnerColorA === c.id ? c.hex + '25' : c.hex + '08' }}>
@@ -928,7 +928,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
                 ))}
               </ScrollView>
 
-              <Text style={{ fontSize: 11, color: subColor, marginBottom: 8 }}>DRUGA AURA</Text>
+              <Text style={{ fontSize: 11, color: subColor, marginBottom: 8 }}>{t('auraReading.druga_aura', 'DRUGA AURA')}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, marginBottom: 16 }}>
                 {AURA_COLORS.map(c => (
                   <Pressable key={c.id} onPress={() => { setPartnerColorB(c.id); HapticsService.impact('light'); }} style={{ alignItems: 'center', gap: 6, paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14, borderWidth: 1.5, borderColor: partnerColorB === c.id ? c.hex : c.hex + '40', backgroundColor: partnerColorB === c.id ? c.hex + '25' : c.hex + '08' }}>
@@ -946,20 +946,20 @@ export const AuraReadingScreen = ({ navigation }: any) => {
                       start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
                       style={{ borderRadius: 20, padding: 20, borderWidth: 1, borderColor: accent + '30', marginBottom: 14 }}
                     >
-                      <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 6 }}>WYNIK ZGODNOŚCI</Text>
+                      <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 6 }}>{t('auraReading.wynik_zgodnosci', 'WYNIK ZGODNOŚCI')}</Text>
                       <Text style={{ fontSize: 18, fontWeight: '700', color: textColor, marginBottom: 4 }}>{compatResult.label}</Text>
                       <Text style={{ fontSize: 15, fontWeight: '600', color: accent, marginBottom: 12 }}>{compatResult.result}</Text>
                       <Text style={{ fontSize: 13, lineHeight: 21, color: textColor, marginBottom: 12 }}>{compatResult.desc}</Text>
                       <View style={{ padding: 12, borderRadius: 12, backgroundColor: accent + '12', borderWidth: 1, borderColor: accent + '30', marginBottom: 8 }}>
-                        <Text style={{ fontSize: 12, fontWeight: '700', color: accent, marginBottom: 4 }}>✦ SYNERGIA</Text>
+                        <Text style={{ fontSize: 12, fontWeight: '700', color: accent, marginBottom: 4 }}>{t('auraReading.synergia', '✦ SYNERGIA')}</Text>
                         <Text style={{ fontSize: 13, color: textColor }}>{compatResult.synergy}</Text>
                       </View>
                       <View style={{ padding: 12, borderRadius: 12, backgroundColor: '#F9731612', borderWidth: 1, borderColor: '#F9731630', marginBottom: 8 }}>
-                        <Text style={{ fontSize: 12, fontWeight: '700', color: '#F97316', marginBottom: 4 }}>⚠ WYZWANIE</Text>
+                        <Text style={{ fontSize: 12, fontWeight: '700', color: '#F97316', marginBottom: 4 }}>{t('auraReading.wyzwanie', '⚠ WYZWANIE')}</Text>
                         <Text style={{ fontSize: 13, color: textColor }}>{compatResult.challenge}</Text>
                       </View>
                       <View style={{ padding: 12, borderRadius: 12, backgroundColor: '#22C55E12', borderWidth: 1, borderColor: '#22C55E30' }}>
-                        <Text style={{ fontSize: 12, fontWeight: '700', color: '#22C55E', marginBottom: 4 }}>💡 WSKAZÓWKA</Text>
+                        <Text style={{ fontSize: 12, fontWeight: '700', color: '#22C55E', marginBottom: 4 }}>{t('auraReading.wskazowka', '💡 WSKAZÓWKA')}</Text>
                         <Text style={{ fontSize: 13, color: textColor }}>{compatResult.tip}</Text>
                       </View>
                     </LinearGradient>
@@ -974,8 +974,8 @@ export const AuraReadingScreen = ({ navigation }: any) => {
               <View style={{ height: 1, backgroundColor: divider, marginVertical: 20 }} />
 
               {/* Aura + Day */}
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>✦ AURA + DZIEŃ TYGODNIA</Text>
-              <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 14 }}>Każdy kolor aury ma swój dzień — czas najsilniejszego wyrazu i możliwości.</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>{t('auraReading.aura_dzien_tygodnia', '✦ AURA + DZIEŃ TYGODNIA')}</Text>
+              <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 14 }}>{t('auraReading.kazdy_kolor_aury_ma_swoj', 'Każdy kolor aury ma swój dzień — czas najsilniejszego wyrazu i możliwości.')}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10, paddingBottom: 4 }}>
                 {AURA_COLORS.map(c => (
                   <View key={c.id} style={{ alignItems: 'center', gap: 8, paddingHorizontal: 14, paddingVertical: 14, borderRadius: 16, borderWidth: 1, borderColor: c.hex + '50', backgroundColor: c.hex + '10', minWidth: 84 }}>
@@ -989,8 +989,8 @@ export const AuraReadingScreen = ({ navigation }: any) => {
               <View style={{ height: 1, backgroundColor: divider, marginVertical: 20 }} />
 
               {/* Aura + Element */}
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>✦ AURA + ŻYWIOŁ</Text>
-              <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 14 }}>Żywioły natury wzmacniają i rezonują z określonymi aurami — szukaj swojego elementu.</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>{t('auraReading.aura_zywiol', '✦ AURA + ŻYWIOŁ')}</Text>
+              <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 14 }}>{t('auraReading.zywioly_natury_wzmacniaja_i_rezonuj', 'Żywioły natury wzmacniają i rezonują z określonymi aurami — szukaj swojego elementu.')}</Text>
               {['Ogień', 'Woda', 'Ziemia', 'Powietrze', 'Eter', 'Wszystkie'].map((element, ei) => {
                 const elementColors = AURA_COLORS.filter(c => c.element === element);
                 if (elementColors.length === 0) return null;
@@ -1018,8 +1018,8 @@ export const AuraReadingScreen = ({ navigation }: any) => {
           {/* ── OCZYSZCZANIE TAB — 5 Cleansing Rituals ── */}
           {activeTab === 'oczyszczanie' && (
             <Animated.View entering={FadeInDown.duration(350)}>
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>5 RYTUAŁÓW OCZYSZCZANIA AURY</Text>
-              <Text style={{ fontSize: 13, lineHeight: 20, color: subColor, marginBottom: 16 }}>Aura gromadzi energetyczne zanieczyszczenia z otoczenia, relacji i własnych myśli. Regularne oczyszczanie utrzymuje pole auretyczne czyste, jasne i wibrujące.</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>{t('auraReading.5_rytualow_oczyszczan_aury', '5 RYTUAŁÓW OCZYSZCZANIA AURY')}</Text>
+              <Text style={{ fontSize: 13, lineHeight: 20, color: subColor, marginBottom: 16 }}>{t('auraReading.aura_gromadzi_energetycz_zanieczysz', 'Aura gromadzi energetyczne zanieczyszczenia z otoczenia, relacji i własnych myśli. Regularne oczyszczanie utrzymuje pole auretyczne czyste, jasne i wibrujące.')}</Text>
 
               {CLEANSING_RITUALS.map((ritual, i) => {
                 const isExpanded = expandedCleansingRitual === ritual.id;
@@ -1048,7 +1048,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
                         <Animated.View entering={FadeInDown.duration(300)} style={{ marginTop: 14 }}>
                           <Text style={{ fontSize: 14, lineHeight: 22, color: textColor, marginBottom: 14 }}>{ritual.desc}</Text>
                           <View style={{ height: 1, backgroundColor: divider, marginBottom: 14 }} />
-                          <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ritual.color, marginBottom: 10 }}>KROKI RYTUAŁU</Text>
+                          <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ritual.color, marginBottom: 10 }}>{t('auraReading.kroki_rytualu', 'KROKI RYTUAŁU')}</Text>
                           {ritual.steps.map((step, si) => (
                             <View key={si} style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
                               <View style={{ width: 24, height: 24, borderRadius: 12, backgroundColor: ritual.color + '20', alignItems: 'center', justifyContent: 'center', marginTop: 1 }}>
@@ -1062,7 +1062,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
                             style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 4, paddingVertical: 12, borderRadius: 12, backgroundColor: ritual.color + '18', borderWidth: 1, borderColor: ritual.color + '40' }}
                           >
                             <Flame color={ritual.color} size={15} strokeWidth={1.8} />
-                            <Text style={{ fontSize: 14, fontWeight: '700', color: ritual.color }}>Rozpocznij rytuał</Text>
+                            <Text style={{ fontSize: 14, fontWeight: '700', color: ritual.color }}>{t('auraReading.rozpocznij_rytual', 'Rozpocznij rytuał')}</Text>
                           </Pressable>
                         </Animated.View>
                       )}
@@ -1073,7 +1073,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
 
               {/* Frequency of cleansing guide */}
               <View style={{ height: 1, backgroundColor: divider, marginVertical: 16 }} />
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12 }}>✦ KIEDY OCZYSZCZAĆ AURĘ?</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12 }}>{t('auraReading.kiedy_oczyszczac_aure', '✦ KIEDY OCZYSZCZAĆ AURĘ?')}</Text>
               {[
                 { when: 'Codziennie', reason: 'Krótki rytuał wodny lub prysznic z intencją po każdym powrocie do domu', color: '#22C55E' },
                 { when: 'Po trudnych rozmowach', reason: 'Oczyszczanie dymem lub dźwiękiem usuwa energię konfliktów', color: '#F97316' },
@@ -1095,8 +1095,8 @@ export const AuraReadingScreen = ({ navigation }: any) => {
           {/* ── OCHRONA TAB — 3 Protection Practices ── */}
           {activeTab === 'ochrona' && (
             <Animated.View entering={FadeInDown.duration(350)}>
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>OCHRONA POLA AURETYCZNEGO</Text>
-              <Text style={{ fontSize: 13, lineHeight: 20, color: subColor, marginBottom: 16 }}>Silna aura jest naturalną ochroną. Ale w trudnych sytuacjach — konfliktach, zatłoczonych miejscach, przy energetycznie wymagających osobach — warto aktywnie uszczelniać swoje pole.</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 4 }}>{t('auraReading.ochrona_pola_auretyczne', 'OCHRONA POLA AURETYCZNEGO')}</Text>
+              <Text style={{ fontSize: 13, lineHeight: 20, color: subColor, marginBottom: 16 }}>{t('auraReading.silna_aura_jest_naturalna_ochrona', 'Silna aura jest naturalną ochroną. Ale w trudnych sytuacjach — konfliktach, zatłoczonych miejscach, przy energetycznie wymagających osobach — warto aktywnie uszczelniać swoje pole.')}</Text>
 
               {PROTECTION_PRACTICES.map((practice, i) => {
                 const isExpanded = expandedProtection === practice.id;
@@ -1124,7 +1124,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
                         <Animated.View entering={FadeInDown.duration(300)} style={{ marginTop: 14 }}>
                           <Text style={{ fontSize: 14, lineHeight: 22, color: textColor, marginBottom: 14 }}>{practice.desc}</Text>
                           <View style={{ height: 1, backgroundColor: divider, marginBottom: 14 }} />
-                          <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: practice.color, marginBottom: 10 }}>WIZUALIZACJA KROK PO KROKU</Text>
+                          <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: practice.color, marginBottom: 10 }}>{t('auraReading.wizualizac_krok_po_kroku', 'WIZUALIZACJA KROK PO KROKU')}</Text>
                           {practice.steps.map((step, si) => (
                             <View key={si} style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
                               <View style={{ width: 24, height: 24, borderRadius: 12, backgroundColor: practice.color + '20', alignItems: 'center', justifyContent: 'center', marginTop: 1 }}>
@@ -1142,9 +1142,9 @@ export const AuraReadingScreen = ({ navigation }: any) => {
 
               {/* Daily protection ritual short */}
               <View style={{ height: 1, backgroundColor: divider, marginVertical: 8 }} />
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12 }}>✦ CODZIENNA PRAKTYKA OCHRONNA</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12 }}>{t('auraReading.codzienna_praktyka_ochronna', '✦ CODZIENNA PRAKTYKA OCHRONNA')}</Text>
               <LinearGradient colors={[accent + '18', accent + '06']} style={{ padding: 18, borderRadius: 18, borderWidth: 1, borderColor: accent + '30', marginBottom: 14 }}>
-                <Text style={{ fontSize: 14, fontWeight: '700', color: textColor, marginBottom: 10 }}>Poranna bańka — 2 minuty</Text>
+                <Text style={{ fontSize: 14, fontWeight: '700', color: textColor, marginBottom: 10 }}>{t('auraReading.poranna_banka_2_minuty', 'Poranna bańka — 2 minuty')}</Text>
                 {['Rano, przed wyjściem, zamknij oczy na 2 minuty.', 'Wyobraź sobie złote lub białe światło rozszerzające się z serca.', 'Otacza Cię sfera o 1m — przepuszcza tylko miłość i dobro.', 'Zadeklaruj: "Jestem chroniony/a. Moje pole jest czyste i silne."', 'Otwórz oczy. Gotowe — Twoja tarcza aktywna na cały dzień.'].map((step, i) => (
                   <View key={i} style={{ flexDirection: 'row', gap: 8, marginBottom: 7 }}>
                     <Text style={{ color: accent, fontSize: 13, fontWeight: '700' }}>{i + 1}.</Text>
@@ -1154,7 +1154,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
               </LinearGradient>
 
               {/* Energetic boundaries tips */}
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12 }}>✦ ZNAKI OSŁABIONEJ AURY</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12 }}>{t('auraReading.znaki_oslabionej_aury', '✦ ZNAKI OSŁABIONEJ AURY')}</Text>
               {[
                 { sign: 'Ciągłe zmęczenie bez przyczyny', action: 'Kąpiel solna + rytuał słoneczny', color: '#EF4444' },
                 { sign: 'Przejmowanie emocji innych', action: 'Technika lustra + medytacja uziemiająca', color: '#F97316' },
@@ -1175,7 +1175,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
           {/* ── CO DALEJ? ── */}
           {(activeTab === 'quiz' && quizDone) && (
             <View style={{ marginTop: 16 }}>
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12 }}>✦ CO DALEJ?</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: accent, marginBottom: 12 }}>{t('auraReading.co_dalej', '✦ CO DALEJ?')}</Text>
               {[
                 { icon: Zap, label: 'Centra energetyczne', sub: '7 czakr i ich relacja z aurą', route: 'Chakra', color: '#A78BFA' },
                 { icon: Brain, label: 'Medytacja wzmacniająca aurę', sub: 'Timer i techniki oczyszczenia pola', route: 'Meditation', color: '#60A5FA' },
@@ -1223,7 +1223,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
 
               {/* Spiritual meaning */}
               <View style={{ padding: 14, borderRadius: 14, borderWidth: 1, borderColor: selectedColor.hex + '35', backgroundColor: selectedColor.hex + '0A', marginBottom: 16 }}>
-                <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: selectedColor.hex, marginBottom: 6 }}>ZNACZENIE DUCHOWE</Text>
+                <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: selectedColor.hex, marginBottom: 6 }}>{t('auraReading.znaczenie_duchowe_1', 'ZNACZENIE DUCHOWE')}</Text>
                 <Text style={{ fontSize: 13, lineHeight: 20, color: textColor, fontStyle: 'italic' }}>{selectedColor.spiritualMeaning}</Text>
               </View>
 
@@ -1239,13 +1239,13 @@ export const AuraReadingScreen = ({ navigation }: any) => {
               {/* Strengths + Shadows */}
               <View style={{ flexDirection: 'row', gap: 10, marginBottom: 16 }}>
                 <View style={{ flex: 1, padding: 12, borderRadius: 14, borderWidth: 1, borderColor: '#22C55E35', backgroundColor: '#22C55E08' }}>
-                  <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: '#22C55E', marginBottom: 8 }}>MOCNE STRONY</Text>
+                  <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: '#22C55E', marginBottom: 8 }}>{t('auraReading.mocne_strony', 'MOCNE STRONY')}</Text>
                   {selectedColor.strengths.map((s, i) => (
                     <Text key={i} style={{ fontSize: 12, color: textColor, marginBottom: 4 }}>✓ {s}</Text>
                   ))}
                 </View>
                 <View style={{ flex: 1, padding: 12, borderRadius: 14, borderWidth: 1, borderColor: '#F9731635', backgroundColor: '#F9731608' }}>
-                  <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: '#F97316', marginBottom: 8 }}>CIEŃ</Text>
+                  <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: '#F97316', marginBottom: 8 }}>{t('auraReading.cien', 'CIEŃ')}</Text>
                   {(selectedColor.shadows || selectedColor.challenges).map((s, i) => (
                     <Text key={i} style={{ fontSize: 12, color: textColor, marginBottom: 4 }}>◐ {s}</Text>
                   ))}
@@ -1253,7 +1253,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
               </View>
 
               {/* Osobowość auretyczna */}
-              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: selectedColor.hex, marginBottom: 10 }}>OSOBOWOŚĆ AURETYCZNA</Text>
+              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: selectedColor.hex, marginBottom: 10 }}>{t('auraReading.osobowosc_auretyczna', 'OSOBOWOŚĆ AURETYCZNA')}</Text>
               <View style={{ padding: 14, borderRadius: 14, borderWidth: 1, borderColor: selectedColor.hex + '35', backgroundColor: selectedColor.hex + '08', marginBottom: 16 }}>
                 {selectedColor.personality.map((trait, i) => (
                   <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: i < selectedColor.personality.length - 1 ? 8 : 0 }}>
@@ -1264,7 +1264,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
               </View>
 
               {/* How to strengthen */}
-              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: '#22C55E', marginBottom: 10 }}>JAK WZMACNIAĆ TĘ AURĘ</Text>
+              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: '#22C55E', marginBottom: 10 }}>{t('auraReading.jak_wzmacniac_te_aure', 'JAK WZMACNIAĆ TĘ AURĘ')}</Text>
               <View style={{ padding: 14, borderRadius: 14, borderWidth: 1, borderColor: '#22C55E35', backgroundColor: '#22C55E08', marginBottom: 16 }}>
                 {selectedColor.howToStrengthen?.map((tip, i) => (
                   <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: i < selectedColor.howToStrengthen.length - 1 ? 8 : 0 }}>
@@ -1275,7 +1275,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
               </View>
 
               {/* Wyzwania */}
-              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: '#F97316', marginBottom: 10 }}>WYZWANIA I WZROST</Text>
+              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: '#F97316', marginBottom: 10 }}>{t('auraReading.wyzwania_i_wzrost', 'WYZWANIA I WZROST')}</Text>
               <View style={{ padding: 14, borderRadius: 14, borderWidth: 1, borderColor: '#F9731635', backgroundColor: '#F9731608', marginBottom: 16 }}>
                 {selectedColor.growthEdges.map((edge, i) => (
                   <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: i < selectedColor.growthEdges.length - 1 ? 8 : 0 }}>
@@ -1286,13 +1286,13 @@ export const AuraReadingScreen = ({ navigation }: any) => {
               </View>
 
               {/* Kamień harmonii */}
-              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: accent, marginBottom: 10 }}>KAMIEŃ HARMONII</Text>
+              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: accent, marginBottom: 10 }}>{t('auraReading.kamien_harmonii', 'KAMIEŃ HARMONII')}</Text>
               <View style={{ padding: 14, borderRadius: 14, borderWidth: 1, borderColor: accent + '35', backgroundColor: accent + '08', marginBottom: 16 }}>
                 <Text style={{ fontSize: 14, lineHeight: 20, color: textColor }}>{selectedColor.harmonyStone}</Text>
               </View>
 
               {/* Crystals */}
-              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: selectedColor.hex, marginBottom: 10 }}>POLECANE KRYSZTAŁY</Text>
+              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: selectedColor.hex, marginBottom: 10 }}>{t('auraReading.polecane_krysztaly', 'POLECANE KRYSZTAŁY')}</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
                 {selectedColor.crystals.map((crystal, ci) => (
                   <View key={ci} style={{ paddingHorizontal: 12, paddingVertical: 7, borderRadius: 12, borderWidth: 1, borderColor: selectedColor.hex + '50', backgroundColor: selectedColor.hex + '12' }}>
@@ -1302,7 +1302,7 @@ export const AuraReadingScreen = ({ navigation }: any) => {
               </View>
 
               {/* Afirmacja */}
-              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: selectedColor.hex, marginBottom: 10 }}>AFIRMACJA AURY</Text>
+              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: selectedColor.hex, marginBottom: 10 }}>{t('auraReading.afirmacja_aury', 'AFIRMACJA AURY')}</Text>
               <LinearGradient colors={[selectedColor.hex + '22', selectedColor.hex + '08']} style={{ padding: 16, borderRadius: 14, borderWidth: 1, borderColor: selectedColor.hex + '40', marginBottom: 4 }}>
                 <Text style={{ fontSize: 15, fontWeight: '600', color: selectedColor.hex, textAlign: 'center', lineHeight: 22, fontStyle: 'italic' }}>"{selectedColor.affirmation}"</Text>
               </LinearGradient>

@@ -662,8 +662,8 @@ return (
             <ChevronLeft size={22} color={textColor} />
           </Pressable>
           <View style={{ alignItems: 'center' }}>
-            <Text style={[styles.eyebrow, { color: ACCENT + '99' }]}>POMOCNIK SNU</Text>
-            <Text style={[styles.headerTitle, { color: textColor }]}>Zasypianie</Text>
+            <Text style={[styles.eyebrow, { color: ACCENT + '99' }]}>{t('sleephelper.pomocnik_snu', 'POMOCNIK SNU')}</Text>
+            <Text style={[styles.headerTitle, { color: textColor }]}>{t('sleephelper.zasypianie', 'Zasypianie')}</Text>
           </View>
           <Pressable
             hitSlop={12}
@@ -696,7 +696,7 @@ return (
           </View>
 
           {/* Duration chips */}
-          <Text style={[styles.label, { color: subColor }]}>CZAS TRWANIA</Text>
+          <Text style={[styles.label, { color: subColor }]}>{t('sleephelper.czas_trwania', 'CZAS TRWANIA')}</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingBottom: 6, marginBottom: 22 }}>
             {DURATIONS.map(min => {
               const active = min === selectedDuration;
@@ -731,7 +731,7 @@ return (
           </Pressable>
 
           {/* Music */}
-          <Text style={[styles.label, { color: subColor }]}>MUZYKA I DŹWIĘKI</Text>
+          <Text style={[styles.label, { color: subColor }]}>{t('sleephelper.muzyka_i_dzwieki', 'MUZYKA I DŹWIĘKI')}</Text>
           <MusicPicker accentColor={ACCENT} />
 
           {/* ────────────────────────────────────────────────────── */}
@@ -739,7 +739,7 @@ return (
           {/* ────────────────────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(200).duration(450)}>
             <View style={[styles.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder, marginTop: 28 }]}>
-              <Text style={[styles.sectionEyebrow, { color: ACCENT + '99' }]}>HISTORIA SNU — 7 DNI</Text>
+              <Text style={[styles.sectionEyebrow, { color: ACCENT + '99' }]}>{t('sleephelper.historia_snu_7_dni', 'HISTORIA SNU — 7 DNI')}</Text>
 
               {/* 7-day row */}
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
@@ -779,11 +779,11 @@ return (
               {/* Average + rate today */}
               <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
                 <View>
-                  <Text style={{ fontSize: 11, color: subColor, marginBottom: 2 }}>Średnia 7 dni</Text>
+                  <Text style={{ fontSize: 11, color: subColor, marginBottom: 2 }}>{t('sleephelper.srednia_7_dni', 'Średnia 7 dni')}</Text>
                   <Text style={{ fontSize: 22, fontWeight: '700', color: textColor, letterSpacing: 1 }}>{avgRating}</Text>
                 </View>
                 <View style={{ alignItems: 'flex-end' }}>
-                  <Text style={{ fontSize: 11, color: subColor, marginBottom: 4 }}>Oceń ostatnią noc</Text>
+                  <Text style={{ fontSize: 11, color: subColor, marginBottom: 4 }}>{t('sleephelper.ocen_ostatnia_noc', 'Oceń ostatnią noc')}</Text>
                   <View style={{ flexDirection: 'row', gap: 6 }}>
                     {[1, 2, 3, 4, 5].map(n => (
                       <Pressable
@@ -826,8 +826,8 @@ return (
               {/* Header row with progress ring */}
               <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
                 <View>
-                  <Text style={[styles.sectionEyebrow, { color: ACCENT + '99', marginBottom: 4 }]}>RYTUAŁ PRZED SNEM</Text>
-                  <Text style={{ fontSize: 13, color: textColor, fontWeight: '600' }}>Lista gotowości</Text>
+                  <Text style={[styles.sectionEyebrow, { color: ACCENT + '99', marginBottom: 4 }]}>{t('sleephelper.rytual_przed_snem', 'RYTUAŁ PRZED SNEM')}</Text>
+                  <Text style={{ fontSize: 13, color: textColor, fontWeight: '600' }}>{t('sleephelper.lista_gotowosci', 'Lista gotowości')}</Text>
                 </View>
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                   <ProgressRing progress={checkProgress} size={56} />
@@ -879,7 +879,7 @@ return (
                     style={{ borderRadius: 12, paddingVertical: 10, paddingHorizontal: 20, alignItems: 'center' }}
                   >
                     <Text style={{ color: ACCENT, fontSize: 13, fontWeight: '700', letterSpacing: 0.8 }}>
-                      ✦ Gotowa na sen
+                      {t('sleephelper.gotowa_na_sen', '✦ Gotowa na sen')}
                     </Text>
                   </LinearGradient>
                 </View>
@@ -892,10 +892,10 @@ return (
           {/* ────────────────────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(360).duration(450)}>
             <View style={[styles.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-              <Text style={[styles.sectionEyebrow, { color: ACCENT + '99' }]}>ODDECH 4-7-8 — SEN</Text>
-              <Text style={{ fontSize: 13, color: textColor, fontWeight: '600', marginBottom: 6 }}>Technika zasypiania</Text>
+              <Text style={[styles.sectionEyebrow, { color: ACCENT + '99' }]}>{t('sleephelper.oddech_4_7_8_sen', 'ODDECH 4-7-8 — SEN')}</Text>
+              <Text style={{ fontSize: 13, color: textColor, fontWeight: '600', marginBottom: 6 }}>{t('sleephelper.technika_zasypiania', 'Technika zasypiania')}</Text>
               <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 18 }}>
-                Wdech 4 s → zatrzymaj 7 s → wydech 8 s. Cztery cykle aktywują układ przywspółczulny i obniżają poziom kortyzolu. Najlepsza technika oddechowa do zaśnięcia.
+                {t('sleephelper.wdech_4_s_zatrzymaj_7', 'Wdech 4 s → zatrzymaj 7 s → wydech 8 s. Cztery cykle aktywują układ przywspółczulny i obniżają poziom kortyzolu. Najlepsza technika oddechowa do zaśnięcia.')}
               </Text>
 
               {/* Animated circle */}
@@ -930,7 +930,7 @@ return (
                 )}
                 {!breath478Active && breath478Cycles >= TARGET_CYCLES && (
                   <Text style={{ fontSize: 12, color: '#67D1B2', fontWeight: '600' }}>
-                    ✦ Ukończono! Ciało jest gotowe na sen.
+                    {t('sleephelper.ukonczono_cialo_jest_gotowe_na', '✦ Ukończono! Ciało jest gotowe na sen.')}
                   </Text>
                 )}
               </View>
@@ -970,10 +970,10 @@ return (
           {/* ────────────────────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(440).duration(450)}>
             <View style={[styles.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-              <Text style={[styles.sectionEyebrow, { color: ACCENT + '99' }]}>SKANOWANIE CIAŁA</Text>
-              <Text style={{ fontSize: 13, color: textColor, fontWeight: '600', marginBottom: 6 }}>Guided body scan</Text>
+              <Text style={[styles.sectionEyebrow, { color: ACCENT + '99' }]}>{t('sleephelper.skanowanie_ciala', 'SKANOWANIE CIAŁA')}</Text>
+              <Text style={{ fontSize: 13, color: textColor, fontWeight: '600', marginBottom: 6 }}>{t('sleephelper.guided_body_scan', 'Guided body scan')}</Text>
               <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 18 }}>
-                Prowadzone skupienie uwagi na kolejnych częściach ciała — 30 sekund na obszar. Zwalnia gonitwę myśli i głęboko relaksuje przed snem.
+                {t('sleephelper.prowadzone_skupienie_uwagi_na_kolej', 'Prowadzone skupienie uwagi na kolejnych częściach ciała — 30 sekund na obszar. Zwalnia gonitwę myśli i głęboko relaksuje przed snem.')}
               </Text>
 
               {scanActive ? (
@@ -1024,7 +1024,7 @@ return (
                       start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
                     >
                       <Square size={16} color="#FFF" fill="#FFF" />
-                      <Text style={styles.subBtnText}>Zatrzymaj skanowanie</Text>
+                      <Text style={styles.subBtnText}>{t('sleephelper.zatrzymaj_skanowanie', 'Zatrzymaj skanowanie')}</Text>
                     </LinearGradient>
                   </Pressable>
                 </>
@@ -1047,7 +1047,7 @@ return (
                       start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
                     >
                       <Brain size={16} color="#FFF" />
-                      <Text style={styles.subBtnText}>Skanowanie ciała</Text>
+                      <Text style={styles.subBtnText}>{t('sleephelper.skanowanie_ciala_1', 'Skanowanie ciała')}</Text>
                     </LinearGradient>
                   </Pressable>
                 </>
@@ -1060,10 +1060,10 @@ return (
           {/* ────────────────────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(500).duration(450)}>
             <View style={[styles.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-              <Text style={[styles.sectionEyebrow, { color: ACCENT + '99' }]}>CZĘSTOTLIWOŚCI TERAPEUTYCZNE</Text>
-              <Text style={{ fontSize: 13, color: textColor, fontWeight: '600', marginBottom: 6 }}>Fale mózgowe i dźwięki Solfeggio</Text>
+              <Text style={[styles.sectionEyebrow, { color: ACCENT + '99' }]}>{t('sleephelper.czestotliw_terapeutyc', 'CZĘSTOTLIWOŚCI TERAPEUTYCZNE')}</Text>
+              <Text style={{ fontSize: 13, color: textColor, fontWeight: '600', marginBottom: 6 }}>{t('sleephelper.fale_mozgowe_i_dzwieki_solfeggio', 'Fale mózgowe i dźwięki Solfeggio')}</Text>
               <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 14 }}>
-                Dźwięki binauralne synchronizują fale mózgowe. Użyj słuchawek — tylko wtedy mózg odbierze pełen efekt binarny.
+                {t('sleephelper.dzwieki_binauralne_synchroniz_fale_', 'Dźwięki binauralne synchronizują fale mózgowe. Użyj słuchawek — tylko wtedy mózg odbierze pełen efekt binarny.')}
               </Text>
 
               {([
@@ -1143,8 +1143,8 @@ return (
           {/* ────────────────────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(560).duration(450)}>
             <View style={[styles.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-              <Text style={[styles.sectionEyebrow, { color: ACCENT + '99' }]}>INTENCJA SNÓW</Text>
-              <Text style={{ fontSize: 13, color: textColor, fontWeight: '600', marginBottom: 6 }}>Zaproszenie na dziś noc</Text>
+              <Text style={[styles.sectionEyebrow, { color: ACCENT + '99' }]}>{t('sleephelper.intencja_snow', 'INTENCJA SNÓW')}</Text>
+              <Text style={{ fontSize: 13, color: textColor, fontWeight: '600', marginBottom: 6 }}>{t('sleephelper.zaproszeni_na_dzis_noc', 'Zaproszenie na dziś noc')}</Text>
 
               {/* Current intention */}
               <Pressable
@@ -1167,7 +1167,7 @@ return (
               {pastIntentions.length > 0 && (
                 <View style={{ marginTop: 14 }}>
                   <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: subColor, marginBottom: 8 }}>
-                    POPRZEDNIE INTENCJE
+                    {t('sleephelper.poprzednie_intencje', 'POPRZEDNIE INTENCJE')}
                   </Text>
                   {pastIntentions.map((intention, i) => (
                     <Pressable
@@ -1204,7 +1204,7 @@ return (
                 style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1 }}
                 pointerEvents="none"
               />
-              <Text style={[styles.tipsTitle, { color: textColor }]}>Wskazówki na dobry sen</Text>
+              <Text style={[styles.tipsTitle, { color: textColor }]}>{t('sleephelper.wskazowki_na_dobry_sen', 'Wskazówki na dobry sen')}</Text>
               {[
                 'Oddychaj powoli — 4 wdech, 8 wydech',
                 'Rozluźnij szczękę, ramiona i dłonie',
@@ -1226,7 +1226,7 @@ return (
           {/* ────────────────────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(640).duration(450)}>
             <View style={[styles.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-              <Text style={[styles.sectionEyebrow, { color: ACCENT + '99' }]}>CO DALEJ?</Text>
+              <Text style={[styles.sectionEyebrow, { color: ACCENT + '99' }]}>{t('sleephelper.co_dalej', 'CO DALEJ?')}</Text>
 
               {[
                 { label: 'Archiwum snów', sub: 'Zapisz sen z tej nocy', icon: Moon, route: 'Dreams' },
@@ -1259,7 +1259,7 @@ return (
           </Animated.View>
 
                     <View style={{ marginTop: 16, marginBottom: 8, borderRadius: 16, backgroundColor: "#818CF822", borderWidth: 1, borderColor: "#818CF8", padding: 16 }}>
-            <Text style={{ color: "#818CF8", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>AI WSKAZOWKA SENNA</Text>
+            <Text style={{ color: "#818CF8", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>{t('sleephelper.ai_wskazowka_senna', 'AI WSKAZOWKA SENNA')}</Text>
             {sleepAiInsight ? (
               <Text style={{ color: "#F0EBE2", fontSize: 14, lineHeight: 22 }}>{sleepAiInsight}</Text>
             ) : null}
@@ -1280,9 +1280,9 @@ return (
               style={[styles.modalSheet, { backgroundColor: isLight ? '#F4F0FC' : '#0F0C24' }]}
             >
               <View style={{ width: 40, height: 4, borderRadius: 2, backgroundColor: isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.15)', alignSelf: 'center', marginBottom: 20 }} />
-              <Text style={{ fontSize: 16, fontWeight: '700', color: textColor, marginBottom: 6 }}>Intencja na tę noc</Text>
+              <Text style={{ fontSize: 16, fontWeight: '700', color: textColor, marginBottom: 6 }}>{t('sleephelper.intencja_na_te_noc', 'Intencja na tę noc')}</Text>
               <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 16 }}>
-                Napisz, jakie sny zapraszasz lub czego szukasz we śnie tej nocy.
+                {t('sleephelper.napisz_jakie_sny_zapraszasz_lub', 'Napisz, jakie sny zapraszasz lub czego szukasz we śnie tej nocy.')}
               </Text>
               <TextInput
                 value={intentionInput}
@@ -1304,7 +1304,7 @@ return (
                   style={styles.subBtnGrad}
                   start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
                 >
-                  <Text style={styles.subBtnText}>Zapisz intencję</Text>
+                  <Text style={styles.subBtnText}>{t('sleephelper.zapisz_intencje', 'Zapisz intencję')}</Text>
                 </LinearGradient>
               </Pressable>
             </Pressable>
@@ -1319,8 +1319,8 @@ return (
       }}>
         <RNAnimated.View style={[styles.overlay, { opacity: fadeAnim }]} pointerEvents={overlayVisible ? 'box-only' : 'none'}>
           <Moon size={52} color={ACCENT} opacity={0.6} />
-          <Text style={styles.overlayTitle}>Dobranoc</Text>
-          <Text style={styles.overlaySub}>Dotknij, aby obudzić</Text>
+          <Text style={styles.overlayTitle}>{t('sleephelper.dobranoc', 'Dobranoc')}</Text>
+          <Text style={styles.overlaySub}>{t('sleephelper.dotknij_aby_obudzic', 'Dotknij, aby obudzić')}</Text>
         </RNAnimated.View>
       </TouchableWithoutFeedback>
     </View>

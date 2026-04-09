@@ -1,8 +1,11 @@
 {
   "expo": {
-    "name": "Aethera DuniAI & Oracle",
-    "slug": "aethera",
+    "name": "Aethera — Duchowy Asystent AI",
+    "slug": "aethera-duniAI",
     "version": "1.0.0",
+    "description": "Aethera to premium aplikacja duchowego rozwoju z AI. Horoskopy, Tarot, Medytacje, Rytuały, Oracle AI i wspólnota duchowa.",
+    "keywords": ["horoskop", "tarot", "medytacja", "astrologia", "rytuały", "oracle", "duchowość", "afirmacje", "numerologia", "aethera"],
+    "primaryColor": "#7C3AED",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -16,9 +19,17 @@
       "bundleIdentifier": "com.aethera.app",
       "jsEngine": "hermes",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSCameraUsageDescription": "Aethera uses the camera for Vision Board and profile photo.",
+        "NSPhotoLibraryUsageDescription": "Aethera accesses photos for Vision Board creation.",
+        "NSMicrophoneUsageDescription": "Aethera uses the microphone for voice journal entries.",
+        "NSUserNotificationUsageDescription": "Aethera sends daily spiritual reminders and ritual notifications.",
+        "UIBackgroundModes": ["fetch", "remote-notification"]
       },
-      "buildNumber": "3"
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-PLACEHOLDER~PLACEHOLDER"
+      },
+      "buildNumber": "7"
     },
     "android": {
       "package": "com.aethera.app",
@@ -34,7 +45,15 @@
         "android.permission.RECORD_AUDIO",
         "android.permission.MODIFY_AUDIO_SETTINGS",
         "android.permission.FOREGROUND_SERVICE",
-        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
+        "android.permission.NOTIFICATIONS",
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.VIBRATE",
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
       ],
       "versionCode": 3
     },

@@ -916,7 +916,7 @@ const AnimatedArc = React.memo(({ score, color, size = 120, isLight }: { score: 
       </Svg>
       <View style={{ position: 'absolute', alignItems: 'center' }}>
         <Typography variant="heading" style={{ fontSize: 22, fontWeight: '700', color }}>{score}%</Typography>
-        <Typography variant="micro" style={{ color: isLight ? 'rgba(37,29,22,0.6)' : 'rgba(255,255,255,0.6)', fontSize: 10 }}>zgodność</Typography>
+        <Typography variant="micro" style={{ color: isLight ? 'rgba(37,29,22,0.6)' : 'rgba(255,255,255,0.6)', fontSize: 10 }}>{t('chineseHoroscope.zgodnosc', 'zgodność')}</Typography>
       </View>
     </View>
   );
@@ -1132,7 +1132,7 @@ Write in English, deep and wise, around 150 words.`,
           <Animated.View entering={FadeInDown.duration(300)} style={[ch.fsBanner, { backgroundColor: ACCENT + '22', borderColor: ACCENT + '60' }]}>
             <Users size={14} color={ACCENT} />
             <View style={{ flex: 1, marginLeft: 8, flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: 4 }}>
-              <Typography variant="body" style={{ color: ACCENT, fontSize: 13 }}>Przeglądasz dla:</Typography>
+              <Typography variant="body" style={{ color: ACCENT, fontSize: 13 }}>{t('chineseHoroscope.przegladas_dla', 'Przeglądasz dla:')}</Typography>
               <Typography variant="body" style={{ fontWeight: '700', color: ACCENT, fontSize: 13 }}>{fsName}</Typography>
             </View>
             <Pressable onPress={clearForSomeone} hitSlop={12}>
@@ -1143,7 +1143,7 @@ Write in English, deep and wise, around 150 words.`,
 
         {/* Birth year input */}
         <Animated.View entering={FadeInDown.duration(400).delay(50)} style={[ch.card, { backgroundColor: cardBg, borderColor: cardBorder, marginHorizontal: layout.padding.screen }]}>
-          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD, letterSpacing: 2 }]}>DATA URODZENIA</Typography>
+          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD, letterSpacing: 2 }]}>{t('chineseHoroscope.data_urodzenia', 'DATA URODZENIA')}</Typography>
           <View style={{ marginTop: 10 }}>
             <DateWheelPicker
               day={birthWheelDay}
@@ -1169,7 +1169,7 @@ Write in English, deep and wise, around 150 words.`,
               const e = getElementFromYear(birthWheelYear);
               setUserAnimal(a); setUserElement(e); HapticsService.notify();
             }} style={[ch.calcBtn, { backgroundColor: ACCENT }]}>
-              <Typography variant="body" style={{ color: '#fff', fontWeight: '700', fontSize: 13 }}>Oblicz</Typography>
+              <Typography variant="body" style={{ color: '#fff', fontWeight: '700', fontSize: 13 }}>{t('chineseHoroscope.oblicz', 'Oblicz')}</Typography>
             </Pressable>
           </View>
         </Animated.View>
@@ -1206,7 +1206,7 @@ Write in English, deep and wise, around 150 words.`,
 
             {/* Lucky/Unlucky */}
             <Animated.View entering={FadeInDown.duration(400).delay(250)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 14 }}>
-              <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>SZCZĘŚLIWE LICZBY I KOLORY</Typography>
+              <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.szczesliwe_liczby_i_kolory', 'SZCZĘŚLIWE LICZBY I KOLORY')}</Typography>
               <View style={[ch.card, { backgroundColor: cardBg, borderColor: cardBorder, marginTop: 8 }]}>
                 <View style={{ flexDirection: 'row', gap: 8, marginBottom: 10 }}>
                   {displayAnimal.luckyNumbers.map(n => (
@@ -1238,7 +1238,7 @@ Write in English, deep and wise, around 150 words.`,
 
             {/* Directions */}
             <Animated.View entering={FadeInDown.duration(400).delay(280)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 14 }}>
-              <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>SZCZĘŚLIWE KIERUNKI</Typography>
+              <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.szczesliwe_kierunki', 'SZCZĘŚLIWE KIERUNKI')}</Typography>
               <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
                 {displayAnimal.bestDirections.map(d => (
                   <View key={d} style={[ch.dirChip, { backgroundColor: ACCENT + '20', borderColor: ACCENT + '50' }]}>
@@ -1251,7 +1251,7 @@ Write in English, deep and wise, around 150 words.`,
 
             {/* Traits */}
             <Animated.View entering={FadeInDown.duration(400).delay(300)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 14 }}>
-              <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>CECHY CHARAKTERU</Typography>
+              <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.cechy_charakteru', 'CECHY CHARAKTERU')}</Typography>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
                 {displayAnimal.traits.map((trait, i) => (
                   <View key={i} style={[ch.traitChip, { backgroundColor: cardBg, borderColor: cardBorder }]}>
@@ -1264,7 +1264,7 @@ Write in English, deep and wise, around 150 words.`,
             {/* Strengths & Challenges */}
             <Animated.View entering={FadeInDown.duration(400).delay(350)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 14, flexDirection: 'row', gap: 10 }}>
               <View style={[ch.card, { flex: 1, backgroundColor: '#22C55E10', borderColor: '#22C55E30' }]}>
-                <Typography variant="microLabel" style={{ color: '#22C55E', fontSize: 10, letterSpacing: 1, marginBottom: 8 }}>MOCNE STRONY</Typography>
+                <Typography variant="microLabel" style={{ color: '#22C55E', fontSize: 10, letterSpacing: 1, marginBottom: 8 }}>{t('chineseHoroscope.mocne_strony', 'MOCNE STRONY')}</Typography>
                 {displayAnimal.strengths.map((s, i) => (
                   <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 5 }}>
                     <Typography variant="body" style={{ color: '#22C55E', fontSize: 14, marginRight: 6, lineHeight: 18 }}>✦</Typography>
@@ -1273,7 +1273,7 @@ Write in English, deep and wise, around 150 words.`,
                 ))}
               </View>
               <View style={[ch.card, { flex: 1, backgroundColor: '#F9730810', borderColor: '#F9730830' }]}>
-                <Typography variant="microLabel" style={{ color: '#F97308', fontSize: 10, letterSpacing: 1, marginBottom: 8 }}>WYZWANIA</Typography>
+                <Typography variant="microLabel" style={{ color: '#F97308', fontSize: 10, letterSpacing: 1, marginBottom: 8 }}>{t('chineseHoroscope.wyzwania', 'WYZWANIA')}</Typography>
                 {displayAnimal.challenges.map((c, i) => (
                   <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 5 }}>
                     <Typography variant="body" style={{ color: '#F97308', fontSize: 14, marginRight: 6, lineHeight: 18 }}>◆</Typography>
@@ -1285,7 +1285,7 @@ Write in English, deep and wise, around 150 words.`,
 
             {/* Famous people */}
             <Animated.View entering={FadeInDown.duration(400).delay(400)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 14 }}>
-              <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>ZNANE OSOBY Z TYM ZNAKIEM</Typography>
+              <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.znane_osoby_z_tym_znakiem', 'ZNANE OSOBY Z TYM ZNAKIEM')}</Typography>
               <View style={{ flexDirection: 'row', gap: 8, marginTop: 8 }}>
                 {displayAnimal.famous.map((name, i) => (
                   <View key={i} style={[ch.famousChip, { backgroundColor: cardBg, borderColor: GOLD + '40' }]}>
@@ -1298,10 +1298,10 @@ Write in English, deep and wise, around 150 words.`,
 
             {/* Compatibility preview */}
             <Animated.View entering={FadeInDown.duration(400).delay(450)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 14 }}>
-              <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>PARTNERZY ZODIAKALNI</Typography>
+              <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.partnerzy_zodiakalni', 'PARTNERZY ZODIAKALNI')}</Typography>
               <View style={[ch.card, { backgroundColor: cardBg, borderColor: cardBorder, marginTop: 8 }]}>
                 <View style={{ marginBottom: 8 }}>
-                  <Typography variant="micro" style={{ color: '#22C55E', fontSize: 11, marginBottom: 6 }}>✦ NAJLEPSZA ZGODNOŚĆ</Typography>
+                  <Typography variant="micro" style={{ color: '#22C55E', fontSize: 11, marginBottom: 6 }}>{t('chineseHoroscope.najlepsza_zgodnosc', '✦ NAJLEPSZA ZGODNOŚĆ')}</Typography>
                   <View style={{ flexDirection: 'row', gap: 6, flexWrap: 'wrap' }}>
                     {displayAnimal.bestWith.map(id => {
                       const a = ANIMALS.find(x => x.id === id);
@@ -1315,7 +1315,7 @@ Write in English, deep and wise, around 150 words.`,
                   </View>
                 </View>
                 <View>
-                  <Typography variant="micro" style={{ color: '#FF6666', fontSize: 11, marginBottom: 6 }}>◆ TRUDNA ZGODNOŚĆ</Typography>
+                  <Typography variant="micro" style={{ color: '#FF6666', fontSize: 11, marginBottom: 6 }}>{t('chineseHoroscope.trudna_zgodnosc', '◆ TRUDNA ZGODNOŚĆ')}</Typography>
                   <View style={{ flexDirection: 'row', gap: 6, flexWrap: 'wrap' }}>
                     {displayAnimal.worstWith.map(id => {
                       const a = ANIMALS.find(x => x.id === id);
@@ -1329,7 +1329,7 @@ Write in English, deep and wise, around 150 words.`,
                   </View>
                 </View>
                 <View style={{ marginTop: 10, paddingTop: 10, borderTopWidth: 1, borderTopColor: cardBorder }}>
-                  <Typography variant="micro" style={{ color: GOLD, fontSize: 11, marginBottom: 4 }}>★ SEKRETNY PRZYJACIEL</Typography>
+                  <Typography variant="micro" style={{ color: GOLD, fontSize: 11, marginBottom: 4 }}>{t('chineseHoroscope.sekretny_przyjaciel', '★ SEKRETNY PRZYJACIEL')}</Typography>
                   {(() => {
                     const sf = ANIMALS.find(x => x.id === displayAnimal.secretFriend);
                     return sf ? (
@@ -1347,10 +1347,10 @@ Write in English, deep and wise, around 150 words.`,
           <Animated.View entering={FadeInDown.duration(400)} style={{ alignItems: 'center', padding: 40, paddingTop: 20 }}>
             <Typography style={{ fontSize: 64 }}>🐉</Typography>
             <Typography variant="heading" style={{ color: GOLD, fontSize: 20, fontWeight: '700', marginTop: 12, textAlign: 'center' }}>
-              Wprowadź rok urodzenia
+              {t('chineseHoroscope.wprowadz_rok_urodzenia', 'Wprowadź rok urodzenia')}
             </Typography>
             <Typography variant="body" style={{ color: subColor, textAlign: 'center', marginTop: 8, lineHeight: 20 }}>
-              Odkryj swój chiński znak zodiakalny i poznaj sekrety swojej energii
+              {t('chineseHoroscope.odkryj_swoj_chinski_znak_zodiakalny', 'Odkryj swój chiński znak zodiakalny i poznaj sekrety swojej energii')}
             </Typography>
           </Animated.View>
         )}
@@ -1362,9 +1362,9 @@ Write in English, deep and wise, around 150 words.`,
   const renderElementsTab = () => (
     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 20 }}>
       <Animated.View entering={FadeInDown.duration(400)} style={{ paddingHorizontal: layout.padding.screen, marginBottom: 8 }}>
-        <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>PENTAGRAM PIĘCIU PRZEMIAN</Typography>
+        <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.pentagram_pieciu_przemian', 'PENTAGRAM PIĘCIU PRZEMIAN')}</Typography>
         <Typography variant="body" style={{ color: subColor, fontSize: 13, marginTop: 4, lineHeight: 18 }}>
-          Pięć elementów tworzą cykl twórczy i niszczący — fundament chińskiej filozofii i medycyny.
+          {t('chineseHoroscope.piec_elementow_tworza_cykl_tworczy', 'Pięć elementów tworzą cykl twórczy i niszczący — fundament chińskiej filozofii i medycyny.')}
         </Typography>
       </Animated.View>
 
@@ -1375,11 +1375,11 @@ Write in English, deep and wise, around 150 words.`,
         <View style={{ flexDirection: 'row', gap: 16, justifyContent: 'center' }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
             <View style={{ width: 20, height: 2, backgroundColor: GOLD, opacity: 0.7 }} />
-            <Typography variant="micro" style={{ color: subColor, fontSize: 11 }}>Cykl twórczy →</Typography>
+            <Typography variant="micro" style={{ color: subColor, fontSize: 11 }}>{t('chineseHoroscope.cykl_tworczy', 'Cykl twórczy →')}</Typography>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
             <View style={{ width: 20, height: 1, borderTopWidth: 1, borderTopColor: '#FF4444', borderStyle: 'dashed' }} />
-            <Typography variant="micro" style={{ color: subColor, fontSize: 11 }}>Cykl niszczący ⋯</Typography>
+            <Typography variant="micro" style={{ color: subColor, fontSize: 11 }}>{t('chineseHoroscope.cykl_niszczacy', 'Cykl niszczący ⋯')}</Typography>
           </View>
         </View>
       </View>
@@ -1396,7 +1396,7 @@ Write in English, deep and wise, around 150 words.`,
                 <Typography style={{ fontSize: 24 }}>{activeElement.symbol}</Typography>
               </View>
               <View style={{ flex: 1 }}>
-                <Typography variant="microLabel" style={{ color: activeElement.color, fontSize: 10, letterSpacing: 1.5 }}>TWÓJ ELEMENT</Typography>
+                <Typography variant="microLabel" style={{ color: activeElement.color, fontSize: 10, letterSpacing: 1.5 }}>{t('chineseHoroscope.twoj_element', 'TWÓJ ELEMENT')}</Typography>
                 <Typography variant="heading" style={{ color: textColor, fontSize: 20, fontWeight: '700' }}>{activeElement.pl}</Typography>
                 <Typography variant="micro" style={{ color: subColor, fontSize: 12 }}>Planet: {activeElement.planet} · Pora: {activeElement.season}</Typography>
               </View>
@@ -1431,7 +1431,7 @@ Write in English, deep and wise, around 150 words.`,
                 </View>
                 {isUserEl && (
                   <View style={[ch.myBadge, { backgroundColor: el.color + '30', borderColor: el.color + '60' }]}>
-                    <Typography variant="micro" style={{ color: el.color, fontSize: 10, fontWeight: '700' }}>TWÓJ</Typography>
+                    <Typography variant="micro" style={{ color: el.color, fontSize: 10, fontWeight: '700' }}>{t('chineseHoroscope.twoj', 'TWÓJ')}</Typography>
                   </View>
                 )}
                 <ChevronRight size={16} color={subColor} style={{ marginLeft: 8, transform: [{ rotate: isExpanded ? '90deg' : '0deg' }] }} />
@@ -1452,7 +1452,7 @@ Write in English, deep and wise, around 150 words.`,
                       </View>
                     ))}
                   </View>
-                  <Typography variant="microLabel" style={{ color: el.color, fontSize: 10, letterSpacing: 1, marginBottom: 8 }}>JAKOŚCI I CECHY</Typography>
+                  <Typography variant="microLabel" style={{ color: el.color, fontSize: 10, letterSpacing: 1, marginBottom: 8 }}>{t('chineseHoroscope.jakosci_i_cechy', 'JAKOŚCI I CECHY')}</Typography>
                   {el.qualities.map((q, qi) => (
                     <View key={qi} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 5 }}>
                       <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: el.color, marginRight: 10 }} />
@@ -1511,7 +1511,7 @@ Write in English, deep and wise, around 150 words.`,
 
         {/* Today's animal energy */}
         <Animated.View entering={FadeInDown.duration(400).delay(80)} style={{ paddingHorizontal: layout.padding.screen, marginBottom: 14 }}>
-          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>ENERGIA DZISIAJ</Typography>
+          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.energia_dzisiaj', 'ENERGIA DZISIAJ')}</Typography>
           <LinearGradient
             colors={[GOLD + '15', ACCENT + '10']}
             style={[ch.card, { borderColor: GOLD + '40', marginTop: 8 }]}
@@ -1535,7 +1535,7 @@ Write in English, deep and wise, around 150 words.`,
 
         {/* Month picker */}
         <Animated.View entering={FadeInDown.duration(400).delay(120)} style={{ paddingHorizontal: layout.padding.screen, marginBottom: 10 }}>
-          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>PROGNOZA MIESIĘCZNA</Typography>
+          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.prognoza_miesieczna', 'PROGNOZA MIESIĘCZNA')}</Typography>
         </Animated.View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: layout.padding.screen, gap: 8, paddingBottom: 4 }}>
           {MONTH_ENERGIES.map((me, i) => {
@@ -1576,14 +1576,14 @@ Write in English, deep and wise, around 150 words.`,
               </View>
               {MONTH_ENERGIES[selectedMonth].lucky && (
                 <View style={{ marginLeft: 'auto', paddingHorizontal: 10, paddingVertical: 4, backgroundColor: GOLD + '25', borderRadius: 12, borderWidth: 1, borderColor: GOLD + '50' }}>
-                  <Typography variant="micro" style={{ color: GOLD, fontSize: 10, fontWeight: '700' }}>SZCZĘŚLIWY</Typography>
+                  <Typography variant="micro" style={{ color: GOLD, fontSize: 10, fontWeight: '700' }}>{t('chineseHoroscope.szczesliwy', 'SZCZĘŚLIWY')}</Typography>
                 </View>
               )}
             </View>
             {/* Energy bar */}
             <View style={{ marginBottom: 10 }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5 }}>
-                <Typography variant="micro" style={{ color: subColor, fontSize: 11 }}>Energia miesiąca</Typography>
+                <Typography variant="micro" style={{ color: subColor, fontSize: 11 }}>{t('chineseHoroscope.energia_miesiaca', 'Energia miesiąca')}</Typography>
                 <Typography variant="micro" style={{ color: GOLD, fontSize: 11, fontWeight: '700' }}>{MONTH_ENERGIES[selectedMonth].energy}%</Typography>
               </View>
               <View style={{ height: 6, backgroundColor: isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden' }}>
@@ -1598,7 +1598,7 @@ Write in English, deep and wise, around 150 words.`,
 
         {/* Annual themes */}
         <Animated.View entering={FadeInDown.duration(400).delay(200)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 14 }}>
-          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>PROGNOZA ROCZNA — GŁÓWNE OBSZARY</Typography>
+          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.prognoza_roczna_glowne_obszary', 'PROGNOZA ROCZNA — GŁÓWNE OBSZARY')}</Typography>
           {[
             { icon: TrendingUp, label: 'Kariera', color: '#3B82F6', text: `W roku ${cy.animal?.pl} kariera zyska na dynamice. Cechy ${cy.animal?.pl} — ${cy.animal?.traits.slice(0,3).join(', ')} — sprzyjają odważnym ruchom zawodowym.` },
             { icon: Heart, label: 'Miłość', color: '#EC4899', text: 'Relacje nabierają głębszego wymiaru. Czas otwartości i szczerości w związkach — buduj mosty zaufania.' },
@@ -1645,7 +1645,7 @@ Write in English, deep and wise, around 150 words.`,
             <View style={[ch.card, { backgroundColor: ACCENT + '18', borderColor: ACCENT + '50', flexDirection: 'row', alignItems: 'center', gap: 12 }]}>
               <Typography style={{ fontSize: 28 }}>{activeAnimal.emoji}</Typography>
               <View>
-                <Typography variant="micro" style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 1 }}>TWÓJ ZNAK</Typography>
+                <Typography variant="micro" style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 1 }}>{t('chineseHoroscope.twoj_znak', 'TWÓJ ZNAK')}</Typography>
                 <Typography variant="heading" style={{ color: textColor, fontSize: 18, fontWeight: '700' }}>{activeAnimal.pl}</Typography>
               </View>
               <ArrowRight size={16} color={subColor} style={{ marginLeft: 'auto' }} />
@@ -1658,7 +1658,7 @@ Write in English, deep and wise, around 150 words.`,
 
         {/* Partner selection */}
         <Animated.View entering={FadeInDown.duration(400).delay(50)} style={{ paddingHorizontal: layout.padding.screen, marginBottom: 14 }}>
-          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>WYBIERZ PARTNERA</Typography>
+          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.wybierz_partnera', 'WYBIERZ PARTNERA')}</Typography>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 10 }}>
             {ANIMALS.map(animal => {
               const isSelected = selectedPartner === animal.id;
@@ -1703,7 +1703,7 @@ Write in English, deep and wise, around 150 words.`,
 
             {/* Area scores */}
             <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 14 }}>
-              <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>SZCZEGÓŁOWA ANALIZA</Typography>
+              <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.szczegolow_analiza', 'SZCZEGÓŁOWA ANALIZA')}</Typography>
               <View style={{ marginTop: 10, gap: 10 }}>
                 {[
                   { label: 'Miłość i Romans', score: compatScores[0], icon: Heart, color: '#EC4899' },
@@ -1730,10 +1730,10 @@ Write in English, deep and wise, around 150 words.`,
             {/* Trine group */}
             {activeAnimal && (
               <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 14 }}>
-                <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>TRÓJKĄT ZODIAKU — TRÓJKA TRÓJNIKA</Typography>
+                <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.trojkat_zodiaku_trojka_trojnika', 'TRÓJKĄT ZODIAKU — TRÓJKA TRÓJNIKA')}</Typography>
                 <View style={[ch.card, { backgroundColor: GOLD + '10', borderColor: GOLD + '40', marginTop: 8 }]}>
                   <Typography variant="micro" style={{ color: subColor, fontSize: 12, lineHeight: 17, marginBottom: 10 }}>
-                    Zwierzęta z tego samego trójnika mają głęboko zbliżone wartości i naturalne zrozumienie:
+                    {t('chineseHoroscope.zwierzeta_z_tego_samego_trojnika', 'Zwierzęta z tego samego trójnika mają głęboko zbliżone wartości i naturalne zrozumienie:')}
                   </Typography>
                   <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 16 }}>
                     {[activeAnimal.id, ...activeAnimal.trine].map(id => {
@@ -1759,7 +1759,7 @@ Write in English, deep and wise, around 150 words.`,
                   ) : (
                     <>
                       <Sparkles size={16} color="#fff" />
-                      <Typography variant="body" style={{ color: '#fff', fontWeight: '700', fontSize: 14, marginLeft: 8 }}>Analiza AI — Głębszy Wgląd</Typography>
+                      <Typography variant="body" style={{ color: '#fff', fontWeight: '700', fontSize: 14, marginLeft: 8 }}>{t('chineseHoroscope.analiza_ai_glebszy_wglad', 'Analiza AI — Głębszy Wgląd')}</Typography>
                     </>
                   )}
                 </Pressable>
@@ -1772,11 +1772,11 @@ Write in English, deep and wise, around 150 words.`,
                 >
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 }}>
                     <Sparkles size={14} color={GOLD} />
-                    <Typography variant="microLabel" style={{ color: GOLD, letterSpacing: 1.5, fontSize: 10 }}>ANALIZA WYROCZNI</Typography>
+                    <Typography variant="microLabel" style={{ color: GOLD, letterSpacing: 1.5, fontSize: 10 }}>{t('chineseHoroscope.analiza_wyroczni', 'ANALIZA WYROCZNI')}</Typography>
                   </View>
                   <Typography variant="body" style={{ color: textColor, lineHeight: 22, fontSize: 13 }}>{aiCompatResult}</Typography>
                   <Pressable onPress={() => setAiCompatResult('')} style={{ marginTop: 12, alignSelf: 'flex-end' }}>
-                    <Typography variant="micro" style={{ color: subColor, fontSize: 11 }}>Odśwież analizę</Typography>
+                    <Typography variant="micro" style={{ color: subColor, fontSize: 11 }}>{t('chineseHoroscope.odswiez_analize', 'Odśwież analizę')}</Typography>
                   </Pressable>
                 </LinearGradient>
               </Animated.View>
@@ -1788,7 +1788,7 @@ Write in English, deep and wise, around 150 words.`,
           <View style={{ paddingHorizontal: layout.padding.screen, padding: 30, alignItems: 'center' }}>
             <Typography style={{ fontSize: 48 }}>🔮</Typography>
             <Typography variant="body" style={{ color: subColor, textAlign: 'center', marginTop: 12, lineHeight: 20 }}>
-              Wprowadź rok urodzenia w zakładce Zwierzę, aby sprawdzić swoją zgodność
+              {t('chineseHoroscope.wprowadz_rok_urodzenia_w_zakladce', 'Wprowadź rok urodzenia w zakładce Zwierzę, aby sprawdzić swoją zgodność')}
             </Typography>
           </View>
         )}
@@ -1807,7 +1807,7 @@ Write in English, deep and wise, around 150 words.`,
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 20 }}>
         {/* I Ching hexagram of the day */}
         <Animated.View entering={FadeInDown.duration(400)} style={{ paddingHorizontal: layout.padding.screen, marginBottom: 14 }}>
-          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>I CHING — TRIGRAM DNIA</Typography>
+          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.i_ching_trigram_dnia', 'I CHING — TRIGRAM DNIA')}</Typography>
           <LinearGradient
             colors={[GOLD + '18', ACCENT + '10']}
             style={[ch.card, { borderColor: GOLD + '50', marginTop: 8 }]}
@@ -1845,7 +1845,7 @@ Write in English, deep and wise, around 150 words.`,
 
         {/* All Trigrams */}
         <Animated.View entering={FadeInDown.duration(400).delay(80)} style={{ paddingHorizontal: layout.padding.screen, marginBottom: 14 }}>
-          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>8 TRYGRAMÓW — FUNDAMENT I CHING</Typography>
+          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.8_trygramow_fundament_i_ching', '8 TRYGRAMÓW — FUNDAMENT I CHING')}</Typography>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 10 }}>
             {TRIGRAMS.map((trig, i) => {
               const isExpanded = expandedTrigram === i;
@@ -1877,10 +1877,10 @@ Write in English, deep and wise, around 150 words.`,
 
         {/* Lo Shu Magic Square */}
         <Animated.View entering={FadeInDown.duration(400).delay(160)} style={{ paddingHorizontal: layout.padding.screen, marginBottom: 14 }}>
-          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>LO SHU — MAGICZNY KWADRAT</Typography>
+          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.lo_shu_magiczny_kwadrat', 'LO SHU — MAGICZNY KWADRAT')}</Typography>
           <View style={[ch.card, { backgroundColor: cardBg, borderColor: cardBorder, marginTop: 8, alignItems: 'center' }]}>
             <Typography variant="body" style={{ color: subColor, fontSize: 13, lineHeight: 18, marginBottom: 14, textAlign: 'center' }}>
-              Magiczny kwadrat Lo Shu — legendarny symbol z rzeki Lo. Każdy rząd, kolumna i przekątna sumuje się do 15.
+              {t('chineseHoroscope.magiczny_kwadrat_lo_shu_legendarny', 'Magiczny kwadrat Lo Shu — legendarny symbol z rzeki Lo. Każdy rząd, kolumna i przekątna sumuje się do 15.')}
             </Typography>
             <LoShuGrid accent={ACCENT} />
             <View style={{ marginTop: 14, flexDirection: 'row', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -1900,10 +1900,10 @@ Write in English, deep and wise, around 150 words.`,
 
         {/* Ba Zi — 4 Pillars */}
         <Animated.View entering={FadeInDown.duration(400).delay(220)} style={{ paddingHorizontal: layout.padding.screen, marginBottom: 14 }}>
-          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>BA ZI — CZTERY FILARY PRZEZNACZENIA</Typography>
+          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.ba_zi_cztery_filary_przeznacze', 'BA ZI — CZTERY FILARY PRZEZNACZENIA')}</Typography>
           <View style={[ch.card, { backgroundColor: cardBg, borderColor: cardBorder, marginTop: 8 }]}>
             <Typography variant="body" style={{ color: subColor, fontSize: 13, lineHeight: 18, marginBottom: 14 }}>
-              Ba Zi (osiem znaków) analizuje cztery filary: Rok, Miesiąc, Dzień i Godzinę narodzin. Każdy filar zawiera dwa znaki tworząc 8 znaków — mapę przeznaczenia.
+              {t('chineseHoroscope.ba_zi_osiem_znakow_analizuje', 'Ba Zi (osiem znaków) analizuje cztery filary: Rok, Miesiąc, Dzień i Godzinę narodzin. Każdy filar zawiera dwa znaki tworząc 8 znaków — mapę przeznaczenia.')}
             </Typography>
             <View style={{ flexDirection: 'row', gap: 8 }}>
               {[
@@ -1927,7 +1927,7 @@ Write in English, deep and wise, around 150 words.`,
 
         {/* Proverbs */}
         <Animated.View entering={FadeInDown.duration(400).delay(300)} style={{ paddingHorizontal: layout.padding.screen }}>
-          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>CHIŃSKIE PRZYSŁOWIA I MĄDROŚCI</Typography>
+          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.chinskie_przyslowia_i_madrosci', 'CHIŃSKIE PRZYSŁOWIA I MĄDROŚCI')}</Typography>
           {PROVERBS.map((prov, i) => {
             const isExpanded = expandedProverb === i;
             return (
@@ -1966,7 +1966,7 @@ Write in English, deep and wise, around 150 words.`,
           >
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 10 }}>
               <Eye size={16} color={GOLD} />
-              <Typography variant="microLabel" style={{ color: GOLD, letterSpacing: 1.5, fontSize: 10 }}>MĄDROŚĆ NA DZIŚ</Typography>
+              <Typography variant="microLabel" style={{ color: GOLD, letterSpacing: 1.5, fontSize: 10 }}>{t('chineseHoroscope.madrosc_na_dzis', 'MĄDROŚĆ NA DZIŚ')}</Typography>
             </View>
             <Typography variant="body" style={{ color: textColor, lineHeight: 21, fontSize: 14, fontStyle: 'italic' }}>
               "{currentYear.animal?.pl && PROVERBS[new Date().getDate() % PROVERBS.length].polish}"
@@ -2041,9 +2041,9 @@ FINANSE:
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 20 }}>
         {/* Header */}
         <Animated.View entering={FadeInDown.duration(400)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 16, marginBottom: 12 }}>
-          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>CHIŃSKA WYROCZNIA AI</Typography>
+          <Typography variant="microLabel" style={[ch.sectionLabel, { color: GOLD }]}>{t('chineseHoroscope.chinska_wyrocznia_ai', 'CHIŃSKA WYROCZNIA AI')}</Typography>
           <Typography variant="body" style={{ color: subColor, fontSize: 13, marginTop: 4, lineHeight: 18 }}>
-            Personalizowana przepowiednia oparta na energii Twojego zwierzęcia i elementu
+            {t('chineseHoroscope.personaliz_przepowied_oparta_na_ene', 'Personalizowana przepowiednia oparta na energii Twojego zwierzęcia i elementu')}
           </Typography>
         </Animated.View>
 
@@ -2075,7 +2075,7 @@ FINANSE:
             >
               <Typography style={{ fontSize: 44 }}>{activeAnimal.emoji}</Typography>
               <View style={{ flex: 1 }}>
-                <Typography variant="microLabel" style={{ color: GOLD, fontSize: 10, letterSpacing: 1.5 }}>TWÓJ ZNAK</Typography>
+                <Typography variant="microLabel" style={{ color: GOLD, fontSize: 10, letterSpacing: 1.5 }}>{t('chineseHoroscope.twoj_znak_1', 'TWÓJ ZNAK')}</Typography>
                 <Typography variant="heading" style={{ color: textColor, fontSize: 22, fontWeight: '800' }}>{activeAnimal.pl}</Typography>
                 <Typography variant="micro" style={{ color: subColor, fontSize: 12 }}>{activeAnimal.element} · {activeAnimal.yin_yang}</Typography>
               </View>
@@ -2086,7 +2086,7 @@ FINANSE:
             <View style={[ch.card, { backgroundColor: cardBg, borderColor: cardBorder, alignItems: 'center', paddingVertical: 20 }]}>
               <Typography style={{ fontSize: 32 }}>🐉</Typography>
               <Typography variant="body" style={{ color: subColor, textAlign: 'center', marginTop: 8, fontSize: 13 }}>
-                Wróć do zakładki Zwierzę i wprowadź rok urodzenia, aby odblokować przepowiednię
+                {t('chineseHoroscope.wroc_do_zakladki_zwierze_i', 'Wróć do zakładki Zwierzę i wprowadź rok urodzenia, aby odblokować przepowiednię')}
               </Typography>
             </View>
           </Animated.View>
@@ -2111,7 +2111,7 @@ FINANSE:
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                   <Sparkles size={18} color="#fff" />
                   <Typography variant="body" style={{ color: '#fff', fontWeight: '700', fontSize: 15 }}>
-                    Generuj Przepowiednię
+                    {t('chineseHoroscope.generuj_przepowied', 'Generuj Przepowiednię')}
                   </Typography>
                 </View>
               )}
@@ -2150,7 +2150,7 @@ FINANSE:
           >
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 }}>
               <Eye size={14} color={GOLD} />
-              <Typography variant="microLabel" style={{ color: GOLD, fontSize: 10, letterSpacing: 1.5 }}>KWADRat LO SHU</Typography>
+              <Typography variant="microLabel" style={{ color: GOLD, fontSize: 10, letterSpacing: 1.5 }}>{t('chineseHoroscope.kwadrat_lo_shu', 'KWADRat LO SHU')}</Typography>
             </View>
             <View style={{ alignSelf: 'center', marginBottom: 10 }}>
               {LO_SHU.map((row, ri) => (
@@ -2164,7 +2164,7 @@ FINANSE:
               ))}
             </View>
             <Typography variant="micro" style={{ color: subColor, fontSize: 11, lineHeight: 16, textAlign: 'center' }}>
-              Magiczny kwadrat Lo Shu — suma każdego wiersza, kolumny i przekątnej wynosi 15. Symbol harmonii i porządku kosmicznego.
+              {t('chineseHoroscope.magiczny_kwadrat_lo_shu_suma', 'Magiczny kwadrat Lo Shu — suma każdego wiersza, kolumny i przekątnej wynosi 15. Symbol harmonii i porządku kosmicznego.')}
             </Typography>
           </LinearGradient>
         </Animated.View>
@@ -2190,10 +2190,10 @@ FINANSE:
         </Pressable>
         <View style={{ flex: 1, alignItems: 'center' }}>
           <Typography variant="heading" style={{ color: GOLD, fontSize: 18, fontWeight: '800', letterSpacing: 1 }}>
-            龙 CHIŃSKI HOROSKOP
+            {t('chineseHoroscope.chinski_horoskop', '龙 CHIŃSKI HOROSKOP')}
           </Typography>
           <Typography variant="micro" style={{ color: subColor, fontSize: 10, letterSpacing: 1.5 }}>
-            ZODIAK WSCHODU
+            {t('chineseHoroscope.zodiak_wschodu', 'ZODIAK WSCHODU')}
           </Typography>
         </View>
         <View style={{ flexDirection: 'row', gap: 6 }}>
@@ -2257,20 +2257,20 @@ FINANSE:
               >
                 <View style={ch.fsSheetHeader}>
                   <Typography variant="heading" style={{ color: textColor, fontSize: 20, fontWeight: '700' }}>
-                    Horoskop dla kogoś
+                    {t('chineseHoroscope.horoskop_dla_kogos', 'Horoskop dla kogoś')}
                   </Typography>
                   <Pressable onPress={() => setShowFsModal(false)} hitSlop={12}>
                     <X size={20} color={subColor} />
                   </Pressable>
                 </View>
                 <Typography variant="body" style={{ color: subColor, fontSize: 13, marginBottom: 18, lineHeight: 18 }}>
-                  Wprowadź imię i datę urodzenia osoby, dla której chcesz sprawdzić horoskop
+                  {t('chineseHoroscope.wprowadz_imie_i_date_urodzenia', 'Wprowadź imię i datę urodzenia osoby, dla której chcesz sprawdzić horoskop')}
                 </Typography>
                 <TextInput
                   style={[ch.fsInput, { backgroundColor: inputBg, borderColor: cardBorder, color: textColor }]}
                   value={fsNameInput}
                   onChangeText={setFsNameInput}
-                  placeholder="Imię osoby"
+                  placeholder={t('chineseHoroscope.imie_osoby', 'Imię osoby')}
                   placeholderTextColor={subColor}
                   autoFocus
                   returnKeyType="next"
@@ -2300,12 +2300,12 @@ FINANSE:
                   disabled={!fsNameInput.trim()}
                 >
                   <Typography variant="body" style={{ color: '#fff', fontWeight: '700', fontSize: 15 }}>
-                    Sprawdź horoskop
+                    {t('chineseHoroscope.sprawdz_horoskop', 'Sprawdź horoskop')}
                   </Typography>
                 </Pressable>
                 {forSomeone && (
                   <Pressable onPress={() => { clearForSomeone(); setShowFsModal(false); }} style={{ marginTop: 12, alignItems: 'center' }}>
-                    <Typography variant="body" style={{ color: subColor, fontSize: 13 }}>Wróć do swojego horoskopu</Typography>
+                    <Typography variant="body" style={{ color: subColor, fontSize: 13 }}>{t('chineseHoroscope.wroc_do_swojego_horoskopu', 'Wróć do swojego horoskopu')}</Typography>
                   </Pressable>
                 )}
               </ScrollView>

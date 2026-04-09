@@ -688,7 +688,7 @@ export const MilestoneShareScreen = ({ route, navigation }: any) => {
             <ChevronLeft color={currentTheme.primary} size={26} strokeWidth={1.5} />
           </Pressable>
           <Text style={[styles.headerTitle, { color: subText, letterSpacing: 1.8 }]}>
-            ✦ ŚWIĘTUJ CHWILĘ
+            {t('milestoneShare.swietuj_chwile', '✦ ŚWIĘTUJ CHWILĘ')}
           </Text>
           <View style={{ width: 26 }} />
         </View>
@@ -742,21 +742,21 @@ export const MilestoneShareScreen = ({ route, navigation }: any) => {
               />
               <View style={styles.cardHeader}>
                 <Trophy color={color} size={16} strokeWidth={1.5} />
-                <Text style={[styles.cardHeaderLabel, { color: subText }]}>SZCZEGÓŁY OSIĄGNIĘCIA</Text>
+                <Text style={[styles.cardHeaderLabel, { color: subText }]}>{t('milestoneShare.szczegoly_osiagnieci', 'SZCZEGÓŁY OSIĄGNIĘCIA')}</Text>
               </View>
 
               <View style={[styles.detailRow, { borderBottomColor: divColor }]}>
-                <Text style={[styles.detailKey, { color: subText }]}>Typ</Text>
+                <Text style={[styles.detailKey, { color: subText }]}>{t('milestoneShare.typ', 'Typ')}</Text>
                 <Text style={[styles.detailVal, { color: bodyText }]}>
                   {badge?.type || archetype}
                 </Text>
               </View>
               <View style={[styles.detailRow, { borderBottomColor: divColor }]}>
-                <Text style={[styles.detailKey, { color: subText }]}>Data zdobycia</Text>
+                <Text style={[styles.detailKey, { color: subText }]}>{t('milestoneShare.data_zdobycia', 'Data zdobycia')}</Text>
                 <Text style={[styles.detailVal, { color: bodyText }]}>{dateEarned}</Text>
               </View>
               <View style={[styles.detailRow, { borderBottomColor: divColor }]}>
-                <Text style={[styles.detailKey, { color: subText }]}>Rzadkość</Text>
+                <Text style={[styles.detailKey, { color: subText }]}>{t('milestoneShare.rzadkosc', 'Rzadkość')}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                   <View style={[styles.rarityDot, { backgroundColor: rarityColor }]} />
                   <Text style={[styles.detailVal, { color: rarityColor }]}>{rarity}</Text>
@@ -764,7 +764,7 @@ export const MilestoneShareScreen = ({ route, navigation }: any) => {
               </View>
               {badge?.description ? (
                 <View style={[styles.detailRow, { borderBottomColor: 'transparent' }]}>
-                  <Text style={[styles.detailKey, { color: subText }]}>Opis</Text>
+                  <Text style={[styles.detailKey, { color: subText }]}>{t('milestoneShare.opis', 'Opis')}</Text>
                   <Text style={[styles.detailVal, { color: bodyText, flex: 1 }]}>{badge.description}</Text>
                 </View>
               ) : null}
@@ -803,7 +803,7 @@ export const MilestoneShareScreen = ({ route, navigation }: any) => {
               />
               <View style={styles.cardHeader}>
                 <Sparkles color={GOLD} size={14} strokeWidth={1.5} />
-                <Text style={[styles.cardHeaderLabel, { color: subText }]}>PRZESŁANIE DLA CIEBIE</Text>
+                <Text style={[styles.cardHeaderLabel, { color: subText }]}>{t('milestoneShare.przeslanie_dla_ciebie', 'PRZESŁANIE DLA CIEBIE')}</Text>
               </View>
               <Text style={[styles.celebrationBody, { color: bodyText }]}>
                 Droga/i {userName},{'\n\n'}
@@ -833,7 +833,7 @@ export const MilestoneShareScreen = ({ route, navigation }: any) => {
 
           {/* ─── Share Options Grid ─── */}
           <Animated.View entering={FadeInUp.delay(440).duration(600)}>
-            <Text style={[styles.sectionLabel, { color: subText }]}>UDOSTĘPNIJ OSIĄGNIĘCIE</Text>
+            <Text style={[styles.sectionLabel, { color: subText }]}>{t('milestoneShare.udostepnij_osiagnieci', 'UDOSTĘPNIJ OSIĄGNIĘCIE')}</Text>
             <View style={styles.tilesGrid}>
               {SHARE_TILES.map((tile, i) => (
                 <ShareTile
@@ -858,10 +858,10 @@ export const MilestoneShareScreen = ({ route, navigation }: any) => {
               />
               <View style={styles.cardHeader}>
                 <Star color={GOLD} size={14} strokeWidth={1.5} />
-                <Text style={[styles.cardHeaderLabel, { color: subText }]}>NASTĘPNY CEL</Text>
+                <Text style={[styles.cardHeaderLabel, { color: subText }]}>{t('milestoneShare.nastepny_cel', 'NASTĘPNY CEL')}</Text>
               </View>
               <Text style={[styles.nextMilestoneTitle, { color: currentTheme.primary }]}>
-                Do następnego osiągnięcia…
+                {t('milestoneShare.do_nastepnego_osiagnieci', 'Do następnego osiągnięcia…')}
               </Text>
               <Text style={[styles.nextMilestoneName, { color: bodyText }]}>{nextMilestone}</Text>
               <View style={{ marginTop: 16 }}>
@@ -874,7 +874,7 @@ export const MilestoneShareScreen = ({ route, navigation }: any) => {
                 />
               </View>
               <Text style={[styles.nextMilestoneHint, { color: subText }]}>
-                Kontynuuj codzienną praktykę, by odblokować kolejny poziom.
+                {t('milestoneShare.kontynuuj_codzienna_praktyke_by_odb', 'Kontynuuj codzienną praktykę, by odblokować kolejny poziom.')}
               </Text>
             </View>
           </Animated.View>
@@ -893,7 +893,7 @@ export const MilestoneShareScreen = ({ route, navigation }: any) => {
               />
               <Sparkles color={isLight ? '#000' : '#FFF'} size={22} strokeWidth={1.5} />
               <Text style={[styles.celebrateBtnText, { color: isLight ? '#000' : '#FFF' }]}>
-                Świętuj! 🎉
+                {t('milestoneShare.swietuj', 'Świętuj! 🎉')}
               </Text>
             </Pressable>
           </Animated.View>
@@ -911,7 +911,7 @@ export const MilestoneShareScreen = ({ route, navigation }: any) => {
                 style={[StyleSheet.absoluteFill, { borderRadius: 20 }]}
               />
               <Share2 color="#000" size={20} strokeWidth={1.8} />
-              <Text style={styles.shareBtnText}>Podziel się osiągnięciem</Text>
+              <Text style={styles.shareBtnText}>{t('milestoneShare.podziel_sie_osiagnieci', 'Podziel się osiągnięciem')}</Text>
             </Pressable>
           </Animated.View>
 

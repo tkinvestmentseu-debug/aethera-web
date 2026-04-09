@@ -4,6 +4,9 @@ import {
   signOut,
   onAuthStateChanged,
   User,
+  GoogleAuthProvider,
+  OAuthProvider,
+  signInWithCredential,
 } from 'firebase/auth';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from '../config/firebase.config';
@@ -78,3 +81,14 @@ export const AuthService = {
     return auth.currentUser;
   },
 };
+
+export async function signInWithGoogle(idToken: string): Promise<void> {
+  const credential = GoogleAuthProvider.credential(idToken);
+  await signInWithCredential(auth, credential);
+}
+
+export async function signInWithApple(idToken: string, nonce: string): Promise<void> {
+  const provider = new OAuthProvider('apple.com');
+  const credential = provider.credential({ idToken, rawNonce: nonce });
+  await signInWithCredential(auth, credential);
+}

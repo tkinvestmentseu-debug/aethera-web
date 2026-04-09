@@ -396,7 +396,7 @@ export function CrystalGuideScreen({ navigation }: any) {
     if (isFav) {
       removeFavoriteItem('crystal-guide');
     } else {
-      addFavoriteItem({ id: 'crystal-guide', label: 'Przewodnik Kryształów', icon: 'Gem', color: ACCENT, route: 'CrystalGuide', addedAt: Date.now() });
+      addFavoriteItem({ id: 'crystal-guide', label: t('crystalGuide.przewodnik_krystalow', 'Przewodnik Kryształów'), icon: 'Gem', color: ACCENT, route: 'CrystalGuide', addedAt: Date.now() });
     }
   }, [isFav, addFavoriteItem, removeFavoriteItem]);
 
@@ -509,7 +509,7 @@ export function CrystalGuideScreen({ navigation }: any) {
               </View>
 
               {/* Properties */}
-              <Text style={[styles.sectionLabel, { color: ACCENT }]}>WŁAŚCIWOŚCI</Text>
+              <Text style={[styles.sectionLabel, { color: ACCENT }]}>{t('crystalGuide.wlasciwosc', 'WŁAŚCIWOŚCI')}</Text>
               {c.properties.map((p, i) => (
                 <View key={i} style={styles.bulletRow}>
                   <View style={[styles.bullet, { backgroundColor: c.color }]} />
@@ -518,7 +518,7 @@ export function CrystalGuideScreen({ navigation }: any) {
               ))}
 
               {/* How to use */}
-              <Text style={[styles.sectionLabel, { color: ACCENT, marginTop: 16 }]}>JAK UŻYWAĆ</Text>
+              <Text style={[styles.sectionLabel, { color: ACCENT, marginTop: 16 }]}>{t('crystalGuide.jak_uzywac', 'JAK UŻYWAĆ')}</Text>
               {c.howToUse.map((tip, i) => (
                 <View key={i} style={styles.bulletRow}>
                   <Text style={[styles.bulletNum, { color: c.color }]}>{i + 1}.</Text>
@@ -527,7 +527,7 @@ export function CrystalGuideScreen({ navigation }: any) {
               ))}
 
               {/* How to clean */}
-              <Text style={[styles.sectionLabel, { color: ACCENT, marginTop: 16 }]}>JAK CZYŚCIĆ</Text>
+              <Text style={[styles.sectionLabel, { color: ACCENT, marginTop: 16 }]}>{t('crystalGuide.jak_czyscic', 'JAK CZYŚCIĆ')}</Text>
               {c.howToClean.map((tip, i) => (
                 <View key={i} style={styles.bulletRow}>
                   <Text style={[styles.bulletNum, { color: '#AED6F1' }]}>✦</Text>
@@ -542,14 +542,14 @@ export function CrystalGuideScreen({ navigation }: any) {
               >
                 <LinearGradient colors={[c.color + '33', c.color + '15']} style={styles.aiBtnGrad}>
                   <Sparkles size={16} color={c.color} />
-                  <Text style={[styles.aiBtnText, { color: c.color }]}>Poproś Oracle o wskazówki</Text>
+                  <Text style={[styles.aiBtnText, { color: c.color }]}>{t('crystalGuide.popros_oracle_o_wskazowki', 'Poproś Oracle o wskazówki')}</Text>
                 </LinearGradient>
               </Pressable>
 
               {modalAiLoading && (
                 <View style={{ alignItems: 'center', paddingVertical: 16 }}>
                   <ActivityIndicator color={c.color} />
-                  <Text style={[styles.loadingText, { color: subColor }]}>Oracle przemawia...</Text>
+                  <Text style={[styles.loadingText, { color: subColor }]}>{t('crystalGuide.oracle_przemawia', 'Oracle przemawia...')}</Text>
                 </View>
               )}
               {!!modalAiText && (
@@ -576,8 +576,8 @@ export function CrystalGuideScreen({ navigation }: any) {
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={{ flex: 1 }}>
-          <Text style={[styles.eyebrow, { color: ACCENT }]}>KOLEKCJA</Text>
-          <Text style={[styles.title, { color: textColor }]}>PRZEWODNIK KRYSZTAŁÓW</Text>
+          <Text style={[styles.eyebrow, { color: ACCENT }]}>{t('crystalGuide.kolekcja', 'KOLEKCJA')}</Text>
+          <Text style={[styles.title, { color: textColor }]}>{t('crystalGuide.przewodnik_krysztalow', 'PRZEWODNIK KRYSZTAŁÓW')}</Text>
         </View>
         <Pressable onPress={handleStar} style={styles.headerBtn}>
           <Star size={20} color={isFav ? '#F9A825' : subColor} fill={isFav ? '#F9A825' : 'none'} />
@@ -589,7 +589,7 @@ export function CrystalGuideScreen({ navigation }: any) {
         <Search size={16} color={subColor} />
         <TextInput
           style={[styles.searchInput, { color: textColor }]}
-          placeholder="Szukaj kryształu..."
+          placeholder={t('crystalGuide.szukaj_krysztalu', 'Szukaj kryształu...')}
           placeholderTextColor={subColor}
           value={search}
           onChangeText={setSearch}
@@ -641,19 +641,19 @@ export function CrystalGuideScreen({ navigation }: any) {
                 style={[styles.aiReadingBtn, { borderColor: ACCENT + '55' }]}
               >
                 <Gem size={18} color={ACCENT} />
-                <Text style={[styles.aiReadingText, { color: ACCENT }]}>Moje Kryształy na Ten Czas</Text>
+                <Text style={[styles.aiReadingText, { color: ACCENT }]}>{t('crystalGuide.moje_krysztaly_na_ten_czas', 'Moje Kryształy na Ten Czas')}</Text>
                 <Sparkles size={14} color={ACCENT} style={{ opacity: 0.7 }} />
               </LinearGradient>
             </Pressable>
             {aiLoading && (
               <View style={{ alignItems: 'center', paddingVertical: 14 }}>
                 <ActivityIndicator color={ACCENT} />
-                <Text style={[styles.loadingText, { color: subColor }]}>Oracle dobiera kryształy...</Text>
+                <Text style={[styles.loadingText, { color: subColor }]}>{t('crystalGuide.oracle_dobiera_krysztaly', 'Oracle dobiera kryształy...')}</Text>
               </View>
             )}
             {!!aiResult && (
               <View style={[styles.aiResultCard, { backgroundColor: ACCENT + '12', borderColor: ACCENT + '44', marginTop: 10 }]}>
-                <Text style={[styles.aiResultLabel, { color: ACCENT }]}>✦ ODCZYT KRYSZTAŁOWY</Text>
+                <Text style={[styles.aiResultLabel, { color: ACCENT }]}>{t('crystalGuide.odczyt_krysztalow', '✦ ODCZYT KRYSZTAŁOWY')}</Text>
                 <Text style={[styles.aiResultText, { color: textColor }]}>{aiResult}</Text>
               </View>
             )}
@@ -662,7 +662,7 @@ export function CrystalGuideScreen({ navigation }: any) {
 
         {/* Category Filter */}
         <View style={{ marginTop: 22, marginBottom: 4 }}>
-          <Text style={[styles.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>KOLEKCJA KRYSZTAŁÓW</Text>
+          <Text style={[styles.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>{t('crystalGuide.kolekcja_krysztalow', 'KOLEKCJA KRYSZTAŁÓW')}</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -layout.padding.screen }} contentContainerStyle={{ paddingHorizontal: layout.padding.screen, gap: 8 }}>
             {CATEGORIES.map(cat => {
               const isActive = activeCategory === cat;
@@ -690,7 +690,7 @@ export function CrystalGuideScreen({ navigation }: any) {
           {filtered.length === 0 && (
             <View style={{ padding: 32, alignItems: 'center', width: '100%' }}>
               <Gem size={36} color={subColor} />
-              <Text style={[styles.emptyText, { color: subColor }]}>Brak kryształów dla tej kategorii</Text>
+              <Text style={[styles.emptyText, { color: subColor }]}>{t('crystalGuide.brak_krysztalow_dla_tej_kategorii', 'Brak kryształów dla tej kategorii')}</Text>
             </View>
           )}
         </View>
@@ -698,7 +698,7 @@ export function CrystalGuideScreen({ navigation }: any) {
         {/* Crystal Care */}
         {!search && (
           <Animated.View entering={FadeInDown.delay(300).duration(400)} style={{ marginTop: 24 }}>
-            <Text style={[styles.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>PIELĘGNACJA KRYSZTAŁÓW</Text>
+            <Text style={[styles.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>{t('crystalGuide.pielegnacj_krysztalow', 'PIELĘGNACJA KRYSZTAŁÓW')}</Text>
             {CARE_SECTIONS.map(section => (
               <View key={section.id} style={[styles.accordionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <Pressable
@@ -727,11 +727,11 @@ export function CrystalGuideScreen({ navigation }: any) {
         {/* CO DALEJ? */}
         {!search && (
           <Animated.View entering={FadeInDown.delay(360).duration(400)} style={{ marginTop: 24 }}>
-            <Text style={[styles.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>CO DALEJ?</Text>
+            <Text style={[styles.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>{t('crystalGuide.co_dalej', 'CO DALEJ?')}</Text>
             {[
-              { label: 'Czakry', desc: 'Zbadaj 7 centrów energetycznych ciała', route: 'Chakra', icon: Layers, color: '#A78BFA' },
-              { label: 'Medytacja', desc: 'Głęboka praktyka z kryształem w dłoni', route: 'Meditation', icon: Moon, color: '#60A5FA' },
-              { label: 'Kąpiel dźwiękowa', desc: 'Uzdrawiające wibracje i kryształowe czyszczenie', route: 'SoundBath', icon: Headphones, color: '#34D399' },
+              { label: t('crystalGuide.czakry', 'Czakry'), desc: t('crystalGuide.zbadaj_czakry', 'Zbadaj 7 centrów energetycznych ciała'), route: 'Chakra', icon: Layers, color: '#A78BFA' },
+              { label: t('crystalGuide.medytacja', 'Medytacja'), desc: t('crystalGuide.glęboka_praktyka', 'Głęboka praktyka z kryształem w dłoni'), route: 'Meditation', icon: Moon, color: '#60A5FA' },
+              { label: t('crystalGuide.kapiel_dzwiekowa', 'Kąpiel dźwiękowa'), desc: t('crystalGuide.uzdrawiajace_wibracje', 'Uzdrawiające wibracje i kryształowe czyszczenie'), route: 'SoundBath', icon: Headphones, color: '#34D399' },
             ].map((item, i) => (
               <Animated.View key={item.route} entering={FadeInDown.delay(380 + i * 60).duration(350)}>
                 <Pressable

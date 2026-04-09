@@ -408,14 +408,14 @@ const StreakCalendar = ({ entries, meditationSessions, breathworkSessions, accen
       </Svg>
       {/* Legend */}
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 8 }}>
-        <Typography style={{ fontSize: 9, color: subColor }}>Mniej</Typography>
+        <Typography style={{ fontSize: 9, color: subColor }}>{t('reports.mniej', 'Mniej')}</Typography>
         {[0, 1, 2, 3, 4].map(level => (
           <View
             key={level}
             style={{ width: CELL, height: CELL, borderRadius: 2, backgroundColor: getColor(level) }}
           />
         ))}
-        <Typography style={{ fontSize: 9, color: subColor }}>Więcej</Typography>
+        <Typography style={{ fontSize: 9, color: subColor }}>{t('reports.wiecej', 'Więcej')}</Typography>
       </View>
     </View>
   );
@@ -995,7 +995,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           </Pressable>
           <View style={{ flex: 1, alignItems: 'center' }}>
             <Typography variant="premiumLabel" color={accent} style={{ marginBottom: 4 }}>{t('reports.pathAnalysis')}</Typography>
-            <Typography variant="screenTitle">Raport Duszy</Typography>
+            <Typography variant="screenTitle">{t('reports.raport_duszy', 'Raport Duszy')}</Typography>
           </View>
           <Pressable
             onPress={() => { if (isFavoriteItem('reports')) { removeFavoriteItem('reports'); } else { addFavoriteItem({ id: 'reports', label: 'Raporty duszy', route: 'Reports', params: {}, icon: 'Sparkles', color: accent, addedAt: new Date().toISOString() }); } }}
@@ -1013,7 +1013,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
 
           {/* ── 1. HERO STATS BANNER ────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.duration(560)}>
-            <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>Twój profil duchowy</Typography>
+            <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>{t('reports.twoj_profil_duchowy', 'Twój profil duchowy')}</Typography>
             <View style={[styles.heroBanner, {
               backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)',
               borderColor: isLight ? 'rgba(139,100,42,0.32)' : accent + '22',
@@ -1076,10 +1076,10 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
 
           {/* ── WEEKLY CORE / DOMINANT MOOD ──────────────────────────── */}
           <Animated.View entering={FadeInUp.delay(40).duration(560)}>
-            <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>Rdzeń tygodnia</Typography>
+            <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>{t('reports.rdzen_tygodnia', 'Rdzeń tygodnia')}</Typography>
             <Typography variant="editorialHeader" style={[styles.moodTitle, { color: textColor }]}>{dominantMoodLabel}</Typography>
             <Typography variant="bodySmall" style={[styles.moodCopy, { color: subColor }]}>
-              To jest dominująca warstwa, przez którą warto czytać resztę raportu. Nie kolejny dekoracyjny insight, tylko nazwa głównego tonu, który porządkuje decyzje, relacje i poziom energii.
+              {t('reports.to_jest_dominujaca_warstwa_przez', 'To jest dominująca warstwa, przez którą warto czytać resztę raportu. Nie kolejny dekoracyjny insight, tylko nazwa głównego tonu, który porządkuje decyzje, relacje i poziom energii.')}
             </Typography>
             <View style={styles.inlineChipRow}>
               {['energia ' + weeklyInsight.averageEnergy + '%', 'wpisy ' + stats.total, 'streak ' + streaks.current + ' dni'].map((chip) => (
@@ -1096,10 +1096,10 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInUp.delay(55).duration(560)}>
             <View style={styles.sectionHead}>
               <Calendar color={accent} size={18} strokeWidth={1.6} />
-              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>Tydzień w pigułce</Typography>
+              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>{t('reports.tydzien_w_pigulce', 'Tydzień w pigułce')}</Typography>
             </View>
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
-              Które dni były aktywne — i jakie praktyki zostały wykonane. Ikony pokazują rodzaj aktywności duchowej.
+              {t('reports.ktore_dni_byly_aktywne_i', 'Które dni były aktywne — i jakie praktyki zostały wykonane. Ikony pokazują rodzaj aktywności duchowej.')}
             </Typography>
             <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)' }]}>
               <WeekGrid
@@ -1129,17 +1129,17 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInUp.delay(65).duration(560)}>
             <View style={styles.sectionHead}>
               <BarChart3 color={accent} size={18} strokeWidth={1.6} />
-              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>Wykres nastroju — 7 dni</Typography>
+              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>{t('reports.wykres_nastroju_7_dni', 'Wykres nastroju — 7 dni')}</Typography>
             </View>
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 8, lineHeight: 20 }}>
-              Emocjonalny łuk tygodnia — jak zmieniała się Twoja energia od poniedziałku do dziś.
+              {t('reports.emocjonaln_luk_tygodnia_jak_zmienia', 'Emocjonalny łuk tygodnia — jak zmieniała się Twoja energia od poniedziałku do dziś.')}
             </Typography>
             <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)' }]}>
               {entries.length > 0 ? (
                 <MoodChart entries={entries} accent={accent} textColor={textColor} subColor={subColor} />
               ) : (
                 <View style={{ paddingVertical: 24, alignItems: 'center' }}>
-                  <Typography variant="bodySmall" style={{ color: subColor }}>Dodaj wpisy z nastrojami, aby zobaczyć wykres</Typography>
+                  <Typography variant="bodySmall" style={{ color: subColor }}>{t('reports.dodaj_wpisy_z_nastrojami_aby', 'Dodaj wpisy z nastrojami, aby zobaczyć wykres')}</Typography>
                 </View>
               )}
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 8 }}>
@@ -1159,10 +1159,10 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInUp.delay(75).duration(560)}>
             <View style={styles.sectionHead}>
               <Layers color={accent} size={18} strokeWidth={1.6} />
-              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>Rozkład praktyki</Typography>
+              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>{t('reports.rozklad_praktyki', 'Rozkład praktyki')}</Typography>
             </View>
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
-              Wizualny podział czasu między różne formy pracy duchowej.
+              {t('reports.wizualny_podzial_czasu_miedzy_rozne', 'Wizualny podział czasu między różne formy pracy duchowej.')}
             </Typography>
             {practiceStats.length > 0 ? (
               <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)', paddingBottom: 16 }]}>
@@ -1185,7 +1185,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
               </View>
             ) : (
               <Typography variant="bodySmall" style={{ color: subColor }}>
-                Zacznij medytować, pisać w dzienniku i korzystać z Oracle — dane pojawią się tu automatycznie.
+                {t('reports.zacznij_medytowac_pisac_w_dzienniku', 'Zacznij medytować, pisać w dzienniku i korzystać z Oracle — dane pojawią się tu automatycznie.')}
               </Typography>
             )}
           </Animated.View>
@@ -1196,10 +1196,10 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInUp.delay(85).duration(560)}>
             <View style={styles.sectionHead}>
               <Flame color={accent} size={18} strokeWidth={1.6} />
-              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>Kalendarz aktywności — 12 tygodni</Typography>
+              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>{t('reports.kalendarz_aktywnosci_12_tygodni', 'Kalendarz aktywności — 12 tygodni')}</Typography>
             </View>
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
-              Każda komórka to jeden dzień. Im głębszy kolor, tym więcej aktywności w tym dniu.
+              {t('reports.kazda_komorka_to_jeden_dzien', 'Każda komórka to jeden dzień. Im głębszy kolor, tym więcej aktywności w tym dniu.')}
             </Typography>
             <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)' }]}>
               <StreakCalendar
@@ -1213,15 +1213,15 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
               <View style={{ alignItems: 'center' }}>
                 <Typography style={{ fontSize: 20, fontWeight: '700', color: accent }}>{streaks.current}</Typography>
-                <Typography style={{ fontSize: 10, color: subColor }}>Aktualny streak</Typography>
+                <Typography style={{ fontSize: 10, color: subColor }}>{t('reports.aktualny_streak', 'Aktualny streak')}</Typography>
               </View>
               <View style={{ alignItems: 'center' }}>
                 <Typography style={{ fontSize: 20, fontWeight: '700', color: textColor }}>{streaks.highest}</Typography>
-                <Typography style={{ fontSize: 10, color: subColor }}>Rekord</Typography>
+                <Typography style={{ fontSize: 10, color: subColor }}>{t('reports.rekord', 'Rekord')}</Typography>
               </View>
               <View style={{ alignItems: 'center' }}>
                 <Typography style={{ fontSize: 20, fontWeight: '700', color: '#34D399' }}>{totalPracticeDays}</Typography>
-                <Typography style={{ fontSize: 10, color: subColor }}>Dni praktyki</Typography>
+                <Typography style={{ fontSize: 10, color: subColor }}>{t('reports.dni_praktyki', 'Dni praktyki')}</Typography>
               </View>
             </View>
           </Animated.View>
@@ -1232,10 +1232,10 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInUp.delay(90).duration(560)}>
             <View style={styles.sectionHead}>
               <WandSparkles color={accent} size={18} strokeWidth={1.8} />
-              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>Raport duchowy tygodnia</Typography>
+              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>{t('reports.raport_duchowy_tygodnia', 'Raport duchowy tygodnia')}</Typography>
             </View>
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 16, lineHeight: 20 }}>
-              Spersonalizowana analiza AI — wzorzec, ostrzeżenie i kierunek, wygenerowane na podstawie Twojej aktywności z ostatnich 7 dni.
+              {t('reports.spersonali_analiza_ai_wzorzec_ostrz', 'Spersonalizowana analiza AI — wzorzec, ostrzeżenie i kierunek, wygenerowane na podstawie Twojej aktywności z ostatnich 7 dni.')}
             </Typography>
 
             {!weeklyInsights && !isGeneratingWeekly && (
@@ -1251,7 +1251,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
                 />
                 <Sparkles color="#fff" size={16} strokeWidth={1.8} />
                 <Typography variant="cardTitle" style={{ color: '#fff', marginLeft: 10, fontSize: 15 }}>
-                  Wygeneruj raport tygodnia
+                  {t('reports.wygeneruj_raport_tygodnia', 'Wygeneruj raport tygodnia')}
                 </Typography>
                 <ArrowRight color="#fff" size={16} style={{ marginLeft: 'auto' } as any} />
               </Pressable>
@@ -1261,7 +1261,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
               <View style={styles.loadingWrap}>
                 <ActivityIndicator size="small" color={accent} />
                 <Typography variant="bodySmall" color={accent} style={{ marginLeft: 12 }}>
-                  Analiza tygodniowych wzorców...
+                  {t('reports.analiza_tygodniowy_wzorcow', 'Analiza tygodniowych wzorców...')}
                 </Typography>
               </View>
             )}
@@ -1276,14 +1276,14 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
                     <View style={{ width: 32, height: 32, borderRadius: 10, backgroundColor: accent + '20', alignItems: 'center', justifyContent: 'center' }}>
                       <WandSparkles color={accent} size={14} strokeWidth={1.8} />
                     </View>
-                    <Typography variant="premiumLabel" color={accent}>Wyrocznia mówi</Typography>
+                    <Typography variant="premiumLabel" color={accent}>{t('reports.wyrocznia_mowi', 'Wyrocznia mówi')}</Typography>
                   </View>
                   <Typography variant="bodySmall" style={{ color: textColor, lineHeight: 26, fontStyle: 'italic' }}>
                     "{weeklyInsights}"
                   </Typography>
                   <Pressable onPress={() => setWeeklyInsights(null)} style={{ alignSelf: 'flex-end', marginTop: 12, flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                     <RefreshCw color={subColor} size={12} strokeWidth={1.8} />
-                    <Typography style={{ fontSize: 11, color: subColor }}>Wygeneruj ponownie</Typography>
+                    <Typography style={{ fontSize: 11, color: subColor }}>{t('reports.wygeneruj_ponownie', 'Wygeneruj ponownie')}</Typography>
                   </Pressable>
                 </View>
               </Animated.View>
@@ -1296,10 +1296,10 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInUp.delay(100).duration(560)}>
             <View style={styles.sectionHead}>
               <Trophy color={accent} size={18} strokeWidth={1.6} />
-              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>Rekordy osobiste</Typography>
+              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>{t('reports.rekordy_osobiste', 'Rekordy osobiste')}</Typography>
             </View>
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
-              Najlepsze wyniki na Twojej duchowej ścieżce — ślady największych zaangażowań.
+              {t('reports.najlepsze_wyniki_na_twojej_duchowej', 'Najlepsze wyniki na Twojej duchowej ścieżce — ślady największych zaangażowań.')}
             </Typography>
             <View style={{ gap: 10 }}>
               {[
@@ -1381,10 +1381,10 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInUp.delay(115).duration(560)}>
             <View style={styles.sectionHead}>
               <TrendingUp color={accent} size={18} strokeWidth={1.6} />
-              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>Wskaźniki wzrostu — 30 dni</Typography>
+              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>{t('reports.wskazniki_wzrostu_30_dni', 'Wskaźniki wzrostu — 30 dni')}</Typography>
             </View>
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
-              Porównanie ostatnich 30 dni z poprzednimi 30 dniami. Strzałka wskazuje kierunek zmiany.
+              {t('reports.porownanie_ostatnich_30_dni_z', 'Porównanie ostatnich 30 dni z poprzednimi 30 dniami. Strzałka wskazuje kierunek zmiany.')}
             </Typography>
             <View style={{ gap: 10 }}>
               {growthIndicators.map((item, idx) => (
@@ -1433,14 +1433,14 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInUp.delay(125).duration(560)}>
             <View style={styles.sectionHead}>
               <MoonStar color={accent} size={18} strokeWidth={1.6} />
-              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>Nadchodzące wydarzenia kosmiczne</Typography>
+              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>{t('reports.nadchodzac_wydarzenia_kosmiczne', 'Nadchodzące wydarzenia kosmiczne')}</Typography>
             </View>
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
-              Najbliższe fazy księżyca, daty numerologiczne i zjawiska planetarne — przygotuj swoje intencje z wyprzedzeniem.
+              {t('reports.najblizsze_fazy_ksiezyca_daty_numer', 'Najbliższe fazy księżyca, daty numerologiczne i zjawiska planetarne — przygotuj swoje intencje z wyprzedzeniem.')}
             </Typography>
 
             {/* Moon phase events */}
-            <Typography variant="microLabel" color={accent} style={{ marginBottom: 10, letterSpacing: 1.5 }}>FAZY KSIĘŻYCA</Typography>
+            <Typography variant="microLabel" color={accent} style={{ marginBottom: 10, letterSpacing: 1.5 }}>{t('reports.fazy_ksiezyca', 'FAZY KSIĘŻYCA')}</Typography>
             <View style={{ gap: 8, marginBottom: 18 }}>
               {nextMoonEvents.map((event, idx) => (
                 <Animated.View key={event.label} entering={FadeInUp.delay(125 + idx * 40).duration(380)}>
@@ -1471,7 +1471,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
             {/* Numerological power days */}
             {numeroDays.length > 0 && (
               <>
-                <Typography variant="microLabel" color={accent} style={{ marginBottom: 10, letterSpacing: 1.5 }}>DNI NUMEROLOGICZNE</Typography>
+                <Typography variant="microLabel" color={accent} style={{ marginBottom: 10, letterSpacing: 1.5 }}>{t('reports.dni_numerologi', 'DNI NUMEROLOGICZNE')}</Typography>
                 <View style={{ gap: 8, marginBottom: 18 }}>
                   {numeroDays.map((day, idx) => (
                     <View key={idx} style={[styles.cosmicEventRow, {
@@ -1495,7 +1495,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
             )}
 
             {/* Static planetary events */}
-            <Typography variant="microLabel" color={accent} style={{ marginBottom: 10, letterSpacing: 1.5 }}>PLANETY</Typography>
+            <Typography variant="microLabel" color={accent} style={{ marginBottom: 10, letterSpacing: 1.5 }}>{t('reports.planety', 'PLANETY')}</Typography>
             <View style={{ gap: 8 }}>
               {COSMIC_EVENTS_STATIC.map((event, idx) => (
                 <View key={idx} style={[styles.cosmicEventRow, {
@@ -1518,10 +1518,10 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInUp.delay(130).duration(560)}>
             <View style={styles.sectionHead}>
               <Hash color={accent} size={18} strokeWidth={1.6} />
-              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>Chmura słów — dziennik</Typography>
+              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>{t('reports.chmura_slow_dziennik', 'Chmura słów — dziennik')}</Typography>
             </View>
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
-              Najczęstsze słowa z wszystkich Twoich wpisów — tematy, które wracają bez zaproszenia. Im większe, tym częstsze.
+              {t('reports.najczestsz_slowa_z_wszystkich_twoic', 'Najczęstsze słowa z wszystkich Twoich wpisów — tematy, które wracają bez zaproszenia. Im większe, tym częstsze.')}
             </Typography>
             <View style={[styles.chartCard, { backgroundColor: cardBg, borderColor: isLight ? 'rgba(139,100,42,0.32)' : 'rgba(255,255,255,0.07)' }]}>
               {keyWords.length > 0 ? (
@@ -1530,7 +1530,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
                 <View style={{ paddingVertical: 28, alignItems: 'center' }}>
                   <Typography style={{ fontSize: 32, marginBottom: 10 }}>📝</Typography>
                   <Typography variant="bodySmall" style={{ color: subColor, textAlign: 'center', lineHeight: 20 }}>
-                    Napisz kilka wpisów z refleksjami, żeby zobaczyć powtarzające się tematy i symbole.
+                    {t('reports.napisz_kilka_wpisow_z_refleksjam', 'Napisz kilka wpisów z refleksjami, żeby zobaczyć powtarzające się tematy i symbole.')}
                   </Typography>
                 </View>
               )}
@@ -1560,10 +1560,10 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInUp.delay(140).duration(560)}>
             <View style={styles.sectionHead}>
               <Trophy color={accent} size={18} strokeWidth={1.6} />
-              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>Przełomowe momenty</Typography>
+              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>{t('reports.przelomowe_momenty', 'Przełomowe momenty')}</Typography>
             </View>
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
-              Najlepsze punkty tygodnia i wskazanie, co warto zabrać dalej.
+              {t('reports.najlepsze_punkty_tygodnia_i_wskazan', 'Najlepsze punkty tygodnia i wskazanie, co warto zabrać dalej.')}
             </Typography>
             {[
               { label: 'Najlepszy dzień', value: breakthroughMoments.bestDay || 'Brak danych', color: '#34D399', icon: '🌟' },
@@ -1585,7 +1585,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
 
           {/* ── Primary focus ─────────────────────────────────────────── */}
           <Animated.View entering={FadeInUp.delay(150).duration(560)}>
-            <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>Najważniejszy wzór na teraz</Typography>
+            <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>{t('reports.najwazniej_wzor_na_teraz', 'Najważniejszy wzór na teraz')}</Typography>
             <Typography variant="bodyRefined" style={[styles.focusTitle, { color: textColor }]}>{primaryFocus.title}</Typography>
             <Typography variant="bodySmall" style={[styles.focusCopy, { color: subColor }]}>{primaryFocus.body}</Typography>
             <Pressable style={styles.inlineAction} onPress={primaryFocus.onPress}>
@@ -1598,7 +1598,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
 
           {/* ── Three axes ────────────────────────────────────────────── */}
           <Animated.View entering={FadeInUp.delay(160).duration(560)}>
-            <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>Trzy osie tygodnia</Typography>
+            <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>{t('reports.trzy_osie_tygodnia', 'Trzy osie tygodnia')}</Typography>
             {[
               { key: 'RDZEŃ', color: accent, text: `${dominantMoodLabel} i motyw, który wraca częściej niż pojedynczy epizod.` },
               { key: 'NAPIĘCIE', color: '#F97316', text: weeklyInsight.averageEnergy < 45 ? 'Przeciążenie i odzyskiwanie gruntu.' : 'Potrzeba skupienia, żeby zasób nie rozproszył się na zbyt wiele kierunków.' },
@@ -1617,27 +1617,27 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInUp.delay(170).duration(560)}>
             <View style={styles.sectionHead}>
               <Brain color={accent} size={18} strokeWidth={1.6} />
-              <Typography variant="cardTitle" color={accent} style={{ marginLeft: 10 }}>Odczyt tygodnia</Typography>
+              <Typography variant="cardTitle" color={accent} style={{ marginLeft: 10 }}>{t('reports.odczyt_tygodnia', 'Odczyt tygodnia')}</Typography>
             </View>
             <View style={styles.readingGrid}>
               <View style={styles.readingCol}>
-                <Typography variant="microLabel" style={{ color: subColor, marginBottom: 6 }}>Dominująca energia</Typography>
+                <Typography variant="microLabel" style={{ color: subColor, marginBottom: 6 }}>{t('reports.dominujaca_energia', 'Dominująca energia')}</Typography>
                 <Typography variant="subtitle" style={{ fontSize: 18, color: textColor }}>{dominantMoodLabel}</Typography>
                 <Typography variant="bodySmall" style={{ marginTop: 4, color: subColor }}>Średni poziom: {weeklyInsight.averageEnergy}%</Typography>
               </View>
               <View style={[styles.readingDivider, { backgroundColor: dividerColor }]} />
               <View style={styles.readingCol}>
-                <Typography variant="microLabel" style={{ color: subColor, marginBottom: 6 }}>Archetypy</Typography>
+                <Typography variant="microLabel" style={{ color: subColor, marginBottom: 6 }}>{t('reports.archetypy', 'Archetypy')}</Typography>
                 {weeklyInsight.frequentArchetypes.length > 0
                   ? weeklyInsight.frequentArchetypes.map((item) => (
                     <Typography key={item} variant="bodySmall" style={{ marginBottom: 4, color: textColor }}>• {resolveUserFacingText(item)}</Typography>
                   ))
-                  : <Typography variant="bodySmall" style={{ color: subColor }}>Brak wystarczających danych</Typography>
+                  : <Typography variant="bodySmall" style={{ color: subColor }}>{t('reports.brak_wystarczaj_danych', 'Brak wystarczających danych')}</Typography>
                 }
               </View>
             </View>
             <View style={[styles.focusBox, { borderLeftColor: accent, backgroundColor: accent + '0A' }]}>
-              <Typography variant="microLabel" color={accent} style={{ marginBottom: 8 }}>Sugerowany fokus</Typography>
+              <Typography variant="microLabel" color={accent} style={{ marginBottom: 8 }}>{t('reports.sugerowany_fokus', 'Sugerowany fokus')}</Typography>
               <Typography variant="bodyRefined" style={{ lineHeight: 24, fontSize: 15, color: textColor }}>{weeklyInsight.suggestedFocus}</Typography>
             </View>
           </Animated.View>
@@ -1646,7 +1646,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
 
           {/* ── Premium report layers (3 rows) ────────────────────────── */}
           <Animated.View entering={FadeInUp.delay(180).duration(560)}>
-            <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>Raport premium warstwowy</Typography>
+            <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>{t('reports.raport_premium_warstwowy', 'Raport premium warstwowy')}</Typography>
             {[
               { Icon: Gem, label: 'Rdzeń', desc: 'Dominująca energia i motyw, który spina ten tydzień od środka.' },
               { Icon: Waves, label: 'Przepływ', desc: 'Jak zmienia się nastrój, regulacja i kierunek wewnętrzny.' },
@@ -1671,19 +1671,19 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
             <View style={[styles.signalRow, { borderLeftColor: '#34D399', backgroundColor: isLight ? 'rgba(52,211,153,0.06)' : 'rgba(52,211,153,0.06)' }]}>
               <View style={styles.signalRowHead}>
                 <HeartHandshake color="#34D399" size={16} strokeWidth={1.7} />
-                <Typography variant="premiumLabel" color="#34D399" style={{ marginLeft: 8 }}>To wzmacnia</Typography>
+                <Typography variant="premiumLabel" color="#34D399" style={{ marginLeft: 8 }}>{t('reports.to_wzmacnia', 'To wzmacnia')}</Typography>
               </View>
               <Typography variant="bodySmall" style={[styles.signalRowText, { color: subColor }]}>
-                Regularność, prosty zapis po rytuale i nazywanie emocji bez natychmiastowej potrzeby naprawiania wszystkiego.
+                {t('reports.regularnos_prosty_zapis_po_rytuale', 'Regularność, prosty zapis po rytuale i nazywanie emocji bez natychmiastowej potrzeby naprawiania wszystkiego.')}
               </Typography>
             </View>
             <View style={[styles.signalRow, { borderLeftColor: '#F97316', backgroundColor: isLight ? 'rgba(249,115,22,0.05)' : 'rgba(249,115,22,0.05)' }]}>
               <View style={styles.signalRowHead}>
                 <ShieldAlert color="#F97316" size={16} strokeWidth={1.7} />
-                <Typography variant="premiumLabel" color="#F97316" style={{ marginLeft: 8 }}>To rozprasza</Typography>
+                <Typography variant="premiumLabel" color="#F97316" style={{ marginLeft: 8 }}>{t('reports.to_rozprasza', 'To rozprasza')}</Typography>
               </View>
               <Typography variant="bodySmall" style={[styles.signalRowText, { color: subColor }]}>
-                Nadmierne skakanie między bodźcami, odczytami i inspiracjami bez chwili integracji i bez jednego realnego ruchu w codzienności.
+                {t('reports.nadmierne_skakanie_miedzy_bodzcami_', 'Nadmierne skakanie między bodźcami, odczytami i inspiracjami bez chwili integracji i bez jednego realnego ruchu w codzienności.')}
               </Typography>
             </View>
           </Animated.View>
@@ -1706,7 +1706,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInUp.delay(235).duration(560)}>
             <View style={styles.sectionHead}>
               <TrendingUp color={accent} size={18} strokeWidth={1.6} />
-              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>Krajobraz emocjonalny</Typography>
+              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>{t('reports.krajobraz_emocjonaln', 'Krajobraz emocjonalny')}</Typography>
             </View>
             {topMoods.length > 0 ? topMoods.map(([mood, count]) => {
               const pct = stats.total > 0 ? Math.round((count / stats.total) * 100) : 0;
@@ -1723,7 +1723,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
               );
             }) : (
               <Typography variant="bodySmall" style={{ color: subColor, marginTop: 8 }}>
-                Gdy pojawi się więcej wpisów, raport pokaże dominujące emocje i ich powtarzalność.
+                {t('reports.gdy_pojawi_sie_wiecej_wpisow', 'Gdy pojawi się więcej wpisów, raport pokaże dominujące emocje i ich powtarzalność.')}
               </Typography>
             )}
           </Animated.View>
@@ -1732,10 +1732,10 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
 
           {/* ── Mood constellation ────────────────────────────────────── */}
           <Animated.View entering={FadeInUp.delay(260).duration(560)} style={styles.constellationSection}>
-            <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>Konstelacja nastrojów</Typography>
+            <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>{t('reports.konstelacj_nastrojow', 'Konstelacja nastrojów')}</Typography>
             <MoodConstellation entries={entries} />
             <Typography variant="bodySmall" align="center" style={{ marginTop: 18, lineHeight: 22, color: subColor }}>
-              To wizualny ślad Twojej wewnętrznej pogody. Nie ocenia. Pokazuje, które stany wracają częściej niż myślisz.
+              {t('reports.to_wizualny_slad_twojej_wewnetrzne', 'To wizualny ślad Twojej wewnętrznej pogody. Nie ocenia. Pokazuje, które stany wracają częściej niż myślisz.')}
             </Typography>
           </Animated.View>
 
@@ -1748,10 +1748,10 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
                 <>
                   <View style={styles.sectionHead}>
                     <WandSparkles color={accent} size={18} strokeWidth={1.8} />
-                    <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>Raport Duszy</Typography>
+                    <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>{t('reports.raport_duszy_1', 'Raport Duszy')}</Typography>
                   </View>
                   <Typography variant="bodySmall" style={{ marginBottom: 20, lineHeight: 22, color: subColor }}>
-                    Spersonalizowana analiza wzorców, energii i kierunku na ten tydzień, generowana na podstawie Twojej aktywności w sanktuarium.
+                    {t('reports.spersonali_analiza_wzorcow_energii_', 'Spersonalizowana analiza wzorców, energii i kierunku na ten tydzień, generowana na podstawie Twojej aktywności w sanktuarium.')}
                   </Typography>
                   <Pressable onPress={generateSoulReport} style={({ pressed }) => [styles.soulCta, { opacity: pressed ? 0.82 : 1 }]}>
                     <LinearGradient
@@ -1761,7 +1761,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
                       style={StyleSheet.absoluteFillObject as any}
                     />
                     <Brain color="#fff" size={18} strokeWidth={1.8} />
-                    <Typography variant="cardTitle" style={{ color: '#fff', marginLeft: 10, fontSize: 15 }}>Wygeneruj Raport Duszy</Typography>
+                    <Typography variant="cardTitle" style={{ color: '#fff', marginLeft: 10, fontSize: 15 }}>{t('reports.wygeneruj_raport_duszy', 'Wygeneruj Raport Duszy')}</Typography>
                     <ArrowRight color="#fff" size={16} style={{ marginLeft: 'auto' } as any} />
                   </Pressable>
                 </>
@@ -1770,7 +1770,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
               {isGeneratingSoul ? (
                 <View style={styles.loadingWrap}>
                   <ActivityIndicator size="small" color={accent} />
-                  <Typography variant="bodySmall" color={accent} style={{ marginLeft: 12 }}>Czytamy Twój wzór i składamy raport...</Typography>
+                  <Typography variant="bodySmall" color={accent} style={{ marginLeft: 12 }}>{t('reports.czytamy_twoj_wzor_i_skladamy', 'Czytamy Twój wzór i składamy raport...')}</Typography>
                 </View>
               ) : null}
 
@@ -1782,7 +1782,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
                 <>
                   <View style={styles.sectionHead}>
                     <WandSparkles color={accent} size={18} strokeWidth={1.8} />
-                    <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>Raport Duszy</Typography>
+                    <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>{t('reports.raport_duszy_2', 'Raport Duszy')}</Typography>
                   </View>
                   {soulReport.map((section, index) => (
                     <Animated.View key={section.title} entering={FadeInUp.delay(index * 70).duration(420)}>
@@ -1796,7 +1796,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
                     </Animated.View>
                   ))}
                   <Pressable onPress={() => setSoulReport(null)} style={styles.regenerateBtn}>
-                    <Typography variant="caption" style={{ color: subColor }}>Wygeneruj ponownie</Typography>
+                    <Typography variant="caption" style={{ color: subColor }}>{t('reports.wygeneruj_ponownie_1', 'Wygeneruj ponownie')}</Typography>
                   </Pressable>
                 </>
               ) : null}
@@ -1809,10 +1809,10 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInUp.delay(340).duration(560)}>
             <View style={styles.sectionHead}>
               <Share2 color={accent} size={18} strokeWidth={1.6} />
-              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>Eksport i udostępnianie</Typography>
+              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 10 }}>{t('reports.eksport_i_udostepnia', 'Eksport i udostępnianie')}</Typography>
             </View>
             <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 16, lineHeight: 20 }}>
-              Wygeneruj podsumowanie tygodnia z nastrojami, rekordami, słowami kluczami i raportem duszy — gotowe do udostępnienia lub zachowania.
+              {t('reports.wygeneruj_podsumowan_tygodnia_z_nas', 'Wygeneruj podsumowanie tygodnia z nastrojami, rekordami, słowami kluczami i raportem duszy — gotowe do udostępnienia lub zachowania.')}
             </Typography>
 
             {/* Share summary card preview */}
@@ -1826,7 +1826,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
               />
               <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12, gap: 8 }}>
                 <Typography style={{ fontSize: 16 }}>✦</Typography>
-                <Typography style={{ fontSize: 13, fontWeight: '700', color: accent, letterSpacing: 2 }}>AETHERA — RAPORT DUSZY</Typography>
+                <Typography style={{ fontSize: 13, fontWeight: '700', color: accent, letterSpacing: 2 }}>{t('reports.aethera_raport_duszy', 'AETHERA — RAPORT DUSZY')}</Typography>
               </View>
               <View style={{ gap: 6 }}>
                 {[
@@ -1861,14 +1861,14 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
             >
               <Share2 color={accent} size={16} strokeWidth={1.8} />
               <Typography variant="cardTitle" style={{ color: accent, marginLeft: 10, fontSize: 14 }}>
-                Udostępnij raport tygodnia
+                {t('reports.udostepnij_raport_tygodnia', 'Udostępnij raport tygodnia')}
               </Typography>
               <ArrowRight color={accent + '88'} size={14} style={{ marginLeft: 'auto' } as any} />
             </Pressable>
 
             {/* Copy to clipboard hint */}
             <Typography style={{ fontSize: 11, color: subColor, textAlign: 'center', marginTop: 10, lineHeight: 18 }}>
-              Raport zostanie skopiowany jako czytelny tekst — możesz wkleić go do notatek, wiadomości lub innej aplikacji.
+              {t('reports.raport_zostanie_skopiowany_jako_czy', 'Raport zostanie skopiowany jako czytelny tekst — możesz wkleić go do notatek, wiadomości lub innej aplikacji.')}
             </Typography>
           </Animated.View>
 
@@ -1876,9 +1876,9 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
 
           {/* ── Closing editorial ─────────────────────────────────────── */}
           <Animated.View entering={FadeInUp.delay(380).duration(560)}>
-            <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>Warstwa premium raportu</Typography>
+            <Typography variant="premiumLabel" color={accent} style={styles.sectionEyebrow}>{t('reports.warstwa_premium_raportu', 'Warstwa premium raportu')}</Typography>
             <Typography variant="bodyRefined" style={[styles.closingLead, { color: textColor }]}>
-              To nie ma być lista obserwacji. To ma być czytelna kompozycja: co wraca, co się domaga uwagi i jaki ruch naprawdę domyka ten tydzień.
+              {t('reports.to_nie_ma_byc_lista', 'To nie ma być lista obserwacji. To ma być czytelna kompozycja: co wraca, co się domaga uwagi i jaki ruch naprawdę domyka ten tydzień.')}
             </Typography>
             <Typography variant="bodySmall" style={[styles.closingCopy, { color: subColor }]}>
               Jeśli traktujesz ten ekran jak panel dowodzenia, powinien po jednej minucie zostawić jasność, a nie tylko estetyczne wrażenie. Dlatego każda sekcja ma prowadzić do decyzji, nie do samego podziwiania insightu.
@@ -1891,7 +1891,7 @@ Napisz 3-4 zdania osobistego raportu duchowego. Użyj poetyckiego, ale konkretne
           <Animated.View entering={FadeInUp.delay(400).duration(560)}>
             <View style={styles.sectionHead}>
               <Compass color={accent} size={18} strokeWidth={1.7} />
-              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 8 }}>Co z tego wynika praktycznie</Typography>
+              <Typography variant="premiumLabel" color={accent} style={{ marginLeft: 8 }}>{t('reports.co_z_tego_wynika_praktyczni', 'Co z tego wynika praktycznie')}</Typography>
             </View>
             {[
               'Zobacz, która energia wraca częściej niż pozostałe.',

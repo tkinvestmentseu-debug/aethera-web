@@ -472,7 +472,7 @@ export const TarotDeckSelectionScreen = () => {
             hitSlop={12}
           >
             <GitCompare size={15} color={ACCENT} strokeWidth={1.5} />
-            <Typography variant="microLabel" style={{ color: ACCENT, fontSize: 10, marginLeft: 4 }}>Porównaj</Typography>
+            <Typography variant="microLabel" style={{ color: ACCENT, fontSize: 10, marginLeft: 4 }}>{t('tarotDeckSel.porownaj', 'Porównaj')}</Typography>
           </Pressable>
         </View>
 
@@ -489,13 +489,13 @@ export const TarotDeckSelectionScreen = () => {
               <DeckSelectionWidget accent={ACCENT} />
               <View style={[styles.heroBadge, { backgroundColor: ACCENT + '18', borderColor: ACCENT + '44' }]}>
                 <Moon size={11} color={ACCENT} strokeWidth={1.5} />
-                <Text style={[styles.heroBadgeText, { color: ACCENT }]}>TALIA RYTUAŁU</Text>
+                <Text style={[styles.heroBadgeText, { color: ACCENT }]}>{t('tarotDeckSel.talia_rytualu', 'TALIA RYTUAŁU')}</Text>
               </View>
               <Text style={[styles.heroTitle, { color: textColor }]}>
                 Wybierz instrument,{'\n'}przez który tarot będzie mówił
               </Text>
               <Text style={[styles.heroSub, { color: subColor }]}>
-                Nie zmieniasz tylko estetyki — wybierasz głos, który dziś do Ciebie przemówi. Każda talia ma własny archetyp i rezonuje z inną energią.
+                {t('tarotDeckSel.nie_zmieniasz_tylko_estetyki_wybier', 'Nie zmieniasz tylko estetyki — wybierasz głos, który dziś do Ciebie przemówi. Każda talia ma własny archetyp i rezonuje z inną energią.')}
               </Text>
             </View>
           </Animated.View>
@@ -508,11 +508,11 @@ export const TarotDeckSelectionScreen = () => {
                 { backgroundColor: cardBg, borderColor: cardBorder, borderWidth: StyleSheet.hairlineWidth },
               ]}
             >
-              <StatItem label="Odczyty dziś" value={String(todayReadings.length)} isLight={isLight} />
+              <StatItem label={t('tarotDeckSel.odczyty_dzis', 'Odczyty dziś')} value={String(todayReadings.length)} isLight={isLight} />
               <View style={[styles.statDivider, { backgroundColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' }]} />
-              <StatItem label="Wszystkie odczyty" value={String(pastReadings.length)} isLight={isLight} />
+              <StatItem label={t('tarotDeckSel.wszystkie_odczyty', 'Wszystkie odczyty')} value={String(pastReadings.length)} isLight={isLight} />
               <View style={[styles.statDivider, { backgroundColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' }]} />
-              <StatItem label="Aktywna talia" value={activeDeck?.name ? activeDeck.name.split(' ')[0].slice(0, 8) + (activeDeck.name.split(' ')[0].length > 8 ? '…' : '') : '–'} isLight={isLight} />
+              <StatItem label={t('tarotDeckSel.aktywna_talia', 'Aktywna talia')} value={activeDeck?.name ? activeDeck.name.split(' ')[0].slice(0, 8) + (activeDeck.name.split(' ')[0].length > 8 ? '…' : '') : '–'} isLight={isLight} />
             </View>
           </Animated.View>
 
@@ -528,7 +528,7 @@ export const TarotDeckSelectionScreen = () => {
                 <View style={styles.energyHeaderLeft}>
                   <Moon color={ACCENT} size={16} strokeWidth={1.5} />
                   <Typography variant="microLabel" style={[styles.energyEyebrow, { color: ACCENT }]}>
-                    ENERGIA TYGODNIA
+                    {t('tarotDeckSel.energia_tygodnia', 'ENERGIA TYGODNIA')}
                   </Typography>
                 </View>
                 <View style={[styles.moonPhaseBadge, { backgroundColor: ACCENT + '22', borderColor: ACCENT + '44', borderWidth: StyleSheet.hairlineWidth }]}>
@@ -539,7 +539,7 @@ export const TarotDeckSelectionScreen = () => {
               </View>
               <View style={[styles.energyDivider, { backgroundColor: ACCENT + '28' }]} />
               <Typography variant="premiumLabel" style={[styles.energyRecoLabel, { color: isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)' }]}>
-                NAJLEPSZA TALIA NA TEN MOMENT
+                {t('tarotDeckSel.najlepsza_talia_na_ten_moment', 'NAJLEPSZA TALIA NA TEN MOMENT')}
               </Typography>
               <Typography variant="editorialHeader" style={[styles.energyRecoName, { color: isLight ? '#2A1C00' : '#F5E4B0' }]}>
                 {recommendation.deckName}
@@ -627,11 +627,11 @@ export const TarotDeckSelectionScreen = () => {
                   {/* ── Reading history strip ── */}
                   <View style={[styles.historyStrip, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)' }]}>
                     <Typography variant="microLabel" style={[styles.historyLabel, { color: isLight ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.38)' }]}>
-                      OSTATNIE ODCZYTY Z TEJ TALII
+                      {t('tarotDeckSel.ostatnie_odczyty_z_tej_talii', 'OSTATNIE ODCZYTY Z TEJ TALII')}
                     </Typography>
                     {deckReadingDates.length === 0 ? (
                       <Typography variant="bodySmall" style={[styles.historyEmpty, { color: isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.32)' }]}>
-                        Brak historii z tą talią
+                        {t('tarotDeckSel.brak_historii_z_ta_talia', 'Brak historii z tą talią')}
                       </Typography>
                     ) : (
                       <View style={styles.historyBadgeRow}>
@@ -654,7 +654,7 @@ export const TarotDeckSelectionScreen = () => {
                   {deck.available && energyProfile && (
                     <View style={[styles.energyProfileBlock, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)' }]}>
                       <Typography variant="microLabel" style={[styles.blockLabel, { color: ACCENT }]}>
-                        ENERGIA TALII
+                        {t('tarotDeckSel.energia_talii', 'ENERGIA TALII')}
                       </Typography>
                       <View style={styles.energyTagRow}>
                         {[
@@ -693,7 +693,7 @@ export const TarotDeckSelectionScreen = () => {
                   {deck.available && sigCards.length > 0 && (
                     <View style={[styles.sigCardsBlock, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)' }]}>
                       <Typography variant="microLabel" style={[styles.blockLabel, { color: ACCENT }]}>
-                        KARTY ARCHETYPICZNE TEJ TALII
+                        {t('tarotDeckSel.karty_archetypic_tej_talii', 'KARTY ARCHETYPICZNE TEJ TALII')}
                       </Typography>
                       {sigCards.map((sc, si) => (
                         <View key={si} style={[styles.sigCardRow, { borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)' }]}>
@@ -713,7 +713,7 @@ export const TarotDeckSelectionScreen = () => {
                   {deck.available && deckReadings.length > 0 && (
                     <View style={[styles.deckHistoryBlock, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)' }]}>
                       <Typography variant="microLabel" style={[styles.blockLabel, { color: ACCENT }]}>
-                        HISTORIA ROZKŁADÓW
+                        {t('tarotDeckSel.historia_rozkladow', 'HISTORIA ROZKŁADÓW')}
                       </Typography>
                       {deckReadings.map((reading, ri) => (
                         <Pressable
@@ -750,7 +750,7 @@ export const TarotDeckSelectionScreen = () => {
                   {deck.available && (
                     <View style={[styles.journalBlock, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.05)' }]}>
                       <Typography variant="microLabel" style={[styles.blockLabel, { color: ACCENT }]}>
-                        MOJE POŁĄCZENIE Z TALIĄ
+                        {t('tarotDeckSel.moje_polaczenie_z_talia', 'MOJE POŁĄCZENIE Z TALIĄ')}
                       </Typography>
                       <StarRating value={rating} onChange={(v) => setRating(deck.id, v)} isLight={isLight} />
                       {editingDeckJournal === deck.id ? (
@@ -758,7 +758,7 @@ export const TarotDeckSelectionScreen = () => {
                           <TextInput
                             value={journalInput}
                             onChangeText={setJournalInput}
-                            placeholder="Opisz swoje połączenie z tą talią, pamiętne odczyty, pierwsze wrażenie..."
+                            placeholder={t('tarotDeckSel.opisz_swoje_polaczenie_z_ta', 'Opisz swoje połączenie z tą talią, pamiętne odczyty, pierwsze wrażenie...')}
                             placeholderTextColor={subColor}
                             multiline
                             style={[styles.journalInput, {
@@ -772,13 +772,13 @@ export const TarotDeckSelectionScreen = () => {
                               onPress={() => saveJournal(deck.id, rating)}
                               style={[styles.journalSaveBtn, { backgroundColor: ACCENT + '28', borderColor: ACCENT + '55', flex: 2 }]}
                             >
-                              <Typography variant="premiumLabel" style={{ color: ACCENT }}>Zapisz notatkę</Typography>
+                              <Typography variant="premiumLabel" style={{ color: ACCENT }}>{t('tarotDeckSel.zapisz_notatke', 'Zapisz notatkę')}</Typography>
                             </Pressable>
                             <Pressable
                               onPress={() => { setEditingDeckJournal(null); setJournalInput(''); }}
                               style={[styles.journalSaveBtn, { backgroundColor: cardBg, borderColor: cardBorder, flex: 1 }]}
                             >
-                              <Typography variant="premiumLabel" style={{ color: subColor }}>Anuluj</Typography>
+                              <Typography variant="premiumLabel" style={{ color: subColor }}>{t('tarotDeckSel.anuluj', 'Anuluj')}</Typography>
                             </Pressable>
                           </View>
                         </View>
@@ -806,7 +806,7 @@ export const TarotDeckSelectionScreen = () => {
                         style={[styles.inicjacjaBtn, { backgroundColor: ACCENT + '14', borderColor: ACCENT + '44', borderWidth: StyleSheet.hairlineWidth }]}
                       >
                         <Flame size={14} color={ACCENT} strokeWidth={1.5} />
-                        <Typography variant="premiumLabel" style={{ color: ACCENT }}>Ceremonia inicjacji talii</Typography>
+                        <Typography variant="premiumLabel" style={{ color: ACCENT }}>{t('tarotDeckSel.ceremonia_inicjacji_talii', 'Ceremonia inicjacji talii')}</Typography>
                         <ArrowRight size={14} color={ACCENT + 'AA'} />
                       </Pressable>
                     </View>
@@ -822,7 +822,7 @@ export const TarotDeckSelectionScreen = () => {
               <View style={styles.eduLabelRow}>
                 <BookOpen color={ACCENT} size={14} strokeWidth={1.5} />
                 <Typography variant="microLabel" style={[styles.eduSectionLabel, { color: ACCENT }]}>
-                  JAK WYBRAĆ TALIĘ
+                  {t('tarotDeckSel.jak_wybrac_talie', 'JAK WYBRAĆ TALIĘ')}
                 </Typography>
               </View>
               {HOW_TO_CHOOSE_TIPS.map((tip, ti) => (
@@ -851,7 +851,7 @@ export const TarotDeckSelectionScreen = () => {
               <View style={styles.eduLabelRow}>
                 <Sparkles color={ACCENT} size={14} strokeWidth={1.5} />
                 <Typography variant="microLabel" style={[styles.eduSectionLabel, { color: ACCENT }]}>
-                  CO DALEJ
+                  {t('tarotDeckSel.co_dalej', 'CO DALEJ')}
                 </Typography>
               </View>
               {NEXT_LINKS.map((link, li) => {
@@ -902,14 +902,14 @@ export const TarotDeckSelectionScreen = () => {
             <Pressable onPress={() => setCompareModalOpen(false)} style={styles.modalClose}>
               <X size={18} color={textColor} />
             </Pressable>
-            <Typography variant="microLabel" style={[styles.modalEyebrow, { color: ACCENT }]}>PORÓWNAJ TALIE</Typography>
+            <Typography variant="microLabel" style={[styles.modalEyebrow, { color: ACCENT }]}>{t('tarotDeckSel.porownaj_talie', 'PORÓWNAJ TALIE')}</Typography>
             <Typography variant="editorialHeader" style={[styles.modalTitle, { color: textColor }]}>
-              Wybierz dwie talie do porównania
+              {t('tarotDeckSel.wybierz_dwie_talie_do_porownania', 'Wybierz dwie talie do porównania')}
             </Typography>
 
             {/* Deck A selector */}
             <Typography variant="microLabel" style={[{ color: subColor, fontSize: 9, letterSpacing: 1.3, marginBottom: 8, marginTop: 14 }]}>
-              TALIA A
+              {t('tarotDeckSel.talia_a', 'TALIA A')}
             </Typography>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, marginBottom: 14 }}>
               {availableDecks.map((d) => (
@@ -928,7 +928,7 @@ export const TarotDeckSelectionScreen = () => {
 
             {/* Deck B selector */}
             <Typography variant="microLabel" style={[{ color: subColor, fontSize: 9, letterSpacing: 1.3, marginBottom: 8 }]}>
-              TALIA B
+              {t('tarotDeckSel.talia_b', 'TALIA B')}
             </Typography>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, marginBottom: 20 }}>
               {availableDecks.map((d) => (
@@ -980,7 +980,7 @@ export const TarotDeckSelectionScreen = () => {
                 {/* Best for */}
                 <View style={[styles.compareTableRow, { alignItems: 'flex-start' }]}>
                   <View style={{ flex: 1, paddingVertical: 10, paddingLeft: 14 }}>
-                    <Typography variant="microLabel" style={{ color: subColor, fontSize: 9 }}>NAJLEPSZA NA</Typography>
+                    <Typography variant="microLabel" style={{ color: subColor, fontSize: 9 }}>{t('tarotDeckSel.najlepsza_na', 'NAJLEPSZA NA')}</Typography>
                   </View>
                   <View style={[styles.compareTableCell, { borderLeftColor: ACCENT + '22', alignItems: 'flex-start', paddingVertical: 10 }]}>
                     {energyA.bestFor.map((bf, i) => (
@@ -1000,7 +1000,7 @@ export const TarotDeckSelectionScreen = () => {
               <View style={[styles.compareHint, { backgroundColor: cardBg, borderColor: cardBorder, borderWidth: StyleSheet.hairlineWidth }]}>
                 <GitCompare size={16} color={subColor} strokeWidth={1.5} />
                 <Typography variant="bodySmall" style={{ color: subColor, flex: 1, lineHeight: 20 }}>
-                  Wybierz dwie talie powyżej, aby zobaczyć szczegółowe porównanie ich energii, stylu i przeznaczenia.
+                  {t('tarotDeckSel.wybierz_dwie_talie_powyzej_aby', 'Wybierz dwie talie powyżej, aby zobaczyć szczegółowe porównanie ich energii, stylu i przeznaczenia.')}
                 </Typography>
               </View>
             )}
@@ -1020,12 +1020,12 @@ export const TarotDeckSelectionScreen = () => {
             <Pressable onPress={() => setInicjacjaModalOpen(false)} style={styles.modalClose}>
               <X size={18} color={textColor} />
             </Pressable>
-            <Typography variant="microLabel" style={[styles.modalEyebrow, { color: ACCENT }]}>CEREMONIA INICJACJI</Typography>
+            <Typography variant="microLabel" style={[styles.modalEyebrow, { color: ACCENT }]}>{t('tarotDeckSel.ceremonia_inicjacji', 'CEREMONIA INICJACJI')}</Typography>
             <Typography variant="editorialHeader" style={[styles.modalTitle, { color: textColor }]}>
               {inicjacjaDeckId ? getTarotDeckById(inicjacjaDeckId)?.name ?? 'Talia' : 'Talia'}
             </Typography>
             <Typography variant="bodySmall" style={[styles.modalSubtitle, { color: subColor }]}>
-              7-krokowa ceremonia poświęcenia nowej talii. Wejdź w każdy krok z pełną uwagą.
+              {t('tarotDeckSel.7_krokowa_ceremonia_poswieceni_nowe', '7-krokowa ceremonia poświęcenia nowej talii. Wejdź w każdy krok z pełną uwagą.')}
             </Typography>
 
             {!inicjacjaDone ? (
@@ -1062,7 +1062,7 @@ export const TarotDeckSelectionScreen = () => {
                 <View style={{ flexDirection: 'row', gap: 10, marginTop: 16 }}>
                   <Pressable onPress={() => setInicjacjaModalOpen(false)}
                     style={[styles.inicjacjaNavBtn, { backgroundColor: cardBg, borderColor: cardBorder, borderWidth: StyleSheet.hairlineWidth, flex: 1 }]}>
-                    <Typography variant="premiumLabel" style={{ color: subColor }}>Przerwij</Typography>
+                    <Typography variant="premiumLabel" style={{ color: subColor }}>{t('tarotDeckSel.przerwij', 'Przerwij')}</Typography>
                   </Pressable>
                   <Pressable onPress={advanceInicjacja}
                     style={[styles.inicjacjaNavBtn, { backgroundColor: ACCENT + '28', borderColor: ACCENT + '55', borderWidth: 1, flex: 2 }]}>
@@ -1076,16 +1076,16 @@ export const TarotDeckSelectionScreen = () => {
               <View style={[styles.inicjacjaDoneCard, { backgroundColor: ACCENT + '18', borderColor: ACCENT + '55', borderWidth: 1 }]}>
                 <Typography style={{ fontSize: 32, marginBottom: 10 }}>✦</Typography>
                 <Typography variant="editorialHeader" style={[{ color: ACCENT, marginBottom: 10, textAlign: 'center' }]}>
-                  Ceremonia zakończona
+                  {t('tarotDeckSel.ceremonia_zakonczona', 'Ceremonia zakończona')}
                 </Typography>
                 <Typography variant="bodySmall" style={[{ color: subColor, textAlign: 'center', lineHeight: 22, marginBottom: 16 }]}>
-                  Twoja talia jest teraz poświęcona. Odczekaj dobę zanim wykonasz pierwszy odczyt — niech ceremonia się osadzi.
+                  {t('tarotDeckSel.twoja_talia_jest_teraz_poswiecona', 'Twoja talia jest teraz poświęcona. Odczekaj dobę zanim wykonasz pierwszy odczyt — niech ceremonia się osadzi.')}
                 </Typography>
                 <Pressable
                   onPress={() => setInicjacjaModalOpen(false)}
                   style={[styles.inicjacjaNavBtn, { backgroundColor: ACCENT + '28', borderColor: ACCENT + '55', borderWidth: 1, alignSelf: 'stretch' }]}
                 >
-                  <Typography variant="premiumLabel" style={{ color: ACCENT }}>Zamknij</Typography>
+                  <Typography variant="premiumLabel" style={{ color: ACCENT }}>{t('tarotDeckSel.zamknij', 'Zamknij')}</Typography>
                 </Pressable>
               </View>
             )}

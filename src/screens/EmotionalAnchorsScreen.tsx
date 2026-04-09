@@ -249,7 +249,7 @@ const CountdownRing = ({ seconds, total }: { seconds: number; total: number }) =
           <Text style={[styles.countdownNum, { color: seconds <= 3 ? '#F87171' : ACCENT }]}>
             {seconds}
           </Text>
-          <Text style={{ color: 'rgba(14,165,233,0.7)', fontSize: 9, marginTop: 1 }}>sek</Text>
+          <Text style={{ color: 'rgba(14,165,233,0.7)', fontSize: 9, marginTop: 1 }}>{t('emotionalAnchors.sek', 'sek')}</Text>
         </View>
       </View>
     </View>
@@ -393,7 +393,7 @@ export const EmotionalAnchorsScreen = ({ navigation }: any) => {
     setNlpCurrentStep(0);
     setNlpSessions(p => p + 1);
     HapticsService.notify();
-    Alert.alert('Sesja zakończona!', 'Kotwica NLP ustawiona. Przetestuj ją naciskając knykieć.');
+    Alert.alert(t('emotionalAnchors.sesja_zakonczona', 'Sesja zakończona!'), t('emotionalAnchors.kotwica_nlp_ustawiona_przetestuj_ja', 'Kotwica NLP ustawiona. Przetestuj ją naciskając knykieć.'));
   };
 
   const handleStepPress = (index: number) => {
@@ -556,7 +556,7 @@ export const EmotionalAnchorsScreen = ({ navigation }: any) => {
             </ScrollView>
 
             <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 12 }}>
-              Dotknij kotwicy aby ją aktywować — poczuj jak stan wraca.
+              {t('emotionalAnchors.dotknij_kotwicy_aby_ja_aktywowac', 'Dotknij kotwicy aby ją aktywować — poczuj jak stan wraca.')}
             </Text>
 
             {filteredAnchors.map((anchor, i) => {
@@ -610,7 +610,7 @@ export const EmotionalAnchorsScreen = ({ navigation }: any) => {
         {activeTab === 'nlp' && (
           <>
             <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 16 }}>
-              Technika kotwiczenia NLP — zaprogramuj ciało tak, by gesty natychmiast wywoływały pożądany stan.
+              {t('emotionalAnchors.technika_kotwiczeni_nlp_zaprogramu_', 'Technika kotwiczenia NLP — zaprogramuj ciało tak, by gesty natychmiast wywoływały pożądany stan.')}
             </Text>
 
             {/* Start / Finish session button */}
@@ -619,7 +619,7 @@ export const EmotionalAnchorsScreen = ({ navigation }: any) => {
                 <Pressable onPress={startNlpSession} style={styles.nlpStartBtn}>
                   <LinearGradient colors={[ACCENT, ACCENT_GLOW]} style={styles.nlpStartGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
                     <Play size={18} color="#fff" />
-                    <Text style={styles.nlpStartText}>Rozpocznij sesję NLP</Text>
+                    <Text style={styles.nlpStartText}>{t('emotionalAnchors.rozpocznij_sesje_nlp', 'Rozpocznij sesję NLP')}</Text>
                   </LinearGradient>
                 </Pressable>
                 {nlpSessions > 0 && (
@@ -633,7 +633,7 @@ export const EmotionalAnchorsScreen = ({ navigation }: any) => {
                 <Pressable onPress={finishNlpSession} style={[styles.nlpStartBtn, { marginBottom: 8 }]}>
                   <View style={[styles.nlpStartGrad, { backgroundColor: '#34D399', borderRadius: 14 }]}>
                     <Square size={16} color="#fff" />
-                    <Text style={styles.nlpStartText}>Zakończ sesję</Text>
+                    <Text style={styles.nlpStartText}>{t('emotionalAnchors.zakoncz_sesje', 'Zakończ sesję')}</Text>
                   </View>
                 </Pressable>
               </Animated.View>
@@ -718,12 +718,12 @@ export const EmotionalAnchorsScreen = ({ navigation }: any) => {
             </View>
 
             <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 12 }}>
-              Stwórz własne kotwice — zdania, mantry lub obrazy które są dla ciebie znaczące.
+              {t('emotionalAnchors.stworz_wlasne_kotwice_zdania_mantry', 'Stwórz własne kotwice — zdania, mantry lub obrazy które są dla ciebie znaczące.')}
             </Text>
 
             {/* Emoji picker */}
             <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginBottom: 8 }}>
-              WYBIERZ EMOJI
+              {t('emotionalAnchors.wybierz_emoji', 'WYBIERZ EMOJI')}
             </Text>
             <View style={styles.emojiRow}>
               {PRESET_EMOJIS.map(emoji => (
@@ -749,7 +749,7 @@ export const EmotionalAnchorsScreen = ({ navigation }: any) => {
               <TextInput
                 value={newAnchor}
                 onChangeText={setNewAnchor}
-                placeholder="Moja osobista kotwica..."
+                placeholder={t('emotionalAnchors.moja_osobista_kotwica', 'Moja osobista kotwica...')}
                 placeholderTextColor={subColor}
                 style={{ color: textColor, fontSize: 14, flex: 1 }}
                 returnKeyType="done"
@@ -768,7 +768,7 @@ export const EmotionalAnchorsScreen = ({ navigation }: any) => {
               <View style={styles.emptyState}>
                 <Text style={{ fontSize: 36, marginBottom: 8 }}>⚓</Text>
                 <Text style={{ color: subColor, fontSize: 13, textAlign: 'center' }}>
-                  Dodaj pierwszą kotwicę powyżej
+                  {t('emotionalAnchors.dodaj_pierwsza_kotwice_powyzej', 'Dodaj pierwszą kotwicę powyżej')}
                 </Text>
               </View>
             ) : (

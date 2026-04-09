@@ -480,7 +480,7 @@ const ArchGridCard = ({
             <View style={[styles.expandSection, { backgroundColor: arch.color + '0D', borderColor: arch.color + '20' }]}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                 <Sparkles size={12} color={arch.color} />
-                <Text style={{ color: arch.color, fontSize: 10, letterSpacing: 1.5, fontWeight: '700' }}>DARY</Text>
+                <Text style={{ color: arch.color, fontSize: 10, letterSpacing: 1.5, fontWeight: '700' }}>{t('soulArchetype.dary', 'DARY')}</Text>
               </View>
               <Text style={{ color: textColor, fontSize: 13, lineHeight: 20 }}>{arch.gifts}</Text>
             </View>
@@ -489,7 +489,7 @@ const ArchGridCard = ({
             <View style={[styles.expandSection, { backgroundColor: arch.color + '08', borderColor: arch.color + '18', marginTop: 8 }]}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                 <Flame size={12} color={arch.color} />
-                <Text style={{ color: arch.color, fontSize: 10, letterSpacing: 1.5, fontWeight: '700' }}>RANA DO UZDROWIENIA</Text>
+                <Text style={{ color: arch.color, fontSize: 10, letterSpacing: 1.5, fontWeight: '700' }}>{t('soulArchetype.rana_do_uzdrowieni', 'RANA DO UZDROWIENIA')}</Text>
               </View>
               <Text style={{ color: subColor, fontSize: 13, lineHeight: 20 }}>{arch.wound}</Text>
             </View>
@@ -498,7 +498,7 @@ const ArchGridCard = ({
             <View style={[styles.expandSection, { backgroundColor: arch.color + '0A', borderColor: arch.color + '15', marginTop: 8 }]}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                 <BookOpen size={12} color={arch.color} />
-                <Text style={{ color: arch.color, fontSize: 10, letterSpacing: 1.5, fontWeight: '700' }}>ŚCIEŻKA ROZWOJU</Text>
+                <Text style={{ color: arch.color, fontSize: 10, letterSpacing: 1.5, fontWeight: '700' }}>{t('soulArchetype.sciezka_rozwoju', 'ŚCIEŻKA ROZWOJU')}</Text>
               </View>
               <Text style={{ color: textColor, fontSize: 13, lineHeight: 20 }}>{arch.path}</Text>
             </View>
@@ -533,10 +533,10 @@ const DailyPracticesSection = ({
           <View style={{ width: 28, height: 28, borderRadius: 14, backgroundColor: color + '25', alignItems: 'center', justifyContent: 'center' }}>
             <Wand2 size={14} color={color} />
           </View>
-          <Text style={{ color, fontSize: 12, letterSpacing: 2, fontWeight: '700' }}>DZIEŃ Z ARCHETYPEM</Text>
+          <Text style={{ color, fontSize: 12, letterSpacing: 2, fontWeight: '700' }}>{t('soulArchetype.dzien_z_archetypem', 'DZIEŃ Z ARCHETYPEM')}</Text>
         </View>
         <Text style={{ color: subColor, fontSize: 12, marginBottom: 12, lineHeight: 18 }}>
-          3 praktyki na dziś, które przebudzą Twój archetyp:
+          {t('soulArchetype.3_praktyki_na_dzis_ktore', '3 praktyki na dziś, które przebudzą Twój archetyp:')}
         </Text>
         {practices.map((p, i) => (
           <Animated.View
@@ -647,8 +647,8 @@ export const SoulArchetypeScreen = ({ navigation }: any) => {
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={{ flex: 1 }}>
-          <Text style={{ color: subColor, fontSize: 10, letterSpacing: 2 }}>ODKRYJ SIEBIE</Text>
-          <Text style={{ color: textColor, fontSize: 20, fontWeight: '700' }}>Archetyp Duszy</Text>
+          <Text style={{ color: subColor, fontSize: 10, letterSpacing: 2 }}>{t('soulArchetype.odkryj_siebie', 'ODKRYJ SIEBIE')}</Text>
+          <Text style={{ color: textColor, fontSize: 20, fontWeight: '700' }}>{t('soulArchetype.archetyp_duszy', 'Archetyp Duszy')}</Text>
         </View>
         <Pressable
           style={styles.starBtn} hitSlop={12}
@@ -741,7 +741,7 @@ export const SoulArchetypeScreen = ({ navigation }: any) => {
           <>
             <Animated.View entering={FadeInDown.duration(300)} style={{ marginBottom: 14, marginTop: 4 }}>
               <Text style={{ color: subColor, fontSize: 12, lineHeight: 20, textAlign: 'center' }}>
-                Odkryj 8 archetypów duszy. Każdy niesie unikalne dary, rany i ścieżkę wzrostu.
+                {t('soulArchetype.odkryj_8_archetypow_duszy_kazdy', 'Odkryj 8 archetypów duszy. Każdy niesie unikalne dary, rany i ścieżkę wzrostu.')}
               </Text>
             </Animated.View>
             {ARCHETYPES.map((arch, i) => (
@@ -774,7 +774,7 @@ export const SoulArchetypeScreen = ({ navigation }: any) => {
                 <RotatingHero currentArchSymbol={result.symbol} currentArchColor={result.color} />
               </View>
               <Text style={{ color: result.color, fontSize: 11, letterSpacing: 3, marginBottom: 4, fontWeight: '600' }}>
-                TWÓJ ARCHETYP
+                {t('soulArchetype.twoj_archetyp', 'TWÓJ ARCHETYP')}
               </Text>
               <Text style={{ color: textColor, fontSize: 32, fontWeight: '800', marginBottom: 6 }}>
                 {result.icon} {result.name}
@@ -796,7 +796,7 @@ export const SoulArchetypeScreen = ({ navigation }: any) => {
               <View style={[styles.infoBox, { backgroundColor: result.color + '10', borderColor: result.color + '28' }]}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                   <Flame size={12} color={result.color} />
-                  <Text style={{ color: result.color, fontSize: 10, letterSpacing: 2, fontWeight: '700' }}>RANA DO UZDROWIENIA</Text>
+                  <Text style={{ color: result.color, fontSize: 10, letterSpacing: 2, fontWeight: '700' }}>{t('soulArchetype.rana_do_uzdrowieni_1', 'RANA DO UZDROWIENIA')}</Text>
                 </View>
                 <Text style={{ color: textColor, fontSize: 13, lineHeight: 20 }}>{result.wound}</Text>
               </View>
@@ -805,7 +805,7 @@ export const SoulArchetypeScreen = ({ navigation }: any) => {
               <View style={[styles.infoBox, { backgroundColor: cardBg, borderColor: cardBorder, marginTop: 8 }]}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                   <BookOpen size={12} color={result.color} />
-                  <Text style={{ color: subColor, fontSize: 10, letterSpacing: 2, fontWeight: '700' }}>ŚCIEŻKA ROZWOJU</Text>
+                  <Text style={{ color: subColor, fontSize: 10, letterSpacing: 2, fontWeight: '700' }}>{t('soulArchetype.sciezka_rozwoju_1', 'ŚCIEŻKA ROZWOJU')}</Text>
                 </View>
                 <Text style={{ color: textColor, fontSize: 13, lineHeight: 20 }}>{result.path}</Text>
               </View>
@@ -822,12 +822,12 @@ export const SoulArchetypeScreen = ({ navigation }: any) => {
                   <View style={{ width: 28, height: 28, borderRadius: 14, backgroundColor: result.color + '25', alignItems: 'center', justifyContent: 'center' }}>
                     <Sparkles size={14} color={result.color} />
                   </View>
-                  <Text style={{ color: result.color, fontSize: 11, letterSpacing: 2, fontWeight: '700' }}>MISTYCZNA INTERPRETACJA</Text>
+                  <Text style={{ color: result.color, fontSize: 11, letterSpacing: 2, fontWeight: '700' }}>{t('soulArchetype.mistyczna_interpreta', 'MISTYCZNA INTERPRETACJA')}</Text>
                 </View>
                 {aiLoading ? (
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, paddingVertical: 8 }}>
                     <ActivityIndicator size="small" color={result.color} />
-                    <Text style={{ color: subColor, fontSize: 13 }}>Odczytuję Twój archetyp...</Text>
+                    <Text style={{ color: subColor, fontSize: 13 }}>{t('soulArchetype.odczytuje_twoj_archetyp', 'Odczytuję Twój archetyp...')}</Text>
                   </View>
                 ) : (
                   <Text style={{ color: textColor, fontSize: 14, lineHeight: 22, fontStyle: 'italic' }}>
@@ -854,7 +854,7 @@ export const SoulArchetypeScreen = ({ navigation }: any) => {
                 style={[styles.retakeBtn, { borderColor: result.color + '50', backgroundColor: result.color + '10' }]}
               >
                 <Sparkles size={14} color={result.color} />
-                <Text style={{ color: result.color, fontSize: 13, fontWeight: '600' }}>Powtórz quiz</Text>
+                <Text style={{ color: result.color, fontSize: 13, fontWeight: '600' }}>{t('soulArchetype.powtorz_quiz', 'Powtórz quiz')}</Text>
               </Pressable>
             </Animated.View>
           </Animated.View>
@@ -866,7 +866,7 @@ export const SoulArchetypeScreen = ({ navigation }: any) => {
             {/* Placeholder spinning hero */}
             <RotatingHero currentArchSymbol="spiral" currentArchColor={ACCENT} />
             <Text style={{ color: textColor, fontSize: 17, fontWeight: '700', marginBottom: 8, textAlign: 'center' }}>
-              Jeszcze nie znasz swojego archetypu
+              {t('soulArchetype.jeszcze_nie_znasz_swojego_archetypu', 'Jeszcze nie znasz swojego archetypu')}
             </Text>
             <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', marginBottom: 24, lineHeight: 20 }}>
               Wypełnij 5-pytaniowy quiz, aby odkryć{'\n'}swój dominujący archetyp duszy
@@ -876,7 +876,7 @@ export const SoulArchetypeScreen = ({ navigation }: any) => {
               style={[styles.retakeBtn, { borderColor: ACCENT + '50', backgroundColor: ACCENT + '12' }]}
             >
               <Sparkles size={14} color={ACCENT} />
-              <Text style={{ color: ACCENT, fontSize: 14, fontWeight: '600' }}>Przejdź do quizu</Text>
+              <Text style={{ color: ACCENT, fontSize: 14, fontWeight: '600' }}>{t('soulArchetype.przejdz_do_quizu', 'Przejdź do quizu')}</Text>
             </Pressable>
           </Animated.View>
         )}

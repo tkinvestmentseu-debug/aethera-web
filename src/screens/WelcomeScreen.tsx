@@ -440,10 +440,10 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onPrimary, onSecon
           {/* Brand wordmark */}
           <Animated.View entering={FadeIn.delay(100).duration(900)} style={ws.brandRow}>
             <Typography variant="microLabel" style={ws.brandWordmark}>
-              ✦ AETHERA
+              {t('welcome.aethera', '✦ AETHERA')}
             </Typography>
             <Typography variant="microLabel" style={ws.brandSub}>
-              DuniAI & Oracle
+              {t('welcome.duniai_oracle', 'DuniAI & Oracle')}
             </Typography>
           </Animated.View>
 
@@ -460,7 +460,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onPrimary, onSecon
           {/* Headline block */}
           <Animated.View entering={FadeInUp.delay(450).duration(900)} style={ws.headlineBlock}>
             <Typography variant="microLabel" style={ws.headlineEyebrow}>
-              Aethera
+              {t('welcome.aethera_1', 'Aethera')}
             </Typography>
             <Typography
               variant="heading"
@@ -489,7 +489,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onPrimary, onSecon
           <Animated.View entering={FadeIn.delay(800).duration(600)} style={ws.whySectionHeader}>
             <View style={ws.whySectionLine} />
             <Typography variant="microLabel" style={ws.sectionLabel}>
-              WHY AETHERA?
+              {t('welcome.why_aethera', 'WHY AETHERA?')}
             </Typography>
             <View style={ws.whySectionLine} />
           </Animated.View>

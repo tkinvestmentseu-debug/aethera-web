@@ -148,8 +148,8 @@ export const IntentionChamberScreen = ({ navigation }) => {
           <ChevronLeft size={22} color={tc} />
         </Pressable>
         <View style={{ flex: 1, alignItems: 'center' }}>
-          <Text style={[styles.headerTitle, { color: tc }]}>Komora Intencji</Text>
-          <Text style={[styles.headerSub, { color: ACCENT }]}>MANIFESTACJA ZBIOROWA</Text>
+          <Text style={[styles.headerTitle, { color: tc }]}>{t('intentionChamber.komora_intencji', 'Komora Intencji')}</Text>
+          <Text style={[styles.headerSub, { color: ACCENT }]}>{t('intentionChamber.manifestac_zbiorowa', 'MANIFESTACJA ZBIOROWA')}</Text>
         </View>
         <Sparkles size={20} color={ACCENT} />
       </View>
@@ -167,7 +167,7 @@ export const IntentionChamberScreen = ({ navigation }) => {
 
           {/* Composer */}
           <View style={{ paddingHorizontal: layout.padding.screen }}>
-            <Text style={[styles.sectionTitle, { color: sc }]}>STWÓRZ INTENCJĘ</Text>
+            <Text style={[styles.sectionTitle, { color: sc }]}>{t('intentionChamber.stworz_intencje', 'STWÓRZ INTENCJĘ')}</Text>
             <View style={[styles.composerCard, { backgroundColor: cb, borderColor: cbr }]}>
               {/* Category chips */}
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, marginBottom: 12 }}>
@@ -184,26 +184,26 @@ export const IntentionChamberScreen = ({ navigation }) => {
 
               <TextInput
                 value={intentionText} onChangeText={setIntentionText}
-                placeholder="Wpisz swoją intencję..." placeholderTextColor={sc}
+                placeholder={t('intentionChamber.wpisz_swoja_intencje', 'Wpisz swoją intencję...')} placeholderTextColor={sc}
                 multiline textAlign="center"
                 style={[styles.intentionInput, { color: tc, minHeight: 120, borderColor: cbr }]}
               />
 
               {/* Anon toggle */}
               <View style={styles.anonRow}>
-                <Text style={[{ fontSize: 13 }, { color: sc }]}>Anonimowo</Text>
+                <Text style={[{ fontSize: 13 }, { color: sc }]}>{t('intentionChamber.anonimowo', 'Anonimowo')}</Text>
                 <Switch value={isAnon} onValueChange={setIsAnon} trackColor={{ false: cbr, true: ACCENT + '88' }} thumbColor={isAnon ? ACCENT : sc} />
               </View>
 
               {/* Send button */}
               <View style={{ alignItems: 'center' }}>
                 <Animated.View style={[styles.flyText, flyStyle]}>
-                  <Text style={{ color: catColor, fontSize: 18, fontWeight: '700' }}>✦ Intencja wysłana ✦</Text>
+                  <Text style={{ color: catColor, fontSize: 18, fontWeight: '700' }}>{t('intentionChamber.intencja_wyslana', '✦ Intencja wysłana ✦')}</Text>
                 </Animated.View>
                 <Pressable onPress={handleSend} style={{ width: '100%' }}>
                   <LinearGradient colors={[catColor, catColor + 'CC']} style={styles.sendBtn}>
                     <Send size={18} color="#fff" />
-                    <Text style={styles.sendBtnText}>Wyślij intencję w kosmos</Text>
+                    <Text style={styles.sendBtnText}>{t('intentionChamber.wyslij_intencje_w_kosmos', 'Wyślij intencję w kosmos')}</Text>
                   </LinearGradient>
                 </Pressable>
               </View>
@@ -212,22 +212,22 @@ export const IntentionChamberScreen = ({ navigation }) => {
 
           {/* Energy Meter */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[styles.sectionTitle, { color: sc }]}>ENERGIA ZBIOROWA</Text>
+            <Text style={[styles.sectionTitle, { color: sc }]}>{t('intentionChamber.energia_zbiorowa', 'ENERGIA ZBIOROWA')}</Text>
             <View style={[styles.energyCard, { backgroundColor: cb, borderColor: cbr }]}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 }}>
-                <Text style={[{ fontSize: 14, fontWeight: '600' }, { color: tc }]}>Poziom rezonansu</Text>
+                <Text style={[{ fontSize: 14, fontWeight: '600' }, { color: tc }]}>{t('intentionChamber.poziom_rezonansu', 'Poziom rezonansu')}</Text>
                 <Text style={[{ fontSize: 16, fontWeight: '800' }, { color: ACCENT }]}>74%</Text>
               </View>
               <View style={[styles.energyBar, { backgroundColor: cbr }]}>
                 <Animated.View style={[styles.energyFill, { width: '74%', backgroundColor: ACCENT }]} />
               </View>
-              <Text style={[{ fontSize: 12, marginTop: 8 }, { color: sc }]}>1 247 aktywnych intencji w tej chwili</Text>
+              <Text style={[{ fontSize: 12, marginTop: 8 }, { color: sc }]}>{t('intentionChamber.1_247_aktywnych_intencji_w', '1 247 aktywnych intencji w tej chwili')}</Text>
             </View>
           </View>
 
           {/* Feed */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 20 }}>
-            <Text style={[styles.sectionTitle, { color: sc }]}>INTENCJE ZBIOROWE</Text>
+            <Text style={[styles.sectionTitle, { color: sc }]}>{t('intentionChamber.intencje_zbiorowe', 'INTENCJE ZBIOROWE')}</Text>
             {intentions.map((item, i) => {
               const col = CAT_COLORS[item.category] || ACCENT;
               const witnessed = witnessedIds.includes(item.id);
@@ -245,7 +245,7 @@ export const IntentionChamberScreen = ({ navigation }) => {
                     <Pressable onPress={() => handleWitness(item.id)} style={styles.witnessRow}>
                       <Eye size={13} color={witnessed ? col : sc} />
                       <Text style={[styles.witnessCount, { color: witnessed ? col : sc }]}>{item.witnesses} świadków</Text>
-                      {!witnessed && <Text style={[{ fontSize: 11 }, { color: col }]}>Świadkuj</Text>}
+                      {!witnessed && <Text style={[{ fontSize: 11 }, { color: col }]}>{t('intentionChamber.swiadkuj', 'Świadkuj')}</Text>}
                     </Pressable>
                   </View>
                 </Animated.View>
@@ -255,7 +255,7 @@ export const IntentionChamberScreen = ({ navigation }) => {
 
           {/* My Intentions */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 20 }}>
-            <Text style={[styles.sectionTitle, { color: sc }]}>TWOJE INTENCJE</Text>
+            <Text style={[styles.sectionTitle, { color: sc }]}>{t('intentionChamber.twoje_intencje', 'TWOJE INTENCJE')}</Text>
             {MY_INTENTIONS.map((mi, i) => {
               const col = CAT_COLORS[mi.category] || ACCENT;
               return (

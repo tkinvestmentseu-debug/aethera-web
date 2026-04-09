@@ -313,11 +313,11 @@ const AetherGlobe = React.memo(({ accent, textColor, subColor, isLight }) => {
           style={{ paddingHorizontal: 18, paddingVertical: 5, borderRadius: 20 }}
         >
           <Text style={{ color: '#fff', fontSize: 11, fontWeight: '800', letterSpacing: 2.5 }}>
-            Aethera DuniAI & Oracle
+            {t('social.aethera_duniai_oracle', 'Aethera DuniAI & Oracle')}
           </Text>
         </LinearGradient>
         <Text style={{ color: subColor, fontSize: 11, marginTop: 2 }}>
-          Łącząca dusze z całego świata
+          {t('social.laczaca_dusze_z_calego_swiata', 'Łącząca dusze z całego świata')}
         </Text>
       </View>
     </View>
@@ -735,7 +735,7 @@ export const SocialScreen = ({ navigation }) => {
                       <Flame color={rColor} size={12} strokeWidth={2} />
                       <Text style={[sh.liveStripText, { color: textColor }]} numberOfLines={1}>{r.name || r.title || 'Rytuał'}</Text>
                       <View style={[sh.liveStripBadge, { backgroundColor: rColor + '22' }]}>
-                        <Text style={[sh.liveStripBadgeText, { color: rColor }]}>LIVE</Text>
+                        <Text style={[sh.liveStripBadgeText, { color: rColor }]}>{t('social.live', 'LIVE')}</Text>
                       </View>
                     </Pressable>
                   </Animated.View>

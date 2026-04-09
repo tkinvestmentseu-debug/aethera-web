@@ -1,4 +1,4 @@
-// @ts-nocheck
+﻿// @ts-nocheck
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { getLocaleCode } from '../core/utils/localeFormat';
 import {
@@ -341,7 +341,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
   const TABS = [
     { id: 'mandala', label: 'Mandala' },
     { id: 'kryształy', label: 'Kryształy' },
-    { id: 'siatka', label: 'Siatka' },
+    { id: 'siatka', label: t('crystalGrid.siatka_krystalow', 'Siatka') },
     { id: 'intencja', label: 'Intencja' },
     { id: 'dziennik', label: 'Dziennik' },
   ] as const;
@@ -399,7 +399,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
 
   const saveGrid = () => {
     if (!selectedIntention && !intention.trim()) {
-      Alert.alert('Brak intencji', 'Dodaj intencję przed zapisaniem siatki.');
+      Alert.alert(t('crystalGrid.brak_intencji', 'Brak intencji'), t('crystalGrid.dodaj_intencje_przed_zapisaniem_sia', 'Dodaj intencję przed zapisaniem siatki.'));
       return;
     }
     const entry = {
@@ -414,7 +414,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
     setShowSaveModal(false);
     setJournalNote('');
     HapticsService.notify();
-    Alert.alert('Zapisano ✦', 'Siatka została zapisana w dzienniku kryształów.');
+    Alert.alert(t('crystalGrid.zapisano', 'Zapisano ✦'), t('crystalGrid.siatka_zostala_zapisana_w_dzienniku', 'Siatka została zapisana w dzienniku kryształów.'));
   };
 
   const intentionCrystals = useMemo(() => {
@@ -438,11 +438,11 @@ export const CrystalGridScreen = ({ navigation }: any) => {
             <ChevronLeft color={ACCENT} size={22} strokeWidth={1.8} />
           </Pressable>
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT }}>SIATKA KRYSZTAŁÓW</Text>
-            <Text style={{ fontSize: 12, color: subColor, marginTop: 2 }}>Geometria mocy i intencji</Text>
+            <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT }}>{t('crystalGrid.siatka_krysztalow', 'SIATKA KRYSZTAŁÓW')}</Text>
+            <Text style={{ fontSize: 12, color: subColor, marginTop: 2 }}>{t('crystalGrid.geometria_mocy_i_intencji', 'Geometria mocy i intencji')}</Text>
           </View>
           <Pressable
-            onPress={() => { if (isFavoriteItem('crystal_grid')) { removeFavoriteItem('crystal_grid'); } else { addFavoriteItem({ id: 'crystal_grid', label: 'Siatka Kryształów', route: 'CrystalGrid', params: {}, icon: 'Sparkles', color: ACCENT, addedAt: new Date().toISOString() }); } }}
+            onPress={() => { if (isFavoriteItem('crystal_grid')) { removeFavoriteItem('crystal_grid'); } else { addFavoriteItem({ id: 'crystal_grid', label: t('crystalGrid.siatka_krystalow', 'Siatka Kryształów'), route: 'CrystalGrid', params: {}, icon: 'Sparkles', color: ACCENT, addedAt: new Date().toISOString() }); } }}
             hitSlop={14}
           >
             <Star color={ACCENT} size={18} strokeWidth={1.8} fill={isFavoriteItem('crystal_grid') ? ACCENT : 'none'} />
@@ -491,7 +491,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
                   <Text style={{ fontSize: 24 }}>{moonInfo.emoji}</Text>
                   <View>
-                    <Text style={{ fontSize: 12, fontWeight: '700', letterSpacing: 1.2, color: ACCENT }}>AKTUALNA FAZA KSIĘŻYCA</Text>
+                    <Text style={{ fontSize: 12, fontWeight: '700', letterSpacing: 1.2, color: ACCENT }}>{t('crystalGrid.aktualna_faza_ksiezyca', 'AKTUALNA FAZA KSIĘŻYCA')}</Text>
                     <Text style={{ fontSize: 15, fontWeight: '700', color: textColor }}>{moonInfo.name}</Text>
                   </View>
                 </View>
@@ -505,7 +505,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
 
               {/* Sacred geometry layouts */}
               <Animated.View entering={FadeInDown.delay(150).duration(400)}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 12 }}>WZORCE ŚWIĘTEJ GEOMETRII</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 12 }}>{t('crystalGrid.wzorce_swietej_geometrii', 'WZORCE ŚWIĘTEJ GEOMETRII')}</Text>
                 {GRID_PATTERNS.map((p, i) => (
                   <Pressable
                     key={p.id}
@@ -531,7 +531,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
 
               {/* Activation ritual steps */}
               <Animated.View entering={FadeInDown.delay(200).duration(400)}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginTop: 8, marginBottom: 12 }}>KROKI AKTYWACJI SIATKI</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginTop: 8, marginBottom: 12 }}>{t('crystalGrid.kroki_aktywacji_siatki', 'KROKI AKTYWACJI SIATKI')}</Text>
                 {ACTIVATION_STEPS.map((step, i) => {
                   const open = expandedStep === i;
                   return (
@@ -573,8 +573,8 @@ export const CrystalGridScreen = ({ navigation }: any) => {
           {/* ── KRYSZTAŁY TAB ── */}
           {activeTab === 'kryształy' && (
             <>
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 12 }}>ENCYKLOPEDIA KRYSZTAŁÓW</Text>
-              <Text style={{ fontSize: 13, color: subColor, marginBottom: 16, lineHeight: 20 }}>Dotknij kryształu, aby zobaczyć jego pełne właściwości, powiązania z czakrami i jak używać go w siatce.</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 12 }}>{t('crystalGrid.encykloped_krysztalow', 'ENCYKLOPEDIA KRYSZTAŁÓW')}</Text>
+              <Text style={{ fontSize: 13, color: subColor, marginBottom: 16, lineHeight: 20 }}>{t('crystalGrid.dotknij_krysztalu_aby_zobaczyc_jego', 'Dotknij kryształu, aby zobaczyć jego pełne właściwości, powiązania z czakrami i jak używać go w siatce.')}</Text>
 
               {CRYSTALS.map((c, i) => {
                 const open = expandedCrystal === c.id;
@@ -619,24 +619,24 @@ export const CrystalGridScreen = ({ navigation }: any) => {
                           {/* Chakra association */}
                           <View style={{ flexDirection: 'row', gap: 10, marginBottom: 10 }}>
                             <View style={{ flex: 1, padding: 10, borderRadius: 12, backgroundColor: c.chakraColor + '18', borderWidth: 1, borderColor: c.chakraColor + '35' }}>
-                              <Text style={{ fontSize: 10, fontWeight: '700', color: c.chakraColor, marginBottom: 3 }}>CZAKRA</Text>
+                              <Text style={{ fontSize: 10, fontWeight: '700', color: c.chakraColor, marginBottom: 3 }}>{t('crystalGrid.czakra', 'CZAKRA')}</Text>
                               <Text style={{ fontSize: 13, fontWeight: '600', color: textColor }}>{c.chakra}</Text>
                             </View>
                             <View style={{ flex: 1, padding: 10, borderRadius: 12, backgroundColor: ACCENT + '12', borderWidth: 1, borderColor: ACCENT + '28' }}>
-                              <Text style={{ fontSize: 10, fontWeight: '700', color: ACCENT, marginBottom: 3 }}>ZODIAK</Text>
+                              <Text style={{ fontSize: 10, fontWeight: '700', color: ACCENT, marginBottom: 3 }}>{t('crystalGrid.zodiak', 'ZODIAK')}</Text>
                               <Text style={{ fontSize: 12, fontWeight: '500', color: textColor }}>{c.zodiac}</Text>
                             </View>
                           </View>
 
                           {/* Healing */}
                           <View style={{ padding: 10, borderRadius: 12, backgroundColor: '#22C55E' + '12', borderWidth: 1, borderColor: '#22C55E' + '28', marginBottom: 10 }}>
-                            <Text style={{ fontSize: 10, fontWeight: '700', color: '#22C55E', marginBottom: 3 }}>UZDRAWIANIE</Text>
+                            <Text style={{ fontSize: 10, fontWeight: '700', color: '#22C55E', marginBottom: 3 }}>{t('crystalGrid.uzdrawiani', 'UZDRAWIANIE')}</Text>
                             <Text style={{ fontSize: 13, lineHeight: 20, color: textColor }}>{c.healing}</Text>
                           </View>
 
                           {/* Ritual */}
                           <View style={{ padding: 10, borderRadius: 12, backgroundColor: c.color + '12', borderWidth: 1, borderColor: c.color + '28', marginBottom: 12 }}>
-                            <Text style={{ fontSize: 10, fontWeight: '700', color: c.color, marginBottom: 3 }}>RYTUAŁ</Text>
+                            <Text style={{ fontSize: 10, fontWeight: '700', color: c.color, marginBottom: 3 }}>{t('crystalGrid.rytual', 'RYTUAŁ')}</Text>
                             <Text style={{ fontSize: 13, lineHeight: 20, color: textColor }}>{c.ritual}</Text>
                           </View>
 
@@ -645,7 +645,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
                             style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, padding: 12, borderRadius: 14, backgroundColor: ACCENT + '18', borderWidth: 1, borderColor: ACCENT + '35' }}
                           >
                             <Grid color={ACCENT} size={14} strokeWidth={1.8} />
-                            <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>Dodaj do siatki</Text>
+                            <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>{t('crystalGrid.dodaj_do_siatki', 'Dodaj do siatki')}</Text>
                           </Pressable>
                         </Animated.View>
                       )}
@@ -661,7 +661,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
           {/* ── SIATKA TAB ── */}
           {activeTab === 'siatka' && (
             <>
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 10 }}>WZORZEC SIATKI</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 10 }}>{t('crystalGrid.wzorzec_siatki', 'WZORZEC SIATKI')}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }} contentContainerStyle={{ flexDirection: 'row', paddingRight: 22 }}>
                 {GRID_PATTERNS.map(p => (
                   <Pressable
@@ -682,13 +682,13 @@ export const CrystalGridScreen = ({ navigation }: any) => {
 
               {/* Grid canvas */}
               <View style={{ padding: 12, borderRadius: 22, borderWidth: 1, borderColor: ACCENT + '30', backgroundColor: cardBg, marginBottom: 16 }}>
-                <Text style={{ fontSize: 12, color: subColor, textAlign: 'center', marginBottom: 10 }}>Dotknij węzeł siatki, aby umieścić kryształ</Text>
+                <Text style={{ fontSize: 12, color: subColor, textAlign: 'center', marginBottom: 10 }}>{t('crystalGrid.dotknij_wezel_siatki_aby_umiescic', 'Dotknij węzeł siatki, aby umieścić kryształ')}</Text>
                 <GridCanvas pattern={selectedPattern} placedCrystals={placedCrystals} onNodePress={handleNodePress} />
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 12 }}>
-                  <Text style={{ fontSize: 12, color: subColor }}>{placedCount} / {selectedPattern.nodes.length} węzłów</Text>
+                  <Text style={{ fontSize: 12, color: subColor }}>{placedCount} / {selectedPattern.nodes.length} {t('crystalGrid.wezlow', 'węzłów')}</Text>
                   {placedCount > 0 && (
                     <Pressable onPress={() => setPlacedCrystals({})}>
-                      <Text style={{ fontSize: 12, color: '#EF4444' }}>Wyczyść siatkę</Text>
+                      <Text style={{ fontSize: 12, color: '#EF4444' }}>{t('crystalGrid.wyczysc_siatke', 'Wyczyść siatkę')}</Text>
                     </Pressable>
                   )}
                 </View>
@@ -696,7 +696,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
 
               {/* Placement guide for pattern */}
               <View style={{ marginBottom: 16 }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 10 }}>INSTRUKCJA UKŁADANIA</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 10 }}>{t('crystalGrid.instrukcja_ukladania', 'INSTRUKCJA UKŁADANIA')}</Text>
                 {selectedPattern.steps.map((step, i) => (
                   <View key={i} style={{ flexDirection: 'row', gap: 10, marginBottom: 8, alignItems: 'flex-start' }}>
                     <View style={{ width: 22, height: 22, borderRadius: 11, backgroundColor: ACCENT + '28', alignItems: 'center', justifyContent: 'center', marginTop: 1 }}>
@@ -710,14 +710,14 @@ export const CrystalGridScreen = ({ navigation }: any) => {
               {/* Placed crystals list */}
               {placedCount > 0 && (
                 <Animated.View entering={FadeInDown.duration(300)} style={{ marginBottom: 16 }}>
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 10 }}>UMIESZCZONE KRYSZTAŁY</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 10 }}>{t('crystalGrid.umieszczon_krysztaly', 'UMIESZCZONE KRYSZTAŁY')}</Text>
                   {Object.entries(placedCrystals).map(([nodeIdx, crystal]) => (
                     <View key={nodeIdx} style={{ flexDirection: 'row', alignItems: 'center', padding: 12, borderRadius: 14, borderWidth: 1, borderColor: crystal.color + '35', backgroundColor: cardBg, marginBottom: 8 }}>
                       <View style={{ width: 12, height: 12, borderRadius: 6, backgroundColor: crystal.color, marginRight: 10 }} />
                       <Text style={{ fontSize: 22, marginRight: 10 }}>{crystal.emoji}</Text>
                       <View style={{ flex: 1 }}>
                         <Text style={{ fontSize: 14, fontWeight: '600', color: textColor }}>{crystal.name}</Text>
-                        <Text style={{ fontSize: 12, color: subColor }}>Węzeł {Number(nodeIdx) + 1} · {crystal.intention}</Text>
+                        <Text style={{ fontSize: 12, color: subColor }}>{t('crystalGrid.wezel', 'Węzeł')} {Number(nodeIdx) + 1} · {crystal.intention}</Text>
                       </View>
                       <Pressable onPress={() => clearNode(Number(nodeIdx))} hitSlop={10}>
                         <X color={subColor} size={16} />
@@ -734,7 +734,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
                   style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, padding: 16, borderRadius: 18, backgroundColor: ACCENT, marginBottom: 16 }}
                 >
                   <Zap color="#FFF" size={18} />
-                  <Text style={{ fontSize: 15, fontWeight: '700', color: '#FFF' }}>Aktywuj siatkę ({placedCount} kryształów)</Text>
+                  <Text style={{ fontSize: 15, fontWeight: '700', color: '#FFF' }}>{t('crystalGrid.aktywuj_siatke', 'Aktywuj siatkę')} ({placedCount} {t('crystalGrid.krystalow', 'kryształów')})</Text>
                 </Pressable>
               )}
 
@@ -749,13 +749,13 @@ export const CrystalGridScreen = ({ navigation }: any) => {
                 <Animated.View entering={FadeInDown.duration(400)} style={{ padding: 16, borderRadius: 18, borderWidth: 1, borderColor: '#22C55E50', backgroundColor: '#22C55E10', marginBottom: 16 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                     <Check color="#22C55E" size={20} />
-                    <Text style={{ fontSize: 14, fontWeight: '700', color: '#22C55E' }}>Siatka aktywowana — {placedCount} kryształów gotowych</Text>
+                    <Text style={{ fontSize: 14, fontWeight: '700', color: '#22C55E' }}>{t('crystalGrid.siatka_aktywowana', 'Siatka aktywowana')} — {placedCount} {t('crystalGrid.krysztal', 'kryształów gotowych')}</Text>
                   </View>
                 </Animated.View>
               )}
 
               {/* Intention selector */}
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 12 }}>WYBIERZ CEL SIATKI</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 12 }}>{t('crystalGrid.wybierz_cel_siatki', 'WYBIERZ CEL SIATKI')}</Text>
               {INTENTIONS_DATA.map((it, i) => {
                 const active = selectedIntention === it.id;
                 return (
@@ -782,7 +782,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
               {selectedIntention && intentionCrystals.length > 0 && (
                 <Animated.View entering={FadeInDown.duration(350)} style={{ marginTop: 8, marginBottom: 16 }}>
                   <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 10 }}>
-                    POLECANE KRYSZTAŁY — {selectedIntention.toUpperCase()}
+                    {t('crystalGrid.polecane_krystaly', 'POLECANE KRYSZTAŁY')} — {selectedIntention.toUpperCase()}
                   </Text>
                   {intentionCrystals.map((c, i) => (
                     <Animated.View
@@ -800,7 +800,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
                       </View>
                       <View style={{ paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8, backgroundColor: c.color + '25' }}>
                         <Text style={{ fontSize: 10, fontWeight: '700', color: c.color }}>
-                          {i === 0 ? 'Centrum' : `Węzeł ${i + 1}`}
+                          {i === 0 ? t('crystalGrid.centrum', 'Centrum') : `${t('crystalGrid.wezel', 'Węzeł')} ${i + 1}`}
                         </Text>
                       </View>
                     </Animated.View>
@@ -809,11 +809,11 @@ export const CrystalGridScreen = ({ navigation }: any) => {
               )}
 
               {/* Custom intention text */}
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 8 }}>WŁASNA INTENCJA</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 8 }}>{t('crystalGrid.wlasna_intencja', 'WŁASNA INTENCJA')}</Text>
               <TextInput
                 value={intention}
                 onChangeText={setIntention}
-                placeholder="Napisz swoją intencję dla tej siatki..."
+                placeholder={t('crystalGrid.napisz_swoja_intencje_dla_tej', 'Napisz swoją intencję dla tej siatki...')}
                 placeholderTextColor={subColor}
                 multiline
                 style={{ padding: 14, borderRadius: 16, borderWidth: 1, borderColor: cardBorder, backgroundColor: cardBg, color: textColor, fontSize: 14, lineHeight: 22, minHeight: 80, marginBottom: 16 }}
@@ -823,7 +823,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
               <View style={{ padding: 14, borderRadius: 16, borderWidth: 1, borderColor: ACCENT + '30', backgroundColor: cardBg, marginBottom: 16 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                   <Moon color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 12, fontWeight: '700', color: ACCENT }}>FAZA KSIĘŻYCA</Text>
+                  <Text style={{ fontSize: 12, fontWeight: '700', color: ACCENT }}>{t('crystalGrid.faza_ksiezyca', 'FAZA KSIĘŻYCA')}</Text>
                 </View>
                 <Text style={{ fontSize: 15, fontWeight: '600', color: textColor }}>{moonInfo.emoji} {moonInfo.name}</Text>
                 <Text style={{ fontSize: 12, color: subColor, marginTop: 4 }}>{moonInfo.guidance.tip}</Text>
@@ -835,15 +835,15 @@ export const CrystalGridScreen = ({ navigation }: any) => {
                 style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, padding: 16, borderRadius: 18, borderWidth: 1, borderColor: ACCENT + '40', backgroundColor: ACCENT + '10', marginBottom: 16 }}
               >
                 {ritualLoading
-                  ? <Text style={{ color: ACCENT }}>Generuję rytuał...</Text>
-                  : <><Sparkles color={ACCENT} size={16} strokeWidth={1.8} /><Text style={{ fontSize: 15, fontWeight: '700', color: ACCENT }}>Generuj rytuał siatki AI</Text></>
+                  ? <Text style={{ color: ACCENT }}>{t('crystalGrid.generuje_rytual', 'Generuję rytuał...')}</Text>
+                  : <><Sparkles color={ACCENT} size={16} strokeWidth={1.8} /><Text style={{ fontSize: 15, fontWeight: '700', color: ACCENT }}>{t('crystalGrid.generuj_rytual_siatki_ai', 'Generuj rytuał siatki AI')}</Text></>
                 }
               </Pressable>
 
               {ritualText ? (
                 <Animated.View entering={FadeInDown.duration(400)} style={{ padding: 18, borderRadius: 18, borderWidth: 1, borderColor: ACCENT + '30', backgroundColor: cardBg, marginBottom: 16 }}>
                   <LinearGradient colors={[ACCENT + '14', 'transparent']} style={[StyleSheet.absoluteFill, { borderRadius: 18 }]} />
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 10 }}>✦ RYTUAŁ AKTYWACJI</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 10 }}>{t('crystalGrid.rytual_aktywacji', '✦ RYTUAŁ AKTYWACJI')}</Text>
                   <Text style={{ fontSize: 14, lineHeight: 24, color: textColor }}>{ritualText}</Text>
                 </Animated.View>
               ) : null}
@@ -855,7 +855,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
                   style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, padding: 16, borderRadius: 18, borderWidth: 1, borderColor: '#22C55E' + '50', backgroundColor: '#22C55E' + '10', marginBottom: 16 }}
                 >
                   <BookOpen color="#22C55E" size={16} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 15, fontWeight: '700', color: '#22C55E' }}>Zapisz siatkę w dzienniku</Text>
+                  <Text style={{ fontSize: 15, fontWeight: '700', color: '#22C55E' }}>{t('crystalGrid.zapisz_siatke_w_dzienniku', 'Zapisz siatkę w dzienniku')}</Text>
                 </Pressable>
               )}
 
@@ -866,20 +866,20 @@ export const CrystalGridScreen = ({ navigation }: any) => {
           {/* ── DZIENNIK TAB ── */}
           {activeTab === 'dziennik' && (
             <>
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 6 }}>MÓJ DZIENNIK SIATEK</Text>
-              <Text style={{ fontSize: 13, color: subColor, marginBottom: 16, lineHeight: 20 }}>Dokumentuj swoje siatki, intencje i obserwacje podczas pracy z kryształami.</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 6 }}>{t('crystalGrid.moj_dziennik_siatek', 'MÓJ DZIENNIK SIATEK')}</Text>
+              <Text style={{ fontSize: 13, color: subColor, marginBottom: 16, lineHeight: 20 }}>{t('crystalGrid.dokumentuj_swoje_siatki_intencje_i', 'Dokumentuj swoje siatki, intencje i obserwacje podczas pracy z kryształami.')}</Text>
 
               {savedGrids.length === 0 ? (
                 <Animated.View entering={FadeInDown.duration(400)} style={{ padding: 32, borderRadius: 22, borderWidth: 1, borderColor: cardBorder, backgroundColor: cardBg, alignItems: 'center', marginBottom: 20 }}>
                   <Text style={{ fontSize: 36, marginBottom: 12 }}>💎</Text>
-                  <Text style={{ fontSize: 15, fontWeight: '700', color: textColor, marginBottom: 6 }}>Brak zapisanych siatek</Text>
-                  <Text style={{ fontSize: 13, color: subColor, textAlign: 'center', lineHeight: 20 }}>Stwórz swoją pierwszą siatkę, ustaw intencję i zapisz ją tutaj aby śledzić postęp manifestacji.</Text>
+                  <Text style={{ fontSize: 15, fontWeight: '700', color: textColor, marginBottom: 6 }}>{t('crystalGrid.brak_zapisanych_siatek', 'Brak zapisanych siatek')}</Text>
+                  <Text style={{ fontSize: 13, color: subColor, textAlign: 'center', lineHeight: 20 }}>{t('crystalGrid.stworz_swoja_pierwsza_siatke_ustaw', 'Stwórz swoją pierwszą siatkę, ustaw intencję i zapisz ją tutaj aby śledzić postęp manifestacji.')}</Text>
                   <Pressable
                     onPress={() => setActiveTab('siatka')}
                     style={{ marginTop: 16, flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 18, paddingVertical: 11, borderRadius: 14, backgroundColor: ACCENT + '18', borderWidth: 1, borderColor: ACCENT + '35' }}
                   >
                     <Plus color={ACCENT} size={15} strokeWidth={2} />
-                    <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>Utwórz siatkę</Text>
+                    <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>{t('crystalGrid.utworz_siatke', 'Utwórz siatkę')}</Text>
                   </Pressable>
                 </Animated.View>
               ) : (
@@ -896,7 +896,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
                         <Text style={{ fontSize: 12, color: subColor, marginTop: 2 }}>{g.patternName} · {g.date}</Text>
                       </View>
                       <View style={{ paddingHorizontal: 10, paddingVertical: 4, borderRadius: 10, backgroundColor: ACCENT + '20' }}>
-                        <Text style={{ fontSize: 11, fontWeight: '700', color: ACCENT }}>{g.crystalNames.length} kryształów</Text>
+                        <Text style={{ fontSize: 11, fontWeight: '700', color: ACCENT }}>{g.crystalNames.length} {t('crystalGrid.krystalow', 'kryształów')}</Text>
                       </View>
                     </View>
                     {g.crystalNames.length > 0 && (
@@ -920,7 +920,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
               )}
 
               {/* Moon phase guidance section */}
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginTop: 8, marginBottom: 12 }}>AKTYWACJA PRZEZ FAZY KSIĘŻYCA</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginTop: 8, marginBottom: 12 }}>{t('crystalGrid.aktywacja_przez_fazy_ksiezyca', 'AKTYWACJA PRZEZ FAZY KSIĘŻYCA')}</Text>
               {MOON_GUIDANCE.map((mg, i) => {
                 const open = expandedMoon === i;
                 return (
@@ -942,11 +942,11 @@ export const CrystalGridScreen = ({ navigation }: any) => {
                         <Animated.View entering={FadeInDown.duration(250)} style={{ marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: mg.color + '22' }}>
                           <View style={{ flexDirection: 'row', gap: 8, marginBottom: 8 }}>
                             <View style={{ flex: 1, padding: 10, borderRadius: 10, backgroundColor: '#22C55E' + '14', borderWidth: 1, borderColor: '#22C55E' + '30' }}>
-                              <Text style={{ fontSize: 10, fontWeight: '700', color: '#22C55E', marginBottom: 3 }}>POLECANE</Text>
+                              <Text style={{ fontSize: 10, fontWeight: '700', color: '#22C55E', marginBottom: 3 }}>{t('crystalGrid.polecane', 'POLECANE')}</Text>
                               <Text style={{ fontSize: 12, color: textColor, lineHeight: 18 }}>{mg.best}</Text>
                             </View>
                             <View style={{ flex: 1, padding: 10, borderRadius: 10, backgroundColor: '#EF4444' + '12', borderWidth: 1, borderColor: '#EF4444' + '28' }}>
-                              <Text style={{ fontSize: 10, fontWeight: '700', color: '#EF4444', marginBottom: 3 }}>UNIKAJ</Text>
+                              <Text style={{ fontSize: 10, fontWeight: '700', color: '#EF4444', marginBottom: 3 }}>{t('crystalGrid.unikaj', 'UNIKAJ')}</Text>
                               <Text style={{ fontSize: 12, color: textColor, lineHeight: 18 }}>{mg.avoid}</Text>
                             </View>
                           </View>
@@ -965,11 +965,11 @@ export const CrystalGridScreen = ({ navigation }: any) => {
           {/* ── CO DALEJ? (shown only on mandala tab) ── */}
           {activeTab === 'mandala' ? null : (
             <View style={{ marginTop: 10 }}>
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 12 }}>✦ CO DALEJ?</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, marginBottom: 12 }}>{t('crystalGrid.co_dalej', '✦ CO DALEJ?')}</Text>
               {[
-                { label: 'Kalendarz Księżycowy', sub: 'Aktywuj siatkę przy nowiu lub pełni', route: 'LunarCalendar', color: '#818CF8' },
-                { label: 'Kąpiel dźwiękowa', sub: 'Dźwięk wzmacnia energię kryształów', route: 'SoundBath', color: '#60A5FA' },
-                { label: 'Zapisz intencję', sub: 'Udokumentuj siatkę i jej cel w dzienniku', route: 'JournalEntry', color: ACCENT },
+                { label: t('crystalGrid.kalendarz_ksiezycowy', 'Kalendarz Księżycowy'), sub: 'Aktywuj siatkę przy nowiu lub pełni', route: 'LunarCalendar', color: '#818CF8' },
+                { label: t('crystalGrid.kapiel_dzwiekowa', 'Kąpiel dźwiękowa'), sub: t('crystalGrid.dzwiek_wzmacnia', 'Dźwięk wzmacnia energię kryształów'), route: 'SoundBath', color: '#60A5FA' },
+                { label: t('crystalGrid.zapisz_intencje', 'Zapisz intencję'), sub: t('crystalGrid.udokumentuj_siatke', 'Udokumentuj siatkę i jej cel w dzienniku'), route: 'JournalEntry', color: ACCENT },
               ].map(item => (
                 <Pressable
                   key={item.route}
@@ -998,7 +998,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
         <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(0,0,0,0.5)' }}>
           <View style={{ backgroundColor: isLight ? '#F5F0FF' : '#0E0820', borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 22, paddingBottom: 36, maxHeight: '65%' }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-              <Text style={{ fontSize: 15, fontWeight: '700', color: textColor }}>Wybierz kryształ dla węzła {(pickingNode ?? 0) + 1}</Text>
+              <Text style={{ fontSize: 15, fontWeight: '700', color: textColor }}>{t('crystalGrid.wybierz_krysztal_dla', 'Wybierz kryształ dla węzła')} {(pickingNode ?? 0) + 1}</Text>
               <Pressable onPress={() => setPickingNode(null)}><X color={subColor} size={20} /></Pressable>
             </View>
             <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
@@ -1044,11 +1044,11 @@ export const CrystalGridScreen = ({ navigation }: any) => {
                 </View>
                 <Text style={{ fontSize: 14, lineHeight: 22, color: textColor, marginBottom: 12 }}>{detailCrystal.desc}</Text>
                 <View style={{ padding: 12, borderRadius: 12, backgroundColor: detailCrystal.color + '15', borderWidth: 1, borderColor: detailCrystal.color + '30', marginBottom: 12 }}>
-                  <Text style={{ fontSize: 12, fontWeight: '700', color: detailCrystal.color, marginBottom: 4 }}>RYTUAŁ</Text>
+                  <Text style={{ fontSize: 12, fontWeight: '700', color: detailCrystal.color, marginBottom: 4 }}>{t('crystalGrid.rytual_1', 'RYTUAŁ')}</Text>
                   <Text style={{ fontSize: 13, lineHeight: 20, color: textColor }}>{detailCrystal.ritual}</Text>
                 </View>
                 <View style={{ padding: 12, borderRadius: 12, backgroundColor: '#22C55E' + '12', borderWidth: 1, borderColor: '#22C55E' + '25', marginBottom: 16 }}>
-                  <Text style={{ fontSize: 12, fontWeight: '700', color: '#22C55E', marginBottom: 4 }}>UZDRAWIANIE</Text>
+                  <Text style={{ fontSize: 12, fontWeight: '700', color: '#22C55E', marginBottom: 4 }}>{t('crystalGrid.uzdrawiani_1', 'UZDRAWIANIE')}</Text>
                   <Text style={{ fontSize: 13, lineHeight: 20, color: textColor }}>{detailCrystal.healing}</Text>
                 </View>
                 <Pressable
@@ -1056,7 +1056,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
                   style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, padding: 14, borderRadius: 16, backgroundColor: ACCENT + '18', borderWidth: 1, borderColor: ACCENT + '40' }}
                 >
                   <Sparkles color={ACCENT} size={16} />
-                  <Text style={{ fontSize: 14, fontWeight: '700', color: ACCENT }}>Dodaj do siatki</Text>
+                  <Text style={{ fontSize: 14, fontWeight: '700', color: ACCENT }}>{t('crystalGrid.dodaj_do_siatki_1', 'Dodaj do siatki')}</Text>
                 </Pressable>
               </>
             )}
@@ -1069,18 +1069,18 @@ export const CrystalGridScreen = ({ navigation }: any) => {
         <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(0,0,0,0.5)' }}>
           <View style={{ backgroundColor: isLight ? '#F5F0FF' : '#0E0820', borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 28, paddingBottom: 40 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-              <Text style={{ fontSize: 17, fontWeight: '700', color: textColor }}>Zapisz siatkę</Text>
+              <Text style={{ fontSize: 17, fontWeight: '700', color: textColor }}>{t('crystalGrid.zapisz_siatke', 'Zapisz siatkę')}</Text>
               <Pressable onPress={() => setShowSaveModal(false)}><X color={subColor} size={20} /></Pressable>
             </View>
             <View style={{ padding: 14, borderRadius: 14, backgroundColor: ACCENT + '10', borderWidth: 1, borderColor: ACCENT + '28', marginBottom: 14 }}>
               <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>{selectedIntention || intention.slice(0, 40)}</Text>
-              <Text style={{ fontSize: 12, color: subColor, marginTop: 3 }}>{selectedPattern.name} · {placedCount} kryształów</Text>
+              <Text style={{ fontSize: 12, color: subColor, marginTop: 3 }}>{selectedPattern.name} · {placedCount} {t('crystalGrid.krystalow', 'kryształów')}</Text>
             </View>
-            <Text style={{ fontSize: 12, fontWeight: '600', color: subColor, marginBottom: 8 }}>NOTATKA (opcjonalna)</Text>
+            <Text style={{ fontSize: 12, fontWeight: '600', color: subColor, marginBottom: 8 }}>{t('crystalGrid.notatka_opcjonalna', 'NOTATKA (opcjonalna)')}</Text>
             <TextInput
               value={journalNote}
               onChangeText={setJournalNote}
-              placeholder="Jak się czujesz podczas tej siatki? Co obserwujesz?"
+              placeholder={t('crystalGrid.jak_sie_czujesz_podczas_tej', 'Jak się czujesz podczas tej siatki? Co obserwujesz?')}
               placeholderTextColor={subColor}
               multiline
               style={{ padding: 14, borderRadius: 14, borderWidth: 1, borderColor: cardBorder, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', color: textColor, fontSize: 13, lineHeight: 20, minHeight: 80, marginBottom: 16 }}
@@ -1090,7 +1090,7 @@ export const CrystalGridScreen = ({ navigation }: any) => {
               style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, padding: 16, borderRadius: 18, backgroundColor: ACCENT }}
             >
               <BookOpen color="#FFF" size={16} strokeWidth={1.8} />
-              <Text style={{ fontSize: 15, fontWeight: '700', color: '#FFF' }}>Zapisz w dzienniku</Text>
+              <Text style={{ fontSize: 15, fontWeight: '700', color: '#FFF' }}>{t('crystalGrid.zapisz_w_dzienniku', 'Zapisz w dzienniku')}</Text>
             </Pressable>
           </View>
         </View>

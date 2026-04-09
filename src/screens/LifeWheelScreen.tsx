@@ -157,11 +157,11 @@ export const LifeWheelScreen = ({ navigation }: any) => {
           <WheelSvg scores={scores} isDark={isDark} />
           <View style={[styles.scoreBox, { backgroundColor: ACCENT + '20', borderColor: ACCENT + '40' }]}>
             <Text style={{ color: ACCENT, fontSize: 28, fontWeight: '200' }}>{totalScore.toFixed(1)}</Text>
-            <Text style={{ color: subColor, fontSize: 11, letterSpacing: 2 }}>ŚREDNIA</Text>
+            <Text style={{ color: subColor, fontSize: 11, letterSpacing: 2 }}>{t('lifeWheel.srednia', 'ŚREDNIA')}</Text>
           </View>
         </Animated.View>
 
-        <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginBottom: 10 }}>OCENA OBSZARÓW (1-10)</Text>
+        <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginBottom: 10 }}>{t('lifeWheel.ocena_obszarow_1_10', 'OCENA OBSZARÓW (1-10)')}</Text>
         {AREAS.map((area, i) => (
           <Animated.View key={area.id} entering={FadeInDown.delay(80 + i * 40).duration(400)}>
             <Pressable onPress={() => setEditArea(area.id === editArea ? null : area.id)}
@@ -190,13 +190,13 @@ export const LifeWheelScreen = ({ navigation }: any) => {
           </Animated.View>
         ))}
 
-        <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 16, marginBottom: 10 }}>OBSZARY DO PRACY</Text>
+        <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 16, marginBottom: 10 }}>{t('lifeWheel.obszary_do_pracy', 'OBSZARY DO PRACY')}</Text>
         {lowest.map((area, i) => (
           <View key={area.id} style={[styles.focusCard, { backgroundColor: area.color + '12', borderColor: area.color + '28' }]}>
             <Text style={{ fontSize: 18 }}>{area.icon}</Text>
             <View style={{ flex: 1 }}>
               <Text style={{ color: textColor, fontSize: 14, fontWeight: '600' }}>{area.label}: {scores[area.id]}/10</Text>
-              <Text style={{ color: subColor, fontSize: 12 }}>Wymaga największej uwagi</Text>
+              <Text style={{ color: subColor, fontSize: 12 }}>{t('lifeWheel.wymaga_najwieksze_uwagi', 'Wymaga największej uwagi')}</Text>
             </View>
             <View style={[styles.rankBadge, { backgroundColor: area.color + '22' }]}>
               <Text style={{ color: area.color, fontSize: 11, fontWeight: '700' }}>#{i + 1}</Text>

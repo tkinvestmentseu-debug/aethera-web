@@ -635,7 +635,7 @@ export const PastLifeScreen = ({ navigation }: any) => {
 
   const handleReadPastLife = async () => {
     if (!birthInput.trim()) {
-      Alert.alert('Brak daty urodzenia', 'Wpisz datę urodzenia, by otrzymać odczyt.');
+      Alert.alert(t('pastLife.brak_daty_urodzenia', 'Brak daty urodzenia'), t('pastLife.wpisz_date_urodzenia_by_otrzymac', 'Wpisz datę urodzenia, by otrzymać odczyt.'));
       return;
     }
     setReadingLoading(true);
@@ -782,8 +782,8 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
             <ChevronLeft color={ACCENT} size={26} strokeWidth={1.6} />
           </Pressable>
           <View style={styles.headerCenter}>
-            <Typography variant="premiumLabel" color={ACCENT}>Świat Ty</Typography>
-            <Typography variant="screenTitle" style={{ color: textColor, marginTop: 3 }}>Poprzednie Wcielenia</Typography>
+            <Typography variant="premiumLabel" color={ACCENT}>{t('pastLife.swiat_ty', 'Świat Ty')}</Typography>
+            <Typography variant="screenTitle" style={{ color: textColor, marginTop: 3 }}>{t('pastLife.poprzednie_wcielenia', 'Poprzednie Wcielenia')}</Typography>
           </View>
           <Pressable
             onPress={() => {
@@ -830,10 +830,10 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
               >
                 <View style={styles.heroCardHeader}>
                   <Hourglass color={ACCENT} size={22} strokeWidth={1.5} />
-                  <Text style={[styles.heroCardLabel, { color: ACCENT }]}>KRONIKI AKASHICZNE</Text>
+                  <Text style={[styles.heroCardLabel, { color: ACCENT }]}>{t('pastLife.kroniki_akashiczne', 'KRONIKI AKASHICZNE')}</Text>
                 </View>
                 <Text style={[styles.heroCardTitle, { color: textColor }]}>
-                  Twoja dusza pamięta więcej niż myślisz
+                  {t('pastLife.twoja_dusza_pamieta_wiecej_niz', 'Twoja dusza pamięta więcej niż myślisz')}
                 </Text>
                 <Text style={[styles.heroCardBody, { color: subColor }]}>
                   Każde wcielenie pozostawia ślad — w instynktach, talentach, lękach i fascynacjach. Regresja do poprzednich żyć to nie podróż w przeszłość, lecz odczytanie DNA Twojej duszy, zapisanego w niewidocznej bibliotece wszechświata zwanej Kronikami Akashicznymi.
@@ -845,7 +845,7 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
                   onPress={() => scrollRef.current?.scrollTo({ y: 600, animated: true })}
                   style={[styles.heroCta, { backgroundColor: ACCENT }]}
                 >
-                  <Text style={styles.heroCtaText}>Zacznij regresję</Text>
+                  <Text style={styles.heroCtaText}>{t('pastLife.zacznij_regresje', 'Zacznij regresję')}</Text>
                   <ArrowRight color="#fff" size={16} strokeWidth={2} />
                 </Pressable>
               </LinearGradient>
@@ -856,25 +856,25 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
               <View style={[styles.section, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <View style={styles.sectionHeader}>
                   <Brain color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Analiza Danych Urodzenia</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('pastLife.analiza_danych_urodzenia', 'Analiza Danych Urodzenia')}</Text>
                 </View>
                 <Text style={[styles.sectionDesc, { color: subColor }]}>
-                  Twoja data urodzenia jest zakodowaną mapą karmicznych wzorców duszy.
+                  {t('pastLife.twoja_data_urodzenia_jest_zakodowan', 'Twoja data urodzenia jest zakodowaną mapą karmicznych wzorców duszy.')}
                 </Text>
                 <View style={styles.dataRow}>
                   <View style={[styles.dataBadge, { borderColor: ACCENT + '44', backgroundColor: ACCENT + '11' }]}>
                     <Text style={[styles.dataBadgeNum, { color: ACCENT }]}>{lifePath || '?'}</Text>
-                    <Text style={[styles.dataBadgeLabel, { color: subColor }]}>Droga Życia</Text>
+                    <Text style={[styles.dataBadgeLabel, { color: subColor }]}>{t('pastLife.droga_zycia', 'Droga Życia')}</Text>
                   </View>
                   <View style={[styles.dataBadge, { borderColor: '#F59E0B44', backgroundColor: '#F59E0B11' }]}>
                     <Text style={[styles.dataBadgeNum, { color: '#F59E0B' }]}>{pastLifeIndicator || '?'}</Text>
-                    <Text style={[styles.dataBadgeLabel, { color: subColor }]}>Wskaźnik PL</Text>
+                    <Text style={[styles.dataBadgeLabel, { color: subColor }]}>{t('pastLife.wskaznik_pl', 'Wskaźnik PL')}</Text>
                   </View>
                   <View style={[styles.dataBadge, { borderColor: '#34D39944', backgroundColor: '#34D39911' }]}>
                     <Text style={[styles.dataBadgeNum, { color: '#34D399' }]}>
                       {karmicDebts.length > 0 ? karmicDebts.join(', ') : '—'}
                     </Text>
-                    <Text style={[styles.dataBadgeLabel, { color: subColor }]}>Dług Karmiczny</Text>
+                    <Text style={[styles.dataBadgeLabel, { color: subColor }]}>{t('pastLife.dlug_karmiczny', 'Dług Karmiczny')}</Text>
                   </View>
                 </View>
 
@@ -891,7 +891,7 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
                 {/* Karmic debts */}
                 {karmicDebts.length > 0 && (
                   <View style={{ marginTop: 10 }}>
-                    <Text style={[styles.subsectionLabel, { color: ACCENT }]}>DŁUGI KARMICZNE WYKRYTE:</Text>
+                    <Text style={[styles.subsectionLabel, { color: ACCENT }]}>{t('pastLife.dlugi_karmiczne_wykryte', 'DŁUGI KARMICZNE WYKRYTE:')}</Text>
                     {karmicDebts.map(kd => (
                       <View key={kd} style={[styles.infoBox, { borderColor: '#F8717144', backgroundColor: '#F8717111', marginTop: 6 }]}>
                         <Text style={[styles.infoBoxLabel, { color: '#F87171' }]}>KARMA {kd}</Text>
@@ -908,15 +908,15 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
               <View style={[styles.section, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <View style={styles.sectionHeader}>
                   <Eye color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Odczyt Poprzednich Żyć</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('pastLife.odczyt_poprzednic_zyc', 'Odczyt Poprzednich Żyć')}</Text>
                 </View>
                 <Text style={[styles.sectionDesc, { color: subColor }]}>
-                  Podaj datę urodzenia w formacie RRRR-MM-DD, by otrzymać personalizowany odczyt z Kronik Akashicznych.
+                  {t('pastLife.podaj_date_urodzenia_w_formacie', 'Podaj datę urodzenia w formacie RRRR-MM-DD, by otrzymać personalizowany odczyt z Kronik Akashicznych.')}
                 </Text>
                 <TextInput
                   value={birthInput}
                   onChangeText={setBirthInput}
-                  placeholder="np. 1990-03-15"
+                  placeholder={t('pastLife.np_1990_03_15', 'np. 1990-03-15')}
                   placeholderTextColor={subColor + '88'}
                   style={[styles.input, { color: textColor, borderColor: ACCENT + '44', backgroundColor: ACCENT + '0D' }]}
                   keyboardType="numeric"
@@ -927,10 +927,10 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
                   style={[styles.ctaBtn, { backgroundColor: readingLoading ? ACCENT + '55' : ACCENT }]}
                 >
                   {readingLoading ? (
-                    <Text style={styles.ctaBtnText}>Odczytuję Kroniki...</Text>
+                    <Text style={styles.ctaBtnText}>{t('pastLife.odczytuje_kroniki', 'Odczytuję Kroniki...')}</Text>
                   ) : (
                     <>
-                      <Text style={styles.ctaBtnText}>Odczytaj</Text>
+                      <Text style={styles.ctaBtnText}>{t('pastLife.odczytaj', 'Odczytaj')}</Text>
                       <ArrowRight color="#fff" size={16} strokeWidth={2} />
                     </>
                   )}
@@ -968,7 +968,7 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
               <View style={[styles.section, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <View style={styles.sectionHeader}>
                   <Scroll color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Lekcje Karmiczne</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('pastLife.lekcje_karmiczne', 'Lekcje Karmiczne')}</Text>
                 </View>
                 <Text style={[styles.sectionDesc, { color: subColor }]}>
                   Każda liczba drogi życia niesie unikalną lekcję, którą dusza powtarza przez wcielenia. Twoja: {lifePath || '?'}.
@@ -1008,11 +1008,11 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
 
                       {isExpanded && (
                         <View style={styles.lessonBody}>
-                          <Text style={[styles.lessonSubLabel, { color: lesson.color }]}>LEKCJA DUSZY</Text>
+                          <Text style={[styles.lessonSubLabel, { color: lesson.color }]}>{t('pastLife.lekcja_duszy', 'LEKCJA DUSZY')}</Text>
                           <Text style={[styles.lessonText, { color: subColor }]}>{lesson.lesson}</Text>
-                          <Text style={[styles.lessonSubLabel, { color: lesson.color, marginTop: 10 }]}>JAK SIĘ PRZEJAWIA</Text>
+                          <Text style={[styles.lessonSubLabel, { color: lesson.color, marginTop: 10 }]}>{t('pastLife.jak_sie_przejawia', 'JAK SIĘ PRZEJAWIA')}</Text>
                           <Text style={[styles.lessonText, { color: subColor }]}>{lesson.manifestation}</Text>
-                          <Text style={[styles.lessonSubLabel, { color: lesson.color, marginTop: 10 }]}>JAK ROZWIĄZAĆ</Text>
+                          <Text style={[styles.lessonSubLabel, { color: lesson.color, marginTop: 10 }]}>{t('pastLife.jak_rozwiazac', 'JAK ROZWIĄZAĆ')}</Text>
                           <Text style={[styles.lessonText, { color: subColor }]}>{lesson.resolution}</Text>
                         </View>
                       )}
@@ -1027,10 +1027,10 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
               <View style={[styles.section, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <View style={styles.sectionHeader}>
                   <Globe color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Wiek Duszy</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('pastLife.wiek_duszy', 'Wiek Duszy')}</Text>
                 </View>
                 <Text style={[styles.sectionDesc, { color: subColor }]}>
-                  Zaznacz stwierdzenia, które rezonują z Tobą najbardziej. Odkryj jak dojrzała jest Twoja dusza.
+                  {t('pastLife.zaznacz_stwierdzen_ktore_rezonuja_z', 'Zaznacz stwierdzenia, które rezonują z Tobą najbardziej. Odkryj jak dojrzała jest Twoja dusza.')}
                 </Text>
                 {SOUL_AGE_STATEMENTS.map((stmt, i) => {
                   const isSelected = soulAgeSelections.has(i);
@@ -1066,7 +1066,7 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
                   onPress={handleComputeSoulAge}
                   style={[styles.ctaBtn, { backgroundColor: ACCENT, marginTop: 12 }]}
                 >
-                  <Text style={styles.ctaBtnText}>Oblicz wiek duszy</Text>
+                  <Text style={styles.ctaBtnText}>{t('pastLife.oblicz_wiek_duszy', 'Oblicz wiek duszy')}</Text>
                   <Sparkles color="#fff" size={16} strokeWidth={2} />
                 </Pressable>
 
@@ -1109,10 +1109,10 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
               <View style={[styles.section, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <View style={styles.sectionHeader}>
                   <History color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Oś Czasu Duszy</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('pastLife.os_czasu_duszy', 'Oś Czasu Duszy')}</Text>
                 </View>
                 <Text style={[styles.sectionDesc, { color: subColor }]}>
-                  Zapisuj przebłyski wspomnień, snów lub intuicji które mogą być echem poprzednich wcieleń.
+                  {t('pastLife.zapisuj_przeblyski_wspomnien_snow_l', 'Zapisuj przebłyski wspomnień, snów lub intuicji które mogą być echem poprzednich wcieleń.')}
                 </Text>
 
                 {/* Era selector */}
@@ -1128,7 +1128,7 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
                 <TextInput
                   value={memoryText}
                   onChangeText={setMemoryText}
-                  placeholder="Opisz wspomnienie, sen lub przebłysk intuicji..."
+                  placeholder={t('pastLife.opisz_wspomnieni_sen_lub_przeblysk', 'Opisz wspomnienie, sen lub przebłysk intuicji...')}
                   placeholderTextColor={subColor + '88'}
                   multiline
                   numberOfLines={3}
@@ -1140,13 +1140,13 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
                   style={[styles.ctaBtn, { backgroundColor: ACCENT + 'CC', marginTop: 8 }]}
                 >
                   <Plus color="#fff" size={16} strokeWidth={2} />
-                  <Text style={styles.ctaBtnText}>Dodaj do osi czasu</Text>
+                  <Text style={styles.ctaBtnText}>{t('pastLife.dodaj_do_osi_czasu', 'Dodaj do osi czasu')}</Text>
                 </Pressable>
 
                 {/* Timeline entries */}
                 {memories.length === 0 && (
                   <Text style={[styles.emptyText, { color: subColor }]}>
-                    Brak wspomnień. Dodaj swoje pierwsze przebłyski z poprzednich wcieleń.
+                    {t('pastLife.brak_wspomnien_dodaj_swoje_pierwsze', 'Brak wspomnień. Dodaj swoje pierwsze przebłyski z poprzednich wcieleń.')}
                   </Text>
                 )}
                 {memories.map((mem, i) => (
@@ -1173,10 +1173,10 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
               <View style={[styles.section, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <View style={styles.sectionHeader}>
                   <Moon color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Przewodnik Regresji</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('pastLife.przewodnik_regresji', 'Przewodnik Regresji')}</Text>
                 </View>
                 <Text style={[styles.sectionDesc, { color: subColor }]}>
-                  Przewodnik tekstowy przez 7 etapów regresji do poprzednich wcieleń. Całkowity czas: ~10 minut. Znajdź ciche, wygodne miejsce.
+                  {t('pastLife.przewodnik_tekstowy_przez_7_etapow', 'Przewodnik tekstowy przez 7 etapów regresji do poprzednich wcieleń. Całkowity czas: ~10 minut. Znajdź ciche, wygodne miejsce.')}
                 </Text>
                 {REGRESSION_STAGES.map((stage, i) => {
                   const isExp = expandedStage === stage.num;
@@ -1220,10 +1220,10 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
               <View style={[styles.section, { borderColor: ACCENT + '33', backgroundColor: ACCENT + '0A' }]}>
                 <View style={styles.sectionHeader}>
                   <Sparkles color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Oracle — Głębszy Odczyt</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('pastLife.oracle_glebszy_odczyt', 'Oracle — Głębszy Odczyt')}</Text>
                 </View>
                 <Text style={[styles.sectionDesc, { color: subColor }]}>
-                  Zadaj własne pytanie lub skorzystaj z szybkich promptów.
+                  {t('pastLife.zadaj_wlasne_pytanie_lub_skorzystaj', 'Zadaj własne pytanie lub skorzystaj z szybkich promptów.')}
                 </Text>
 
                 {/* Quick prompts */}
@@ -1242,7 +1242,7 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
                 <TextInput
                   value={oracleText}
                   onChangeText={setOracleText}
-                  placeholder="Twoje pytanie o poprzednie wcielenia..."
+                  placeholder={t('pastLife.twoje_pytanie_o_poprzednie_wcieleni', 'Twoje pytanie o poprzednie wcielenia...')}
                   placeholderTextColor={subColor + '88'}
                   multiline
                   numberOfLines={3}
@@ -1258,10 +1258,10 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
                   ]}
                 >
                   {oracleLoading ? (
-                    <Text style={styles.ctaBtnText}>Kroniki odpowiadają...</Text>
+                    <Text style={styles.ctaBtnText}>{t('pastLife.kroniki_odpowiadaj', 'Kroniki odpowiadają...')}</Text>
                   ) : (
                     <>
-                      <Text style={styles.ctaBtnText}>Zapytaj Kroniki</Text>
+                      <Text style={styles.ctaBtnText}>{t('pastLife.zapytaj_kroniki', 'Zapytaj Kroniki')}</Text>
                       <Sparkles color="#fff" size={16} strokeWidth={2} />
                     </>
                   )}
@@ -1270,7 +1270,7 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
                 {oracleResult.length > 0 && (
                   <Animated.View entering={FadeInDown.duration(500)}>
                     <View style={[styles.oracleResult, { borderColor: ACCENT + '44', backgroundColor: ACCENT + '0D' }]}>
-                      <Text style={[styles.oracleResultLabel, { color: ACCENT }]}>ODPOWIEDŹ KRONIK</Text>
+                      <Text style={[styles.oracleResultLabel, { color: ACCENT }]}>{t('pastLife.odpowiedz_kronik', 'ODPOWIEDŹ KRONIK')}</Text>
                       <Text style={[styles.oracleResultText, { color: textColor, lineHeight: 24 }]}>{oracleResult}</Text>
                     </View>
                   </Animated.View>
@@ -1288,7 +1288,7 @@ Odpowiedz głęboko i konkretnie, korzystając z perspektywy Kronik Akashycznych
         <Pressable style={styles.modalOverlay} onPress={() => setShowEraModal(false)}>
           <View style={[styles.modalSheet, { backgroundColor: isLight ? '#F8F0E4' : '#0F0920' }]}>
             <View style={styles.modalHandle} />
-            <Text style={[styles.modalTitle, { color: textColor }]}>Wybierz Erę</Text>
+            <Text style={[styles.modalTitle, { color: textColor }]}>{t('pastLife.wybierz_ere', 'Wybierz Erę')}</Text>
             <ScrollView>
               {HISTORICAL_ERAS.map(era => (
                 <Pressable

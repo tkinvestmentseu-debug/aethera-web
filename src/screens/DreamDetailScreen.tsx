@@ -278,7 +278,7 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
   if (!dream) {
     return (
       <View style={{ flex: 1, backgroundColor: isLight ? '#F0F0FB' : '#010208', alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ color: ACCENT, fontSize: 16 }}>Sen nie został znaleziony.</Text>
+        <Text style={{ color: ACCENT, fontSize: 16 }}>{t('dreamDetail.sen_nie_zostal_znaleziony', 'Sen nie został znaleziony.')}</Text>
       </View>
     );
   }
@@ -294,7 +294,7 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
             <ChevronLeft size={26} color={ACCENT} strokeWidth={1.6} />
           </Pressable>
           <View style={s.headerCenter}>
-            <Text style={[s.headerEyebrow, { color: ACCENT }]}>KRAINA SNÓW</Text>
+            <Text style={[s.headerEyebrow, { color: ACCENT }]}>{t('dreamDetail.kraina_snow', 'KRAINA SNÓW')}</Text>
             <Text style={[s.headerTitle, { color: textColor }]} numberOfLines={1}>{dreamTitle}</Text>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
@@ -335,7 +335,7 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
                 {clarityLevel > 0 && (
                   <View style={{ alignItems: 'flex-end' }}>
                     <Text style={{ fontSize: 12, color: ACCENT }}>{'★'.repeat(clarityLevel)}{'☆'.repeat(5 - clarityLevel)}</Text>
-                    <Text style={{ fontSize: 9, color: subColor, marginTop: 2 }}>Wyrazistość</Text>
+                    <Text style={{ fontSize: 9, color: subColor, marginTop: 2 }}>{t('dreamDetail.wyrazistos', 'Wyrazistość')}</Text>
                   </View>
                 )}
               </View>
@@ -365,7 +365,7 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
             <View style={[s.dreamTextCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 }}>
                 <Moon size={15} color={ACCENT} strokeWidth={1.6} />
-                <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.8, color: ACCENT }}>TREŚĆ SNU</Text>
+                <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.8, color: ACCENT }}>{t('dreamDetail.tresc_snu', 'TREŚĆ SNU')}</Text>
               </View>
               <Text style={{ fontSize: 15, color: textColor, lineHeight: 26, letterSpacing: 0.2 }}>
                 {dreamText || 'Brak opisu snu.'}
@@ -376,7 +376,7 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
           {/* ── DETECTED SYMBOLS ──────────────────────────────────────── */}
           {detectedSymbols.length > 0 && (
             <Animated.View entering={FadeInDown.delay(60).duration(380)}>
-              <Text style={[s.sectionLabel, { color: ACCENT }]}>WYKRYTE SYMBOLE</Text>
+              <Text style={[s.sectionLabel, { color: ACCENT }]}>{t('dreamDetail.wykryte_symbole', 'WYKRYTE SYMBOLE')}</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
                 {detectedSymbols.map(sym => {
                   const active = selectedSymbol === sym.keyword;
@@ -423,7 +423,7 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
                       </View>
                     </View>
                     <Text style={{ fontSize: 12.5, color: textColor, lineHeight: 20 }}>
-                      Dotknij "Symbolarium" w DreamScreen, aby zobaczyć pełną Jungowską interpretację tego symbolu, element Cienia i pytanie refleksyjne.
+                      {t('dreamDetail.dotknij_symbolariu_w_dreamscree_aby', 'Dotknij "Symbolarium" w DreamScreen, aby zobaczyć pełną Jungowską interpretację tego symbolu, element Cienia i pytanie refleksyjne.')}
                     </Text>
                     <Pressable
                       onPress={() => navigation?.navigate('Dreams', { activeTab: 'symbolarium', symbol: selectedSymbolData.keyword })}
@@ -431,7 +431,7 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
                     >
                       <BookOpen size={13} color={selectedSymbolData.color} />
                       <Text style={{ fontSize: 12, fontWeight: '600', color: selectedSymbolData.color }}>
-                        Zobacz w Symbolarium →
+                        {t('dreamDetail.zobacz_w_symbolariu', 'Zobacz w Symbolarium →')}
                       </Text>
                     </Pressable>
                   </View>
@@ -442,7 +442,7 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
 
           {/* ── AI INTERPRETATION ─────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(80).duration(380)}>
-            <Text style={[s.sectionLabel, { color: ACCENT }]}>INTERPRETACJA AI</Text>
+            <Text style={[s.sectionLabel, { color: ACCENT }]}>{t('dreamDetail.interpreta_ai', 'INTERPRETACJA AI')}</Text>
             {!aiResult && !aiLoading ? (
               <Pressable
                 onPress={analyzeWithAI}
@@ -453,9 +453,9 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
                   <Brain size={22} color={ACCENT} strokeWidth={1.8} />
                 </View>
                 <View style={{ flex: 1, marginLeft: 12 }}>
-                  <Text style={{ fontSize: 14, fontWeight: '700', color: ACCENT }}>Interpretuj ten sen</Text>
+                  <Text style={{ fontSize: 14, fontWeight: '700', color: ACCENT }}>{t('dreamDetail.interpretu_ten_sen', 'Interpretuj ten sen')}</Text>
                   <Text style={{ fontSize: 12, color: subColor, marginTop: 2, lineHeight: 17 }}>
-                    Jungowska analiza: symbole, temat, przesłanie, działanie, archetyp
+                    {t('dreamDetail.jungowska_analiza_symbole_temat_prz', 'Jungowska analiza: symbole, temat, przesłanie, działanie, archetyp')}
                   </Text>
                 </View>
                 <Sparkles size={15} color={ACCENT} />
@@ -463,17 +463,17 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
             ) : aiLoading ? (
               <View style={[s.aiCta, { backgroundColor: cardBg, borderColor: ACCENT + '33' }]}>
                 <Text style={{ fontSize: 20, marginRight: 10 }}>🌙</Text>
-                <Text style={{ fontSize: 13, color: subColor, fontStyle: 'italic' }}>Oracle czyta Twój sen...</Text>
+                <Text style={{ fontSize: 13, color: subColor, fontStyle: 'italic' }}>{t('dreamDetail.oracle_czyta_twoj_sen', 'Oracle czyta Twój sen...')}</Text>
               </View>
             ) : (
               <View style={[s.aiResultCard, { backgroundColor: cardBg, borderColor: ACCENT + '44' }]}>
                 <LinearGradient colors={[ACCENT + '18', 'transparent']} style={StyleSheet.absoluteFill as any} />
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 }}>
                   <Wand2 size={16} color={ACCENT} strokeWidth={1.6} />
-                  <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.8, color: ACCENT }}>JUNGOWSKA INTERPRETACJA</Text>
+                  <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.8, color: ACCENT }}>{t('dreamDetail.jungowska_interpreta', 'JUNGOWSKA INTERPRETACJA')}</Text>
                   <View style={{ flex: 1 }} />
                   <Pressable onPress={analyzeWithAI} hitSlop={10}>
-                    <Text style={{ fontSize: 10, color: ACCENT + 'AA', fontWeight: '600' }}>Odśwież</Text>
+                    <Text style={{ fontSize: 10, color: ACCENT + 'AA', fontWeight: '600' }}>{t('dreamDetail.odswiez', 'Odśwież')}</Text>
                   </Pressable>
                 </View>
                 {parsedSections.length > 0 ? (
@@ -506,7 +506,7 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
 
           {/* ── RECURRING TOGGLE ──────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(100).duration(380)}>
-            <Text style={[s.sectionLabel, { color: ACCENT }]}>POWRACAJĄCY MOTYW</Text>
+            <Text style={[s.sectionLabel, { color: ACCENT }]}>{t('dreamDetail.powracajac_motyw', 'POWRACAJĄCY MOTYW')}</Text>
             <View style={[s.recurCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12, marginBottom: 14 }}>
                 <View style={{ width: 42, height: 42, borderRadius: 12, backgroundColor: '#F472B6' + '22', alignItems: 'center', justifyContent: 'center' }}>
@@ -514,10 +514,10 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={{ fontSize: 14, fontWeight: '600', color: textColor, marginBottom: 4 }}>
-                    Czy ten sen się powtarza?
+                    {t('dreamDetail.czy_ten_sen_sie_powtarza', 'Czy ten sen się powtarza?')}
                   </Text>
                   <Text style={{ fontSize: 12, color: subColor, lineHeight: 18 }}>
-                    Powtarzające się sny to głos podświadomości, który szczególnie domaga się uwagi. Jung widział w nich niespełnione zadania psychiczne.
+                    {t('dreamDetail.powtarzaja_sie_sny_to_glos', 'Powtarzające się sny to głos podświadomości, który szczególnie domaga się uwagi. Jung widział w nich niespełnione zadania psychiczne.')}
                   </Text>
                 </View>
               </View>
@@ -531,7 +531,7 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
 
           {/* ── QUICK ACTIONS ─────────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(120).duration(380)}>
-            <Text style={[s.sectionLabel, { color: ACCENT }]}>EKSPLORUJ DALEJ</Text>
+            <Text style={[s.sectionLabel, { color: ACCENT }]}>{t('dreamDetail.eksploruj_dalej', 'EKSPLORUJ DALEJ')}</Text>
             <View style={[s.actionsCard, { backgroundColor: cardBg, borderColor: ACCENT + '33' }]}>
               <LinearGradient colors={[ACCENT + '10', 'transparent']} style={StyleSheet.absoluteFill} />
               {[
@@ -586,7 +586,7 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
             style={[s.bottomBtn, { borderColor: ACCENT + '44', backgroundColor: cardBg }]}
           >
             <Share2 size={15} color={ACCENT} strokeWidth={1.6} />
-            <Text style={{ fontSize: 13, fontWeight: '600', color: ACCENT }}>Udostępnij</Text>
+            <Text style={{ fontSize: 13, fontWeight: '600', color: ACCENT }}>{t('dreamDetail.udostepnij', 'Udostępnij')}</Text>
           </Pressable>
           {!aiResult && !aiLoading && (
             <Pressable
@@ -594,7 +594,7 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
               style={[s.bottomBtn, { flex: 2, backgroundColor: ACCENT, borderColor: ACCENT }]}
             >
               <Brain size={15} color='#FFF' strokeWidth={1.8} />
-              <Text style={{ fontSize: 13, fontWeight: '700', color: '#FFF' }}>Interpretuj sen</Text>
+              <Text style={{ fontSize: 13, fontWeight: '700', color: '#FFF' }}>{t('dreamDetail.interpretu_sen', 'Interpretuj sen')}</Text>
             </Pressable>
           )}
           <Pressable
@@ -602,7 +602,7 @@ Pisz w języku użytkownika. Ton: ciepły, głęboki, psychologicznie precyzyjny
             style={[s.bottomBtn, { borderColor: '#E8705A44', backgroundColor: '#E8705A0C' }]}
           >
             <Trash2 size={15} color='#E8705A' strokeWidth={1.6} />
-            <Text style={{ fontSize: 13, fontWeight: '600', color: '#E8705A' }}>Usuń</Text>
+            <Text style={{ fontSize: 13, fontWeight: '600', color: '#E8705A' }}>{t('dreamDetail.usun', 'Usuń')}</Text>
           </Pressable>
         </View>
       </SafeAreaView>

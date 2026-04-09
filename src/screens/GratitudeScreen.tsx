@@ -351,7 +351,7 @@ Pisz w języku użytkownika, ciepło i precyzyjnie — jakbyś pisał do kogoś 
 
   const handleAnalyzePatterns = async () => {
     if (gratitudeEntries.length < 3) {
-      Alert.alert('Za mało wpisów', 'Potrzebujesz co najmniej 3 wpisów wdzięczności, by zobaczyć wzorce.');
+      Alert.alert(t('gratitude.za_malo_wpisow', 'Za mało wpisów'), t('gratitude.potrzebuje_co_najmniej_3_wpisow', 'Potrzebujesz co najmniej 3 wpisów wdzięczności, by zobaczyć wzorce.'));
       return;
     }
     setPatternLoading(true);
@@ -386,7 +386,7 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
   const handleShare = async () => {
     const filled = slots.filter(s => s.trim().length > 0);
     if (filled.length === 0 && !todayEntry) {
-      Alert.alert('Brak wpisu', 'Najpierw zapisz dzisiejszą wdzięczność.');
+      Alert.alert(t('gratitude.brak_wpisu', 'Brak wpisu'), t('gratitude.najpierw_zapisz_dzisiejsza_wdzieczn', 'Najpierw zapisz dzisiejszą wdzięczność.'));
       return;
     }
     const items = filled.length > 0 ? filled : (todayEntry?.items || []);
@@ -456,7 +456,7 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
               <LinearGradient colors={[ACCENT + '12', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
               <View style={gr.quoteHeader}>
                 <Quote color={ACCENT} size={14} strokeWidth={1.6} />
-                <Text style={[gr.quoteLabel, { color: ACCENT }]}>PRZESŁANIE TYGODNIA</Text>
+                <Text style={[gr.quoteLabel, { color: ACCENT }]}>{t('gratitude.przeslanie_tygodnia', 'PRZESŁANIE TYGODNIA')}</Text>
               </View>
               <Text style={[gr.quoteText, { color: textColor }]}>"{weeklyQuote.text}"</Text>
               <Text style={[gr.quoteAuthor, { color: subColor }]}>— {weeklyQuote.author}</Text>
@@ -475,8 +475,8 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
 
             <Animated.View entering={FadeInDown.delay(90).duration(500)} style={[gr.ritualCard, { backgroundColor: cardBg, borderColor: ACCENT + '33' }]}>
               <LinearGradient colors={[ACCENT + '18', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
-              <Typography variant="premiumLabel" color={ACCENT}>✦ OŁTARZ WDZIĘCZNOŚCI</Typography>
-              <Text style={[gr.ritualLead, { color: textColor }]}>Najpierw nazwij to, co miękkie i ciche. Potem uchwyć to, co trwa mimo chaosu — relację, chwilę, łaskę. Na końcu zostaw jedno zdanie, do którego chcesz wrócić jutro.</Text>
+              <Typography variant="premiumLabel" color={ACCENT}>{t('gratitude.oltarz_wdziecznos', '✦ OŁTARZ WDZIĘCZNOŚCI')}</Typography>
+              <Text style={[gr.ritualLead, { color: textColor }]}>{t('gratitude.najpierw_nazwij_to_co_miekkie', 'Najpierw nazwij to, co miękkie i ciche. Potem uchwyć to, co trwa mimo chaosu — relację, chwilę, łaskę. Na końcu zostaw jedno zdanie, do którego chcesz wrócić jutro.')}</Text>
               <View style={gr.ritualSteps}>
                 {[
                   'Nazwij jedną drobną rzecz, która dziś Cię podtrzymała.',
@@ -499,7 +499,7 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
                 <Text style={[gr.sectionTitle, { color: subColor }]}>💛 {t('gratitude.items_today').toUpperCase()}</Text>
                 <Pressable onPress={handleShare} style={[gr.shareBtn, { borderColor: ACCENT + '44' }]} hitSlop={10}>
                   <Share2 color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={[gr.shareBtnText, { color: ACCENT }]}>Udostępnij</Text>
+                  <Text style={[gr.shareBtnText, { color: ACCENT }]}>{t('gratitude.udostepnij', 'Udostępnij')}</Text>
                 </Pressable>
               </View>
               {slots.map((val, i) => (
@@ -508,7 +508,7 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
                   <MysticalInput
                     value={val}
                     onChangeText={(t) => { const ns = [...slots]; ns[i] = t; setSlots(ns); setSaved(false); }}
-                    placeholder="Jestem wdzięczna za..."
+                    placeholder={t('gratitude.jestem_wdzieczna_za', 'Jestem wdzięczna za...')}
                     multiline
                     editable={!saved}
                     containerStyle={{ flex: 1 }}
@@ -528,7 +528,7 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
                 <LinearGradient colors={[ACCENT + '10', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
                 <BookOpen color={ACCENT} size={16} strokeWidth={1.6} />
                 {aiLoading ? (
-                  <Text style={[gr.reflText, { color: subColor }]}>Generuję refleksję...</Text>
+                  <Text style={[gr.reflText, { color: subColor }]}>{t('gratitude.generuje_refleksje', 'Generuję refleksję...')}</Text>
                 ) : aiReflection ? (
                   <Text style={[gr.reflText, { color: textColor }]}>{aiReflection}</Text>
                 ) : (
@@ -539,7 +539,7 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
                     }
                     handleSave();
                   }}>
-                    <Text style={[gr.reflText, { color: ACCENT }]}>Dotknij, by otrzymać poetycką refleksję ✦</Text>
+                    <Text style={[gr.reflText, { color: ACCENT }]}>{t('gratitude.dotknij_by_otrzymac_poetycka_reflek', 'Dotknij, by otrzymać poetycką refleksję ✦')}</Text>
                   </Pressable>
                 )}
               </Animated.View>
@@ -547,8 +547,8 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
 
             {/* ── WDZIĘCZNOŚĆ GŁĘBOKA ──────────────────────────────── */}
             <Animated.View entering={FadeInDown.delay(105).duration(500)}>
-              <Text style={[gr.sectionTitle, { color: subColor, marginTop: 24 }]}>🌿 WDZIĘCZNOŚĆ GŁĘBOKA</Text>
-              <Text style={[gr.sectionDesc, { color: subColor }]}>Trzy pytania, które prowadzą poza codzienną listę.</Text>
+              <Text style={[gr.sectionTitle, { color: subColor, marginTop: 24 }]}>{t('gratitude.wdziecznos_gleboka', '🌿 WDZIĘCZNOŚĆ GŁĘBOKA')}</Text>
+              <Text style={[gr.sectionDesc, { color: subColor }]}>{t('gratitude.trzy_pytania_ktore_prowadza_poza', 'Trzy pytania, które prowadzą poza codzienną listę.')}</Text>
               {DEEP_PROMPTS.map((dp, idx) => (
                 <View key={idx} style={[gr.deepCard, { backgroundColor: cardBg, borderColor: dp.color + '44' }]}>
                   <LinearGradient colors={[dp.color + '14', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
@@ -568,7 +568,7 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
                       <MysticalInput
                         value={deepAnswers[idx]}
                         onChangeText={(t) => { const na = [...deepAnswers]; na[idx] = t; setDeepAnswers(na); }}
-                        placeholder="Twoja refleksja..."
+                        placeholder={t('gratitude.twoja_refleksja', 'Twoja refleksja...')}
                         multiline
                         editable={!deepSaved[idx]}
                         style={{ minHeight: 72, fontSize: 14, lineHeight: 22, color: textColor, marginTop: 8 }}
@@ -582,11 +582,11 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
                           }}
                           style={[gr.deepSaveBtn, { backgroundColor: dp.color }]}
                         >
-                          <Text style={gr.deepSaveBtnText}>Zapisz refleksję</Text>
+                          <Text style={gr.deepSaveBtnText}>{t('gratitude.zapisz_refleksje', 'Zapisz refleksję')}</Text>
                         </Pressable>
                       )}
                       {deepSaved[idx] && (
-                        <Text style={[gr.deepSavedLabel, { color: dp.color }]}>✓ Zapisano</Text>
+                        <Text style={[gr.deepSavedLabel, { color: dp.color }]}>{t('gratitude.zapisano', '✓ Zapisano')}</Text>
                       )}
                     </Animated.View>
                   )}
@@ -599,12 +599,12 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
               <LinearGradient colors={[ACCENT + '14', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
               <View style={gr.challengeHeader}>
                 <Trophy color={ACCENT} size={16} strokeWidth={1.6} />
-                <Text style={[gr.sectionTitle, { color: ACCENT, marginBottom: 0 }]}>30-DNIOWE WYZWANIE</Text>
+                <Text style={[gr.sectionTitle, { color: ACCENT, marginBottom: 0 }]}>{t('gratitude.30_dniowe_wyzwanie', '30-DNIOWE WYZWANIE')}</Text>
                 <View style={[gr.challengePct, { backgroundColor: ACCENT + '22' }]}>
                   <Text style={[gr.challengePctText, { color: ACCENT }]}>{challengeCompletion}%</Text>
                 </View>
               </View>
-              <Text style={[gr.challengeDesc, { color: subColor }]}>Zaznacz każdy dzień, w którym praktykowałaś/eś wdzięczność. Dotknij kratki, by ją zaznaczyć.</Text>
+              <Text style={[gr.challengeDesc, { color: subColor }]}>{t('gratitude.zaznacz_kazdy_dzien_w_ktorym', 'Zaznacz każdy dzień, w którym praktykowałaś/eś wdzięczność. Dotknij kratki, by ją zaznaczyć.')}</Text>
               <View style={gr.challengeGrid}>
                 {challengeGrid.map((day) => (
                   <Pressable
@@ -625,7 +625,7 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
               {challengeCompletion >= 100 && (
                 <View style={[gr.challengeCompleteRow, { backgroundColor: ACCENT + '22' }]}>
                   <Trophy color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={[gr.challengeCompleteText, { color: ACCENT }]}>Brawo! Ukończyłaś/eś 30-dniowe wyzwanie wdzięczności!</Text>
+                  <Text style={[gr.challengeCompleteText, { color: ACCENT }]}>{t('gratitude.brawo_ukonczylas_es_30_dniowe', 'Brawo! Ukończyłaś/eś 30-dniowe wyzwanie wdzięczności!')}</Text>
                 </View>
               )}
             </Animated.View>
@@ -635,9 +635,9 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
               <LinearGradient colors={['#A78BFA14', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
               <View style={gr.patternHeader}>
                 <TrendingUp color="#A78BFA" size={16} strokeWidth={1.6} />
-                <Text style={[gr.sectionTitle, { color: '#A78BFA', marginBottom: 0 }]}>WZORCE WDZIĘCZNOŚCI</Text>
+                <Text style={[gr.sectionTitle, { color: '#A78BFA', marginBottom: 0 }]}>{t('gratitude.wzorce_wdziecznos', 'WZORCE WDZIĘCZNOŚCI')}</Text>
               </View>
-              <Text style={[gr.patternDesc, { color: subColor }]}>AI przeanalizuje Twoje poprzednie wpisy i pokaże, co naprawdę cenisz w życiu.</Text>
+              <Text style={[gr.patternDesc, { color: subColor }]}>{t('gratitude.ai_przeanaliz_twoje_poprzednie_wpis', 'AI przeanalizuje Twoje poprzednie wpisy i pokaże, co naprawdę cenisz w życiu.')}</Text>
               {patternText ? (
                 <Animated.View entering={FadeInDown.duration(400)}>
                   <Text style={[gr.patternText, { color: textColor }]}>{patternText}</Text>
@@ -649,7 +649,7 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
                   style={[gr.patternBtn, { backgroundColor: patternLoading ? '#A78BFA55' : '#A78BFA', opacity: gratitudeEntries.length < 3 ? 0.45 : 1 }]}
                 >
                   {patternLoading ? (
-                    <Text style={gr.patternBtnText}>Analizuję wzorce...</Text>
+                    <Text style={gr.patternBtnText}>{t('gratitude.analizuje_wzorce', 'Analizuję wzorce...')}</Text>
                   ) : (
                     <>
                       <Search color="#fff" size={14} strokeWidth={2} />
@@ -663,14 +663,14 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
             </Animated.View>
 
             <Animated.View entering={FadeInDown.delay(130).duration(500)} style={[gr.integrationCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-              <Typography variant="premiumLabel" color={ACCENT}>🌿 INTEGRACJA</Typography>
+              <Typography variant="premiumLabel" color={ACCENT}>{t('gratitude.integracja', '🌿 INTEGRACJA')}</Typography>
               <Text style={[gr.integrationText, { color: subColor }]}>Wdzięczność działa najmocniej wtedy, gdy nie jest listą obowiązków. Traktuj ją jak codzienny zapis tego, co mimo napięcia dalej pozostaje żywe, piękne albo prawdziwe. Zapisane słowo staje się kotwicą na trudniejsze dni.</Text>
             </Animated.View>
 
             {/* ── ULUBIONE WPISY ───────────────────────────────────── */}
             {favoriteEntries.length > 0 && (
               <Animated.View entering={FadeInDown.duration(500)}>
-                <Text style={[gr.sectionTitle, { color: subColor, marginTop: 24 }]}>⭐ ULUBIONE WPISY</Text>
+                <Text style={[gr.sectionTitle, { color: subColor, marginTop: 24 }]}>{t('gratitude.ulubione_wpisy', '⭐ ULUBIONE WPISY')}</Text>
                 {favoriteEntries.map((e) => (
                   <View key={e.id} style={[gr.histRow, { borderColor: ACCENT + '44', backgroundColor: ACCENT + '08' }]}>
                     <View style={gr.histRowHeader}>
@@ -704,7 +704,7 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
                             strokeWidth={1.6}
                           />
                         </Pressable>
-                        <Pressable hitSlop={10} onPress={() => Alert.alert('Usuń wpis', 'Czy na pewno chcesz usunąć ten wpis wdzięczności?', [
+                        <Pressable hitSlop={10} onPress={() => Alert.alert(t('gratitude.usun_wpis', 'Usuń wpis'), t('gratitude.czy_na_pewno_chcesz_usunac', 'Czy na pewno chcesz usunąć ten wpis wdzięczności?'), [
                           { text: 'Anuluj', style: 'cancel' },
                           { text: 'Usuń', style: 'destructive', onPress: () => deleteGratitudeEntry(e.id) },
                         ])}>
@@ -722,7 +722,7 @@ Pisz w języku użytkownika, zwięźle i celnie — 4-5 zdań łącznie.`,
 
             {/* CO DALEJ? */}
             <Animated.View entering={FadeInDown.delay(140).duration(500)} style={[gr.nextCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-              <Text style={[gr.sectionTitle, { color: subColor, marginBottom: 14 }]}>✦ CO DALEJ?</Text>
+              <Text style={[gr.sectionTitle, { color: subColor, marginBottom: 14 }]}>{t('gratitude.co_dalej', '✦ CO DALEJ?')}</Text>
               {[
                 {
                   label: 'Kąpiel dźwiękowa',

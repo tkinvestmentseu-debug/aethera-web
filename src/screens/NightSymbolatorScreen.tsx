@@ -158,8 +158,8 @@ return (
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={{ flex: 1 }}>
-          <Text style={{ color: subColor, fontSize: 10, letterSpacing: 2 }}>SŁOWNIK SYMBOLI</Text>
-          <Text style={{ color: textColor, fontSize: 20, fontWeight: '700' }}>Symbolatorium Nocy</Text>
+          <Text style={{ color: subColor, fontSize: 10, letterSpacing: 2 }}>{t('nightSymbolator.slownik_symboli', 'SŁOWNIK SYMBOLI')}</Text>
+          <Text style={{ color: textColor, fontSize: 20, fontWeight: '700' }}>{t('nightSymbolator.symbolator_nocy', 'Symbolatorium Nocy')}</Text>
         </View>
         <MusicToggleButton color={ACCENT} size={19} />
         <View style={[styles.moonBadge, { borderColor: ACCENT + '40', backgroundColor: ACCENT + '10' }]}>
@@ -220,8 +220,8 @@ return (
         {filteredSymbols.length === 0 && (
           <View style={[styles.emptyCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <Text style={{ fontSize: 36, marginBottom: 10 }}>🔮</Text>
-            <Text style={{ color: textColor, fontSize: 15, fontWeight: '700' }}>Brak wyników</Text>
-            <Text style={{ color: subColor, fontSize: 13, marginTop: 4 }}>Spróbuj innej frazy</Text>
+            <Text style={{ color: textColor, fontSize: 15, fontWeight: '700' }}>{t('nightSymbolator.brak_wynikow', 'Brak wyników')}</Text>
+            <Text style={{ color: subColor, fontSize: 13, marginTop: 4 }}>{t('nightSymbolator.sprobuj_innej_frazy', 'Spróbuj innej frazy')}</Text>
           </View>
         )}
 
@@ -253,10 +253,10 @@ return (
                 {expanded && (
                   <Animated.View entering={FadeIn.duration(300)} style={styles.expandedContent}>
                     <View style={[styles.divider, { backgroundColor: ACCENT + '25' }]} />
-                    <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginBottom: 8 }}>GŁĘBSZE ZNACZENIE</Text>
+                    <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginBottom: 8 }}>{t('nightSymbolator.glebsze_znaczenie', 'GŁĘBSZE ZNACZENIE')}</Text>
                     <Text style={{ color: textColor, fontSize: 14, lineHeight: 22 }}>{sym.deepMeaning}</Text>
 
-                    <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 14, marginBottom: 8 }}>PYTANIA DO REFLEKSJI</Text>
+                    <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 14, marginBottom: 8 }}>{t('nightSymbolator.pytania_do_refleksji', 'PYTANIA DO REFLEKSJI')}</Text>
                     {sym.questions.map((q, qi) => (
                       <View key={qi} style={[styles.questionRow, { borderColor: ACCENT + '20', backgroundColor: ACCENT + '06' }]}>
                         <Text style={{ color: ACCENT, fontSize: 14 }}>✦</Text>
@@ -273,7 +273,7 @@ return (
         <View style={[styles.aiBlock, { backgroundColor: cardBg, borderColor: ACCENT + '40' }]}>
           <View style={styles.aiBlockHeader}>
             <Sparkles size={14} color={ACCENT} />
-            <Text style={[styles.aiBlockTitle, { color: ACCENT }]}>AI INTERPRETACJA SYMBOLI</Text>
+            <Text style={[styles.aiBlockTitle, { color: ACCENT }]}>{t('nightSymbolator.ai_interpreta_symboli', 'AI INTERPRETACJA SYMBOLI')}</Text>
           </View>
           <Text style={[styles.aiBlockHint, { color: subColor }]}>
             Kategoria: <Text style={{ color: textColor, fontWeight: '600' }}>{selectedCategory}</Text>
@@ -283,7 +283,7 @@ return (
             <Text style={[styles.aiBlockText, { color: textColor }]}>{symbolAiInsight}</Text>
           ) : (
             <Text style={[styles.aiBlockEmpty, { color: subColor }]}>
-              Dotknij przycisku, by uzyskać duchową interpretację wybranej kategorii symboli.
+              {t('nightSymbolator.dotknij_przycisku_by_uzyskac_duchow', 'Dotknij przycisku, by uzyskać duchową interpretację wybranej kategorii symboli.')}
             </Text>
           )}
           <Pressable

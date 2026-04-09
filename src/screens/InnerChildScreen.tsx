@@ -272,13 +272,13 @@ Bądź ciepły, łagodny i konkretny. 3-4 zdania w języku użytkownika.`,
         <Animated.View entering={FadeInDown.delay(120).springify()}>
           <View style={{ alignItems: 'center', marginBottom: 8 }}>
             <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', lineHeight: 20 }}>
-              Każde dorosłe ja nosi w sobie dziecko, które wciąż czeka na miłość
+              {t('innerChild.kazde_dorosle_ja_nosi_w', 'Każde dorosłe ja nosi w sobie dziecko, które wciąż czeka na miłość')}
             </Text>
           </View>
         </Animated.View>
 
         {/* NEEDS */}
-        <SectionHeader label="TWOJE DZIECKO POTRZEBUJE" accent={ACCENT} />
+        <SectionHeader label={t('innerChild.twoje_dziecko_potrzebuje', 'TWOJE DZIECKO POTRZEBUJE')} accent={ACCENT} />
         <Animated.View entering={FadeInDown.delay(160).springify()}>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
             {NEEDS.map(need => {
@@ -306,22 +306,22 @@ Bądź ciepły, łagodny i konkretny. 3-4 zdania w języku użytkownika.`,
         </Animated.View>
 
         {/* LETTER */}
-        <SectionHeader label="LIST DO WEWNĘTRZNEGO DZIECKA" accent={ACCENT} />
+        <SectionHeader label={t('innerChild.list_do_wewnetrzne_dziecka', 'LIST DO WEWNĘTRZNEGO DZIECKA')} accent={ACCENT} />
         <Animated.View entering={FadeInDown.delay(200).springify()}>
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: ACCENT + '30' }]}>
             <Text style={{ color: subColor, fontSize: 12, marginBottom: 8 }}>
-              Napisz do siebie — do małego Ciebie. Co chcesz mu/jej powiedzieć?
+              {t('innerChild.napisz_do_siebie_do_malego', 'Napisz do siebie — do małego Ciebie. Co chcesz mu/jej powiedzieć?')}
             </Text>
             <TextInput
               style={[styles.textArea, { color: textColor, borderColor: ACCENT + '40' }]}
-              placeholder="Drogi mały ja..."
+              placeholder={t('innerChild.drogi_maly_ja', 'Drogi mały ja...')}
               placeholderTextColor={subColor}
               multiline
               value={letterText}
               onChangeText={setLetterText}
             />
             <Pressable onPress={handleSaveLetter} style={[styles.ctaBtn, { backgroundColor: ACCENT }]}>
-              <Text style={styles.ctaBtnText}>WYŚLIJ LIST ✦</Text>
+              <Text style={styles.ctaBtnText}>{t('innerChild.wyslij_list', 'WYŚLIJ LIST ✦')}</Text>
             </Pressable>
           </View>
           {letterHistory.length > 0 && (
@@ -339,7 +339,7 @@ Bądź ciepły, łagodny i konkretny. 3-4 zdania w języku użytkownika.`,
         </Animated.View>
 
         {/* REPARENTING EXERCISES */}
-        <SectionHeader label="ĆWICZENIA REPARENTINGOWE" accent={ACCENT} />
+        <SectionHeader label={t('innerChild.cwiczenia_reparentin', 'ĆWICZENIA REPARENTINGOWE')} accent={ACCENT} />
         {EXERCISES.map((ex, i) => (
           <Animated.View key={ex.id} entering={FadeInDown.delay(240 + i * 50).springify()}>
             <View style={[styles.card, { backgroundColor: cardBg, borderColor: ex.color + '40', borderLeftWidth: 3, borderLeftColor: ex.color }]}>
@@ -351,7 +351,7 @@ Bądź ciepły, łagodny i konkretny. 3-4 zdania w języku użytkownika.`,
         ))}
 
         {/* QUESTIONS ACCORDION */}
-        <SectionHeader label="PYTANIA DO DZIECKA" accent={ACCENT} />
+        <SectionHeader label={t('innerChild.pytania_do_dziecka', 'PYTANIA DO DZIECKA')} accent={ACCENT} />
         {QUESTIONS.map((q, i) => (
           <Animated.View key={i} entering={FadeInDown.delay(300 + i * 40).springify()}>
             <Pressable onPress={() => { void HapticsService.impact(); setExpandedQ(expandedQ === i ? null : i); }}
@@ -363,7 +363,7 @@ Bądź ciepły, łagodny i konkretny. 3-4 zdania w języku użytkownika.`,
               {expandedQ === i && (
                 <TextInput
                   style={[styles.textArea, { color: textColor, borderColor: ACCENT + '40', marginTop: 10, minHeight: 60 }]}
-                  placeholder="Twoja odpowiedź..."
+                  placeholder={t('innerChild.twoja_odpowiedz', 'Twoja odpowiedź...')}
                   placeholderTextColor={subColor}
                   multiline
                   value={qAnswers[i]}
@@ -375,16 +375,16 @@ Bądź ciepły, łagodny i konkretny. 3-4 zdania w języku użytkownika.`,
         ))}
 
         {/* AI ORACLE */}
-        <SectionHeader label="ZAPYTAJ WYROCZNIĘ" accent={ACCENT} />
+        <SectionHeader label={t('innerChild.zapytaj_wyrocznie', 'ZAPYTAJ WYROCZNIĘ')} accent={ACCENT} />
         <Animated.View entering={FadeInDown.delay(400).springify()}>
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: ACCENT + '40' }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8 }}>
               <Sparkles size={16} color={ACCENT} />
-              <Text style={{ color: ACCENT, fontSize: 12, fontWeight: '700' }}>WYROCZNIA WEWNĘTRZNEGO DZIECKA</Text>
+              <Text style={{ color: ACCENT, fontSize: 12, fontWeight: '700' }}>{t('innerChild.wyrocznia_wewnetrzne_dziecka', 'WYROCZNIA WEWNĘTRZNEGO DZIECKA')}</Text>
             </View>
             <TextInput
               style={[styles.textInput, { color: textColor, borderColor: ACCENT + '40' }]}
-              placeholder="Co chcesz zapytać o swoje wewnętrzne dziecko?"
+              placeholder={t('innerChild.co_chcesz_zapytac_o_swoje', 'Co chcesz zapytać o swoje wewnętrzne dziecko?')}
               placeholderTextColor={subColor}
               value={aiInput}
               onChangeText={setAiInput}

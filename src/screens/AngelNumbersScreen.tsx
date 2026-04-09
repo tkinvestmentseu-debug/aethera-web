@@ -1034,7 +1034,7 @@ Pisz tylko sam przekaz.`;
   }, [addNum, addCtx, addLoc]);
 
   const handleDeleteSighting = useCallback((id: string) => {
-    Alert.alert('Usuń zapis', 'Czy chcesz usunąć ten wpis z dziennika?', [
+    Alert.alert(t('angelNumbers.usun_zapis', 'Usuń zapis'), t('angelNumbers.czy_chcesz_usunac_ten_wpis', 'Czy chcesz usunąć ten wpis z dziennika?'), [
       { text: 'Anuluj', style: 'cancel' },
       { text: 'Usuń', style: 'destructive', onPress: () => setSightings(prev => prev.filter(s => s.id !== id)) },
     ]);
@@ -1065,8 +1065,8 @@ Pisz tylko sam przekaz.`;
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={{ flex: 1, alignItems: 'center' }}>
-          <Text style={[an.headerTitle, { color: ACCENT }]}>✦ LICZBY ANIELSKIE</Text>
-          <Text style={[an.headerSub, { color: subColor }]}>Odczytaj swój przekaz</Text>
+          <Text style={[an.headerTitle, { color: ACCENT }]}>{t('angelNumbers.liczby_anielskie', '✦ LICZBY ANIELSKIE')}</Text>
+          <Text style={[an.headerSub, { color: subColor }]}>{t('angelNumbers.odczytaj_swoj_przekaz', 'Odczytaj swój przekaz')}</Text>
         </View>
         <Pressable onPress={toggleFav} style={an.headerBtn} hitSlop={20}>
           <Star size={20} color={ACCENT} fill={isFav ? ACCENT : 'transparent'} />
@@ -1140,7 +1140,7 @@ Pisz tylko sam przekaz.`;
                   {/* Action guidance for today */}
                   {todayEntry.actionGuidance && (
                     <View style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.12)', borderRadius: 14, padding: 12, width: '100%', marginBottom: 12 }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.60)' : 'rgba(255,255,255,0.65)', marginBottom: 5 }}>DZIAŁANIE NA DZIŚ</Text>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.60)' : 'rgba(255,255,255,0.65)', marginBottom: 5 }}>{t('angelNumbers.dzialanie_na_dzis', 'DZIAŁANIE NA DZIŚ')}</Text>
                       <Text style={{ fontSize: 13, lineHeight: 20, color: isLight ? 'rgba(37,29,22,0.90)' : 'rgba(255,255,255,0.90)' }}>{todayEntry.actionGuidance}</Text>
                     </View>
                   )}
@@ -1152,7 +1152,7 @@ Pisz tylko sam przekaz.`;
                         <Zap size={14} color={CHAKRA_MAP[todayNumber].color} />
                       </View>
                       <View style={{ flex: 1 }}>
-                        <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.60)' : 'rgba(255,255,255,0.65)' }}>CZAKRA</Text>
+                        <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.60)' : 'rgba(255,255,255,0.65)' }}>{t('angelNumbers.czakra', 'CZAKRA')}</Text>
                         <Text style={{ fontSize: 13, fontWeight: '700', color: CHAKRA_MAP[todayNumber].color }}>
                           {CHAKRA_MAP[todayNumber].name} · {CHAKRA_MAP[todayNumber].sanskrit}
                         </Text>
@@ -1161,7 +1161,7 @@ Pisz tylko sam przekaz.`;
                   )}
 
                   <View style={[an.affirmBox, { backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.12)' }]}>
-                    <Text style={[an.affirmLabel, isLight && { color: 'rgba(37,29,22,0.55)' }]}>AFIRMACJA DNIA</Text>
+                    <Text style={[an.affirmLabel, isLight && { color: 'rgba(37,29,22,0.55)' }]}>{t('angelNumbers.afirmacja_dnia', 'AFIRMACJA DNIA')}</Text>
                     <Text style={[an.affirmText, isLight && { color: 'rgba(37,29,22,0.90)' }]}>"{todayEntry.affirmation}"</Text>
                   </View>
                 </LinearGradient>
@@ -1173,16 +1173,16 @@ Pisz tylko sam przekaz.`;
               <View style={[an.sectionCard, { backgroundColor: cardBg, borderColor: ACCENT + '33' }]}>
                 <View style={an.sectionHead}>
                   <MessageCircle size={14} color={ACCENT} />
-                  <Text style={[an.sectionTitle, { color: ACCENT }]}>💌 WIADOMOŚĆ OD ANIOŁÓW</Text>
+                  <Text style={[an.sectionTitle, { color: ACCENT }]}>{t('angelNumbers.wiadomosc_od_aniolow', '💌 WIADOMOŚĆ OD ANIOŁÓW')}</Text>
                 </View>
                 <Text style={[an.sectionDesc, { color: subColor }]}>
-                  Spersonalizowana wiadomość łącząca Twoją liczbę dnia z indywidualną ścieżką.
+                  {t('angelNumbers.spersonali_wiadomosc_laczaca_twoja_', 'Spersonalizowana wiadomość łącząca Twoją liczbę dnia z indywidualną ścieżką.')}
                 </Text>
                 {aiMessage ? (
                   <Animated.View entering={FadeInUp.duration(500)}>
                     <Text style={[an.aiMessageText, { color: textColor }]}>{aiMessage}</Text>
                     <Pressable onPress={() => setAiMessage('')} style={[an.aiClearRow, { borderTopColor: dividerColor }]}>
-                      <Text style={[an.aiClearText, { color: subColor }]}>Wyczyść</Text>
+                      <Text style={[an.aiClearText, { color: subColor }]}>{t('angelNumbers.wyczysc', 'Wyczyść')}</Text>
                     </Pressable>
                   </Animated.View>
                 ) : null}
@@ -1204,16 +1204,16 @@ Pisz tylko sam przekaz.`;
               <View style={[an.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <View style={an.sectionHead}>
                   <Zap size={14} color={ACCENT} />
-                  <Text style={[an.sectionTitle, { color: ACCENT }]}>🔢 KALKULATOR LICZBY</Text>
+                  <Text style={[an.sectionTitle, { color: ACCENT }]}>{t('angelNumbers.kalkulator_liczby', '🔢 KALKULATOR LICZBY')}</Text>
                 </View>
                 <Text style={[an.sectionDesc, { color: subColor }]}>
-                  Wpisz dowolną liczbę od 1 do 9999 — Aethera zredukuje ją i odczyta jej anielskie przesłanie.
+                  {t('angelNumbers.wpisz_dowolna_liczbe_od_1', 'Wpisz dowolną liczbę od 1 do 9999 — Aethera zredukuje ją i odczyta jej anielskie przesłanie.')}
                 </Text>
                 <View style={[an.searchRow, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: cardBorder }]}>
                   <Hash size={16} color={ACCENT} style={{ marginRight: 8 }} />
                   <TextInput
                     style={[an.searchInput, { color: textColor, flex: 1 }]}
-                    placeholder="Np. 2024, 369, 108…"
+                    placeholder={t('angelNumbers.np_2024_369_108', 'Np. 2024, 369, 108…')}
                     placeholderTextColor={subColor}
                     value={calcInput}
                     onChangeText={v => { setCalcInput(v.replace(/[^0-9]/g, '')); setCalcResult(null); }}
@@ -1239,7 +1239,7 @@ Pisz tylko sam przekaz.`;
                       <Text style={[an.calcTitle, isLight && { color: 'rgba(37,29,22,0.90)' }]}>{calcResult.entry.title}</Text>
                       <Text style={[an.calcMessage, isLight && { color: 'rgba(37,29,22,0.88)' }]}>{calcResult.entry.message}</Text>
                       <View style={[an.affirmBox, { backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.12)' }]}>
-                        <Text style={[an.affirmLabel, isLight && { color: 'rgba(37,29,22,0.55)' }]}>AFIRMACJA</Text>
+                        <Text style={[an.affirmLabel, isLight && { color: 'rgba(37,29,22,0.55)' }]}>{t('angelNumbers.afirmacja', 'AFIRMACJA')}</Text>
                         <Text style={[an.affirmText, isLight && { color: 'rgba(37,29,22,0.90)' }]}>"{calcResult.entry.affirmation}"</Text>
                       </View>
                     </LinearGradient>
@@ -1253,10 +1253,10 @@ Pisz tylko sam przekaz.`;
               <View style={[an.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <View style={an.sectionHead}>
                   <Clock size={14} color={ACCENT} />
-                  <Text style={[an.sectionTitle, { color: ACCENT }]}>⏰ SEKWENCJE PREMIOWANE</Text>
+                  <Text style={[an.sectionTitle, { color: ACCENT }]}>{t('angelNumbers.sekwencje_premiowane', '⏰ SEKWENCJE PREMIOWANE')}</Text>
                 </View>
                 <Text style={[an.sectionDesc, { color: subColor }]}>
-                  Specjalne kombinacje na zegarze — każda ma unikalną moc. Dotknij, by poznać pełne znaczenie.
+                  {t('angelNumbers.specjalne_kombinacje_na_zegarze_kaz', 'Specjalne kombinacje na zegarze — każda ma unikalną moc. Dotknij, by poznać pełne znaczenie.')}
                 </Text>
                 {SPECIAL_SEQUENCES.map((seq, idx) => (
                   <Pressable
@@ -1285,10 +1285,10 @@ Pisz tylko sam przekaz.`;
               <View style={[an.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <View style={an.sectionHead}>
                   <TrendingUp size={14} color={ACCENT} />
-                  <Text style={[an.sectionTitle, { color: ACCENT }]}>🌀 WZORCE PRZEBUDZENIA</Text>
+                  <Text style={[an.sectionTitle, { color: ACCENT }]}>{t('angelNumbers.wzorce_przebudzen', '🌀 WZORCE PRZEBUDZENIA')}</Text>
                 </View>
                 <Text style={[an.sectionDesc, { color: subColor }]}>
-                  Sekwencje wielocyfrowe niosą "przebudzeniowe przesłanie" — czytaj je razem z energią dnia.
+                  {t('angelNumbers.sekwencje_wielocyfro_niosa_przebudz', 'Sekwencje wielocyfrowe niosą "przebudzeniowe przesłanie" — czytaj je razem z energią dnia.')}
                 </Text>
                 {NUMBER_PATTERNS.map((p, idx) => (
                   <Pressable
@@ -1316,12 +1316,12 @@ Pisz tylko sam przekaz.`;
 
             {/* QUICK SEARCH */}
             <Animated.View entering={FadeInDown.delay(175).duration(400)} style={{ marginTop: 16 }}>
-              <Text style={[an.sectionLabel, { color: subColor, marginBottom: 10 }]}>WYSZUKAJ DOWOLNĄ LICZBĘ</Text>
+              <Text style={[an.sectionLabel, { color: subColor, marginBottom: 10 }]}>{t('angelNumbers.wyszukaj_dowolna_liczbe', 'WYSZUKAJ DOWOLNĄ LICZBĘ')}</Text>
               <View style={[an.searchRow, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <Hash size={18} color={ACCENT} style={{ marginRight: 8 }} />
                 <TextInput
                   style={[an.searchInput, { color: textColor, flex: 1 }]}
-                  placeholder="Wpisz liczbę: 111, 222, 1111…"
+                  placeholder={t('angelNumbers.wpisz_liczbe_111_222_1111', 'Wpisz liczbę: 111, 222, 1111…')}
                   placeholderTextColor={subColor}
                   value={inputNumber}
                   onChangeText={v => { setInputNumber(v); setNotFound(false); }}
@@ -1357,7 +1357,7 @@ Pisz tylko sam przekaz.`;
                   <Text style={[an.resultMessage, isLight && { color: 'rgba(37,29,22,0.90)' }]}>{activeNumber.message}</Text>
                   {activeNumber.actionGuidance && (
                     <View style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.10)', borderRadius: 12, padding: 12, width: '100%', marginBottom: 12 }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.55)' : 'rgba(255,255,255,0.60)', marginBottom: 4 }}>DZIAŁANIE</Text>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.55)' : 'rgba(255,255,255,0.60)', marginBottom: 4 }}>{t('angelNumbers.dzialanie', 'DZIAŁANIE')}</Text>
                       <Text style={{ fontSize: 13, lineHeight: 20, color: isLight ? 'rgba(37,29,22,0.88)' : 'rgba(255,255,255,0.88)' }}>{activeNumber.actionGuidance}</Text>
                     </View>
                   )}
@@ -1370,7 +1370,7 @@ Pisz tylko sam przekaz.`;
                     </View>
                   )}
                   <View style={[an.affirmBox, { backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.12)' }]}>
-                    <Text style={[an.affirmLabel, isLight && { color: 'rgba(37,29,22,0.55)' }]}>AFIRMACJA</Text>
+                    <Text style={[an.affirmLabel, isLight && { color: 'rgba(37,29,22,0.55)' }]}>{t('angelNumbers.afirmacja_1', 'AFIRMACJA')}</Text>
                     <Text style={[an.affirmText, isLight && { color: 'rgba(37,29,22,0.90)' }]}>"{activeNumber.affirmation}"</Text>
                   </View>
                   {/* AI Affirmation button */}
@@ -1386,7 +1386,7 @@ Pisz tylko sam przekaz.`;
                   </Pressable>
                   {affResult && affTarget?.number === activeNumber.number && (
                     <Animated.View entering={FadeInUp.duration(400)} style={{ marginTop: 10, backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.10)', borderRadius: 12, padding: 12, width: '100%' }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.55)' : 'rgba(255,255,255,0.60)', marginBottom: 4 }}>TWOJA AI AFIRMACJA</Text>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.55)' : 'rgba(255,255,255,0.60)', marginBottom: 4 }}>{t('angelNumbers.twoja_ai_afirmacja', 'TWOJA AI AFIRMACJA')}</Text>
                       <Text style={{ fontSize: 14, fontStyle: 'italic', color: isLight ? 'rgba(37,29,22,0.90)' : '#fff', lineHeight: 22, textAlign: 'center' }}>"{affResult}"</Text>
                     </Animated.View>
                   )}
@@ -1405,7 +1405,7 @@ Pisz tylko sam przekaz.`;
             {/* Recently viewed */}
             {recentNumbers.length > 0 && (
               <View style={{ marginTop: 24 }}>
-                <Text style={[an.sectionLabel, { color: subColor }]}>OSTATNIO PRZEGLĄDANE</Text>
+                <Text style={[an.sectionLabel, { color: subColor }]}>{t('angelNumbers.ostatnio_przegladan', 'OSTATNIO PRZEGLĄDANE')}</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 8 }}>
                   {recentNumbers.map(n => {
                     const entry = ANGEL_NUMBERS.find(a => a.number === n);
@@ -1434,8 +1434,8 @@ Pisz tylko sam przekaz.`;
                 />
                 <Bell size={18} color={ACCENT} />
                 <View style={{ flex: 1, marginLeft: 12 }}>
-                  <Text style={[{ fontSize: 13, fontWeight: '700', color: textColor }]}>Ustaw przypomnienie anielskie</Text>
-                  <Text style={[{ fontSize: 12, color: subColor, marginTop: 2 }]}>Codziennie o wybranej godzinie — sprawdź swoją liczbę dnia</Text>
+                  <Text style={[{ fontSize: 13, fontWeight: '700', color: textColor }]}>{t('angelNumbers.ustaw_przypomnie_anielskie', 'Ustaw przypomnienie anielskie')}</Text>
+                  <Text style={[{ fontSize: 12, color: subColor, marginTop: 2 }]}>{t('angelNumbers.codziennie_o_wybranej_godzinie_spra', 'Codziennie o wybranej godzinie — sprawdź swoją liczbę dnia')}</Text>
                 </View>
                 <ChevronRight size={16} color={subColor} />
               </Pressable>
@@ -1452,7 +1452,7 @@ Pisz tylko sam przekaz.`;
 
             {/* Intro */}
             <View style={[an.introCard, { backgroundColor: cardBg, borderColor: cardBorder, marginBottom: 16 }]}>
-              <Text style={[an.introTitle, { color: ACCENT }]}>Kompletna Encyklopedia Anielska</Text>
+              <Text style={[an.introTitle, { color: ACCENT }]}>{t('angelNumbers.kompletna_encykloped_anielska', 'Kompletna Encyklopedia Anielska')}</Text>
               <Text style={[an.introBody, { color: subColor }]}>
                 {ANGEL_NUMBERS.length} sekwencji liczbowych z pełnymi interpretacjami, wskazówkami działania i połączeniami czakralnymi. Dotknij dowolnej liczby by zobaczyć pełen profil.
               </Text>
@@ -1463,7 +1463,7 @@ Pisz tylko sam przekaz.`;
               <Search size={16} color={subColor} style={{ marginRight: 8 }} />
               <TextInput
                 style={[an.searchInput, { color: textColor, flex: 1 }]}
-                placeholder="Szukaj liczby lub tytułu…"
+                placeholder={t('angelNumbers.szukaj_liczby_lub_tytulu', 'Szukaj liczby lub tytułu…')}
                 placeholderTextColor={subColor}
                 value={encSearch}
                 onChangeText={setEncSearch}
@@ -1485,7 +1485,7 @@ Pisz tylko sam przekaz.`;
                   borderColor: !encArea ? ACCENT + '70' : cardBorder,
                 }]}
               >
-                <Text style={[an.areaFilterText, { color: !encArea ? ACCENT : subColor }]}>Wszystkie</Text>
+                <Text style={[an.areaFilterText, { color: !encArea ? ACCENT : subColor }]}>{t('angelNumbers.wszystkie', 'Wszystkie')}</Text>
               </Pressable>
               {Object.entries(AREA_COLORS).map(([area, color]) => (
                 <Pressable
@@ -1554,7 +1554,7 @@ Pisz tylko sam przekaz.`;
 
                       {item.actionGuidance && (
                         <View style={[an.encBlock, { backgroundColor: item.color + '12', borderColor: item.color + '35' }]}>
-                          <Text style={[an.encBlockLabel, { color: item.color }]}>DZIAŁANIE</Text>
+                          <Text style={[an.encBlockLabel, { color: item.color }]}>{t('angelNumbers.dzialanie_1', 'DZIAŁANIE')}</Text>
                           <Text style={[an.encBlockText, { color: textColor }]}>{item.actionGuidance}</Text>
                         </View>
                       )}
@@ -1563,7 +1563,7 @@ Pisz tylko sam przekaz.`;
                         <View style={[an.encBlock, { backgroundColor: CHAKRA_MAP[item.number].color + '12', borderColor: CHAKRA_MAP[item.number].color + '35', flexDirection: 'row', alignItems: 'center', gap: 8 }]}>
                           <Zap size={14} color={CHAKRA_MAP[item.number].color} />
                           <View>
-                            <Text style={[an.encBlockLabel, { color: CHAKRA_MAP[item.number].color }]}>CZAKRA</Text>
+                            <Text style={[an.encBlockLabel, { color: CHAKRA_MAP[item.number].color }]}>{t('angelNumbers.czakra_1', 'CZAKRA')}</Text>
                             <Text style={[an.encBlockText, { color: textColor }]}>
                               {CHAKRA_MAP[item.number].name} — {CHAKRA_MAP[item.number].sanskrit}
                             </Text>
@@ -1572,7 +1572,7 @@ Pisz tylko sam przekaz.`;
                       )}
 
                       <View style={[an.encBlock, { backgroundColor: AREA_COLORS[item.area] + '12', borderColor: AREA_COLORS[item.area] + '35' }]}>
-                        <Text style={[an.encBlockLabel, { color: AREA_COLORS[item.area] }]}>AFIRMACJA</Text>
+                        <Text style={[an.encBlockLabel, { color: AREA_COLORS[item.area] }]}>{t('angelNumbers.afirmacja_2', 'AFIRMACJA')}</Text>
                         <Text style={[an.encBlockText, { color: textColor, fontStyle: 'italic' }]}>"{item.affirmation}"</Text>
                       </View>
 
@@ -1581,7 +1581,7 @@ Pisz tylko sam przekaz.`;
                         style={[{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 6, backgroundColor: item.color + '15', borderRadius: 12, paddingVertical: 10 }]}
                       >
                         <Eye size={13} color={item.color} />
-                        <Text style={[{ fontSize: 12, fontWeight: '700', color: item.color }]}>Otwórz pełny widok Oracle</Text>
+                        <Text style={[{ fontSize: 12, fontWeight: '700', color: item.color }]}>{t('angelNumbers.otworz_pelny_widok_oracle', 'Otwórz pełny widok Oracle')}</Text>
                       </Pressable>
                     </Animated.View>
                   )}
@@ -1592,8 +1592,8 @@ Pisz tylko sam przekaz.`;
             {filteredEnc.length === 0 && (
               <View style={[an.emptyState, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <Search size={34} color={subColor} style={{ marginBottom: 12 }} />
-                <Text style={[an.emptyTitle, { color: textColor }]}>Brak wyników</Text>
-                <Text style={[an.emptyBody, { color: subColor }]}>Zmień kryteria wyszukiwania lub filtr obszaru.</Text>
+                <Text style={[an.emptyTitle, { color: textColor }]}>{t('angelNumbers.brak_wynikow', 'Brak wyników')}</Text>
+                <Text style={[an.emptyBody, { color: subColor }]}>{t('angelNumbers.zmien_kryteria_wyszukiwan_lub_filtr', 'Zmień kryteria wyszukiwania lub filtr obszaru.')}</Text>
               </View>
             )}
 
@@ -1609,7 +1609,7 @@ Pisz tylko sam przekaz.`;
             {/* Header row with Add button */}
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
               <View>
-                <Text style={[{ fontSize: 16, fontWeight: '700', color: textColor }]}>Dziennik Synchroniczności</Text>
+                <Text style={[{ fontSize: 16, fontWeight: '700', color: textColor }]}>{t('angelNumbers.dziennik_synchronic', 'Dziennik Synchroniczności')}</Text>
                 <Text style={[{ fontSize: 12, color: subColor, marginTop: 2 }]}>{sightings.length} zapisanych spotkań</Text>
               </View>
               <Pressable
@@ -1617,7 +1617,7 @@ Pisz tylko sam przekaz.`;
                 style={[an.addBtn, { backgroundColor: ACCENT }]}
               >
                 <Plus size={18} color="#fff" />
-                <Text style={{ fontSize: 13, fontWeight: '700', color: '#fff' }}>Dodaj</Text>
+                <Text style={{ fontSize: 13, fontWeight: '700', color: '#fff' }}>{t('angelNumbers.dodaj', 'Dodaj')}</Text>
               </Pressable>
             </View>
 
@@ -1627,9 +1627,9 @@ Pisz tylko sam przekaz.`;
                 <View style={[an.sectionCard, { backgroundColor: cardBg, borderColor: ACCENT + '33', marginBottom: 16 }]}>
                   <View style={an.sectionHead}>
                     <TrendingUp size={14} color={ACCENT} />
-                    <Text style={[an.sectionTitle, { color: ACCENT }]}>TWOJE WZORCE SYNCHRONICZNOŚCI</Text>
+                    <Text style={[an.sectionTitle, { color: ACCENT }]}>{t('angelNumbers.twoje_wzorce_synchronic', 'TWOJE WZORCE SYNCHRONICZNOŚCI')}</Text>
                   </View>
-                  <Text style={[an.sectionDesc, { color: subColor }]}>Liczby, które pojawiają się najczęściej w Twoim życiu niosą największy przekaz.</Text>
+                  <Text style={[an.sectionDesc, { color: subColor }]}>{t('angelNumbers.liczby_ktore_pojawiaja_sie_najczesc', 'Liczby, które pojawiają się najczęściej w Twoim życiu niosą największy przekaz.')}</Text>
                   {sightingFreq.map(([num, count], idx) => {
                     const entry = ANGEL_NUMBERS.find(a => a.number === num);
                     const barW = (count / sightingFreq[0][1]) * 100;
@@ -1700,7 +1700,7 @@ Pisz tylko sam przekaz.`;
                     style={[an.aiBtn, { borderColor: ACCENT + '44', backgroundColor: ACCENT + '15', marginTop: 16 }]}
                   >
                     <Plus size={14} color={ACCENT} />
-                    <Text style={[an.aiBtnText, { color: ACCENT }]}>Dodaj pierwsze spotkanie</Text>
+                    <Text style={[an.aiBtnText, { color: ACCENT }]}>{t('angelNumbers.dodaj_pierwsze_spotkanie', 'Dodaj pierwsze spotkanie')}</Text>
                   </Pressable>
                 )}
               </View>
@@ -1743,7 +1743,7 @@ Pisz tylko sam przekaz.`;
 
             {/* 7-day calendar section */}
             <View style={{ marginTop: 24 }}>
-              <Text style={[an.sectionLabel, { color: subColor, marginBottom: 16 }]}>ENERGETYCZNY WZORZEC — OSTATNIE 7 DNI</Text>
+              <Text style={[an.sectionLabel, { color: subColor, marginBottom: 16 }]}>{t('angelNumbers.energetycz_wzorzec_ostatnie_7_dni', 'ENERGETYCZNY WZORZEC — OSTATNIE 7 DNI')}</Text>
               <View style={an.calendarGrid}>
                 {last7Days.map((day, i) => (
                   <Animated.View key={i} entering={FadeInDown.delay(i * 50).duration(350)}>
@@ -1776,10 +1776,10 @@ Pisz tylko sam przekaz.`;
               <View style={[an.patternCard, { backgroundColor: cardBg, borderColor: ACCENT + '33' }]}>
                 <View style={an.sectionHead}>
                   <Sparkles size={14} color={ACCENT} />
-                  <Text style={[an.sectionTitle, { color: ACCENT }]}>ANALIZA WZORCÓW 7-DNIOWYCH</Text>
+                  <Text style={[an.sectionTitle, { color: ACCENT }]}>{t('angelNumbers.analiza_wzorcow_7_dniowych', 'ANALIZA WZORCÓW 7-DNIOWYCH')}</Text>
                 </View>
                 <Text style={[an.patternText, { color: subColor }]}>
-                  Dominujące energie ostatniego tygodnia:
+                  {t('angelNumbers.dominujace_energie_ostatniego_tygod', 'Dominujące energie ostatniego tygodnia:')}
                 </Text>
                 <View style={an.patternAreas}>
                   {Object.entries(
@@ -1795,7 +1795,7 @@ Pisz tylko sam przekaz.`;
                   ))}
                 </View>
                 <Text style={[an.patternDesc, { color: subColor }]}>
-                  Powtarzająca się energia wskazuje, gdzie Wszechświat kieruje Twoją uwagę w tym tygodniu. Zwróć szczególną uwagę na obszar dominujący.
+                  {t('angelNumbers.powtarzaja_sie_energia_wskazuje_gdz', 'Powtarzająca się energia wskazuje, gdzie Wszechświat kieruje Twoją uwagę w tym tygodniu. Zwróć szczególną uwagę na obszar dominujący.')}
                 </Text>
               </View>
             </View>
@@ -1819,7 +1819,7 @@ Pisz tylko sam przekaz.`;
                 >
                   <View style={an.dayNumberHeader}>
                     <User size={14} color="rgba(255,255,255,0.80)" />
-                    <Text style={[an.dayNumberLabel, isLight && { color: 'rgba(37,29,22,0.72)' }]}>TWÓJ ANIOŁ STRÓŻ</Text>
+                    <Text style={[an.dayNumberLabel, isLight && { color: 'rgba(37,29,22,0.72)' }]}>{t('angelNumbers.twoj_aniol_stroz', 'TWÓJ ANIOŁ STRÓŻ')}</Text>
                   </View>
                   <Text style={[an.dayNumberMain, isLight && { color: 'rgba(37,29,22,0.90)' }]}>{guardianNum}</Text>
                   <Text style={[an.dayNumberTitle, isLight && { color: 'rgba(37,29,22,0.90)' }]}>{guardianEntry.title}</Text>
@@ -1829,7 +1829,7 @@ Pisz tylko sam przekaz.`;
                   <Text style={[an.dayNumberMessage, isLight && { color: 'rgba(37,29,22,0.88)' }]}>{guardianEntry.message}</Text>
                   {personalAiMsg ? (
                     <Animated.View entering={FadeInUp.duration(500)} style={{ backgroundColor: isLight ? 'rgba(255,255,255,0.55)' : 'rgba(255,255,255,0.12)', borderRadius: 14, padding: 14, width: '100%', marginBottom: 12 }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.55)' : 'rgba(255,255,255,0.60)', marginBottom: 6 }}>OSOBISTY PRZEKAZ</Text>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.5, color: isLight ? 'rgba(37,29,22,0.55)' : 'rgba(255,255,255,0.60)', marginBottom: 6 }}>{t('angelNumbers.osobisty_przekaz', 'OSOBISTY PRZEKAZ')}</Text>
                       <Text style={{ fontSize: 14, lineHeight: 23, color: isLight ? 'rgba(37,29,22,0.90)' : 'rgba(255,255,255,0.92)', fontStyle: 'italic' }}>{personalAiMsg}</Text>
                     </Animated.View>
                   ) : null}
@@ -1849,17 +1849,17 @@ Pisz tylko sam przekaz.`;
               <View style={[an.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder, marginBottom: 16 }]}>
                 <View style={an.sectionHead}>
                   <User size={14} color={ACCENT} />
-                  <Text style={[an.sectionTitle, { color: ACCENT }]}>TWÓJ ANIOŁ STRÓŻ</Text>
+                  <Text style={[an.sectionTitle, { color: ACCENT }]}>{t('angelNumbers.twoj_aniol_stroz_1', 'TWÓJ ANIOŁ STRÓŻ')}</Text>
                 </View>
                 <Text style={[an.sectionDesc, { color: subColor }]}>
-                  Aby obliczyć Twoją osobistą liczbę anielską, uzupełnij datę urodzenia w Profilu. Twój anioł stróż zostanie określony na podstawie numerologicznej redukcji daty urodzenia.
+                  {t('angelNumbers.aby_obliczyc_twoja_osobista_liczbe', 'Aby obliczyć Twoją osobistą liczbę anielską, uzupełnij datę urodzenia w Profilu. Twój anioł stróż zostanie określony na podstawie numerologicznej redukcji daty urodzenia.')}
                 </Text>
                 <Pressable
                   onPress={() => navigation.navigate('Profile')}
                   style={[an.aiBtn, { borderColor: ACCENT + '44', backgroundColor: ACCENT + '15' }]}
                 >
                   <User size={14} color={ACCENT} />
-                  <Text style={[an.aiBtnText, { color: ACCENT }]}>Uzupełnij profil</Text>
+                  <Text style={[an.aiBtnText, { color: ACCENT }]}>{t('angelNumbers.uzupelnij_profil', 'Uzupełnij profil')}</Text>
                 </Pressable>
               </View>
             )}
@@ -1870,7 +1870,7 @@ Pisz tylko sam przekaz.`;
                 <View style={[an.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder, marginBottom: 16 }]}>
                   <View style={an.sectionHead}>
                     <Zap size={14} color={ACCENT} />
-                    <Text style={[an.sectionTitle, { color: ACCENT }]}>WŁAŚCIWOŚCI TWOJEJ LICZBY</Text>
+                    <Text style={[an.sectionTitle, { color: ACCENT }]}>{t('angelNumbers.wlasciwosc_twojej_liczby', 'WŁAŚCIWOŚCI TWOJEJ LICZBY')}</Text>
                   </View>
                   {[
                     { label: 'Liczba Anioła',   value: String(guardianNum) },
@@ -1894,7 +1894,7 @@ Pisz tylko sam przekaz.`;
 
             {/* All Guardian number descriptions — mini cards */}
             <Animated.View entering={FadeInDown.delay(110).duration(400)}>
-              <Text style={[an.sectionLabel, { color: subColor, marginBottom: 12 }]}>WSZYSTKIE LICZBY ANIOŁÓW STRÓŻÓW</Text>
+              <Text style={[an.sectionLabel, { color: subColor, marginBottom: 12 }]}>{t('angelNumbers.wszystkie_liczby_aniolow_strozow', 'WSZYSTKIE LICZBY ANIOŁÓW STRÓŻÓW')}</Text>
               {Object.entries(GUARDIAN_DESCRIPTIONS).map(([num, desc], i) => (
                 <Animated.View key={num} entering={FadeInDown.delay(i * 30).duration(350)}>
                   <View style={[an.encCard, {
@@ -1910,7 +1910,7 @@ Pisz tylko sam przekaz.`;
                           <Text style={[an.encTitle, { color: textColor }]}>{desc.title}</Text>
                           {guardianNum === Number(num) && (
                             <View style={{ backgroundColor: desc.color + '25', borderRadius: 6, paddingHorizontal: 6, paddingVertical: 2 }}>
-                              <Text style={{ fontSize: 9, fontWeight: '800', color: desc.color, letterSpacing: 0.8 }}>TWOJA</Text>
+                              <Text style={{ fontSize: 9, fontWeight: '800', color: desc.color, letterSpacing: 0.8 }}>{t('angelNumbers.twoja', 'TWOJA')}</Text>
                             </View>
                           )}
                         </View>
@@ -1925,7 +1925,7 @@ Pisz tylko sam przekaz.`;
 
             {/* Guide tips */}
             <Animated.View entering={FadeInDown.delay(140).duration(400)}>
-              <Text style={[an.sectionLabel, { color: subColor, marginTop: 24, marginBottom: 12 }]}>JAK PRACOWAĆ Z LICZBAMI ANIELSKIMI</Text>
+              <Text style={[an.sectionLabel, { color: subColor, marginTop: 24, marginBottom: 12 }]}>{t('angelNumbers.jak_pracowac_z_liczbami_anielskimi', 'JAK PRACOWAĆ Z LICZBAMI ANIELSKIMI')}</Text>
               {GUIDE_TIPS.map((tip, i) => (
                 <Animated.View key={i} entering={FadeInDown.delay(i * 50).duration(350)}>
                   <View style={[an.tipCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
@@ -1953,19 +1953,19 @@ Pisz tylko sam przekaz.`;
         <View style={[an.modalSheet, { backgroundColor: isLight ? '#FFF8EE' : '#1A1410', paddingBottom: insets.bottom + 20 }]}>
           <View style={an.modalHandle} />
           <View style={[an.modalHeader, { borderBottomColor: dividerColor }]}>
-            <Text style={[an.modalTitle, { color: textColor }]}>Zapisz Synchroniczność</Text>
+            <Text style={[an.modalTitle, { color: textColor }]}>{t('angelNumbers.zapisz_synchronic', 'Zapisz Synchroniczność')}</Text>
             <Pressable onPress={() => setShowAddModal(false)} hitSlop={12}>
               <X size={20} color={subColor} />
             </Pressable>
           </View>
 
           <ScrollView style={{ paddingHorizontal: 20 }} keyboardShouldPersistTaps="handled">
-            <Text style={[an.modalLabel, { color: subColor, marginTop: 16 }]}>LICZBA ANIELSKA *</Text>
+            <Text style={[an.modalLabel, { color: subColor, marginTop: 16 }]}>{t('angelNumbers.liczba_anielska', 'LICZBA ANIELSKA *')}</Text>
             <View style={[an.searchRow, { backgroundColor: cardBg, borderColor: addNum ? ACCENT + '60' : cardBorder, marginTop: 6 }]}>
               <Hash size={16} color={ACCENT} style={{ marginRight: 8 }} />
               <TextInput
                 style={[an.searchInput, { color: textColor, flex: 1 }]}
-                placeholder="np. 111, 444, 1111"
+                placeholder={t('angelNumbers.np_111_444_1111', 'np. 111, 444, 1111')}
                 placeholderTextColor={subColor}
                 value={addNum}
                 onChangeText={v => setAddNum(v.replace(/[^0-9]/g, ''))}
@@ -1990,10 +1990,10 @@ Pisz tylko sam przekaz.`;
               ))}
             </ScrollView>
 
-            <Text style={[an.modalLabel, { color: subColor, marginTop: 16 }]}>KONTEKST (co się działo gdy ją zobaczyłeś?)</Text>
+            <Text style={[an.modalLabel, { color: subColor, marginTop: 16 }]}>{t('angelNumbers.kontekst_co_sie_dzialo_gdy', 'KONTEKST (co się działo gdy ją zobaczyłeś?)')}</Text>
             <TextInput
               style={[an.modalTextArea, { backgroundColor: cardBg, borderColor: cardBorder, color: textColor }]}
-              placeholder="np. myślałem o zmianie pracy, byłem smutny, medytowałem…"
+              placeholder={t('angelNumbers.np_myslalem_o_zmianie_pracy', 'np. myślałem o zmianie pracy, byłem smutny, medytowałem…')}
               placeholderTextColor={subColor}
               value={addCtx}
               onChangeText={setAddCtx}
@@ -2001,11 +2001,11 @@ Pisz tylko sam przekaz.`;
               numberOfLines={3}
             />
 
-            <Text style={[an.modalLabel, { color: subColor, marginTop: 14 }]}>MIEJSCE / ŹRÓDŁO (opcjonalnie)</Text>
+            <Text style={[an.modalLabel, { color: subColor, marginTop: 14 }]}>{t('angelNumbers.miejsce_zrodlo_opcjonalni', 'MIEJSCE / ŹRÓDŁO (opcjonalnie)')}</Text>
             <View style={[an.searchRow, { backgroundColor: cardBg, borderColor: cardBorder, marginTop: 6 }]}>
               <TextInput
                 style={[an.searchInput, { color: textColor, flex: 1 }]}
-                placeholder="np. zegar w samochodzie, numer domu, paragon…"
+                placeholder={t('angelNumbers.np_zegar_w_samochodzi_numer', 'np. zegar w samochodzie, numer domu, paragon…')}
                 placeholderTextColor={subColor}
                 value={addLoc}
                 onChangeText={setAddLoc}
@@ -2018,7 +2018,7 @@ Pisz tylko sam przekaz.`;
               style={[an.modalSaveBtn, { backgroundColor: addNum.trim() ? ACCENT : ACCENT + '40', marginTop: 20 }]}
             >
               <CheckCircle size={16} color="#fff" />
-              <Text style={[{ fontSize: 15, fontWeight: '700', color: '#fff' }]}>Zapisz w dzienniku</Text>
+              <Text style={[{ fontSize: 15, fontWeight: '700', color: '#fff' }]}>{t('angelNumbers.zapisz_w_dzienniku', 'Zapisz w dzienniku')}</Text>
             </Pressable>
           </ScrollView>
         </View>

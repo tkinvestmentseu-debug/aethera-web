@@ -440,7 +440,7 @@ const TarotCard3D = ({
                 fill="#EF4444" fillOpacity="0.25" />
               <SvgText x={TAROT_CARD_W - 33} y="26.5" textAnchor="middle" fontSize="8"
                 fontWeight="700" fill="#EF4444" opacity="0.9" letterSpacing="0.5">
-                ODW.
+                {t('readingDetail.odw', 'ODW.')}
               </SvgText>
             </>
           ) : null}
@@ -613,14 +613,14 @@ Bądź poetycki, głęboki i osobisty. Unikaj banalnych sformułowań.`;
           />
           <Wand2 color={suitColor} size={18} strokeWidth={1.5} />
           <Text style={[styles.oracleBtnText, { color: suitColor }]}>
-            Poproś Oracle o głęboki odczyt
+            {t('readingDetail.popros_oracle_o_gleboki_odczyt', 'Poproś Oracle o głęboki odczyt')}
           </Text>
           <ArrowRight color={suitColor} size={16} strokeWidth={1.5} />
         </Pressable>
       ) : loading ? (
         <View style={[styles.oracleLoading, { backgroundColor: cardBg, borderColor: cardBorder }]}>
           <ActivityIndicator color={suitColor} size="small" />
-          <Text style={[styles.oracleLoadingText, { color: subText }]}>Oracle medytuje…</Text>
+          <Text style={[styles.oracleLoadingText, { color: subText }]}>{t('readingDetail.oracle_medytuje', 'Oracle medytuje…')}</Text>
         </View>
       ) : (
         <View style={[styles.oracleResult, { backgroundColor: cardBg, borderColor: cardBorder }]}>
@@ -630,7 +630,7 @@ Bądź poetycki, głęboki i osobisty. Unikaj banalnych sformułowań.`;
           />
           <View style={[styles.cardHeader, { marginBottom: 16 }]}>
             <Sparkles color={suitColor} size={15} strokeWidth={1.5} />
-            <Text style={[styles.cardHeaderLabel, { color: subText }]}>GŁĘBOKI ODCZYT ORACLE</Text>
+            <Text style={[styles.cardHeaderLabel, { color: subText }]}>{t('readingDetail.gleboki_odczyt_oracle', 'GŁĘBOKI ODCZYT ORACLE')}</Text>
           </View>
           {sections.map((sec, i) => (
             <Animated.View
@@ -646,7 +646,7 @@ Bądź poetycki, głęboki i osobisty. Unikaj banalnych sformułowań.`;
           ))}
           <Pressable onPress={handleAskOracle} style={styles.oracleRetry}>
             <RefreshCw color={subText} size={14} strokeWidth={1.5} />
-            <Text style={[styles.oracleRetryText, { color: subText }]}>Nowy odczyt</Text>
+            <Text style={[styles.oracleRetryText, { color: subText }]}>{t('readingDetail.nowy_odczyt', 'Nowy odczyt')}</Text>
           </Pressable>
         </View>
       )}
@@ -802,7 +802,7 @@ export const ReadingDetailScreen = ({ navigation, route }: any) => {
           >
             <ChevronLeft color={currentTheme.primary} size={26} strokeWidth={1.5} />
           </Pressable>
-          <Text style={[styles.headerTitle, { color: subText }]}>✦ TWÓJ ODCZYT</Text>
+          <Text style={[styles.headerTitle, { color: subText }]}>{t('readingDetail.twoj_odczyt', '✦ TWÓJ ODCZYT')}</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
             <Pressable onPress={handleShare} hitSlop={16}>
               <Share2 color={subText} size={20} strokeWidth={1.5} />
@@ -840,7 +840,7 @@ export const ReadingDetailScreen = ({ navigation, route }: any) => {
 
             {/* Hint text */}
             <Text style={[styles.heroHint, { color: subText }]}>
-              Przeciągnij kartę, by poczuć jej głębię
+              {t('readingDetail.przeciagni_karte_by_poczuc_jej', 'Przeciągnij kartę, by poczuć jej głębię')}
             </Text>
           </Animated.View>
 
@@ -892,7 +892,7 @@ export const ReadingDetailScreen = ({ navigation, route }: any) => {
               {/* Detail row: position */}
               {paramPosition ? (
                 <View style={styles.identityDetailRow}>
-                  <Text style={[styles.identityKey, { color: subText }]}>Pozycja</Text>
+                  <Text style={[styles.identityKey, { color: subText }]}>{t('readingDetail.pozycja', 'Pozycja')}</Text>
                   <Text style={[styles.identityVal, { color: bodyText }]}>{paramPosition}</Text>
                 </View>
               ) : null}
@@ -904,7 +904,7 @@ export const ReadingDetailScreen = ({ navigation, route }: any) => {
             <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <View style={styles.cardHeader}>
                 <Layers color={suitColor} size={14} strokeWidth={1.5} />
-                <Text style={[styles.cardHeaderLabel, { color: subText }]}>KLUCZOWE TEMATY</Text>
+                <Text style={[styles.cardHeaderLabel, { color: subText }]}>{t('readingDetail.kluczowe_tematy', 'KLUCZOWE TEMATY')}</Text>
               </View>
 
               <View style={styles.keywordsRow}>
@@ -1004,7 +1004,7 @@ export const ReadingDetailScreen = ({ navigation, route }: any) => {
 
           {/* ─── AI Deep Reading ─── */}
           <Animated.View entering={FadeInUp.delay(360).duration(600)}>
-            <Text style={[styles.sectionLabel, { color: subText }]}>ORACLE AI</Text>
+            <Text style={[styles.sectionLabel, { color: subText }]}>{t('readingDetail.oracle_ai', 'ORACLE AI')}</Text>
             <AIOracleSection
               cardName={cardName}
               isReversed={isReversed}
@@ -1025,7 +1025,7 @@ export const ReadingDetailScreen = ({ navigation, route }: any) => {
               />
               <View style={styles.cardHeader}>
                 <Crown color={suitColor} size={14} strokeWidth={1.5} />
-                <Text style={[styles.cardHeaderLabel, { color: subText }]}>AFIRMACJA KARTY</Text>
+                <Text style={[styles.cardHeaderLabel, { color: subText }]}>{t('readingDetail.afirmacja_karty', 'AFIRMACJA KARTY')}</Text>
               </View>
               <Text style={[styles.affirmText, { color: bodyText }]}>✦ {affirmation}</Text>
             </View>
@@ -1033,7 +1033,7 @@ export const ReadingDetailScreen = ({ navigation, route }: any) => {
 
           {/* ─── Related Cards ─── */}
           <Animated.View entering={FadeInUp.delay(480).duration(600)}>
-            <Text style={[styles.sectionLabel, { color: subText }]}>POWIĄZANE KARTY</Text>
+            <Text style={[styles.sectionLabel, { color: subText }]}>{t('readingDetail.powiazane_karty', 'POWIĄZANE KARTY')}</Text>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -1111,12 +1111,12 @@ export const ReadingDetailScreen = ({ navigation, route }: any) => {
               />
               <View style={styles.cardHeader}>
                 <BookOpen color={GOLD} size={14} strokeWidth={1.5} />
-                <Text style={[styles.cardHeaderLabel, { color: subText }]}>ZANOTUJ REFLEKSJĘ</Text>
+                <Text style={[styles.cardHeaderLabel, { color: subText }]}>{t('readingDetail.zanotuj_refleksje', 'ZANOTUJ REFLEKSJĘ')}</Text>
               </View>
               <TextInput
                 value={journalText}
                 onChangeText={setJournalText}
-                placeholder="Co ta karta mówi do Ciebie teraz? Jakie uczucia, obrazy lub wspomnienia się pojawiają?"
+                placeholder={t('readingDetail.co_ta_karta_mowi_do', 'Co ta karta mówi do Ciebie teraz? Jakie uczucia, obrazy lub wspomnienia się pojawiają?')}
                 placeholderTextColor={subText}
                 multiline
                 style={[styles.journalInput, {
@@ -1161,7 +1161,7 @@ export const ReadingDetailScreen = ({ navigation, route }: any) => {
               />
               <Share2 color={isLight ? '#000' : '#FFF'} size={18} strokeWidth={1.8} />
               <Text style={[styles.shareBtnText, { color: isLight ? '#000' : '#FFF' }]}>
-                Udostępnij odczyt
+                {t('readingDetail.udostepnij_odczyt', 'Udostępnij odczyt')}
               </Text>
             </Pressable>
           </Animated.View>

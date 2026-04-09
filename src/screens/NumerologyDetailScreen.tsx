@@ -253,7 +253,7 @@ const NumberCard = ({ num, title, subtitle, meaning, entering, delay = 0, isLigh
             <View style={[styles.divider, isLight && { backgroundColor: 'rgba(0,0,0,0.10)' }]} />
             <Text style={[styles.meaningText, { color: textColor }]}>{meaning.meaning}</Text>
 
-            <Text style={styles.sectionLabel}>CECHY</Text>
+            <Text style={styles.sectionLabel}>{t('numerology.cechy', 'CECHY')}</Text>
             <View style={styles.traitsRow}>
               {meaning.traits.map(t => (
                 <View key={t} style={[styles.trait, isLight && { backgroundColor: 'rgba(0,0,0,0.06)', borderColor: 'rgba(139,100,42,0.20)' }]}>
@@ -264,7 +264,7 @@ const NumberCard = ({ num, title, subtitle, meaning, entering, delay = 0, isLigh
 
             {meaning.compatible.length > 0 && (
               <>
-                <Text style={styles.sectionLabel}>ZGODNOŚĆ</Text>
+                <Text style={styles.sectionLabel}>{t('numerology.zgodnosc', 'ZGODNOŚĆ')}</Text>
                 <View style={styles.traitsRow}>
                   {meaning.compatible.map(c => (
                     <LinearGradient key={c} colors={[GOLD + '33', GOLD + '11']} style={styles.compatBadge}>
@@ -277,7 +277,7 @@ const NumberCard = ({ num, title, subtitle, meaning, entering, delay = 0, isLigh
 
             {meaning.famous ? (
               <>
-                <Text style={styles.sectionLabel}>PRZYKŁADY</Text>
+                <Text style={styles.sectionLabel}>{t('numerology.przyklady', 'PRZYKŁADY')}</Text>
                 <Text style={[styles.famousText, { color: subColor }]}>{meaning.famous}</Text>
               </>
             ) : null}
@@ -452,10 +452,10 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
           <View style={styles.headerCenter}>
             <View style={styles.headerIconRow}>
               <InfinityIcon color={GOLD} size={20} strokeWidth={1.8} />
-              <Text style={styles.headerLabel}>NUMEROLOGIA</Text>
+              <Text style={styles.headerLabel}>{t('numerology.numerologi', 'NUMEROLOGIA')}</Text>
               <InfinityIcon color={GOLD} size={20} strokeWidth={1.8} />
             </View>
-            <Text style={[styles.headerTitle, { color: textColor }]}>Sprawdź swoją liczbę</Text>
+            <Text style={[styles.headerTitle, { color: textColor }]}>{t('numerology.sprawdz_swoja_liczbe', 'Sprawdź swoją liczbę')}</Text>
           </View>
           <View style={{ width: 40 }} />
         </Animated.View>
@@ -473,10 +473,10 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
               colors={['rgba(206,174,114,0.12)', 'rgba(206,174,114,0.04)']}
               style={styles.inputCardGradient}
             >
-              <Text style={[styles.inputLabel, { color: GOLD }]}>DATA URODZENIA</Text>
+              <Text style={[styles.inputLabel, { color: GOLD }]}>{t('numerology.data_urodzenia', 'DATA URODZENIA')}</Text>
               <TextInput
                 style={[styles.input, { color: textColor, borderColor: GOLD + '44', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)' }]}
-                placeholder="DD.MM.YYYY"
+                placeholder={t('numerology.dd_mm_yyyy', 'DD.MM.YYYY')}
                 placeholderTextColor={isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.35)'}
                 value={birthInput}
                 onChangeText={handleDateChange}
@@ -484,10 +484,10 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
                 maxLength={10}
                 returnKeyType="next"
               />
-              <Text style={[styles.inputLabel, { color: GOLD, marginTop: 14 }]}>IMIĘ I NAZWISKO <Text style={styles.optionalTag}>(opcjonalne)</Text></Text>
+              <Text style={[styles.inputLabel, { color: GOLD, marginTop: 14 }]}>IMIĘ I NAZWISKO <Text style={styles.optionalTag}>{t('numerology.opcjonalne', '(opcjonalne)')}</Text></Text>
               <TextInput
                 style={[styles.input, { color: textColor, borderColor: GOLD + '44', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)' }]}
-                placeholder="Twoje imię i nazwisko"
+                placeholder={t('numerology.twoje_imie_i_nazwisko', 'Twoje imię i nazwisko')}
                 placeholderTextColor={isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.35)'}
                 value={nameInput}
                 onChangeText={setNameInput}
@@ -505,7 +505,7 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
                   style={styles.calcBtn}
                 >
                   <Hash color="#1A1200" size={18} strokeWidth={2.5} />
-                  <Text style={styles.calcBtnText}>OBLICZ LICZBY</Text>
+                  <Text style={styles.calcBtnText}>{t('numerology.oblicz_liczby', 'OBLICZ LICZBY')}</Text>
                   <Sparkles color="#1A1200" size={16} strokeWidth={2} />
                 </LinearGradient>
               </Pressable>
@@ -517,13 +517,13 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
             <>
               {/* Life Path — biggest card */}
               <Animated.View entering={FadeInUp.delay(60).duration(400)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 4 }}>
-                <Text style={[styles.sectionTitle, { color: GOLD }]}>LICZBA ŻYCIOWEJ DROGI</Text>
+                <Text style={[styles.sectionTitle, { color: GOLD }]}>{t('numerology.liczba_zyciowej_drogi', 'LICZBA ŻYCIOWEJ DROGI')}</Text>
               </Animated.View>
               <View style={{ paddingHorizontal: layout.padding.screen }}>
                 <NumberCard
                   num={results.lifePath}
                   title={`Droga Życia: ${results.lifePath}`}
-                  subtitle="Twoja główna wibracja i misja"
+                  subtitle={t('numerology.twoja_glowna_wibracja_i_misja', 'Twoja główna wibracja i misja')}
                   meaning={getMeaning(results.lifePath)}
                   entering={FadeInDown}
                   delay={80}
@@ -535,14 +535,14 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
               {nameInput.trim().length > 0 && (
                 <>
                   <Animated.View entering={FadeInUp.delay(120).duration(400)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 16 }}>
-                    <Text style={[styles.sectionTitle, { color: GOLD }]}>LICZBY IMIENIA</Text>
+                    <Text style={[styles.sectionTitle, { color: GOLD }]}>{t('numerology.liczby_imienia', 'LICZBY IMIENIA')}</Text>
                   </Animated.View>
                   <View style={{ paddingHorizontal: layout.padding.screen }}>
                     {results.expression > 0 && (
                       <NumberCard
                         num={results.expression}
                         title={`Liczba Wyrazu: ${results.expression}`}
-                        subtitle="Jak wyrażasz się wobec świata"
+                        subtitle={t('numerology.jak_wyrazasz_sie_wobec_swiata', 'Jak wyrażasz się wobec świata')}
                         meaning={getMeaning(results.expression)}
                         entering={FadeInDown}
                         delay={140}
@@ -553,7 +553,7 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
                       <NumberCard
                         num={results.soulUrge}
                         title={`Liczba Duszy: ${results.soulUrge}`}
-                        subtitle="Głębsza potrzeba i pragnienie serca"
+                        subtitle={t('numerology.glebsza_potrzeba_i_pragnienie_serca', 'Głębsza potrzeba i pragnienie serca')}
                         meaning={getMeaning(results.soulUrge)}
                         entering={FadeInDown}
                         delay={180}
@@ -566,17 +566,17 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
 
               {/* Personal cycles */}
               <Animated.View entering={FadeInUp.delay(200).duration(400)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 16 }}>
-                <Text style={[styles.sectionTitle, { color: GOLD }]}>CYKLE OSOBISTE</Text>
+                <Text style={[styles.sectionTitle, { color: GOLD }]}>{t('numerology.cykle_osobiste', 'CYKLE OSOBISTE')}</Text>
               </Animated.View>
               <View style={styles.cyclesRow}>
-                <CycleCard label="Rok" num={results.personalYear} icon={Sun} color="#F59E0B" delay={220} isLight={isLight} />
-                <CycleCard label="Miesiąc" num={results.personalMonth} icon={Calendar} color="#8B5CF6" delay={260} isLight={isLight} />
-                <CycleCard label="Dzień" num={results.personalDay} icon={Star} color="#06B6D4" delay={300} isLight={isLight} />
+                <CycleCard label={t('numerology.rok', 'Rok')} num={results.personalYear} icon={Sun} color="#F59E0B" delay={220} isLight={isLight} />
+                <CycleCard label={t('numerology.miesiac', 'Miesiąc')} num={results.personalMonth} icon={Calendar} color="#8B5CF6" delay={260} isLight={isLight} />
+                <CycleCard label={t('numerology.dzien', 'Dzień')} num={results.personalDay} icon={Star} color="#06B6D4" delay={300} isLight={isLight} />
               </View>
 
               {/* AI Oracle reading */}
               <Animated.View entering={FadeInUp.delay(320).duration(400)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 20 }}>
-                <Text style={[styles.sectionTitle, { color: GOLD }]}>ODCZYT ORACLE</Text>
+                <Text style={[styles.sectionTitle, { color: GOLD }]}>{t('numerology.odczyt_oracle', 'ODCZYT ORACLE')}</Text>
                 <Pressable
                   onPress={handleAiReading}
                   disabled={aiLoading}
@@ -605,7 +605,7 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
                     >
                       <View style={styles.aiHeader}>
                         <InfinityIcon color={GOLD} size={16} strokeWidth={1.8} />
-                        <Text style={[styles.aiLabel, { color: GOLD }]}>ORACLE NUMEROLOGICZNY</Text>
+                        <Text style={[styles.aiLabel, { color: GOLD }]}>{t('numerology.oracle_numerologi', 'ORACLE NUMEROLOGICZNY')}</Text>
                       </View>
                       <Text style={[styles.aiText, { color: textColor }]}>{aiReading}</Text>
                     </LinearGradient>
@@ -623,7 +623,7 @@ Bądź bezpośredni, ciepły, duchowy — nie ogólnikowy.`;
                 style={styles.hintInner}
               >
                 <InfinityIcon color={GOLD + '88'} size={32} strokeWidth={1.2} />
-                <Text style={[styles.hintTitle, { color: GOLD }]}>Jak to działa?</Text>
+                <Text style={[styles.hintTitle, { color: GOLD }]}>{t('numerology.jak_to_dziala', 'Jak to działa?')}</Text>
                 <Text style={[styles.hintText, { color: subColor }]}>
                   Wprowadź datę urodzenia w formacie DD.MM.YYYY.{'\n'}
                   Opcjonalnie dodaj imię i nazwisko, aby obliczyć Liczbę Wyrazu i Duszy.{'\n\n'}

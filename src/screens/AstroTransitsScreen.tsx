@@ -245,7 +245,7 @@ const SolarSystemWidget = ({ accent }: { accent: string }) => {
         </Animated.View>
       </GestureDetector>
       <Typography variant="microLabel" style={{ color: accent, opacity: 0.7, letterSpacing: 2, marginTop: 4 }}>
-        UKŁAD SŁONECZNY · TRANZYT
+        {t('astroTransits.uklad_sloneczny_tranzyt', 'UKŁAD SŁONECZNY · TRANZYT')}
       </Typography>
     </View>
   );
@@ -661,8 +661,8 @@ export default function AstroTransitsScreen({ navigation }: any) {
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={{ flex: 1 }}>
-          <Typography variant="microLabel" style={{ color: accent, letterSpacing: 2 }}>ASTROLOGIA TRANZYTÓW</Typography>
-          <Typography variant="title3" style={{ color: textColor, fontWeight: '700' }}>Tranzyty Planet</Typography>
+          <Typography variant="microLabel" style={{ color: accent, letterSpacing: 2 }}>{t('astroTransits.astrologia_tranzytow', 'ASTROLOGIA TRANZYTÓW')}</Typography>
+          <Typography variant="title3" style={{ color: textColor, fontWeight: '700' }}>{t('astroTransits.tranzyty_planet', 'Tranzyty Planet')}</Typography>
         </View>
         <Pressable onPress={toggleFav} style={styles.headerBtn} hitSlop={8}>
           <Star size={20} color={isFav ? accent : subColor} fill={isFav ? accent : 'none'} />
@@ -717,7 +717,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
               <Zap size={16} color={accent} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>
-                AKTYWNE TRANZYTY DZISIAJ
+                {t('astroTransits.aktywne_tranzyty_dzisiaj', 'AKTYWNE TRANZYTY DZISIAJ')}
               </Typography>
             </View>
             {TODAY_TRANSITS.map((transit, idx) => (
@@ -782,7 +782,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 24, marginBottom: 10 }}>
               <Clock size={16} color={accent} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>
-                GODZINY PLANETARNE
+                {t('astroTransits.godziny_planetarne', 'GODZINY PLANETARNE')}
               </Typography>
             </View>
             {currentHourData && (
@@ -796,7 +796,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
                   <Text style={{ fontSize: 24 }}>{currentHourData.emoji}</Text>
                   <View style={{ flex: 1 }}>
                     <Typography variant="microLabel" style={{ color: currentHourData.color, letterSpacing: 2 }}>
-                      AKTUALNA GODZINA PLANETARNA
+                      {t('astroTransits.aktualna_godzina_planetarna', 'AKTUALNA GODZINA PLANETARNA')}
                     </Typography>
                     <Typography variant="title3" style={{ color: textColor, fontWeight: '700' }}>
                       Godzina {currentHourData.planet}
@@ -812,7 +812,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
             {nextThreeHours.length > 0 && (
               <View style={{ marginTop: 8, gap: 6 }}>
                 <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 1.5, marginBottom: 4 }}>
-                  NASTĘPNE GODZINY
+                  {t('astroTransits.nastepne_godziny', 'NASTĘPNE GODZINY')}
                 </Typography>
                 {nextThreeHours.map((h, idx) => (
                   <View
@@ -876,7 +876,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
               {personalHitIds.length === 0 && (
                 <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                   <Typography variant="body2" style={{ color: subColor, lineHeight: 18 }}>
-                    Żaden z dzisiejszych tranzytów nie dotyka bezpośrednio twojego znaku. To dzień obserwacji i zbierania energii.
+                    {t('astroTransits.zaden_z_dzisiejszy_tranzytow_nie', 'Żaden z dzisiejszych tranzytów nie dotyka bezpośrednio twojego znaku. To dzień obserwacji i zbierania energii.')}
                   </Typography>
                 </View>
               )}
@@ -888,7 +888,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 24, marginBottom: 10 }}>
               <TrendingUp size={16} color={accent} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>
-                KALENDARZ TRANZYTÓW — TYDZIEŃ
+                {t('astroTransits.kalendarz_tranzytow_tydzien', 'KALENDARZ TRANZYTÓW — TYDZIEŃ')}
               </Typography>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -layout.padding.screen }}>
@@ -957,7 +957,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 24, marginBottom: 10 }}>
               <AlertCircle size={16} color={accent} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>
-                RETROGRADY AKTYWNE
+                {t('astroTransits.retrogrady_aktywne', 'RETROGRADY AKTYWNE')}
               </Typography>
             </View>
             {RETROGRADE_DATA.map((retro) => (
@@ -990,7 +990,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
                   <Animated.View entering={FadeInDown.duration(300)} style={{ marginTop: 12, gap: 10 }}>
                     <View style={[styles.retroSection, { backgroundColor: retro.color + '10', borderColor: retro.color + '22' }]}>
                       <Typography variant="microLabel" style={{ color: retro.color, letterSpacing: 1.5, marginBottom: 4 }}>
-                        CO TO OZNACZA
+                        {t('astroTransits.co_to_oznacza', 'CO TO OZNACZA')}
                       </Typography>
                       <Typography variant="body2" style={{ color: textColor, lineHeight: 19 }}>
                         {retro.meaning}
@@ -998,7 +998,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
                     </View>
                     <View style={[styles.retroSection, { backgroundColor: '#34D39912', borderColor: '#34D39933' }]}>
                       <Typography variant="microLabel" style={{ color: '#34D399', letterSpacing: 1.5, marginBottom: 4 }}>
-                        JAK TO WYKORZYSTAĆ
+                        {t('astroTransits.jak_to_wykorzysta', 'JAK TO WYKORZYSTAĆ')}
                       </Typography>
                       <Typography variant="body2" style={{ color: textColor, lineHeight: 19 }}>
                         {retro.howToUse}
@@ -1015,7 +1015,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 24, marginBottom: 10 }}>
               <Sparkles size={16} color={accent} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>
-                WZORCE ASPEKTOWE
+                {t('astroTransits.wzorce_aspektowe', 'WZORCE ASPEKTOWE')}
               </Typography>
             </View>
             {ASPECT_PATTERNS.map((pattern) => (
@@ -1045,7 +1045,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
                       </Typography>
                       {pattern.isActive && (
                         <View style={[styles.activeBadge, { backgroundColor: '#34D39922' }]}>
-                          <Typography variant="microLabel" style={{ color: '#34D399', fontSize: 9 }}>AKTYWNY</Typography>
+                          <Typography variant="microLabel" style={{ color: '#34D399', fontSize: 9 }}>{t('astroTransits.aktywny', 'AKTYWNY')}</Typography>
                         </View>
                       )}
                     </View>
@@ -1081,7 +1081,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 24, marginBottom: 10 }}>
               <BookOpen size={16} color={accent} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>
-                ASTROLOGICZNA WYROCZNIA
+                {t('astroTransits.astrologic_wyrocznia', 'ASTROLOGICZNA WYROCZNIA')}
               </Typography>
             </View>
             <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
@@ -1110,7 +1110,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
               <TextInput
                 value={oracleInput}
                 onChangeText={setOracleInput}
-                placeholder="Zadaj pytanie o aktualne tranzyty..."
+                placeholder={t('astroTransits.zadaj_pytanie_o_aktualne_tranzyty', 'Zadaj pytanie o aktualne tranzyty...')}
                 placeholderTextColor={subColor + '88'}
                 style={[styles.oracleInput, {
                   color: textColor,
@@ -1142,7 +1142,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8 }}>
                     <Sparkles size={13} color={accent} />
                     <Typography variant="microLabel" style={{ color: accent, letterSpacing: 1.5 }}>
-                      INTERPRETACJA ASTROLOGICZNA
+                      {t('astroTransits.interpreta_astrologic', 'INTERPRETACJA ASTROLOGICZNA')}
                     </Typography>
                   </View>
                   <Typography variant="body2" style={{ color: textColor, lineHeight: 22 }}>
@@ -1162,7 +1162,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 24, marginBottom: 10 }}>
               <Globe size={16} color={accent} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>
-                NIEBO TERAZ — PLANETY W ZNAKACH
+                {t('astroTransits.niebo_teraz_planety_w_znakach', 'NIEBO TERAZ — PLANETY W ZNAKACH')}
               </Typography>
             </View>
             <View style={{ gap: 6 }}>
@@ -1206,7 +1206,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
             >
               <BookOpen size={16} color={accent} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700', flex: 1 }}>
-                ZNACZENIA PLANET W ASTROLOGII
+                {t('astroTransits.znaczenia_planet_w_astrologii', 'ZNACZENIA PLANET W ASTROLOGII')}
               </Typography>
               {meaningsOpen
                 ? <ChevronUp size={16} color={subColor} />
@@ -1254,7 +1254,7 @@ export default function AstroTransitsScreen({ navigation }: any) {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 24, marginBottom: 10 }}>
               <ArrowRight size={16} color={accent} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>
-                CO DALEJ?
+                {t('astroTransits.co_dalej', 'CO DALEJ?')}
               </Typography>
             </View>
             {[

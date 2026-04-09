@@ -154,17 +154,16 @@ export const EventsService = {
   },
 
   listenToUpcomingEvents(callback: (events: CommunityEvent[]) => void): () => void {
-    const now = Date.now();
-    // Listen to all non-ended events ordered by startTime
+    // No isPrivate filter in query to avoid composite index requirement.
+    // Filter client-side instead.
     const q = query(
       collection(db, 'communityEvents'),
-      where('isPrivate', '==', false),
       orderBy('startTime', 'asc'),
     );
     return onSnapshot(q, (snap) => {
       const events: CommunityEvent[] = snap.docs
         .map(d => _docToEvent(d.id, d.data()))
-        .filter(e => e.status !== 'cancelled');
+        .filter(e => !e.isPrivate && e.status !== 'cancelled');
       callback(events);
     });
   },

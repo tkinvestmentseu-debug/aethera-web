@@ -264,7 +264,7 @@ return (
           </View>
         </Animated.View>
 
-        <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 16, marginBottom: 8 }}>SKŁADNIKI</Text>
+        <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 16, marginBottom: 8 }}>{t('saltBath.skladniki', 'SKŁADNIKI')}</Text>
         {activeProtocol.ingredients.map((ing, i) => (
           <View key={i} style={[styles.ingRow, { borderColor: cardBorder }]}>
             <Droplets size={12} color={activeProtocol.color} />
@@ -273,11 +273,11 @@ return (
         ))}
 
         <View style={[styles.intentionCard, { backgroundColor: activeProtocol.color + '12', borderColor: activeProtocol.color + '25' }]}>
-          <Text style={{ color: subColor, fontSize: 10, letterSpacing: 2, marginBottom: 4 }}>INTENCJA</Text>
+          <Text style={{ color: subColor, fontSize: 10, letterSpacing: 2, marginBottom: 4 }}>{t('saltBath.intencja', 'INTENCJA')}</Text>
           <Text style={{ color: textColor, fontSize: 14, lineHeight: 22, fontStyle: 'italic' }}>"{activeProtocol.intention}"</Text>
         </View>
 
-        <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 16, marginBottom: 8 }}>KROKI</Text>
+        <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 16, marginBottom: 8 }}>{t('saltBath.kroki', 'KROKI')}</Text>
         {activeProtocol.steps.map((step, i) => {
           const done = doneSteps.includes(i);
 return (
@@ -293,7 +293,7 @@ return (
         })}
 
                 <View style={{ marginTop: 16, marginBottom: 8, borderRadius: 16, backgroundColor: "#06B6D422", borderWidth: 1, borderColor: "#06B6D4", padding: 16 }}>
-          <Text style={{ color: "#06B6D4", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>AI INTERPRETACJA KAPIELI</Text>
+          <Text style={{ color: "#06B6D4", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>{t('saltBath.ai_interpreta_kapieli', 'AI INTERPRETACJA KAPIELI')}</Text>
           {saltAiInsight ? (
             <Text style={{ color: "#E0F9FF", fontSize: 14, lineHeight: 22 }}>{saltAiInsight}</Text>
           ) : null}

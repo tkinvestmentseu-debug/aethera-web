@@ -652,8 +652,8 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
             <ChevronLeft color={ACCENT} size={26} strokeWidth={1.5} />
           </Pressable>
           <View style={{ flex: 1, alignItems: 'center' }}>
-            <Text style={[ha.headerEyebrow, { color: ACCENT }]}>🌿 ALCHEMIA ZIÓŁ</Text>
-            <Text style={[ha.headerTitle, { color: textColor }]}>Mądrość Roślin</Text>
+            <Text style={[ha.headerEyebrow, { color: ACCENT }]}>{t('herbalAlchemy.alchemia_ziol', '🌿 ALCHEMIA ZIÓŁ')}</Text>
+            <Text style={[ha.headerTitle, { color: textColor }]}>{t('herbalAlchemy.madrosc_roslin', 'Mądrość Roślin')}</Text>
           </View>
           <Pressable onPress={toggleFav} hitSlop={14} style={ha.starBtn}>
             <Star color={ACCENT} size={20} strokeWidth={1.5} fill={isFav ? ACCENT : 'none'} />
@@ -682,7 +682,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
             <>
               {/* ZIOŁO TYGODNIA */}
               <Animated.View entering={FadeInDown.delay(0).duration(500)}>
-                <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>✦ ZIOŁO TYGODNIA</Text>
+                <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>{t('herbalAlchemy.ziolo_tygodnia', '✦ ZIOŁO TYGODNIA')}</Text>
                 <LinearGradient
                   colors={[herbOfWeek.color + '20', herbOfWeek.color + '08', 'transparent'] as const}
                   style={[ha.weekHeroCard, { borderColor: herbOfWeek.color + '55' }]}
@@ -705,7 +705,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
                   </View>
                   <Text style={[ha.weekHeroDesc, { color: isLight ? '#1A3A1E' : '#C8F0D0', marginTop: 14 }]}>{herbOfWeek.desc}</Text>
                   <View style={[ha.weekRitualBox, { backgroundColor: herbOfWeek.color + '10', borderColor: herbOfWeek.color + '30' }]}>
-                    <Text style={[ha.weekRitualLabel, { color: herbOfWeek.color }]}>🕯️ RYTUAŁ TYGODNIA</Text>
+                    <Text style={[ha.weekRitualLabel, { color: herbOfWeek.color }]}>{t('herbalAlchemy.rytual_tygodnia', '🕯️ RYTUAŁ TYGODNIA')}</Text>
                     <Text style={[ha.weekRitualText, { color: subColor }]}>{herbOfWeek.ritual}</Text>
                   </View>
                   <Text style={[ha.weekPrepText, { color: herbOfWeek.color }]}>Przygotowanie: {herbOfWeek.preparation}</Text>
@@ -718,7 +718,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
                   colors={['rgba(52,211,153,0.14)', 'rgba(52,211,153,0.04)'] as const}
                   style={[ha.moonCard, { borderColor: ACCENT + '44' }]}
                 >
-                  <Text style={[ha.moonEyebrow, { color: ACCENT }]}>🌙 ZIOŁA NA TĘ FAZĘ KSIĘŻYCA</Text>
+                  <Text style={[ha.moonEyebrow, { color: ACCENT }]}>{t('herbalAlchemy.ziola_na_te_faze_ksiezyca', '🌙 ZIOŁA NA TĘ FAZĘ KSIĘŻYCA')}</Text>
                   <Text style={[ha.moonPhase, { color: textColor }]}>
                     {MOON_PHASES.find(m => m.id === currentMoonPhase)?.emoji} {MOON_PHASES.find(m => m.id === currentMoonPhase)?.label}
                   </Text>
@@ -741,13 +741,13 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
               </Animated.View>
 
               {/* Use filter chips */}
-              <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>🔍 FILTRUJ PO ZASTOSOWANIU</Text>
+              <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>{t('herbalAlchemy.filtruj_po_zastosowan', '🔍 FILTRUJ PO ZASTOSOWANIU')}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
                 <Pressable
                   onPress={() => setActiveUse(null)}
                   style={[ha.useChip, !activeUse && { backgroundColor: ACCENT + '22', borderColor: ACCENT }]}
                 >
-                  <Text style={[ha.useChipText, { color: !activeUse ? ACCENT : subColor }]}>Wszystkie</Text>
+                  <Text style={[ha.useChipText, { color: !activeUse ? ACCENT : subColor }]}>{t('herbalAlchemy.wszystkie', 'Wszystkie')}</Text>
                 </Pressable>
                 {allUses.map(use => (
                   <Pressable
@@ -761,7 +761,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
               </ScrollView>
 
               {/* Herb grid */}
-              <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>🌿 BIBLIOTEKA ZIÓŁ</Text>
+              <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>{t('herbalAlchemy.biblioteka_ziol', '🌿 BIBLIOTEKA ZIÓŁ')}</Text>
               <View style={ha.herbGrid}>
                 {filteredHerbs.map((herb, i) => (
                   <Animated.View key={herb.id} entering={FadeInDown.delay(i * 60).duration(400)}>
@@ -810,7 +810,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
                     colors={['rgba(52,211,153,0.10)', 'rgba(52,211,153,0.03)'] as const}
                     style={[ha.myHerbsCard, { borderColor: ACCENT + '33' }]}
                   >
-                    <Text style={[ha.myHerbsHint, { color: subColor }]}>Twoja kolekcja ziołowa. Dotknij zioła, aby zobaczyć szczegóły.</Text>
+                    <Text style={[ha.myHerbsHint, { color: subColor }]}>{t('herbalAlchemy.twoja_kolekcja_ziolowa_dotknij_ziol', 'Twoja kolekcja ziołowa. Dotknij zioła, aby zobaczyć szczegóły.')}</Text>
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 10 }}>
                       {myHerbs.map(h => (
                         <Pressable
@@ -840,7 +840,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
             <>
               {/* Season selector */}
               <Animated.View entering={FadeInDown.delay(0).duration(400)}>
-                <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>🍃 PORA ROKU</Text>
+                <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>{t('herbalAlchemy.pora_roku', '🍃 PORA ROKU')}</Text>
                 <View style={{ flexDirection: 'row', gap: 10, marginBottom: 16 }}>
                   {SEASONS.map(s => (
                     <Pressable
@@ -861,7 +861,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
               </Text>
               {seasonHerbs.length === 0 ? (
                 <View style={[ha.emptyCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-                  <Text style={[ha.emptyText, { color: subColor }]}>Brak ziół dla tej pory roku w bibliotece</Text>
+                  <Text style={[ha.emptyText, { color: subColor }]}>{t('herbalAlchemy.brak_ziol_dla_tej_pory', 'Brak ziół dla tej pory roku w bibliotece')}</Text>
                 </View>
               ) : (
                 seasonHerbs.map((herb, i) => (
@@ -882,15 +882,15 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
               )}
 
               {/* KALENDARZ ZBIORÓW — Moon harvest calendar */}
-              <Text style={[ha.sectionEyebrow, { color: ACCENT, marginTop: 8 }]}>🌾 KALENDARZ ZBIORÓW</Text>
+              <Text style={[ha.sectionEyebrow, { color: ACCENT, marginTop: 8 }]}>{t('herbalAlchemy.kalendarz_zbiorow', '🌾 KALENDARZ ZBIORÓW')}</Text>
               <Animated.View entering={FadeInDown.delay(0).duration(400)}>
                 <LinearGradient
                   colors={['rgba(52,211,153,0.10)', 'transparent'] as const}
                   style={[ha.harvestCard, { borderColor: ACCENT + '33' }]}
                 >
-                  <Text style={[ha.harvestTitle, { color: textColor }]}>Najlepsze dni zbiorów według fazy Księżyca</Text>
+                  <Text style={[ha.harvestTitle, { color: textColor }]}>{t('herbalAlchemy.najlepsze_dni_zbiorow_wedlug_fazy', 'Najlepsze dni zbiorów według fazy Księżyca')}</Text>
                   <Text style={[ha.harvestDesc, { color: subColor }]}>
-                    Starożytna wiedź ziołowa wskazuje, że pora zbioru wpływa na zawartość olejków eterycznych i moc leczniczą roślin. Zbieraj rano po rosie.
+                    {t('herbalAlchemy.starozytna_wiedz_ziolowa_wskazuje_z', 'Starożytna wiedź ziołowa wskazuje, że pora zbioru wpływa na zawartość olejków eterycznych i moc leczniczą roślin. Zbieraj rano po rosie.')}
                   </Text>
                 </LinearGradient>
               </Animated.View>
@@ -920,7 +920,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
                         </View>
                       )}
                       {phaseHerbs.length === 0 && (
-                        <Text style={[{ fontSize: 12, color: subColor, fontStyle: 'italic' }]}>Brak ziół do zbioru w tej fazie</Text>
+                        <Text style={[{ fontSize: 12, color: subColor, fontStyle: 'italic' }]}>{t('herbalAlchemy.brak_ziol_do_zbioru_w', 'Brak ziół do zbioru w tej fazie')}</Text>
                       )}
                     </View>
                   </Animated.View>
@@ -928,9 +928,9 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
               })}
 
               {/* ŁĄCZENIE ZIÓŁ */}
-              <Text style={[ha.sectionEyebrow, { color: ACCENT, marginTop: 8 }]}>🔗 ŁĄCZENIE ZIÓŁ</Text>
+              <Text style={[ha.sectionEyebrow, { color: ACCENT, marginTop: 8 }]}>{t('herbalAlchemy.laczenie_ziol', '🔗 ŁĄCZENIE ZIÓŁ')}</Text>
               <Text style={[ha.combineIntro, { color: subColor }]}>
-                Niektóre zioła wzmacniają wzajemne działanie, gdy są łączone. Oto sprawdzone kombinacje dla konkretnych intencji.
+                {t('herbalAlchemy.niektore_ziola_wzmacniaja_wzajemne_', 'Niektóre zioła wzmacniają wzajemne działanie, gdy są łączone. Oto sprawdzone kombinacje dla konkretnych intencji.')}
               </Text>
               {HERB_COMBINATIONS.map((combo, i) => {
                 const comboHerbs = combo.herbs.map(id => HERBS.find(h => h.id === id)).filter(Boolean);
@@ -961,7 +961,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
               })}
 
               {/* Moon phase guide */}
-              <Text style={[ha.sectionEyebrow, { color: ACCENT, marginTop: 8 }]}>🌕 FAZY KSIĘŻYCA I ZIOŁA</Text>
+              <Text style={[ha.sectionEyebrow, { color: ACCENT, marginTop: 8 }]}>{t('herbalAlchemy.fazy_ksiezyca_i_ziola', '🌕 FAZY KSIĘŻYCA I ZIOŁA')}</Text>
               {MOON_PHASES.map((phase, i) => (
                 <Animated.View key={phase.id} entering={FadeInDown.delay(i * 80).duration(400)}>
                   <View style={[ha.phaseCard, { backgroundColor: cardBg, borderColor: cardBorder }, phase.id === currentMoonPhase && { borderColor: ACCENT + '66', backgroundColor: ACCENT + '0A' }]}>
@@ -986,16 +986,16 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
                   colors={['rgba(52,211,153,0.12)', 'transparent'] as const}
                   style={[ha.ritualHeroCard, { borderColor: ACCENT + '33' }]}
                 >
-                  <Text style={[ha.ritualEyebrow, { color: ACCENT }]}>🕯️ RYTUAŁY ZIOŁOWE</Text>
-                  <Text style={[ha.ritualHeroTitle, { color: textColor }]}>Ceremonie z Mocą Roślin</Text>
+                  <Text style={[ha.ritualEyebrow, { color: ACCENT }]}>{t('herbalAlchemy.rytualy_ziolowe', '🕯️ RYTUAŁY ZIOŁOWE')}</Text>
+                  <Text style={[ha.ritualHeroTitle, { color: textColor }]}>{t('herbalAlchemy.ceremonie_z_moca_roslin', 'Ceremonie z Mocą Roślin')}</Text>
                   <Text style={[ha.ritualHeroDesc, { color: subColor }]}>
-                    Każde zioło niesie swoją własną moc. Połącz ją z intencją, fazą księżyca i elementem, aby wzmocnić swój rytuał.
+                    {t('herbalAlchemy.kazde_ziolo_niesie_swoja_wlasna', 'Każde zioło niesie swoją własną moc. Połącz ją z intencją, fazą księżyca i elementem, aby wzmocnić swój rytuał.')}
                   </Text>
                 </LinearGradient>
               </Animated.View>
 
               {/* RECEPTURY RYTUALNE */}
-              <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>📜 RECEPTURY RYTUALNE</Text>
+              <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>{t('herbalAlchemy.receptury_rytualne', '📜 RECEPTURY RYTUALNE')}</Text>
               {RITUAL_RECIPES.map((recipe, i) => {
                 const isExpanded = expandedRecipe === recipe.id;
                 return (
@@ -1026,7 +1026,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
                       {isExpanded && (
                         <View style={ha.recipeBody}>
                           <View style={[ha.recipeDivider, { backgroundColor: recipe.color + '22' }]} />
-                          <Text style={[ha.recipeSubLabel, { color: recipe.color }]}>🧪 SKŁADNIKI</Text>
+                          <Text style={[ha.recipeSubLabel, { color: recipe.color }]}>{t('herbalAlchemy.skladniki', '🧪 SKŁADNIKI')}</Text>
                           {recipe.ingredients.map((ing, idx) => (
                             <View key={idx} style={ha.ingredientRow}>
                               <View style={[ha.ingredientDot, { backgroundColor: recipe.color }]} />
@@ -1034,7 +1034,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
                             </View>
                           ))}
                           <View style={[ha.recipeDivider, { backgroundColor: recipe.color + '22', marginTop: 12 }]} />
-                          <Text style={[ha.recipeSubLabel, { color: recipe.color }]}>✦ KROKI</Text>
+                          <Text style={[ha.recipeSubLabel, { color: recipe.color }]}>{t('herbalAlchemy.kroki', '✦ KROKI')}</Text>
                           {recipe.steps.map((step, idx) => (
                             <View key={idx} style={ha.recipeStepRow}>
                               <View style={[ha.recipeStepNum, { backgroundColor: recipe.color + '18' }]}>
@@ -1051,7 +1051,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
               })}
 
               {/* HERB RITUALS per herb */}
-              <Text style={[ha.sectionEyebrow, { color: ACCENT, marginTop: 4 }]}>🌿 RYTUAŁY Z ZIOŁAMI</Text>
+              <Text style={[ha.sectionEyebrow, { color: ACCENT, marginTop: 4 }]}>{t('herbalAlchemy.rytualy_z_ziolami', '🌿 RYTUAŁY Z ZIOŁAMI')}</Text>
               {HERBS.map((herb, i) => (
                 <Animated.View key={herb.id} entering={FadeInDown.delay(i * 60).duration(400)}>
                   <View style={[ha.ritualCard, { backgroundColor: cardBg, borderColor: herb.color + '33' }]}>
@@ -1078,18 +1078,18 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
             <>
               {/* MEDYTACJA ZIOŁOWA */}
               <Animated.View entering={FadeInDown.delay(0).duration(400)}>
-                <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>🧘 MEDYTACJA ZIOŁOWA</Text>
+                <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>{t('herbalAlchemy.medytacja_ziolowa', '🧘 MEDYTACJA ZIOŁOWA')}</Text>
                 <LinearGradient
                   colors={['rgba(52,211,153,0.14)', 'rgba(52,211,153,0.04)'] as const}
                   style={[ha.meditCard, { borderColor: ACCENT + '44' }]}
                 >
-                  <Text style={[ha.meditTitle, { color: textColor }]}>5-minutowa medytacja z duchem rośliny</Text>
+                  <Text style={[ha.meditTitle, { color: textColor }]}>{t('herbalAlchemy.5_minutowa_medytacja_z_duchem', '5-minutowa medytacja z duchem rośliny')}</Text>
                   <Text style={[ha.meditDesc, { color: subColor }]}>
-                    Wybierz zioło, z którym chcesz pracować. Każda roślina ma swój własny duch i mądrość. Pozwól jej prowadzić twoją praktykę.
+                    {t('herbalAlchemy.wybierz_ziolo_z_ktorym_chcesz', 'Wybierz zioło, z którym chcesz pracować. Każda roślina ma swój własny duch i mądrość. Pozwól jej prowadzić twoją praktykę.')}
                   </Text>
 
                   {/* Herb selector */}
-                  <Text style={[ha.meditSelectLabel, { color: ACCENT }]}>WYBIERZ ZIOŁO</Text>
+                  <Text style={[ha.meditSelectLabel, { color: ACCENT }]}>{t('herbalAlchemy.wybierz_ziolo', 'WYBIERZ ZIOŁO')}</Text>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 14 }}>
                     {HERBS.map(h => (
                       <Pressable
@@ -1109,7 +1109,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
                     if (!mHerb) return null;
                     return (
                       <View style={[ha.meditAffirmBox, { backgroundColor: mHerb.color + '10', borderColor: mHerb.color + '33' }]}>
-                        <Text style={[ha.meditAffirmLabel, { color: mHerb.color }]}>✦ AFIRMACJA</Text>
+                        <Text style={[ha.meditAffirmLabel, { color: mHerb.color }]}>{t('herbalAlchemy.afirmacja', '✦ AFIRMACJA')}</Text>
                         <Text style={[ha.meditAffirmText, { color: isLight ? '#1A3A1E' : '#C8EDD0' }]}>{mHerb.meditationAffirm}</Text>
                       </View>
                     );
@@ -1148,7 +1148,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
                   {meditRunning
                     ? (
                       <Pressable onPress={stopMeditation} style={[ha.meditBtn, { backgroundColor: '#EF4444' + 'CC' }]}>
-                        <Text style={ha.meditBtnText}>Zatrzymaj medytację</Text>
+                        <Text style={ha.meditBtnText}>{t('herbalAlchemy.zatrzymaj_medytacje', 'Zatrzymaj medytację')}</Text>
                       </Pressable>
                     ) : (
                       <Pressable onPress={startMeditation} style={[ha.meditBtn, { backgroundColor: ACCENT }]}>
@@ -1162,19 +1162,19 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
 
               {/* MOJE ZIOŁA — full section */}
               <Animated.View entering={FadeInDown.delay(60).duration(400)}>
-                <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>🌱 MOJE ZIOŁA</Text>
+                <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>{t('herbalAlchemy.moje_ziola', '🌱 MOJE ZIOŁA')}</Text>
                 <LinearGradient
                   colors={['rgba(52,211,153,0.10)', 'transparent'] as const}
                   style={[ha.myHerbsFullCard, { borderColor: ACCENT + '33' }]}
                 >
-                  <Text style={[ha.myHerbsFullTitle, { color: textColor }]}>Twoja kolekcja ziołowa</Text>
+                  <Text style={[ha.myHerbsFullTitle, { color: textColor }]}>{t('herbalAlchemy.twoja_kolekcja_ziolowa', 'Twoja kolekcja ziołowa')}</Text>
                   <Text style={[ha.myHerbsFullDesc, { color: subColor }]}>
-                    Zbierz zioła, z którymi pracujesz lub chcesz pracować. Twoja kolekcja jest przewodnikiem po własnej ścieżce ziołowej.
+                    {t('herbalAlchemy.zbierz_ziola_z_ktorymi_pracujesz', 'Zbierz zioła, z którymi pracujesz lub chcesz pracować. Twoja kolekcja jest przewodnikiem po własnej ścieżce ziołowej.')}
                   </Text>
                   {myHerbs.length === 0 ? (
                     <View style={[ha.myHerbsEmpty, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                       <Text style={[ha.myHerbsEmptyText, { color: subColor }]}>
-                        Przejdź do zakładki Zioła i dotknij "+" przy każdym ziole, które chcesz dodać do swojej kolekcji.
+                        {t('herbalAlchemy.przejdz_do_zakladki_ziola_i', 'Przejdź do zakładki Zioła i dotknij "+" przy każdym ziole, które chcesz dodać do swojej kolekcji.')}
                       </Text>
                     </View>
                   ) : (
@@ -1204,7 +1204,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
 
               {/* ŁĄCZENIE ZIÓŁ in discover tab too */}
               <Animated.View entering={FadeInDown.delay(120).duration(400)}>
-                <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>🔗 ŁĄCZENIE ZIÓŁ</Text>
+                <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>{t('herbalAlchemy.laczenie_ziol_1', '🔗 ŁĄCZENIE ZIÓŁ')}</Text>
                 {HERB_COMBINATIONS.map((combo, i) => {
                   const comboHerbs = combo.herbs.map(id => HERBS.find(h => h.id === id)).filter(Boolean);
                   return (
@@ -1236,7 +1236,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
 
           {/* Co dalej? */}
           <Animated.View entering={FadeInDown.delay(200).duration(500)} style={{ marginTop: 8 }}>
-            <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>✦ CO DALEJ?</Text>
+            <Text style={[ha.sectionEyebrow, { color: ACCENT }]}>{t('herbalAlchemy.co_dalej', '✦ CO DALEJ?')}</Text>
             {[
               { icon: Moon, label: 'Kalendarz księżycowy', sub: 'Zsynchronizuj rytuały z fazami Księżyca', color: '#A78BFA', route: 'LunarCalendar' },
               { icon: Sparkles, label: 'Wyrocznia Aethery', sub: 'Zapytaj o zioło i jego znaczenie dla Ciebie', color: '#FBBF24', route: 'OraclePortal' },
@@ -1335,13 +1335,13 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
             <Text style={[ha.modalDesc, { color: isLight ? '#1A3A1E' : '#D4F5DC' }]}>{selectedHerb.desc}</Text>
 
             <View style={[ha.modalRitualBox, { backgroundColor: selectedHerb.color + '10', borderColor: selectedHerb.color + '33' }]}>
-              <Text style={[ha.modalRitualLabel, { color: selectedHerb.color }]}>🕯️ RYTUAŁ</Text>
+              <Text style={[ha.modalRitualLabel, { color: selectedHerb.color }]}>{t('herbalAlchemy.rytual', '🕯️ RYTUAŁ')}</Text>
               <Text style={[ha.modalRitualText, { color: isLight ? '#2E5A32' : '#B8E8BC' }]}>{selectedHerb.ritual}</Text>
             </View>
 
             {selectedHerb.combinesWith && (
               <View style={[ha.modalCombineBox, { backgroundColor: selectedHerb.color + '08', borderColor: selectedHerb.color + '22' }]}>
-                <Text style={[ha.modalCombineLabel, { color: selectedHerb.color }]}>🔗 ŁĄCZY SIĘ Z</Text>
+                <Text style={[ha.modalCombineLabel, { color: selectedHerb.color }]}>{t('herbalAlchemy.laczy_sie_z', '🔗 ŁĄCZY SIĘ Z')}</Text>
                 <View style={{ flexDirection: 'row', gap: 6, flexWrap: 'wrap', marginTop: 6 }}>
                   {selectedHerb.combinesWith.map(cid => {
                     const ch = HERBS.find(h => h.id === cid);
@@ -1357,7 +1357,7 @@ export const HerbalAlchemyScreen = ({ navigation }: any) => {
               </View>
             )}
 
-            <Text style={[ha.modalPrepLabel, { color: selectedHerb.color }]}>Przygotowanie:</Text>
+            <Text style={[ha.modalPrepLabel, { color: selectedHerb.color }]}>{t('herbalAlchemy.przygotowa', 'Przygotowanie:')}</Text>
             <Text style={[ha.modalPrepText, { color: subColor }]}>{selectedHerb.preparation}</Text>
 
             <Pressable

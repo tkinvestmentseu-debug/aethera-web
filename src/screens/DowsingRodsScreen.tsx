@@ -652,8 +652,8 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
             <ChevronLeft color={ACCENT} size={22} />
           </Pressable>
           <View style={{ flex: 1, alignItems: 'center' }}>
-            <Text style={[s.headerEyebrow, { color: ACCENT }]}>RADIESTEZJA</Text>
-            <Text style={[s.headerTitle, { color: textColor }]}>Różdżki &amp; Wahadło</Text>
+            <Text style={[s.headerEyebrow, { color: ACCENT }]}>{t('dowsingRods.radiestezj', 'RADIESTEZJA')}</Text>
+            <Text style={[s.headerTitle, { color: textColor }]}>{t('dowsingRods.rozdzki_amp_wahadlo', 'Różdżki &amp; Wahadło')}</Text>
           </View>
           <Pressable
             onPress={() => { if (isFav) { removeFavoriteItem('dowsing-rods'); } else { addFavoriteItem({ id: 'dowsing-rods', label: 'Różdżki', route: 'DowsingRods', params: {}, icon: 'Zap', color: ACCENT, addedAt: new Date().toISOString() }); } }}
@@ -727,14 +727,14 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
             {/* ── Daily limit indicator ─────────────────────────── */}
             <Animated.View entering={FadeInDown.delay(110).duration(420)} style={{ marginHorizontal: SP, marginBottom: 12 }}>
               <View style={[s.limitBar, { backgroundColor: cardBg, borderColor: ACCENT + '33' }]}>
-                <Text style={[s.limitLabel, { color: subColor }]}>Pytania w sesji</Text>
+                <Text style={[s.limitLabel, { color: subColor }]}>{t('dowsingRods.pytania_w_sesji', 'Pytania w sesji')}</Text>
                 <View style={{ flexDirection: 'row', gap: 6 }}>
                   {Array.from({ length: DAILY_QUESTION_LIMIT }, (_, i) => (
                     <View key={i} style={[s.limitDot, { backgroundColor: i < sessionCount ? ACCENT : (isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.15)') }]} />
                   ))}
                 </View>
                 {limitReached && (
-                  <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 0.5 }}>LIMIT SESJI</Text>
+                  <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 0.5 }}>{t('dowsingRods.limit_sesji', 'LIMIT SESJI')}</Text>
                 )}
               </View>
             </Animated.View>
@@ -754,7 +754,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
 
             {/* ── Question Categories ───────────────────────────── */}
             <Animated.View entering={FadeInDown.delay(130).duration(460)} style={{ marginHorizontal: SP, marginBottom: 14 }}>
-              <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>KATEGORIE PYTAŃ</Text>
+              <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>{t('dowsingRods.kategorie_pytan', 'KATEGORIE PYTAŃ')}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingRight: 22 }}>
                 {QUESTION_CATEGORIES.map((cat) => {
                   const CatIcon = cat.icon;
@@ -807,7 +807,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
 
             {/* ── Quick questions (quick tap chips) ────────────── */}
             <Animated.View entering={FadeInDown.delay(140).duration(480)} style={{ marginHorizontal: SP, marginBottom: 12 }}>
-              <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 8 }]}>SZYBKIE PYTANIA</Text>
+              <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 8 }]}>{t('dowsingRods.szybkie_pytania', 'SZYBKIE PYTANIA')}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingRight: 22 }}>
                 {QUICK_QUESTIONS.map((q, i) => (
                   <Pressable
@@ -825,9 +825,9 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
             {mode === 'energia' && (
               <Animated.View entering={FadeInDown.delay(150).duration(460)} style={[s.energyCard, { backgroundColor: cardBg, borderColor: ACCENT + '44', marginHorizontal: SP }]}>
                 <LinearGradient colors={[ACCENT + '14', 'transparent']} style={StyleSheet.absoluteFill} />
-                <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 8 }]}>ODCZYT ENERGETYCZNY</Text>
+                <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 8 }]}>{t('dowsingRods.odczyt_energetycz', 'ODCZYT ENERGETYCZNY')}</Text>
                 <Text style={[{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 14 }]}>
-                  Połóż telefon na dłoni lub nad przedmiotem/miejscem, którego energię chcesz zbadać. Wahadło zmierzy rezonans energetyczny.
+                  {t('dowsingRods.poloz_telefon_na_dloni_lub', 'Połóż telefon na dłoni lub nad przedmiotem/miejscem, którego energię chcesz zbadać. Wahadło zmierzy rezonans energetyczny.')}
                 </Text>
                 <Pressable
                   onPress={handleEnergyScan}
@@ -851,7 +851,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
                       onPress={() => { setEnergyValue(null); setIsScanningEnergy(false); }}
                       style={{ marginTop: 10, alignSelf: 'flex-start' }}
                     >
-                      <Text style={{ color: ACCENT, fontSize: 12, fontWeight: '700' }}>Skanuj ponownie →</Text>
+                      <Text style={{ color: ACCENT, fontSize: 12, fontWeight: '700' }}>{t('dowsingRods.skanuj_ponownie', 'Skanuj ponownie →')}</Text>
                     </Pressable>
                   </Animated.View>
                 )}
@@ -861,21 +861,21 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
             {/* ── Question input (only for rozdzki/wahadlo) ────── */}
             {mode !== 'energia' && (
               <Animated.View entering={FadeInDown.delay(200).duration(500)} style={[s.inputSection, { marginHorizontal: SP }]}>
-                <Text style={[s.sectionLabel, { color: ACCENT }]}>TWOJE PYTANIE TAK / NIE</Text>
+                <Text style={[s.sectionLabel, { color: ACCENT }]}>{t('dowsingRods.twoje_pytanie_tak_nie', 'TWOJE PYTANIE TAK / NIE')}</Text>
                 {limitReached && (
                   <View style={[s.limitWarning, { borderColor: ACCENT + '55', backgroundColor: ACCENT + '14' }]}>
                     <Text style={{ color: ACCENT, fontSize: 12, lineHeight: 18 }}>
-                      ✦ Osiągnięto limit 3 pytań w tej sesji. Dla najlepszych rezultatów, zrób krótką przerwę na medytację i odśwież umysł przed kolejną sesją.
+                      {t('dowsingRods.osiagnieto_limit_3_pytan_w', '✦ Osiągnięto limit 3 pytań w tej sesji. Dla najlepszych rezultatów, zrób krótką przerwę na medytację i odśwież umysł przed kolejną sesją.')}
                     </Text>
                     <Pressable onPress={() => { setSessionCount(0); setLimitReached(false); HapticsService.impact('light'); }} style={{ marginTop: 6 }}>
-                      <Text style={{ color: ACCENT, fontSize: 11, fontWeight: '700' }}>Rozpocznij nową sesję →</Text>
+                      <Text style={{ color: ACCENT, fontSize: 11, fontWeight: '700' }}>{t('dowsingRods.rozpocznij_nowa_sesje', 'Rozpocznij nową sesję →')}</Text>
                     </Pressable>
                   </View>
                 )}
                 <MysticalInput
                   value={question}
                   onChangeText={setQuestion}
-                  placeholder="Zadaj pytanie, na które można odpowiedzieć TAK lub NIE..."
+                  placeholder={t('dowsingRods.zadaj_pytanie_na_ktore_mozna', 'Zadaj pytanie, na które można odpowiedzieć TAK lub NIE...')}
                   placeholderTextColor={ACCENT + '55'}
                   multiline
                   numberOfLines={3}
@@ -911,10 +911,10 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
             {currentAffirmation && !answered && (
               <Animated.View entering={FadeInDown.duration(500)} style={[s.affCard, { backgroundColor: ACCENT + '10', borderColor: ACCENT + '44', marginHorizontal: SP }]}>
                 <LinearGradient colors={[ACCENT + '1A', 'transparent']} style={StyleSheet.absoluteFill} />
-                <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 8 }]}>✦ AFIRMACJA PO SESJI</Text>
+                <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 8 }]}>{t('dowsingRods.afirmacja_po_sesji', '✦ AFIRMACJA PO SESJI')}</Text>
                 <Text style={[s.affText, { color: textColor }]}>"{currentAffirmation}"</Text>
                 <Pressable onPress={() => setCurrentAffirmation(null)} style={{ marginTop: 10, alignSelf: 'flex-end' }}>
-                  <Text style={{ color: ACCENT + '88', fontSize: 11, fontWeight: '600' }}>Zamknij</Text>
+                  <Text style={{ color: ACCENT + '88', fontSize: 11, fontWeight: '600' }}>{t('dowsingRods.zamknij', 'Zamknij')}</Text>
                 </Pressable>
               </Animated.View>
             )}
@@ -922,7 +922,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
             {/* ── Session stats ─────────────────────────────────── */}
             {stats && (
               <Animated.View entering={FadeInDown.duration(400)} style={[s.statsCard, { backgroundColor: cardBg, borderColor: cardBorder, marginHorizontal: SP }]}>
-                <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>STATYSTYKI SESJI</Text>
+                <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>{t('dowsingRods.statystyki_sesji', 'STATYSTYKI SESJI')}</Text>
                 <View style={s.statsRow}>
                   {[
                     { label: 'Pytania', val: stats.total },
@@ -941,7 +941,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
 
             {/* ── Response type guide ───────────────────────────── */}
             <Animated.View entering={FadeInDown.delay(230).duration(460)} style={[s.responseGuide, { backgroundColor: cardBg, borderColor: ACCENT + '33', marginHorizontal: SP }]}>
-              <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>ZNACZENIE ODPOWIEDZI</Text>
+              <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>{t('dowsingRods.znaczenie_odpowiedzi', 'ZNACZENIE ODPOWIEDZI')}</Text>
               {Object.values(ANSWER_TYPES).map((at) => (
                 <View key={at.label} style={[s.responseRow, { borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)' }]}>
                   <View style={[s.responseBadge, { backgroundColor: at.color + '22' }]}>
@@ -961,7 +961,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
                 style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1 }}
                 pointerEvents="none"
               />
-              <Text style={[s.sectionLabel, { color: ACCENT }]}>JAK TO DZIAŁA</Text>
+              <Text style={[s.sectionLabel, { color: ACCENT }]}>{t('dowsingRods.jak_to_dziala', 'JAK TO DZIAŁA')}</Text>
               <Text style={[s.infoBody, { color: subColor }]}>
                 Radiestezja to starożytna sztuka wyszukiwania odpowiedzi przez rezonans energetyczny. Różdżki reagują na subtelne pola energetyczne i podświadome sygnały — TAK gdy zbiegają się do środka, NIE gdy rozchodzą na zewnątrz.{'\n\n'}
                 Wahadło oscyluje w przód i w tył dla TAK, w lewo i prawo dla NIE, zatacza okrąg dla MOŻE, pozostaje nieruchome gdy pytanie wymaga ponowienia. Każdy instrument działa przez Twój własny system intuicji jako antena.
@@ -975,7 +975,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
                 style={[s.tipsToggle, { backgroundColor: cardBg, borderColor: ACCENT + '44' }]}
               >
                 <Info size={15} color={ACCENT} />
-                <Text style={[s.tipsToggleText, { color: ACCENT }]}>Jak formułować pytania</Text>
+                <Text style={[s.tipsToggleText, { color: ACCENT }]}>{t('dowsingRods.jak_formulowac_pytania', 'Jak formułować pytania')}</Text>
                 <Text style={{ color: ACCENT, fontSize: 14 }}>{showTips ? '▲' : '▼'}</Text>
               </Pressable>
               {showTips && (
@@ -995,7 +995,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
 
             {/* ── Practical tips ────────────────────────────────── */}
             <Animated.View entering={FadeInDown.delay(340).duration(450)} style={[s.pendulumCard, { backgroundColor: cardBg, borderColor: ACCENT + '33', marginHorizontal: SP }]}>
-              <Text style={[s.sectionLabel, { color: ACCENT }]}>WSKAZÓWKI PRAKTYCZNE</Text>
+              <Text style={[s.sectionLabel, { color: ACCENT }]}>{t('dowsingRods.wskazowki_praktyczne', 'WSKAZÓWKI PRAKTYCZNE')}</Text>
               {PENDULUM_TIPS.map((tip, i) => (
                 <View key={i} style={s.pendulumTipRow}>
                   <View style={[s.pendulumDot, { backgroundColor: ACCENT + '44' }]} />
@@ -1011,7 +1011,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
                 style={[s.sectionToggleRow, { backgroundColor: cardBg, borderColor: ACCENT + '44' }]}
               >
                 <Gem size={15} color={ACCENT} />
-                <Text style={[s.sectionToggleLabel, { color: ACCENT }]}>Przewodnik po kryształach wahadła</Text>
+                <Text style={[s.sectionToggleLabel, { color: ACCENT }]}>{t('dowsingRods.przewodnik_po_krysztalac_wahadla', 'Przewodnik po kryształach wahadła')}</Text>
                 {showCrystals ? <ChevronUp size={15} color={ACCENT} /> : <ChevronDown size={15} color={ACCENT} />}
               </Pressable>
               {showCrystals && (
@@ -1075,7 +1075,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
                               <TextInput
                                 value={noteInput}
                                 onChangeText={setNoteInput}
-                                placeholder="Twoja notatka o trafności..."
+                                placeholder={t('dowsingRods.twoja_notatka_o_trafnosci', 'Twoja notatka o trafności...')}
                                 placeholderTextColor={subColor}
                                 style={[s.noteInput, { color: textColor, borderColor: ACCENT + '44', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)' }]}
                                 autoFocus
@@ -1086,10 +1086,10 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
                                   setEditingNoteIdx(null);
                                   setNoteInput('');
                                 }}>
-                                  <Text style={{ color: ACCENT, fontSize: 12, fontWeight: '700' }}>Zapisz</Text>
+                                  <Text style={{ color: ACCENT, fontSize: 12, fontWeight: '700' }}>{t('dowsingRods.zapisz', 'Zapisz')}</Text>
                                 </Pressable>
                                 <Pressable onPress={() => { setEditingNoteIdx(null); setNoteInput(''); }}>
-                                  <Text style={{ color: subColor, fontSize: 12 }}>Anuluj</Text>
+                                  <Text style={{ color: subColor, fontSize: 12 }}>{t('dowsingRods.anuluj', 'Anuluj')}</Text>
                                 </Pressable>
                               </View>
                             </View>
@@ -1110,7 +1110,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
 
             {/* ── Co dalej? ─────────────────────────────────────── */}
             <Animated.View entering={FadeInDown.delay(420).duration(480)} style={{ paddingHorizontal: SP, marginBottom: 6, marginTop: 8 }}>
-              <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 12 }]}>✦ CO DALEJ?</Text>
+              <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 12 }]}>{t('dowsingRods.co_dalej', '✦ CO DALEJ?')}</Text>
               {[
                 { icon: Sparkles, label: 'Wyrocznia Aethery', sub: 'Głębsza odpowiedź z wyroczni', color: '#A78BFA', route: 'OraclePortal' },
                 { icon: Moon, label: 'Medytacja', sub: 'Wycisz się przed nową sesją', color: '#60A5FA', route: 'Meditation' },
@@ -1148,7 +1148,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
         <View style={s.modalOverlay}>
           <Animated.View entering={FadeInDown.duration(350)} style={[s.calibModal, { backgroundColor: isLight ? '#FFFBEE' : '#1A1400', borderColor: ACCENT + '55' }]}>
             <LinearGradient colors={[ACCENT + '18', 'transparent']} style={StyleSheet.absoluteFill} />
-            <Text style={[s.calibModalEyebrow, { color: ACCENT }]}>RYTUAŁ KALIBRACJI</Text>
+            <Text style={[s.calibModalEyebrow, { color: ACCENT }]}>{t('dowsingRods.rytual_kalibracji', 'RYTUAŁ KALIBRACJI')}</Text>
             <Text style={[s.calibModalTitle, { color: textColor }]}>Krok {calibStep + 1} z {CALIBRATION_STEPS.length}</Text>
             {/* Step indicators */}
             <View style={{ flexDirection: 'row', gap: 8, marginVertical: 12 }}>
@@ -1173,7 +1173,7 @@ export const DowsingRodsScreen = ({ navigation }: any) => {
               </Text>
             </Pressable>
             <Pressable onPress={() => setShowCalibration(false)} style={{ marginTop: 10 }}>
-              <Text style={{ color: subColor, fontSize: 13, textAlign: 'center' }}>Pomiń kalibrację</Text>
+              <Text style={{ color: subColor, fontSize: 13, textAlign: 'center' }}>{t('dowsingRods.pomin_kalibracje', 'Pomiń kalibrację')}</Text>
             </Pressable>
           </Animated.View>
         </View>

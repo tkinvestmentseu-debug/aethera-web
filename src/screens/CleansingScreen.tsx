@@ -619,7 +619,7 @@ export const CleansingScreen = ({ navigation }: any) => {
             <View style={[cs.nav, { justifyContent: 'space-between' }]}>
               <Pressable onPress={() => navigation.canGoBack() ? navigation.goBack() : null} style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <ChevronLeft color={ACCENT} size={22} strokeWidth={1.8} />
-                <Typography variant="microLabel" color={ACCENT} style={{ marginLeft: 6 }}>Wróć</Typography>
+                <Typography variant="microLabel" color={ACCENT} style={{ marginLeft: 6 }}>{t('cleansing.wroc', 'Wróć')}</Typography>
               </Pressable>
               <Pressable
                 onPress={() => { if (isFavoriteItem('cleansing')) { removeFavoriteItem('cleansing'); } else { addFavoriteItem({ id: 'cleansing', label: 'Oczyszczanie', route: 'Cleansing', params: {}, icon: 'Wind', color: ACCENT, addedAt: new Date().toISOString() }); } }}
@@ -637,9 +637,9 @@ export const CleansingScreen = ({ navigation }: any) => {
             <Animated.View entering={FadeInDown.duration(600)}>
               <View style={cs.hero}>
                 <LinearGradient colors={['rgba(52,211,153,0.16)', 'rgba(52,211,153,0.04)']} style={cs.heroGrad} />
-                <Typography variant="premiumLabel" color={ACCENT}>OCZYSZCZANIE</Typography>
-                <Typography variant="editorialHeader" style={[cs.heroTitle, { color: isLight ? '#1A4A38' : '#D4FFF0' }]}>Uwolnij to, co przykleja się do ciała, myśli i relacji.</Typography>
-                <Typography variant="bodySmall" style={[cs.heroCopy, { color: isLight ? '#2A5A46' : undefined }]}>Ta przestrzeń służy uwolnieniu, regulacji, oddechowi i odzyskaniu lekkości. Najpierw pomaga puścić ciężar, zanim wejdziesz w głębszą pracę.</Typography>
+                <Typography variant="premiumLabel" color={ACCENT}>{t('cleansing.oczyszczan', 'OCZYSZCZANIE')}</Typography>
+                <Typography variant="editorialHeader" style={[cs.heroTitle, { color: isLight ? '#1A4A38' : '#D4FFF0' }]}>{t('cleansing.uwolnij_to_co_przykleja_sie', 'Uwolnij to, co przykleja się do ciała, myśli i relacji.')}</Typography>
+                <Typography variant="bodySmall" style={[cs.heroCopy, { color: isLight ? '#2A5A46' : undefined }]}>{t('cleansing.ta_przestrzen_sluzy_uwolnieniu_regu', 'Ta przestrzeń służy uwolnieniu, regulacji, oddechowi i odzyskaniu lekkości. Najpierw pomaga puścić ciężar, zanim wejdziesz w głębszą pracę.')}</Typography>
                 <View style={cs.heroStats}>
                   {[{ v: '5', l: 'Typów ciężaru' }, { v: '5', l: 'Kroków ulgi' }, { v: String(cleansingRituals.length), l: 'Rytuałów' }].map((s, i) => (
                     <React.Fragment key={s.l}>
@@ -655,7 +655,7 @@ export const CleansingScreen = ({ navigation }: any) => {
             </Animated.View>
 
             {/* ══ ENERGIE DNIA ══ */}
-            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>Energie dnia</Typography>
+            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>{t('cleansing.energie_dnia', 'Energie dnia')}</Typography>
             <Animated.View entering={FadeInDown.delay(80).duration(500)}>
               <View style={[cs.energyCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <LinearGradient colors={[ACCENT + '10', 'transparent']} style={cs.heroGrad} />
@@ -665,7 +665,7 @@ export const CleansingScreen = ({ navigation }: any) => {
                     <Typography style={{ fontSize: 22 }}>{moonPhase.symbol}</Typography>
                   </View>
                   <View style={{ flex: 1, marginLeft: 14 }}>
-                    <Typography variant="microLabel" color={ACCENT}>FAZA KSIĘŻYCA</Typography>
+                    <Typography variant="microLabel" color={ACCENT}>{t('cleansing.faza_ksiezyca', 'FAZA KSIĘŻYCA')}</Typography>
                     <Typography variant="cardTitle" style={{ color: isLight ? '#1A1A1A' : '#F0EBE2', marginTop: 3 }}>{moonPhase.name}</Typography>
                     <Typography variant="caption" style={{ opacity: 0.72, lineHeight: 18, marginTop: 4 }}>{moonPhase.desc}</Typography>
                   </View>
@@ -678,7 +678,7 @@ export const CleansingScreen = ({ navigation }: any) => {
                     <Sparkles color="#FDE68A" size={20} strokeWidth={1.8} />
                   </View>
                   <View style={{ flex: 1, marginLeft: 14 }}>
-                    <Typography variant="microLabel" color="#FDE68A">ENERGIA TYGODNIA</Typography>
+                    <Typography variant="microLabel" color="#FDE68A">{t('cleansing.energia_tygodnia', 'ENERGIA TYGODNIA')}</Typography>
                     <Typography variant="caption" style={{ opacity: 0.80, lineHeight: 20, marginTop: 4 }}>{dayEnergy.energy}</Typography>
                   </View>
                 </View>
@@ -686,7 +686,7 @@ export const CleansingScreen = ({ navigation }: any) => {
             </Animated.View>
 
             {/* BURDEN SELECTOR */}
-            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>Nazwij swój ciężar</Typography>
+            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>{t('cleansing.nazwij_swoj_ciezar', 'Nazwij swój ciężar')}</Typography>
             <View style={{ gap: 10, marginBottom: 16 }} onLayout={(e) => { burdensContainerY.current = e.nativeEvent.layout.y; }}>
               {BURDENS.map((b, idx) => {
                 const Icon = b.icon;
@@ -722,7 +722,7 @@ export const CleansingScreen = ({ navigation }: any) => {
             </Animated.View>
 
             {/* RELEASE STEPS */}
-            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>5 kroków ulgi</Typography>
+            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>{t('cleansing.5_krokow_ulgi', '5 kroków ulgi')}</Typography>
             <View style={[cs.stepsCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               {RELEASE_STEPS.map((s, i) => (
                 <View key={s.step} style={[cs.stepRow, i > 0 && cs.stepBorder]}>
@@ -738,7 +738,7 @@ export const CleansingScreen = ({ navigation }: any) => {
             </View>
 
             {/* ══ TECHNIKI OCZYSZCZANIA ══ */}
-            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>Techniki oczyszczania</Typography>
+            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>{t('cleansing.techniki_oczyszczan', 'Techniki oczyszczania')}</Typography>
             <View style={{ gap: 12, marginBottom: 4 }}>
               {CLEANSING_TECHNIQUES.map((tech, idx) => {
                 const Icon = tech.icon;
@@ -764,13 +764,13 @@ export const CleansingScreen = ({ navigation }: any) => {
             </View>
 
             {/* STORY INPUT */}
-            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>Opisz swój ciężar</Typography>
+            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>{t('cleansing.opisz_swoj_ciezar', 'Opisz swój ciężar')}</Typography>
             <View style={[cs.inputCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-              <Typography variant="caption" style={cs.inputHint}>Nie potrzebujesz długiej historii. Jedno spokojne zdanie wystarczy, jeśli jest prawdziwe.</Typography>
+              <Typography variant="caption" style={cs.inputHint}>{t('cleansing.nie_potrzebuje_dlugiej_historii_jed', 'Nie potrzebujesz długiej historii. Jedno spokojne zdanie wystarczy, jeśli jest prawdziwe.')}</Typography>
               <MysticalInput
                 value={story}
                 onChangeText={setStory}
-                placeholder="Napisz, co trzyma Cię dziś w lęku, ciężarze lub rozproszeniu..."
+                placeholder={t('cleansing.napisz_co_trzyma_cie_dzis', 'Napisz, co trzyma Cię dziś w lęku, ciężarze lub rozproszeniu...')}
                 multiline
                 textAlignVertical="top"
                 containerStyle={{ marginTop: 10 }}
@@ -780,7 +780,7 @@ export const CleansingScreen = ({ navigation }: any) => {
             </View>
 
             {/* SOUNDSCAPE */}
-            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>Pejzaż ulgi</Typography>
+            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>{t('cleansing.pejzaz_ulgi', 'Pejzaż ulgi')}</Typography>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10, paddingHorizontal: 4, marginBottom: 8 }}>
               {SOUNDSCAPES.map(sc => {
                 const active = experience.ambientSoundscape === sc.id;
@@ -796,7 +796,7 @@ export const CleansingScreen = ({ navigation }: any) => {
             {!audioReady && <Typography variant="caption" style={cs.audioNote}>{audioRuntimeState === 'initializing' ? 'Audio uruchamia się...' : audioRuntimeMessage || 'Audio chwilowo niedostępne.'}</Typography>}
 
             {/* ══ AFIRMACJA OCZYSZCZENIA ══ */}
-            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>Afirmacja oczyszczenia</Typography>
+            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>{t('cleansing.afirmacja_oczyszczen', 'Afirmacja oczyszczenia')}</Typography>
             <Animated.View entering={FadeInDown.delay(100).duration(500)}>
               <View style={[cs.affirmationCard, { backgroundColor: isLight ? 'rgba(52,211,153,0.06)' : 'rgba(52,211,153,0.08)', borderColor: ACCENT + '33' }]}>
                 <LinearGradient colors={[ACCENT + '14', ACCENT + '04']} style={cs.heroGrad} />
@@ -809,13 +809,13 @@ export const CleansingScreen = ({ navigation }: any) => {
                   "{dailyAffirmation}"
                 </Typography>
                 <Typography variant="caption" style={{ opacity: 0.65, marginTop: 10, lineHeight: 18 }}>
-                  Przeczytaj ją na głos trzy razy. Połóż dłoń na sercu i poczuj, jak te słowa rezonują w ciele.
+                  {t('cleansing.przeczytaj_ja_na_glos_trzy', 'Przeczytaj ją na głos trzy razy. Połóż dłoń na sercu i poczuj, jak te słowa rezonują w ciele.')}
                 </Typography>
               </View>
             </Animated.View>
 
             {/* RITUALS */}
-            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>Rytuały oczyszczania</Typography>
+            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>{t('cleansing.rytualy_oczyszczan', 'Rytuały oczyszczania')}</Typography>
             {cleansingRituals.map((r, idx) => (
               <Animated.View key={r.id} entering={FadeInUp.delay(idx * 80).duration(500)}>
                 <Pressable style={cs.ritualCard} onPress={() => navigation.navigate('RitualDetail', { ritual: r, source: 'cleansing' })}>
@@ -833,7 +833,7 @@ export const CleansingScreen = ({ navigation }: any) => {
             ))}
 
             {/* ══ DZIENNIK UWALNIANIA ══ */}
-            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>Dziennik uwalniania</Typography>
+            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>{t('cleansing.dziennik_uwalniania', 'Dziennik uwalniania')}</Typography>
             <Animated.View entering={FadeInDown.delay(120).duration(500)}>
               <View style={[cs.journalCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <LinearGradient colors={['#A78BFA18', 'transparent']} style={cs.heroGrad} />
@@ -842,8 +842,8 @@ export const CleansingScreen = ({ navigation }: any) => {
                     <Typography style={{ fontSize: 32, fontWeight: '700', color: '#A78BFA', lineHeight: 40 }}>{weeklyReleaseCount}</Typography>
                   </View>
                   <View style={{ flex: 1, marginLeft: 16 }}>
-                    <Typography variant="premiumLabel" color="#A78BFA">Ciężarów uwolnionych</Typography>
-                    <Typography variant="caption" style={{ opacity: 0.65, marginTop: 3 }}>w tym tygodniu</Typography>
+                    <Typography variant="premiumLabel" color="#A78BFA">{t('cleansing.ciezarow_uwolnionyc', 'Ciężarów uwolnionych')}</Typography>
+                    <Typography variant="caption" style={{ opacity: 0.65, marginTop: 3 }}>{t('cleansing.w_tym_tygodniu', 'w tym tygodniu')}</Typography>
                   </View>
                 </View>
                 <View style={[cs.journalDivider, { backgroundColor: '#A78BFA20' }]} />
@@ -852,11 +852,11 @@ export const CleansingScreen = ({ navigation }: any) => {
             </Animated.View>
 
             {/* ══ PROTOKÓŁ TYGODNIOWY ══ */}
-            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>Protokół tygodniowy</Typography>
+            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>{t('cleansing.protokol_tygodniowy', 'Protokół tygodniowy')}</Typography>
             <Animated.View entering={FadeInDown.delay(140).duration(500)}>
               <View style={[cs.weekCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <Typography variant="caption" style={{ opacity: 0.65, marginBottom: 14, lineHeight: 18 }}>
-                  Zielone kółko oznacza dzień, w którym pracowałaś/eś z oczyszczaniem lub cień pracą.
+                  {t('cleansing.zielone_kolko_oznacza_dzien_w', 'Zielone kółko oznacza dzień, w którym pracowałaś/eś z oczyszczaniem lub cień pracą.')}
                 </Typography>
                 <View style={cs.weekRow}>
                   {weeklyDays.map((d, i) => (
@@ -878,9 +878,9 @@ export const CleansingScreen = ({ navigation }: any) => {
             </Animated.View>
 
             {/* PO OCZYSZCZENIU */}
-            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>Po oczyszczeniu</Typography>
+            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>{t('cleansing.po_oczyszczen', 'Po oczyszczeniu')}</Typography>
             <View style={[cs.afterCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-              <Typography variant="bodySmall" style={cs.afterIntro}>Nie wracaj od razu do halasu. Sprawdź, czy ciało potrzebuje ciszy, jednego zdania, małej granicy czy dopiero dalszej rozmowy.</Typography>
+              <Typography variant="bodySmall" style={cs.afterIntro}>{t('cleansing.nie_wracaj_od_razu_do', 'Nie wracaj od razu do halasu. Sprawdź, czy ciało potrzebuje ciszy, jednego zdania, małej granicy czy dopiero dalszej rozmowy.')}</Typography>
               {AFTERCARE.map((a, i) => {
                 const Icon = a.icon;
                 return (
@@ -904,9 +904,9 @@ export const CleansingScreen = ({ navigation }: any) => {
             </View>
 
             {/* ══ CO DALEJ — extended with SoundBath + Breathwork ══ */}
-            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>Co dalej?</Typography>
+            <Typography variant="premiumLabel" color={ACCENT} style={cs.sectionLabel}>{t('cleansing.co_dalej', 'Co dalej?')}</Typography>
             <View style={[cs.afterCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-              <Typography variant="caption" style={[cs.afterIntro, { opacity: 0.72 }]}>Oczyszczanie pogłębia się w ruchu, dźwięku i oddechu. Wybierz kolejny krok.</Typography>
+              <Typography variant="caption" style={[cs.afterIntro, { opacity: 0.72 }]}>{t('cleansing.oczyszczan_poglebia_sie_w_ruchu', 'Oczyszczanie pogłębia się w ruchu, dźwięku i oddechu. Wybierz kolejny krok.')}</Typography>
               {[
                 { icon: Waves, label: 'Kąpiel dźwiękowa', copy: 'Zanurz się w terapeutycznych dźwiękach — misach, deszczu i oceanie.', route: 'SoundBath', color: '#93C5FD' },
                 { icon: Droplets, label: 'Praca z oddechem', copy: '6 technik oddechowych do głębokiego oczyszczenia układu nerwowego.', route: 'Breathwork', color: '#86EFAC' },
@@ -950,8 +950,8 @@ export const CleansingScreen = ({ navigation }: any) => {
                 <LinearGradient colors={[ACCENT + '28', ACCENT + '10']} style={cs.heroGrad} />
                 <Droplets color={ACCENT} size={22} strokeWidth={1.8} />
                 <View style={{ flex: 1, marginLeft: 14 }}>
-                  <Typography variant="premiumLabel" color={ACCENT}>Zapisz rytuał uwolnienia</Typography>
-                  <Typography variant="bodySmall" style={cs.aiCtaCopy}>Domknij oczyszczanie w dzienniku: ciężar, intencja, ochrona i ostatni ruch przywracający jasność.</Typography>
+                  <Typography variant="premiumLabel" color={ACCENT}>{t('cleansing.zapisz_rytual_uwolnienia', 'Zapisz rytuał uwolnienia')}</Typography>
+                  <Typography variant="bodySmall" style={cs.aiCtaCopy}>{t('cleansing.domknij_oczyszczan_w_dzienniku_ciez', 'Domknij oczyszczanie w dzienniku: ciężar, intencja, ochrona i ostatni ruch przywracający jasność.')}</Typography>
                 </View>
                 <ArrowRight color={ACCENT} size={16} />
               </Pressable>

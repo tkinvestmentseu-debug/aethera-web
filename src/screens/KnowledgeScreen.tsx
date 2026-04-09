@@ -608,8 +608,8 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
             <ChevronLeft color={currentTheme.primary} size={28} />
           </Pressable>
           <View style={styles.headerTitle}>
-            <Typography variant="premiumLabel" color={currentTheme.primary}>Biblioteka wiedzy</Typography>
-            <Typography variant="screenTitle" style={{ marginTop: 4 }}>Mistyczne mapy, symbole i tradycje</Typography>
+            <Typography variant="premiumLabel" color={currentTheme.primary}>{t('knowledge.biblioteka_wiedzy', 'Biblioteka wiedzy')}</Typography>
+            <Typography variant="screenTitle" style={{ marginTop: 4 }}>{t('knowledge.mistyczne_mapy_symbole_i_tradycje', 'Mistyczne mapy, symbole i tradycje')}</Typography>
           </View>
           <Pressable
             onPress={() => { if (isFavoriteItem('knowledge')) { removeFavoriteItem('knowledge'); } else { addFavoriteItem({ id: 'knowledge', label: 'Biblioteka', route: 'Knowledge', params: {}, icon: 'BookOpen', color: currentTheme.primary, addedAt: new Date().toISOString() }); } }}
@@ -631,8 +631,8 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
         >
           <SectionHeading
             eyebrow="Odkrywaj"
-            title="Wejdź głębiej w mistyczne tradycje i języki symboli."
-            subtitle="To przestrzeń dla osób, które chcą rozumieć nie tylko wynik odczytu, ale też systemy, z których on wyrasta: fazy księżyca, archetypy, runy, praktyki ochronne, intencję i święte timingi."
+            title={t('knowledge.wejdz_glebiej_w_mistyczne_tradycje', 'Wejdź głębiej w mistyczne tradycje i języki symboli.')}
+            subtitle={t('knowledge.to_przestrzen_dla_osob_ktore', 'To przestrzeń dla osób, które chcą rozumieć nie tylko wynik odczytu, ale też systemy, z których on wyrasta: fazy księżyca, archetypy, runy, praktyki ochronne, intencję i święte timingi.')}
           />
           <RuneOrb3D accent={currentTheme.primary} isLight={isLight} />
 
@@ -642,7 +642,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
             <TextInput
               value={searchQuery}
               onChangeText={setSearchQuery}
-              placeholder="Szukaj pojęć, tradycji, praktyk…"
+              placeholder={t('knowledge.szukaj_pojec_tradycji_praktyk', 'Szukaj pojęć, tradycji, praktyk…')}
               placeholderTextColor={subColor}
               style={[styles.searchInput, { color: textColor }]}
               returnKeyType="search"
@@ -656,7 +656,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
             return (
               <Animated.View entering={FadeInDown.delay(40).duration(500)}>
                 <View style={{ marginBottom: 14, borderRadius: 16, padding: 18, backgroundColor: cardBg, borderLeftWidth: 3, borderLeftColor: concept.color, borderTopWidth: StyleSheet.hairlineWidth, borderRightWidth: StyleSheet.hairlineWidth, borderBottomWidth: StyleSheet.hairlineWidth, borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)', borderRightColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)', borderBottomColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)' }}>
-                  <Typography variant="microLabel" color={concept.color} style={{ letterSpacing: 1.5, marginBottom: 8 }}>📖 POJĘCIE DNIA</Typography>
+                  <Typography variant="microLabel" color={concept.color} style={{ letterSpacing: 1.5, marginBottom: 8 }}>{t('knowledge.pojecie_dnia', '📖 POJĘCIE DNIA')}</Typography>
                   <Typography variant="cardTitle" style={{ color: textColor, fontSize: 20, fontWeight: '700', marginBottom: 8 }}>{concept.term}</Typography>
                   <Typography variant="bodySmall" style={{ color: subColor, lineHeight: 21 }}>{concept.desc}</Typography>
                 </View>
@@ -667,13 +667,13 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
           {/* ── Hero copy ── */}
           <View style={{ paddingHorizontal: layout.padding.screen, paddingVertical: 16 }}>
             <Typography variant="bodyRefined" style={{ color: subColor, lineHeight: 24 }}>
-              Wiedzę o astrologii, numerologii, rytuałach, symbolice i duchowych tradycjach — podaną spokojnie, bez ezoterycznego hałasu.
+              {t('knowledge.wiedze_o_astrologii_numerologi_rytu', 'Wiedzę o astrologii, numerologii, rytuałach, symbolice i duchowych tradycjach — podaną spokojnie, bez ezoterycznego hałasu.')}
             </Typography>
           </View>
 
           {/* ── 📚 KATEGORIE WIEDZY ── */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 14 }}>
-            <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 12 }}>📚 KATEGORIE WIEDZY</Typography>
+            <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 12 }}>{t('knowledge.kategorie_wiedzy', '📚 KATEGORIE WIEDZY')}</Typography>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
               {KNOWLEDGE_CATEGORIES.map(cat => {
                 const active = activeCategory === cat.id;
@@ -705,7 +705,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
               SECTION — POSTĘP NAUKI
           ═══════════════════════════════════════════════════════ */}
           <Animated.View entering={FadeInDown.delay(60).duration(500)}>
-            <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 12 }}>📊 POSTĘP NAUKI</Typography>
+            <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 12 }}>{t('knowledge.postep_nauki', '📊 POSTĘP NAUKI')}</Typography>
             <View style={{ flexDirection: 'row', gap: 10, marginBottom: 18 }}>
               {[
                 { label: 'Artykuły', value: articlesRead, icon: <BookOpen color={currentTheme.primary} size={15} strokeWidth={1.6} />, color: currentTheme.primary },
@@ -733,7 +733,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
               <LinearGradient colors={[weeklyArticle.color + '1A', weeklyArticle.color + '08', 'transparent']} style={StyleSheet.absoluteFill} />
               <View style={{ padding: 20 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-                  <Typography variant="microLabel" style={{ color: weeklyArticle.color, letterSpacing: 1.5 }}>📖 ARTYKUŁ TYGODNIA</Typography>
+                  <Typography variant="microLabel" style={{ color: weeklyArticle.color, letterSpacing: 1.5 }}>{t('knowledge.artykul_tygodnia', '📖 ARTYKUŁ TYGODNIA')}</Typography>
                   <View style={{ flex: 1 }} />
                   <View style={[styles.readingTimeBadge, { backgroundColor: weeklyArticle.color + '22', borderColor: weeklyArticle.color + '44' }]}>
                     <Clock color={weeklyArticle.color} size={10} strokeWidth={1.8} />
@@ -761,7 +761,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
               SECTION — ENCYKLOPEDIA DUCHOWA (15 entries)
           ═══════════════════════════════════════════════════════ */}
           <Animated.View entering={FadeInDown.delay(80).duration(500)}>
-            <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 12 }}>📘 ENCYKLOPEDIA DUCHOWA</Typography>
+            <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 12 }}>{t('knowledge.encykloped_duchowa', '📘 ENCYKLOPEDIA DUCHOWA')}</Typography>
 
             {/* Encyclopedia search */}
             <View style={[styles.searchBar, { backgroundColor: cardBg, borderColor: cardBorder, marginBottom: 14 }]}>
@@ -769,7 +769,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
               <TextInput
                 value={encyclopediaSearch}
                 onChangeText={setEncyclopediaSearch}
-                placeholder="Szukaj w encyklopedii…"
+                placeholder={t('knowledge.szukaj_w_encykloped', 'Szukaj w encyklopedii…')}
                 placeholderTextColor={subColor}
                 style={[styles.searchInput, { color: textColor }]}
                 returnKeyType="search"
@@ -823,7 +823,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
               SECTION — POLECANE DLA CIEBIE
           ═══════════════════════════════════════════════════════ */}
           <Animated.View entering={FadeInDown.delay(100).duration(500)}>
-            <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 12 }}>✨ POLECANE DLA CIEBIE</Typography>
+            <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 12 }}>{t('knowledge.polecane_dla_ciebie', '✨ POLECANE DLA CIEBIE')}</Typography>
             {personalizedArticles.map((art, i) => (
               <Pressable
                 key={i}
@@ -863,13 +863,13 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
               <View style={{ padding: 18 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                   <Brain color={todayQuiz.color} size={16} strokeWidth={1.6} />
-                  <Typography variant="microLabel" style={{ color: todayQuiz.color, letterSpacing: 1.5 }}>QUIZ WIEDZY DNIA</Typography>
+                  <Typography variant="microLabel" style={{ color: todayQuiz.color, letterSpacing: 1.5 }}>{t('knowledge.quiz_wiedzy_dnia', 'QUIZ WIEDZY DNIA')}</Typography>
                   <View style={{ flex: 1 }} />
                   <View style={{ backgroundColor: todayQuiz.color + '22', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 }}>
                     <Typography variant="microLabel" style={{ color: todayQuiz.color, fontSize: 10 }}>{todayQuiz.topic.toUpperCase()}</Typography>
                   </View>
                 </View>
-                <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 16, marginTop: 4 }}>3 pytania · Odpowiedz i sprawdź swoją wiedzę</Typography>
+                <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 16, marginTop: 4 }}>{t('knowledge.3_pytania_odpowiedz_i_sprawdz', '3 pytania · Odpowiedz i sprawdź swoją wiedzę')}</Typography>
 
                 {todayQuiz.questions.map((q, qi) => (
                   <View key={qi} style={{ marginBottom: 16 }}>
@@ -934,7 +934,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
                       opacity: pressed ? 0.82 : 1,
                     })}
                   >
-                    <Typography variant="label" style={{ color: '#fff', letterSpacing: 1.5 }}>SPRAWDŹ ODPOWIEDZI</Typography>
+                    <Typography variant="label" style={{ color: '#fff', letterSpacing: 1.5 }}>{t('knowledge.sprawdz_odpowiedzi', 'SPRAWDŹ ODPOWIEDZI')}</Typography>
                   </Pressable>
                 ) : (
                   <View style={{ backgroundColor: todayQuiz.color + '15', borderRadius: 12, padding: 12, alignItems: 'center' }}>
@@ -953,7 +953,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
 
           {/* ── Komnaty wiedzy — 2-column tiles ── */}
           <View style={{ marginBottom: 8 }}>
-            <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 12 }}>KOMNATY WIEDZY</Typography>
+            <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 12 }}>{t('knowledge.komnaty_wiedzy', 'KOMNATY WIEDZY')}</Typography>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
               {KNOWLEDGE_CHAMBERS.map((chamber) => {
                 const Icon = chamber.IconComp;
@@ -986,7 +986,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
 
           {/* ── Knowledge blocks ── */}
           <View style={{ marginBottom: 4 }}>
-            <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 4 }}>OBSZARY WIEDZY</Typography>
+            <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 4 }}>{t('knowledge.obszary_wiedzy', 'OBSZARY WIEDZY')}</Typography>
           </View>
           {KNOWLEDGE_BLOCKS.map((block, index, arr) => {
             const BlockIcon = block.IconComp;
@@ -1057,7 +1057,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
                       }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 6 }}>
                           <Sparkles color={currentTheme.primary} size={11} strokeWidth={1.6} />
-                          <Typography variant="microLabel" style={{ color: currentTheme.primary, letterSpacing: 1, fontSize: 10 }}>ORACLE</Typography>
+                          <Typography variant="microLabel" style={{ color: currentTheme.primary, letterSpacing: 1, fontSize: 10 }}>{t('knowledge.oracle', 'ORACLE')}</Typography>
                         </View>
                         <Typography variant="bodySmall" style={{ color: isLight ? '#2A1A0A' : textColor, lineHeight: 20 }}>{secAnswer}</Typography>
                       </Animated.View>
@@ -1072,7 +1072,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
 
           {/* ── Navigation entries ── */}
           <View style={{ marginBottom: 4 }}>
-            <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5 }}>GŁĘBSZE WEJŚCIA</Typography>
+            <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5 }}>{t('knowledge.glebsze_wejscia', 'GŁĘBSZE WEJŚCIA')}</Typography>
           </View>
           {[
             { icon: Binary,        color: '#34D399', label: 'Numerologia',          desc: 'Droga życia, liczby relacji, cykle roczne',        onPress: () => navigation.navigate('Numerology') },
@@ -1113,7 +1113,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
             </Typography>
             {filteredConcepts.length === 0 ? (
               <View style={{ paddingVertical: 24, alignItems: 'center' }}>
-                <Typography variant="bodySmall" style={{ color: subColor, textAlign: 'center' }}>Brak pojęć pasujących do zapytania.</Typography>
+                <Typography variant="bodySmall" style={{ color: subColor, textAlign: 'center' }}>{t('knowledge.brak_pojec_pasujacych_do_zapytania', 'Brak pojęć pasujących do zapytania.')}</Typography>
               </View>
             ) : filteredConcepts.slice(0, searchQuery || activeCategory ? filteredConcepts.length : 6).map((item, i, arr) => (
               <Animated.View key={item.term} entering={FadeInDown.delay(i * 40).duration(380)}>
@@ -1139,17 +1139,17 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
               <View style={{ padding: 18 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                   <WandSparkles color={currentTheme.primary} size={16} strokeWidth={1.6} />
-                  <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5 }}>NAUKA Z ORACLE</Typography>
+                  <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5 }}>{t('knowledge.nauka_z_oracle', 'NAUKA Z ORACLE')}</Typography>
                 </View>
                 <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
-                  Zapytaj Oracle o dowolny koncept duchowy — symbol, tradycję, praktykę lub pojęcie.
+                  {t('knowledge.zapytaj_oracle_o_dowolny_koncept', 'Zapytaj Oracle o dowolny koncept duchowy — symbol, tradycję, praktykę lub pojęcie.')}
                 </Typography>
 
                 <View style={{ flexDirection: 'row', gap: 10, marginBottom: 12 }}>
                   <TextInput
                     value={oracleQuery}
                     onChangeText={setOracleQuery}
-                    placeholder="np. Co oznacza mudra Gyan?"
+                    placeholder={t('knowledge.np_co_oznacza_mudra_gyan', 'np. Co oznacza mudra Gyan?')}
                     placeholderTextColor={subColor}
                     style={[{
                       flex: 1,
@@ -1206,7 +1206,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
                   <View style={{ backgroundColor: currentTheme.primary + '0E', borderRadius: 14, padding: 14, borderWidth: 1, borderColor: currentTheme.primary + '25', marginTop: 8 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8 }}>
                       <Sparkles color={currentTheme.primary} size={13} strokeWidth={1.6} />
-                      <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.2 }}>ODPOWIEDŹ ORACLE</Typography>
+                      <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.2 }}>{t('knowledge.odpowiedz_oracle', 'ODPOWIEDŹ ORACLE')}</Typography>
                     </View>
                     <Typography variant="bodySmall" style={{ color: textColor, lineHeight: 22 }}>{oracleAnswer}</Typography>
                   </View>
@@ -1232,8 +1232,8 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
           >
             <WandSparkles color={currentTheme.primary} size={20} strokeWidth={1.6} />
             <View style={{ flex: 1, marginLeft: 14 }}>
-              <Typography variant="label" style={{ fontWeight: '700', color: textColor }}>Dziennik integracji wiedzy</Typography>
-              <Typography variant="bodySmall" style={{ color: subColor, marginTop: 3 }}>Nazwij własnymi słowami, co ma dla Ciebie znaczenie w praktyce</Typography>
+              <Typography variant="label" style={{ fontWeight: '700', color: textColor }}>{t('knowledge.dziennik_integracji_wiedzy', 'Dziennik integracji wiedzy')}</Typography>
+              <Typography variant="bodySmall" style={{ color: subColor, marginTop: 3 }}>{t('knowledge.nazwij_wlasnymi_slowami_co_ma', 'Nazwij własnymi słowami, co ma dla Ciebie znaczenie w praktyce')}</Typography>
             </View>
             <Sparkles color={currentTheme.primary} size={16} strokeWidth={1.5} />
           </Pressable>
@@ -1241,7 +1241,7 @@ Odpowiedz w języku użytkownika, 3-4 zdania, poetycko i mądrze. Podaj praktycz
           <View style={styles.divider} />
 
           {/* ── CO DALEJ? ── */}
-          <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 12 }}>✦ CO DALEJ?</Typography>
+          <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 12 }}>{t('knowledge.co_dalej', '✦ CO DALEJ?')}</Typography>
           {[
             { label: 'Wyrocznia', desc: 'Zapytaj o znaczenie symbolu lub systemu', route: 'OraclePortal', color: '#A78BFA' },
             { label: 'Atlas zodiakalny', desc: 'Wszystkie znaki, planety i aspekty', route: 'Stars', color: '#FBBF24' },

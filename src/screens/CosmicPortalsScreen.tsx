@@ -63,9 +63,6 @@ const MY_PORTALS = [
 
 export const CosmicPortalsScreen = ({ navigation }) => {
   const { t } = useTranslation();
-  const isEnglish = i18n.language?.startsWith('en');
-  const localeCode = isEnglish ? 'en-US' : 'pl-PL';
-  const tr = (pl, en) => (isEnglish ? en : pl);
   const insets = useSafeAreaInsets();
 
     const themeName = useAppStore(s => s.themeName);
@@ -105,7 +102,7 @@ export const CosmicPortalsScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => goBackOrToMainTab(navigation, 'Portal')}>
           <ChevronLeft size={22} color={textColor} />
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: textColor }]}>{tr('PORTALE KOSMICZNE', 'COSMIC PORTALS')}</Text>
+        <Text style={[styles.headerTitle, { color: textColor }]}>{t('cosmicPortals.portale_kosmiczne', 'PORTALE KOSMICZNE')}</Text>
         <MusicToggleButton color={ACCENT} size={19} />
       </View>
 
@@ -119,7 +116,7 @@ export const CosmicPortalsScreen = ({ navigation }) => {
           {/* Active portal hero */}
           {activePortal && (
             <Animated.View entering={FadeInDown.duration(600)} style={{ paddingHorizontal: 22, marginBottom: 24 }}>
-              <Text style={{ color: '#10B981', fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 10 }}>● {tr('AKTYWNY TERAZ', 'ACTIVE NOW')}</Text>
+              <Text style={{ color: '#10B981', fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 10 }}>● {t('cosmicPortals.aktywny_teraz', 'AKTYWNY TERAZ')}</Text>
               <TouchableOpacity onPress={() => setSelectedPortal(activePortal)}>
                 <LinearGradient colors={[activePortal.color + '35', activePortal.color + '15', 'rgba(255,255,255,0.02)']}
                   style={{ borderRadius: 22, padding: 22, borderWidth: 2, borderColor: activePortal.color + '60', overflow: 'hidden' }}>
@@ -148,14 +145,14 @@ export const CosmicPortalsScreen = ({ navigation }) => {
                       { width: 12, height: 12, borderRadius: 6, backgroundColor: '#60A5FA', marginLeft: -6 },
                     ].map((s, i) => <View key={i} style={s} />)}
                     <Text style={{ color: subColor, fontSize: 12, marginLeft: 4 }}>
-                      {tr('i', 'and')} {(activePortal.participants - 5).toLocaleString(localeCode)} {tr('innych w portalu', 'others in the portal')}
+                      {t('cosmicPortals.i_conj', 'i')} {(activePortal.participants - 5).toLocaleString()} {t('cosmicPortals.innych_w_portalu', 'innych w portalu')}
                     </Text>
                   </View>
                   <TouchableOpacity
                     onPress={() => setJoined(j => ({ ...j, [activePortal.id]: !j[activePortal.id] }))}
                     style={{ backgroundColor: joined[activePortal.id] ? activePortal.color + '30' : activePortal.color, borderRadius: 14, paddingVertical: 14, alignItems: 'center' }}>
                     <Text style={{ color: joined[activePortal.id] ? activePortal.color : '#fff', fontWeight: '700', fontSize: 14 }}>
-                      {joined[activePortal.id] ? tr('✓ Dołączyłeś/aś do portalu', '✓ You joined the portal') : tr('Wejdź do portalu', 'Enter the portal')}
+                      {joined[activePortal.id] ? t('cosmicPortals.dolaczyles_as', '✓ Dołączyłeś/aś do portalu') : t('cosmicPortals.wejdz_do_portalu', 'Wejdź do portalu')}
                     </Text>
                   </TouchableOpacity>
                 </LinearGradient>
@@ -165,7 +162,7 @@ export const CosmicPortalsScreen = ({ navigation }) => {
 
           {/* Ceremony schedule */}
           <Animated.View entering={FadeInDown.delay(150).duration(600)} style={{ paddingHorizontal: 22, marginBottom: 24 }}>
-            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 12 }}>{tr('CEREMONIE DZIŚ', 'CEREMONIES TODAY')}</Text>
+            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 12 }}>{t('cosmicPortals.ceremonie_dzis', 'CEREMONIE DZIŚ')}</Text>
             <View style={{ gap: 8 }}>
               {CEREMONY_SCHEDULE.map((c, i) => (
                 <LinearGradient key={i} colors={['rgba(245,158,11,0.08)', 'transparent']}
@@ -175,11 +172,11 @@ export const CosmicPortalsScreen = ({ navigation }) => {
                   </View>
                   <View style={{ flex: 1 }}>
                     <Text style={{ color: textColor, fontSize: 13, fontWeight: '600' }}>{c.name}</Text>
-                    <Text style={{ color: subColor, fontSize: 11 }}>{c.time} · {tr('prowadzi', 'hosted by')} {c.host}</Text>
+                    <Text style={{ color: subColor, fontSize: 11 }}>{c.time} · {t('cosmicPortals.prowadzi', 'prowadzi')} {c.host}</Text>
                   </View>
                   <View style={{ alignItems: 'center' }}>
                     <Text style={{ color: ACCENT, fontSize: 13, fontWeight: '700' }}>{c.joined}</Text>
-                    <Text style={{ color: subColor, fontSize: 9 }}>{tr('osób', 'souls')}</Text>
+                    <Text style={{ color: subColor, fontSize: 9 }}>{t('cosmicPortals.osob', 'osób')}</Text>
                   </View>
                 </LinearGradient>
               ))}
@@ -188,7 +185,7 @@ export const CosmicPortalsScreen = ({ navigation }) => {
 
           {/* All portals */}
           <Animated.View entering={FadeInDown.delay(200).duration(600)} style={{ paddingHorizontal: 22, marginBottom: 24 }}>
-            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 12 }}>{tr('WSZYSTKIE PORTALE', 'ALL PORTALS')}</Text>
+            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 12 }}>{t('cosmicPortals.wszystkie_portale', 'WSZYSTKIE PORTALE')}</Text>
             <View style={{ gap: 10 }}>
               {PORTALS.map((portal, i) => (
                 <TouchableOpacity key={portal.id} onPress={() => setSelectedPortal(portal)}>
@@ -199,13 +196,13 @@ export const CosmicPortalsScreen = ({ navigation }) => {
                     </View>
                     <View style={{ flex: 1 }}>
                       <Text style={{ color: textColor, fontSize: 13, fontWeight: '600' }}>{portal.name}</Text>
-                      <Text style={{ color: subColor, fontSize: 11 }}>{portal.date} · {portal.participants.toLocaleString(localeCode)} {tr('uczestników', 'participants')}</Text>
+                      <Text style={{ color: subColor, fontSize: 11 }}>{portal.date} · {portal.participants.toLocaleString()} {t('cosmicPortals.uczestnikow', 'uczestników')}</Text>
                     </View>
                     <View style={{ alignItems: 'flex-end' }}>
                       <Text style={{ color: portal.color, fontSize: 12, fontWeight: '700' }}>{portal.daysLeft}d</Text>
                       {portal.active && (
                         <View style={{ backgroundColor: '#10B981' + '20', borderRadius: 8, paddingHorizontal: 6, paddingVertical: 2, marginTop: 4 }}>
-                          <Text style={{ color: '#10B981', fontSize: 9, fontWeight: '700' }}>{tr('AKTYWNY', 'ACTIVE')}</Text>
+                          <Text style={{ color: '#10B981', fontSize: 9, fontWeight: '700' }}>{t('cosmicPortals.aktywny', 'AKTYWNY')}</Text>
                         </View>
                       )}
                     </View>
@@ -219,19 +216,19 @@ export const CosmicPortalsScreen = ({ navigation }) => {
           <Animated.View entering={FadeInDown.delay(300).duration(600)} style={{ paddingHorizontal: 22, marginBottom: 24 }}>
             <LinearGradient colors={['rgba(245,158,11,0.12)', 'transparent']}
               style={{ borderRadius: 16, padding: 18, borderWidth: 1, borderColor: ACCENT + '35' }}>
-              <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 8 }}>{tr('KOD AKTYWACYJNY', 'ACTIVATION CODE')}</Text>
+              <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 8 }}>{t('cosmicPortals.kod_aktywacyjny', 'KOD AKTYWACYJNY')}</Text>
               <Text style={{ color: subColor, fontSize: 12, lineHeight: 18, marginBottom: 14 }}>
-                {tr('Posiadasz specjalny kod od mentora? Wprowadź go, aby odblokować portal o wyższej energii.', 'Do you have a special code from your mentor? Enter it to unlock a higher-energy portal.')}
+                {t('cosmicPortals.posiadasz_specjalny_kod', 'Posiadasz specjalny kod od mentora? Wprowadź go, aby odblokować portal o wyższej energii.')}
               </Text>
               {codeSubmitted ? (
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                   <Check size={18} color="#10B981" />
-                  <Text style={{ color: '#10B981', fontWeight: '600' }}>{tr('Kod aktywowany — portal odblokowany', 'Code activated — portal unlocked')}</Text>
+                  <Text style={{ color: '#10B981', fontWeight: '600' }}>{t('cosmicPortals.kod_aktywowany', 'Kod aktywowany — portal odblokowany')}</Text>
                 </View>
               ) : (
                 <View style={{ flexDirection: 'row', gap: 10 }}>
                   <TextInput value={accessCode} onChangeText={setAccessCode}
-                    placeholder="AETHERA-XXXX" placeholderTextColor={subColor}
+                    placeholder={t('cosmicPortals.aethera_xxxx', 'AETHERA-XXXX')} placeholderTextColor={subColor}
                     style={{ flex: 1, color: textColor, backgroundColor: cardBg, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 10, fontSize: 14, borderWidth: 1, borderColor: cardBorder, letterSpacing: 1 }} />
                   <TouchableOpacity onPress={() => accessCode.length > 3 && setCodeSubmitted(true)}
                     style={{ backgroundColor: ACCENT, borderRadius: 12, paddingHorizontal: 16, alignItems: 'center', justifyContent: 'center' }}>
@@ -244,7 +241,7 @@ export const CosmicPortalsScreen = ({ navigation }) => {
 
           {/* My portals */}
           <Animated.View entering={FadeInDown.delay(350).duration(600)} style={{ paddingHorizontal: 22 }}>
-            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 12 }}>{tr('MOJE PORTALE', 'MY PORTALS')}</Text>
+            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 12 }}>{t('cosmicPortals.moje_portale', 'MOJE PORTALE')}</Text>
             <View style={{ gap: 8 }}>
               {MY_PORTALS.map((p, i) => (
                 <View key={i} style={{ backgroundColor: cardBg, borderRadius: 12, padding: 14, borderWidth: 1, borderColor: cardBorder, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -277,7 +274,7 @@ export const CosmicPortalsScreen = ({ navigation }) => {
                 </View>
                 <Text style={{ color: textColor, fontSize: 18, fontWeight: '700', marginBottom: 8 }}>{selectedPortal.name}</Text>
                 <Text style={{ color: subColor, fontSize: 13, lineHeight: 21, marginBottom: 16 }}>{selectedPortal.desc}</Text>
-                <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 10 }}>{tr('CO WZMACNIA TEN PORTAL', 'WHAT THIS PORTAL AMPLIFIES')}</Text>
+                <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 10 }}>{t('cosmicPortals.co_wzmacnia_ten_portal', 'CO WZMACNIA TEN PORTAL')}</Text>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 20 }}>
                   {selectedPortal.amplifies.map(a => (
                     <View key={a} style={{ backgroundColor: selectedPortal.color + '20', borderRadius: 20, paddingHorizontal: 12, paddingVertical: 6, borderWidth: 1, borderColor: selectedPortal.color + '40' }}>
@@ -289,7 +286,7 @@ export const CosmicPortalsScreen = ({ navigation }) => {
                   onPress={() => { setJoined(j => ({ ...j, [selectedPortal.id]: !j[selectedPortal.id] })); setSelectedPortal(null); }}
                   style={{ backgroundColor: selectedPortal.color, borderRadius: 14, paddingVertical: 16, alignItems: 'center' }}>
                   <Text style={{ color: '#fff', fontWeight: '700', fontSize: 15 }}>
-                    {joined[selectedPortal.id] ? tr('Opuść portal', 'Leave portal') : `${tr('Wejdź do portalu', 'Enter the portal')} · ${selectedPortal.participants.toLocaleString(localeCode)} ${tr('uczestników', 'participants')}`}
+                    {joined[selectedPortal.id] ? t('cosmicPortals.opusc_portal', 'Opuść portal') : `${t('cosmicPortals.wejdz_do_portalu', 'Wejdź do portalu')} · ${selectedPortal.participants.toLocaleString()} ${t('cosmicPortals.uczestnikow', 'uczestników')}`}
                   </Text>
                 </TouchableOpacity>
               </View>

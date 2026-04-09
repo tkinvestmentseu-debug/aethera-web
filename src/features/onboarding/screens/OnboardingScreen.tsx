@@ -36,8 +36,8 @@ const GLASS_BG    = 'rgba(255,255,255,0.06)';
 const GLASS_BORDER= 'rgba(255,255,255,0.12)';
 
 // ── Step meta: icon, gradient colors, accent ─────────────────────────────────
-type OnboardingStep = 'welcome' | 'identity' | 'gender' | 'birth' | 'birth_place' | 'experience' | 'entry';
-const STEPS: OnboardingStep[] = ['welcome', 'identity', 'gender', 'birth', 'birth_place', 'experience', 'entry'];
+type OnboardingStep = 'welcome' | 'identity' | 'gender' | 'birth' | 'birth_place' | 'experience' | 'spiritual_goals' | 'favorite_practice' | 'practice_frequency' | 'entry';
+const STEPS: OnboardingStep[] = ['welcome', 'identity', 'gender', 'birth', 'birth_place', 'experience', 'spiritual_goals', 'favorite_practice', 'practice_frequency', 'entry'];
 
 const STEP_META: Record<OnboardingStep, {
   icon: any; gradColors: [string, string, string]; accent: string; gradLoc: [number, number, number];
@@ -47,8 +47,11 @@ const STEP_META: Record<OnboardingStep, {
   gender:      { icon: Heart,    gradColors: ['#0F0820', '#1A0930', '#08071A'], accent: '#F9A8D4',   gradLoc: [0, 0.5, 1] },
   birth:       { icon: Moon,     gradColors: ['#070B22', '#0C1438', '#08071A'], accent: '#93C5FD',   gradLoc: [0, 0.5, 1] },
   birth_place: { icon: MapPin,   gradColors: ['#0A1020', '#0D1530', '#08071A'], accent: '#6EE7B7',   gradLoc: [0, 0.5, 1] },
-  experience:  { icon: Zap,      gradColors: ['#120820', '#1A0A2E', '#08071A'], accent: GOLD,        gradLoc: [0, 0.5, 1] },
-  entry:       { icon: Sun,      gradColors: ['#12090A', '#1A0B10', '#08071A'], accent: GOLD,        gradLoc: [0, 0.5, 1] },
+  experience:        { icon: Zap,     gradColors: ['#120820', '#1A0A2E', '#08071A'], accent: GOLD,        gradLoc: [0, 0.5, 1] },
+  spiritual_goals:   { icon: Sparkles,gradColors: ['#07080E', '#0D0A22', '#07080E'], accent: PURPLE_SOFT, gradLoc: [0, 0.5, 1] },
+  favorite_practice: { icon: Star,    gradColors: ['#07080E', '#0A0D22', '#07080E'], accent: PURPLE_SOFT, gradLoc: [0, 0.5, 1] },
+  practice_frequency:{ icon: Moon,    gradColors: ['#07080E', '#0B0A22', '#07080E'], accent: PURPLE_SOFT, gradLoc: [0, 0.5, 1] },
+  entry:             { icon: Sun,     gradColors: ['#12090A', '#1A0B10', '#08071A'], accent: GOLD,        gradLoc: [0, 0.5, 1] },
 };
 
 const STEP_NOTES: Record<OnboardingStep, string> = {
@@ -57,8 +60,11 @@ const STEP_NOTES: Record<OnboardingStep, string> = {
   gender:      'Płeć wpływa na sposób, w jaki Oracle się do Ciebie zwraca.',
   birth:       'Data zasila astrologię i osobisty archetyp dnia.',
   birth_place: 'Miasto domknie głębszą warstwę astrologii.',
-  experience:  'Ustawia głębię języka i rytm prowadzenia.',
-  entry:       'Wszystko można zmienić w Profilu w dowolnym momencie.',
+  experience:         'Ustawia głębię języka i rytm prowadzenia.',
+  spiritual_goals:    'Możesz wybrać do 3 obszarów — Oracle skupi na nich swój przekaz.',
+  favorite_practice:  'Aethera zaproponuje tę praktykę jako punkt wejścia każdego dnia.',
+  practice_frequency: 'Dostosujemy powiadomienia i rytm prowadzenia do Twojego tempa.',
+  entry:              'Wszystko można zmienić w Profilu w dowolnym momencie.',
 };
 
 const KEYBOARD_STEPS: OnboardingStep[] = ['identity', 'birth_place'];
@@ -75,6 +81,41 @@ const EXPERIENCE_OPTIONS = [
   { id: 'intermediate', icon: Moon,     title: 'Już praktykuję',          description: 'Szukam równowagi między intuicją i symboliczną głębią.', accent: PURPLE_SOFT },
   { id: 'advanced',     icon: Sparkles, title: 'Jestem głęboko w temacie',description: 'Potrzebuję bogatszych warstw i dojrzałego guidance.',    accent: GOLD },
 ];
+
+// ── Personalization data ──────────────────────────────────────────────────────
+const SPIRITUAL_GOAL_OPTIONS = [
+  { id: 'Samopoznanie',    label: '🌱 Samopoznanie' },
+  { id: 'Obfitość',        label: '💰 Obfitość' },
+  { id: 'Uzdrowienie',     label: '💚 Uzdrowienie' },
+  { id: 'Miłość',          label: '💜 Miłość' },
+  { id: 'Spokój',          label: '☮️ Spokój' },
+  { id: 'Transformacja',   label: '🦋 Transformacja' },
+  { id: 'Dary mistyczne',  label: '🔮 Dary mistyczne' },
+  { id: 'Przebudzenie',    label: '✨ Przebudzenie' },
+];
+
+const FAVORITE_PRACTICE_OPTIONS = [
+  { id: 'Medytacja',   label: '🧘 Medytacja' },
+  { id: 'Tarot',       label: '🃏 Tarot' },
+  { id: 'Rytuały',     label: '🕯️ Rytuały' },
+  { id: 'Astrologia',  label: '⭐ Astrologia' },
+  { id: 'Dziennik',    label: '📖 Dziennik' },
+  { id: 'Afirmacje',   label: '💫 Afirmacje' },
+  { id: 'Dźwięk',      label: '🎵 Dźwięk' },
+  { id: 'Wyrocznia',   label: '🔮 Wyrocznia' },
+];
+
+const PRACTICE_FREQUENCY_OPTIONS = [
+  { id: 'Codziennie',              label: '🔥 Codziennie' },
+  { id: 'Kilka razy w tygodniu',   label: '🌟 Kilka razy w tygodniu' },
+  { id: 'Raz w tygodniu',          label: '🌙 Raz w tygodniu' },
+  { id: 'Kiedy czuję potrzebę',    label: '✨ Kiedy czuję potrzebę' },
+];
+
+const PILL_BG         = 'rgba(167,139,250,0.12)';
+const PILL_BORDER     = 'rgba(167,139,250,0.30)';
+const PILL_BG_SEL     = 'rgba(167,139,250,0.25)';
+const PILL_BORDER_SEL = 'rgba(167,139,250,0.80)';
 
 const WORLDS_PREVIEW = [
   { icon: Compass,  title: 'Dzisiaj',  copy: 'Osobisty ton dnia i kolejne ruchy.', accent: GOLD },
@@ -237,6 +278,9 @@ export const OnboardingScreen = () => {
   const [placeFocused, setPlaceFocused] = useState(false);
   const [birthDate, setBirthDate] = useState({ day: 1, month: 1, year: 1996 });
   const [experienceLevel, setExperienceLevel] = useState('');
+  const [spiritualGoals, setSpiritualGoals] = useState<string[]>([]);
+  const [favoritePractice, setFavoritePractice] = useState('');
+  const [practiceFrequency, setPracticeFrequency] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   // Step transition
@@ -264,24 +308,29 @@ export const OnboardingScreen = () => {
 
   const canContinue = useMemo(() => {
     switch (currentStep) {
-      case 'welcome':     return true;
-      case 'identity':    return name.trim().length >= 2;
-      case 'gender':      return Boolean(gender);
-      case 'birth':       return birthDate.year >= 1900;
-      case 'birth_place': return birthPlace.trim().length >= 2;
-      case 'experience':  return Boolean(experienceLevel);
-      case 'entry':       return true;
-      default:            return false;
+      case 'welcome':            return true;
+      case 'identity':           return name.trim().length >= 2;
+      case 'gender':             return Boolean(gender);
+      case 'birth':              return birthDate.year >= 1900;
+      case 'birth_place':        return birthPlace.trim().length >= 2;
+      case 'experience':         return Boolean(experienceLevel);
+      case 'spiritual_goals':    return spiritualGoals.length >= 1;
+      case 'favorite_practice':  return Boolean(favoritePractice);
+      case 'practice_frequency': return Boolean(practiceFrequency);
+      case 'entry':              return true;
+      default:                   return false;
     }
-  }, [birthDate.year, birthPlace, currentStep, experienceLevel, gender, name]);
+  }, [birthDate.year, birthPlace, currentStep, experienceLevel, favoritePractice, gender, name, practiceFrequency, spiritualGoals]);
 
   const finishOnboarding = () => {
     setUserData({
       name: name.trim(), gender, birthDate: formattedBirthDate, birthPlace: birthPlace.trim(),
       experienceLevel,
-      primaryIntention: experienceLevel === 'advanced' ? 'Rozwój' : 'Spokój',
-      currentFocus:     experienceLevel === 'advanced' ? 'Orientacja symboliczna' : 'Spokojne wejście',
-      spiritualGoals:   ['Poznanie siebie'],
+      primaryIntention: spiritualGoals[0] || (experienceLevel === 'advanced' ? 'Rozwój' : 'Spokój'),
+      currentFocus:     spiritualGoals[0] || (experienceLevel === 'advanced' ? 'Orientacja symboliczna' : 'Spokojne wejście'),
+      spiritualGoals:   spiritualGoals.length > 0 ? spiritualGoals : ['Poznanie siebie'],
+      favoritePractice,
+      practiceFrequency,
       preferredTone:    experienceLevel === 'advanced' ? 'reflective' : 'gentle',
       preferredRitualCategory: 'Cleansing',
       soulPathState:    experienceLevel === 'advanced' ? 'awakening' : 'reflecting',
@@ -582,6 +631,156 @@ export const OnboardingScreen = () => {
       );
     }
 
+    // ── Spiritual Goals (multi-select, up to 3) ─────────────────────────────
+    if (currentStep === 'spiritual_goals') {
+      const toggleGoal = (id: string) => {
+        setSpiritualGoals(prev => {
+          if (prev.includes(id)) return prev.filter(g => g !== id);
+          if (prev.length >= 3) return prev;
+          return [...prev, id];
+        });
+      };
+      return (
+        <ScrollView style={ob.scroll} contentContainerStyle={ob.scrollContent} showsVerticalScrollIndicator={false}>
+          <Animated.View entering={ZoomIn.delay(80).duration(600)} style={{ alignItems: 'center' }}>
+            <HeroIcon icon={meta.icon} accent={accent} size={64} />
+          </Animated.View>
+          <Animated.View entering={FadeInDown.delay(200).duration(600)}>
+            <Typography style={[ob.inputBigTitle, { color: WHITE_HIGH, textAlign: 'center', marginTop: 14 }]}>
+              Twój cel duchowy
+            </Typography>
+            <Typography style={[ob.inputBigSub, { textAlign: 'center', marginBottom: 6 }]}>
+              Co najbardziej chcesz rozwinąć?
+            </Typography>
+            <Typography style={[ob.inputHint, { textAlign: 'center', marginBottom: 18 }]}>
+              Wybierz od 1 do 3 obszarów.
+            </Typography>
+          </Animated.View>
+          <Animated.View entering={FadeInDown.delay(320).duration(600)} style={ob.pillGrid}>
+            {SPIRITUAL_GOAL_OPTIONS.map((opt, i) => {
+              const selected = spiritualGoals.includes(opt.id);
+              return (
+                <Animated.View key={opt.id} entering={FadeInDown.delay(380 + i * 50).duration(450)}>
+                  <Pressable
+                    onPress={() => toggleGoal(opt.id)}
+                    style={[ob.pill, {
+                      backgroundColor: selected ? PILL_BG_SEL : PILL_BG,
+                      borderColor: selected ? PILL_BORDER_SEL : PILL_BORDER,
+                    }]}
+                  >
+                    <Typography style={[ob.pillText, { color: selected ? WHITE_HIGH : WHITE_MED }]}>
+                      {opt.label}
+                    </Typography>
+                    {selected && (
+                      <View style={ob.pillCheck}>
+                        <Check color={PURPLE_SOFT} size={11} strokeWidth={3} />
+                      </View>
+                    )}
+                  </Pressable>
+                </Animated.View>
+              );
+            })}
+          </Animated.View>
+        </ScrollView>
+      );
+    }
+
+    // ── Favorite Practice (single select) ───────────────────────────────────
+    if (currentStep === 'favorite_practice') {
+      return (
+        <ScrollView style={ob.scroll} contentContainerStyle={ob.scrollContent} showsVerticalScrollIndicator={false}>
+          <Animated.View entering={ZoomIn.delay(80).duration(600)} style={{ alignItems: 'center' }}>
+            <HeroIcon icon={meta.icon} accent={accent} size={64} />
+          </Animated.View>
+          <Animated.View entering={FadeInDown.delay(200).duration(600)}>
+            <Typography style={[ob.inputBigTitle, { color: WHITE_HIGH, textAlign: 'center', marginTop: 14 }]}>
+              Ulubiona praktyka
+            </Typography>
+            <Typography style={[ob.inputBigSub, { textAlign: 'center', marginBottom: 18 }]}>
+              Jak lubisz praktykować?
+            </Typography>
+          </Animated.View>
+          <Animated.View entering={FadeInDown.delay(320).duration(600)} style={ob.pillGrid}>
+            {FAVORITE_PRACTICE_OPTIONS.map((opt, i) => {
+              const selected = favoritePractice === opt.id;
+              return (
+                <Animated.View key={opt.id} entering={FadeInDown.delay(380 + i * 50).duration(450)}>
+                  <Pressable
+                    onPress={() => setFavoritePractice(opt.id)}
+                    style={[ob.pill, {
+                      backgroundColor: selected ? PILL_BG_SEL : PILL_BG,
+                      borderColor: selected ? PILL_BORDER_SEL : PILL_BORDER,
+                    }]}
+                  >
+                    <Typography style={[ob.pillText, { color: selected ? WHITE_HIGH : WHITE_MED }]}>
+                      {opt.label}
+                    </Typography>
+                    {selected && (
+                      <View style={ob.pillCheck}>
+                        <Check color={PURPLE_SOFT} size={11} strokeWidth={3} />
+                      </View>
+                    )}
+                  </Pressable>
+                </Animated.View>
+              );
+            })}
+          </Animated.View>
+        </ScrollView>
+      );
+    }
+
+    // ── Practice Frequency (single select) ──────────────────────────────────
+    if (currentStep === 'practice_frequency') {
+      return (
+        <ScrollView style={ob.scroll} contentContainerStyle={ob.scrollContent} showsVerticalScrollIndicator={false}>
+          <Animated.View entering={ZoomIn.delay(80).duration(600)} style={{ alignItems: 'center' }}>
+            <HeroIcon icon={meta.icon} accent={accent} size={64} />
+          </Animated.View>
+          <Animated.View entering={FadeInDown.delay(200).duration(600)}>
+            <Typography style={[ob.inputBigTitle, { color: WHITE_HIGH, textAlign: 'center', marginTop: 14 }]}>
+              Częstotliwość praktyki
+            </Typography>
+            <Typography style={[ob.inputBigSub, { textAlign: 'center', marginBottom: 18 }]}>
+              Jak często chcesz praktykować?
+            </Typography>
+          </Animated.View>
+          <Animated.View entering={FadeInDown.delay(320).duration(600)}>
+            {PRACTICE_FREQUENCY_OPTIONS.map((opt, i) => {
+              const selected = practiceFrequency === opt.id;
+              return (
+                <Animated.View key={opt.id} entering={FadeInDown.delay(380 + i * 80).duration(500)}>
+                  <Pressable onPress={() => setPracticeFrequency(opt.id)}>
+                    <View style={[ob.freqCard, {
+                      backgroundColor: selected ? PILL_BG_SEL : PILL_BG,
+                      borderColor: selected ? PILL_BORDER_SEL : PILL_BORDER,
+                    }]}>
+                      {selected && (
+                        <View style={[StyleSheet.absoluteFillObject, { borderRadius: 16, overflow: 'hidden' }]}>
+                          <LinearGradient
+                            colors={[PURPLE_CORE + '20', 'transparent']}
+                            style={StyleSheet.absoluteFillObject}
+                          />
+                        </View>
+                      )}
+                      <Typography style={[ob.freqText, { color: selected ? WHITE_HIGH : WHITE_MED }]}>
+                        {opt.label}
+                      </Typography>
+                      <View style={[ob.optionCheckCircle, {
+                        borderColor: selected ? PURPLE_SOFT : WHITE_LOW,
+                        backgroundColor: selected ? PURPLE_SOFT : 'transparent',
+                      }]}>
+                        {selected && <Check color="#fff" size={11} strokeWidth={3} />}
+                      </View>
+                    </View>
+                  </Pressable>
+                </Animated.View>
+              );
+            })}
+          </Animated.View>
+        </ScrollView>
+      );
+    }
+
     if (currentStep === 'entry') {
       return (
         <ScrollView style={ob.scroll} contentContainerStyle={ob.scrollContent} showsVerticalScrollIndicator={false}>
@@ -699,10 +898,15 @@ export const OnboardingScreen = () => {
             <PremiumButton
               label={currentStep === 'entry'
                 ? t('onboarding.enterAethera', { defaultValue: 'Wejdź do Aethery' })
-                : t('onboarding.continue_btn', { defaultValue: 'Dalej' })}
+                : t('onboarding.continue_btn', { defaultValue: 'Dalej →' })}
               onPress={next}
               disabled={!canContinue}
             />
+            {(currentStep === 'spiritual_goals' || currentStep === 'favorite_practice' || currentStep === 'practice_frequency') && (
+              <Pressable onPress={() => { animateStep('next'); setStepIndex(i => Math.min(i + 1, STEPS.length - 1)); }} hitSlop={10}>
+                <Typography style={ob.skipBtn}>Pomiń</Typography>
+              </Pressable>
+            )}
             <Typography style={ob.footerNote}>{STEP_NOTES[currentStep]}</Typography>
           </View>
 
@@ -956,5 +1160,42 @@ const ob = StyleSheet.create({
     padding: 16, width: '47.5%',
     borderRadius: 16, borderWidth: 1,
     overflow: 'hidden',
+  },
+
+  // Personalization pills
+  pillGrid: {
+    flexDirection: 'row', flexWrap: 'wrap', gap: 10,
+  },
+  pill: {
+    flexDirection: 'row', alignItems: 'center', gap: 6,
+    borderWidth: 1.5, borderRadius: 24,
+    paddingHorizontal: 16, paddingVertical: 11,
+  },
+  pillText: {
+    fontSize: 14, fontWeight: '500',
+  },
+  pillCheck: {
+    width: 16, height: 16, borderRadius: 8,
+    backgroundColor: 'rgba(167,139,250,0.22)',
+    alignItems: 'center', justifyContent: 'center',
+  },
+
+  // Frequency full-width cards
+  freqCard: {
+    flexDirection: 'row', alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 1.5, borderRadius: 16,
+    paddingHorizontal: 20, paddingVertical: 16,
+    marginBottom: 10, overflow: 'hidden',
+  },
+  freqText: {
+    fontSize: 16, fontWeight: '500',
+  },
+
+  // Skip button
+  skipBtn: {
+    textAlign: 'center', fontSize: 14,
+    color: WHITE_LOW, paddingVertical: 4,
+    letterSpacing: 0.2,
   },
 });

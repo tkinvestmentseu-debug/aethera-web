@@ -717,7 +717,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
           </Pressable>
 
           <Text style={{ flex: 1, fontSize: 15, fontWeight: '700', color: goldColor, letterSpacing: 2 }}>
-            ✦ ATLAS ZODIAKU
+            {t('zodiacAtlas.atlas_zodiaku', '✦ ATLAS ZODIAKU')}
           </Text>
 
           <Pressable onPress={handleAddFavorite} style={{ padding: 8 }}>
@@ -810,7 +810,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
                 </View>
                 {sign.id === SIGNS[userSignIndex].id && (
                   <View style={{ backgroundColor: goldColor, borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3, alignSelf: 'flex-start' }}>
-                    <Text style={{ color: '#fff', fontSize: 9, fontWeight: '700' }}>TWÓJ ZNAK</Text>
+                    <Text style={{ color: '#fff', fontSize: 9, fontWeight: '700' }}>{t('zodiacAtlas.twoj_znak', 'TWÓJ ZNAK')}</Text>
                   </View>
                 )}
               </View>
@@ -833,7 +833,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
               <Text style={{ fontSize: 13, color: subColor, lineHeight: 21, marginBottom: 14 }}>{sign.desc}</Text>
 
               {/* Traits */}
-              <Text style={{ fontSize: 10, color: sign.color, fontWeight: '700', letterSpacing: 1.5, marginBottom: 8 }}>KLUCZOWE CECHY</Text>
+              <Text style={{ fontSize: 10, color: sign.color, fontWeight: '700', letterSpacing: 1.5, marginBottom: 8 }}>{t('zodiacAtlas.kluczowe_cechy', 'KLUCZOWE CECHY')}</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginBottom: 14 }}>
                 {sign.traits.map((t) => (
                   <View key={t} style={{ backgroundColor: `${sign.color}20`, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1, borderColor: `${sign.color}44` }}>
@@ -866,7 +866,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
               {activeTab === 'info' && (
                 <View>
                   {/* Strengths */}
-                  <Text style={{ fontSize: 10, color: '#2ECC71', fontWeight: '700', letterSpacing: 1.5, marginBottom: 8 }}>MOCNE STRONY</Text>
+                  <Text style={{ fontSize: 10, color: '#2ECC71', fontWeight: '700', letterSpacing: 1.5, marginBottom: 8 }}>{t('zodiacAtlas.mocne_strony', 'MOCNE STRONY')}</Text>
                   {sign.strengths.map((s, i) => (
                     <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 6 }}>
                       <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: '#2ECC71', marginTop: 5, marginRight: 8 }} />
@@ -875,7 +875,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
                   ))}
 
                   {/* Shadow traits */}
-                  <Text style={{ fontSize: 10, color: '#E74C3C', fontWeight: '700', letterSpacing: 1.5, marginTop: 12, marginBottom: 8 }}>CIEŃ</Text>
+                  <Text style={{ fontSize: 10, color: '#E74C3C', fontWeight: '700', letterSpacing: 1.5, marginTop: 12, marginBottom: 8 }}>{t('zodiacAtlas.cien', 'CIEŃ')}</Text>
                   {sign.shadows.map((s, i) => (
                     <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 6 }}>
                       <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: '#E74C3C', marginTop: 5, marginRight: 8 }} />
@@ -884,7 +884,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
                   ))}
 
                   {/* Associations */}
-                  <Text style={{ fontSize: 10, color: sign.color, fontWeight: '700', letterSpacing: 1.5, marginTop: 12, marginBottom: 8 }}>SKOJARZENIA</Text>
+                  <Text style={{ fontSize: 10, color: sign.color, fontWeight: '700', letterSpacing: 1.5, marginTop: 12, marginBottom: 8 }}>{t('zodiacAtlas.skojarzeni', 'SKOJARZENIA')}</Text>
                   <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
                     {[
                       { k: 'KAMIEŃ', v: sign.crystal },
@@ -900,7 +900,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
                   </View>
 
                   {/* Career */}
-                  <Text style={{ fontSize: 10, color: sign.color, fontWeight: '700', letterSpacing: 1.5, marginTop: 12, marginBottom: 8 }}>KARIERY I POWOŁANIA</Text>
+                  <Text style={{ fontSize: 10, color: sign.color, fontWeight: '700', letterSpacing: 1.5, marginTop: 12, marginBottom: 8 }}>{t('zodiacAtlas.kariery_i_powolania', 'KARIERY I POWOŁANIA')}</Text>
                   <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6 }}>
                     {sign.career.map((c) => (
                       <View key={c} style={{ backgroundColor: `${sign.color}18`, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 4 }}>
@@ -956,11 +956,11 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
           }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
               <Heart size={16} color="#E74C3C" style={{ marginRight: 8 }} />
-              <Text style={{ fontSize: 12, fontWeight: '700', color: goldColor, letterSpacing: 1.5 }}>KOMPATYBILNOŚĆ ZNAKOWA</Text>
+              <Text style={{ fontSize: 12, fontWeight: '700', color: goldColor, letterSpacing: 1.5 }}>{t('zodiacAtlas.kompatybil_znakowa', 'KOMPATYBILNOŚĆ ZNAKOWA')}</Text>
             </View>
             <CompatGrid signId={sign.id} isLight={isLight} />
             <Text style={{ fontSize: 10, color: subColor, marginTop: 10, lineHeight: 15 }}>
-              Zielony = wysoka harmonia · Złoty = dobra · Niebieski = neutralny · Czerwony = napięcie, które uczy
+              {t('zodiacAtlas.zielony_wysoka_harmonia_zloty_dobra', 'Zielony = wysoka harmonia · Złoty = dobra · Niebieski = neutralny · Czerwony = napięcie, które uczy')}
             </Text>
           </Animated.View>
 
@@ -994,7 +994,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
             >
               <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
                 <Sparkles size={18} color={goldColor} style={{ marginRight: 8 }} />
-                <Text style={{ fontSize: 13, fontWeight: '700', color: textColor }}>Oracle Horoskop</Text>
+                <Text style={{ fontSize: 13, fontWeight: '700', color: textColor }}>{t('zodiacAtlas.oracle_horoskop', 'Oracle Horoskop')}</Text>
               </View>
               <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 12 }}>
                 Poproś Oracle o duchowy horoskop dla znaku {sign.pl}. Otrzymasz poetycką, mądrą analizę lekcji duszy tego znaku.
@@ -1056,7 +1056,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
             backgroundColor: cardBg, borderRadius: 18,
             borderWidth: 1, borderColor: cardBorder, padding: 16,
           }}>
-            <Text style={{ fontSize: 10, color: goldColor, fontWeight: '700', letterSpacing: 2, marginBottom: 12 }}>NAJLEPSZE DOPASOWANIA</Text>
+            <Text style={{ fontSize: 10, color: goldColor, fontWeight: '700', letterSpacing: 2, marginBottom: 12 }}>{t('zodiacAtlas.najlepsze_dopasowani', 'NAJLEPSZE DOPASOWANIA')}</Text>
             {sign.compatibility.map((compPl) => {
               const compSign = SIGNS.find((s) => s.pl === compPl) || SIGNS[0];
               return (
@@ -1087,7 +1087,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
           <View style={{ marginHorizontal: layout.padding.screen, marginBottom: 16 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14 }}>
               <BookOpen size={16} color={goldColor} style={{ marginRight: 8 }} />
-              <Text style={{ fontSize: 12, fontWeight: '700', color: goldColor, letterSpacing: 2 }}>WIEDZA ASTROLOGICZNA</Text>
+              <Text style={{ fontSize: 12, fontWeight: '700', color: goldColor, letterSpacing: 2 }}>{t('zodiacAtlas.wiedza_astrologic', 'WIEDZA ASTROLOGICZNA')}</Text>
             </View>
             {LEARNING_CARDS.map((lc, i) => (
               <Animated.View key={lc.title} entering={FadeInDown.delay(280 + i * 60).springify()}>
@@ -1125,7 +1125,7 @@ export const ZodiacAtlasScreen = ({ navigation }: any) => {
             backgroundColor: cardBg, borderRadius: 18,
             borderWidth: 1, borderColor: cardBorder, padding: 16, marginBottom: 16,
           }}>
-            <Text style={{ fontSize: 10, color: goldColor, fontWeight: '700', letterSpacing: 2, marginBottom: 14 }}>SZYBKI PRZEGLĄD — 12 ZNAKÓW</Text>
+            <Text style={{ fontSize: 10, color: goldColor, fontWeight: '700', letterSpacing: 2, marginBottom: 14 }}>{t('zodiacAtlas.szybki_przeglad_12_znakow', 'SZYBKI PRZEGLĄD — 12 ZNAKÓW')}</Text>
             {SIGNS.map((s) => (
               <Pressable
                 key={s.id}

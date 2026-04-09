@@ -699,8 +699,8 @@ export const DivineTimingScreen = ({ navigation }: any) => {
           <ChevronLeft color={accent} size={26} strokeWidth={1.6} />
         </Pressable>
         <View style={{ flex: 1, alignItems: 'center' }}>
-          <Text style={[st.headerTitle, { color: textColor }]}>Boski Rytm</Text>
-          <Text style={[st.headerSub, { color: subColor }]}>OKNA CZASOWE</Text>
+          <Text style={[st.headerTitle, { color: textColor }]}>{t('divineTiming.boski_rytm', 'Boski Rytm')}</Text>
+          <Text style={[st.headerSub, { color: subColor }]}>{t('divineTiming.okna_czasowe', 'OKNA CZASOWE')}</Text>
         </View>
         <Pressable onPress={handleToggleFav} style={st.iconBtn} hitSlop={12}>
           <Star color={accent} size={20} strokeWidth={1.8} fill={isFav ? accent : 'none'} />
@@ -723,7 +723,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
         <Animated.View entering={FadeInDown.delay(0).springify()}>
           <View style={[st.heroCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <View style={{ alignItems: 'center', marginBottom: 4 }}>
-              <Text style={[st.microLabel, { color: accent }]}>KOSMICZNY ZEGAR</Text>
+              <Text style={[st.microLabel, { color: accent }]}>{t('divineTiming.kosmiczny_zegar', 'KOSMICZNY ZEGAR')}</Text>
               <Text style={[st.sectionTitle, { color: textColor, marginTop: 4 }]}>
                 {today.toLocaleDateString(getLocaleCode(), { weekday: 'long', day: 'numeric', month: 'long' })}
               </Text>
@@ -732,15 +732,15 @@ export const DivineTimingScreen = ({ navigation }: any) => {
             <View style={st.clockLegendRow}>
               <View style={st.legendItem}>
                 <Text style={[st.legendDot, { color: accent }]}>●</Text>
-                <Text style={[st.legendText, { color: subColor }]}>Zodiak</Text>
+                <Text style={[st.legendText, { color: subColor }]}>{t('divineTiming.zodiak', 'Zodiak')}</Text>
               </View>
               <View style={st.legendItem}>
                 <Text style={[st.legendDot, { color: '#A78BFA' }]}>●</Text>
-                <Text style={[st.legendText, { color: subColor }]}>Fazy Księżyca</Text>
+                <Text style={[st.legendText, { color: subColor }]}>{t('divineTiming.fazy_ksiezyca', 'Fazy Księżyca')}</Text>
               </View>
               <View style={st.legendItem}>
                 <Text style={[st.legendDot, { color: '#60A5FA' }]}>●</Text>
-                <Text style={[st.legendText, { color: subColor }]}>Liczby 1–9</Text>
+                <Text style={[st.legendText, { color: subColor }]}>{t('divineTiming.liczby_1_9', 'Liczby 1–9')}</Text>
               </View>
             </View>
           </View>
@@ -756,7 +756,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
           >
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <View style={{ flex: 1 }}>
-                <Text style={[st.microLabel, { color: accent }]}>WYNIK KOSMICZNY DNIA</Text>
+                <Text style={[st.microLabel, { color: accent }]}>{t('divineTiming.wynik_kosmiczny_dnia', 'WYNIK KOSMICZNY DNIA')}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'baseline', marginTop: 6, gap: 6 }}>
                   <Text style={[st.scoreNumber, { color: accent }]}>{cosmicScore}</Text>
                   <Text style={[st.scoreMax, { color: subColor }]}>/10</Text>
@@ -794,7 +794,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
         {/* ── 3. PLANETARY HOURS TODAY ────────────────────────────── */}
         <Animated.View entering={FadeInDown.delay(140).springify()}>
           <View style={st.sectionHeader}>
-            <Text style={[st.microLabel, { color: accent }]}>GODZINY PLANETARNE</Text>
+            <Text style={[st.microLabel, { color: accent }]}>{t('divineTiming.godziny_planetarne', 'GODZINY PLANETARNE')}</Text>
             <Pressable onPress={() => setShowHourBreakdown(v => !v)} style={st.expandBtn}>
               <Text style={[st.expandBtnText, { color: accent }]}>
                 {showHourBreakdown ? 'Zwiń' : 'Rozwiń'}
@@ -846,7 +846,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
                 </View>
               </ScrollView>
               <Text style={[st.hintText, { color: subColor, marginTop: 6 }]}>
-                Zielona kropka = dobra godzina. Złota = przeciętna. Szara = trudna.
+                {t('divineTiming.zielona_kropka_dobra_godzina_zlota', 'Zielona kropka = dobra godzina. Złota = przeciętna. Szara = trudna.')}
               </Text>
             </Animated.View>
           )}
@@ -854,7 +854,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
 
         {/* ── 4. PERSONAL NUMBERS ──────────────────────────────────── */}
         <Animated.View entering={FadeInDown.delay(200).springify()}>
-          <Text style={[st.microLabel, { color: accent, marginBottom: 10 }]}>TWOJE LICZBY DNIA</Text>
+          <Text style={[st.microLabel, { color: accent, marginBottom: 10 }]}>{t('divineTiming.twoje_liczby_dnia', 'TWOJE LICZBY DNIA')}</Text>
           <View style={{ flexDirection: 'row', gap: 8 }}>
             {[
               { label: 'Liczba drogi\nżycia', val: lifePath, desc: NUMBER_ENERGIES[lifePath]?.keyword || '—' },
@@ -894,7 +894,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
 
         {/* ── 5. ACTION TIMING GUIDE ───────────────────────────────── */}
         <Animated.View entering={FadeInDown.delay(280).springify()}>
-          <Text style={[st.microLabel, { color: accent, marginBottom: 10, marginTop: 4 }]}>PRZEWODNIK TIMINGU DZIAŁAŃ</Text>
+          <Text style={[st.microLabel, { color: accent, marginBottom: 10, marginTop: 4 }]}>{t('divineTiming.przewodnik_timingu_dzialan', 'PRZEWODNIK TIMINGU DZIAŁAŃ')}</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -layout.padding.screen }}>
             <View style={{ flexDirection: 'row', gap: 10, paddingHorizontal: layout.padding.screen, paddingRight: layout.padding.screen + 10 }}>
               {ACTION_TYPES.map((action, i) => {
@@ -916,7 +916,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
                     <Text style={[st.actionChipLabel, { color: isSelected ? action.color : textColor }]}>{action.label}</Text>
                     {isGoodDay && (
                       <View style={[st.goodDayBadge, { backgroundColor: action.color + '28' }]}>
-                        <Text style={[{ color: action.color, fontSize: 9, fontWeight: '700' }]}>DZIŚ!</Text>
+                        <Text style={[{ color: action.color, fontSize: 9, fontWeight: '700' }]}>{t('divineTiming.dzis', 'DZIŚ!')}</Text>
                       </View>
                     )}
                   </Pressable>
@@ -960,7 +960,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
 
         {/* ── 6. 30-DAY POWER DAYS CALENDAR ───────────────────────── */}
         <Animated.View entering={FadeInDown.delay(340).springify()}>
-          <Text style={[st.microLabel, { color: accent, marginBottom: 10, marginTop: 4 }]}>MOCNE DNI — NASTĘPNE 30 DNI</Text>
+          <Text style={[st.microLabel, { color: accent, marginBottom: 10, marginTop: 4 }]}>{t('divineTiming.mocne_dni_nastepne_30_dni', 'MOCNE DNI — NASTĘPNE 30 DNI')}</Text>
           <View style={[st.calendarCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 4 }}>
               {powerDays.map((pd, i) => {
@@ -1007,7 +1007,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
 
         {/* ── 7. RETROGRADE IMPACT ─────────────────────────────────── */}
         <Animated.View entering={FadeInDown.delay(400).springify()}>
-          <Text style={[st.microLabel, { color: accent, marginBottom: 10, marginTop: 4 }]}>WPŁYW RETROGRADÓW</Text>
+          <Text style={[st.microLabel, { color: accent, marginBottom: 10, marginTop: 4 }]}>{t('divineTiming.wplyw_retrogrado', 'WPŁYW RETROGRADÓW')}</Text>
           <View style={{ gap: 8 }}>
             {RETROGRADES_DATA.map((retro, i) => (
               <Pressable
@@ -1025,7 +1025,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
                       <Text style={[st.retroPlanet, { color: retro.color }]}>{retro.planet}</Text>
                       {retro.active && (
                         <View style={[st.activeBadge, { backgroundColor: retro.color + '28', borderColor: retro.color + '60' }]}>
-                          <Text style={[{ color: retro.color, fontSize: 9, fontWeight: '700' }]}>AKTYWNY</Text>
+                          <Text style={[{ color: retro.color, fontSize: 9, fontWeight: '700' }]}>{t('divineTiming.aktywny', 'AKTYWNY')}</Text>
                         </View>
                       )}
                     </View>
@@ -1035,7 +1035,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
                 </View>
                 {expandedRetrograde === i && (
                   <Animated.View entering={FadeIn.duration(250)} style={{ marginTop: 12 }}>
-                    <Text style={[st.retroAvoidTitle, { color: textColor }]}>Unikaj podczas retrograda:</Text>
+                    <Text style={[st.retroAvoidTitle, { color: textColor }]}>{t('divineTiming.unikaj_podczas_retrograda', 'Unikaj podczas retrograda:')}</Text>
                     {retro.avoid.map((item, j) => (
                       <View key={j} style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 5 }}>
                         <AlertTriangle size={12} color={retro.color} />
@@ -1051,7 +1051,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
 
         {/* ── 8. ECLIPSE WINDOWS ───────────────────────────────────── */}
         <Animated.View entering={FadeInDown.delay(460).springify()}>
-          <Text style={[st.microLabel, { color: accent, marginBottom: 10, marginTop: 4 }]}>OKNA ZAĆMIEŃ</Text>
+          <Text style={[st.microLabel, { color: accent, marginBottom: 10, marginTop: 4 }]}>{t('divineTiming.okna_zacmien', 'OKNA ZAĆMIEŃ')}</Text>
           <View style={{ gap: 10 }}>
             {ECLIPSES_DATA.map((eclipse, i) => (
               <Pressable
@@ -1071,7 +1071,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
                 {expandedEclipse === i && (
                   <Animated.View entering={FadeIn.duration(250)} style={{ marginTop: 12 }}>
                     <Text style={[st.eclipseEnergy, { color: subColor, marginBottom: 10 }]}>{eclipse.energy}</Text>
-                    <Text style={[st.retroAvoidTitle, { color: textColor }]}>Nie zaczynaj / nie podpisuj:</Text>
+                    <Text style={[st.retroAvoidTitle, { color: textColor }]}>{t('divineTiming.nie_zaczynaj_nie_podpisuj', 'Nie zaczynaj / nie podpisuj:')}</Text>
                     {eclipse.avoid.map((item, j) => (
                       <View key={j} style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 5 }}>
                         <AlertTriangle size={12} color={eclipse.color} />
@@ -1098,8 +1098,8 @@ export const DivineTimingScreen = ({ navigation }: any) => {
                 <Bot size={22} color={accent} strokeWidth={1.6} />
               </View>
               <View>
-                <Text style={[st.aiTitle, { color: textColor }]}>Konsultacja Timingu</Text>
-                <Text style={[st.aiSub, { color: subColor }]}>Kiedy jest najlepszy moment na...</Text>
+                <Text style={[st.aiTitle, { color: textColor }]}>{t('divineTiming.konsultacj_timingu', 'Konsultacja Timingu')}</Text>
+                <Text style={[st.aiSub, { color: subColor }]}>{t('divineTiming.kiedy_jest_najlepszy_moment_na', 'Kiedy jest najlepszy moment na...')}</Text>
               </View>
             </View>
 
@@ -1107,7 +1107,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
               <TextInput
                 value={aiQuery}
                 onChangeText={setAiQuery}
-                placeholder="np. Kiedy założyć firmę? Najlepszy dzień na rozmowę..."
+                placeholder={t('divineTiming.np_kiedy_zalozyc_firme_najlepszy', 'np. Kiedy założyć firmę? Najlepszy dzień na rozmowę...')}
                 placeholderTextColor={subColor + '88'}
                 style={[st.aiInput, { color: textColor }]}
                 multiline
@@ -1124,7 +1124,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
             >
               {aiLoading
                 ? <ActivityIndicator size="small" color={isLight ? '#1A1410' : '#0A0806'} />
-                : <><Send size={14} color={aiQuery.trim() ? (isLight ? '#1A1410' : '#0A0806') : subColor} strokeWidth={2} /><Text style={[st.aiSendText, { color: aiQuery.trim() ? (isLight ? '#1A1410' : '#0A0806') : subColor }]}>Zapytaj Wyrocznię</Text></>
+                : <><Send size={14} color={aiQuery.trim() ? (isLight ? '#1A1410' : '#0A0806') : subColor} strokeWidth={2} /><Text style={[st.aiSendText, { color: aiQuery.trim() ? (isLight ? '#1A1410' : '#0A0806') : subColor }]}>{t('divineTiming.zapytaj_wyrocznie', 'Zapytaj Wyrocznię')}</Text></>
               }
             </Pressable>
 
@@ -1132,7 +1132,7 @@ export const DivineTimingScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeIn.duration(400)} style={[st.aiResponseBox, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)', borderColor: accent + '30' }]}>
                 <View style={{ flexDirection: 'row', gap: 8, marginBottom: 6 }}>
                   <Sparkles size={13} color={accent} />
-                  <Text style={[st.microLabel, { color: accent }]}>ODPOWIEDŹ WYROCZNI</Text>
+                  <Text style={[st.microLabel, { color: accent }]}>{t('divineTiming.odpowiedz_wyroczni', 'ODPOWIEDŹ WYROCZNI')}</Text>
                 </View>
                 <Text style={[st.aiResponseText, { color: textColor }]}>{aiResponse}</Text>
               </Animated.View>

@@ -584,10 +584,10 @@ return (
           {/* ── TITLES ── */}
           <Animated.View entering={FadeInDown.delay(100).duration(600)} style={[styles.titlesBlock, { paddingHorizontal: layout.padding.screen }]}>
             <Typography variant="heroTitle" style={{ color: textColor, textAlign: 'center', fontSize: 24 }}>
-              Sanktuarium Rytuałów
+              {t('rituals.sanktuariu_rytualow', 'Sanktuarium Rytuałów')}
             </Typography>
             <Typography variant="bodySmall" style={{ color: subColor, textAlign: 'center', marginTop: 8, lineHeight: 22 }}>
-              Każdy rytuał to most między intencją a rzeczywistością. Wybierz ścieżkę, która rezonuje dziś — nie jutro, nie kiedyś. Ceremonia zaczyna się w chwili decyzji.
+              {t('rituals.kazdy_rytual_to_most_miedzy', 'Każdy rytuał to most między intencją a rzeczywistością. Wybierz ścieżkę, która rezonuje dziś — nie jutro, nie kiedyś. Ceremonia zaczyna się w chwili decyzji.')}
             </Typography>
           </Animated.View>
 
@@ -595,7 +595,7 @@ return (
           <Animated.View entering={FadeInDown.delay(120).duration(540)} style={{ paddingHorizontal: layout.padding.screen, marginBottom: 8 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
               <View style={{ flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: divColor }} />
-              <Typography variant="microLabel" color={weeklyRitual.color} style={{ marginHorizontal: 12, letterSpacing: 2 }}>🏆 RYTUAŁ TYGODNIA</Typography>
+              <Typography variant="microLabel" color={weeklyRitual.color} style={{ marginHorizontal: 12, letterSpacing: 2 }}>{t('rituals.rytual_tygodnia', '🏆 RYTUAŁ TYGODNIA')}</Typography>
               <View style={{ flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: divColor }} />
             </View>
             <Pressable
@@ -637,7 +637,7 @@ return (
           <Animated.View entering={FadeInDown.delay(140).duration(520)} style={{ paddingHorizontal: layout.padding.screen, marginBottom: 8 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
               <View style={{ flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: divColor }} />
-              <Typography variant="microLabel" color="#34D399" style={{ marginHorizontal: 12, letterSpacing: 2 }}>📊 MÓJ POSTĘP</Typography>
+              <Typography variant="microLabel" color="#34D399" style={{ marginHorizontal: 12, letterSpacing: 2 }}>{t('rituals.moj_postep', '📊 MÓJ POSTĘP')}</Typography>
               <View style={{ flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: divColor }} />
             </View>
             <View style={[styles.progressCard, { backgroundColor: cardBg, borderColor: '#34D399' + '33' }]}>
@@ -653,7 +653,7 @@ return (
                   </Typography>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Typography variant="cardTitle" style={{ color: textColor, fontSize: 15, marginBottom: 10 }}>Aktywność tego tygodnia</Typography>
+                  <Typography variant="cardTitle" style={{ color: textColor, fontSize: 15, marginBottom: 10 }}>{t('rituals.aktywnosc_tego_tygodnia', 'Aktywność tego tygodnia')}</Typography>
                   <View style={{ flexDirection: 'row', gap: 10 }}>
                     {[
                       { label: t('common.week'), value: weeklyStats.weekCount, color: '#34D399', icon: Target },
@@ -683,7 +683,7 @@ return (
           <Animated.View entering={FadeInDown.delay(145).duration(510)} style={{ paddingHorizontal: layout.padding.screen, marginBottom: 8 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
               <View style={{ flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: divColor }} />
-              <Typography variant="microLabel" color="#A78BFA" style={{ marginHorizontal: 12, letterSpacing: 2 }}>📅 PLANOWANIE RYTUAŁÓW</Typography>
+              <Typography variant="microLabel" color="#A78BFA" style={{ marginHorizontal: 12, letterSpacing: 2 }}>{t('rituals.planowanie_rytualow', '📅 PLANOWANIE RYTUAŁÓW')}</Typography>
               <View style={{ flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: divColor }} />
             </View>
             <View style={[styles.calCard, { backgroundColor: cardBg, borderColor: '#A78BFA' + '33' }]}>
@@ -692,7 +692,7 @@ return (
                 style={[StyleSheet.absoluteFillObject as any, { borderRadius: 18 }]}
               />
               <Typography variant="bodySmall" style={{ color: subColor, marginBottom: 12, lineHeight: 19 }}>
-                Zaznacz dni, w których planujesz rytuał — Twój cotygodniowy harmonogram ceremonii.
+                {t('rituals.zaznacz_dni_w_ktorych_planujesz', 'Zaznacz dni, w których planujesz rytuał — Twój cotygodniowy harmonogram ceremonii.')}
               </Typography>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 {weekDays.map((day) => {
@@ -737,7 +737,7 @@ return (
                 style={[StyleSheet.absoluteFillObject as any, { borderRadius: 20 }]}
               />
               <View style={styles.ritualNaDzisHeader}>
-                <Typography variant="microLabel" color={dailyRitualTip.color} style={{ letterSpacing: 2 }}>🕯️ RYTUAŁ NA DZIŚ</Typography>
+                <Typography variant="microLabel" color={dailyRitualTip.color} style={{ letterSpacing: 2 }}>{t('rituals.rytual_na_dzis', '🕯️ RYTUAŁ NA DZIŚ')}</Typography>
                 <View style={[styles.ritualNaDzisEmoji, { backgroundColor: dailyRitualTip.color + '22', borderColor: dailyRitualTip.color + '44' }]}>
                   <Typography style={{ fontSize: 22 }}>{dailyRitualTip.emoji}</Typography>
                 </View>
@@ -751,7 +751,7 @@ return (
           <Animated.View entering={FadeInDown.delay(160).duration(500)}>
             <View style={[styles.sectionLabelRow, { paddingHorizontal: layout.padding.screen }]}>
               <View style={[styles.sectionLine, { backgroundColor: ACCENT + '44' }]} />
-              <Typography variant="microLabel" color={ACCENT} style={{ marginHorizontal: 10, letterSpacing: 2 }}>🕯️ RYTUAŁ DNIA</Typography>
+              <Typography variant="microLabel" color={ACCENT} style={{ marginHorizontal: 10, letterSpacing: 2 }}>{t('rituals.rytual_dnia', '🕯️ RYTUAŁ DNIA')}</Typography>
               <View style={[styles.sectionLine, { backgroundColor: ACCENT + '22' }]} />
             </View>
             <Pressable
@@ -762,8 +762,8 @@ return (
                 <MoonStar color={ACCENT} size={22} strokeWidth={1.5} />
               </View>
               <View style={{ flex: 1, marginLeft: 16 }}>
-                <Typography variant="cardTitle" style={{ color: textColor, fontSize: 15 }}>Program Tygodniowy</Typography>
-                <Typography variant="caption" style={{ color: subColor, marginTop: 3 }}>Ceremonialny rytuał z AI — spersonalizowany przebieg krok po kroku.</Typography>
+                <Typography variant="cardTitle" style={{ color: textColor, fontSize: 15 }}>{t('rituals.program_tygodniowy', 'Program Tygodniowy')}</Typography>
+                <Typography variant="caption" style={{ color: subColor, marginTop: 3 }}>{t('rituals.ceremonial_rytual_z_ai_spersonali', 'Ceremonialny rytuał z AI — spersonalizowany przebieg krok po kroku.')}</Typography>
               </View>
               <ArrowRight color={subColor} size={16} />
             </Pressable>
@@ -774,7 +774,7 @@ return (
             <View style={[styles.sectionDivider, { backgroundColor: divColor, marginHorizontal: layout.padding.screen }]} />
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: layout.padding.screen, marginBottom: 12 }}>
               <Typography variant="premiumLabel" color="#F472B6" style={[styles.gridLabel, { marginTop: 0, marginBottom: 0 }]}>
-                ⚡ SZYBKIE RYTUAŁY 3 MIN
+                {t('rituals.szybkie_rytualy_3_min', '⚡ SZYBKIE RYTUAŁY 3 MIN')}
               </Typography>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: layout.padding.screen, gap: 10 }}>
@@ -804,7 +804,7 @@ return (
                         {q.steps[0]}
                       </Typography>
                       <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10, gap: 4 }}>
-                        <Typography variant="microLabel" style={{ color: q.color, fontSize: 10 }}>POKAŻ KROKI</Typography>
+                        <Typography variant="microLabel" style={{ color: q.color, fontSize: 10 }}>{t('rituals.pokaz_kroki', 'POKAŻ KROKI')}</Typography>
                         <ArrowRight color={q.color} size={10} strokeWidth={2} />
                       </View>
                     </Pressable>
@@ -818,7 +818,7 @@ return (
           <Animated.View entering={FadeInDown.delay(220).duration(520)}>
             <View style={[styles.sectionDivider, { backgroundColor: divColor, marginHorizontal: layout.padding.screen }]} />
             <Typography variant="premiumLabel" color={ACCENT} style={[styles.gridLabel, { paddingHorizontal: layout.padding.screen }]}>
-              ⚡ SZYBKI RYTUAŁ
+              {t('rituals.szybki_rytual', '⚡ SZYBKI RYTUAŁ')}
             </Typography>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: layout.padding.screen, gap: 10 }}>
               {QUICK_RITUALS.map((q, i) => {
@@ -854,7 +854,7 @@ return (
             <View style={[styles.sectionDivider, { backgroundColor: divColor, marginHorizontal: layout.padding.screen }]} />
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: layout.padding.screen, marginBottom: 10 }}>
               <Typography variant="premiumLabel" color="#67E8F9" style={[styles.gridLabel, { marginTop: 0, marginBottom: 0 }]}>
-                📚 BIBLIOTEKA INTENCJI
+                {t('rituals.biblioteka_intencji', '📚 BIBLIOTEKA INTENCJI')}
               </Typography>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: layout.padding.screen, gap: 8, marginBottom: 14 }}>
@@ -907,7 +907,7 @@ return (
             <View style={[styles.sectionDivider, { backgroundColor: divColor, marginHorizontal: layout.padding.screen }]} />
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14, paddingHorizontal: layout.padding.screen }}>
               <View style={{ flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: divColor }} />
-              <Typography variant="microLabel" color="#86EFAC" style={{ marginHorizontal: 12, letterSpacing: 2 }}>🌿 RYTUAŁY SEZONOWE</Typography>
+              <Typography variant="microLabel" color="#86EFAC" style={{ marginHorizontal: 12, letterSpacing: 2 }}>{t('rituals.rytualy_sezonowe', '🌿 RYTUAŁY SEZONOWE')}</Typography>
               <View style={{ flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: divColor }} />
             </View>
             {/* Season tabs */}
@@ -975,7 +975,7 @@ return (
                       </View>
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <View style={[styles.seasonCta, { backgroundColor: sData.color }]}>
-                          <Typography variant="microLabel" style={{ color: '#FFF', letterSpacing: 1, fontSize: 10 }}>ODKRYJ</Typography>
+                          <Typography variant="microLabel" style={{ color: '#FFF', letterSpacing: 1, fontSize: 10 }}>{t('rituals.odkryj', 'ODKRYJ')}</Typography>
                         </View>
                         <ArrowRight color={sData.color} size={13} strokeWidth={2} style={{ marginLeft: 8 }} />
                       </View>
@@ -992,7 +992,7 @@ return (
               <View style={[styles.sectionDivider, { backgroundColor: divColor, marginHorizontal: layout.padding.screen }]} />
               <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: layout.padding.screen, marginBottom: 10 }}>
                 <Typography variant="premiumLabel" color={ACCENT} style={[styles.gridLabel, { marginTop: 0, marginBottom: 0 }]}>
-                  ⭐ MOJE ULUBIONE RYTUAŁY
+                  {t('rituals.moje_ulubione_rytualy', '⭐ MOJE ULUBIONE RYTUAŁY')}
                 </Typography>
                 <Typography variant="microLabel" style={{ color: subColor, fontSize: 11 }}>{favoriteRituals.length} rytuałów</Typography>
               </View>
@@ -1032,10 +1032,10 @@ return (
             <View style={[styles.sectionDivider, { backgroundColor: divColor, marginHorizontal: layout.padding.screen }]} />
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: layout.padding.screen, marginBottom: 12 }}>
               <Typography variant="premiumLabel" color={ACCENT} style={[styles.gridLabel, { marginTop: 0, marginBottom: 0 }]}>
-                🌟 KATEGORIE RYTUAŁÓW
+                {t('rituals.kategorie_rytualow', '🌟 KATEGORIE RYTUAŁÓW')}
               </Typography>
               <Pressable onPress={() => navigation?.navigate('RitualCategorySelection', {})} style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Typography variant="microLabel" color={subColor} style={{ marginRight: 4, fontSize: 11 }}>Przeglądaj wszystkie</Typography>
+                <Typography variant="microLabel" color={subColor} style={{ marginRight: 4, fontSize: 11 }}>{t('rituals.przegladaj_wszystkie', 'Przeglądaj wszystkie')}</Typography>
                 <ArrowRight color={subColor} size={12} />
               </Pressable>
             </View>
@@ -1069,7 +1069,7 @@ return (
           <Animated.View entering={FadeInDown.delay(460).duration(500)}>
             <View style={[styles.sectionDivider, { backgroundColor: divColor, marginHorizontal: layout.padding.screen }]} />
             <Typography variant="premiumLabel" color={ACCENT} style={[styles.gridLabel, { paddingHorizontal: layout.padding.screen }]}>
-              🎵 PRZEWODNIKI I NARZĘDZIA
+              {t('rituals.przewodnik_i_narzedzia', '🎵 PRZEWODNIKI I NARZĘDZIA')}
             </Typography>
             {[
               { label: '🌊 Kąpiel dźwiękowa', desc: 'Fale dźwięku, które przenikają ciało głębiej niż myśl — uzdrawiają przez rezonans.', icon: Waves, color: '#60A5FA', route: 'SoundBath' },
@@ -1108,7 +1108,7 @@ return (
           <Animated.View entering={FadeInDown.delay(560).duration(480)}>
             <View style={[styles.sectionDivider, { backgroundColor: divColor, marginHorizontal: layout.padding.screen }]} />
             <Typography variant="premiumLabel" color={ACCENT} style={[styles.gridLabel, { paddingHorizontal: layout.padding.screen }]}>
-              🔄 OSTATNIO PRAKTYKOWANE
+              {t('rituals.ostatnio_praktykowa', '🔄 OSTATNIO PRAKTYKOWANE')}
             </Typography>
             {recentRituals.map((ritual, idx, arr) => {
               const meta = CATEGORY_TILES.find(c => c.id === ritual.category);
@@ -1149,7 +1149,7 @@ return (
             <View style={[styles.sectionDivider, { backgroundColor: divColor, marginHorizontal: layout.padding.screen }]} />
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16, paddingHorizontal: layout.padding.screen }}>
               <View style={{ flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: divColor }} />
-              <Typography variant="microLabel" color="#F59E0B" style={{ marginHorizontal: 12, letterSpacing: 2 }}>🏆 FAVORYTKI SPOŁECZNOŚCI</Typography>
+              <Typography variant="microLabel" color="#F59E0B" style={{ marginHorizontal: 12, letterSpacing: 2 }}>{t('rituals.favorytki_spolecznos', '🏆 FAVORYTKI SPOŁECZNOŚCI')}</Typography>
               <View style={{ flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: divColor }} />
             </View>
             <View style={{ paddingHorizontal: layout.padding.screen, gap: 12 }}>
@@ -1199,7 +1199,7 @@ return (
                           <Typography variant="caption" style={{ color: subColor, fontSize: 11 }}>{item.completions.toLocaleString()} praktyk</Typography>
                         </View>
                         <View style={[styles.cfStartBtn, { backgroundColor: item.color }]}>
-                          <Typography variant="microLabel" style={{ color: '#FFF', letterSpacing: 1, fontSize: 10 }}>ZACZNIJ</Typography>
+                          <Typography variant="microLabel" style={{ color: '#FFF', letterSpacing: 1, fontSize: 10 }}>{t('rituals.zacznij', 'ZACZNIJ')}</Typography>
                         </View>
                       </View>
                     </Pressable>
@@ -1214,7 +1214,7 @@ return (
             <View style={[styles.sectionDivider, { backgroundColor: divColor, marginHorizontal: layout.padding.screen }]} />
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16, paddingHorizontal: layout.padding.screen }}>
               <View style={{ flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: divColor }} />
-              <Typography variant="microLabel" color="#A78BFA" style={{ marginHorizontal: 12, letterSpacing: 2 }}>📅 PLAN TYGODNIA</Typography>
+              <Typography variant="microLabel" color="#A78BFA" style={{ marginHorizontal: 12, letterSpacing: 2 }}>{t('rituals.plan_tygodnia', '📅 PLAN TYGODNIA')}</Typography>
               <View style={{ flex: 1, height: StyleSheet.hairlineWidth, backgroundColor: divColor }} />
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: layout.padding.screen, gap: 10, paddingBottom: 4 }}>
@@ -1268,7 +1268,7 @@ return (
           <Animated.View entering={FadeInDown.delay(620).duration(500)}>
             <View style={[styles.sectionDivider, { backgroundColor: divColor, marginHorizontal: layout.padding.screen }]} />
             <Typography variant="premiumLabel" color={ACCENT} style={[styles.gridLabel, { paddingHorizontal: layout.padding.screen }]}>
-              ✦ CO DALEJ?
+              {t('rituals.co_dalej_1', '✦ CO DALEJ?')}
             </Typography>
             {[
               { label: '🌬️ Ćwiczenia oddechowe', sub: 'Synchronizuj ciało z rytmem rytuału przez świadomy oddech.', icon: Wind, color: '#86EFAC', route: 'Breathwork' },
@@ -1303,7 +1303,7 @@ return (
           </Animated.View>
 
                     <View style={{ marginHorizontal: layout.padding.screen, marginTop: 8, marginBottom: 8, borderRadius: 16, backgroundColor: "#CEAE7222", borderWidth: 1, borderColor: "#CEAE72", padding: 16 }}>
-            <Text style={{ color: "#CEAE72", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>AI INSPIRACJA RYTUALOWA</Text>
+            <Text style={{ color: "#CEAE72", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>{t('rituals.ai_inspiracja_rytualowa', 'AI INSPIRACJA RYTUALOWA')}</Text>
             {ritualsAiInsight ? (
               <Text style={{ color: isLight ? '#1A1208' : '#F0EBE2', fontSize: 14, lineHeight: 22 }}>{ritualsAiInsight}</Text>
             ) : null}

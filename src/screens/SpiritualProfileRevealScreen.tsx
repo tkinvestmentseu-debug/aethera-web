@@ -13,6 +13,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useAppStore } from '../store/useAppStore';
 import { useTheme } from '../core/hooks/useTheme';
+import { useTranslation } from 'react-i18next';
 import {
   calcZodiacSign, calcLifePath, calcAscendant, calcChineseZodiac,
 } from '../core/utils/astroCalculations';
@@ -116,7 +117,7 @@ const RevealCard = React.memo(({
       ) : null}
       {challenge != null ? (
         <View style={[s.challengeBox, { backgroundColor: colors[0] + '12', borderColor: colors[0] + '30' }]}>
-          <Text style={[s.challengeLabel, { color: colors[0] }]}>⚡ WYZWANIE DUSZY</Text>
+          <Text style={[s.challengeLabel, { color: colors[0] }]}>{t('spiritualReveal.wyzwanie_duszy', '⚡ WYZWANIE DUSZY')}</Text>
           <Text style={s.challengeText}>{challenge}</Text>
         </View>
       ) : null}
@@ -126,6 +127,7 @@ const RevealCard = React.memo(({
 
 // ─── Main screen ───────────────────────────────────────────────────────────────
 export const SpiritualProfileRevealScreen = ({ navigation }) => {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const userData = useAppStore(s => s.userData);
   const setUserData = useAppStore(s => s.setUserData);
@@ -240,7 +242,7 @@ export const SpiritualProfileRevealScreen = ({ navigation }) => {
           <Animated.View style={[s.header, headerStyle]}>
             <View style={s.eyebrowRow}>
               <View style={s.eyebrowLine} />
-              <Text style={s.eyebrow}>✦  TWÓJ KOSMICZNY PORTRET  ✦</Text>
+              <Text style={s.eyebrow}>{t('spiritualReveal.twoj_kosmiczny_portret', '✦  TWÓJ KOSMICZNY PORTRET  ✦')}</Text>
               <View style={s.eyebrowLine} />
             </View>
             <Text style={s.headerTitle}>
@@ -301,7 +303,7 @@ export const SpiritualProfileRevealScreen = ({ navigation }) => {
               badge="ASCENDENT · MASKA"
               emoji={asc.emoji}
               title={asc.sign}
-              subtitle="Jak świat Cię postrzega"
+              subtitle={t('spiritualReveal.jak_swiat_cie_postrzega', 'Jak świat Cię postrzega')}
               description={`Ascendent w ${asc.sign} nadaje Ci aurę ${
                 asc.element === 'Ogień'     ? 'energii i pewności siebie' :
                 asc.element === 'Ziemia'    ? 'spokoju i wiarygodności' :
@@ -318,7 +320,7 @@ export const SpiritualProfileRevealScreen = ({ navigation }) => {
             <View style={s.progressTrack}>
               <Animated.View style={[s.progressFill, progressStyle]} />
             </View>
-            <Text style={s.progressHint}>Automatyczne wejście za chwilę…</Text>
+            <Text style={s.progressHint}>{t('spiritualReveal.automatycz_wejscie_za_chwile', 'Automatyczne wejście za chwilę…')}</Text>
 
             <Animated.View style={ctaStyle}>
               <Pressable onPress={handleEnter} style={s.ctaBtn}>
@@ -328,14 +330,14 @@ export const SpiritualProfileRevealScreen = ({ navigation }) => {
                   style={s.ctaBtnInner}
                 >
                   <Text style={s.ctaEmoji}>✦</Text>
-                  <Text style={s.ctaText}>Wejdź do Aethery</Text>
+                  <Text style={s.ctaText}>{t('spiritualReveal.wejdz_do_aethery', 'Wejdź do Aethery')}</Text>
                   <Text style={s.ctaArrow}>→</Text>
                 </LinearGradient>
               </Pressable>
             </Animated.View>
 
             <Text style={s.ctaHint}>
-              Twój profil jest bezpieczny. Zawsze możesz go edytować w ustawieniach.
+              {t('spiritualReveal.twoj_profil_jest_bezpieczny_zawsze', 'Twój profil jest bezpieczny. Zawsze możesz go edytować w ustawieniach.')}
             </Text>
           </Animated.View>
 

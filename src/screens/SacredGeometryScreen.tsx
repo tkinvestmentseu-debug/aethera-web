@@ -780,8 +780,8 @@ export default function SacredGeometryScreen({ navigation }: any) {
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={{ flex: 1, alignItems: 'center' }}>
-          <Typography variant="label" style={{ color: subColor, letterSpacing: 2, fontSize: 10 }}>WZORCE KOSMICZNE</Typography>
-          <Typography variant="h3" style={{ color: textColor, fontWeight: '700', marginTop: 1 }}>Święta Geometria</Typography>
+          <Typography variant="label" style={{ color: subColor, letterSpacing: 2, fontSize: 10 }}>{t('sacredGeometry.wzorce_kosmiczne', 'WZORCE KOSMICZNE')}</Typography>
+          <Typography variant="h3" style={{ color: textColor, fontWeight: '700', marginTop: 1 }}>{t('sacredGeometry.swieta_geometria', 'Święta Geometria')}</Typography>
         </View>
         <Pressable onPress={toggleFav} style={styles.headerBtn} hitSlop={8}>
           <Star size={20} color={accent} fill={isFav ? accent : 'none'} />
@@ -804,7 +804,7 @@ export default function SacredGeometryScreen({ navigation }: any) {
 
         {/* ── SECTION 1: Pattern Selector ─────────────────── */}
         <Animated.View entering={FadeInDown.delay(80).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>WYBIERZ WZORZEC</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('sacredGeometry.wybierz_wzorzec', 'WYBIERZ WZORZEC')}</Typography>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 4 }}>
             <View style={{ flexDirection: 'row', gap: 8, paddingRight: 8 }}>
               {PATTERNS.map((p) => (
@@ -841,7 +841,7 @@ export default function SacredGeometryScreen({ navigation }: any) {
 
         {/* ── SECTION 3: Pattern Meaning ─────────────────────── */}
         <Animated.View entering={FadeInDown.delay(200).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>ZNACZENIE I SYMBOLIKA</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('sacredGeometry.znaczenie_i_symbolika', 'ZNACZENIE I SYMBOLIKA')}</Typography>
           <LinearGradient
             colors={isLight ? [selectedPattern.color + '10', selectedPattern.color + '05'] : [selectedPattern.color + '12', selectedPattern.color + '04']}
             style={[styles.card, { borderColor: selectedPattern.color + '40', borderWidth: 1 }]}
@@ -863,18 +863,18 @@ export default function SacredGeometryScreen({ navigation }: any) {
 
         {/* ── SECTION 4: Geometry Meditation ────────────────── */}
         <Animated.View entering={FadeInDown.delay(260).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>MEDYTACJA Z WZORCEM</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('sacredGeometry.medytacja_z_wzorcem', 'MEDYTACJA Z WZORCEM')}</Typography>
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 }}>
               <Eye size={16} color={selectedPattern.color} />
-              <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>Wizualizacja przewodnia</Typography>
+              <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>{t('sacredGeometry.wizualizac_przewodnia', 'Wizualizacja przewodnia')}</Typography>
             </View>
             <Typography variant="body" style={{ color: subColor, fontStyle: 'italic', lineHeight: 22, marginBottom: 14 }}>
               "{selectedPattern.meditation}"
             </Typography>
 
             {/* Duration chips */}
-            <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 1.5, fontSize: 9, marginBottom: 8 }}>CZAS MEDYTACJI</Typography>
+            <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 1.5, fontSize: 9, marginBottom: 8 }}>{t('sacredGeometry.czas_medytacji', 'CZAS MEDYTACJI')}</Typography>
             <View style={{ flexDirection: 'row', gap: 8, marginBottom: 14 }}>
               {[3, 5, 7, 10].map(m => (
                 <Pressable
@@ -912,7 +912,7 @@ export default function SacredGeometryScreen({ navigation }: any) {
               onPress={() => { setGuideExpanded(p => !p); HapticsService.notify(); }}
               style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 14, paddingTop: 12, borderTopWidth: 1, borderTopColor: cardBorder }}
             >
-              <Typography variant="label" style={{ color: selectedPattern.color, fontWeight: '700' }}>Kroki medytacji</Typography>
+              <Typography variant="label" style={{ color: selectedPattern.color, fontWeight: '700' }}>{t('sacredGeometry.kroki_medytacji', 'Kroki medytacji')}</Typography>
               {guideExpanded ? <ChevronUp size={18} color={selectedPattern.color} /> : <ChevronDown size={18} color={selectedPattern.color} />}
             </Pressable>
 
@@ -933,7 +933,7 @@ export default function SacredGeometryScreen({ navigation }: any) {
 
         {/* ── SECTION 5: Daily Pattern ──────────────────────── */}
         <Animated.View entering={FadeInDown.delay(320).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>WZORZEC DNIA</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('sacredGeometry.wzorzec_dnia', 'WZORZEC DNIA')}</Typography>
           <LinearGradient
             colors={isLight
               ? [dailyPattern.color + '18', dailyPattern.color + '08']
@@ -957,7 +957,7 @@ export default function SacredGeometryScreen({ navigation }: any) {
               onPress={() => { setSelectedId(dailyPatternId); HapticsService.notify(); }}
               style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: 4, marginTop: 10 }}
             >
-              <Typography variant="caption" style={{ color: dailyPattern.color, fontWeight: '700' }}>Zbadaj wzorzec</Typography>
+              <Typography variant="caption" style={{ color: dailyPattern.color, fontWeight: '700' }}>{t('sacredGeometry.zbadaj_wzorzec', 'Zbadaj wzorzec')}</Typography>
               <ArrowRight size={14} color={dailyPattern.color} />
             </Pressable>
           </LinearGradient>
@@ -965,7 +965,7 @@ export default function SacredGeometryScreen({ navigation }: any) {
 
         {/* ── SECTION 6: Number Significance ───────────────── */}
         <Animated.View entering={FadeInDown.delay(380).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>ZNACZENIE LICZB</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('sacredGeometry.znaczenie_liczb', 'ZNACZENIE LICZB')}</Typography>
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
               {selectedPattern.numbers.map((n, i) => (
@@ -986,14 +986,14 @@ export default function SacredGeometryScreen({ navigation }: any) {
 
         {/* ── SECTION 7: Drawing Practice ───────────────────── */}
         <Animated.View entering={FadeInDown.delay(440).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>PRAKTYKA RYSOWANIA</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('sacredGeometry.praktyka_rysowania', 'PRAKTYKA RYSOWANIA')}</Typography>
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
               <Target size={16} color={selectedPattern.color} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>Jak narysować {selectedPattern.name}</Typography>
             </View>
             <Typography variant="caption" style={{ color: subColor, marginBottom: 12, lineHeight: 18 }}>
-              Ręczne rysowanie wzorca aktywuje wiedzę geometryczną w Twoim ciele. Zaznaczaj kroki po kolei.
+              {t('sacredGeometry.reczne_rysowanie_wzorca_aktywuje_wi', 'Ręczne rysowanie wzorca aktywuje wiedzę geometryczną w Twoim ciele. Zaznaczaj kroki po kolei.')}
             </Typography>
 
             <Pressable
@@ -1042,7 +1042,7 @@ export default function SacredGeometryScreen({ navigation }: any) {
 
         {/* ── SECTION 8: Oracle AI ──────────────────────────── */}
         <Animated.View entering={FadeInDown.delay(500).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>WYROCZNIA GEOMETRII</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('sacredGeometry.wyrocznia_geometrii', 'WYROCZNIA GEOMETRII')}</Typography>
           <LinearGradient
             colors={isLight
               ? [accent + '10', accent + '04']
@@ -1052,7 +1052,7 @@ export default function SacredGeometryScreen({ navigation }: any) {
           >
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
               <Sparkles size={16} color={accent} />
-              <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>Zapytaj o wzorzec</Typography>
+              <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>{t('sacredGeometry.zapytaj_o_wzorzec', 'Zapytaj o wzorzec')}</Typography>
             </View>
 
             {/* Quick prompts */}
@@ -1091,7 +1091,7 @@ export default function SacredGeometryScreen({ navigation }: any) {
 
             {!!oracleResponse && (
               <Animated.View entering={FadeInDown.springify()} style={{ marginTop: 14, padding: 14, borderRadius: 12, backgroundColor: accent + '12', borderWidth: 1, borderColor: accent + '33' }}>
-                <Typography variant="caption" style={{ color: accent, letterSpacing: 1.5, fontSize: 9, marginBottom: 6 }}>ODPOWIEDŹ WYROCZNI</Typography>
+                <Typography variant="caption" style={{ color: accent, letterSpacing: 1.5, fontSize: 9, marginBottom: 6 }}>{t('sacredGeometry.odpowiedz_wyroczni', 'ODPOWIEDŹ WYROCZNI')}</Typography>
                 <Typography variant="body" style={{ color: textColor, lineHeight: 24, fontStyle: 'italic' }}>{oracleResponse}</Typography>
               </Animated.View>
             )}

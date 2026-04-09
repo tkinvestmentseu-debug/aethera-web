@@ -217,7 +217,7 @@ const EnergyLineChart = ({ data, color, isLight }: { data: ChartPoint[]; color: 
   const W = SW - 88, H = 120;
   if (data.length < 2) return (
     <View style={{ height: H, alignItems: 'center', justifyContent: 'center' }}>
-      <Text style={{ color: isLight ? '#6A5A48' : '#9A8E80', fontSize: 12 }}>Za mało danych — loguj energię przez kilka dni</Text>
+      <Text style={{ color: isLight ? '#6A5A48' : '#9A8E80', fontSize: 12 }}>{t('energyJournal.za_malo_danych_loguj_energie', 'Za mało danych — loguj energię przez kilka dni')}</Text>
     </View>
   );
 
@@ -508,8 +508,8 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
             <ChevronLeft color={accent} size={28} strokeWidth={1.5} />
           </Pressable>
           <View style={s.headerCenter}>
-            <Text style={[s.eyebrow, { color: accent }]}>⚡ DZIENNIK ENERGII</Text>
-            <Text style={[s.title, { color: textColor }]}>Rytm ciała i pola</Text>
+            <Text style={[s.eyebrow, { color: accent }]}>{t('energyJournal.dziennik_energii', '⚡ DZIENNIK ENERGII')}</Text>
+            <Text style={[s.title, { color: textColor }]}>{t('energyJournal.rytm_ciala_i_pola', 'Rytm ciała i pola')}</Text>
           </View>
           <Pressable onPress={handleStar} style={s.starBtn} hitSlop={14}>
             <Star color={accent} size={20} strokeWidth={1.5} fill={isFav ? accent : 'transparent'} />
@@ -529,7 +529,7 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
             <Animated.View entering={FadeInDown.duration(500)}>
               <View style={[s.card, { backgroundColor: cardBg, borderColor: orbColor + '33', alignItems: 'center' }]}>
                 <LinearGradient colors={[orbColor + '14', 'transparent']} style={StyleSheet.absoluteFill} />
-                <Text style={[s.cardEyebrow, { color: orbColor, alignSelf: 'flex-start' }]}>✦ TWOJA ENERGIA TERAZ</Text>
+                <Text style={[s.cardEyebrow, { color: orbColor, alignSelf: 'flex-start' }]}>{t('energyJournal.twoja_energia_teraz', '✦ TWOJA ENERGIA TERAZ')}</Text>
                 <EnergyOrb level={todayEnergy || averageEnergy} isLight={isLight} />
                 <Text style={[s.orbSubline, { color: subColor }]}>
                   {todayEnergy > 0
@@ -562,9 +562,9 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
             ════════════════════════════════════════════════════════════════ */}
             <Animated.View entering={FadeInDown.delay(80).duration(500)}>
               <View style={[s.card, { backgroundColor: cardBg, borderColor }]}>
-                <Text style={[s.cardEyebrow, { color: accent }]}>🌿 SZYBKI CHECK-IN</Text>
-                <Text style={[s.cardTitle, { color: textColor }]}>Jak teraz?</Text>
-                <Text style={[s.cardBody, { color: subColor }]}>Dotknij segment 1–10, żeby zalogować swój poziom energii.</Text>
+                <Text style={[s.cardEyebrow, { color: accent }]}>{t('energyJournal.szybki_check_in', '🌿 SZYBKI CHECK-IN')}</Text>
+                <Text style={[s.cardTitle, { color: textColor }]}>{t('energyJournal.jak_teraz', 'Jak teraz?')}</Text>
+                <Text style={[s.cardBody, { color: subColor }]}>{t('energyJournal.dotknij_segment_1_10_zeby', 'Dotknij segment 1–10, żeby zalogować swój poziom energii.')}</Text>
 
                 <View style={s.scaleRow}>
                   {Array.from({ length: 10 }, (_, i) => {
@@ -583,11 +583,11 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
                   })}
                 </View>
                 <View style={s.scaleHintRow}>
-                  <Text style={[s.scaleHint, { color: subColor }]}>Niska</Text>
-                  <Text style={[s.scaleHint, { color: subColor }]}>Transcendentna</Text>
+                  <Text style={[s.scaleHint, { color: subColor }]}>{t('energyJournal.niska', 'Niska')}</Text>
+                  <Text style={[s.scaleHint, { color: subColor }]}>{t('energyJournal.transcende', 'Transcendentna')}</Text>
                 </View>
 
-                <Text style={[s.microLabel, { color: accent }]}>Nastrój</Text>
+                <Text style={[s.microLabel, { color: accent }]}>{t('energyJournal.nastroj', 'Nastrój')}</Text>
                 <View style={s.moodGrid}>
                   {MOOD_OPTIONS.map(option => {
                     const active = todayProgress.mood === option.id;
@@ -611,9 +611,9 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
             ════════════════════════════════════════════════════════════════ */}
             <Animated.View entering={FadeInDown.delay(140).duration(520)}>
               <View style={[s.card, { backgroundColor: cardBg, borderColor }]}>
-                <Text style={[s.cardEyebrow, { color: accent }]}>🔷 PROFIL ENERGETYCZNY DNIA</Text>
-                <Text style={[s.cardTitle, { color: textColor }]}>6 wymiarów energii</Text>
-                <Text style={[s.cardBody, { color: subColor }]}>Oceń każdy wymiar od 1 do 5 — radar aktualizuje się na żywo.</Text>
+                <Text style={[s.cardEyebrow, { color: accent }]}>{t('energyJournal.profil_energetycz_dnia', '🔷 PROFIL ENERGETYCZNY DNIA')}</Text>
+                <Text style={[s.cardTitle, { color: textColor }]}>{t('energyJournal.6_wymiarow_energii', '6 wymiarów energii')}</Text>
+                <Text style={[s.cardBody, { color: subColor }]}>{t('energyJournal.ocen_kazdy_wymiar_od_1', 'Oceń każdy wymiar od 1 do 5 — radar aktualizuje się na żywo.')}</Text>
 
                 <EnergyRadar scores={dimensions} accent={accent} subColor={subColor} />
 
@@ -647,15 +647,15 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
             ════════════════════════════════════════════════════════════════ */}
             <Animated.View entering={FadeInDown.delay(200).duration(520)}>
               <View style={[s.card, { backgroundColor: cardBg, borderColor }]}>
-                <Text style={[s.cardEyebrow, { color: accent }]}>📝 WPIS ENERGETYCZNY</Text>
-                <Text style={[s.cardTitle, { color: textColor }]}>Obserwacje dnia</Text>
+                <Text style={[s.cardEyebrow, { color: accent }]}>{t('energyJournal.wpis_energetycz', '📝 WPIS ENERGETYCZNY')}</Text>
+                <Text style={[s.cardTitle, { color: textColor }]}>{t('energyJournal.obserwacje_dnia', 'Obserwacje dnia')}</Text>
                 <Text style={[s.cardBody, { color: subColor }]}>
                   {(() => { const _d = new Date(); const DN = ['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota']; const MN = ['Stycznia','Lutego','Marca','Kwietnia','Maja','Czerwca','Lipca','Sierpnia','Września','Października','Listopada','Grudnia']; return `${DN[_d.getDay()]}, ${_d.getDate()} ${MN[_d.getMonth()]} ${_d.getFullYear()}`; })()}
                 </Text>
                 <TextInput
                   value={journalText}
                   onChangeText={setJournalText}
-                  placeholder="Co czuję w ciele i polu energetycznym? Co mnie dziś wzmocniło lub osłabiło? Co zaobserwowałem/am o swoim rytmie?"
+                  placeholder={t('energyJournal.co_czuje_w_ciele_i', 'Co czuję w ciele i polu energetycznym? Co mnie dziś wzmocniło lub osłabiło? Co zaobserwowałem/am o swoim rytmie?')}
                   placeholderTextColor={subColor}
                   multiline
                   returnKeyType="done"
@@ -684,8 +684,8 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
               <View style={[s.card, { backgroundColor: cardBg, borderColor }]}>
                 <View style={s.chartHeading}>
                   <View>
-                    <Text style={[s.cardEyebrow, { color: accent }]}>📈 MAPA 7 DNI</Text>
-                    <Text style={[s.cardTitle, { color: textColor }]}>Trend energetyczny</Text>
+                    <Text style={[s.cardEyebrow, { color: accent }]}>{t('energyJournal.mapa_7_dni', '📈 MAPA 7 DNI')}</Text>
+                    <Text style={[s.cardTitle, { color: textColor }]}>{t('energyJournal.trend_energetycz', 'Trend energetyczny')}</Text>
                   </View>
                   <View style={[s.deltaPill, { backgroundColor: trendDelta >= 0 ? '#34D39918' : '#E8705A18', borderColor: trendDelta >= 0 ? '#34D39944' : '#E8705A44' }]}>
                     <TrendingUp color={trendDelta >= 0 ? '#34D399' : '#E8705A'} size={13} strokeWidth={1.8} />
@@ -716,9 +716,9 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
             ════════════════════════════════════════════════════════════════ */}
             <Animated.View entering={FadeInDown.delay(320).duration(520)}>
               <View style={[s.card, { backgroundColor: cardBg, borderColor }]}>
-                <Text style={[s.cardEyebrow, { color: accent }]}>🧩 CO KSZTAŁTUJE ENERGIĘ</Text>
-                <Text style={[s.cardTitle, { color: textColor }]}>Czynniki dziś</Text>
-                <Text style={[s.cardBody, { color: subColor }]}>Zaznacz, co wpłynęło na Twoje pole energetyczne.</Text>
+                <Text style={[s.cardEyebrow, { color: accent }]}>{t('energyJournal.co_ksztaltuje_energie', '🧩 CO KSZTAŁTUJE ENERGIĘ')}</Text>
+                <Text style={[s.cardTitle, { color: textColor }]}>{t('energyJournal.czynniki_dzis', 'Czynniki dziś')}</Text>
+                <Text style={[s.cardBody, { color: subColor }]}>{t('energyJournal.zaznacz_co_wplynelo_na_twoje', 'Zaznacz, co wpłynęło na Twoje pole energetyczne.')}</Text>
                 {INFLUENCERS.map(inf => (
                   <View key={inf.key} style={s.influencerRow}>
                     <Text style={[s.influencerLabel, { color: subColor }]}>{inf.label}</Text>
@@ -747,7 +747,7 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
             <Animated.View entering={FadeInDown.delay(380).duration(540)}>
               <View style={[s.card, { backgroundColor: dominantChakra.color + '0E', borderColor: dominantChakra.color + '30', overflow: 'hidden' }]}>
                 <LinearGradient colors={[dominantChakra.color + '16', 'transparent']} style={StyleSheet.absoluteFill} />
-                <Text style={[s.cardEyebrow, { color: dominantChakra.color }]}>🌀 REZONANS CZAKRY DNIA</Text>
+                <Text style={[s.cardEyebrow, { color: dominantChakra.color }]}>{t('energyJournal.rezonans_czakry_dnia', '🌀 REZONANS CZAKRY DNIA')}</Text>
                 <Text style={[s.cardTitle, { color: textColor }]}>Dominujący wymiar: {DIMENSIONS.find(d => d.key === dominantDimKey)?.label}</Text>
                 <View style={s.chakraHero}>
                   <View style={[s.chakraCircle, { borderColor: dominantChakra.color }]}>
@@ -755,7 +755,7 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
                   </View>
                   <View style={{ flex: 1, gap: 4 }}>
                     <Text style={[s.chakraHeroName, { color: dominantChakra.color }]}>{dominantChakra.name}</Text>
-                    <Text style={[s.cardBody, { color: subColor, marginTop: 0 }]}>Aktywna czakra</Text>
+                    <Text style={[s.cardBody, { color: subColor, marginTop: 0 }]}>{t('energyJournal.aktywna_czakra', 'Aktywna czakra')}</Text>
                   </View>
                 </View>
                 <View style={[s.practiceBanner, { backgroundColor: dominantChakra.color + '14', borderColor: dominantChakra.color + '33' }]}>
@@ -763,7 +763,7 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
                   <Text style={[s.practiceText, { color: textColor }]}>{dominantChakra.practice}</Text>
                 </View>
                 {/* All 7 chakra balance bars */}
-                <Text style={[s.microLabel, { color: subColor }]}>BALANS CZAKR</Text>
+                <Text style={[s.microLabel, { color: subColor }]}>{t('energyJournal.balans_czakr', 'BALANS CZAKR')}</Text>
                 {([
                   { name: 'Sahasrara',    color: '#A78BFA', dim: 'duchowa'    },
                   { name: 'Ajna',         color: '#818CF8', dim: 'mentalna'   },
@@ -793,10 +793,10 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
             <Animated.View entering={FadeInDown.delay(440).duration(540)}>
               <View style={[s.card, { backgroundColor: cardBg, borderColor: accent + '33', overflow: 'hidden' }]}>
                 <LinearGradient colors={[accent + '12', 'transparent']} style={StyleSheet.absoluteFill} />
-                <Text style={[s.cardEyebrow, { color: accent }]}>🤖 ANALIZA ENERGII — ORACLE</Text>
-                <Text style={[s.cardTitle, { color: textColor }]}>Głębszy odczyt</Text>
+                <Text style={[s.cardEyebrow, { color: accent }]}>{t('energyJournal.analiza_energii_oracle', '🤖 ANALIZA ENERGII — ORACLE')}</Text>
+                <Text style={[s.cardTitle, { color: textColor }]}>{t('energyJournal.glebszy_odczyt', 'Głębszy odczyt')}</Text>
                 <Text style={[s.cardBody, { color: subColor }]}>
-                  Oracle przeanalizuje Twoje dane z 7 dni, wymiary energii i czynniki dnia — i da Ci spersonalizowany wgląd.
+                  {t('energyJournal.oracle_przeanaliz_twoje_dane_z', 'Oracle przeanalizuje Twoje dane z 7 dni, wymiary energii i czynniki dnia — i da Ci spersonalizowany wgląd.')}
                 </Text>
                 {!showAiInsight && (
                   <Pressable
@@ -804,7 +804,7 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
                     style={[s.aiBtn, { backgroundColor: accent + '1A', borderColor: accent + '44' }]}
                   >
                     <Sparkles color={accent} size={17} strokeWidth={1.8} />
-                    <Text style={[s.aiBtnText, { color: accent }]}>Analizuj Energię</Text>
+                    <Text style={[s.aiBtnText, { color: accent }]}>{t('energyJournal.analizuj_energie', 'Analizuj Energię')}</Text>
                     <ArrowRight color={accent} size={15} strokeWidth={1.5} />
                   </Pressable>
                 )}
@@ -813,14 +813,14 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
                     {aiLoading ? (
                       <View style={s.aiLoadingRow}>
                         <RefreshCw color={accent} size={16} strokeWidth={1.8} />
-                        <Text style={[s.aiLoadingText, { color: subColor }]}>Oracle analizuje Twój wzorzec energetyczny…</Text>
+                        <Text style={[s.aiLoadingText, { color: subColor }]}>{t('energyJournal.oracle_analizuje_twoj_wzorzec_energ', 'Oracle analizuje Twój wzorzec energetyczny…')}</Text>
                       </View>
                     ) : (
                       <>
                         <Text style={[s.aiResponseText, { color: textColor }]}>{aiInsight}</Text>
                         <Pressable onPress={analyzeEnergy} style={[s.reanalyzeBtn, { borderColor: accent + '33' }]}>
                           <RefreshCw color={accent} size={13} strokeWidth={1.8} />
-                          <Text style={[s.reanalyzeBtnText, { color: accent }]}>Odśwież analizę</Text>
+                          <Text style={[s.reanalyzeBtnText, { color: accent }]}>{t('energyJournal.odswiez_analize', 'Odśwież analizę')}</Text>
                         </Pressable>
                       </>
                     )}
@@ -834,7 +834,7 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
             ════════════════════════════════════════════════════════════════ */}
             <Animated.View entering={FadeInDown.delay(480).duration(540)}>
               <View style={[s.card, { backgroundColor: cardBg, borderColor: '#A78BFA33' }]}>
-                <Text style={[s.cardEyebrow, { color: '#A78BFA' }]}>🌙 KORELACJA Z KSIĘŻYCEM</Text>
+                <Text style={[s.cardEyebrow, { color: '#A78BFA' }]}>{t('energyJournal.korelacja_z_ksiezycem', '🌙 KORELACJA Z KSIĘŻYCEM')}</Text>
                 <View style={s.moonRow}>
                   <Text style={s.moonEmoji}>{moonPhaseInfo.phaseEmoji}</Text>
                   <View style={{ flex: 1 }}>
@@ -851,7 +851,7 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
             <Animated.View entering={FadeInDown.delay(500).duration(540)}>
               <View style={[s.card, { backgroundColor: personalizedTip.color + '10', borderColor: personalizedTip.color + '30', overflow: 'hidden' }]}>
                 <LinearGradient colors={[personalizedTip.color + '1E', 'transparent']} style={StyleSheet.absoluteFill} />
-                <Text style={[s.cardEyebrow, { color: personalizedTip.color }]}>✨ TRYB ENERGETYCZNY</Text>
+                <Text style={[s.cardEyebrow, { color: personalizedTip.color }]}>{t('energyJournal.tryb_energetycz', '✨ TRYB ENERGETYCZNY')}</Text>
                 <Text style={[s.panelValue, { color: personalizedTip.color }]}>{personalizedTip.level}</Text>
                 <Text style={[s.cardBody, { color: textColor }]}>{personalizedTip.desc}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 12 }}>
@@ -868,8 +868,8 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
               <View style={[s.card, { backgroundColor: cardBg, borderColor }]}>
                 <Pressable onPress={() => setShowHistory(h => !h)} style={s.historyHeader}>
                   <View>
-                    <Text style={[s.cardEyebrow, { color: accent }]}>📋 HISTORIA ENERGII</Text>
-                    <Text style={[s.cardTitle, { color: textColor }]}>Ostatnie 14 dni</Text>
+                    <Text style={[s.cardEyebrow, { color: accent }]}>{t('energyJournal.historia_energii', '📋 HISTORIA ENERGII')}</Text>
+                    <Text style={[s.cardTitle, { color: textColor }]}>{t('energyJournal.ostatnie_14_dni', 'Ostatnie 14 dni')}</Text>
                   </View>
                   {showHistory
                     ? <ChevronUp   color={subColor} size={18} strokeWidth={1.5} />
@@ -878,7 +878,7 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
                 {showHistory && (
                   <View style={{ marginTop: 12, gap: 8 }}>
                     {historyEntries.length === 0 ? (
-                      <Text style={[s.cardBody, { color: subColor }]}>Zaloguj kilka wpisów, żeby zobaczyć historię.</Text>
+                      <Text style={[s.cardBody, { color: subColor }]}>{t('energyJournal.zaloguj_kilka_wpisow_zeby_zobaczyc', 'Zaloguj kilka wpisów, żeby zobaczyć historię.')}</Text>
                     ) : historyEntries.map(entry => {
                       const lvl      = entry.progress.energyLevel ?? 0;
                       const col      = getEnergyColor(lvl || 50);
@@ -915,7 +915,7 @@ Pisz ciepło, konkretnie, bez ogólników. Max 5 zdań.`;
                 CO DALEJ — navigation links
             ════════════════════════════════════════════════════════════════ */}
             <Animated.View entering={FadeInDown.delay(580).duration(560)}>
-              <Text style={[s.cardEyebrow, { color: accent, marginBottom: 8, marginTop: 4 }]}>✦ CO DALEJ?</Text>
+              <Text style={[s.cardEyebrow, { color: accent, marginBottom: 8, marginTop: 4 }]}>{t('energyJournal.co_dalej', '✦ CO DALEJ?')}</Text>
               {([
                 { icon: Wind,       label: 'Oddech i reset',        sub: 'Techniki dla energii i uważności',      color: '#60A5FA', route: 'Breathwork',   params: undefined },
                 { icon: Headphones, label: 'Kąpiel dźwiękowa',      sub: 'Dźwięk regeneruje pole energetyczne',   color: '#A78BFA', route: 'SoundBath',    params: undefined },

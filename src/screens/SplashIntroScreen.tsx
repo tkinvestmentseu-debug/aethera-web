@@ -545,7 +545,7 @@ export const SplashIntroScreen = ({ onDone, navigation }: Props) => {
         {/* ✦ AETHERA */}
         <Animated.View style={logoStyle}>
           <Text style={styles.logoMark}>✦</Text>
-          <Text style={styles.logoText}>AETHERA</Text>
+          <Text style={styles.logoText}>{t('splashIntro.aethera', 'AETHERA')}</Text>
         </Animated.View>
 
         {/* Thin divider line */}
@@ -557,19 +557,19 @@ export const SplashIntroScreen = ({ onDone, navigation }: Props) => {
 
         {/* DuniAI & Oracle */}
         <Animated.View style={subtitleStyle}>
-          <Text style={styles.subtitleText}>DuniAI & Oracle</Text>
+          <Text style={styles.subtitleText}>{t('splashIntro.duniai_oracle', 'DuniAI & Oracle')}</Text>
         </Animated.View>
 
         {/* Tagline */}
         <Animated.View style={taglineStyle}>
-          <Text style={styles.taglineText}>Sanktuarium AI, symboli i rytuału</Text>
+          <Text style={styles.taglineText}>{t('splashIntro.sanktuariu_ai_symboli_i_rytualu', 'Sanktuarium AI, symboli i rytuału')}</Text>
         </Animated.View>
       </View>
 
       {/* Bottom golden progress bar */}
       <Animated.View style={[styles.progressContainer, progressContainerStyle]}>
         <ProgressBar delay={100} duration={2100} />
-        <Text style={styles.progressLabel}>Inicjowanie sfery duchowej…</Text>
+        <Text style={styles.progressLabel}>{t('splashIntro.inicjowani_sfery_duchowej', 'Inicjowanie sfery duchowej…')}</Text>
       </Animated.View>
     </Animated.View>
   );

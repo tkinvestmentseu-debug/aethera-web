@@ -212,8 +212,8 @@ return (
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={{ flex: 1 }}>
-          <Text style={{ color: ACCENT, fontSize: 10, letterSpacing: 2, fontWeight: '700' }}>RYTUAŁ OCHRONNY</Text>
-          <Text style={{ color: textColor, fontSize: 20, fontWeight: '700' }}>Tarcza ochronna</Text>
+          <Text style={{ color: ACCENT, fontSize: 10, letterSpacing: 2, fontWeight: '700' }}>{t('protectionRitual.rytual_ochronny', 'RYTUAŁ OCHRONNY')}</Text>
+          <Text style={{ color: textColor, fontSize: 20, fontWeight: '700' }}>{t('protectionRitual.tarcza_ochronna', 'Tarcza ochronna')}</Text>
         </View>
         <Pressable style={styles.starBtn} hitSlop={12} onPress={() => { HapticsService.impact('light'); if (isFavoriteItem('protection-ritual')) { removeFavoriteItem('protection-ritual'); } else { addFavoriteItem({ id: 'protection-ritual', label: 'Tarcza ochronna', route: 'ProtectionRitual', params: {}, icon: 'Shield', color: ACCENT, addedAt: new Date().toISOString() }); } }}>
           <Star size={18} color={isFavoriteItem('protection-ritual') ? ACCENT : subColor} strokeWidth={1.8} fill={isFavoriteItem('protection-ritual') ? ACCENT : 'none'} />
@@ -231,14 +231,14 @@ return (
             />
             <ShieldWidget isDark={isDark} />
             <Text style={{ color: ACCENT, fontSize: 11, letterSpacing: 2, fontWeight: '700', textAlign: 'center', marginTop: -4, marginBottom: 12 }}>
-              POLE ENERGETYCZNE
+              {t('protectionRitual.pole_energetycz', 'POLE ENERGETYCZNE')}
             </Text>
           </View>
         </Animated.View>
 
         {/* ── Protection type selector ── */}
         <Animated.View entering={FadeInDown.delay(80).duration(400)}>
-          <Text style={styles.sectionLabel(ACCENT)}>TYP OCHRONY</Text>
+          <Text style={styles.sectionLabel(ACCENT)}>{t('protectionRitual.typ_ochrony', 'TYP OCHRONY')}</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingBottom: 4 }}>
             {PROTECTION_TYPES.map(pt => {
               const active = activeType === pt.id;
@@ -290,9 +290,9 @@ return (
 
         {/* ── Ritual steps ── */}
         <Animated.View entering={FadeInDown.delay(140).duration(400)}>
-          <Text style={styles.sectionLabel(ACCENT)}>KROKI RYTUAŁU</Text>
+          <Text style={styles.sectionLabel(ACCENT)}>{t('protectionRitual.kroki_rytualu', 'KROKI RYTUAŁU')}</Text>
           <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 12 }}>
-            5-minutowy rytuał budowania tarczy. Wykonuj rano lub gdy czujesz się narażony/a.
+            {t('protectionRitual.5_minutowy_rytual_budowania_tarczy', '5-minutowy rytuał budowania tarczy. Wykonuj rano lub gdy czujesz się narażony/a.')}
           </Text>
           {RITUAL_STEPS.map((step, i) => {
             const done = doneSteps.includes(step.n);
@@ -349,9 +349,9 @@ return (
 
         {/* ── Crystal recommendations ── */}
         <Animated.View entering={FadeInDown.delay(400).duration(400)}>
-          <Text style={styles.sectionLabel(ACCENT)}>KRYSZTAŁY OCHRONNE</Text>
+          <Text style={styles.sectionLabel(ACCENT)}>{t('protectionRitual.krysztaly_ochronne', 'KRYSZTAŁY OCHRONNE')}</Text>
           <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 12 }}>
-            Kryształy wzmacniają rytualną tarczę. Trzymaj je przy sobie lub w przestrzeni.
+            {t('protectionRitual.krysztaly_wzmacniaja_rytualna_tarcz', 'Kryształy wzmacniają rytualną tarczę. Trzymaj je przy sobie lub w przestrzeni.')}
           </Text>
           {CRYSTALS.map((c, i) => (
             <Animated.View key={c.name} entering={FadeInDown.delay(420 + i * 50).duration(400)}>
@@ -371,13 +371,13 @@ return (
           <View style={[styles.crystalTip, { backgroundColor: ACCENT + '12', borderColor: ACCENT + '28' }]}>
             <Shield size={14} color={ACCENT} />
             <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, flex: 1 }}>
-              Przed użyciem oczyść kryształy w świetle księżyca lub solą morską przez noc. Programuj intencją ochrony.
+              {t('protectionRitual.przed_uzyciem_oczysc_krysztaly_w', 'Przed użyciem oczyść kryształy w świetle księżyca lub solą morską przez noc. Programuj intencją ochrony.')}
             </Text>
           </View>
         </Animated.View>
 
                 <View style={{ marginHorizontal: 16, marginBottom: 16, borderRadius: 16, backgroundColor: "#7C3AED22", borderWidth: 1, borderColor: "#7C3AED", padding: 16 }}>
-          <Text style={{ color: "#7C3AED", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>AI INTERPRETACJA OCHRONY</Text>
+          <Text style={{ color: "#7C3AED", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>{t('protectionRitual.ai_interpreta_ochrony', 'AI INTERPRETACJA OCHRONY')}</Text>
           {protAiInsight ? (
             <Text style={{ color: "#E5E7EB", fontSize: 14, lineHeight: 22 }}>{protAiInsight}</Text>
           ) : null}
@@ -393,12 +393,12 @@ return (
         <Pressable
           onPress={() => {
             if (!allDone) {
-              Alert.alert('Wykonaj rytuał', 'Zaznacz wszystkie kroki rytuału aby aktywować tarczę ochronną.');
+              Alert.alert(t('protectionRitual.wykonaj_rytual', 'Wykonaj rytuał'), t('protectionRitual.zaznacz_wszystkie_kroki_rytualu_aby', 'Zaznacz wszystkie kroki rytuału aby aktywować tarczę ochronną.'));
               return;
             }
             HapticsService.notify();
             setActivated(true);
-            Alert.alert('Tarcza aktywna ✦', 'Twoja tarcza ochronna jest aktywna. Jesteś chroniony/a.');
+            Alert.alert(t('protectionRitual.tarcza_aktywna', 'Tarcza aktywna ✦'), t('protectionRitual.twoja_tarcza_ochronna_jest_aktywna', 'Twoja tarcza ochronna jest aktywna. Jesteś chroniony/a.'));
           }}
           style={[
             styles.activateBtn,

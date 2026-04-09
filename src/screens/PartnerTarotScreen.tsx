@@ -554,7 +554,7 @@ const FlipCard = ({ entry, deck, index, onReveal }: { entry: any; deck: any; ind
               <Circle cx="50%" cy="50%" r="45%" fill={`url(#bg${index})`} />
               <Path d="M50,20 C60,5 80,10 80,28 C80,46 50,60 50,60 C50,60 20,46 20,28 C20,10 40,5 50,20 Z" fill={ROSE + '66'} stroke={ROSE} strokeWidth="1" transform="translate(-10,10)" />
             </Svg>
-            <Typography variant="microLabel" style={{ color: ROSE + 'AA', fontSize: 9, letterSpacing: 2, marginTop: 8 }}>DOTKNIJ ABY ODKRYĆ</Typography>
+            <Typography variant="microLabel" style={{ color: ROSE + 'AA', fontSize: 9, letterSpacing: 2, marginTop: 8 }}>{t('partnerTarot.dotknij_aby_odkryc', 'DOTKNIJ ABY ODKRYĆ')}</Typography>
           </LinearGradient>
         </Animated.View>
         {/* Front face */}
@@ -780,26 +780,26 @@ const ProfileCard = ({
       </View>
       <View style={{ gap: 8 }}>
         <Pressable onPress={onEditBirth} style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Typography style={{ color: subC, fontSize: 12 }}>Data urodzenia</Typography>
+          <Typography style={{ color: subC, fontSize: 12 }}>{t('partnerTarot.data_urodzenia', 'Data urodzenia')}</Typography>
           <Typography style={{ color: textColor, fontSize: 12, fontWeight: '600' }}>
                             {birthDate ? formatLocaleDate(birthDate) : (i18n.language?.startsWith('en') ? 'Add' : 'Dodaj')}
           </Typography>
         </Pressable>
         {zodiac && (
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Typography style={{ color: subC, fontSize: 12 }}>Znak zodiaku</Typography>
+            <Typography style={{ color: subC, fontSize: 12 }}>{t('partnerTarot.znak_zodiaku', 'Znak zodiaku')}</Typography>
             <Typography style={{ color: textColor, fontSize: 12, fontWeight: '600' }}>{zodiac.symbol} {zodiac.name} · {zodiac.element}</Typography>
           </View>
         )}
         {lp > 0 && (
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Typography style={{ color: subC, fontSize: 12 }}>Liczba ścieżki życia</Typography>
+            <Typography style={{ color: subC, fontSize: 12 }}>{t('partnerTarot.liczba_sciezki_zycia', 'Liczba ścieżki życia')}</Typography>
             <Typography style={{ color: accentColor, fontSize: 13, fontWeight: '700' }}>{lp}</Typography>
           </View>
         )}
         {birthDate && (
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Typography style={{ color: subC, fontSize: 12 }}>Księżyc urodzenia</Typography>
+            <Typography style={{ color: subC, fontSize: 12 }}>{t('partnerTarot.ksiezyc_urodzenia', 'Księżyc urodzenia')}</Typography>
             <Typography style={{ color: textColor, fontSize: 12 }}>{moon}</Typography>
           </View>
         )}
@@ -847,7 +847,7 @@ const HistoryEntry = ({ entry, isLight, onDelete }: { entry: any; isLight: boole
           ) : null}
           <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 10 }}>
             <Pressable onPress={onDelete} style={{ paddingHorizontal: 12, paddingVertical: 6, borderRadius: 10, backgroundColor: '#EF444418' }}>
-              <Typography style={{ color: '#EF4444', fontSize: 12 }}>Usuń</Typography>
+              <Typography style={{ color: '#EF4444', fontSize: 12 }}>{t('partnerTarot.usun', 'Usuń')}</Typography>
             </Pressable>
           </View>
         </View>
@@ -953,7 +953,7 @@ export const PartnerTarotScreen = ({ navigation }: any) => {
 
   const handleStartReading = () => {
     if (!partnerName.trim()) {
-      Alert.alert('Uzupełnij profil', 'Podaj imię swojego partnera/ki, aby rozpocząć odczyt.');
+      Alert.alert(t('partnerTarot.uzupelnij_profil', 'Uzupełnij profil'), t('partnerTarot.podaj_imie_swojego_partnera_ki', 'Podaj imię swojego partnera/ki, aby rozpocząć odczyt.'));
       return;
     }
     const cards = drawRandomCards(selectedSpread.cardCount);
@@ -1047,7 +1047,7 @@ Napisz 3–4 zdania: co ta para wnosi do siebie nawzajem, jaka jest ich misja ja
     };
     setReadings(prev => [entry, ...prev]);
     HapticsService.notify();
-    Alert.alert('Zapisano', 'Odczyt został zapisany w historii.');
+    Alert.alert(t('partnerTarot.zapisano', 'Zapisano'), t('partnerTarot.odczyt_zostal_zapisany_w_historii', 'Odczyt został zapisany w historii.'));
   };
 
   const deleteReading = (id: string) => {
@@ -1165,14 +1165,14 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
       {/* Partner Setup */}
       {!readingStarted && (
         <Animated.View entering={FadeInDown.delay(120).springify()}>
-          <SectionLabel text="KONFIGURACJA" isLight={isLight} color={ACCENT} />
+          <SectionLabel text={t('partnerTarot.konfigurac', 'KONFIGURACJA')} isLight={isLight} color={ACCENT} />
           <GCard isLight={isLight} accentBorder={ACCENT} style={{ marginBottom: 16 }}>
-            <Typography variant="microLabel" style={{ color: ACCENT, fontSize: 9, letterSpacing: 1.5, marginBottom: 10 }}>IMIĘ PARTNERA / PARTNERKI</Typography>
+            <Typography variant="microLabel" style={{ color: ACCENT, fontSize: 9, letterSpacing: 1.5, marginBottom: 10 }}>{t('partnerTarot.imie_partnera_partnerki', 'IMIĘ PARTNERA / PARTNERKI')}</Typography>
             <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
               <TextInput
                 value={partnerName}
                 onChangeText={setPartnerName}
-                placeholder="Wpisz imię..."
+                placeholder={t('partnerTarot.wpisz_imie', 'Wpisz imię...')}
                 placeholderTextColor={subColor}
                 style={{ flex: 1, color: textColor, fontSize: 16, fontWeight: '600', paddingVertical: 4 }}
               />
@@ -1182,7 +1182,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
             <Pressable onPress={() => setShowPartnerPicker(true)} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 12 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                 <Calendar size={15} color={LAVENDER} />
-                <Typography style={{ color: subColor, fontSize: 13 }}>Data urodzenia partnera</Typography>
+                <Typography style={{ color: subColor, fontSize: 13 }}>{t('partnerTarot.data_urodzenia_partnera', 'Data urodzenia partnera')}</Typography>
               </View>
               <Typography style={{ color: partnerBirth ? textColor : LAVENDER, fontSize: 13, fontWeight: '600' }}>
                         {partnerBirth ? formatLocaleDate(partnerBirth) : (i18n.language?.startsWith('en') ? 'Choose' : 'Wybierz')}
@@ -1194,7 +1194,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
                 <Pressable onPress={() => setShowMyPicker(true)} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 12 }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                     <Calendar size={15} color={ACCENT} />
-                    <Typography style={{ color: subColor, fontSize: 13 }}>Moja data urodzenia</Typography>
+                    <Typography style={{ color: subColor, fontSize: 13 }}>{t('partnerTarot.moja_data_urodzenia', 'Moja data urodzenia')}</Typography>
                   </View>
                   <Typography style={{ color: myBirthDate ? textColor : ACCENT, fontSize: 13, fontWeight: '600' }}>
                         {myBirthDate ? formatLocaleDate(myBirthDate) : (i18n.language?.startsWith('en') ? 'Choose' : 'Wybierz')}
@@ -1205,7 +1205,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
           </GCard>
 
           {/* Perspective toggle */}
-          <SectionLabel text="PERSPEKTYWA" isLight={isLight} color={LAVENDER} />
+          <SectionLabel text={t('partnerTarot.perspektyw', 'PERSPEKTYWA')} isLight={isLight} color={LAVENDER} />
           <View style={{ flexDirection: 'row', gap: 10, marginBottom: 16 }}>
             {(['me', 'partner'] as const).map(p => (
               <Pressable key={p} onPress={() => setPerspective(p)} style={{ flex: 1, paddingVertical: 12, borderRadius: 14, alignItems: 'center', backgroundColor: perspective === p ? ACCENT + '22' : cardBg, borderWidth: 1, borderColor: perspective === p ? ACCENT + '66' : cardBorder }}>
@@ -1217,7 +1217,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
           </View>
 
           {/* Spread selector */}
-          <SectionLabel text="RODZAJ ROZKŁADU" isLight={isLight} color={GOLD} />
+          <SectionLabel text={t('partnerTarot.rodzaj_rozkladu', 'RODZAJ ROZKŁADU')} isLight={isLight} color={GOLD} />
           <View style={{ marginBottom: 16 }}>
             {SPREAD_TYPES.map(sp => (
               <SpreadCard
@@ -1231,7 +1231,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
           </View>
 
           {/* Relationship phase */}
-          <SectionLabel text="FAZA RELACJI" isLight={isLight} color={ROSE} />
+          <SectionLabel text={t('partnerTarot.faza_relacji', 'FAZA RELACJI')} isLight={isLight} color={ROSE} />
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }} contentContainerStyle={{ gap: 8, paddingVertical: 4 }}>
             {RELATIONSHIP_PHASES.map(ph => (
               <Pressable key={ph.id} onPress={() => { setRelPhase(ph.id); HapticsService.selection(); }}
@@ -1243,12 +1243,12 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
           </ScrollView>
 
           {/* Question input */}
-          <SectionLabel text="PYTANIE (OPCJONALNIE)" isLight={isLight} />
+          <SectionLabel text={t('partnerTarot.pytanie_opcjonalni', 'PYTANIE (OPCJONALNIE)')} isLight={isLight} />
           <GCard isLight={isLight} style={{ marginBottom: 20 }}>
             <TextInput
               value={question}
               onChangeText={setQuestion}
-              placeholder="Co chcesz wiedzieć o tej relacji?"
+              placeholder={t('partnerTarot.co_chcesz_wiedziec_o_tej', 'Co chcesz wiedzieć o tej relacji?')}
               placeholderTextColor={subColor}
               multiline
               style={{ color: textColor, fontSize: 14, lineHeight: 22, minHeight: 64 }}
@@ -1261,7 +1261,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
             <LinearGradient colors={[CRIMSON, ACCENT, ROSE + 'CC']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
               style={{ paddingVertical: 18, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 10 }}>
               <Wand2 size={20} color="white" />
-              <Typography style={{ color: 'white', fontSize: 16, fontWeight: '700', letterSpacing: 0.5 }}>Rozpocznij Odczyt</Typography>
+              <Typography style={{ color: 'white', fontSize: 16, fontWeight: '700', letterSpacing: 0.5 }}>{t('partnerTarot.rozpocznij_odczyt', 'Rozpocznij Odczyt')}</Typography>
             </LinearGradient>
           </Pressable>
         </Animated.View>
@@ -1287,7 +1287,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
           </View>
 
           {/* Cards grid */}
-          <SectionLabel text="KARTY ROZKŁADU" isLight={isLight} color={ROSE} />
+          <SectionLabel text={t('partnerTarot.karty_rozkladu', 'KARTY ROZKŁADU')} isLight={isLight} color={ROSE} />
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 14, marginBottom: 20 }}>
             {drawnCards.map((entry, i) => (
               <FlipCard key={i} entry={entry} deck={deck} index={i} onReveal={handleRevealCard} />
@@ -1297,14 +1297,14 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
           {/* Reveal all */}
           {drawnCards.some(c => !c.revealed) && (
             <Pressable onPress={revealAll} style={{ paddingVertical: 12, borderRadius: 14, alignItems: 'center', backgroundColor: ROSE + '18', borderWidth: 1, borderColor: ROSE + '44', marginBottom: 16 }}>
-              <Typography style={{ color: ROSE, fontSize: 14, fontWeight: '600' }}>Odkryj wszystkie karty</Typography>
+              <Typography style={{ color: ROSE, fontSize: 14, fontWeight: '600' }}>{t('partnerTarot.odkryj_wszystkie_karty', 'Odkryj wszystkie karty')}</Typography>
             </Pressable>
           )}
 
           {/* AI Interpretation */}
           {drawnCards.some(c => c.revealed) && (
             <Animated.View entering={FadeInDown.delay(200).springify()}>
-              <SectionLabel text="INTERPRETACJA AI" isLight={isLight} color={LAVENDER} />
+              <SectionLabel text={t('partnerTarot.interpreta_ai', 'INTERPRETACJA AI')} isLight={isLight} color={LAVENDER} />
               <Pressable onPress={handleAiInterpretation} disabled={aiLoading}
                 style={{ borderRadius: 16, overflow: 'hidden', marginBottom: 16 }}>
                 <LinearGradient colors={[LAVENDER + '33', ACCENT + '22']} style={{ paddingVertical: 14, paddingHorizontal: 20, flexDirection: 'row', alignItems: 'center', gap: 10, borderWidth: 1, borderColor: LAVENDER + '44', borderRadius: 16 }}>
@@ -1321,7 +1321,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
                   <GCard isLight={isLight} accentBorder={LAVENDER} style={{ marginBottom: 16 }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                       <Sparkles size={15} color={LAVENDER} />
-                      <Typography variant="microLabel" style={{ color: LAVENDER, fontSize: 10, letterSpacing: 1.5 }}>ORACLE MÓWI</Typography>
+                      <Typography variant="microLabel" style={{ color: LAVENDER, fontSize: 10, letterSpacing: 1.5 }}>{t('partnerTarot.oracle_mowi', 'ORACLE MÓWI')}</Typography>
                     </View>
                     <Typography style={{ color: isLight ? 'rgba(0,0,0,0.78)' : 'rgba(255,255,255,0.82)', fontSize: 14, lineHeight: 24 }}>
                       {aiInterpretation}
@@ -1334,11 +1334,11 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
               <View style={{ flexDirection: 'row', gap: 10, marginBottom: 20 }}>
                 <Pressable onPress={saveReading} style={{ flex: 1, paddingVertical: 12, borderRadius: 14, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 8, backgroundColor: GOLD + '18', borderWidth: 1, borderColor: GOLD + '44' }}>
                   <Save size={15} color={GOLD} />
-                  <Typography style={{ color: GOLD, fontSize: 13, fontWeight: '600' }}>Zapisz odczyt</Typography>
+                  <Typography style={{ color: GOLD, fontSize: 13, fontWeight: '600' }}>{t('partnerTarot.zapisz_odczyt', 'Zapisz odczyt')}</Typography>
                 </Pressable>
                 <Pressable onPress={resetReading} style={{ flex: 1, paddingVertical: 12, borderRadius: 14, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 8, backgroundColor: ACCENT + '18', borderWidth: 1, borderColor: ACCENT + '44' }}>
                   <RefreshCw size={15} color={ACCENT} />
-                  <Typography style={{ color: ACCENT, fontSize: 13, fontWeight: '600' }}>Nowy odczyt</Typography>
+                  <Typography style={{ color: ACCENT, fontSize: 13, fontWeight: '600' }}>{t('partnerTarot.nowy_odczyt', 'Nowy odczyt')}</Typography>
                 </Pressable>
               </View>
             </Animated.View>
@@ -1358,13 +1358,13 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
       <Animated.View entering={FadeInDown.delay(50).springify()} style={{ height: 12 }} />
 
       {/* Profile cards */}
-      <SectionLabel text="PROFILE PARY" isLight={isLight} color={ACCENT} />
+      <SectionLabel text={t('partnerTarot.profile_pary', 'PROFILE PARY')} isLight={isLight} color={ACCENT} />
       <ProfileCard
         name={myName}
         birthDate={myBirthDate}
         isLight={isLight}
         accentColor={ACCENT}
-        label="MOJE DANE"
+        label={t('partnerTarot.moje_dane', 'MOJE DANE')}
         onEditBirth={() => setShowMyPicker(true)}
       />
       <ProfileCard
@@ -1372,21 +1372,21 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
         birthDate={partnerBirth}
         isLight={isLight}
         accentColor={ROSE}
-        label="PROFIL PARTNERA"
+        label={t('partnerTarot.profil_partnera', 'PROFIL PARTNERA')}
         onEditBirth={() => setShowPartnerPicker(true)}
       />
 
       {/* Compatibility summary */}
       {compatNum > 0 && compatInfo && (
         <Animated.View entering={FadeInDown.delay(200).springify()}>
-          <SectionLabel text="KOMPATYBILNOŚĆ NUMEROLOGICZNA" isLight={isLight} color={GOLD} />
+          <SectionLabel text={t('partnerTarot.kompatybil_numerologi', 'KOMPATYBILNOŚĆ NUMEROLOGICZNA')} isLight={isLight} color={GOLD} />
           <LinearGradient colors={[compatInfo.color + '20', compatInfo.color + '08']} style={{ borderRadius: 20, padding: 20, marginBottom: 16, borderWidth: 1, borderColor: compatInfo.color + '44' }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14, marginBottom: 14 }}>
               <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: compatInfo.color + '30', alignItems: 'center', justifyContent: 'center', borderWidth: 2, borderColor: compatInfo.color + '60' }}>
                 <Typography style={{ color: compatInfo.color, fontSize: 24, fontWeight: '800' }}>{compatNum}</Typography>
               </View>
               <View style={{ flex: 1 }}>
-                <Typography variant="microLabel" style={{ color: compatInfo.color, fontSize: 10, letterSpacing: 1.5 }}>LICZBA KOMPATYBILNOŚCI</Typography>
+                <Typography variant="microLabel" style={{ color: compatInfo.color, fontSize: 10, letterSpacing: 1.5 }}>{t('partnerTarot.liczba_kompatybil', 'LICZBA KOMPATYBILNOŚCI')}</Typography>
                 <Typography style={{ color: textColor, fontSize: 18, fontWeight: '700' }}>{compatInfo.title}</Typography>
               </View>
             </View>
@@ -1400,7 +1400,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
       {/* Synastry scores */}
       {myBirthDate && partnerBirth ? (
         <Animated.View entering={FadeInDown.delay(250).springify()}>
-          <SectionLabel text="SYNASTRIA — 6 OBSZARÓW" isLight={isLight} color={LAVENDER} />
+          <SectionLabel text={t('partnerTarot.synastria_6_obszarow', 'SYNASTRIA — 6 OBSZARÓW')} isLight={isLight} color={LAVENDER} />
           <GCard isLight={isLight} accentBorder={LAVENDER} style={{ marginBottom: 16 }}>
             {SYNASTRY_AREAS.map((area, i) => (
               <ScoreBar
@@ -1418,13 +1418,13 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
         <GCard isLight={isLight} style={{ marginBottom: 16, alignItems: 'center', padding: 24 }}>
           <Layers size={28} color={subColor} />
           <Typography style={{ color: subColor, fontSize: 13, marginTop: 10, textAlign: 'center' }}>
-            Podaj daty urodzenia obojga, aby zobaczyć synastrię
+            {t('partnerTarot.podaj_daty_urodzenia_obojga_aby', 'Podaj daty urodzenia obojga, aby zobaczyć synastrię')}
           </Typography>
         </GCard>
       )}
 
       {/* Relationship phase */}
-      <SectionLabel text="FAZA RELACJI" isLight={isLight} color={ROSE} />
+      <SectionLabel text={t('partnerTarot.faza_relacji_1', 'FAZA RELACJI')} isLight={isLight} color={ROSE} />
       <GCard isLight={isLight} accentBorder={activePhase.color} style={{ marginBottom: 16 }}>
         <View style={{ flexDirection: 'row', gap: 14, alignItems: 'flex-start', marginBottom: 14 }}>
           <Typography style={{ fontSize: 32 }}>{activePhase.emoji}</Typography>
@@ -1454,7 +1454,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
       </GCard>
 
       {/* AI Synthesis */}
-      <SectionLabel text="SYNTEZA ENERGETYCZNA" isLight={isLight} color={ACCENT} />
+      <SectionLabel text={t('partnerTarot.synteza_energetycz', 'SYNTEZA ENERGETYCZNA')} isLight={isLight} color={ACCENT} />
       <Pressable onPress={handleAiSummary} disabled={summaryLoading}
         style={{ borderRadius: 16, overflow: 'hidden', marginBottom: 16 }}>
         <LinearGradient colors={[ACCENT + '28', CRIMSON + '18']} style={{ paddingVertical: 14, paddingHorizontal: 20, flexDirection: 'row', alignItems: 'center', gap: 10, borderRadius: 16, borderWidth: 1, borderColor: ACCENT + '44' }}>
@@ -1471,7 +1471,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
           <GCard isLight={isLight} accentBorder={ACCENT} style={{ marginBottom: 16 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
               <Sparkles size={14} color={ACCENT} />
-              <Typography variant="microLabel" style={{ color: ACCENT, fontSize: 10, letterSpacing: 1.5 }}>SYNTEZA RELACJI</Typography>
+              <Typography variant="microLabel" style={{ color: ACCENT, fontSize: 10, letterSpacing: 1.5 }}>{t('partnerTarot.synteza_relacji', 'SYNTEZA RELACJI')}</Typography>
             </View>
             <Typography style={{ color: isLight ? 'rgba(0,0,0,0.80)' : 'rgba(255,255,255,0.82)', fontSize: 14, lineHeight: 24, fontStyle: 'italic' }}>
               {aiSummary}
@@ -1483,7 +1483,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
       {/* Moon phase comparison */}
       {myBirthDate && partnerBirth && (
         <Animated.View entering={FadeInDown.delay(300).springify()}>
-          <SectionLabel text="KSIĘŻYC URODZENIA" isLight={isLight} color={LAVENDER} />
+          <SectionLabel text={t('partnerTarot.ksiezyc_urodzenia_1', 'KSIĘŻYC URODZENIA')} isLight={isLight} color={LAVENDER} />
           <GCard isLight={isLight} accentBorder={LAVENDER} style={{ marginBottom: 16 }}>
             <View style={{ gap: 10 }}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -1530,19 +1530,19 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
             <View style={{ flexDirection: 'row', gap: 10, marginBottom: 16 }}>
               <GCard isLight={isLight} style={{ flex: 1, alignItems: 'center', padding: 14 }}>
                 <Typography style={{ color: ACCENT, fontSize: 22, fontWeight: '800' }}>{readings.length}</Typography>
-                <Typography style={{ color: subColor, fontSize: 11, marginTop: 2 }}>Odczytów</Typography>
+                <Typography style={{ color: subColor, fontSize: 11, marginTop: 2 }}>{t('partnerTarot.odczytow', 'Odczytów')}</Typography>
               </GCard>
               {daysSince !== null && (
                 <GCard isLight={isLight} style={{ flex: 1, alignItems: 'center', padding: 14 }}>
                   <Typography style={{ color: ROSE, fontSize: 22, fontWeight: '800' }}>{daysSince}</Typography>
-                  <Typography style={{ color: subColor, fontSize: 11, marginTop: 2 }}>Dni razem</Typography>
+                  <Typography style={{ color: subColor, fontSize: 11, marginTop: 2 }}>{t('partnerTarot.dni_razem', 'Dni razem')}</Typography>
                 </GCard>
               )}
               <GCard isLight={isLight} style={{ flex: 1, alignItems: 'center', padding: 14 }}>
                 <Typography style={{ color: GOLD, fontSize: 22, fontWeight: '800' }}>
                   {Object.values(spreadCounts).length > 0 ? Object.entries(spreadCounts).sort((a, b) => b[1] - a[1])[0][0].slice(0, 4) : '—'}
                 </Typography>
-                <Typography style={{ color: subColor, fontSize: 11, marginTop: 2 }}>Fav. rozkład</Typography>
+                <Typography style={{ color: subColor, fontSize: 11, marginTop: 2 }}>{t('partnerTarot.fav_rozklad', 'Fav. rozkład')}</Typography>
               </GCard>
             </View>
           </Animated.View>
@@ -1551,7 +1551,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
         {/* Spread popularity */}
         {readings.length > 1 && (
           <Animated.View entering={FadeInDown.delay(150).springify()}>
-            <SectionLabel text="ULUBIONE ROZKŁADY" isLight={isLight} color={GOLD} />
+            <SectionLabel text={t('partnerTarot.ulubione_rozklady', 'ULUBIONE ROZKŁADY')} isLight={isLight} color={GOLD} />
             <GCard isLight={isLight} style={{ marginBottom: 16 }}>
               {SPREAD_TYPES.filter(s => spreadCounts[s.id]).map(s => {
                 const SpIcon = s.icon;
@@ -1577,7 +1577,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
         {/* Pattern analysis */}
         {readings.length >= 2 && (
           <Animated.View entering={FadeInDown.delay(200).springify()}>
-            <SectionLabel text="WZORZEC RELACJI" isLight={isLight} color={LAVENDER} />
+            <SectionLabel text={t('partnerTarot.wzorzec_relacji', 'WZORZEC RELACJI')} isLight={isLight} color={LAVENDER} />
             <Pressable onPress={handlePatternAnalysis} disabled={patternLoading}
               style={{ borderRadius: 16, overflow: 'hidden', marginBottom: 16 }}>
               <LinearGradient colors={[LAVENDER + '28', '#8B5CF618']} style={{ paddingVertical: 14, paddingHorizontal: 20, flexDirection: 'row', alignItems: 'center', gap: 10, borderRadius: 16, borderWidth: 1, borderColor: LAVENDER + '44' }}>
@@ -1601,7 +1601,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
         )}
 
         {/* Reading list */}
-        <SectionLabel text="ZAPISANE ODCZYTY" isLight={isLight} color={ACCENT} />
+        <SectionLabel text={t('partnerTarot.zapisane_odczyty', 'ZAPISANE ODCZYTY')} isLight={isLight} color={ACCENT} />
         {readings.length === 0 ? (
           <GCard isLight={isLight} style={{ alignItems: 'center', paddingVertical: 36 }}>
             <History size={32} color={subColor} />
@@ -1637,7 +1637,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
         <Animated.View entering={FadeInDown.delay(50).springify()} style={{ height: 12 }} />
 
         {/* Daily affirmation */}
-        <SectionLabel text="AFIRMACJA DNIA DLA PARY" isLight={isLight} color={ROSE} />
+        <SectionLabel text={t('partnerTarot.afirmacja_dnia_dla_pary', 'AFIRMACJA DNIA DLA PARY')} isLight={isLight} color={ROSE} />
         <Animated.View entering={FadeInDown.delay(80).springify()}>
           <LinearGradient colors={[CRIMSON + '28', ROSE + '18', ACCENT + '18']} style={{ borderRadius: 20, padding: 22, marginBottom: 20, borderWidth: 1, borderColor: ROSE + '44' }}>
             <View style={{ alignItems: 'center', marginBottom: 14 }}>
@@ -1652,14 +1652,14 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
         </Animated.View>
 
         {/* Daily couple card */}
-        <SectionLabel text="KARTA DNIA DLA PARY" isLight={isLight} color={GOLD} />
+        <SectionLabel text={t('partnerTarot.karta_dnia_dla_pary', 'KARTA DNIA DLA PARY')} isLight={isLight} color={GOLD} />
         {dailyCardDrawn ? (
           <Animated.View entering={ZoomInEasyDown.springify()}>
             <GCard isLight={isLight} accentBorder={GOLD} style={{ marginBottom: 20, alignItems: 'center', paddingVertical: 20 }}>
               <TarotCardVisual deck={deck} card={dailyCardDrawn} size="medium" />
               <Typography style={{ color: GOLD, fontSize: 14, fontWeight: '700', marginTop: 14 }}>{dailyCardDrawn.id}</Typography>
               <Typography style={{ color: subColor, fontSize: 12, marginTop: 4, textAlign: 'center' }}>
-                Energetyczny przewodnik Waszego dnia jako pary.
+                {t('partnerTarot.energetycz_przewodnik_waszego_dnia_', 'Energetyczny przewodnik Waszego dnia jako pary.')}
               </Typography>
             </GCard>
           </Animated.View>
@@ -1667,14 +1667,14 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
           <Pressable onPress={drawDailyCard} style={{ borderRadius: 18, overflow: 'hidden', marginBottom: 20 }}>
             <LinearGradient colors={[GOLD + '22', ACCENT + '15']} style={{ paddingVertical: 20, alignItems: 'center', gap: 10, borderWidth: 1, borderColor: GOLD + '44', borderRadius: 18 }}>
               <Sparkles size={24} color={GOLD} />
-              <Typography style={{ color: textColor, fontSize: 15, fontWeight: '600' }}>Wylosuj kartę dnia dla pary</Typography>
-              <Typography style={{ color: subColor, fontSize: 12 }}>Jedna karta — wspólny kierunek</Typography>
+              <Typography style={{ color: textColor, fontSize: 15, fontWeight: '600' }}>{t('partnerTarot.wylosuj_karte_dnia_dla_pary', 'Wylosuj kartę dnia dla pary')}</Typography>
+              <Typography style={{ color: subColor, fontSize: 12 }}>{t('partnerTarot.jedna_karta_wspolny_kierunek', 'Jedna karta — wspólny kierunek')}</Typography>
             </LinearGradient>
           </Pressable>
         )}
 
         {/* Relationship archetypes */}
-        <SectionLabel text="ARCHETYP RELACJI" isLight={isLight} color={LAVENDER} />
+        <SectionLabel text={t('partnerTarot.archetyp_relacji', 'ARCHETYP RELACJI')} isLight={isLight} color={LAVENDER} />
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginBottom: 20 }}>
           {RELATIONSHIP_ARCHETYPES.map((arch, i) => {
             const ArchIcon = arch.icon;
@@ -1696,7 +1696,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
         </View>
 
         {/* Deep questions */}
-        <SectionLabel text="PYTANIA DO POGŁĘBIENIA RELACJI" isLight={isLight} color={ACCENT} />
+        <SectionLabel text={t('partnerTarot.pytania_do_poglebieni_relacji', 'PYTANIA DO POGŁĘBIENIA RELACJI')} isLight={isLight} color={ACCENT} />
         <View style={{ gap: 10, marginBottom: 20 }}>
           {DEEP_QUESTIONS.map((dq, i) => {
             const isOpen = expandedQ === i;
@@ -1739,7 +1739,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
         </View>
 
         {/* Love language quiz */}
-        <SectionLabel text="TWÓJ JĘZYK MIŁOŚCI" isLight={isLight} color={ROSE} />
+        <SectionLabel text={t('partnerTarot.twoj_jezyk_milosci', 'TWÓJ JĘZYK MIŁOŚCI')} isLight={isLight} color={ROSE} />
         {loveLanguage && llInfo ? (
           <Animated.View entering={ZoomIn.springify()}>
             <LinearGradient colors={[llInfo.color + '28', llInfo.color + '10']} style={{ borderRadius: 20, padding: 22, marginBottom: 20, borderWidth: 1, borderColor: llInfo.color + '55' }}>
@@ -1748,7 +1748,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
                   <Typography style={{ fontSize: 26 }}>{llInfo.emoji}</Typography>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Typography variant="microLabel" style={{ color: llInfo.color, fontSize: 10, letterSpacing: 1.5 }}>TWÓJ DOMINUJĄCY JĘZYK</Typography>
+                  <Typography variant="microLabel" style={{ color: llInfo.color, fontSize: 10, letterSpacing: 1.5 }}>{t('partnerTarot.twoj_dominujacy_jezyk', 'TWÓJ DOMINUJĄCY JĘZYK')}</Typography>
                   <Typography style={{ color: textColor, fontSize: 18, fontWeight: '700' }}>{loveLanguage}</Typography>
                 </View>
               </View>
@@ -1756,7 +1756,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
                 {llInfo.desc}
               </Typography>
               <Pressable onPress={() => { setQuizAnswers([]); setLoveLanguage(null); }} style={{ marginTop: 14, alignSelf: 'flex-end', paddingHorizontal: 14, paddingVertical: 7, borderRadius: 10, backgroundColor: llInfo.color + '18', borderWidth: 1, borderColor: llInfo.color + '44' }}>
-                <Typography style={{ color: llInfo.color, fontSize: 12 }}>Zrób quiz ponownie</Typography>
+                <Typography style={{ color: llInfo.color, fontSize: 12 }}>{t('partnerTarot.zrob_quiz_ponownie', 'Zrób quiz ponownie')}</Typography>
               </Pressable>
             </LinearGradient>
           </Animated.View>
@@ -1793,14 +1793,14 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
           <Pressable onPress={() => setQuizAnswers([])} style={{ borderRadius: 16, overflow: 'hidden', marginBottom: 20 }}>
             <LinearGradient colors={[ROSE + '22', CRIMSON + '15']} style={{ paddingVertical: 18, alignItems: 'center', gap: 8, borderRadius: 16, borderWidth: 1, borderColor: ROSE + '44' }}>
               <Heart size={22} color={ROSE} />
-              <Typography style={{ color: textColor, fontSize: 15, fontWeight: '600' }}>Odkryj swój język miłości</Typography>
-              <Typography style={{ color: subColor, fontSize: 12 }}>5 krótkich pytań</Typography>
+              <Typography style={{ color: textColor, fontSize: 15, fontWeight: '600' }}>{t('partnerTarot.odkryj_swoj_jezyk_milosci', 'Odkryj swój język miłości')}</Typography>
+              <Typography style={{ color: subColor, fontSize: 12 }}>{t('partnerTarot.5_krotkich_pytan', '5 krótkich pytań')}</Typography>
             </LinearGradient>
           </Pressable>
         )}
 
         {/* Weekly energy */}
-        <SectionLabel text="ENERGIA TYGODNIA DLA PARY" isLight={isLight} color={GOLD} />
+        <SectionLabel text={t('partnerTarot.energia_tygodnia_dla_pary', 'ENERGIA TYGODNIA DLA PARY')} isLight={isLight} color={GOLD} />
         <Animated.View entering={FadeInDown.delay(100).springify()}>
           <GCard isLight={isLight} accentBorder={GOLD} style={{ marginBottom: 20 }}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8 }}>
@@ -1832,7 +1832,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
         </Animated.View>
 
         {/* Relationship tips */}
-        <SectionLabel text="WSKAZÓWKI DLA PARY" isLight={isLight} color={ACCENT} />
+        <SectionLabel text={t('partnerTarot.wskazowki_dla_pary', 'WSKAZÓWKI DLA PARY')} isLight={isLight} color={ACCENT} />
         <View style={{ gap: 10, marginBottom: 20 }}>
           {RELATIONSHIP_TIPS.map((tip, i) => {
             const TipIcon = tip.icon;
@@ -1877,7 +1877,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
         </Pressable>
         <View style={{ flex: 1, alignItems: 'center' }}>
           <Typography variant="microLabel" style={{ color: ACCENT, fontSize: 9, letterSpacing: 2.5, marginBottom: 1 }}>
-            RELACYJNY TAROT
+            {t('partnerTarot.relacyjny_tarot', 'RELACYJNY TAROT')}
           </Typography>
           <Typography style={{ color: isLight ? '#1A1A2E' : '#F0EBF4', fontSize: 17, fontWeight: '700', letterSpacing: 0.3 }}>
             {partnerName ? `${myName} & ${partnerName}` : 'Tarot dla Par'}
@@ -1916,7 +1916,7 @@ Daj odpowiedź w 3–4 zdaniach w języku użytkownika — nie dawaj gotowej odp
         maximumDate={new Date()}
         onCancel={() => setShowMyPicker(false)}
         onConfirm={date => { setMyBirthDate(date.toISOString().split('T')[0]); setShowMyPicker(false); }}
-        title="Moja data urodzenia"
+        title={t('partnerTarot.moja_data_urodzenia_1', 'Moja data urodzenia')}
       />
     </SafeAreaView>
     </View>

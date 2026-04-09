@@ -165,7 +165,7 @@ export const SleepRitualScreen = ({ navigation }: any) => {
         {activeTab === 'protocol' && (
           <>
             <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 16 }}>
-              7-krokowy protokół wieczorny przygotowuje ciało i umysł do głębokiego, regenerującego snu.
+              {t('sleepRitual.7_krokowy_protokol_wieczorny_przygo', '7-krokowy protokół wieczorny przygotowuje ciało i umysł do głębokiego, regenerującego snu.')}
             </Text>
             {PROTOCOL_STEPS.map((step, i) => {
               const done = doneSteps.includes(step.id);
@@ -192,7 +192,7 @@ export const SleepRitualScreen = ({ navigation }: any) => {
         {activeTab === 'scan' && (
           <>
             <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 16 }}>
-              Progresywna relaksacja mięśni. Przejdź przez każdy region ciała, zatrzymując się na 30-60 sekund.
+              {t('sleepRitual.progresywn_relaksacja_miesni_przejd', 'Progresywna relaksacja mięśni. Przejdź przez każdy region ciała, zatrzymując się na 30-60 sekund.')}
             </Text>
             {BODY_SCAN.map((item, i) => {
               const active = scanStep === i;
@@ -213,7 +213,7 @@ export const SleepRitualScreen = ({ navigation }: any) => {
               );
             })}
             <Pressable onPress={() => setScanStep(0)} style={[styles.resetBtn, { borderColor: ACCENT + '44' }]}>
-              <Text style={{ color: ACCENT, fontSize: 13 }}>Zacznij od nowa</Text>
+              <Text style={{ color: ACCENT, fontSize: 13 }}>{t('sleepRitual.zacznij_od_nowa', 'Zacznij od nowa')}</Text>
             </Pressable>
           </>
         )}
@@ -221,7 +221,7 @@ export const SleepRitualScreen = ({ navigation }: any) => {
         {activeTab === 'breath' && (
           <View style={{ alignItems: 'center', paddingTop: 20 }}>
             <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, textAlign: 'center', marginBottom: 30 }}>
-              Technika 4-7-8 aktywuje nerw błędny i usypia ciało w ciągu kilku cykli.
+              {t('sleepRitual.technika_4_7_8_aktywuje', 'Technika 4-7-8 aktywuje nerw błędny i usypia ciało w ciągu kilku cykli.')}
             </Text>
             <Animated.View style={[breathAnim, { marginBottom: 30 }]}>
               <Pressable onPress={() => { if (breathPhase === 'idle') startBreath(); }}
@@ -241,7 +241,7 @@ export const SleepRitualScreen = ({ navigation }: any) => {
               </View>
             </View>
             <Text style={{ color: subColor, fontSize: 12, textAlign: 'center', marginTop: 16 }}>
-              Wykonaj 4 cykle przed snem. Za każdym razem jest łatwiej.
+              {t('sleepRitual.wykonaj_4_cykle_przed_snem', 'Wykonaj 4 cykle przed snem. Za każdym razem jest łatwiej.')}
             </Text>
           </View>
         )}

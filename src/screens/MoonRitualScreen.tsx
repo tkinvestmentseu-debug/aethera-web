@@ -618,8 +618,8 @@ export default function MoonRitualScreen({ navigation }: any) {
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={{ flex: 1, alignItems: 'center' }}>
-          <Typography variant="label" style={{ color: subColor, letterSpacing: 2, fontSize: 10 }}>RYTUAŁY LUNARNY</Typography>
-          <Typography variant="h3" style={{ color: textColor, fontWeight: '700', marginTop: 1 }}>Księżycowy Portal</Typography>
+          <Typography variant="label" style={{ color: subColor, letterSpacing: 2, fontSize: 10 }}>{t('moonRitual.rytualy_lunarny', 'RYTUAŁY LUNARNY')}</Typography>
+          <Typography variant="h3" style={{ color: textColor, fontWeight: '700', marginTop: 1 }}>{t('moonRitual.ksiezycowy_portal', 'Księżycowy Portal')}</Typography>
         </View>
         <Pressable onPress={toggleFav} style={styles.headerBtn} hitSlop={8}>
           <Star size={20} color={accent} fill={isFav ? accent : 'none'} />
@@ -641,7 +641,7 @@ export default function MoonRitualScreen({ navigation }: any) {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
               <MoonPhaseSvg age={moonAge} size={88} />
               <View style={{ flex: 1 }}>
-                <Typography variant="microLabel" style={{ color: accent, letterSpacing: 2, fontSize: 9, marginBottom: 2 }}>FAZA DZISIAJ</Typography>
+                <Typography variant="microLabel" style={{ color: accent, letterSpacing: 2, fontSize: 9, marginBottom: 2 }}>{t('moonRitual.faza_dzisiaj', 'FAZA DZISIAJ')}</Typography>
                 <Typography variant="h2" style={{ color: textColor, fontWeight: '800', fontSize: 22 }}>{phaseEmoji} {phaseName}</Typography>
                 <Typography variant="body" style={{ color: subColor, marginTop: 3 }}>Wiek: {moonAge.toFixed(1)} dni</Typography>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 6, gap: 8 }}>
@@ -650,7 +650,7 @@ export default function MoonRitualScreen({ navigation }: any) {
                   </View>
                   <Typography variant="microLabel" style={{ color: accent, fontWeight: '700', fontSize: 11 }}>{illumination}%</Typography>
                 </View>
-                <Typography variant="caption" style={{ color: subColor, marginTop: 2, fontSize: 10 }}>Oświetlenie tarczy</Typography>
+                <Typography variant="caption" style={{ color: subColor, marginTop: 2, fontSize: 10 }}>{t('moonRitual.oswietleni_tarczy', 'Oświetlenie tarczy')}</Typography>
               </View>
             </View>
           </View>
@@ -658,7 +658,7 @@ export default function MoonRitualScreen({ navigation }: any) {
 
         {/* ── SECTION 2: Today's Lunar Ritual ───────────────── */}
         <Animated.View entering={FadeInDown.delay(140).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>RYTUAŁ NA DZIŚ</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('moonRitual.rytual_na_dzis', 'RYTUAŁ NA DZIŚ')}</Typography>
           <LinearGradient
             colors={isLight ? ['rgba(196,181,253,0.12)', 'rgba(196,181,253,0.06)'] : ['rgba(196,181,253,0.14)', 'rgba(120,100,200,0.06)']}
             style={[styles.card, { borderColor: accent + '44', borderWidth: 1 }]}
@@ -678,7 +678,7 @@ export default function MoonRitualScreen({ navigation }: any) {
               ✨ {todayRitual.intention}
             </Typography>
 
-            <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 1.5, fontSize: 9, marginBottom: 6 }}>MATERIAŁY</Typography>
+            <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 1.5, fontSize: 9, marginBottom: 6 }}>{t('moonRitual.materialy', 'MATERIAŁY')}</Typography>
             {todayRitual.materials.map((m, i) => (
               <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                 <View style={{ width: 5, height: 5, borderRadius: 3, backgroundColor: accent }} />
@@ -690,7 +690,7 @@ export default function MoonRitualScreen({ navigation }: any) {
               onPress={() => { setStepsExpanded(p => !p); HapticsService.notify(); }}
               style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 12, paddingTop: 10, borderTopWidth: 1, borderTopColor: cardBorder }}
             >
-              <Typography variant="label" style={{ color: accent, fontWeight: '700' }}>Kroki rytuału</Typography>
+              <Typography variant="label" style={{ color: accent, fontWeight: '700' }}>{t('moonRitual.kroki_rytualu', 'Kroki rytuału')}</Typography>
               {stepsExpanded ? <ChevronUp size={18} color={accent} /> : <ChevronDown size={18} color={accent} />}
             </Pressable>
 
@@ -716,7 +716,7 @@ export default function MoonRitualScreen({ navigation }: any) {
 
         {/* ── SECTION 3: Ritual Timer ────────────────────────── */}
         <Animated.View entering={FadeInDown.delay(200).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>TIMER RYTUAŁU</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('moonRitual.timer_rytualu', 'TIMER RYTUAŁU')}</Typography>
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder, alignItems: 'center' }]}>
             {/* Duration chips */}
             <View style={{ flexDirection: 'row', gap: 8, marginBottom: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -778,7 +778,7 @@ export default function MoonRitualScreen({ navigation }: any) {
 
         {/* ── SECTION 4: Lunar Journal ───────────────────────── */}
         <Animated.View entering={FadeInDown.delay(260).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>DZIENNIK LUNARNY</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('moonRitual.dziennik_lunarny', 'DZIENNIK LUNARNY')}</Typography>
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 }}>
               <View style={{ paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8, backgroundColor: accent + '22' }}>
@@ -801,12 +801,12 @@ export default function MoonRitualScreen({ navigation }: any) {
               style={[styles.cta, { backgroundColor: accent, marginTop: 10 }]}
             >
               <BookOpen size={16} color="#fff" />
-              <Typography variant="label" style={{ color: '#fff', fontWeight: '700', marginLeft: 6 }}>Zapisz refleksję</Typography>
+              <Typography variant="label" style={{ color: '#fff', fontWeight: '700', marginLeft: 6 }}>{t('moonRitual.zapisz_refleksje', 'Zapisz refleksję')}</Typography>
             </Pressable>
 
             {journalEntries.length > 0 && (
               <View style={{ marginTop: 14 }}>
-                <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 1.5, fontSize: 9, marginBottom: 8 }}>OSTATNIE WPISY</Typography>
+                <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 1.5, fontSize: 9, marginBottom: 8 }}>{t('moonRitual.ostatnie_wpisy', 'OSTATNIE WPISY')}</Typography>
                 {journalEntries.map((e, i) => (
                   <Animated.View key={e.id} entering={FadeInDown.delay(i * 50).springify()} style={{ marginBottom: 8, padding: 10, borderRadius: 10, backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)', borderWidth: 1, borderColor: cardBorder }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
@@ -823,10 +823,10 @@ export default function MoonRitualScreen({ navigation }: any) {
 
         {/* ── SECTION 5: Full Moon Intentions ───────────────── */}
         <Animated.View entering={FadeInDown.delay(320).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>INTENCJE NA PEŁNIĘ</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('moonRitual.intencje_na_pelnie', 'INTENCJE NA PEŁNIĘ')}</Typography>
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <Typography variant="caption" style={{ color: subColor, marginBottom: 12, lineHeight: 18 }}>
-              Zapisz trzy intencje lub pragnienia, które chcesz zobaczyć w blasku pełni. Zaznacz spełnione.
+              {t('moonRitual.zapisz_trzy_intencje_lub_pragnienia', 'Zapisz trzy intencje lub pragnienia, które chcesz zobaczyć w blasku pełni. Zaznacz spełnione.')}
             </Typography>
             {fullIntentions.map((val, i) => (
               <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 10 }}>
@@ -849,10 +849,10 @@ export default function MoonRitualScreen({ navigation }: any) {
 
         {/* ── SECTION 6: New Moon Wishes ─────────────────────── */}
         <Animated.View entering={FadeInDown.delay(380).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>ŻYCZENIA NA NÓW</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('moonRitual.zyczenia_na_now', 'ŻYCZENIA NA NÓW')}</Typography>
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <Typography variant="caption" style={{ color: subColor, marginBottom: 12, lineHeight: 18 }}>
-              W nów zasadzasz ziarno. Jakie trzy życzenia zechcesz zasadzić w ciemności nowego cyklu?
+              {t('moonRitual.w_now_zasadzasz_ziarno_jakie', 'W nów zasadzasz ziarno. Jakie trzy życzenia zechcesz zasadzić w ciemności nowego cyklu?')}
             </Typography>
             {newWishes.map((val, i) => (
               <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 10 }}>
@@ -875,7 +875,7 @@ export default function MoonRitualScreen({ navigation }: any) {
 
         {/* ── SECTION 7: Moon Calendar Mini-Strip ───────────── */}
         <Animated.View entering={FadeInDown.delay(440).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>TYGODNIOWY KALENDARZ KSIĘŻYCA</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('moonRitual.tygodniowy_kalendarz_ksiezyca', 'TYGODNIOWY KALENDARZ KSIĘŻYCA')}</Typography>
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               {weekDays.map((wd, i) => {
@@ -918,10 +918,10 @@ export default function MoonRitualScreen({ navigation }: any) {
 
         {/* ── SECTION 8: Sacred Timing ───────────────────────── */}
         <Animated.View entering={FadeInDown.delay(500).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>ŚWIĘTE GODZINY RYTUAŁÓW</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('moonRitual.swiete_godziny_rytualow', 'ŚWIĘTE GODZINY RYTUAŁÓW')}</Typography>
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <Typography variant="caption" style={{ color: subColor, marginBottom: 12, lineHeight: 18 }}>
-              Każda pora dnia niesie inną energię. Wybierz czas odpowiedni dla zamierzonego rytuału.
+              {t('moonRitual.kazda_pora_dnia_niesie_inna', 'Każda pora dnia niesie inną energię. Wybierz czas odpowiedni dla zamierzonego rytuału.')}
             </Typography>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
               {SACRED_TIMES.map((st, i) => {
@@ -952,7 +952,7 @@ export default function MoonRitualScreen({ navigation }: any) {
 
         {/* ── SECTION 9: Oracle AI ──────────────────────────── */}
         <Animated.View entering={FadeInDown.delay(560).springify()}>
-          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>WYROCZNIA KSIĘŻYCOWA</Typography>
+          <Typography variant="microLabel" style={[styles.sectionLabel, { color: subColor }]}>{t('moonRitual.wyrocznia_ksiezycowa', 'WYROCZNIA KSIĘŻYCOWA')}</Typography>
           <LinearGradient
             colors={isLight ? ['rgba(196,181,253,0.10)', 'rgba(196,181,253,0.04)'] : ['rgba(196,181,253,0.12)', 'rgba(100,80,180,0.04)']}
             style={[styles.card, { borderColor: accent + '33', borderWidth: 1 }]}
@@ -960,7 +960,7 @@ export default function MoonRitualScreen({ navigation }: any) {
           >
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
               <Wand2 size={18} color={accent} />
-              <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>Zapytaj księżycową wyrocznię</Typography>
+              <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>{t('moonRitual.zapytaj_ksiezycowa_wyrocznie', 'Zapytaj księżycową wyrocznię')}</Typography>
             </View>
 
             {/* Quick prompts */}
@@ -980,7 +980,7 @@ export default function MoonRitualScreen({ navigation }: any) {
 
             <TextInput
               style={[styles.input, { color: textColor, borderColor: cardBorder, backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)', minHeight: 72 }]}
-              placeholder="Zadaj pytanie wyroczni księżyca…"
+              placeholder={t('moonRitual.zadaj_pytanie_wyroczni_ksiezyca', 'Zadaj pytanie wyroczni księżyca…')}
               placeholderTextColor={subColor}
               multiline
               value={oracleInput}
@@ -999,7 +999,7 @@ export default function MoonRitualScreen({ navigation }: any) {
 
             {!!oracleResponse && (
               <Animated.View entering={FadeInDown.springify()} style={{ marginTop: 14, padding: 14, borderRadius: 12, backgroundColor: accent + '12', borderWidth: 1, borderColor: accent + '33' }}>
-                <Typography variant="caption" style={{ color: accent, letterSpacing: 1.5, fontSize: 9, marginBottom: 6 }}>ODPOWIEDŹ WYROCZNI</Typography>
+                <Typography variant="caption" style={{ color: accent, letterSpacing: 1.5, fontSize: 9, marginBottom: 6 }}>{t('moonRitual.odpowiedz_wyroczni', 'ODPOWIEDŹ WYROCZNI')}</Typography>
                 <Typography variant="body" style={{ color: textColor, lineHeight: 24, fontStyle: 'italic' }}>{oracleResponse}</Typography>
               </Animated.View>
             )}

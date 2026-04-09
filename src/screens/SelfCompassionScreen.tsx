@@ -170,7 +170,7 @@ export const SelfCompassionScreen = ({ navigation }: any) => {
         {activeTab === 'pillars' && (
           <>
             <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 16 }}>
-              Współczucie dla siebie to nie słabość — to najsilniejsza forma odporności. Opiera się na 3 filarach Kristin Neff.
+              {t('selfCompassion.wspolczuci_dla_siebie_to_nie', 'Współczucie dla siebie to nie słabość — to najsilniejsza forma odporności. Opiera się na 3 filarach Kristin Neff.')}
             </Text>
             {PILLARS.map((p, i) => (
               <Animated.View key={p.title} entering={FadeInDown.delay(80 + i * 80).duration(500)}>
@@ -202,7 +202,7 @@ export const SelfCompassionScreen = ({ navigation }: any) => {
 
         {activeTab === 'practices' && (
           <>
-            <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginBottom: 8 }}>PRAKTYKI UWAŻNOŚCI</Text>
+            <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginBottom: 8 }}>{t('selfCompassion.praktyki_uwaznosci', 'PRAKTYKI UWAŻNOŚCI')}</Text>
             {PRACTICES.map((pr, i) => (
               <Animated.View key={pr.title} entering={FadeInDown.delay(80 + i * 60).duration(400)}>
                 <View style={[styles.practiceCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
@@ -215,7 +215,7 @@ export const SelfCompassionScreen = ({ navigation }: any) => {
               </Animated.View>
             ))}
 
-            <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 20, marginBottom: 8 }}>PRAKTYKI CIAŁA</Text>
+            <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 20, marginBottom: 8 }}>{t('selfCompassion.praktyki_ciala', 'PRAKTYKI CIAŁA')}</Text>
             {COMPASSION_BODY_PRACTICES.map((bp, i) => (
               <Animated.View key={bp.title} entering={FadeInDown.delay(200 + i * 55).duration(400)}>
                 <View style={[styles.practiceCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
@@ -228,7 +228,7 @@ export const SelfCompassionScreen = ({ navigation }: any) => {
               </Animated.View>
             ))}
 
-            <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 20, marginBottom: 8 }}>PYTANIA DO REFLEKSJI</Text>
+            <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 20, marginBottom: 8 }}>{t('selfCompassion.pytania_do_refleksji', 'PYTANIA DO REFLEKSJI')}</Text>
             {COMPASSION_JOURNAL_PROMPTS.map((prompt, i) => (
               <Animated.View key={i} entering={FadeInDown.delay(400 + i * 50).duration(400)}>
                 <View style={[styles.affCard, { backgroundColor: cardBg, borderColor: cardBorder, marginBottom: 8 }]}>
@@ -238,12 +238,12 @@ export const SelfCompassionScreen = ({ navigation }: any) => {
               </Animated.View>
             ))}
 
-            <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 20, marginBottom: 8 }}>LIST DO SIEBIE (AI)</Text>
+            <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 20, marginBottom: 8 }}>{t('selfCompassion.list_do_siebie_ai', 'LIST DO SIEBIE (AI)')}</Text>
             <View style={[styles.inputBox, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <TextInput
                 value={letterText}
                 onChangeText={setLetterText}
-                placeholder="Co teraz przeżywasz? Co cię boli lub martwi?"
+                placeholder={t('selfCompassion.co_teraz_przezywasz_co_cie', 'Co teraz przeżywasz? Co cię boli lub martwi?')}
                 placeholderTextColor={subColor}
                 multiline
                 style={{ color: textColor, fontSize: 14, lineHeight: 22, minHeight: 80 }}

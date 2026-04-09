@@ -137,7 +137,7 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
     if (proposalText.trim().length < 2) return;
     HapticsService.impact('medium');
     const text = proposalText.trim();
-    setMyProposals(prev => [{ text, status: 'W głosowaniu', votes: 0 }, ...prev]);
+    setMyProposals(prev => [{ text, status: t('communityAffirmation.w_glosowaniu', 'W głosowaniu'), votes: 0 }, ...prev]);
     setProposalSent(true);
     setProposalText('');
     if (proposalTimerRef.current) clearTimeout(proposalTimerRef.current);
@@ -170,8 +170,8 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
           <ChevronLeft size={22} color={tc} />
         </Pressable>
         <View style={{ flex: 1, alignItems: 'center' }}>
-          <Text style={[styles.headerTitle, { color: tc }]}>Afirmacja Wspólnoty</Text>
-          <Text style={[styles.headerSub, { color: ACCENT }]}>CO 24H</Text>
+          <Text style={[styles.headerTitle, { color: tc }]}>{t('communityAffirmation.afirmacja_wspolnoty', 'Afirmacja Wspólnoty')}</Text>
+          <Text style={[styles.headerSub, { color: ACCENT }]}>{t('communityAffirmation.co_24h', 'CO 24H')}</Text>
         </View>
         <Sparkles size={20} color={ACCENT} />
       </View>
@@ -186,16 +186,16 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
           {/* Hero */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 8 }}>
             <LinearGradient colors={['#92400E', '#B45309', '#D97706']} style={styles.heroCard}>
-              <Text style={[styles.heroLabel, isLight && { color: 'rgba(37,29,22,0.70)' }]}>AFIRMACJA DNIA</Text>
+              <Text style={[styles.heroLabel, isLight && { color: 'rgba(37,29,22,0.70)' }]}>{t('communityAffirmation.afirmacja_dnia', 'AFIRMACJA DNIA')}</Text>
               <Text style={styles.heroText}>{heroText}</Text>
-              <Text style={[styles.heroVotes, isLight && { color: 'rgba(37,29,22,0.70)' }]}>{votes.toLocaleString()} głosów</Text>
+              <Text style={[styles.heroVotes, isLight && { color: 'rgba(37,29,22,0.70)' }]}>{votes.toLocaleString()} {t('communityAffirmation.glosow', 'głosów')}</Text>
             </LinearGradient>
 
             {/* Vote Button */}
             <Animated.View style={[{ alignSelf: 'center', marginTop: 16 }, heartStyle]}>
               <Pressable onPress={handleVote} style={[styles.voteBtn, { backgroundColor: voted ? '#EC4899' : cb, borderColor: voted ? '#EC4899' : cbr }]}>
                 <Heart size={28} color={voted ? '#fff' : '#EC4899'} fill={voted ? '#fff' : 'none'} />
-                <Text style={[styles.voteBtnText, { color: voted ? '#fff' : tc }]}>{voted ? 'Głosowałeś(aś)!' : 'Potwierdź tę afirmację'}</Text>
+                <Text style={[styles.voteBtnText, { color: voted ? '#fff' : tc }]}>{voted ? t('communityAffirmation.glosowales_as', 'Głosowałeś(aś)!') : t('communityAffirmation.potwierdz_te_afirmacje', 'Potwierdź tę afirmację')}</Text>
               </Pressable>
             </Animated.View>
 
@@ -221,7 +221,7 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
             {/* Shuffle button */}
             <Pressable onPress={handleShuffle} style={[styles.shuffleBtn, { backgroundColor: ACCENT + '18', borderColor: ACCENT + '44' }]}>
               <Shuffle size={18} color={ACCENT} />
-              <Text style={[styles.shuffleText, { color: ACCENT }]}>Losuj afirmację</Text>
+              <Text style={[styles.shuffleText, { color: ACCENT }]}>{t('communityAffirmation.losuj_afirmacje', 'Losuj afirmację')}</Text>
             </Pressable>
             {!!shuffledAffirmation && (
               <Animated.View entering={FadeInDown} style={[styles.shuffledCard, { backgroundColor: ACCENT + '12', borderColor: ACCENT + '40' }]}>
@@ -232,13 +232,13 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
             {/* Streak */}
             <View style={[styles.streakCard, { backgroundColor: ACCENT + '18', borderColor: ACCENT + '44' }]}>
               <Flame size={20} color={ACCENT} />
-              <Text style={[styles.streakText, { color: tc }]}>Głosujesz {streak} dni z rzędu</Text>
+              <Text style={[styles.streakText, { color: tc }]}>{t('communityAffirmation.glosujesz', 'Głosujesz')} {streak} {t('communityAffirmation.dni_z_rzedu', 'dni z rzędu')}</Text>
             </View>
           </View>
 
           {/* Weekly Affirmations with per-card reactions */}
           <View style={{ marginTop: 24 }}>
-            <Text style={[styles.sectionTitle, { color: sc, paddingHorizontal: layout.padding.screen }]}>OSTATNIE 7 DNI</Text>
+            <Text style={[styles.sectionTitle, { color: sc, paddingHorizontal: layout.padding.screen }]}>{t('communityAffirmation.ostatnie_7_dni', 'OSTATNIE 7 DNI')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: layout.padding.screen, gap: 10 }}>
               {WEEKLY_AFFIRMATIONS.map((a, i) => (
                 <Animated.View key={a.date} entering={FadeInDown.delay(i * 50)} style={[styles.weekCard, { backgroundColor: cb, borderColor: cbr }]}>
@@ -261,17 +261,17 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
 
           {/* Affirmacja Tygodnia */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 20 }}>
-            <Text style={[styles.sectionTitle, { color: sc }]}>AFIRMACJA TYGODNIA</Text>
+            <Text style={[styles.sectionTitle, { color: sc }]}>{t('communityAffirmation.afirmacja_tygodnia', 'AFIRMACJA TYGODNIA')}</Text>
             <LinearGradient colors={['#78350F', '#92400E', '#B45309']} style={styles.weekHeroCard}>
-              <Text style={[styles.weekHeroLabel, isLight && { color: 'rgba(37,29,22,0.60)' }]}>NAJWYŻEJ OCENIANA</Text>
-              <Text style={styles.weekHeroText}>Wybieram siebie każdego dnia.</Text>
-              <Text style={[styles.weekHeroVotes, isLight && { color: 'rgba(37,29,22,0.60)' }]}>2 891 głosów</Text>
+              <Text style={[styles.weekHeroLabel, isLight && { color: 'rgba(37,29,22,0.60)' }]}>{t('communityAffirmation.najwyzej_oceniana', 'NAJWYŻEJ OCENIANA')}</Text>
+              <Text style={styles.weekHeroText}>{t('communityAffirmation.wybieram_siebie_kazdego_dnia', 'Wybieram siebie każdego dnia.')}</Text>
+              <Text style={[styles.weekHeroVotes, isLight && { color: 'rgba(37,29,22,0.60)' }]}>{t('communityAffirmation.2_891_glosow', '2 891 głosów')}</Text>
             </LinearGradient>
           </View>
 
           {/* Archiwum afirmacji */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 20 }}>
-            <Text style={[styles.sectionTitle, { color: sc }]}>ARCHIWUM AFIRMACJI</Text>
+            <Text style={[styles.sectionTitle, { color: sc }]}>{t('communityAffirmation.archiwum_afirmacji', 'ARCHIWUM AFIRMACJI')}</Text>
             <View style={{ gap: 8 }}>
               {ARCHIVE_AFFIRMATIONS.map((a, i) => (
                 <Animated.View key={i} entering={FadeInDown.delay(i * 60)} style={[styles.archiveCard, { backgroundColor: cb, borderColor: cbr }]}>
@@ -290,11 +290,11 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
 
           {/* Proposal */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 20 }}>
-            <Text style={[styles.sectionTitle, { color: sc }]}>ZAPROPONUJ AFIRMACJĘ</Text>
+            <Text style={[styles.sectionTitle, { color: sc }]}>{t('communityAffirmation.zaproponuj_afirmacje', 'ZAPROPONUJ AFIRMACJĘ')}</Text>
             <View style={[styles.proposalCard, { backgroundColor: cb, borderColor: cbr }]}>
               <TextInput
                 value={proposalText} onChangeText={setProposalText}
-                placeholder="Napisz afirmację dla wspólnoty..." placeholderTextColor={sc}
+                placeholder={t('communityAffirmation.napisz_afirmacje_dla_wspolnoty', 'Napisz afirmację dla wspólnoty...')} placeholderTextColor={sc}
                 multiline
                 returnKeyType="send"
                 onSubmitEditing={() => { if (proposalText.trim().length >= 2) handleProposal(); }}
@@ -308,12 +308,12 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
 
           {/* How it works */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 20 }}>
-            <Text style={[styles.sectionTitle, { color: sc }]}>JAK TO DZIAŁA</Text>
+            <Text style={[styles.sectionTitle, { color: sc }]}>{t('communityAffirmation.jak_to_dziala', 'JAK TO DZIAŁA')}</Text>
             <View style={[styles.howCard, { backgroundColor: cb, borderColor: cbr }]}>
               {[
-                { num: '1', text: 'Codziennie wspólnota wybiera najsilniejszą afirmację.' },
-                { num: '2', text: 'Głosuj i potwierdzaj afirmację swoją energią.' },
-                { num: '3', text: 'Twórz własne i wyślij do globalnego głosowania.' },
+                { num: '1', text: t('communityAffirmation.jak_1', 'Codziennie wspólnota wybiera najsilniejszą afirmację.') },
+                { num: '2', text: t('communityAffirmation.jak_2', 'Głosuj i potwierdzaj afirmację swoją energią.') },
+                { num: '3', text: t('communityAffirmation.jak_3', 'Twórz własne i wyślij do globalnego głosowania.') },
               ].map(s => (
                 <View key={s.num} style={styles.howRow}>
                   <View style={[styles.howNum, { backgroundColor: ACCENT + '22' }]}>
@@ -329,8 +329,8 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 16 }}>
             <View style={{ flexDirection: 'row', gap: 8 }}>
               {[
-                { icon: Users, label: 'Dziś głosuje', value: (votes + 8341).toLocaleString() },
-                { icon: TrendingUp, label: 'Łącznie', value: '47 892' },
+                { icon: Users, label: t('communityAffirmation.dzis_glosuje', 'Dziś głosuje'), value: (votes + 8341).toLocaleString() },
+                { icon: TrendingUp, label: t('communityAffirmation.lacznie', 'Łącznie'), value: '47 892' },
                 { icon: Flame, label: 'Twoja seria', value: `${streak} dni` },
               ].map(({ icon: Icon, label, value }) => (
                 <View key={label} style={{ flex: 1, borderRadius: 14, borderWidth: 1, padding: 12, alignItems: 'center', backgroundColor: cb, borderColor: cbr }}>
@@ -345,7 +345,7 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
           {/* My proposals */}
           {myProposals.length > 0 && (
             <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 20 }}>
-              <Text style={[styles.sectionTitle, { color: sc }]}>MOJE PROPOZYCJE</Text>
+              <Text style={[styles.sectionTitle, { color: sc }]}>{t('communityAffirmation.moje_propozycje', 'MOJE PROPOZYCJE')}</Text>
               <View style={{ gap: 8 }}>
                 {myProposals.map((p, i) => (
                   <Animated.View key={i} entering={FadeInDown} style={[styles.archiveCard, { backgroundColor: ACCENT + '10', borderColor: ACCENT + '33' }]}>
@@ -362,11 +362,11 @@ export const CommunityAffirmationScreen = ({ navigation }) => {
 
           {/* CO DALEJ */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 20 }}>
-            <Text style={[styles.sectionTitle, { color: sc }]}>✦ CO DALEJ?</Text>
+            <Text style={[styles.sectionTitle, { color: sc }]}>{t('communityAffirmation.co_dalej', '✦ CO DALEJ?')}</Text>
             {[
-              { label: 'Afirmacje AI', sub: 'Wygeneruj swoją unikalną', color: '#818CF8', route: 'AIDailyAffirmations' },
-              { label: 'Czat wspólnoty', sub: 'Podziel się refleksją', color: '#EC4899', route: 'CommunityChatScreen' },
-              { label: 'Dziennik duszy', sub: 'Zapisz co czujesz', color: ACCENT, route: 'Journal' },
+              { label: t('communityAffirmation.afirmacje_ai', 'Afirmacje AI'), sub: t('communityAffirmation.wygeneruj_swoja_unikalna', 'Wygeneruj swoją unikalną'), color: '#818CF8', route: 'AIDailyAffirmations' },
+              { label: t('communityAffirmation.czat_wspolnoty', 'Czat wspólnoty'), sub: t('communityAffirmation.podziel_sie_refleksja', 'Podziel się refleksją'), color: '#EC4899', route: 'CommunityChatScreen' },
+              { label: t('communityAffirmation.dziennik_duszy', 'Dziennik duszy'), sub: t('communityAffirmation.zapisz_co_czujesz', 'Zapisz co czujesz'), color: ACCENT, route: 'Journal' },
             ].map(item => (
               <Pressable key={item.label} onPress={() => { try { navigation.navigate(item.route); } catch (_) {} HapticsService.impact('light'); }}
                 style={[styles.archiveCard, { borderColor: item.color + '33', backgroundColor: cb, marginBottom: 8 }]}>

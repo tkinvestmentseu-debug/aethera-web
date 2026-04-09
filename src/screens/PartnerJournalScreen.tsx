@@ -265,7 +265,7 @@ const SoulMapWidget = ({ accent, isLight }) => {
         </Animated.View>
       </GestureDetector>
       <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: accent, marginTop: 6, opacity: 0.72 }}>
-        MAPA DUSZY PARY
+        {t('partnerJournal.mapa_duszy_pary', 'MAPA DUSZY PARY')}
       </Text>
     </View>
   );
@@ -384,21 +384,21 @@ const SetupForm = ({ onSave, isLight, textColor, subColor, cardBg, cardBorder, o
     <Animated.View entering={FadeInDown.duration(500)} style={[s.setupCard, { backgroundColor: cardBg, borderColor: cardBorder, marginHorizontal: SP }]}>
       <View style={{ alignItems: 'center', marginBottom: 20 }}>
         <Heart size={36} color={ACCENT} fill={ACCENT + '66'} />
-        <Text style={[s.setupTitle, { color: textColor }]}>Poznajmy Twoją drugą połówkę</Text>
-        <Text style={[s.setupSub, { color: subColor }]}>Podaj imię i datę urodzenia partnera/ki, aby odblokować dziennik pary i analizę kompatybilności.</Text>
+        <Text style={[s.setupTitle, { color: textColor }]}>{t('partnerJournal.poznajmy_twoja_druga_polowke', 'Poznajmy Twoją drugą połówkę')}</Text>
+        <Text style={[s.setupSub, { color: subColor }]}>{t('partnerJournal.podaj_imie_i_date_urodzenia', 'Podaj imię i datę urodzenia partnera/ki, aby odblokować dziennik pary i analizę kompatybilności.')}</Text>
       </View>
-      <Text style={[s.fieldLabel, { color: ACCENT }]}>IMIĘ PARTNERA/KI</Text>
+      <Text style={[s.fieldLabel, { color: ACCENT }]}>{t('partnerJournal.imie_partnera_ki', 'IMIĘ PARTNERA/KI')}</Text>
       <MysticalInput
         value={name}
         onChangeText={setName}
-        placeholder="Np. Marta, Tomasz..."
+        placeholder={t('partnerJournal.np_marta_tomasz', 'Np. Marta, Tomasz...')}
         placeholderTextColor={subColor}
         style={{ color: textColor }}
         containerStyle={{ marginBottom: 12 }}
         returnKeyType="done"
         onFocusScroll={() => onFieldFocus?.(120)}
       />
-      <Text style={[s.fieldLabel, { color: ACCENT, marginTop: 14 }]}>DATA URODZENIA PARTNERA/KI</Text>
+      <Text style={[s.fieldLabel, { color: ACCENT, marginTop: 14 }]}>{t('partnerJournal.data_urodzenia_partnera_ki', 'DATA URODZENIA PARTNERA/KI')}</Text>
       <DateWheelPicker
         day={bdDay} month={bdMonth} year={bdYear}
         onChange={(d, m, y) => { setBdDay(d); setBdMonth(m); setBdYear(y); }}
@@ -410,7 +410,7 @@ const SetupForm = ({ onSave, isLight, textColor, subColor, cardBg, cardBorder, o
         style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 18, marginBottom: 4 }}
       >
         <Calendar size={15} color={ACCENT} />
-        <Text style={[s.fieldLabel, { color: ACCENT, marginTop: 0 }]}>DATA POCZĄTKU ZWIĄZKU (opcjonalnie)</Text>
+        <Text style={[s.fieldLabel, { color: ACCENT, marginTop: 0 }]}>{t('partnerJournal.data_poczatku_zwiazku_opcjonalni', 'DATA POCZĄTKU ZWIĄZKU (opcjonalnie)')}</Text>
         <Text style={{ color: ACCENT, fontSize: 13 }}>{showStartDate ? '▲' : '▼'}</Text>
       </Pressable>
       {showStartDate && (
@@ -426,7 +426,7 @@ const SetupForm = ({ onSave, isLight, textColor, subColor, cardBg, cardBorder, o
         disabled={!canSave}
         style={[s.setupBtn, { backgroundColor: canSave ? ACCENT : ACCENT + '55', marginTop: 18 }]}
       >
-        <Text style={{ color: '#fff', fontWeight: '700', fontSize: 15 }}>Stwórz dziennik pary</Text>
+        <Text style={{ color: '#fff', fontWeight: '700', fontSize: 15 }}>{t('partnerJournal.stworz_dziennik_pary', 'Stwórz dziennik pary')}</Text>
       </Pressable>
     </Animated.View>
   );
@@ -527,12 +527,12 @@ const IntentionBoard = ({ isLight, textColor, subColor, cardBg, cardBorder, acce
       style={[s.sectionBox, { backgroundColor: cardBg, borderColor: cardBorder }]}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 }}>
         <Moon size={15} color={accent} />
-        <Text style={[s.sectionTitle, { color: textColor }]}>TABLICA INTENCJI</Text>
+        <Text style={[s.sectionTitle, { color: textColor }]}>{t('partnerJournal.tablica_intencji', 'TABLICA INTENCJI')}</Text>
         <View style={{ flex: 1 }} />
         <Text style={{ fontSize: 9, color: subColor, fontWeight: '600', letterSpacing: 0.6 }}>{moonLabel.toUpperCase()}</Text>
       </View>
       <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 14 }}>
-        Ustalcie 3 wspólne intencje na ten cykl księżycowy. Każde z was potwierdza swoją zgodę — razem zakorzenia je w energii pełni.
+        {t('partnerJournal.ustalcie_3_wspolne_intencje_na', 'Ustalcie 3 wspólne intencje na ten cykl księżycowy. Każde z was potwierdza swoją zgodę — razem zakorzenia je w energii pełni.')}
       </Text>
       {intentionSlots.map((slot) => (
         <View key={slot.key} style={{ marginBottom: 12 }}>
@@ -603,10 +603,10 @@ const RelationshipTimeline = ({ isLight, textColor, subColor, cardBg, cardBorder
       style={[s.sectionBox, { backgroundColor: cardBg, borderColor: cardBorder }]}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 }}>
         <Calendar size={15} color={accent} />
-        <Text style={[s.sectionTitle, { color: textColor }]}>OŚ CZASU RELACJI</Text>
+        <Text style={[s.sectionTitle, { color: textColor }]}>{t('partnerJournal.os_czasu_relacji', 'OŚ CZASU RELACJI')}</Text>
       </View>
       <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 14 }}>
-        Znaczące momenty Waszej historii. Dotknij kamienia milowego, by dodać datę i notatkę.
+        {t('partnerJournal.znaczace_momenty_waszej_historii_do', 'Znaczące momenty Waszej historii. Dotknij kamienia milowego, by dodać datę i notatkę.')}
       </Text>
       {MILESTONE_DEFAULTS.map((m, idx) => (
         <View key={m.id}>
@@ -629,7 +629,7 @@ const RelationshipTimeline = ({ isLight, textColor, subColor, cardBg, cardBorder
               {dates[m.id] ? (
                 <Text style={{ fontSize: 11, color: m.color, marginTop: 2, fontWeight: '600' }}>{dates[m.id]}</Text>
               ) : (
-                <Text style={{ fontSize: 11, color: subColor, marginTop: 2 }}>Dodaj datę...</Text>
+                <Text style={{ fontSize: 11, color: subColor, marginTop: 2 }}>{t('partnerJournal.dodaj_date', 'Dodaj datę...')}</Text>
               )}
             </View>
             <Text style={{ fontSize: 11, color: editing === m.id ? accent : subColor }}>
@@ -641,7 +641,7 @@ const RelationshipTimeline = ({ isLight, textColor, subColor, cardBg, cardBorder
               <TextInput
                 value={dates[m.id] ?? ''}
                 onChangeText={(v) => setDates((p) => ({ ...p, [m.id]: v }))}
-                placeholder="DD.MM.RRRR"
+                placeholder={t('partnerJournal.dd_mm_rrrr', 'DD.MM.RRRR')}
                 placeholderTextColor={subColor}
                 keyboardType="numeric"
                 style={{
@@ -653,7 +653,7 @@ const RelationshipTimeline = ({ isLight, textColor, subColor, cardBg, cardBorder
               <TextInput
                 value={notes[m.id] ?? ''}
                 onChangeText={(v) => setNotes((p) => ({ ...p, [m.id]: v }))}
-                placeholder="Krótka notatka o tym momencie..."
+                placeholder={t('partnerJournal.krotka_notatka_o_tym_momencie', 'Krótka notatka o tym momencie...')}
                 placeholderTextColor={subColor}
                 multiline
                 style={{
@@ -690,7 +690,7 @@ const LoveLanguageProfile = ({ partnerName, isLight, textColor, subColor, cardBg
       style={[s.sectionBox, { backgroundColor: cardBg, borderColor: cardBorder }]}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 }}>
         <Heart size={15} color={accent} />
-        <Text style={[s.sectionTitle, { color: textColor }]}>JĘZYKI MIŁOŚCI</Text>
+        <Text style={[s.sectionTitle, { color: textColor }]}>{t('partnerJournal.jezyki_milosci', 'JĘZYKI MIŁOŚCI')}</Text>
       </View>
       <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 16 }}>
         Wybierz główny język miłości dla siebie i {partnerName ?? 'partnera/ki'}.
@@ -751,10 +751,10 @@ const ConflictRituals = ({ isLight, textColor, subColor, cardBg, cardBorder, acc
       style={[s.sectionBox, { backgroundColor: cardBg, borderColor: cardBorder }]}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 }}>
         <Wind size={15} color={accent} />
-        <Text style={[s.sectionTitle, { color: textColor }]}>RYTUAŁ ROZWIĄZYWANIA KONFLIKTÓW</Text>
+        <Text style={[s.sectionTitle, { color: textColor }]}>{t('partnerJournal.rytual_rozwiazywa_konfliktow', 'RYTUAŁ ROZWIĄZYWANIA KONFLIKTÓW')}</Text>
       </View>
       <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 16 }}>
-        5 kroków, które pomagają wrócić do siebie w trudnych chwilach. Używajcie razem, gdy rozmowa staje się trudna.
+        {t('partnerJournal.5_krokow_ktore_pomagaja_wrocic', '5 kroków, które pomagają wrócić do siebie w trudnych chwilach. Używajcie razem, gdy rozmowa staje się trudna.')}
       </Text>
       {CONFLICT_RITUALS.map((r, i) => {
         const isActive = activeStep === r.step;
@@ -828,7 +828,7 @@ const DailyGratitude = ({ partnerName, isLight, textColor, subColor, cardBg, car
       style={[s.sectionBox, { backgroundColor: cardBg, borderColor: cardBorder }]}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
         <Sparkles size={15} color={accent} />
-        <Text style={[s.sectionTitle, { color: textColor }]}>WDZIĘCZNOŚĆ DLA PARTNERA</Text>
+        <Text style={[s.sectionTitle, { color: textColor }]}>{t('partnerJournal.wdziecznos_dla_partnera', 'WDZIĘCZNOŚĆ DLA PARTNERA')}</Text>
         <View style={{ flex: 1 }} />
         {streak > 0 && (
           <View style={{ backgroundColor: '#FBBF2428', borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3 }}>
@@ -844,7 +844,7 @@ const DailyGratitude = ({ partnerName, isLight, textColor, subColor, cardBg, car
           borderRadius: 14, padding: 14, borderWidth: 1,
           backgroundColor: accent + '14', borderColor: accent + '44',
         }}>
-          <Text style={{ fontSize: 9, fontWeight: '700', color: accent, letterSpacing: 1.4, marginBottom: 6 }}>DZIŚ NAPISAŁEŚ/AŚ</Text>
+          <Text style={{ fontSize: 9, fontWeight: '700', color: accent, letterSpacing: 1.4, marginBottom: 6 }}>{t('partnerJournal.dzis_napisales_as', 'DZIŚ NAPISAŁEŚ/AŚ')}</Text>
           <Text style={{ fontSize: 14, color: textColor, lineHeight: 21, fontStyle: 'italic' }}>„{todayEntry.text}"</Text>
         </View>
       ) : (
@@ -872,14 +872,14 @@ const DailyGratitude = ({ partnerName, isLight, textColor, subColor, cardBg, car
               borderWidth: 1, borderColor: input.trim() ? accent + '66' : 'transparent',
             }}>
             <Text style={{ fontSize: 13, fontWeight: '700', color: input.trim() ? accent : subColor }}>
-              Zapisz wdzięczność
+              {t('partnerJournal.zapisz_wdziecznos', 'Zapisz wdzięczność')}
             </Text>
           </Pressable>
         </View>
       )}
       {recent.length > 0 && (
         <View style={{ marginTop: 14 }}>
-          <Text style={{ fontSize: 9, fontWeight: '700', color: subColor, letterSpacing: 1.4, marginBottom: 8 }}>OSTATNIE WPISY</Text>
+          <Text style={{ fontSize: 9, fontWeight: '700', color: subColor, letterSpacing: 1.4, marginBottom: 8 }}>{t('partnerJournal.ostatnie_wpisy', 'OSTATNIE WPISY')}</Text>
           {recent.map((e, i) => (
             <View key={i} style={{ flexDirection: 'row', gap: 8, marginBottom: 7, alignItems: 'flex-start' }}>
               <Text style={{ fontSize: 10, color: subColor, marginTop: 2, minWidth: 68 }}>
@@ -918,10 +918,10 @@ const FutureVisionBoard = ({ isLight, textColor, subColor, cardBg, cardBorder, a
       style={[s.sectionBox, { backgroundColor: cardBg, borderColor: cardBorder }]}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 }}>
         <Target size={15} color={accent} />
-        <Text style={[s.sectionTitle, { color: textColor }]}>WIZJA PRZYSZŁOŚCI</Text>
+        <Text style={[s.sectionTitle, { color: textColor }]}>{t('partnerJournal.wizja_przyszlosc', 'WIZJA PRZYSZŁOŚCI')}</Text>
       </View>
       <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 16 }}>
-        Trzy horyzonty czasowe Waszego związku. Pisanie wizji razem jest aktem tworzenia wspólnej rzeczywistości.
+        {t('partnerJournal.trzy_horyzonty_czasowe_waszego_zwia', 'Trzy horyzonty czasowe Waszego związku. Pisanie wizji razem jest aktem tworzenia wspólnej rzeczywistości.')}
       </Text>
       {VISION_HORIZONS.map((h) => (
         <View key={h.key} style={{ marginBottom: 14 }}>
@@ -1004,10 +1004,10 @@ const OracleRelationship = ({
       style={[s.sectionBox, { backgroundColor: cardBg, borderColor: cardBorder }]}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 }}>
         <Sparkles size={15} color={accent} />
-        <Text style={[s.sectionTitle, { color: textColor }]}>WYROCZNIA DLA ZWIĄZKU</Text>
+        <Text style={[s.sectionTitle, { color: textColor }]}>{t('partnerJournal.wyrocznia_dla_zwiazku', 'WYROCZNIA DLA ZWIĄZKU')}</Text>
       </View>
       <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 14 }}>
-        Zadaj pytanie o swoją relację — Wyrocznia patrzy przez pryzmat numerologii, wzorców i duchowych wzrostów.
+        {t('partnerJournal.zadaj_pytanie_o_swoja_relacje', 'Zadaj pytanie o swoją relację — Wyrocznia patrzy przez pryzmat numerologii, wzorców i duchowych wzrostów.')}
       </Text>
       {/* Quick prompts */}
       <ScrollView horizontal showsHorizontalScrollIndicator={false}
@@ -1027,7 +1027,7 @@ const OracleRelationship = ({
       <TextInput
         value={query}
         onChangeText={(v) => { setQuery(v); setAnswer(''); }}
-        placeholder="Wpisz własne pytanie do Wyroczni..."
+        placeholder={t('partnerJournal.wpisz_wlasne_pytanie_do_wyroczni', 'Wpisz własne pytanie do Wyroczni...')}
         placeholderTextColor={subColor}
         multiline
         style={{
@@ -1049,7 +1049,7 @@ const OracleRelationship = ({
         }}>
         {loading
           ? <ActivityIndicator size="small" color={accent} />
-          : <><Sparkles size={13} color={query.trim() ? accent : subColor} /><Text style={{ fontSize: 13, fontWeight: '700', color: query.trim() ? accent : subColor }}>Zapytaj Wyrocznię</Text></>
+          : <><Sparkles size={13} color={query.trim() ? accent : subColor} /><Text style={{ fontSize: 13, fontWeight: '700', color: query.trim() ? accent : subColor }}>{t('partnerJournal.zapytaj_wyrocznie', 'Zapytaj Wyrocznię')}</Text></>
         }
       </Pressable>
       {!!answer && (
@@ -1059,7 +1059,7 @@ const OracleRelationship = ({
         }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 10 }}>
             <Sparkles size={12} color={accent} />
-            <Text style={{ fontSize: 9, fontWeight: '700', color: accent, letterSpacing: 1.6 }}>ODPOWIEDŹ WYROCZNI</Text>
+            <Text style={{ fontSize: 9, fontWeight: '700', color: accent, letterSpacing: 1.6 }}>{t('partnerJournal.odpowiedz_wyroczni', 'ODPOWIEDŹ WYROCZNI')}</Text>
           </View>
           <Text style={{ fontSize: 14, lineHeight: 22, color: textColor, opacity: 0.9, fontStyle: 'italic' }}>
             {answer}
@@ -1067,7 +1067,7 @@ const OracleRelationship = ({
           <Pressable
             onPress={() => { setAnswer(''); setQuery(''); }}
             style={{ marginTop: 12, alignSelf: 'flex-end' }}>
-            <Text style={{ fontSize: 11, color: subColor }}>Zadaj nowe pytanie</Text>
+            <Text style={{ fontSize: 11, color: subColor }}>{t('partnerJournal.zadaj_nowe_pytanie', 'Zadaj nowe pytanie')}</Text>
           </Pressable>
         </View>
       )}
@@ -1160,8 +1160,8 @@ export const PartnerJournalScreen = ({ navigation }) => {
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={{ flex: 1, alignItems: 'center' }}>
-          <Text style={[s.headerEyebrow, { color: ACCENT }]}>WSPÓLNA PRZESTRZEŃ</Text>
-          <Text style={[s.headerTitle, { color: textColor }]}>Dziennik Pary</Text>
+          <Text style={[s.headerEyebrow, { color: ACCENT }]}>{t('partnerJournal.wspolna_przestrzen', 'WSPÓLNA PRZESTRZEŃ')}</Text>
+          <Text style={[s.headerTitle, { color: textColor }]}>{t('partnerJournal.dziennik_pary', 'Dziennik Pary')}</Text>
         </View>
         {partnerData ? (
           <Pressable onPress={() => setShowResetConfirm(true)} style={s.backBtn} hitSlop={12}>
@@ -1182,18 +1182,18 @@ export const PartnerJournalScreen = ({ navigation }) => {
             marginHorizontal: 32, borderWidth: 1, borderColor: ACCENT + '44',
           }}>
             <Text style={{ color: textColor, fontSize: 17, fontWeight: '700', textAlign: 'center', marginBottom: 10 }}>
-              Zmień partnera/kę?
+              {t('partnerJournal.zmien_partnera_ke', 'Zmień partnera/kę?')}
             </Text>
             <Text style={{ color: subColor, fontSize: 14, textAlign: 'center', marginBottom: 22, lineHeight: 20 }}>
               Dane {partnerData?.name} zostaną usunięte. Będziesz mógł/mogła skonfigurować dziennik od nowa.
             </Text>
             <Pressable onPress={() => { setPartnerData(null); setShowResetConfirm(false); HapticsService.notify(); }}
               style={{ backgroundColor: ACCENT, borderRadius: 12, padding: 14, alignItems: 'center', marginBottom: 10 }}>
-              <Text style={{ color: '#fff', fontWeight: '700', fontSize: 15 }}>Tak, zresetuj</Text>
+              <Text style={{ color: '#fff', fontWeight: '700', fontSize: 15 }}>{t('partnerJournal.tak_zresetuj', 'Tak, zresetuj')}</Text>
             </Pressable>
             <Pressable onPress={() => setShowResetConfirm(false)}
               style={{ borderRadius: 12, padding: 12, alignItems: 'center' }}>
-              <Text style={{ color: subColor, fontSize: 14 }}>Anuluj</Text>
+              <Text style={{ color: subColor, fontSize: 14 }}>{t('partnerJournal.anuluj', 'Anuluj')}</Text>
             </Pressable>
           </View>
         </Pressable>
@@ -1212,9 +1212,9 @@ export const PartnerJournalScreen = ({ navigation }) => {
           <Animated.View entering={FadeInDown.delay(40).duration(520)}
             style={[s.storyCard, { backgroundColor: cardBg, borderColor: ACCENT + '32', marginHorizontal: SP }]}>
             <View style={s.storyGlow} />
-            <Text style={[s.storyEyebrow, { color: ACCENT }]}>PRZESTRZEŃ DLA DWOJGA</Text>
-            <Text style={[s.storyLead, { color: textColor }]}>To nie zwykły moduł relacji. To wspólne sanktuarium, w którym zapisujecie rytm, napięcia, czułość i kierunek waszej więzi.</Text>
-            <Text style={[s.storyBody, { color: subColor }]}>Po konfiguracji otwierają się: wspólne wpisy, analiza harmonii, tablica intencji, oś czasu relacji i Wyrocznia Związku.</Text>
+            <Text style={[s.storyEyebrow, { color: ACCENT }]}>{t('partnerJournal.przestrzen_dla_dwojga', 'PRZESTRZEŃ DLA DWOJGA')}</Text>
+            <Text style={[s.storyLead, { color: textColor }]}>{t('partnerJournal.to_nie_zwykly_modul_relacji', 'To nie zwykły moduł relacji. To wspólne sanktuarium, w którym zapisujecie rytm, napięcia, czułość i kierunek waszej więzi.')}</Text>
+            <Text style={[s.storyBody, { color: subColor }]}>{t('partnerJournal.po_konfigurac_otwieraja_sie_wspolne', 'Po konfiguracji otwierają się: wspólne wpisy, analiza harmonii, tablica intencji, oś czasu relacji i Wyrocznia Związku.')}</Text>
           </Animated.View>
           <SetupForm
             onSave={handleSetup}
@@ -1287,9 +1287,9 @@ export const PartnerJournalScreen = ({ navigation }) => {
                 <Animated.View entering={FadeInDown.delay(40).duration(520)}
                   style={[s.storyCard, { backgroundColor: cardBg, borderColor: ACCENT + '32' }]}>
                   <View style={s.storyGlow} />
-                  <Text style={[s.storyEyebrow, { color: ACCENT }]}>DZIENNIK RELACJI</Text>
-                  <Text style={[s.storyLead, { color: textColor }]}>Ta przestrzeń zbiera nie tylko wspomnienia, ale też wzorce bliskości, napięcia i sposoby, w jakie wracacie do siebie.</Text>
-                  <Text style={[s.storyBody, { color: subColor }]}>Używajcie wspólnych wpisów jak mapy relacji: co was wzmacnia, co oddala i co chce zostać nazwane spokojniej.</Text>
+                  <Text style={[s.storyEyebrow, { color: ACCENT }]}>{t('partnerJournal.dziennik_relacji', 'DZIENNIK RELACJI')}</Text>
+                  <Text style={[s.storyLead, { color: textColor }]}>{t('partnerJournal.ta_przestrzen_zbiera_nie_tylko', 'Ta przestrzeń zbiera nie tylko wspomnienia, ale też wzorce bliskości, napięcia i sposoby, w jakie wracacie do siebie.')}</Text>
+                  <Text style={[s.storyBody, { color: subColor }]}>{t('partnerJournal.uzywajcie_wspolnych_wpisow_jak_mapy', 'Używajcie wspólnych wpisów jak mapy relacji: co was wzmacnia, co oddala i co chce zostać nazwane spokojniej.')}</Text>
                 </Animated.View>
 
                 {/* AI Analysis */}
@@ -1297,13 +1297,13 @@ export const PartnerJournalScreen = ({ navigation }) => {
                   style={[s.aiCard, { backgroundColor: cardBg, borderColor: cardBorder, marginBottom: 16 }]}>
                   <View style={s.aiCardHeader}>
                     <Sparkles size={14} color={ACCENT} />
-                    <Text style={[s.aiCardTitle, { color: ACCENT }]}>ANALIZA HARMONII AI</Text>
+                    <Text style={[s.aiCardTitle, { color: ACCENT }]}>{t('partnerJournal.analiza_harmonii_ai', 'ANALIZA HARMONII AI')}</Text>
                   </View>
                   {aiAnalysis ? (
                     <>
                       <Text style={[s.aiCardText, { color: textColor }]}>{aiAnalysis}</Text>
                       <Pressable onPress={() => setAiAnalysis('')} style={{ marginTop: 10, alignSelf: 'flex-end' }}>
-                        <Text style={{ fontSize: 11, color: subColor }}>Odśwież analizę</Text>
+                        <Text style={{ fontSize: 11, color: subColor }}>{t('partnerJournal.odswiez_analize', 'Odśwież analizę')}</Text>
                       </Pressable>
                     </>
                   ) : (
@@ -1314,7 +1314,7 @@ export const PartnerJournalScreen = ({ navigation }) => {
                     >
                       {aiLoading
                         ? <ActivityIndicator size="small" color={ACCENT} />
-                        : <Text style={[s.aiCtaText, { color: ACCENT }]}>✨ Analizuj harmonię związku</Text>
+                        : <Text style={[s.aiCtaText, { color: ACCENT }]}>{t('partnerJournal.analizuj_harmonie_zwiazku', '✨ Analizuj harmonię związku')}</Text>
                       }
                     </Pressable>
                   )}
@@ -1322,7 +1322,7 @@ export const PartnerJournalScreen = ({ navigation }) => {
 
                 {/* Entry type chips + new entry */}
                 <View style={{ marginBottom: 6 }}>
-                  <Text style={[s.sectionTitle, { color: textColor, marginBottom: 10 }]}>TYP WPISU</Text>
+                  <Text style={[s.sectionTitle, { color: textColor, marginBottom: 10 }]}>{t('partnerJournal.typ_wpisu', 'TYP WPISU')}</Text>
                   <EntryTypeChips
                     selected={selectedEntryType}
                     onSelect={setSelectedEntryType}
@@ -1339,16 +1339,16 @@ export const PartnerJournalScreen = ({ navigation }) => {
                     style={[s.addEntryBtn, { backgroundColor: ACCENT + '22', borderColor: ACCENT + '55' }]}
                   >
                     <PenLine size={13} color={ACCENT} />
-                    <Text style={[s.addEntryText, { color: ACCENT }]}>Nowy wpis</Text>
+                    <Text style={[s.addEntryText, { color: ACCENT }]}>{t('partnerJournal.nowy_wpis', 'Nowy wpis')}</Text>
                   </Pressable>
                 </View>
                 {partnerTaggedEntries.length === 0 ? (
                   <View style={[s.emptyState, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                     <Heart size={28} color={ACCENT} strokeWidth={1.5} />
-                    <Text style={[s.emptyStateTitle, { color: textColor }]}>Brak wspólnych wpisów</Text>
-                    <Text style={[s.emptyStateSub, { color: subColor }]}>Dodaj pierwszy wspólny wpis i zacznijcie razem śledzić swoją duchową podróż.</Text>
+                    <Text style={[s.emptyStateTitle, { color: textColor }]}>{t('partnerJournal.brak_wspolnych_wpisow', 'Brak wspólnych wpisów')}</Text>
+                    <Text style={[s.emptyStateSub, { color: subColor }]}>{t('partnerJournal.dodaj_pierwszy_wspolny_wpis_i', 'Dodaj pierwszy wspólny wpis i zacznijcie razem śledzić swoją duchową podróż.')}</Text>
                     <Pressable onPress={addTogetherEntry} style={[s.emptyBtn, { backgroundColor: ACCENT + 'DD' }]}>
-                      <Text style={{ color: '#fff', fontWeight: '700', fontSize: 14 }}>Nowy wpis dla nas</Text>
+                      <Text style={{ color: '#fff', fontWeight: '700', fontSize: 14 }}>{t('partnerJournal.nowy_wpis_dla_nas', 'Nowy wpis dla nas')}</Text>
                     </Pressable>
                   </View>
                 ) : (
@@ -1387,9 +1387,9 @@ export const PartnerJournalScreen = ({ navigation }) => {
             {/* ── TAB: MOJE ── */}
             {tab === 'mine' && (
               <>
-                <Text style={[s.sectionTitle, { color: textColor, marginTop: 4, marginBottom: 10 }]}>OSTATNIE WPISY</Text>
+                <Text style={[s.sectionTitle, { color: textColor, marginTop: 4, marginBottom: 10 }]}>{t('partnerJournal.ostatnie_wpisy_1', 'OSTATNIE WPISY')}</Text>
                 {myEntries.length === 0 ? (
-                  <Text style={[s.emptyText, { color: subColor }]}>Brak wpisów w dzienniku.</Text>
+                  <Text style={[s.emptyText, { color: subColor }]}>{t('partnerJournal.brak_wpisow_w_dzienniku', 'Brak wpisów w dzienniku.')}</Text>
                 ) : (
                   myEntries.map((e) => <EntryCard key={e.id} entry={e} isLight={isLight} />)
                 )}
@@ -1415,9 +1415,9 @@ export const PartnerJournalScreen = ({ navigation }) => {
                 <Animated.View entering={FadeInDown.delay(40).duration(500)}
                   style={[s.storyCard, { backgroundColor: cardBg, borderColor: ACCENT + '32' }]}>
                   <View style={s.storyGlow} />
-                  <Text style={[s.storyEyebrow, { color: ACCENT }]}>RYTUAŁY RELACJI</Text>
-                  <Text style={[s.storyLead, { color: textColor }]}>Narzędzia do budowania bezpieczeństwa, intymności i rozwiązywania napięć w związku.</Text>
-                  <Text style={[s.storyBody, { color: subColor }]}>Rytuały to nie magia — to powtarzalne gesty uwagi, które z czasem tworzą filar bezpiecznej relacji.</Text>
+                  <Text style={[s.storyEyebrow, { color: ACCENT }]}>{t('partnerJournal.rytualy_relacji', 'RYTUAŁY RELACJI')}</Text>
+                  <Text style={[s.storyLead, { color: textColor }]}>{t('partnerJournal.narzedzia_do_budowania_bezpieczen_i', 'Narzędzia do budowania bezpieczeństwa, intymności i rozwiązywania napięć w związku.')}</Text>
+                  <Text style={[s.storyBody, { color: subColor }]}>{t('partnerJournal.rytualy_to_nie_magia_to', 'Rytuały to nie magia — to powtarzalne gesty uwagi, które z czasem tworzą filar bezpiecznej relacji.')}</Text>
                 </Animated.View>
 
                 <ConflictRituals
@@ -1429,7 +1429,7 @@ export const PartnerJournalScreen = ({ navigation }) => {
 
             {/* ── Co dalej? ── */}
             <View style={{ marginTop: 8, marginBottom: 4 }}>
-              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.8, color: ACCENT, marginBottom: 12 }}>✦ CO DALEJ?</Text>
+              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.8, color: ACCENT, marginBottom: 12 }}>{t('partnerJournal.co_dalej', '✦ CO DALEJ?')}</Text>
               {[
                 { icon: Sparkles, label: 'Horoskop partnerski', sub: 'Sprawdź energię relacji w mapie nieba', color: '#A78BFA', route: 'PartnerHoroscope' },
                 { icon: Heart, label: 'Zgodność znaków', sub: 'Zbadaj dynamikę żywiołów i trybów', color: '#F472B6', route: 'Compatibility' },
@@ -1474,15 +1474,15 @@ export const PartnerJournalScreen = ({ navigation }) => {
             borderWidth: 1, borderColor: ACCENT + '55',
           }}>
             <Text style={{ fontSize: 16, fontWeight: '700', color: textColor, textAlign: 'center', marginBottom: 8 }}>
-              Dodaj do ulubionych
+              {t('partnerJournal.dodaj_do_ulubionych', 'Dodaj do ulubionych')}
             </Text>
             <Text style={{ fontSize: 13, color: subColor, textAlign: 'center', lineHeight: 19, marginBottom: 20 }}>
-              Dodaj Dziennik Pary do Portalu, aby mieć szybki dostęp z głównego ekranu.
+              {t('partnerJournal.dodaj_dziennik_pary_do_portalu', 'Dodaj Dziennik Pary do Portalu, aby mieć szybki dostęp z głównego ekranu.')}
             </Text>
             <Pressable
               onPress={() => setShowStarModal(false)}
               style={{ paddingVertical: 12, borderRadius: 14, alignItems: 'center', backgroundColor: ACCENT + '28', borderWidth: 1, borderColor: ACCENT + '66' }}>
-              <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>Dodaj do Portalu</Text>
+              <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>{t('partnerJournal.dodaj_do_portalu', 'Dodaj do Portalu')}</Text>
             </Pressable>
           </View>
         </Pressable>

@@ -258,7 +258,7 @@ const WeekCalendar = React.memo(({ accent, textColor, subColor, cardBg }: any) =
       <LinearGradient colors={[accent + '10', 'transparent']} style={StyleSheet.absoluteFill} />
       <View style={wc.header}>
         <Calendar color={accent} size={14} strokeWidth={1.8} />
-        <Text style={[wc.title, { color: accent }]}>TYGODNIOWY KALENDARZ AFIRMACJI</Text>
+        <Text style={[wc.title, { color: accent }]}>{t('aiDailyAff.tygodniowy_kalendarz_afirmacji', 'TYGODNIOWY KALENDARZ AFIRMACJI')}</Text>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={wc.rail}>
         {week.map((day, i) => (
@@ -295,7 +295,7 @@ const WeekCalendar = React.memo(({ accent, textColor, subColor, cardBg }: any) =
           </View>
         ))}
       </ScrollView>
-      <Text style={[wc.hint, { color: subColor }]}>Dotknij gwiazdek, żeby ocenić rezonans afirmacji danego dnia.</Text>
+      <Text style={[wc.hint, { color: subColor }]}>{t('aiDailyAff.dotknij_gwiazdek_zeby_ocenic_rezona', 'Dotknij gwiazdek, żeby ocenić rezonans afirmacji danego dnia.')}</Text>
     </View>
   );
 });
@@ -361,7 +361,7 @@ const PracticeModal = React.memo(({ visible, affirmation, onClose, accent, textC
             <Pressable onPress={() => { setCount(0); setPhase('idle'); onClose(); }} hitSlop={14}>
               <X color="#FFFFFF" size={24} strokeWidth={1.5} />
             </Pressable>
-            <Text style={pm.modalTitle}>108 Powtórzeń</Text>
+            <Text style={pm.modalTitle}>{t('aiDailyAff.108_powtorzen', '108 Powtórzeń')}</Text>
             <View style={{ width: 24 }} />
           </View>
 
@@ -410,7 +410,7 @@ const PracticeModal = React.memo(({ visible, affirmation, onClose, accent, textC
 
           {count >= 108 && (
             <View style={pm.completeBanner}>
-              <Text style={[pm.completeTxt, { color: accent }]}>✦ Mala zakończona. Pięknie. ✦</Text>
+              <Text style={[pm.completeTxt, { color: accent }]}>{t('aiDailyAff.mala_zakonczona_pieknie', '✦ Mala zakończona. Pięknie. ✦')}</Text>
             </View>
           )}
 
@@ -422,7 +422,7 @@ const PracticeModal = React.memo(({ visible, affirmation, onClose, accent, textC
               </View>
             ))}
           </View>
-          <Text style={pm.guideHint}>Wzorzec oddechowy 4-2-6 aktywuje spokój układu nerwowego.</Text>
+          <Text style={pm.guideHint}>{t('aiDailyAff.wzorzec_oddechowy_4_2_6', 'Wzorzec oddechowy 4-2-6 aktywuje spokój układu nerwowego.')}</Text>
         </SafeAreaView>
       </View>
     </Modal>
@@ -475,12 +475,12 @@ const GenControls = React.memo(({ tone, setTone, length, setLength, style, setSt
       <LinearGradient colors={[accent + '0C', 'transparent']} style={StyleSheet.absoluteFill} />
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 }}>
         <Layers color={accent} size={14} strokeWidth={1.8} />
-        <Text style={[gc.title, { color: accent }]}>STEROWANIE GENEROWANIEM</Text>
+        <Text style={[gc.title, { color: accent }]}>{t('aiDailyAff.sterowanie_generowani', 'STEROWANIE GENEROWANIEM')}</Text>
       </View>
-      <ToggleRow label="Ton" options={TONE_OPTIONS} value={tone} onChange={setTone} />
-      <ToggleRow label="Długość" options={LENGTH_OPTIONS} value={length} onChange={setLength} />
-      <ToggleRow label="Styl" options={STYLE_OPTIONS} value={style} onChange={setStyle} />
-      <Text style={[gc.hint, { color: subColor }]}>Ustawienia wpływają na następne generowanie. Odśwież, aby zastosować.</Text>
+      <ToggleRow label={t('aiDailyAff.ton', 'Ton')} options={TONE_OPTIONS} value={tone} onChange={setTone} />
+      <ToggleRow label={t('aiDailyAff.dlugosc', 'Długość')} options={LENGTH_OPTIONS} value={length} onChange={setLength} />
+      <ToggleRow label={t('aiDailyAff.styl', 'Styl')} options={STYLE_OPTIONS} value={style} onChange={setStyle} />
+      <Text style={[gc.hint, { color: subColor }]}>{t('aiDailyAff.ustawienia_wplywaja_na_nastepne_gen', 'Ustawienia wpływają na następne generowanie. Odśwież, aby zastosować.')}</Text>
     </View>
   );
 });
@@ -569,8 +569,8 @@ const AffirmationJournal = React.memo(({ saved, setSaved, accent, textColor, sub
     return (
       <View style={[aj.empty, { backgroundColor: cardBg, borderColor: accent + '28' }]}>
         <BookOpen color={accent} size={22} strokeWidth={1.5} />
-        <Text style={[aj.emptyTitle, { color: textColor }]}>Brak zapisanych afirmacji</Text>
-        <Text style={[aj.emptyHint, { color: subColor }]}>Dotknij ♡ przy afirmacji, aby zapisać ją w dzienniku.</Text>
+        <Text style={[aj.emptyTitle, { color: textColor }]}>{t('aiDailyAff.brak_zapisanych_afirmacji', 'Brak zapisanych afirmacji')}</Text>
+        <Text style={[aj.emptyHint, { color: subColor }]}>{t('aiDailyAff.dotknij_przy_afirmacji_aby_zapisac', 'Dotknij ♡ przy afirmacji, aby zapisać ją w dzienniku.')}</Text>
       </View>
     );
   }
@@ -593,7 +593,7 @@ const AffirmationJournal = React.memo(({ saved, setSaved, accent, textColor, sub
                 value={editText}
                 onChangeText={setEditText}
                 multiline
-                placeholder="Twoja refleksja..."
+                placeholder={t('aiDailyAff.twoja_refleksja', 'Twoja refleksja...')}
                 placeholderTextColor={subColor}
                 style={[aj.input, { color: textColor, borderColor: accent + '44', backgroundColor: accent + '0A' }]}
               />
@@ -606,7 +606,7 @@ const AffirmationJournal = React.memo(({ saved, setSaved, accent, textColor, sub
                 }}
                 style={[aj.saveBtn, { backgroundColor: accent + '22', borderColor: accent + '55' }]}
               >
-                <Text style={{ color: accent, fontSize: 13, fontWeight: '700' }}>Zapisz refleksję</Text>
+                <Text style={{ color: accent, fontSize: 13, fontWeight: '700' }}>{t('aiDailyAff.zapisz_refleksje', 'Zapisz refleksję')}</Text>
               </Pressable>
             </View>
           ) : (
@@ -791,7 +791,7 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
 
   const copyToClipboard = (text: string) => {
     Clipboard.setString(text);
-    Alert.alert('Skopiowano', 'Afirmacja jest w schowku.');
+    Alert.alert(t('aiDailyAff.skopiowano', 'Skopiowano'), t('aiDailyAff.afirmacja_jest_w_schowku', 'Afirmacja jest w schowku.'));
   };
 
   const saveToJournal = (aff: string) => {
@@ -803,7 +803,7 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
       if (prev.some((s) => s.text === aff)) return prev;
       return [{ id, text: aff, category: cat, date, reflection: '' }, ...prev];
     });
-    Alert.alert('Zapisano', 'Afirmacja trafiła do Twojego dziennika.');
+    Alert.alert(t('aiDailyAff.zapisano', 'Zapisano'), t('aiDailyAff.afirmacja_trafila_do_twojego_dzienn', 'Afirmacja trafiła do Twojego dziennika.'));
   };
 
   const handleStartSeries = (seriesId: string, dayAffirmation: string) => {
@@ -847,8 +847,8 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
               <ChevronLeft color={accent} size={28} strokeWidth={1.5} />
             </Pressable>
             <View style={aa.headerCenter}>
-              <Typography variant="premiumLabel" color={accent}>Afirmacje AI</Typography>
-              <Typography variant="screenTitle" style={{ color: textColor, marginTop: 2 }}>Codzienne słowa mocy</Typography>
+              <Typography variant="premiumLabel" color={accent}>{t('aiDailyAff.afirmacje_ai', 'Afirmacje AI')}</Typography>
+              <Typography variant="screenTitle" style={{ color: textColor, marginTop: 2 }}>{t('aiDailyAff.codzienne_slowa_mocy', 'Codzienne słowa mocy')}</Typography>
             </View>
             <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center' }}>
               <Pressable onPress={() => setShowFsModal(true)} hitSlop={10} style={[aa.iconBtn, { borderColor: accent + '44' }]}>
@@ -895,7 +895,7 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
                   <Text style={[aa.moonBadgeText, { color: accent }]}>{moonPhase}</Text>
                 </View>
                 <Text style={[aa.orbSubtext, { color: subColor }]}>
-                  Zatrzymaj się na moment i wybierz słowa, które dziś mają stać się Twoim wewnętrznym kierunkiem.
+                  {t('aiDailyAff.zatrzymaj_sie_na_moment_i', 'Zatrzymaj się na moment i wybierz słowa, które dziś mają stać się Twoim wewnętrznym kierunkiem.')}
                 </Text>
               </View>
             </Animated.View>
@@ -904,7 +904,7 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
             <Animated.View entering={FadeInDown.delay(80).duration(420)}>
               <View style={[aa.insightCard, { backgroundColor: cardBg, borderColor: accent + '24' }]}>
                 <LinearGradient colors={[accent + '10', 'transparent']} style={StyleSheet.absoluteFill} />
-                <Typography variant="premiumLabel" color={accent}>Nastrój przewodni</Typography>
+                <Typography variant="premiumLabel" color={accent}>{t('aiDailyAff.nastroj_przewodni', 'Nastrój przewodni')}</Typography>
                 <Text style={[aa.insightTitle, { color: textColor }]}>
                   {activeCategory === 'all'
                     ? 'Dzisiejsza sekwencja dopasowana do Twojej energii'
@@ -965,7 +965,7 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
             {loading ? (
               <View style={aa.loadingWrap}>
                 <ActivityIndicator color={accent} size="large" />
-                <Text style={[aa.loadingText, { color: subColor }]}>Oracle układa dla Ciebie spokojny zestaw afirmacji...</Text>
+                <Text style={[aa.loadingText, { color: subColor }]}>{t('aiDailyAff.oracle_uklada_dla_ciebie_spokojny', 'Oracle układa dla Ciebie spokojny zestaw afirmacji...')}</Text>
               </View>
             ) : (
               <>
@@ -986,7 +986,7 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
                       </View>
                       <Text style={[aa.featuredText, { color: textColor }]}>„{featured}"</Text>
                       <Text style={[aa.featuredSubtext, { color: subColor }]}>
-                        Powtórz ją rano, przed ważną decyzją albo wtedy, gdy chcesz wrócić do własnego środka.
+                        {t('aiDailyAff.powtorz_ja_rano_przed_wazna', 'Powtórz ją rano, przed ważną decyzją albo wtedy, gdy chcesz wrócić do własnego środka.')}
                       </Text>
                       <View style={aa.featuredActions}>
                         <Pressable
@@ -994,14 +994,14 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
                           style={[aa.actionBtn, { backgroundColor: accent + '18', borderColor: accent + '44' }]}
                         >
                           <BookOpen color={accent} size={14} strokeWidth={1.8} />
-                          <Text style={[aa.actionBtnText, { color: accent }]}>Zapisz w Dzienniku</Text>
+                          <Text style={[aa.actionBtnText, { color: accent }]}>{t('aiDailyAff.zapisz_w_dzienniku', 'Zapisz w Dzienniku')}</Text>
                         </Pressable>
                         <Pressable
                           onPress={() => shareAffirmation(featured)}
                           style={[aa.actionBtn, { backgroundColor: accent + '18', borderColor: accent + '44' }]}
                         >
                           <Share2 color={accent} size={14} strokeWidth={1.8} />
-                          <Text style={[aa.actionBtnText, { color: accent }]}>Podziel się</Text>
+                          <Text style={[aa.actionBtnText, { color: accent }]}>{t('aiDailyAff.podziel_sie', 'Podziel się')}</Text>
                         </Pressable>
                       </View>
                       <Pressable
@@ -1009,14 +1009,14 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
                         style={[aa.practiceBtn, { backgroundColor: accent, borderColor: accent }]}
                       >
                         <Flame color="#FFFFFF" size={15} strokeWidth={2} />
-                        <Text style={aa.practiceBtnText}>108 powtórzeń — praktyka mala</Text>
+                        <Text style={aa.practiceBtnText}>{t('aiDailyAff.108_powtorzen_praktyka_mala', '108 powtórzeń — praktyka mala')}</Text>
                       </Pressable>
                     </View>
                   </Animated.View>
                 ) : null}
 
                 {/* ── Affirmation list ── */}
-                <Text style={[aa.sectionLabel, { color: accent }]}>✦ SEKWENCJA NA DZIŚ</Text>
+                <Text style={[aa.sectionLabel, { color: accent }]}>{t('aiDailyAff.sekwencja_na_dzis', '✦ SEKWENCJA NA DZIŚ')}</Text>
                 {affirmations.map((aff, idx) => {
                   const affId = `ai_${idx}_${aff.slice(0, 20)}`;
                   const isFav = favoriteAffirmations?.includes(affId);
@@ -1057,7 +1057,7 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
 
             {/* ── Weekly calendar ── */}
             <Animated.View entering={FadeInDown.delay(380).duration(420)}>
-              <Text style={[aa.sectionLabel, { color: accent }]}>✦ KALENDARZ TYGODNIOWY</Text>
+              <Text style={[aa.sectionLabel, { color: accent }]}>{t('aiDailyAff.kalendarz_tygodniowy', '✦ KALENDARZ TYGODNIOWY')}</Text>
               <WeekCalendar accent={accent} textColor={textColor} subColor={subColor} cardBg={cardBg} />
             </Animated.View>
 
@@ -1066,12 +1066,12 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
               <Animated.View entering={FadeInDown.delay(420).duration(420)}>
                 <View style={[aa.mantraCard, { backgroundColor: accent + '12', borderColor: accent + '44' }]}>
                   <LinearGradient colors={[accent + '1A', 'transparent']} style={StyleSheet.absoluteFill} />
-                  <Text style={[aa.mantraEyebrow, { color: accent }]}>✦ MANTRA DNIA</Text>
+                  <Text style={[aa.mantraEyebrow, { color: accent }]}>{t('aiDailyAff.mantra_dnia', '✦ MANTRA DNIA')}</Text>
                   <Text style={[aa.mantraWord, { color: textColor }]}>
                     {featured.split(' ').slice(0, 3).join(' ')}
                   </Text>
                   <Text style={[aa.mantraHint, { color: subColor }]}>
-                    Wróć do tych słów w chwili rozproszenia. Trzy wyrazy wystarczą, żeby umysł wrócił do centrum.
+                    {t('aiDailyAff.wroc_do_tych_slow_w', 'Wróć do tych słów w chwili rozproszenia. Trzy wyrazy wystarczą, żeby umysł wrócił do centrum.')}
                   </Text>
                   <View style={{ flexDirection: 'row', gap: 8, marginTop: 4 }}>
                     {['Rano', 'Południe', 'Wieczór'].map((t) => (
@@ -1087,7 +1087,7 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
             {/* ── 4-step practice guide ── */}
             <Animated.View entering={FadeInDown.delay(450).duration(420)}>
               <View style={[aa.practiceCard, { backgroundColor: cardBg, borderColor: accent + '28' }]}>
-                <Text style={[aa.sectionLabel, { color: accent, marginBottom: 4 }]}>PRAKTYKA AFIRMACJI — 4 KROKI</Text>
+                <Text style={[aa.sectionLabel, { color: accent, marginBottom: 4 }]}>{t('aiDailyAff.praktyka_afirmacji_4_kroki', 'PRAKTYKA AFIRMACJI — 4 KROKI')}</Text>
                 {[
                   { num: '1', title: 'Zatrzymaj się',       desc: 'Znajdź ciche miejsce. Trzy głębokie oddechy przed czytaniem.' },
                   { num: '2', title: 'Przeczytaj głośno',   desc: 'Twój głos niesie intencję dalej niż myśl. Mów wyraźnie.' },
@@ -1117,7 +1117,7 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
             <Animated.View entering={FadeInDown.delay(480).duration(420)} style={{ gap: 12 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                 <Target color={accent} size={14} strokeWidth={1.8} />
-                <Text style={[aa.sectionLabel, { color: accent, marginBottom: 0 }]}>7-DNIOWE WYZWANIA</Text>
+                <Text style={[aa.sectionLabel, { color: accent, marginBottom: 0 }]}>{t('aiDailyAff.7_dniowe_wyzwania', '7-DNIOWE WYZWANIA')}</Text>
               </View>
               {CHALLENGE_SERIES.map((series) => (
                 <SeriesCard
@@ -1167,7 +1167,7 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
                 <View style={[aa.favCard, { backgroundColor: cardBg, borderColor: accent + '28' }]}>
                   <LinearGradient colors={[accent + '10', 'transparent']} style={StyleSheet.absoluteFill} />
                   <Text style={[aa.favHint, { color: subColor }]}>
-                    Ulubione afirmacje to te, które rezonują dłużej niż dzień. Wróć do nich w trudniejszych chwilach.
+                    {t('aiDailyAff.ulubione_afirmacje_to_te_ktore', 'Ulubione afirmacje to te, które rezonują dłużej niż dzień. Wróć do nich w trudniejszych chwilach.')}
                   </Text>
                   <Text style={[aa.favCount, { color: accent }]}>{favoriteAffirmations.length} zapisanych afirmacji</Text>
                 </View>
@@ -1183,7 +1183,7 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
                     style={[StyleSheet.absoluteFill, { borderRadius: 20 }]}
                   />
                   <View style={aa.sharePreviewInner}>
-                    <Text style={[aa.sharePreviewLabel, { color: accent + 'AA' }]}>✦ AETHERA</Text>
+                    <Text style={[aa.sharePreviewLabel, { color: accent + 'AA' }]}>{t('aiDailyAff.aethera', '✦ AETHERA')}</Text>
                     <Text style={[aa.sharePreviewText, { color: textColor }]}>„{featured}"</Text>
                     <View style={[aa.sharePreviewBar, { backgroundColor: accent + '44' }]} />
                     <Text style={[aa.sharePreviewSub, { color: subColor }]}>{moonPhase} · {archetype}</Text>
@@ -1194,14 +1194,14 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
                       style={[aa.shareBtn, { backgroundColor: accent, flex: 1 }]}
                     >
                       <Share2 color="#FFFFFF" size={14} strokeWidth={2} />
-                      <Text style={aa.shareBtnText}>Udostępnij kartę</Text>
+                      <Text style={aa.shareBtnText}>{t('aiDailyAff.udostepnij_karte', 'Udostępnij kartę')}</Text>
                     </Pressable>
                     <Pressable
                       onPress={() => copyToClipboard(featured)}
                       style={[aa.shareBtn, { backgroundColor: accent + '22', borderColor: accent + '55', borderWidth: 1 }]}
                     >
                       <Copy color={accent} size={14} strokeWidth={2} />
-                      <Text style={[aa.shareBtnText, { color: accent }]}>Kopiuj</Text>
+                      <Text style={[aa.shareBtnText, { color: accent }]}>{t('aiDailyAff.kopiuj', 'Kopiuj')}</Text>
                     </Pressable>
                   </View>
                 </View>
@@ -1211,16 +1211,16 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
             {/* ── Info card ── */}
             <Animated.View entering={FadeInDown.delay(570).duration(420)}>
               <View style={[aa.infoCard, { backgroundColor: accent + '0E', borderColor: accent + '28' }]}>
-                <Typography variant="cardTitle" style={{ color: textColor }}>Jak pracować z tym ekranem</Typography>
+                <Typography variant="cardTitle" style={{ color: textColor }}>{t('aiDailyAff.jak_pracowac_z_tym_ekranem', 'Jak pracować z tym ekranem')}</Typography>
                 <Text style={[aa.infoText, { color: subColor }]}>
-                  Zacznij od jednej afirmacji, która porusza Cię najmocniej. Powtarzaj ją przez kilka oddechów, a resztę traktuj jak wspierającą sekwencję dla całego dnia.
+                  {t('aiDailyAff.zacznij_od_jednej_afirmacji_ktora', 'Zacznij od jednej afirmacji, która porusza Cię najmocniej. Powtarzaj ją przez kilka oddechów, a resztę traktuj jak wspierającą sekwencję dla całego dnia.')}
                 </Text>
               </View>
             </Animated.View>
 
             {/* ── What next ── */}
             <Animated.View entering={FadeInDown.delay(600).duration(420)} style={{ marginTop: 4 }}>
-              <Text style={[aa.sectionLabel, { color: accent }]}>✦ CO DALEJ?</Text>
+              <Text style={[aa.sectionLabel, { color: accent }]}>{t('aiDailyAff.co_dalej', '✦ CO DALEJ?')}</Text>
               {[
                 { icon: Wind,    label: 'Oddech i regulacja',   sub: 'Połącz afirmację z techniką oddechową',         color: '#34D399', route: 'Breathwork' },
                 { icon: Moon,    label: 'Medytacja z intencją', sub: 'Wejdź głębiej w wybraną afirmację',             color: '#A78BFA', route: 'Meditation' },
@@ -1271,12 +1271,12 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
           <View style={[aa.fsSheet, { backgroundColor: isLight ? '#FDF0F8' : '#1A0A24' }]}>
             <LinearGradient colors={[accent + '18', 'transparent']} style={StyleSheet.absoluteFill} />
             <View style={[aa.fsHandle, { backgroundColor: accent + '44' }]} />
-            <Text style={[aa.fsTitle, { color: textColor }]}>Afirmacje dla kogoś</Text>
-            <Text style={[aa.fsHint, { color: subColor }]}>Wpisz imię osoby, dla której chcesz wygenerować afirmacje.</Text>
+            <Text style={[aa.fsTitle, { color: textColor }]}>{t('aiDailyAff.afirmacje_dla_kogos', 'Afirmacje dla kogoś')}</Text>
+            <Text style={[aa.fsHint, { color: subColor }]}>{t('aiDailyAff.wpisz_imie_osoby_dla_ktorej', 'Wpisz imię osoby, dla której chcesz wygenerować afirmacje.')}</Text>
             <TextInput
               value={fsNameInput}
               onChangeText={setFsNameInput}
-              placeholder="Imię osoby..."
+              placeholder={t('aiDailyAff.imie_osoby', 'Imię osoby...')}
               placeholderTextColor={subColor}
               style={[aa.fsInput, { color: textColor, borderColor: accent + '44', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)' }]}
             />
@@ -1291,10 +1291,10 @@ Odpowiedz WYŁĄCZNIE listą 5 afirmacji, każda w osobnej linii, bez numerów, 
               }}
               style={[aa.fsCta, { backgroundColor: accent }]}
             >
-              <Text style={aa.fsCtaText}>Generuj afirmacje</Text>
+              <Text style={aa.fsCtaText}>{t('aiDailyAff.generuj_afirmacje', 'Generuj afirmacje')}</Text>
             </Pressable>
             <Pressable onPress={() => setShowFsModal(false)} style={{ alignItems: 'center', paddingTop: 8 }}>
-              <Text style={{ color: subColor, fontSize: 13 }}>Anuluj</Text>
+              <Text style={{ color: subColor, fontSize: 13 }}>{t('aiDailyAff.anuluj', 'Anuluj')}</Text>
             </Pressable>
           </View>
         </Modal>

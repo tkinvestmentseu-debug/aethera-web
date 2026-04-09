@@ -176,7 +176,7 @@ export const SignMeditationScreen = ({ navigation }: any) => {
             </View>
             <View style={[styles.tipCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <Text style={{ color: textColor, fontSize: 13, lineHeight: 20 }}>
-                Powtarzaj tę afirmację rano przez 3 minuty, patrząc w lustro. Poczuj jej prawdziwość w ciele, nie tylko w głowie.
+                {t('signMeditation.powtarzaj_te_afirmacje_rano_przez', 'Powtarzaj tę afirmację rano przez 3 minuty, patrząc w lustro. Poczuj jej prawdziwość w ciele, nie tylko w głowie.')}
               </Text>
             </View>
           </Animated.View>

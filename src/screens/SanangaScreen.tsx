@@ -299,8 +299,8 @@ export const SanangaScreen = ({ navigation }: any) => {
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={{ flex: 1 }}>
-          <Text style={[styles.eyebrow, { color: subColor }]}>ŚWIAT RYTUAŁÓW</Text>
-          <Text style={[styles.title, { color: textColor }]}>Sananga</Text>
+          <Text style={[styles.eyebrow, { color: subColor }]}>{t('sananga.swiat_rytualow', 'ŚWIAT RYTUAŁÓW')}</Text>
+          <Text style={[styles.title, { color: textColor }]}>{t('sananga.sananga', 'Sananga')}</Text>
         </View>
         <MusicToggleButton color={ACCENT} size={18} />
         <Pressable onPress={toggleSound} style={styles.iconBtn}>
@@ -320,7 +320,7 @@ export const SanangaScreen = ({ navigation }: any) => {
         {/* What is Sananga */}
         <Animated.View entering={FadeInDown.delay(0).duration(400)}>
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-            <Text style={[styles.sectionTitle, { color: ACCENT }]}>Co to jest Sananga?</Text>
+            <Text style={[styles.sectionTitle, { color: ACCENT }]}>{t('sananga.co_to_jest_sananga', 'Co to jest Sananga?')}</Text>
             <Text style={[styles.bodyText, { color: subColor }]}>
               Sananga to święte krople oczne sporządzane z kory i korzenia amazońskiego krzewu
               Tabernaemontana undulata. Używana przez rdzenne plemiona Yawanapi i Matsés jako
@@ -333,7 +333,7 @@ export const SanangaScreen = ({ navigation }: any) => {
 
         {/* Preparation checklist */}
         <Animated.View entering={FadeInDown.delay(80).duration(400)}>
-          <Text style={[styles.sectionHeader, { color: textColor }]}>Przygotowanie ceremonialne</Text>
+          <Text style={[styles.sectionHeader, { color: textColor }]}>{t('sananga.przygotowa_ceremonial', 'Przygotowanie ceremonialne')}</Text>
           {PREP_STEPS.map(step => (
             <Pressable
               key={step.id}
@@ -361,7 +361,7 @@ export const SanangaScreen = ({ navigation }: any) => {
 
         {/* Ritual Steps */}
         <Animated.View entering={FadeInDown.delay(160).duration(400)}>
-          <Text style={[styles.sectionHeader, { color: textColor }]}>Kroki rytuału</Text>
+          <Text style={[styles.sectionHeader, { color: textColor }]}>{t('sananga.kroki_rytualu', 'Kroki rytuału')}</Text>
           {RITUAL_STEPS.map(step => (
             <Animated.View
               key={step.num}
@@ -381,11 +381,11 @@ export const SanangaScreen = ({ navigation }: any) => {
 
         {/* Eye-drop procedure */}
         <Animated.View entering={FadeInDown.delay(240).duration(400)}>
-          <Text style={[styles.sectionHeader, { color: textColor }]}>Procedura zakrapiania oczu</Text>
+          <Text style={[styles.sectionHeader, { color: textColor }]}>{t('sananga.procedura_zakrapiani_oczu', 'Procedura zakrapiania oczu')}</Text>
           <View style={[styles.card, { backgroundColor: isLight ? 'rgba(34,197,94,0.06)' : 'rgba(34,197,94,0.08)', borderColor: ACCENT + '30' }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 }}>
               <Eye size={18} color={ACCENT} />
-              <Text style={{ color: ACCENT, fontSize: 13, fontWeight: '700', letterSpacing: 0.5 }}>KROK PO KROKU</Text>
+              <Text style={{ color: ACCENT, fontSize: 13, fontWeight: '700', letterSpacing: 0.5 }}>{t('sananga.krok_po_kroku', 'KROK PO KROKU')}</Text>
             </View>
             {[
               { num: '1', title: 'Umyj dłonie', desc: 'Dokładnie umyj ręce mydłem przed kontaktem z oczami lub buteleczką Sanangii. Higiena jest kluczowa.' },
@@ -408,7 +408,7 @@ export const SanangaScreen = ({ navigation }: any) => {
             <View style={{ borderTopWidth: 1, borderColor: ACCENT + '22', marginTop: 4, paddingTop: 12, flexDirection: 'row', gap: 8 }}>
               <AlertTriangle size={15} color="#FBBF24" />
               <Text style={{ color: isLight ? '#78350F' : '#FDE68A', fontSize: 12, flex: 1, lineHeight: 17 }}>
-                Sananga nie jest produktem medycznym. Stosuj wyłącznie w ramach ceremonii duchowej pod nadzorem doświadczonego szamana lub przewodnika. Nie stosuj przy aktywnych infekcjach oczu.
+                {t('sananga.sananga_nie_jest_produktem_medyczny', 'Sananga nie jest produktem medycznym. Stosuj wyłącznie w ramach ceremonii duchowej pod nadzorem doświadczonego szamana lub przewodnika. Nie stosuj przy aktywnych infekcjach oczu.')}
               </Text>
             </View>
           </View>
@@ -416,7 +416,7 @@ export const SanangaScreen = ({ navigation }: any) => {
 
         {/* Benefits */}
         <Animated.View entering={FadeInDown.delay(320).duration(400)}>
-          <Text style={[styles.sectionHeader, { color: textColor }]}>Korzyści duchowe</Text>
+          <Text style={[styles.sectionHeader, { color: textColor }]}>{t('sananga.korzysci_duchowe', 'Korzyści duchowe')}</Text>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
             {BENEFITS.map((b, i) => (
               <Animated.View
@@ -438,7 +438,7 @@ export const SanangaScreen = ({ navigation }: any) => {
 
         {/* Integration Timer */}
         <Animated.View entering={FadeInDown.delay(440).duration(400)}>
-          <Text style={[styles.sectionHeader, { color: textColor }]}>Czas integracji</Text>
+          <Text style={[styles.sectionHeader, { color: textColor }]}>{t('sananga.czas_integracji', 'Czas integracji')}</Text>
           <View style={[styles.timerCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             {/* Progress bar */}
             <View style={[styles.progressTrack, { backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)' }]}>
@@ -447,7 +447,7 @@ export const SanangaScreen = ({ navigation }: any) => {
             <Text style={[styles.timerDisplay, { color: timerDone ? ACCENT : textColor }]}>
               {timerDone ? '✓ Integracja ukończona' : fmt(remaining)}
             </Text>
-            <Text style={[styles.timerSub, { color: subColor }]}>20 minut spokojnej integracji</Text>
+            <Text style={[styles.timerSub, { color: subColor }]}>{t('sananga.20_minut_spokojnej_integracji', '20 minut spokojnej integracji')}</Text>
             <View style={styles.timerRow}>
               <Pressable onPress={toggleTimer} style={[styles.timerBtn, { backgroundColor: ACCENT + '22', borderColor: ACCENT + '44' }]}>
                 {timerRunning

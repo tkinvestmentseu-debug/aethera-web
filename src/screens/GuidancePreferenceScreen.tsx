@@ -455,8 +455,8 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
           <Animated.View entering={FadeInDown.duration(600)}>
             <SectionHeading
               eyebrow="Główny sposób prowadzenia"
-              title="Od czego Aethera ma zaczynać Twoje codzienne guidance?"
-              subtitle="To nie zamyka Cię na inne moduły. Ustawia tylko główny filtr, przez który aplikacja będzie proponować pierwszy krok dnia."
+              title={t('guidancePref.od_czego_aethera_ma_zaczynac', 'Od czego Aethera ma zaczynać Twoje codzienne guidance?')}
+              subtitle={t('guidancePref.to_nie_zamyka_cie_na', 'To nie zamyka Cię na inne moduły. Ustawia tylko główny filtr, przez który aplikacja będzie proponować pierwszy krok dnia.')}
             />
           </Animated.View>
 
@@ -496,7 +496,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
           }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
               <Typography variant="microLabel" style={{ color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)', letterSpacing: 1.2 }}>
-                KONFIGURACJA
+                {t('guidancePref.konfigurac', 'KONFIGURACJA')}
               </Typography>
               <Typography variant="microLabel" style={{ color: selectedId ? currentTheme.primary : isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.35)', letterSpacing: 0.8 }}>
                 {selectedId ? '1/1 ustawione' : '0/1 ustawione'}
@@ -629,7 +629,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                             variant="microLabel"
                             style={{ color: option.accentColor, marginBottom: 10, letterSpacing: 1.2 }}
                           >
-                            CO POCZUJESZ
+                            {t('guidancePref.co_poczujesz', 'CO POCZUJESZ')}
                           </Typography>
                           {option.experience.map((item, i) => (
                             <View key={i} style={styles.experienceRow}>
@@ -646,7 +646,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                             variant="microLabel"
                             style={{ color: isLight ? 'rgba(0,0,0,0.68)' : 'rgba(255,255,255,0.45)', marginBottom: 6, letterSpacing: 1.0 }}
                           >
-                            WIDOK GŁÓWNY
+                            {t('guidancePref.widok_glowny', 'WIDOK GŁÓWNY')}
                           </Typography>
                           <Typography
                             variant="bodySmall"
@@ -678,7 +678,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                     <Sparkles color={selectedOption.accentColor} size={16} strokeWidth={1.5} />
                   </View>
                   <View style={{ flex: 1 }}>
-                    <Typography variant="microLabel" style={{ color: selectedOption.accentColor, letterSpacing: 1.2 }}>PRZYKŁADY ORACLE</Typography>
+                    <Typography variant="microLabel" style={{ color: selectedOption.accentColor, letterSpacing: 1.2 }}>{t('guidancePref.przyklady_oracle', 'PRZYKŁADY ORACLE')}</Typography>
                     <Typography variant="bodySmall" style={{ opacity: 0.65, marginTop: 2, color: textColor }}>Jak brzmi {selectedOption.title} w praktyce</Typography>
                   </View>
                   {previewOpen ? <ChevronUp color={subColor} size={16} /> : <ChevronDown color={subColor} size={16} />}
@@ -732,8 +732,8 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                     <Zap color="#34D399" size={16} strokeWidth={1.5} />
                   </View>
                   <View style={{ flex: 1 }}>
-                    <Typography variant="microLabel" style={{ color: '#34D399', letterSpacing: 1.2 }}>KOMPATYBILNOŚĆ</Typography>
-                    <Typography variant="bodySmall" style={{ opacity: 0.65, marginTop: 2, color: textColor }}>Pary stylów i tryby Oracle</Typography>
+                    <Typography variant="microLabel" style={{ color: '#34D399', letterSpacing: 1.2 }}>{t('guidancePref.kompatybil', 'KOMPATYBILNOŚĆ')}</Typography>
+                    <Typography variant="bodySmall" style={{ opacity: 0.65, marginTop: 2, color: textColor }}>{t('guidancePref.pary_stylow_i_tryby_oracle', 'Pary stylów i tryby Oracle')}</Typography>
                   </View>
                   {compatOpen ? <ChevronUp color={subColor} size={16} /> : <ChevronDown color={subColor} size={16} />}
                 </View>
@@ -746,7 +746,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                     </Typography>
 
                     <Typography variant="microLabel" style={{ color: '#34D399', letterSpacing: 1.2, marginBottom: 10 }}>
-                      KOMPATYBILNE TRYBY ORACLE
+                      {t('guidancePref.kompatybil_tryby_oracle', 'KOMPATYBILNE TRYBY ORACLE')}
                     </Typography>
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
                       {oracleModes.map(mode => (
@@ -757,7 +757,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                     </View>
 
                     <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 1.0, marginBottom: 10 }}>
-                      DOBRZE ŁĄCZY SIĘ Z
+                      {t('guidancePref.dobrze_laczy_sie_z', 'DOBRZE ŁĄCZY SIĘ Z')}
                     </Typography>
                     <View style={{ gap: 8 }}>
                       {selectedOption.pairsWith.map(pairedId => {
@@ -797,8 +797,8 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                   <User color="#F472B6" size={16} strokeWidth={1.5} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Typography variant="microLabel" style={{ color: '#F472B6', letterSpacing: 1.2 }}>TWOJA DUCHOWA SYGNATURA</Typography>
-                  <Typography variant="bodySmall" style={{ opacity: 0.65, marginTop: 2, color: textColor }}>Rekomendacja obliczona z daty urodzenia</Typography>
+                  <Typography variant="microLabel" style={{ color: '#F472B6', letterSpacing: 1.2 }}>{t('guidancePref.twoja_duchowa_sygnatura', 'TWOJA DUCHOWA SYGNATURA')}</Typography>
+                  <Typography variant="bodySmall" style={{ opacity: 0.65, marginTop: 2, color: textColor }}>{t('guidancePref.rekomendac_obliczona_z_daty_urodzen', 'Rekomendacja obliczona z daty urodzenia')}</Typography>
                 </View>
                 {sigOpen ? <ChevronUp color={subColor} size={16} /> : <ChevronDown color={subColor} size={16} />}
               </View>
@@ -839,7 +839,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                               onPress={() => { HapticsService.impact('light'); setSelectedId(id); setExpandedId(id); }}
                               style={[styles.sigApplyBtn, { borderColor: opt.accentColor + '44', backgroundColor: opt.accentColor + '14' }]}
                             >
-                              <Typography variant="microLabel" style={{ color: opt.accentColor, letterSpacing: 1 }}>ZASTOSUJ TEN STYL</Typography>
+                              <Typography variant="microLabel" style={{ color: opt.accentColor, letterSpacing: 1 }}>{t('guidancePref.zastosuj_ten_styl', 'ZASTOSUJ TEN STYL')}</Typography>
                               <ArrowRight color={opt.accentColor} size={12} strokeWidth={2} />
                             </Pressable>
                           </View>
@@ -849,7 +849,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                   ) : (
                     <View style={[styles.sigNoData, { backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)', borderColor: '#F472B622' }]}>
                       <Typography variant="bodySmall" style={{ opacity: 0.65, textAlign: 'center', lineHeight: 22, color: textColor }}>
-                        Uzupełnij datę urodzenia w profilu, by obliczyć Twoją duchową sygnaturę i zobaczyć rekomendowany styl prowadzenia.
+                        {t('guidancePref.uzupelnij_date_urodzenia_w_profilu', 'Uzupełnij datę urodzenia w profilu, by obliczyć Twoją duchową sygnaturę i zobaczyć rekomendowany styl prowadzenia.')}
                       </Typography>
                     </View>
                   )}
@@ -872,8 +872,8 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                   <RefreshCw color="#FBBF24" size={16} strokeWidth={1.5} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Typography variant="microLabel" style={{ color: '#FBBF24', letterSpacing: 1.2 }}>HISTORIA STYLÓW</Typography>
-                  <Typography variant="bodySmall" style={{ opacity: 0.65, marginTop: 2, color: textColor }}>Ostatnio wypróbowane style prowadzenia</Typography>
+                  <Typography variant="microLabel" style={{ color: '#FBBF24', letterSpacing: 1.2 }}>{t('guidancePref.historia_stylow', 'HISTORIA STYLÓW')}</Typography>
+                  <Typography variant="bodySmall" style={{ opacity: 0.65, marginTop: 2, color: textColor }}>{t('guidancePref.ostatnio_wyprobowan_style_prowadzen', 'Ostatnio wypróbowane style prowadzenia')}</Typography>
                 </View>
                 {historyOpen ? <ChevronUp color={subColor} size={16} /> : <ChevronDown color={subColor} size={16} />}
               </View>
@@ -883,7 +883,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                   <View style={[styles.previewDivider, { backgroundColor: '#FBBF2430' }]} />
                   {styleHistory.length === 0 ? (
                     <Typography variant="bodySmall" style={{ opacity: 0.60, textAlign: 'center', color: textColor }}>
-                      Nie masz jeszcze historii stylów. Wybierz swój pierwszy styl poniżej.
+                      {t('guidancePref.nie_masz_jeszcze_historii_stylow', 'Nie masz jeszcze historii stylów. Wybierz swój pierwszy styl poniżej.')}
                     </Typography>
                   ) : (
                     <View style={{ gap: 10 }}>
@@ -943,8 +943,8 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                   <Info color="#60A5FA" size={16} strokeWidth={1.5} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Typography variant="microLabel" style={{ color: '#60A5FA', letterSpacing: 1.2 }}>WIZUALIZACJA WPŁYWU</Typography>
-                  <Typography variant="bodySmall" style={{ opacity: 0.65, marginTop: 2, color: textColor }}>To samo pytanie, różne style — porównaj tony</Typography>
+                  <Typography variant="microLabel" style={{ color: '#60A5FA', letterSpacing: 1.2 }}>{t('guidancePref.wizualizac_wplywu', 'WIZUALIZACJA WPŁYWU')}</Typography>
+                  <Typography variant="bodySmall" style={{ opacity: 0.65, marginTop: 2, color: textColor }}>{t('guidancePref.to_samo_pytanie_rozne_style', 'To samo pytanie, różne style — porównaj tony')}</Typography>
                 </View>
                 {impactOpen ? <ChevronUp color={subColor} size={16} /> : <ChevronDown color={subColor} size={16} />}
               </View>
@@ -953,13 +953,13 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                 <View style={styles.previewContent}>
                   <View style={[styles.previewDivider, { backgroundColor: '#60A5FA30' }]} />
                   <View style={[styles.impactQuestion, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: '#60A5FA28' }]}>
-                    <Typography variant="microLabel" style={{ color: '#60A5FA', letterSpacing: 1, marginBottom: 6 }}>PYTANIE</Typography>
+                    <Typography variant="microLabel" style={{ color: '#60A5FA', letterSpacing: 1, marginBottom: 6 }}>{t('guidancePref.pytanie', 'PYTANIE')}</Typography>
                     <Typography variant="bodySmall" style={{ lineHeight: 21, fontStyle: 'italic', opacity: 0.85, color: textColor }}>
                       "{IMPACT_QUESTION}"
                     </Typography>
                   </View>
                   <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 1, marginBottom: 12, marginTop: 4 }}>
-                    ODPOWIEDZI WEDŁUG STYLU
+                    {t('guidancePref.odpowiedzi_wedlug_stylu', 'ODPOWIEDZI WEDŁUG STYLU')}
                   </Typography>
                   <View style={{ gap: 10 }}>
                     {OPTIONS.slice(0, 4).map((opt, i) => {
@@ -978,7 +978,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                               </View>
                               {isHighlighted && (
                                 <View style={[styles.impactActiveBadge, { backgroundColor: opt.accentColor + '22' }]}>
-                                  <Typography variant="microLabel" style={{ color: opt.accentColor, letterSpacing: 0.6 }}>WYBRANY</Typography>
+                                  <Typography variant="microLabel" style={{ color: opt.accentColor, letterSpacing: 0.6 }}>{t('guidancePref.wybrany', 'WYBRANY')}</Typography>
                                 </View>
                               )}
                             </View>
@@ -1009,8 +1009,8 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                   <BookOpen color="#A78BFA" size={16} strokeWidth={1.5} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Typography variant="microLabel" style={{ color: '#A78BFA', letterSpacing: 1.2 }}>ZAAWANSOWANE DOSTOSOWANIE</Typography>
-                  <Typography variant="bodySmall" style={{ opacity: 0.65, marginTop: 2, color: textColor }}>Głębokość, bezpośredniość, fokus</Typography>
+                  <Typography variant="microLabel" style={{ color: '#A78BFA', letterSpacing: 1.2 }}>{t('guidancePref.zaawansowa_dostosowan', 'ZAAWANSOWANE DOSTOSOWANIE')}</Typography>
+                  <Typography variant="bodySmall" style={{ opacity: 0.65, marginTop: 2, color: textColor }}>{t('guidancePref.glebokosc_bezposredn_fokus', 'Głębokość, bezpośredniość, fokus')}</Typography>
                 </View>
                 {advancedOpen ? <ChevronUp color={subColor} size={16} /> : <ChevronDown color={subColor} size={16} />}
               </View>
@@ -1019,13 +1019,13 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                 <View style={styles.previewContent}>
                   <View style={[styles.previewDivider, { backgroundColor: '#A78BFA30' }]} />
                   <Typography variant="bodySmall" style={{ opacity: 0.72, lineHeight: 22, marginBottom: 20 }}>
-                    Dostosuj niuanse tonu Oracle niezależnie od wybranego stylu prowadzenia. Suwaki wpływają na to, jak szczegółowe, bezpośrednie i duchowe będą odpowiedzi.
+                    {t('guidancePref.dostosuj_niuanse_tonu_oracle_niezal', 'Dostosuj niuanse tonu Oracle niezależnie od wybranego stylu prowadzenia. Suwaki wpływają na to, jak szczegółowe, bezpośrednie i duchowe będą odpowiedzi.')}
                   </Typography>
 
                   {/* Depth Slider */}
                   <View style={styles.sliderBlock}>
                     <View style={styles.sliderLabelRow}>
-                      <Typography variant="bodySmall" style={[sliderLabelStyle, { color: textColor }]}>Głębokość</Typography>
+                      <Typography variant="bodySmall" style={[sliderLabelStyle, { color: textColor }]}>{t('guidancePref.glebokosc', 'Głębokość')}</Typography>
                       <View style={[styles.sliderValueBadge, { backgroundColor: '#A78BFA18', borderColor: '#A78BFA40' }]}>
                         <Typography variant="microLabel" style={{ color: '#A78BFA' }}>
                           {depthVal < 0.35 ? 'Powierzchownie' : depthVal > 0.65 ? 'Głęboko' : 'Zrównoważony'}
@@ -1033,8 +1033,8 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                       </View>
                     </View>
                     <View style={styles.sliderEndLabels}>
-                      <Typography variant="caption" style={{ color: subColor }}>Powierzchownie</Typography>
-                      <Typography variant="caption" style={{ color: subColor }}>Głęboko</Typography>
+                      <Typography variant="caption" style={{ color: subColor }}>{t('guidancePref.powierzcho', 'Powierzchownie')}</Typography>
+                      <Typography variant="caption" style={{ color: subColor }}>{t('guidancePref.gleboko', 'Głęboko')}</Typography>
                     </View>
                     <Slider
                       style={styles.slider}
@@ -1058,7 +1058,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                   {/* Directness Slider */}
                   <View style={[styles.sliderBlock, { marginTop: 20 }]}>
                     <View style={styles.sliderLabelRow}>
-                      <Typography variant="bodySmall" style={[sliderLabelStyle, { color: textColor }]}>Bezpośredniość</Typography>
+                      <Typography variant="bodySmall" style={[sliderLabelStyle, { color: textColor }]}>{t('guidancePref.bezposredn', 'Bezpośredniość')}</Typography>
                       <View style={[styles.sliderValueBadge, { backgroundColor: '#F472B618', borderColor: '#F472B640' }]}>
                         <Typography variant="microLabel" style={{ color: '#F472B6' }}>
                           {directnessVal < 0.35 ? 'Łagodnie' : directnessVal > 0.65 ? 'Wprost' : 'Asertywnie'}
@@ -1066,8 +1066,8 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                       </View>
                     </View>
                     <View style={styles.sliderEndLabels}>
-                      <Typography variant="caption" style={{ color: subColor }}>Łagodnie</Typography>
-                      <Typography variant="caption" style={{ color: subColor }}>Wprost</Typography>
+                      <Typography variant="caption" style={{ color: subColor }}>{t('guidancePref.lagodnie', 'Łagodnie')}</Typography>
+                      <Typography variant="caption" style={{ color: subColor }}>{t('guidancePref.wprost', 'Wprost')}</Typography>
                     </View>
                     <Slider
                       style={styles.slider}
@@ -1091,7 +1091,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                   {/* Focus Slider */}
                   <View style={[styles.sliderBlock, { marginTop: 20 }]}>
                     <View style={styles.sliderLabelRow}>
-                      <Typography variant="bodySmall" style={[sliderLabelStyle, { color: textColor }]}>Fokus</Typography>
+                      <Typography variant="bodySmall" style={[sliderLabelStyle, { color: textColor }]}>{t('guidancePref.fokus', 'Fokus')}</Typography>
                       <View style={[styles.sliderValueBadge, { backgroundColor: '#60A5FA18', borderColor: '#60A5FA40' }]}>
                         <Typography variant="microLabel" style={{ color: '#60A5FA' }}>
                           {focusVal < 0.35 ? 'Praktycznie' : focusVal > 0.65 ? 'Duchowo' : 'Integralnie'}
@@ -1099,8 +1099,8 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                       </View>
                     </View>
                     <View style={styles.sliderEndLabels}>
-                      <Typography variant="caption" style={{ color: subColor }}>Praktycznie</Typography>
-                      <Typography variant="caption" style={{ color: subColor }}>Duchowo</Typography>
+                      <Typography variant="caption" style={{ color: subColor }}>{t('guidancePref.praktyczni', 'Praktycznie')}</Typography>
+                      <Typography variant="caption" style={{ color: subColor }}>{t('guidancePref.duchowo', 'Duchowo')}</Typography>
                     </View>
                     <Slider
                       style={styles.slider}
@@ -1122,7 +1122,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
                   </View>
 
                   <View style={[styles.advancedSummary, { backgroundColor: '#A78BFA0C', borderColor: '#A78BFA28' }]}>
-                    <Typography variant="microLabel" style={{ color: '#A78BFA', letterSpacing: 1.2, marginBottom: 8 }}>TWÓJ PROFIL PROWADZENIA</Typography>
+                    <Typography variant="microLabel" style={{ color: '#A78BFA', letterSpacing: 1.2, marginBottom: 8 }}>{t('guidancePref.twoj_profil_prowadzeni', 'TWÓJ PROFIL PROWADZENIA')}</Typography>
                     <Typography variant="bodySmall" style={{ lineHeight: 22, opacity: 0.78 }}>
                       {selectedOption ? selectedOption.title : 'Nie wybrano'} · {depthVal < 0.35 ? 'Powierzchownie' : depthVal > 0.65 ? 'Głęboko' : 'Zrównoważony'} · {directnessVal < 0.35 ? 'Łagodnie' : directnessVal > 0.65 ? 'Wprost' : 'Asertywnie'} · {focusVal < 0.35 ? 'Praktycznie' : focusVal > 0.65 ? 'Duchowo' : 'Integralnie'}
                     </Typography>
@@ -1141,7 +1141,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
               <View style={styles.infoRow}>
                 <Sparkles color={currentTheme.primary} size={16} strokeWidth={1.5} style={{ marginRight: 10, marginTop: 1 }} />
                 <Typography variant="microLabel" style={{ color: currentTheme.primary, letterSpacing: 1.1 }}>
-                  PODEJŚCIE AETHERY
+                  {t('guidancePref.podejscie_aethery', 'PODEJŚCIE AETHERY')}
                 </Typography>
               </View>
               <Typography variant="bodySmall" style={{ lineHeight: 22, opacity: 0.75, marginTop: 8 }}>
@@ -1156,7 +1156,7 @@ export const GuidancePreferenceScreen = ({ navigation }: any) => {
             style={styles.inlineBack}
           >
             <Typography variant="caption" color={currentTheme.primary}>
-              Wróć do danych osobistych
+              {t('guidancePref.wroc_do_danych_osobistych', 'Wróć do danych osobistych')}
             </Typography>
           </Pressable>
 

@@ -464,10 +464,10 @@ const RuneCircleHero = ({ isLight }: { isLight: boolean }) => {
       </Svg>
       <View style={{ alignItems: 'center', marginTop: -10 }}>
         <Text style={{ color: isLight ? '#1A1410' : '#F5F1EA', fontSize: 22, fontWeight: '300', letterSpacing: 3 }}>
-          WYROCZNIA RUN
+          {t('runeCast.wyrocznia_run', 'WYROCZNIA RUN')}
         </Text>
         <Text style={{ color: ACCENT + 'BB', fontSize: 12, letterSpacing: 2, marginTop: 4 }}>
-          ELDER FUTHARK · 24+1
+          {t('runeCast.elder_futhark_24_1', 'ELDER FUTHARK · 24+1')}
         </Text>
       </View>
     </View>
@@ -578,7 +578,7 @@ const RuneFlashcard = ({ rune, onNext, onPrev, index, total, isLight, textColor,
           <Text style={{ color: subColor, fontSize: 10, marginTop: 12, letterSpacing: 0.8 }}>{rune.element.toUpperCase()} · {rune.aett_name.toUpperCase()}</Text>
         </Animated.View>
         <Animated.View style={[{ height: 220, width: '100%', borderRadius: 20, backgroundColor: isLight ? '#F0EAFF' : '#120820', borderWidth: 1, borderColor: rune.color + '55', padding: 20 }, backStyle]}>
-          <Text style={{ color: subColor, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 8 }}>SŁOWA KLUCZOWE</Text>
+          <Text style={{ color: subColor, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 8 }}>{t('runeCast.slowa_kluczowe', 'SŁOWA KLUCZOWE')}</Text>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
             {rune.keywords.map(kw => (
               <View key={kw} style={{ backgroundColor: rune.color + '20', borderRadius: 10, paddingHorizontal: 10, paddingVertical: 3 }}>
@@ -586,10 +586,10 @@ const RuneFlashcard = ({ rune, onNext, onPrev, index, total, isLight, textColor,
               </View>
             ))}
           </View>
-          <Text style={{ color: subColor, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 4 }}>BÓSTWO · DRZEWO · KAMIEŃ</Text>
+          <Text style={{ color: subColor, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 4 }}>{t('runeCast.bostwo_drzewo_kamien', 'BÓSTWO · DRZEWO · KAMIEŃ')}</Text>
           <Text style={{ color: textColor, fontSize: 12, lineHeight: 18 }}>{rune.deity}  ·  {rune.tree}  ·  {rune.stone}</Text>
           <View style={{ borderTopWidth: 1, borderTopColor: rune.color + '33', marginTop: 10, paddingTop: 8 }}>
-            <Text style={{ color: subColor, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 2 }}>MEDYTACJA</Text>
+            <Text style={{ color: subColor, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 2 }}>{t('runeCast.medytacja', 'MEDYTACJA')}</Text>
             <Text style={{ color: ACCENT, fontSize: 11 }}>Rytm oddechu: {rune.meditation_breath}</Text>
           </View>
         </Animated.View>
@@ -597,10 +597,10 @@ const RuneFlashcard = ({ rune, onNext, onPrev, index, total, isLight, textColor,
 
       <View style={{ flexDirection: 'row', gap: 16, marginTop: 16 }}>
         <Pressable onPress={onPrev} style={{ backgroundColor: cardBg, borderRadius: 12, paddingHorizontal: 20, paddingVertical: 10, borderWidth: 1, borderColor: cardBorder }}>
-          <Text style={{ color: subColor, fontSize: 13 }}>‹ Poprzednia</Text>
+          <Text style={{ color: subColor, fontSize: 13 }}>{t('runeCast.poprzednia', '‹ Poprzednia')}</Text>
         </Pressable>
         <Pressable onPress={onNext} style={{ backgroundColor: ACCENT + '20', borderRadius: 12, paddingHorizontal: 20, paddingVertical: 10, borderWidth: 1, borderColor: ACCENT + '55' }}>
-          <Text style={{ color: ACCENT, fontSize: 13, fontWeight: '600' }}>Następna ›</Text>
+          <Text style={{ color: ACCENT, fontSize: 13, fontWeight: '600' }}>{t('runeCast.nastepna', 'Następna ›')}</Text>
         </Pressable>
       </View>
     </View>
@@ -667,7 +667,7 @@ const RuneMeditation = ({ rune, isLight, textColor, subColor }: { rune: Rune; is
 
   return (
     <View style={{ alignItems: 'center', paddingVertical: 20 }}>
-      <Text style={{ color: subColor, fontSize: 11, letterSpacing: 2, marginBottom: 4 }}>MEDYTACJA Z RUNĄ</Text>
+      <Text style={{ color: subColor, fontSize: 11, letterSpacing: 2, marginBottom: 4 }}>{t('runeCast.medytacja_z_runa', 'MEDYTACJA Z RUNĄ')}</Text>
       <Text style={{ color: rune.color, fontSize: 48, lineHeight: 60, marginBottom: 4 }}>{rune.symbol}</Text>
       <Text style={{ color: isLight ? '#1A1410' : '#F5F1EA', fontSize: 16, fontWeight: '300', letterSpacing: 1.5, marginBottom: 16 }}>{rune.name} — {rune.polish_name}</Text>
 
@@ -836,7 +836,7 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
     setShowJournalSave(false);
     setJournalReflection('');
     void HapticsService.notify();
-    Alert.alert('Zapisano', 'Twój rozkład run został zapisany w dzienniku.');
+    Alert.alert(t('runeCast.zapisano', 'Zapisano'), t('runeCast.twoj_rozklad_run_zostal_zapisany', 'Twój rozkład run został zapisany w dzienniku.'));
   }, [castResult, question, activeSpread, reversedFlags, aiInterpretation, journalReflection]);
 
   // ── MODAL OPEN/CLOSE ─────────────────────────────────────────────────────────
@@ -885,8 +885,8 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
             <ChevronLeft color={ACCENT} size={26} strokeWidth={1.6} />
           </Pressable>
           <View style={rc.headerCenter}>
-            <Text style={[rc.headerEyebrow, { color: ACCENT }]}>✦ RUNY FUTHARK</Text>
-            <Text style={[rc.headerTitle, { color: textColor }]}>Wyrocznia Run</Text>
+            <Text style={[rc.headerEyebrow, { color: ACCENT }]}>{t('runeCast.runy_futhark', '✦ RUNY FUTHARK')}</Text>
+            <Text style={[rc.headerTitle, { color: textColor }]}>{t('runeCast.wyrocznia_run_1', 'Wyrocznia Run')}</Text>
           </View>
           <Pressable onPress={toggleFav} style={rc.iconBtn} hitSlop={12}>
             <Star color={isFav ? ACCENT : ACCENT + '88'} size={18} strokeWidth={1.8} fill={isFav ? ACCENT : 'none'} />
@@ -929,7 +929,7 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
                   {/* Premium top accent bar */}
                   <View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, borderTopLeftRadius: 14, borderTopRightRadius: 14, backgroundColor: ACCENT + '99' }} pointerEvents="none" />
                   <View style={{ flex: 1 }}>
-                    <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '800', letterSpacing: 2.2, opacity: 0.85 }}>✦ WYBRANY ROZKŁAD</Text>
+                    <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '800', letterSpacing: 2.2, opacity: 0.85 }}>{t('runeCast.wybrany_rozklad', '✦ WYBRANY ROZKŁAD')}</Text>
                     <Text style={{ color: textColor, fontSize: 19, fontWeight: '600', marginTop: 4, letterSpacing: -0.3 }}>{activeSpread.name}</Text>
                     <Text style={{ color: subColor, fontSize: 12, marginTop: 3 }}>{activeSpread.polish_desc}</Text>
                   </View>
@@ -940,7 +940,7 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
               {/* Reversed toggle */}
               <Animated.View entering={FadeInUp.duration(400).delay(100)} style={[rc.reversedToggleRow, { marginHorizontal: layout.padding.screen }]}>
                 <FlipHorizontal2 color={allowReversed ? ACCENT : subColor} size={16} strokeWidth={1.6} />
-                <Text style={{ color: allowReversed ? textColor : subColor, fontSize: 13, flex: 1, marginLeft: 8 }}>Odwrócone runy</Text>
+                <Text style={{ color: allowReversed ? textColor : subColor, fontSize: 13, flex: 1, marginLeft: 8 }}>{t('runeCast.odwrocone_runy', 'Odwrócone runy')}</Text>
                 <Pressable
                   onPress={() => { setAllowReversed(v => !v); void HapticsService.selection(); }}
                   style={[rc.toggleTrack, { backgroundColor: allowReversed ? ACCENT + '40' : cardBg, borderColor: allowReversed ? ACCENT : cardBorder }]}
@@ -954,7 +954,7 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
                 <TextInput
                   value={question}
                   onChangeText={setQuestion}
-                  placeholder="Zadaj pytanie wyroczni (opcjonalnie)..."
+                  placeholder={t('runeCast.zadaj_pytanie_wyroczni_opcjonalni', 'Zadaj pytanie wyroczni (opcjonalnie)...')}
                   placeholderTextColor={subColor + '88'}
                   style={[rc.questionInput, { backgroundColor: cardBg, borderColor: cardBorder, color: textColor }]}
                   multiline
@@ -1012,7 +1012,7 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
                               {isReversed && (
                                 <View style={rc.reversedBadge}>
                                   <RotateCcw color="#EF4444" size={8} strokeWidth={2} />
-                                  <Text style={rc.reversedBadgeText}>Odwr.</Text>
+                                  <Text style={rc.reversedBadgeText}>{t('runeCast.odwr', 'Odwr.')}</Text>
                                 </View>
                               )}
                               <Text style={[rc.runeSymbolLarge, {
@@ -1048,7 +1048,7 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
                               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 3 }}>
                                 <Text style={{ color: textColor, fontSize: 13, fontWeight: '600' }}>{rune.name}</Text>
                                 <Text style={{ color: ACCENT, fontSize: 10 }}>· {rune.polish_name}</Text>
-                                {isReversed && <View style={{ backgroundColor: '#EF444420', borderRadius: 4, paddingHorizontal: 4 }}><Text style={{ color: '#EF4444', fontSize: 9, fontWeight: '700' }}>ODWRÓCONA</Text></View>}
+                                {isReversed && <View style={{ backgroundColor: '#EF444420', borderRadius: 4, paddingHorizontal: 4 }}><Text style={{ color: '#EF4444', fontSize: 9, fontWeight: '700' }}>{t('runeCast.odwrocona', 'ODWRÓCONA')}</Text></View>}
                               </View>
                               <Text style={{ color: subColor, fontSize: 12, lineHeight: 17 }} numberOfLines={2}>
                                 {isReversed ? rune.reversed_meaning : rune.meaning}
@@ -1069,8 +1069,8 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
                       <LinearGradient colors={[ACCENT + '25', '#6D28D9' + '25']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={StyleSheet.absoluteFill} />
                       <Sparkles color={ACCENT} size={17} strokeWidth={1.6} />
                       <View style={{ flex: 1, marginLeft: 10 }}>
-                        <Text style={{ color: textColor, fontSize: 14, fontWeight: '600' }}>Interpretuj Rozkład</Text>
-                        <Text style={{ color: subColor, fontSize: 11, marginTop: 1 }}>Oracle AI analizuje układ run</Text>
+                        <Text style={{ color: textColor, fontSize: 14, fontWeight: '600' }}>{t('runeCast.interpretu_rozklad', 'Interpretuj Rozkład')}</Text>
+                        <Text style={{ color: subColor, fontSize: 11, marginTop: 1 }}>{t('runeCast.oracle_ai_analizuje_uklad_run', 'Oracle AI analizuje układ run')}</Text>
                       </View>
                       <ChevronRight color={ACCENT} size={16} strokeWidth={1.6} />
                     </Pressable>
@@ -1083,14 +1083,14 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
                       style={[rc.actionBtn, { flex: 1, backgroundColor: cardBg, borderColor: cardBorder }]}
                     >
                       <Save color={subColor} size={14} strokeWidth={1.6} />
-                      <Text style={{ color: subColor, fontSize: 13 }}>Zapisz</Text>
+                      <Text style={{ color: subColor, fontSize: 13 }}>{t('runeCast.zapisz', 'Zapisz')}</Text>
                     </Pressable>
                     <Pressable
                       onPress={castRunes}
                       style={[rc.actionBtn, { flex: 1, backgroundColor: cardBg, borderColor: ACCENT + '55' }]}
                     >
                       <RotateCcw color={ACCENT} size={14} strokeWidth={1.6} />
-                      <Text style={{ color: ACCENT, fontSize: 13, fontWeight: '500' }}>Rzuć ponownie</Text>
+                      <Text style={{ color: ACCENT, fontSize: 13, fontWeight: '500' }}>{t('runeCast.rzuc_ponownie', 'Rzuć ponownie')}</Text>
                     </Pressable>
                   </View>
                 </Animated.View>
@@ -1112,7 +1112,7 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
           ══════════════════════════════════════════════ */}
           {activeTab === 'library' && (
             <Animated.View entering={FadeInDown.duration(400)} style={{ marginHorizontal: layout.padding.screen }}>
-              <Text style={[rc.sectionTitle, { color: subColor }]}>24 RUNY ELDER FUTHARK + WYRD</Text>
+              <Text style={[rc.sectionTitle, { color: subColor }]}>{t('runeCast.24_runy_elder_futhark_wyrd', '24 RUNY ELDER FUTHARK + WYRD')}</Text>
               <View style={rc.libGrid}>
                 {FUTHARK_RUNES.map((rune, i) => (
                   <Animated.View key={rune.id} entering={FadeInDown.duration(300).delay(i * 25)}>
@@ -1138,8 +1138,8 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
               <View style={[rc.studyHeader, { backgroundColor: ACCENT + '14', borderColor: ACCENT + '30' }]}>
                 <Brain color={ACCENT} size={16} strokeWidth={1.6} />
                 <View style={{ flex: 1, marginLeft: 10 }}>
-                  <Text style={{ color: ACCENT, fontSize: 12, fontWeight: '700', letterSpacing: 1.2 }}>FISZKI RUNICZNE</Text>
-                  <Text style={{ color: subColor, fontSize: 11, marginTop: 1 }}>Dotknij kartę by zobaczyć znaczenie</Text>
+                  <Text style={{ color: ACCENT, fontSize: 12, fontWeight: '700', letterSpacing: 1.2 }}>{t('runeCast.fiszki_runiczne', 'FISZKI RUNICZNE')}</Text>
+                  <Text style={{ color: subColor, fontSize: 11, marginTop: 1 }}>{t('runeCast.dotknij_karte_by_zobaczyc_znaczenie', 'Dotknij kartę by zobaczyć znaczenie')}</Text>
                 </View>
                 <Text style={{ color: subColor, fontSize: 11 }}>{studyIndex + 1}/{studyRunes.length}</Text>
               </View>
@@ -1171,7 +1171,7 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
               <View style={[rc.studyMeditationCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                   <Wind color={ACCENT} size={16} strokeWidth={1.6} />
-                  <Text style={{ color: ACCENT, fontSize: 13, fontWeight: '600' }}>Medytacja z runą</Text>
+                  <Text style={{ color: ACCENT, fontSize: 13, fontWeight: '600' }}>{t('runeCast.medytacja_z_runa_1', 'Medytacja z runą')}</Text>
                 </View>
                 <RuneMeditation
                   rune={studyRunes[studyIndex]}
@@ -1188,9 +1188,9 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
           ══════════════════════════════════════════════ */}
           {activeTab === 'aetts' && (
             <Animated.View entering={FadeInDown.duration(400)} style={{ marginHorizontal: layout.padding.screen }}>
-              <Text style={[rc.sectionTitle, { color: subColor }]}>TRZY AETTY — GRUPY RUNICZNE</Text>
+              <Text style={[rc.sectionTitle, { color: subColor }]}>{t('runeCast.trzy_aetty_grupy_runiczne', 'TRZY AETTY — GRUPY RUNICZNE')}</Text>
               <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 20 }}>
-                24 runy Elder Futhark dzielą się na trzy grupy — aetty. Każda jest pod patronatem innych bóstw i reprezentuje inny wymiar doświadczenia.
+                {t('runeCast.24_runy_elder_futhark_dziela', '24 runy Elder Futhark dzielą się na trzy grupy — aetty. Każda jest pod patronatem innych bóstw i reprezentuje inny wymiar doświadczenia.')}
               </Text>
 
               {AETT_INFO.map((aett, ai) => (
@@ -1225,8 +1225,8 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.duration(400).delay(350)}>
                 <View style={[rc.aettCard, { backgroundColor: cardBg, borderColor: '#94A3B844', borderLeftColor: '#94A3B8', marginTop: 8 }]}>
                   <View style={[rc.aettHeader, { backgroundColor: '#94A3B818' }]}>
-                    <Text style={{ color: '#94A3B8', fontSize: 18, fontWeight: '700' }}>Wyrd — Pusta Runa</Text>
-                    <Text style={{ color: '#94A3B8BB', fontSize: 11, marginTop: 2 }}>Poza podziałem aettów</Text>
+                    <Text style={{ color: '#94A3B8', fontSize: 18, fontWeight: '700' }}>{t('runeCast.wyrd_pusta_runa', 'Wyrd — Pusta Runa')}</Text>
+                    <Text style={{ color: '#94A3B8BB', fontSize: 11, marginTop: 2 }}>{t('runeCast.poza_podzialem_aettow', 'Poza podziałem aettów')}</Text>
                   </View>
                   <Text style={{ color: subColor, fontSize: 13, lineHeight: 19, margin: 14 }}>
                     Wyrd to runa bez symbolu — czyste przeznaczenie. Pojawiła się w tradycji runomantii jako symbol tego, co poza ludzkim rozumieniem. Niektórzy runiści nie uznają jej; inni traktują jako najsilniejszą spośród wszystkich.
@@ -1236,7 +1236,7 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
                     style={[rc.aettRuneChip, { backgroundColor: '#94A3B818', borderColor: '#94A3B855', marginHorizontal: 14, marginBottom: 14, width: 72 }]}
                   >
                     <Text style={{ color: '#94A3B8', fontSize: 22 }}>⬡</Text>
-                    <Text style={{ color: textColor, fontSize: 10, fontWeight: '600', marginTop: 2 }}>Wyrd</Text>
+                    <Text style={{ color: textColor, fontSize: 10, fontWeight: '600', marginTop: 2 }}>{t('runeCast.wyrd', 'Wyrd')}</Text>
                   </Pressable>
                 </View>
               </Animated.View>
@@ -1248,7 +1248,7 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
           ══════════════════════════════════════════════ */}
           {activeTab === 'journal' && (
             <Animated.View entering={FadeInDown.duration(400)} style={{ marginHorizontal: layout.padding.screen }}>
-              <Text style={[rc.sectionTitle, { color: subColor }]}>DZIENNIK RUNICZNY</Text>
+              <Text style={[rc.sectionTitle, { color: subColor }]}>{t('runeCast.dziennik_runiczny', 'DZIENNIK RUNICZNY')}</Text>
 
               {journalEntries.length === 0 ? (
                 <View style={[rc.emptyState, { borderColor: cardBorder }]}>
@@ -1288,7 +1288,7 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
                           </View>
                           {entry.reflection.length > 0 && (
                             <View style={{ borderTopWidth: 1, borderTopColor: cardBorder, paddingTop: 8, marginTop: 4 }}>
-                              <Text style={{ color: subColor, fontSize: 11, fontWeight: '600', letterSpacing: 1, marginBottom: 4 }}>REFLEKSJA</Text>
+                              <Text style={{ color: subColor, fontSize: 11, fontWeight: '600', letterSpacing: 1, marginBottom: 4 }}>{t('runeCast.refleksja', 'REFLEKSJA')}</Text>
                               <Text style={{ color: textColor, fontSize: 12, lineHeight: 18 }}>{entry.reflection}</Text>
                             </View>
                           )}
@@ -1313,8 +1313,8 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
           <Pressable style={StyleSheet.absoluteFill} onPress={() => setShowSpreadModal(false)} />
           <View style={[rc.bottomSheet, { backgroundColor: isLight ? '#FAF7FF' : '#110A24' }]}>
             <View style={[rc.sheetHandle, { backgroundColor: isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.15)' }]} />
-            <Text style={[rc.sheetTitle, { color: textColor }]}>Wybierz Rozkład</Text>
-            <Text style={{ color: subColor, fontSize: 12, marginBottom: 16, marginTop: -8 }}>Każdy rozkład ujawnia inny wymiar</Text>
+            <Text style={[rc.sheetTitle, { color: textColor }]}>{t('runeCast.wybierz_rozklad', 'Wybierz Rozkład')}</Text>
+            <Text style={{ color: subColor, fontSize: 12, marginBottom: 16, marginTop: -8 }}>{t('runeCast.kazdy_rozklad_ujawnia_inny_wymiar', 'Każdy rozkład ujawnia inny wymiar')}</Text>
             <View style={{ gap: 10 }}>
               {SPREADS.map(spread => (
                 <Pressable
@@ -1357,7 +1357,7 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
             </TouchableOpacity>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 16, marginTop: 4 }}>
               <Sparkles color={ACCENT} size={18} strokeWidth={1.6} />
-              <Text style={{ color: textColor, fontSize: 17, fontWeight: '300', letterSpacing: 1 }}>Interpretacja Oracle</Text>
+              <Text style={{ color: textColor, fontSize: 17, fontWeight: '300', letterSpacing: 1 }}>{t('runeCast.interpreta_oracle', 'Interpretacja Oracle')}</Text>
             </View>
 
             {/* Drawn runes mini row */}
@@ -1376,7 +1376,7 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
               {aiLoading ? (
                 <View style={{ paddingVertical: 40, alignItems: 'center', gap: 12 }}>
                   <ActivityIndicator color={ACCENT} size="large" />
-                  <Text style={{ color: subColor, fontSize: 13 }}>Wyrocznia przemawia...</Text>
+                  <Text style={{ color: subColor, fontSize: 13 }}>{t('runeCast.wyrocznia_przemawia', 'Wyrocznia przemawia...')}</Text>
                 </View>
               ) : (
                 <Text style={{ color: textColor, fontSize: 14, lineHeight: 24, paddingTop: 12 }}>
@@ -1442,11 +1442,11 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
                 <View style={[rc.modalDivider, { backgroundColor: activeRune.color + '33' }]} />
 
                 {/* Meaning */}
-                <Text style={[rc.modalSectionLabel, { color: subColor }]}>ZNACZENIE</Text>
+                <Text style={[rc.modalSectionLabel, { color: subColor }]}>{t('runeCast.znaczenie', 'ZNACZENIE')}</Text>
                 <Text style={[rc.modalMeaning, { color: textColor }]}>{activeRune.meaning}</Text>
 
                 {/* Reversed */}
-                <Text style={[rc.modalSectionLabel, { color: subColor, marginTop: 14 }]}>ODWRÓCONA</Text>
+                <Text style={[rc.modalSectionLabel, { color: subColor, marginTop: 14 }]}>{t('runeCast.odwrocona_1', 'ODWRÓCONA')}</Text>
                 <Text style={[rc.modalReversed, { color: subColor }]}>{activeRune.reversed_meaning}</Text>
 
                 {/* Meditation rhythm */}
@@ -1486,7 +1486,7 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
             <Pressable style={StyleSheet.absoluteFill} onPress={() => setShowJournalSave(false)} />
             <View style={[rc.bottomSheet, { backgroundColor: isLight ? '#FAF7FF' : '#110A24' }]}>
               <View style={[rc.sheetHandle, { backgroundColor: isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.15)' }]} />
-              <Text style={[rc.sheetTitle, { color: textColor }]}>Zapisz w Dzienniku</Text>
+              <Text style={[rc.sheetTitle, { color: textColor }]}>{t('runeCast.zapisz_w_dzienniku', 'Zapisz w Dzienniku')}</Text>
 
               <View style={{ flexDirection: 'row', gap: 8, marginBottom: 14 }}>
                 {castResult?.map((r, i) => (
@@ -1497,11 +1497,11 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
                 ))}
               </View>
 
-              <Text style={{ color: subColor, fontSize: 12, fontWeight: '700', letterSpacing: 1.2, marginBottom: 6 }}>TWOJA REFLEKSJA</Text>
+              <Text style={{ color: subColor, fontSize: 12, fontWeight: '700', letterSpacing: 1.2, marginBottom: 6 }}>{t('runeCast.twoja_refleksja', 'TWOJA REFLEKSJA')}</Text>
               <TextInput
                 value={journalReflection}
                 onChangeText={setJournalReflection}
-                placeholder="Co czujesz? Jakie myśli wzbudziły te runy?..."
+                placeholder={t('runeCast.co_czujesz_jakie_mysli_wzbudzily', 'Co czujesz? Jakie myśli wzbudziły te runy?...')}
                 placeholderTextColor={subColor + '88'}
                 style={[rc.journalInput, { backgroundColor: cardBg, borderColor: cardBorder, color: textColor }]}
                 multiline
@@ -1509,12 +1509,12 @@ export const RuneCastScreen: React.FC = ({ navigation }: any) => {
 
               <View style={{ flexDirection: 'row', gap: 10, marginTop: 12 }}>
                 <Pressable onPress={() => setShowJournalSave(false)} style={[rc.sheetBtn, { backgroundColor: cardBg, borderColor: cardBorder, flex: 1 }]}>
-                  <Text style={{ color: subColor, fontSize: 14 }}>Anuluj</Text>
+                  <Text style={{ color: subColor, fontSize: 14 }}>{t('runeCast.anuluj', 'Anuluj')}</Text>
                 </Pressable>
                 <Pressable onPress={saveToJournal} style={{ flex: 2 }}>
                   <LinearGradient colors={[ACCENT, '#6D28D9']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={[rc.sheetBtn, { borderColor: 'transparent' }]}>
                     <Save color="#fff" size={14} strokeWidth={1.8} />
-                    <Text style={{ color: '#fff', fontSize: 14, fontWeight: '600', marginLeft: 6 }}>Zapisz</Text>
+                    <Text style={{ color: '#fff', fontSize: 14, fontWeight: '600', marginLeft: 6 }}>{t('runeCast.zapisz_1', 'Zapisz')}</Text>
                   </LinearGradient>
                 </Pressable>
               </View>

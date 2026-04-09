@@ -442,7 +442,7 @@ Odpowiedź powinna być zwięzła, mistyczna i inspirująca.`,
             <ChevronLeft size={22} color={isLight ? '#1A1028' : '#F0ECF8'} />
           </Pressable>
           <View style={{ flex: 1, alignItems: 'center' }}>
-            <Text style={[styles.headerEyebrow, { color: isLight ? '#6366F1' : ACCENT_GOLD }]}>ROCZNA WIZJA</Text>
+            <Text style={[styles.headerEyebrow, { color: isLight ? '#6366F1' : ACCENT_GOLD }]}>{t('annualForecast.roczna_wizja', 'ROCZNA WIZJA')}</Text>
             <Text style={[styles.headerTitle, { color: textColor }]}>{currentYear}</Text>
           </View>
           <Pressable onPress={handleStar} style={styles.headerBtn} hitSlop={12}>
@@ -466,19 +466,19 @@ Odpowiedź powinna być zwięzła, mistyczna i inspirująca.`,
 
           {/* Lucky Elements */}
           <Animated.View entering={FadeInDown.delay(140).duration(500)}>
-            <Text style={[styles.sectionLabel, { color: isLight ? '#6366F1' : ACCENT_GOLD }]}>SZCZĘŚLIWE ELEMENTY</Text>
+            <Text style={[styles.sectionLabel, { color: isLight ? '#6366F1' : ACCENT_GOLD }]}>{t('annualForecast.szczesliwe_elementy', 'SZCZĘŚLIWE ELEMENTY')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.luckyRow}>
-              <LuckyChip label="Kolor" value={lucky.kolor} isLight={isLight} />
-              <LuckyChip label="Kamień" value={lucky.kamien} isLight={isLight} />
-              <LuckyChip label="Liczba" value={lucky.liczba} isLight={isLight} />
-              <LuckyChip label="Kierunek" value={lucky.kierunek} isLight={isLight} />
-              <LuckyChip label="Dzień" value={lucky.dzien} isLight={isLight} />
+              <LuckyChip label={t('annualForecast.kolor', 'Kolor')} value={lucky.kolor} isLight={isLight} />
+              <LuckyChip label={t('annualForecast.kamien', 'Kamień')} value={lucky.kamien} isLight={isLight} />
+              <LuckyChip label={t('annualForecast.liczba', 'Liczba')} value={lucky.liczba} isLight={isLight} />
+              <LuckyChip label={t('annualForecast.kierunek', 'Kierunek')} value={lucky.kierunek} isLight={isLight} />
+              <LuckyChip label={t('annualForecast.dzien', 'Dzień')} value={lucky.dzien} isLight={isLight} />
             </ScrollView>
           </Animated.View>
 
           {/* Quarterly Forecast */}
           <Animated.View entering={FadeInDown.delay(220).duration(500)}>
-            <Text style={[styles.sectionLabel, { color: isLight ? '#6366F1' : ACCENT_GOLD }]}>KWARTALNE PROGNOZY</Text>
+            <Text style={[styles.sectionLabel, { color: isLight ? '#6366F1' : ACCENT_GOLD }]}>{t('annualForecast.kwartalne_prognozy', 'KWARTALNE PROGNOZY')}</Text>
             <View style={{ gap: 10 }}>
               {QUARTERS.map((q, i) => (
                 <QuarterCard key={q.id} q={q} personalYear={personalYear} isLight={isLight} />
@@ -488,7 +488,7 @@ Odpowiedź powinna być zwięzła, mistyczna i inspirująca.`,
 
           {/* Monthly Energy Timeline */}
           <Animated.View entering={FadeInDown.delay(300).duration(500)}>
-            <Text style={[styles.sectionLabel, { color: isLight ? '#6366F1' : ACCENT_GOLD }]}>ENERGIA MIESIĘCZNA</Text>
+            <Text style={[styles.sectionLabel, { color: isLight ? '#6366F1' : ACCENT_GOLD }]}>{t('annualForecast.energia_miesieczna', 'ENERGIA MIESIĘCZNA')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.monthRow}>
               {MONTH_NAMES_PL.map((m, i) => (
                 <MonthCard key={m} month={m} index={i} personalYear={personalYear} isLight={isLight} />
@@ -498,7 +498,7 @@ Odpowiedź powinna być zwięzła, mistyczna i inspirująca.`,
 
           {/* Planetary Influence */}
           <Animated.View entering={FadeInDown.delay(380).duration(500)}>
-            <Text style={[styles.sectionLabel, { color: isLight ? '#6366F1' : ACCENT_GOLD }]}>PLANETY ROKU</Text>
+            <Text style={[styles.sectionLabel, { color: isLight ? '#6366F1' : ACCENT_GOLD }]}>{t('annualForecast.planety_roku', 'PLANETY ROKU')}</Text>
             <View style={{ gap: 10 }}>
               {planets.planets.map((planet, i) => (
                 <View key={planet} style={[styles.planetCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
@@ -521,7 +521,7 @@ Odpowiedź powinna być zwięzła, mistyczna i inspirująca.`,
 
           {/* AI Forecast Generation */}
           <Animated.View entering={FadeInDown.delay(460).duration(500)}>
-            <Text style={[styles.sectionLabel, { color: isLight ? '#6366F1' : ACCENT_GOLD }]}>PEŁNA ROCZNA WIZJA AI</Text>
+            <Text style={[styles.sectionLabel, { color: isLight ? '#6366F1' : ACCENT_GOLD }]}>{t('annualForecast.pelna_roczna_wizja_ai', 'PEŁNA ROCZNA WIZJA AI')}</Text>
 
             {aiResult.length === 0 && (
               <Pressable
@@ -536,7 +536,7 @@ Odpowiedź powinna być zwięzła, mistyczna i inspirująca.`,
                 ) : (
                   <>
                     <Sparkles size={20} color={ACCENT_GOLD} />
-                    <Text style={styles.generateBtnText}>Generuj Roczną Wizję</Text>
+                    <Text style={styles.generateBtnText}>{t('annualForecast.generuj_roczna_wizje', 'Generuj Roczną Wizję')}</Text>
                   </>
                 )}
               </Pressable>
@@ -558,7 +558,7 @@ Odpowiedź powinna być zwięzła, mistyczna i inspirująca.`,
                   style={({ pressed }) => [styles.regenerateBtn, pressed && { opacity: 0.75 }]}
                 >
                   {loading ? <ActivityIndicator color={ACCENT_SILVER} size="small" /> : (
-                    <Text style={[styles.regenerateBtnText, { color: subColor }]}>↺ Wygeneruj ponownie</Text>
+                    <Text style={[styles.regenerateBtnText, { color: subColor }]}>{t('annualForecast.wygeneruj_ponownie', '↺ Wygeneruj ponownie')}</Text>
                   )}
                 </Pressable>
               </View>
@@ -567,7 +567,7 @@ Odpowiedź powinna być zwięzła, mistyczna i inspirująca.`,
 
           {/* CO DALEJ */}
           <Animated.View entering={FadeInDown.delay(540).duration(500)}>
-            <Text style={[styles.sectionLabel, { color: isLight ? '#6366F1' : ACCENT_GOLD }]}>CO DALEJ?</Text>
+            <Text style={[styles.sectionLabel, { color: isLight ? '#6366F1' : ACCENT_GOLD }]}>{t('annualForecast.co_dalej', 'CO DALEJ?')}</Text>
             <View style={{ gap: 10 }}>
               {CO_DALEJ.map(({ title, desc, route, Icon, color }) => (
                 <Pressable

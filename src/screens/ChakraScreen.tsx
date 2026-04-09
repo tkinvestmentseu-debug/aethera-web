@@ -664,16 +664,16 @@ export const ChakraScreen = ({ navigation }: any) => {
                 </View>
                 <Pressable onPress={() => openPractice(activeChakra)} style={[ck.practiceBtn, { backgroundColor: activeChakra.color }]}>
                   <Zap color="#fff" size={14} strokeWidth={2} />
-                  <Text style={ck.practiceBtnText}>Praktykuj</Text>
+                  <Text style={ck.practiceBtnText}>{t('chakra.praktykuj', 'Praktykuj')}</Text>
                 </Pressable>
               </View>
               <View style={ck.stateRow}>
                 <View style={[ck.stateBox, { backgroundColor: 'rgba(239,68,68,0.1)' }]}>
-                  <Text style={[ck.stateLabel, { color: '#EF4444' }]}>🔴 ZABLOKOWANA</Text>
+                  <Text style={[ck.stateLabel, { color: '#EF4444' }]}>{t('chakra.zablokowan', '🔴 ZABLOKOWANA')}</Text>
                   <Text style={[ck.stateBody, { color: subColor }]}>{activeChakra.blocked}</Text>
                 </View>
                 <View style={[ck.stateBox, { backgroundColor: 'rgba(52,211,153,0.1)' }]}>
-                  <Text style={[ck.stateLabel, { color: '#34D399' }]}>✅ OTWARTA</Text>
+                  <Text style={[ck.stateLabel, { color: '#34D399' }]}>{t('chakra.otwarta', '✅ OTWARTA')}</Text>
                   <Text style={[ck.stateBody, { color: subColor }]}>{activeChakra.open}</Text>
                 </View>
               </View>
@@ -710,7 +710,7 @@ export const ChakraScreen = ({ navigation }: any) => {
                 <View style={[ck.dayAffirmBox, { borderLeftColor: todayChakra.color }]}>
                   <Text style={[ck.dayAffirm, { color: todayChakra.color }]}>"{todayChakra.affirmation}"</Text>
                 </View>
-                <Text style={[ck.hintText, { color: subColor, marginTop: 10 }]}>Dotknij punkt na mapie ciała lub wybierz chakrę z listy, by zobaczyć pełne szczegóły i przeprowadzić praktykę.</Text>
+                <Text style={[ck.hintText, { color: subColor, marginTop: 10 }]}>{t('chakra.dotknij_punkt_na_mapie_ciala', 'Dotknij punkt na mapie ciała lub wybierz chakrę z listy, by zobaczyć pełne szczegóły i przeprowadzić praktykę.')}</Text>
               </View>
             </Animated.View>
           )}
@@ -720,7 +720,7 @@ export const ChakraScreen = ({ navigation }: any) => {
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                 <BarChart3 color={ACCENT} size={14} strokeWidth={1.8} />
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>DIAGNOZA CHAKRY</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('chakra.diagnoza_chakry', 'DIAGNOZA CHAKRY')}</Text>
               </View>
               {(diagnosisDone || !diagnosisActive) && (
                 <Pressable onPress={resetDiagnosis} style={{ paddingHorizontal: 12, paddingVertical: 5, borderRadius: 10, backgroundColor: ACCENT + '18', borderWidth: 1, borderColor: ACCENT + '33' }}>
@@ -732,10 +732,10 @@ export const ChakraScreen = ({ navigation }: any) => {
             {!diagnosisActive && !diagnosisDone && (
               <View style={[ck.diagCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <Text style={{ fontSize: 14, lineHeight: 22, color: subColor }}>
-                  Odpowiedz na 7 pytań (skala 1–5), by zobaczyć, które z twoich chakr wymagają uwagi, a które działają swobodnie.
+                  {t('chakra.odpowiedz_na_7_pytan_skala', 'Odpowiedz na 7 pytań (skala 1–5), by zobaczyć, które z twoich chakr wymagają uwagi, a które działają swobodnie.')}
                 </Text>
                 <Pressable onPress={() => setDiagnosisActive(true)} style={[ck.diagStartBtn, { backgroundColor: ACCENT }]}>
-                  <Text style={{ color: '#fff', fontSize: 14, fontWeight: '700' }}>Rozpocznij diagnozę</Text>
+                  <Text style={{ color: '#fff', fontSize: 14, fontWeight: '700' }}>{t('chakra.rozpocznij_diagnoze', 'Rozpocznij diagnozę')}</Text>
                 </Pressable>
               </View>
             )}
@@ -769,8 +769,8 @@ export const ChakraScreen = ({ navigation }: any) => {
                   ))}
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 8 }}>
-                  <Text style={{ fontSize: 10, color: subColor }}>1 = Prawie wcale</Text>
-                  <Text style={{ fontSize: 10, color: subColor }}>5 = Zdecydowanie tak</Text>
+                  <Text style={{ fontSize: 10, color: subColor }}>{t('chakra.1_prawie_wcale', '1 = Prawie wcale')}</Text>
+                  <Text style={{ fontSize: 10, color: subColor }}>{t('chakra.5_zdecydowan_tak', '5 = Zdecydowanie tak')}</Text>
                 </View>
                 {/* Progress bar */}
                 <View style={{ height: 3, borderRadius: 2, backgroundColor: dividerColor, marginTop: 16, overflow: 'hidden' }}>
@@ -781,7 +781,7 @@ export const ChakraScreen = ({ navigation }: any) => {
 
             {diagnosisDone && (
               <View style={[ck.diagCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-                <Text style={{ fontSize: 12, fontWeight: '700', letterSpacing: 1.2, color: subColor, marginBottom: 14 }}>WYNIKI DIAGNOZY</Text>
+                <Text style={{ fontSize: 12, fontWeight: '700', letterSpacing: 1.2, color: subColor, marginBottom: 14 }}>{t('chakra.wyniki_diagnozy', 'WYNIKI DIAGNOZY')}</Text>
                 {CHAKRAS.map((ch) => {
                   const score = diagnosisScores[ch.id] ?? 3;
                   const pct = (score / 5) * 100;
@@ -798,7 +798,7 @@ export const ChakraScreen = ({ navigation }: any) => {
                   );
                 })}
                 <Text style={{ fontSize: 12, lineHeight: 19, color: subColor, marginTop: 10 }}>
-                  Chakry z niskim wynikiem (1–2) wymagają największej uwagi. Plan równoważenia poniżej.
+                  {t('chakra.chakry_z_niskim_wynikiem_1', 'Chakry z niskim wynikiem (1–2) wymagają największej uwagi. Plan równoważenia poniżej.')}
                 </Text>
               </View>
             )}
@@ -809,7 +809,7 @@ export const ChakraScreen = ({ navigation }: any) => {
             <Animated.View entering={FadeInDown.delay(180).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginBottom: 16 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                 <CheckCircle2 color={ACCENT} size={14} strokeWidth={1.8} />
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>PLAN RÓWNOWAŻENIA — 7 DNI</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT }}>{t('chakra.plan_rownowazen_7_dni', 'PLAN RÓWNOWAŻENIA — 7 DNI')}</Text>
               </View>
               {balancePlan.map((item) => {
                 const ch = CHAKRAS.find(c => c.id === item.chakraId);
@@ -836,7 +836,7 @@ export const ChakraScreen = ({ navigation }: any) => {
               onPress={() => setShowMudras(!showMudras)}
             >
               <Hand color={ACCENT} size={14} strokeWidth={1.8} />
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, flex: 1 }}>MUDRY I MANTRY</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, flex: 1 }}>{t('chakra.mudry_i_mantry', 'MUDRY I MANTRY')}</Text>
               <ChevronRight color={ACCENT} size={14} strokeWidth={2} style={{ transform: [{ rotate: showMudras ? '90deg' : '0deg' }] }} />
             </Pressable>
             {showMudras && (
@@ -876,7 +876,7 @@ export const ChakraScreen = ({ navigation }: any) => {
               onPress={() => setShowCrystals(!showCrystals)}
             >
               <Gem color={ACCENT} size={14} strokeWidth={1.8} />
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, flex: 1 }}>KRYSZTAŁY CHAKRY</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, flex: 1 }}>{t('chakra.krysztaly_chakry', 'KRYSZTAŁY CHAKRY')}</Text>
               <ChevronRight color={ACCENT} size={14} strokeWidth={2} style={{ transform: [{ rotate: showCrystals ? '90deg' : '0deg' }] }} />
             </Pressable>
             {showCrystals && (
@@ -902,7 +902,7 @@ export const ChakraScreen = ({ navigation }: any) => {
                   </View>
                 ))}
                 {!activeChakra && (
-                  <Text style={{ fontSize: 12, color: subColor, textAlign: 'center' }}>Wybierz chakrę, by zobaczyć tylko jej kryształy.</Text>
+                  <Text style={{ fontSize: 12, color: subColor, textAlign: 'center' }}>{t('chakra.wybierz_chakre_by_zobaczyc_tylko', 'Wybierz chakrę, by zobaczyć tylko jej kryształy.')}</Text>
                 )}
               </>
             )}
@@ -915,7 +915,7 @@ export const ChakraScreen = ({ navigation }: any) => {
               onPress={() => setShowChakraAffirmations(!showChakraAffirmations)}
             >
               <BookOpen color={ACCENT} size={14} strokeWidth={1.8} />
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, flex: 1 }}>AFIRMACJE CHAKRY</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, flex: 1 }}>{t('chakra.afirmacje_chakry', 'AFIRMACJE CHAKRY')}</Text>
               <ChevronRight color={ACCENT} size={14} strokeWidth={2} style={{ transform: [{ rotate: showChakraAffirmations ? '90deg' : '0deg' }] }} />
             </Pressable>
             {showChakraAffirmations && (
@@ -944,7 +944,7 @@ export const ChakraScreen = ({ navigation }: any) => {
               onPress={() => setShowHistory(!showHistory)}
             >
               <History color={ACCENT} size={14} strokeWidth={1.8} />
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, flex: 1 }}>HISTORIA PRAKTYK</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.5, color: ACCENT, flex: 1 }}>{t('chakra.historia_praktyk', 'HISTORIA PRAKTYK')}</Text>
               <Text style={{ fontSize: 11, color: subColor, marginRight: 6 }}>{last10Sessions.length} sesji</Text>
               <ChevronRight color={ACCENT} size={14} strokeWidth={2} style={{ transform: [{ rotate: showHistory ? '90deg' : '0deg' }] }} />
             </Pressable>
@@ -952,7 +952,7 @@ export const ChakraScreen = ({ navigation }: any) => {
               <>
                 {last10Sessions.length === 0 ? (
                   <View style={[ck.diagCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-                    <Text style={{ fontSize: 14, color: subColor, textAlign: 'center' }}>Brak ukończonych sesji. Przeprowadź swoją pierwszą praktykę.</Text>
+                    <Text style={{ fontSize: 14, color: subColor, textAlign: 'center' }}>{t('chakra.brak_ukonczonyc_sesji_przeprowad_sw', 'Brak ukończonych sesji. Przeprowadź swoją pierwszą praktykę.')}</Text>
                   </View>
                 ) : (
                   last10Sessions.map((session, i) => {
@@ -984,7 +984,7 @@ export const ChakraScreen = ({ navigation }: any) => {
                           <Text style={{ fontSize: 12, fontWeight: '600', color: textColor }}>{dateStr}</Text>
                           <Text style={{ fontSize: 10, color: subColor, marginTop: 1 }}>{dayStr}</Text>
                         </View>
-                        <Pressable hitSlop={10} onPress={() => Alert.alert('Usuń sesję', 'Czy na pewno chcesz usunąć tę sesję czakry?', [
+                        <Pressable hitSlop={10} onPress={() => Alert.alert(t('chakra.usun_sesje', 'Usuń sesję'), t('chakra.czy_na_pewno_chcesz_usunac', 'Czy na pewno chcesz usunąć tę sesję czakry?'), [
                           { text: 'Anuluj', style: 'cancel' },
                           { text: 'Usuń', style: 'destructive', onPress: () => deleteChakraEntry(session.id) },
                         ])}>
@@ -1000,7 +1000,7 @@ export const ChakraScreen = ({ navigation }: any) => {
 
           {/* ── Połączenie z praktyką ── */}
           <Animated.View entering={FadeInDown.delay(230).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginBottom: 16 }}>
-            <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 1.5, marginBottom: 10 }}>✦ CO DALEJ?</Typography>
+            <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 1.5, marginBottom: 10 }}>{t('chakra.co_dalej', '✦ CO DALEJ?')}</Typography>
             {[
               { icon: Wind, label: 'Oddech dla chakry', sub: 'Breathwork aktywuje energię ciała', color: '#60A5FA', route: 'Breathwork' },
               { icon: Headphones, label: 'Kąpiel dźwiękowa', sub: 'Dźwięk rezonuje z każdą chakrą', color: ACCENT, route: 'SoundBath' },
@@ -1080,7 +1080,7 @@ export const ChakraScreen = ({ navigation }: any) => {
                   <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.2, color: subColor, marginBottom: 8 }}>MUDRA: {practiceChakra.mudraName}</Text>
                   <MudraSVG type={practiceChakra.mudraSVG} color={practiceChakra.color} size={80} />
                   <Text style={{ fontSize: 20, fontWeight: '800', color: practiceChakra.color, letterSpacing: 4, marginTop: 10 }}>{practiceChakra.mantra}</Text>
-                  <Text style={{ fontSize: 12, color: subColor, marginTop: 4 }}>Powtarzaj mantrę 108 razy lub przez 5 minut</Text>
+                  <Text style={{ fontSize: 12, color: subColor, marginTop: 4 }}>{t('chakra.powtarzaj_mantre_108_razy_lub', 'Powtarzaj mantrę 108 razy lub przez 5 minut')}</Text>
                 </View>
               )}
               <View style={[ck.modalAffirm, { borderColor: (practiceChakra?.color || ACCENT) + '44' }]}>
@@ -1088,10 +1088,10 @@ export const ChakraScreen = ({ navigation }: any) => {
               </View>
               <View style={ck.modalTimer}>
                 <Clock color={subColor} size={16} strokeWidth={1.5} />
-                <Text style={[ck.modalTimerText, { color: subColor }]}>Sugerowany czas: 5 minut ciszy z mantrą</Text>
+                <Text style={[ck.modalTimerText, { color: subColor }]}>{t('chakra.sugerowany_czas_5_minut_ciszy', 'Sugerowany czas: 5 minut ciszy z mantrą')}</Text>
               </View>
               <Pressable onPress={completePractice} style={[ck.modalDone, { backgroundColor: practiceChakra?.color || ACCENT }]}>
-                <Text style={ck.modalDoneText}>Zakończ praktykę ✓</Text>
+                <Text style={ck.modalDoneText}>{t('chakra.zakoncz_praktyke', 'Zakończ praktykę ✓')}</Text>
               </Pressable>
             </ScrollView>
           </View>

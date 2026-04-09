@@ -251,7 +251,7 @@ const RitualCard: React.FC<RitualCardProps> = ({ ritual, color, isLight, onPress
             </View>
           </View>
           <View style={[styles.startBtn, { backgroundColor: color + '1A', borderColor: color + '33' }]}>
-            <Typography variant="microLabel" style={{ color, fontSize: 10, letterSpacing: 0.5 }}>ZACZNIJ</Typography>
+            <Typography variant="microLabel" style={{ color, fontSize: 10, letterSpacing: 0.5 }}>{t('ritualCategory.zacznij', 'ZACZNIJ')}</Typography>
           </View>
         </View>
 
@@ -317,7 +317,7 @@ const FeaturedRitualCard: React.FC<{
           <View style={styles.featuredTopRow}>
             <View style={styles.featuredDayBadge}>
               <Typography variant="microLabel" style={[{ color: 'rgba(255,255,255,0.80)', fontSize: 9, letterSpacing: 2 }, isLight && { color: 'rgba(37,29,22,0.85)' }]}>
-                RYTUAŁ DNIA
+                {t('ritualCategory.rytual_dnia', 'RYTUAŁ DNIA')}
               </Typography>
             </View>
             <Sparkles color="rgba(255,255,255,0.60)" size={16} strokeWidth={1.5} />
@@ -340,7 +340,7 @@ const FeaturedRitualCard: React.FC<{
             style={({ pressed }) => [styles.featuredBtn, { opacity: pressed ? 0.80 : 1 }]}
           >
             <Typography variant="microLabel" style={{ color: '#FFFFFF', fontSize: 12, letterSpacing: 1 }}>
-              ZACZNIJ TERAZ
+              {t('ritualCategory.zacznij_teraz', 'ZACZNIJ TERAZ')}
             </Typography>
             <ChevronRight color="#FFFFFF" size={14} strokeWidth={2} style={{ marginLeft: 4 }} />
           </Pressable>
@@ -432,7 +432,7 @@ const SeasonalChips: React.FC<{
     <Animated.View entering={FadeInDown.delay(220).duration(460)}>
       <View style={styles.sectionRow}>
         <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 3, fontSize: 10 }}>
-          RYTUAŁY SEZONOWE
+          {t('ritualCategory.rytualy_sezonowe', 'RYTUAŁY SEZONOWE')}
         </Typography>
         <Typography variant="microLabel" style={{ color: ACCENT, fontSize: 10, letterSpacing: 0.5 }}>
           Teraz: {currentSeason}
@@ -555,13 +555,13 @@ const MiniRitualCard: React.FC<{ isLight: boolean }> = ({ isLight }) => {
         <View style={styles.miniHeader}>
           <View>
             <Typography variant="microLabel" style={{ color: ACCENT, letterSpacing: 2, fontSize: 9 }}>
-              MINI RYTUAŁ
+              {t('ritualCategory.mini_rytual', 'MINI RYTUAŁ')}
             </Typography>
             <Typography variant="cardTitle" style={{ color: textColor, fontSize: 16, marginTop: 2 }}>
-              Masz 3 minuty?
+              {t('ritualCategory.masz_3_minuty', 'Masz 3 minuty?')}
             </Typography>
             <Typography variant="bodySmall" style={{ color: subColor, fontSize: 12, marginTop: 2 }}>
-              Trzy kroki do wewnętrznego spokoju
+              {t('ritualCategory.trzy_kroki_do_wewnetrzne_spokoju', 'Trzy kroki do wewnętrznego spokoju')}
             </Typography>
           </View>
 
@@ -678,7 +678,7 @@ const CoDalejSection: React.FC<{
   return (
     <Animated.View entering={FadeInDown.delay(340).duration(480)}>
       <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 3, fontSize: 10, marginBottom: 14 }}>
-        CO DALEJ?
+        {t('ritualCategory.co_dalej', 'CO DALEJ?')}
       </Typography>
       {actions.map((action, i) => (
         <Animated.View key={action.label} entering={FadeInUp.delay(360 + i * 60).duration(420)}>
@@ -752,7 +752,7 @@ const AllCategoriesView: React.FC<{
       {/* ── ŚCIEŻKI RYTUALNE ── */}
       <Animated.View entering={FadeInDown.delay(160).duration(460)}>
         <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 3, fontSize: 10, marginBottom: 14 }}>
-          ŚCIEŻKI RYTUALNE
+          {t('ritualCategory.sciezki_rytualne', 'ŚCIEŻKI RYTUALNE')}
         </Typography>
       </Animated.View>
 
@@ -780,7 +780,7 @@ const AllCategoriesView: React.FC<{
 
       <Animated.View entering={FadeInDown.delay(260).duration(460)}>
         <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 3, fontSize: 10, marginBottom: 14 }}>
-          MINI RYTUAŁ
+          {t('ritualCategory.mini_rytual_1', 'MINI RYTUAŁ')}
         </Typography>
       </Animated.View>
 
@@ -793,7 +793,7 @@ const AllCategoriesView: React.FC<{
         entering={FadeInDown.delay(100).duration(500)}
         style={[styles.infoBanner, { backgroundColor: cardBg, borderColor: cardBorder }]}
       >
-        <Typography variant="premiumLabel" color={ACCENT} style={{ letterSpacing: 0.5 }}>Ceremonialne nurty</Typography>
+        <Typography variant="premiumLabel" color={ACCENT} style={{ letterSpacing: 0.5 }}>{t('ritualCategory.ceremonial_nurty', 'Ceremonialne nurty')}</Typography>
         <Typography variant="bodySmall" style={{ color: subColor, marginTop: 8, lineHeight: 20 }}>
           {selectedSeason
             ? `Poniżej wyróżniono kategorie rytuałów sprzyjające porze ${selectedSeason}. Pozostałe dostępne są cały rok.`
@@ -802,7 +802,7 @@ const AllCategoriesView: React.FC<{
       </Animated.View>
 
       <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 3, marginBottom: 16, marginTop: 8 }}>
-        WSZYSTKIE KATEGORIE
+        {t('ritualCategory.wszystkie_kategorie', 'WSZYSTKIE KATEGORIE')}
       </Typography>
 
       {sortedCategories.map((cat, i) => {
@@ -852,7 +852,7 @@ const AllCategoriesView: React.FC<{
                   {isHighlighted && (
                     <View style={[styles.seasonBadge, { backgroundColor: cat.color + '28' }]}>
                       <Typography variant="microLabel" style={{ color: cat.color, fontSize: 8, letterSpacing: 0.5 }}>
-                        SEZONOWY
+                        {t('ritualCategory.sezonowy', 'SEZONOWY')}
                       </Typography>
                     </View>
                   )}
@@ -984,10 +984,10 @@ export const RitualCategorySelectionScreen: React.FC<any> = ({ navigation, route
                 <Animated.View entering={FadeInDown.delay(200).duration(400)} style={styles.emptyState}>
                   <Typography style={{ fontSize: 40, marginBottom: 12 }}>🌙</Typography>
                   <Typography variant="cardTitle" style={{ color: textColor, textAlign: 'center' }}>
-                    Rytuały wkrótce
+                    {t('ritualCategory.rytualy_wkrotce', 'Rytuały wkrótce')}
                   </Typography>
                   <Typography variant="bodySmall" style={{ color: subColor, textAlign: 'center', marginTop: 8, lineHeight: 20 }}>
-                    Ta kategoria jest w trakcie tworzenia. Wróć wkrótce po nowe ceremonie.
+                    {t('ritualCategory.ta_kategoria_jest_w_trakcie', 'Ta kategoria jest w trakcie tworzenia. Wróć wkrótce po nowe ceremonie.')}
                   </Typography>
                 </Animated.View>
               ) : (

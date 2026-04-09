@@ -524,7 +524,7 @@ export const JournalScreen = ({ navigation }: any) => {
       <View style={s.heroContent}>
         <View style={s.heroText}>
           <Typography variant="premiumLabel" color={ACCENT} style={{ letterSpacing: 3 }}>
-            ✦ Sanktuarium Pisania
+            {t('journal.sanktuariu_pisania', '✦ Sanktuarium Pisania')}
           </Typography>
           <Typography
             variant="editorialHeader"
@@ -579,7 +579,7 @@ export const JournalScreen = ({ navigation }: any) => {
         <View style={s.sectionLabelRow}>
           <Sparkles color={ACCENT} size={13} strokeWidth={1.8} />
           <Typography variant="premiumLabel" color={ACCENT} style={{ marginLeft: 7, letterSpacing: 2 }}>
-            WEJŚCIA DO SANKTUARIUM
+            {t('journal.wejscia_do_sanktuariu', 'WEJŚCIA DO SANKTUARIUM')}
           </Typography>
         </View>
 
@@ -676,7 +676,7 @@ export const JournalScreen = ({ navigation }: any) => {
         >
           <Feather color={ACCENT} size={13} strokeWidth={2} />
           <Typography variant="microLabel" color={ACCENT} style={{ marginLeft: 8, fontSize: 12 }}>
-            Zacznij pisać
+            {t('journal.zacznij_pisac', 'Zacznij pisać')}
           </Typography>
           <ArrowRight color={ACCENT} size={12} style={{ marginLeft: 4 }} />
         </Pressable>
@@ -691,7 +691,7 @@ export const JournalScreen = ({ navigation }: any) => {
         <View style={s.sectionLabelRow}>
           <ScrollText color={ACCENT} size={13} strokeWidth={1.8} />
           <Typography variant="premiumLabel" color={ACCENT} style={{ marginLeft: 7, letterSpacing: 2 }}>
-            PYTANIA PISANIA
+            {t('journal.pytania_pisania', 'PYTANIA PISANIA')}
           </Typography>
         </View>
 
@@ -728,7 +728,7 @@ export const JournalScreen = ({ navigation }: any) => {
               >
                 <Feather color={ACCENT} size={12} strokeWidth={2} />
                 <Typography variant="microLabel" color={ACCENT} style={{ marginLeft: 7 }}>
-                  Pisz z tym pytaniem
+                  {t('journal.pisz_z_tym_pytaniem', 'Pisz z tym pytaniem')}
                 </Typography>
               </Pressable>
             </Pressable>
@@ -804,7 +804,7 @@ export const JournalScreen = ({ navigation }: any) => {
         variant="cardTitle"
         style={{ color: textColor, textAlign: 'center', marginTop: 14, lineHeight: 24 }}
       >
-        Twoje sanktuarium czeka.
+        {t('journal.twoje_sanktuariu_czeka', 'Twoje sanktuarium czeka.')}
       </Typography>
       <Typography
         variant="bodySmall"
@@ -839,7 +839,7 @@ export const JournalScreen = ({ navigation }: any) => {
         <View style={s.pytanieLabelRow}>
           <Sparkles color={ACCENT} size={13} strokeWidth={1.8} />
           <Typography variant="premiumLabel" color={ACCENT} style={{ marginLeft: 7, letterSpacing: 2 }}>
-            CO DALEJ?
+            {t('journal.co_dalej', 'CO DALEJ?')}
           </Typography>
         </View>
         {CO_DALEJ_LINKS.map((item, idx) => (
@@ -924,7 +924,7 @@ export const JournalScreen = ({ navigation }: any) => {
                     {t('common.noData')}
                   </Typography>
                   <Typography variant="bodySmall" style={{ color: subColor, marginTop: 6, lineHeight: 20 }}>
-                    Zmień filtr lub dodaj nowy wpis, żeby rozwinąć tę część sanktuarium.
+                    {t('journal.zmien_filtr_lub_dodaj_nowy', 'Zmień filtr lub dodaj nowy wpis, żeby rozwinąć tę część sanktuarium.')}
                   </Typography>
                 </View>
               )}

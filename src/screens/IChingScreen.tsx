@@ -571,8 +571,8 @@ Proszę o głęboką interpretację I Ching w języku użytkownika (ok. 150 sł�
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={styles.headerCenter}>
-          <Text style={[styles.eyebrow, { color: ACCENT }]}>I CHING</Text>
-          <Text style={[styles.headerTitle, { color: textColor }]}>Wyrocznia Przemian</Text>
+          <Text style={[styles.eyebrow, { color: ACCENT }]}>{t('iching.i_ching', 'I CHING')}</Text>
+          <Text style={[styles.headerTitle, { color: textColor }]}>{t('iching.wyrocznia_przemian', 'Wyrocznia Przemian')}</Text>
         </View>
         <Pressable onPress={toggleFav} style={styles.headerBtn} hitSlop={8}>
           <Star size={22} color={ACCENT} fill={isFav ? ACCENT : 'transparent'} />
@@ -596,7 +596,7 @@ Proszę o głęboką interpretację I Ching w języku użytkownika (ok. 150 sł�
               style={[styles.heroCard, { borderColor }]}
             >
               <Text style={styles.heroSymbol}>☯</Text>
-              <Text style={[styles.heroTitle, { color: textColor }]}>Księga Przemian</Text>
+              <Text style={[styles.heroTitle, { color: textColor }]}>{t('iching.ksiega_przemian', 'Księga Przemian')}</Text>
               <Text style={[styles.heroDesc, { color: subColor }]}>
                 I Ching to jedna z najstarszych na świecie wyroczni, licząca ponad 3000 lat. Opiera się na 64
                 heksagramach — kombinacjach linii yang (━━) i yin (━ ━) — opisujących każdy możliwy stan
@@ -608,7 +608,7 @@ Proszę o głęboką interpretację I Ching w języku użytkownika (ok. 150 sł�
 
           {/* Coin Throw Section */}
           <Animated.View entering={FadeInDown.delay(120).duration(500)}>
-            <Text style={[styles.sectionLabel, { color: ACCENT }]}>RZUT MONETAMI</Text>
+            <Text style={[styles.sectionLabel, { color: ACCENT }]}>{t('iching.rzut_monetami', 'RZUT MONETAMI')}</Text>
             <View style={[styles.card, { backgroundColor: cardBg, borderColor }]}>
               {/* Coins */}
               <View style={styles.coinsRow}>
@@ -643,7 +643,7 @@ Proszę o głęboką interpretację I Ching w języku użytkownika (ok. 150 sł�
                     style={styles.throwBtnGrad}
                   >
                     <Sparkles size={18} color="#1A1A2E" />
-                    <Text style={styles.throwBtnText}>Rzuć monety</Text>
+                    <Text style={styles.throwBtnText}>{t('iching.rzuc_monety', 'Rzuć monety')}</Text>
                   </LinearGradient>
                 </Pressable>
                 {lines.length > 0 && (
@@ -658,7 +658,7 @@ Proszę o głęboką interpretację I Ching w języku użytkownika (ok. 150 sł�
           {/* Hexagram Display */}
           {lines.length === 6 && hexagram && (
             <Animated.View entering={FadeInDown.delay(80).duration(500)}>
-              <Text style={[styles.sectionLabel, { color: ACCENT }]}>HEKSAGRAM</Text>
+              <Text style={[styles.sectionLabel, { color: ACCENT }]}>{t('iching.heksagram', 'HEKSAGRAM')}</Text>
               <LinearGradient
                 colors={isLight ? ['#FBF5E8', '#F4ECD8'] : ['#1C1528', '#251E38']}
                 style={[styles.hexCard, { borderColor }]}
@@ -681,23 +681,23 @@ Proszę o głęboką interpretację I Ching w języku użytkownika (ok. 150 sł�
 
                 {/* Meaning */}
                 <View style={[styles.hexSection, { borderColor }]}>
-                  <Text style={[styles.hexSectionLabel, { color: ACCENT }]}>ZNACZENIE</Text>
+                  <Text style={[styles.hexSectionLabel, { color: ACCENT }]}>{t('iching.znaczenie', 'ZNACZENIE')}</Text>
                   <Text style={[styles.hexSectionText, { color: textColor }]}>{hexagram.meaning}</Text>
                 </View>
 
                 <View style={[styles.hexSection, { borderColor }]}>
-                  <Text style={[styles.hexSectionLabel, { color: ACCENT }]}>WSKAZÓWKA DZIAŁANIA</Text>
+                  <Text style={[styles.hexSectionLabel, { color: ACCENT }]}>{t('iching.wskazowka_dzialania', 'WSKAZÓWKA DZIAŁANIA')}</Text>
                   <Text style={[styles.hexSectionText, { color: textColor }]}>{hexagram.actionGuidance}</Text>
                 </View>
 
                 <View style={[styles.hexSection, { borderColor }]}>
-                  <Text style={[styles.hexSectionLabel, { color: '#E07A5F' }]}>PRZESTROGA</Text>
+                  <Text style={[styles.hexSectionLabel, { color: '#E07A5F' }]}>{t('iching.przestroga', 'PRZESTROGA')}</Text>
                   <Text style={[styles.hexSectionText, { color: textColor }]}>{hexagram.caution}</Text>
                 </View>
 
                 {lines.some(isMoving) && (
                   <View style={[styles.hexSection, { borderColor }]}>
-                    <Text style={[styles.hexSectionLabel, { color: '#74AECF' }]}>RUCHOME LINIE</Text>
+                    <Text style={[styles.hexSectionLabel, { color: '#74AECF' }]}>{t('iching.ruchome_linie', 'RUCHOME LINIE')}</Text>
                     <Text style={[styles.hexSectionText, { color: textColor }]}>{hexagram.changing}</Text>
                   </View>
                 )}
@@ -708,14 +708,14 @@ Proszę o głęboką interpretację I Ching w języku użytkownika (ok. 150 sł�
           {/* Question Input */}
           {lines.length === 6 && (
             <Animated.View entering={FadeInDown.delay(100).duration(500)}>
-              <Text style={[styles.sectionLabel, { color: ACCENT }]}>TWOJE PYTANIE</Text>
+              <Text style={[styles.sectionLabel, { color: ACCENT }]}>{t('iching.twoje_pytanie', 'TWOJE PYTANIE')}</Text>
               <View style={[styles.card, { backgroundColor: cardBg, borderColor }]}>
-                <Text style={[styles.inputLabel, { color: subColor }]}>Co chcesz zapytać I Ching?</Text>
+                <Text style={[styles.inputLabel, { color: subColor }]}>{t('iching.co_chcesz_zapytac_i_ching', 'Co chcesz zapytać I Ching?')}</Text>
                 <TextInput
                   style={[styles.questionInput, { color: textColor, borderColor }]}
                   value={question}
                   onChangeText={t => setQuestion(t.slice(0, 120))}
-                  placeholder="Wpisz swoje pytanie (opcjonalnie)..."
+                  placeholder={t('iching.wpisz_swoje_pytanie_opcjonalni', 'Wpisz swoje pytanie (opcjonalnie)...')}
                   placeholderTextColor={subColor}
                   multiline
                   maxLength={120}
@@ -728,7 +728,7 @@ Proszę o głęboką interpretację I Ching w języku użytkownika (ok. 150 sł�
           {/* AI Interpretation */}
           {lines.length === 6 && hexagram && (
             <Animated.View entering={FadeInDown.delay(120).duration(500)}>
-              <Text style={[styles.sectionLabel, { color: ACCENT }]}>INTERPRETACJA AI</Text>
+              <Text style={[styles.sectionLabel, { color: ACCENT }]}>{t('iching.interpreta_ai', 'INTERPRETACJA AI')}</Text>
               <View style={[styles.card, { backgroundColor: cardBg, borderColor }]}>
                 <Pressable
                   onPress={handleAiInterpretation}
@@ -764,7 +764,7 @@ Proszę o głęboką interpretację I Ching w języku użytkownika (ok. 150 sł�
           {/* History */}
           {history.length > 0 && (
             <Animated.View entering={FadeInDown.delay(140).duration(500)}>
-              <Text style={[styles.sectionLabel, { color: ACCENT }]}>HISTORIA RZUTÓW</Text>
+              <Text style={[styles.sectionLabel, { color: ACCENT }]}>{t('iching.historia_rzutow', 'HISTORIA RZUTÓW')}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.historyScroll}>
                 {history.map(record => (
                   <Pressable
@@ -794,7 +794,7 @@ Proszę o głęboką interpretację I Ching w języku użytkownika (ok. 150 sł�
 
           {/* Trigrams Guide */}
           <Animated.View entering={FadeInDown.delay(160).duration(500)}>
-            <Text style={[styles.sectionLabel, { color: ACCENT }]}>OSIEM TRYGRAMÓW (BA GUA)</Text>
+            <Text style={[styles.sectionLabel, { color: ACCENT }]}>{t('iching.osiem_trygramow_ba_gua', 'OSIEM TRYGRAMÓW (BA GUA)')}</Text>
             <View style={styles.trigramGrid}>
               {TRIGRAMS.map((t, i) => (
                 <Animated.View
@@ -813,7 +813,7 @@ Proszę o głęboką interpretację I Ching w języku użytkownika (ok. 150 sł�
 
           {/* Co dalej */}
           <Animated.View entering={FadeInDown.delay(200).duration(500)}>
-            <Text style={[styles.sectionLabel, { color: ACCENT }]}>CO DALEJ</Text>
+            <Text style={[styles.sectionLabel, { color: ACCENT }]}>{t('iching.co_dalej', 'CO DALEJ')}</Text>
             {[
               { icon: Sparkles, label: 'Wyrocznia AI', sub: 'Rozmowa z Wyrocznią', route: 'OraclePortal', color: '#A78BFA' },
               { icon: BookOpen, label: 'Runy Futhark', sub: 'Starożytne symbole', route: 'RuneCast', color: '#74AECF' },

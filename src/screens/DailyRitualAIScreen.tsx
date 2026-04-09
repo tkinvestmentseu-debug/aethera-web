@@ -399,8 +399,8 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
             <ChevronLeft color={ACCENT} size={28} strokeWidth={1.5} />
           </Pressable>
           <View style={styles.headerCenter}>
-            <Text style={[styles.eyebrow, { color: ACCENT }]}>🕯️ RYTUAŁ DNIA</Text>
-            <Text style={[styles.title, { color: textColor }]}>Prowadzenie ceremonialne</Text>
+            <Text style={[styles.eyebrow, { color: ACCENT }]}>{t('dailyRitualAI.rytual_dnia', '🕯️ RYTUAŁ DNIA')}</Text>
+            <Text style={[styles.title, { color: textColor }]}>{t('dailyRitualAI.prowadzeni_ceremonial', 'Prowadzenie ceremonialne')}</Text>
           </View>
           <Pressable onPress={handleShare} hitSlop={12} style={styles.shareHeaderBtn}>
             <Share2 color={ACCENT} size={20} strokeWidth={1.6} />
@@ -431,9 +431,9 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
           <Animated.View entering={FadeInDown.delay(60).duration(520)}>
             <View style={[styles.ritualCard, { backgroundColor: cardBg, borderColor: '#818CF8' + '40' }]}>
               <LinearGradient colors={['#818CF8' + '14', 'transparent']} style={StyleSheet.absoluteFill} />
-              <Text style={[styles.cardEyebrow, { color: '#818CF8' }]}>🔭 ASTROLOGICZNY KONTEKST</Text>
+              <Text style={[styles.cardEyebrow, { color: '#818CF8' }]}>{t('dailyRitualAI.astrologic_kontekst', '🔭 ASTROLOGICZNY KONTEKST')}</Text>
               <Text style={[{ fontSize: 12.5, color: subColor, lineHeight: 19, marginBottom: 14 }]}>
-                Każda chwila nosi swój własny energetyczny podpis.
+                {t('dailyRitualAI.kazda_chwila_nosi_swoj_wlasny', 'Każda chwila nosi swój własny energetyczny podpis.')}
               </Text>
               <View style={{ gap: 10 }}>
                 {/* Planetary hour */}
@@ -442,9 +442,9 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
                     <Text style={{ fontSize: 22 }}>{planetaryData.planetaryHourEmoji}</Text>
                   </View>
                   <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: 10, fontWeight: '700', color: ACCENT, letterSpacing: 1.2 }}>GODZINA PLANETARNA</Text>
+                    <Text style={{ fontSize: 10, fontWeight: '700', color: ACCENT, letterSpacing: 1.2 }}>{t('dailyRitualAI.godzina_planetarna', 'GODZINA PLANETARNA')}</Text>
                     <Text style={{ fontSize: 14, fontWeight: '600', color: textColor, marginTop: 2 }}>{planetaryData.planetaryHour}</Text>
-                    <Text style={{ fontSize: 12, color: subColor, marginTop: 1 }}>Wpływa na energię każdego rytuału</Text>
+                    <Text style={{ fontSize: 12, color: subColor, marginTop: 1 }}>{t('dailyRitualAI.wplywa_na_energie_kazdego_rytualu', 'Wpływa na energię każdego rytuału')}</Text>
                   </View>
                 </View>
                 {/* Moon phase */}
@@ -453,7 +453,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
                     <Text style={{ fontSize: 22 }}>{moonInfo.emoji}</Text>
                   </View>
                   <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: 10, fontWeight: '700', color: '#818CF8', letterSpacing: 1.2 }}>FAZA KSIĘŻYCA</Text>
+                    <Text style={{ fontSize: 10, fontWeight: '700', color: '#818CF8', letterSpacing: 1.2 }}>{t('dailyRitualAI.faza_ksiezyca', 'FAZA KSIĘŻYCA')}</Text>
                     <Text style={{ fontSize: 14, fontWeight: '600', color: textColor, marginTop: 2 }}>{moonInfo.name}</Text>
                     <Text style={{ fontSize: 12, color: subColor, marginTop: 1 }}>{moonInfo.desc}</Text>
                   </View>
@@ -464,7 +464,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
                     <Text style={{ fontSize: 22 }}>{planetaryData.dayRulerEmoji}</Text>
                   </View>
                   <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: 10, fontWeight: '700', color: '#F59E0B', letterSpacing: 1.2 }}>WŁADCA DNIA</Text>
+                    <Text style={{ fontSize: 10, fontWeight: '700', color: '#F59E0B', letterSpacing: 1.2 }}>{t('dailyRitualAI.wladca_dnia', 'WŁADCA DNIA')}</Text>
                     <Text style={{ fontSize: 14, fontWeight: '600', color: textColor, marginTop: 2 }}>{planetaryData.dayRuler} — {dayOfWeek}</Text>
                     <Text style={{ fontSize: 12, color: subColor, marginTop: 1 }}>{planetaryData.dayQuality}</Text>
                   </View>
@@ -477,7 +477,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
           <Animated.View entering={FadeInDown.delay(70).duration(520)}>
             <View style={[styles.metaCard, { backgroundColor: cardBg, borderColor: ACCENT + '33' }]}>
               <LinearGradient colors={[ACCENT + '18', 'transparent']} style={StyleSheet.absoluteFill} />
-              <Text style={[styles.cardEyebrow, { color: ACCENT }]}>DLACZEGO WŁAŚNIE TERAZ</Text>
+              <Text style={[styles.cardEyebrow, { color: ACCENT }]}>{t('dailyRitualAI.dlaczego_wlasnie_teraz', 'DLACZEGO WŁAŚNIE TERAZ')}</Text>
               <Text style={[styles.cardBody, { color: textColor }]}>{ritualMeta.whyToday}</Text>
               <View style={styles.metaRow}>
                 {[
@@ -497,9 +497,9 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
           {/* ── ENERGIA PRZED RYTUAŁEM ── */}
           <Animated.View entering={FadeInDown.delay(75).duration(520)}>
             <View style={[styles.ritualCard, { backgroundColor: cardBg, borderColor }]}>
-              <Text style={[styles.cardEyebrow, { color: '#34D399' }]}>⚡ ENERGIA PRZED RYTUAŁEM</Text>
+              <Text style={[styles.cardEyebrow, { color: '#34D399' }]}>{t('dailyRitualAI.energia_przed_rytualem', '⚡ ENERGIA PRZED RYTUAŁEM')}</Text>
               <Text style={[{ fontSize: 13, color: subColor, lineHeight: 19, marginBottom: 14 }]}>
-                Oceń swój poziom energii przed wejściem w ceremonię.
+                {t('dailyRitualAI.ocen_swoj_poziom_energii_przed', 'Oceń swój poziom energii przed wejściem w ceremonię.')}
               </Text>
               <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'center' }}>
                 {[1, 2, 3, 4, 5].map(n => {
@@ -530,8 +530,8 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
           {/* ── TON ENERGETYCZNY ── */}
           <Animated.View entering={FadeInDown.delay(80).duration(520)}>
             <View style={[styles.ritualCard, { backgroundColor: cardBg, borderColor }]}>
-              <Text style={[styles.cardEyebrow, { color: ACCENT }]}>⚡ TON ENERGETYCZNY</Text>
-              <Text style={[{ fontSize: 13, lineHeight: 19, marginBottom: 12 }, { color: subColor }]}>Dobierz ceremonię do swojego stanu.</Text>
+              <Text style={[styles.cardEyebrow, { color: ACCENT }]}>{t('dailyRitualAI.ton_energetycz', '⚡ TON ENERGETYCZNY')}</Text>
+              <Text style={[{ fontSize: 13, lineHeight: 19, marginBottom: 12 }, { color: subColor }]}>{t('dailyRitualAI.dobierz_ceremonie_do_swojego_stanu', 'Dobierz ceremonię do swojego stanu.')}</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
                 {ENERGY_TONES.map((t) => {
                   const active = energyTone === t.id;
@@ -553,7 +553,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
               {ritualText === '' && !loading && (
                 <Pressable onPress={generateRitual} style={{ marginTop: 14, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, paddingVertical: 12, borderRadius: 12, backgroundColor: ACCENT + '14', borderWidth: 1, borderColor: ACCENT + '40' }}>
                   <Sparkles color={ACCENT} size={15} strokeWidth={1.8} />
-                  <Text style={{ fontSize: 14, fontWeight: '700', color: ACCENT }}>Wygeneruj rytuał</Text>
+                  <Text style={{ fontSize: 14, fontWeight: '700', color: ACCENT }}>{t('dailyRitualAI.wygeneruj_rytual', 'Wygeneruj rytuał')}</Text>
                 </Pressable>
               )}
             </View>
@@ -562,7 +562,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
           {/* ── LISTA SKŁADNIKÓW ── */}
           <Animated.View entering={FadeInDown.delay(90).duration(520)}>
             <View style={[styles.ritualCard, { backgroundColor: cardBg, borderColor }]}>
-              <Text style={[styles.cardEyebrow, { color: '#34D399' }]}>🌿 LISTA SKŁADNIKÓW</Text>
+              <Text style={[styles.cardEyebrow, { color: '#34D399' }]}>{t('dailyRitualAI.lista_skladnikow', '🌿 LISTA SKŁADNIKÓW')}</Text>
               <Text style={[{ fontSize: 12.5, color: subColor, lineHeight: 19, marginBottom: 14 }]}>
                 Przygotuj te elementy przed rytuałem tonu „{ENERGY_TONES.find(t => t.id === energyTone)?.label}".
               </Text>
@@ -602,16 +602,16 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
           <Animated.View entering={FadeInDown.delay(95).duration(520)}>
             <View style={[styles.ritualCard, { backgroundColor: cardBg, borderColor: '#F59E0B' + '44' }]}>
               <LinearGradient colors={['#F59E0B' + '10', 'transparent']} style={StyleSheet.absoluteFill} />
-              <Text style={[styles.cardEyebrow, { color: '#F59E0B' }]}>✨ INTENCJA W DOKŁADNIE 9 SŁOWACH</Text>
+              <Text style={[styles.cardEyebrow, { color: '#F59E0B' }]}>{t('dailyRitualAI.intencja_w_dokladnie_9_slowach', '✨ INTENCJA W DOKŁADNIE 9 SŁOWACH')}</Text>
               <Text style={[{ fontSize: 12.5, color: subColor, lineHeight: 19, marginBottom: 12 }]}>
-                Dziewięć słów tworzy kompletną myśl — wyraź intencję tego rytuału precyzyjnie.
+                {t('dailyRitualAI.dziewiec_slow_tworzy_kompletna_mysl', 'Dziewięć słów tworzy kompletną myśl — wyraź intencję tego rytuału precyzyjnie.')}
               </Text>
               {intention9Saved ? (
                 <View style={{ padding: 16, borderRadius: 16, backgroundColor: '#F59E0B' + '14', borderWidth: 1, borderColor: '#F59E0B' + '44', alignItems: 'center', gap: 8 }}>
                   <Text style={{ fontSize: 20 }}>✨</Text>
                   <Text style={{ fontSize: 15, fontWeight: '600', color: textColor, textAlign: 'center', lineHeight: 23, fontStyle: 'italic' }}>„{intention9}"</Text>
                   <Pressable onPress={() => setIntention9Saved(false)} hitSlop={8}>
-                    <Text style={{ fontSize: 12, color: '#F59E0B', marginTop: 4 }}>Edytuj intencję</Text>
+                    <Text style={{ fontSize: 12, color: '#F59E0B', marginTop: 4 }}>{t('dailyRitualAI.edytuj_intencje', 'Edytuj intencję')}</Text>
                   </Pressable>
                 </View>
               ) : (
@@ -619,7 +619,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
                   <TextInput
                     value={intention9}
                     onChangeText={setIntention9}
-                    placeholder="Wpisz dokładnie 9 słów swojej intencji..."
+                    placeholder={t('dailyRitualAI.wpisz_dokladnie_9_slow_swojej', 'Wpisz dokładnie 9 słów swojej intencji...')}
                     placeholderTextColor={subColor + '80'}
                     multiline
                     style={{
@@ -639,7 +639,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
                       disabled={wordCount9 !== 9}
                       style={{ paddingHorizontal: 18, paddingVertical: 9, borderRadius: 12, backgroundColor: wordCount9 === 9 ? '#F59E0B' : '#F59E0B' + '44' }}
                     >
-                      <Text style={{ fontSize: 13, fontWeight: '700', color: '#FFF' }}>Zatwierdź intencję</Text>
+                      <Text style={{ fontSize: 13, fontWeight: '700', color: '#FFF' }}>{t('dailyRitualAI.zatwierdz_intencje', 'Zatwierdź intencję')}</Text>
                     </Pressable>
                   </View>
                 </>
@@ -651,13 +651,13 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
           <Animated.View entering={FadeInDown.delay(120).duration(520)}>
             <View style={[styles.ritualCard, { backgroundColor: cardBg, borderColor }]}>
               <View style={styles.ritualHeader}>
-                <Text style={[styles.cardEyebrow, { color: ACCENT }]}>📜 TEKST RYTUAŁU</Text>
+                <Text style={[styles.cardEyebrow, { color: ACCENT }]}>{t('dailyRitualAI.tekst_rytualu', '📜 TEKST RYTUAŁU')}</Text>
                 <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
                   <Pressable onPress={() => setGuideMode(v => !v)} hitSlop={10}>
                     <Headphones color={guideMode ? ACCENT : subColor} size={18} strokeWidth={1.8} />
                   </Pressable>
                   <Pressable onPress={generateRitual} hitSlop={10}>
-                    <Text style={[styles.refreshText, { color: ACCENT }]}>↻ Odśwież</Text>
+                    <Text style={[styles.refreshText, { color: ACCENT }]}>{t('dailyRitualAI.odswiez', '↻ Odśwież')}</Text>
                   </Pressable>
                 </View>
               </View>
@@ -665,14 +665,14 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
                 <View style={{ marginBottom: 10, padding: 10, borderRadius: 12, backgroundColor: ACCENT + '10', borderWidth: 1, borderColor: ACCENT + '30', flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                   <Headphones color={ACCENT} size={14} strokeWidth={1.8} />
                   <Text style={{ fontSize: 12, color: ACCENT, fontWeight: '600', flex: 1 }}>
-                    Tryb prowadzenia aktywny — czytaj tekst na głos, wolno i z pauzami.
+                    {t('dailyRitualAI.tryb_prowadzeni_aktywny_czytaj_teks', 'Tryb prowadzenia aktywny — czytaj tekst na głos, wolno i z pauzami.')}
                   </Text>
                 </View>
               )}
               {loading ? (
                 <View style={styles.loadingWrap}>
                   <ActivityIndicator color={ACCENT} size="large" />
-                  <Text style={[styles.loadingText, { color: subColor }]}>Oracle układa rytuał do Twojego tonu dnia...</Text>
+                  <Text style={[styles.loadingText, { color: subColor }]}>{t('dailyRitualAI.oracle_uklada_rytual_do_twojego', 'Oracle układa rytuał do Twojego tonu dnia...')}</Text>
                 </View>
               ) : (
                 <Text style={[styles.ritualText, { color: textColor, fontSize: guideMode ? 18 : 15, lineHeight: guideMode ? 32 : 25 }]}>
@@ -684,7 +684,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
 
           {/* ── PRZEBIEG KROK PO KROKU ── */}
           <Animated.View entering={FadeInDown.delay(170).duration(540)}>
-            <Text style={[styles.sectionTitle, { color: ACCENT }]}>✦ PRZEBIEG KROK PO KROKU</Text>
+            <Text style={[styles.sectionTitle, { color: ACCENT }]}>{t('dailyRitualAI.przebieg_krok_po_kroku', '✦ PRZEBIEG KROK PO KROKU')}</Text>
             {ritualSteps.map((step, index) => {
               const done = completedSteps.includes(step.step) || finished;
               return (
@@ -708,7 +708,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
             <Animated.View entering={FadeInUp.duration(420)}>
               <Pressable onPress={finishRitual} style={[styles.finishButton, { backgroundColor: ACCENT }]}>
                 <Flame color="#FFF" size={18} />
-                <Text style={styles.finishButtonText}>Zakończ rytuał</Text>
+                <Text style={styles.finishButtonText}>{t('dailyRitualAI.zakoncz_rytual', 'Zakończ rytuał')}</Text>
               </Pressable>
             </Animated.View>
           )}
@@ -717,9 +717,9 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
           {(finished || completedSteps.length >= 2) && (
             <Animated.View entering={FadeInDown.duration(480)}>
               <View style={[styles.ritualCard, { backgroundColor: cardBg, borderColor: '#A78BFA' + '44' }]}>
-                <Text style={[styles.cardEyebrow, { color: '#A78BFA' }]}>⚡ ENERGIA PO RYTUALE</Text>
+                <Text style={[styles.cardEyebrow, { color: '#A78BFA' }]}>{t('dailyRitualAI.energia_po_rytuale', '⚡ ENERGIA PO RYTUALE')}</Text>
                 <Text style={[{ fontSize: 13, color: subColor, lineHeight: 19, marginBottom: 14 }]}>
-                  Jak zmieniła się Twoja energia po ceremonii?
+                  {t('dailyRitualAI.jak_zmienila_sie_twoja_energia', 'Jak zmieniła się Twoja energia po ceremonii?')}
                 </Text>
                 <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'center' }}>
                   {[1, 2, 3, 4, 5].map(n => {
@@ -768,14 +768,14 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
             <Animated.View entering={FadeInUp.duration(480)}>
               <View style={[styles.doneCard, { backgroundColor: ACCENT + '12', borderColor: ACCENT + '40' }]}>
                 <Text style={styles.doneIcon}>🔥</Text>
-                <Text style={[styles.doneTitle, { color: ACCENT }]}>Rytuał został domknięty</Text>
+                <Text style={[styles.doneTitle, { color: ACCENT }]}>{t('dailyRitualAI.rytual_zostal_domkniety', 'Rytuał został domknięty')}</Text>
                 <Text style={[styles.doneBody, { color: subColor }]}>{ritualMeta.suggestedAction}</Text>
                 <Pressable
                   onPress={() => navigation.navigate('JournalEntry', { type: 'reflection', prompt: `Wykonałam/em rytuał dnia. Co realnie zmieniło się we mnie po tej praktyce i co chcę zachować do końca dnia?` })}
                   style={[styles.journalCta, { borderColor: ACCENT + '38', backgroundColor: ACCENT + '0E' }]}
                 >
                   <BookOpen color={ACCENT} size={16} strokeWidth={1.8} />
-                  <Text style={[styles.journalCtaText, { color: ACCENT }]}>Zapisz integrację po rytuale</Text>
+                  <Text style={[styles.journalCtaText, { color: ACCENT }]}>{t('dailyRitualAI.zapisz_integracje_po_rytuale', 'Zapisz integrację po rytuale')}</Text>
                   <ArrowRight color={ACCENT} size={14} />
                 </Pressable>
               </View>
@@ -785,7 +785,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
           {/* ── SUGEROWANE DZIAŁANIE PO PRAKTYCE ── */}
           <Animated.View entering={FadeInDown.delay(260).duration(520)}>
             <View style={[styles.supportCard, { backgroundColor: cardBg, borderColor }]}>
-              <Text style={[styles.cardEyebrow, { color: ACCENT }]}>🌿 SUGEROWANE DZIAŁANIE PO PRAKTYCE</Text>
+              <Text style={[styles.cardEyebrow, { color: ACCENT }]}>{t('dailyRitualAI.sugerowane_dzialanie_po_praktyce', '🌿 SUGEROWANE DZIAŁANIE PO PRAKTYCE')}</Text>
               <Text style={[styles.cardBody, { color: textColor }]}>{ritualMeta.suggestedAction}</Text>
             </View>
           </Animated.View>
@@ -793,8 +793,8 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
           {/* ── WŁAŚCIWOŚCI CEREMONII ── */}
           <Animated.View entering={FadeInDown.delay(290).duration(520)}>
             <View style={[styles.ritualCard, { backgroundColor: cardBg, borderColor }]}>
-              <Text style={[styles.cardEyebrow, { color: ACCENT }]}>⚗️ WŁAŚCIWOŚCI CEREMONII</Text>
-              <Text style={[{ fontSize: 12.5, lineHeight: 19, color: subColor, marginBottom: 14 }]}>Każda pora i dzień nosi inną energię rytualną.</Text>
+              <Text style={[styles.cardEyebrow, { color: ACCENT }]}>{t('dailyRitualAI.wlasciwosc_ceremonii', '⚗️ WŁAŚCIWOŚCI CEREMONII')}</Text>
+              <Text style={[{ fontSize: 12.5, lineHeight: 19, color: subColor, marginBottom: 14 }]}>{t('dailyRitualAI.kazda_pora_i_dzien_nosi', 'Każda pora i dzień nosi inną energię rytualną.')}</Text>
               <View style={{ gap: 10 }}>
                 {ceremonialProperties.map(p => (
                   <View key={p.label} style={{ flexDirection: 'row', alignItems: 'center', gap: 12, padding: 12, borderRadius: 14, backgroundColor: p.color + '0C', borderWidth: 1, borderColor: p.color + '28' }}>
@@ -815,7 +815,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
           <Animated.View entering={FadeInDown.delay(310).duration(520)}>
             <View style={[styles.ritualCard, { backgroundColor: cardBg, borderColor }]}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                <Text style={[styles.cardEyebrow, { color: ACCENT }]}>⏱️ STOPER CEREMONII</Text>
+                <Text style={[styles.cardEyebrow, { color: ACCENT }]}>{t('dailyRitualAI.stoper_ceremonii', '⏱️ STOPER CEREMONII')}</Text>
                 <Pressable onPress={() => setShowTimer(v => !v)} hitSlop={10}>
                   <Text style={{ fontSize: 12, color: ACCENT, fontWeight: '600' }}>{showTimer ? 'Ukryj' : 'Pokaż'}</Text>
                 </Pressable>
@@ -824,7 +824,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
                 <View style={{ alignItems: 'center', gap: 16 }}>
                   <View style={{ width: 140, height: 140, borderRadius: 70, borderWidth: 2, borderColor: ACCENT + '50', backgroundColor: ACCENT + '0C', alignItems: 'center', justifyContent: 'center' }}>
                     <Text style={{ fontSize: 36, fontWeight: '800', color: ACCENT, letterSpacing: -1 }}>{formatTime(timerSeconds)}</Text>
-                    <Text style={{ fontSize: 11, color: subColor }}>pozostało</Text>
+                    <Text style={{ fontSize: 11, color: subColor }}>{t('dailyRitualAI.pozostalo', 'pozostało')}</Text>
                   </View>
                   <View style={{ flexDirection: 'row', gap: 12 }}>
                     {[5,8,12,20].map(min => (
@@ -844,7 +844,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
                 </View>
               )}
               {!showTimer && (
-                <Text style={{ fontSize: 13, color: subColor, lineHeight: 20 }}>Ustaw stoper, by wejść w rytuał bez myślenia o czasie. Wybierz czas, naciśnij start i poddaj się ceremonii.</Text>
+                <Text style={{ fontSize: 13, color: subColor, lineHeight: 20 }}>{t('dailyRitualAI.ustaw_stoper_by_wejsc_w', 'Ustaw stoper, by wejść w rytuał bez myślenia o czasie. Wybierz czas, naciśnij start i poddaj się ceremonii.')}</Text>
               )}
             </View>
           </Animated.View>
@@ -852,12 +852,12 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
           {/* ── NOTATKA RYTUALNA ── */}
           <Animated.View entering={FadeInDown.delay(330).duration(520)}>
             <View style={[styles.ritualCard, { backgroundColor: cardBg, borderColor }]}>
-              <Text style={[styles.cardEyebrow, { color: ACCENT }]}>✏️ NOTATKA PRZED CEREMONIĄ</Text>
-              <Text style={[{ fontSize: 12.5, color: subColor, lineHeight: 19, marginBottom: 10 }]}>Co przynoszę do tego rytuału? Co chcę zostawić za sobą?</Text>
+              <Text style={[styles.cardEyebrow, { color: ACCENT }]}>{t('dailyRitualAI.notatka_przed_ceremonia', '✏️ NOTATKA PRZED CEREMONIĄ')}</Text>
+              <Text style={[{ fontSize: 12.5, color: subColor, lineHeight: 19, marginBottom: 10 }]}>{t('dailyRitualAI.co_przynosze_do_tego_rytualu', 'Co przynoszę do tego rytuału? Co chcę zostawić za sobą?')}</Text>
               <TextInput
                 value={ritualNote}
                 onChangeText={setRitualNote}
-                placeholder="Napisz kilka słów przed wejściem w ceremonię..."
+                placeholder={t('dailyRitualAI.napisz_kilka_slow_przed_wejsciem', 'Napisz kilka słów przed wejściem w ceremonię...')}
                 placeholderTextColor={subColor + '90'}
                 multiline
                 numberOfLines={4}
@@ -866,7 +866,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
               {ritualNote.length > 0 && (
                 <Pressable onPress={() => navigation.navigate('JournalEntry', { type: 'ritual', prompt: ritualNote })} style={{ marginTop: 10, flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 10, paddingHorizontal: 14, borderRadius: 12, backgroundColor: ACCENT + '0F', borderWidth: 1, borderColor: ACCENT + '30', alignSelf: 'flex-start' }}>
                   <BookOpen color={ACCENT} size={14} />
-                  <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>Przenieś do dziennika</Text>
+                  <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>{t('dailyRitualAI.przenies_do_dziennika', 'Przenieś do dziennika')}</Text>
                 </Pressable>
               )}
             </View>
@@ -877,7 +877,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
             <View style={[styles.ritualCard, { backgroundColor: cardBg, borderColor: '#60A5FA' + '44' }]}>
               <Text style={[styles.cardEyebrow, { color: '#60A5FA' }]}>{seasonEmoji} RYTUAŁY SEZONOWE — {seasonLabel}</Text>
               <Text style={[{ fontSize: 12.5, color: subColor, lineHeight: 19, marginBottom: 14 }]}>
-                Dodatkowe rytuały harmonizujące z obecną porą roku.
+                {t('dailyRitualAI.dodatkowe_rytualy_harmonizuj_z_obec', 'Dodatkowe rytuały harmonizujące z obecną porą roku.')}
               </Text>
               <View style={{ gap: 10 }}>
                 {seasonalRituals.map((r, idx) => (
@@ -904,8 +904,8 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
           {/* ── HISTORIA RYTMU OSTATNICH 7 DNI ── */}
           <Animated.View entering={FadeInDown.delay(350).duration(520)}>
             <View style={[styles.ritualCard, { backgroundColor: cardBg, borderColor }]}>
-              <Text style={[styles.cardEyebrow, { color: ACCENT }]}>📅 TWÓJ RYTM CEREMONII</Text>
-              <Text style={[{ fontSize: 12.5, color: subColor, marginBottom: 14, lineHeight: 19 }]}>Regularność rytuału jest sama w sobie praktyką.</Text>
+              <Text style={[styles.cardEyebrow, { color: ACCENT }]}>{t('dailyRitualAI.twoj_rytm_ceremonii', '📅 TWÓJ RYTM CEREMONII')}</Text>
+              <Text style={[{ fontSize: 12.5, color: subColor, marginBottom: 14, lineHeight: 19 }]}>{t('dailyRitualAI.regularnos_rytualu_jest_sama_w', 'Regularność rytuału jest sama w sobie praktyką.')}</Text>
               <View style={{ flexDirection: 'row', gap: 6, justifyContent: 'center' }}>
                 {Array.from({ length: 7 }, (_, i) => {
                   const d = new Date(); d.setDate(d.getDate() - (6 - i));
@@ -934,9 +934,9 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
                 <Share2 color={ACCENT} size={22} strokeWidth={1.7} />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={{ fontSize: 15, fontWeight: '700', color: textColor }}>Podziel się rytuałem</Text>
+                <Text style={{ fontSize: 15, fontWeight: '700', color: textColor }}>{t('dailyRitualAI.podziel_sie_rytualem', 'Podziel się rytuałem')}</Text>
                 <Text style={{ fontSize: 12.5, color: subColor, lineHeight: 18, marginTop: 3 }}>
-                  Wygeneruj piękne podsumowanie dzisiejszej ceremonii do udostępnienia.
+                  {t('dailyRitualAI.wygeneruj_piekne_podsumowan_dzisiej', 'Wygeneruj piękne podsumowanie dzisiejszej ceremonii do udostępnienia.')}
                 </Text>
               </View>
               <ArrowRight color={ACCENT} size={16} strokeWidth={1.6} />
@@ -945,7 +945,7 @@ export const DailyRitualAIScreen = ({ navigation }: any) => {
 
           {/* ── CO DALEJ ── */}
           <View style={{ marginTop: 16 }}>
-            <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.8, color: ACCENT, marginBottom: 12 }}>✦ CO DALEJ?</Text>
+            <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.8, color: ACCENT, marginBottom: 12 }}>{t('dailyRitualAI.co_dalej', '✦ CO DALEJ?')}</Text>
             {[
               { icon: BookOpen, label: 'Dziennik po rytuale', sub: 'Zapisz, co zmieniło się po ceremonii', color: ACCENT, route: 'JournalEntry', params: { type: 'ritual', prompt: 'Po dzisiejszym rytuale czuję... i przynoszę ze sobą...' } },
               { icon: Sparkles, label: 'Wyrocznia Aethery', sub: 'Zapytaj o znaczenie rytuału w tej chwili życia', color: '#A78BFA', route: 'OraclePortal' },

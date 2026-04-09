@@ -855,8 +855,8 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
             <ChevronLeft color={ACCENT} size={22} strokeWidth={1.8} />
           </Pressable>
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2.2, color: ACCENT }}>DUCH ZWIERZĘCIA</Text>
-            <Text style={{ fontSize: 12, color: subColor, marginTop: 1 }}>Zwierzę totemu i przewodnik duszy</Text>
+            <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2.2, color: ACCENT }}>{t('spiritAnimal.duch_zwierzecia', 'DUCH ZWIERZĘCIA')}</Text>
+            <Text style={{ fontSize: 12, color: subColor, marginTop: 1 }}>{t('spiritAnimal.zwierze_totemu_i_przewodnik_duszy', 'Zwierzę totemu i przewodnik duszy')}</Text>
           </View>
           <Pressable
             onPress={() => { if (isFavoriteItem('spirit_animal')) { removeFavoriteItem('spirit_animal'); } else { addFavoriteItem({ id: 'spirit_animal', label: 'Duch Zwierzęcia', route: 'SpiritAnimal', params: {}, icon: 'Feather', color: ACCENT, addedAt: new Date().toISOString() }); } }}
@@ -916,7 +916,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
 
                   {/* Question card */}
                   <View style={{ padding: 20, borderRadius: 20, borderWidth: 1, borderColor: ACCENT + '30', backgroundColor: cardBg, marginBottom: 16 }}>
-                    <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.6, color: ACCENT, marginBottom: 8 }}>INTUICJA MÓWI</Text>
+                    <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.6, color: ACCENT, marginBottom: 8 }}>{t('spiritAnimal.intuicja_mowi', 'INTUICJA MÓWI')}</Text>
                     <Text style={{ fontSize: 17, fontWeight: '600', color: textColor, lineHeight: 24 }}>{QUIZ_QUESTIONS[quizStep].question}</Text>
                   </View>
 
@@ -949,7 +949,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                       colors={[primaryAnimal.color + '22', primaryAnimal.color + '0A', 'transparent']}
                       style={{ borderRadius: 24, padding: 24, borderWidth: 1, borderColor: primaryAnimal.color + '44', marginBottom: 20 }}
                     >
-                      <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: primaryAnimal.color, marginBottom: 8 }}>TWOJE ZWIERZĘ DUCHA</Text>
+                      <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: primaryAnimal.color, marginBottom: 8 }}>{t('spiritAnimal.twoje_zwierze_ducha', 'TWOJE ZWIERZĘ DUCHA')}</Text>
                       <Text style={{ fontSize: 54, textAlign: 'center', marginBottom: 4 }}>{primaryAnimal.emoji}</Text>
                       <Text style={{ fontSize: 28, fontWeight: '800', color: textColor, textAlign: 'center', marginBottom: 4 }}>{primaryAnimal.name}</Text>
                       <Text style={{ fontSize: 13, color: subColor, textAlign: 'center', marginBottom: 16, fontStyle: 'italic' }}>{primaryAnimal.subtitle}</Text>
@@ -969,17 +969,17 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                       {/* Element + Totem type */}
                       <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 16 }}>
                         <View style={{ alignItems: 'center' }}>
-                          <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor }}>ŻYWIOŁ</Text>
+                          <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor }}>{t('spiritAnimal.zywiol', 'ŻYWIOŁ')}</Text>
                           <Text style={{ fontSize: 13, color: primaryAnimal.color, fontWeight: '600', marginTop: 2 }}>{primaryAnimal.element}</Text>
                         </View>
                         <View style={{ width: 1, backgroundColor: cardBorder }} />
                         <View style={{ alignItems: 'center' }}>
-                          <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor }}>TYP TOTEMU</Text>
+                          <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor }}>{t('spiritAnimal.typ_totemu', 'TYP TOTEMU')}</Text>
                           <Text style={{ fontSize: 13, color: primaryAnimal.color, fontWeight: '600', marginTop: 2 }}>{primaryAnimal.totemType}</Text>
                         </View>
                         <View style={{ width: 1, backgroundColor: cardBorder }} />
                         <View style={{ alignItems: 'center' }}>
-                          <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor }}>ZODIAK</Text>
+                          <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor }}>{t('spiritAnimal.zodiak', 'ZODIAK')}</Text>
                           <Text style={{ fontSize: 13, color: primaryAnimal.color, fontWeight: '600', marginTop: 2 }}>{primaryAnimal.zodiac}</Text>
                         </View>
                       </View>
@@ -987,7 +987,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
 
                     {/* Daily message */}
                     <View style={{ padding: 16, borderRadius: 16, borderWidth: 1, borderColor: ACCENT + '28', backgroundColor: cardBg, marginBottom: 16 }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.6, color: ACCENT, marginBottom: 6 }}>PRZESŁANIE NA DZIŚ</Text>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.6, color: ACCENT, marginBottom: 6 }}>{t('spiritAnimal.przeslanie_na_dzis', 'PRZESŁANIE NA DZIŚ')}</Text>
                       <Text style={{ fontSize: 14, color: textColor, lineHeight: 21 }}>{dailyMessage}</Text>
                     </View>
 
@@ -995,29 +995,29 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                     <View style={{ flexDirection: 'row', gap: 10, marginBottom: 16 }}>
                       <Pressable onPress={resetQuiz} style={{ flex: 1, padding: 14, borderRadius: 14, borderWidth: 1, borderColor: cardBorder, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 8 }}>
                         <RefreshCw color={subColor} size={14} strokeWidth={1.8} />
-                        <Text style={{ fontSize: 13, fontWeight: '600', color: subColor }}>Powtórz quiz</Text>
+                        <Text style={{ fontSize: 13, fontWeight: '600', color: subColor }}>{t('spiritAnimal.powtorz_quiz', 'Powtórz quiz')}</Text>
                       </Pressable>
                       <Pressable onPress={() => openMeditation(primaryAnimal)} style={{ flex: 1, padding: 14, borderRadius: 14, borderWidth: 1, borderColor: ACCENT + '44', backgroundColor: ACCENT + '12', alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 8 }}>
                         <Play color={ACCENT} size={14} strokeWidth={2} />
-                        <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>Medytacja</Text>
+                        <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>{t('spiritAnimal.medytacja', 'Medytacja')}</Text>
                       </Pressable>
                     </View>
 
                     {/* When it appears */}
                     <View style={{ padding: 16, borderRadius: 16, borderWidth: 1, borderColor: cardBorder, backgroundColor: cardBg, marginBottom: 12 }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.6, color: subColor, marginBottom: 6 }}>KIEDY SIĘ POJAWIA</Text>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.6, color: subColor, marginBottom: 6 }}>{t('spiritAnimal.kiedy_sie_pojawia', 'KIEDY SIĘ POJAWIA')}</Text>
                       <Text style={{ fontSize: 13, color: textColor, lineHeight: 20 }}>{primaryAnimal.whenAppears}</Text>
                     </View>
 
                     {/* How to connect */}
                     <View style={{ padding: 16, borderRadius: 16, borderWidth: 1, borderColor: ACCENT + '20', backgroundColor: ACCENT + '06', marginBottom: 12 }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.6, color: ACCENT, marginBottom: 6 }}>JAK SIĘ POŁĄCZYĆ</Text>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.6, color: ACCENT, marginBottom: 6 }}>{t('spiritAnimal.jak_sie_polaczyc', 'JAK SIĘ POŁĄCZYĆ')}</Text>
                       <Text style={{ fontSize: 13, color: textColor, lineHeight: 20 }}>{primaryAnimal.howToConnect}</Text>
                     </View>
 
                     {/* Shamanic context */}
                     <View style={{ padding: 16, borderRadius: 16, borderWidth: 1, borderColor: cardBorder, backgroundColor: cardBg, marginBottom: 12 }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.6, color: subColor, marginBottom: 6 }}>PERSPEKTYWA SZAMAŃSKA</Text>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.6, color: subColor, marginBottom: 6 }}>{t('spiritAnimal.perspektyw_szamanska', 'PERSPEKTYWA SZAMAŃSKA')}</Text>
                       <Text style={{ fontSize: 13, color: textColor, lineHeight: 20 }}>{primaryAnimal.shamanic}</Text>
                     </View>
 
@@ -1026,7 +1026,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                       style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, padding: 14, borderRadius: 14, borderWidth: 1, borderColor: ACCENT + '44', backgroundColor: ACCENT + '10' }}
                     >
                       <Feather color={ACCENT} size={14} strokeWidth={1.8} />
-                      <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>Przeglądaj bestiariusz wszystkich zwierząt</Text>
+                      <Text style={{ fontSize: 13, fontWeight: '700', color: ACCENT }}>{t('spiritAnimal.przegladaj_bestiarius_wszystkich_zw', 'Przeglądaj bestiariusz wszystkich zwierząt')}</Text>
                     </Pressable>
                   </Animated.View>
                 )
@@ -1036,8 +1036,8 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
               {!quizDone && quizStep === 0 && (
                 <Animated.View entering={FadeInDown.delay(100).duration(400)}>
                   <View style={{ padding: 18, borderRadius: 16, borderWidth: 1, borderColor: ACCENT + '22', backgroundColor: cardBg, marginTop: 8 }}>
-                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.6, color: ACCENT, marginBottom: 6 }}>JAK TO DZIAŁA</Text>
-                    <Text style={{ fontSize: 13, color: subColor, lineHeight: 20 }}>Odpowiedz na 8 intuicyjnych pytań. Na ich podstawie odkryjemy Twoje pierwotne zwierzę ducha — przewodnika szamańskiego, który towarzyszy Ci przez całe życie.</Text>
+                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.6, color: ACCENT, marginBottom: 6 }}>{t('spiritAnimal.jak_to_dziala', 'JAK TO DZIAŁA')}</Text>
+                    <Text style={{ fontSize: 13, color: subColor, lineHeight: 20 }}>{t('spiritAnimal.odpowiedz_na_8_intuicyjny_pytan', 'Odpowiedz na 8 intuicyjnych pytań. Na ich podstawie odkryjemy Twoje pierwotne zwierzę ducha — przewodnika szamańskiego, który towarzyszy Ci przez całe życie.')}</Text>
                   </View>
                 </Animated.View>
               )}
@@ -1048,8 +1048,8 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
           {activeTab === 'profile' && (
             <>
               <Animated.View entering={FadeInDown.duration(360)}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginBottom: 4, marginTop: 8 }}>BESTIARIUSZ DUCHOWY</Text>
-                <Text style={{ fontSize: 13, color: subColor, lineHeight: 19, marginBottom: 20 }}>30+ zwierząt ducha — ich moce, przesłania i szamański kontekst. Dotknij, by rozwinąć pełen profil.</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginBottom: 4, marginTop: 8 }}>{t('spiritAnimal.bestiarius_duchowy', 'BESTIARIUSZ DUCHOWY')}</Text>
+                <Text style={{ fontSize: 13, color: subColor, lineHeight: 19, marginBottom: 20 }}>{t('spiritAnimal.30_zwierzat_ducha_ich_moce', '30+ zwierząt ducha — ich moce, przesłania i szamański kontekst. Dotknij, by rozwinąć pełen profil.')}</Text>
               </Animated.View>
 
               {primaryAnimal && (
@@ -1057,7 +1057,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                   <View style={{ padding: 14, borderRadius: 14, borderWidth: 1, borderColor: ACCENT + '44', backgroundColor: ACCENT + '0C', marginBottom: 16, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
                     <Text style={{ fontSize: 28 }}>{primaryAnimal.emoji}</Text>
                     <View style={{ flex: 1 }}>
-                      <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.4, color: ACCENT, marginBottom: 2 }}>TWOJE ZWIERZĘ DUCHA</Text>
+                      <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.4, color: ACCENT, marginBottom: 2 }}>{t('spiritAnimal.twoje_zwierze_ducha_1', 'TWOJE ZWIERZĘ DUCHA')}</Text>
                       <Text style={{ fontSize: 15, fontWeight: '700', color: textColor }}>{primaryAnimal.name}</Text>
                     </View>
                     <Leaf color={ACCENT} size={16} strokeWidth={1.8} />
@@ -1081,7 +1081,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                         <View style={{ flex: 1 }}>
                           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                             <Text style={{ fontSize: 15, fontWeight: '700', color: textColor }}>{animal.name}</Text>
-                            {isPrimary && <View style={{ paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, backgroundColor: animal.color + '22' }}><Text style={{ fontSize: 9, fontWeight: '700', color: animal.color, letterSpacing: 0.8 }}>TWÓJ</Text></View>}
+                            {isPrimary && <View style={{ paddingHorizontal: 6, paddingVertical: 2, borderRadius: 6, backgroundColor: animal.color + '22' }}><Text style={{ fontSize: 9, fontWeight: '700', color: animal.color, letterSpacing: 0.8 }}>{t('spiritAnimal.twoj', 'TWÓJ')}</Text></View>}
                           </View>
                           <Text style={{ fontSize: 12, color: subColor, marginTop: 2 }}>{animal.subtitle}</Text>
                         </View>
@@ -1105,24 +1105,24 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                           {/* Details */}
                           <View style={{ gap: 8 }}>
                             <View>
-                              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor, marginBottom: 3 }}>KIEDY SIĘ POJAWIA</Text>
+                              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor, marginBottom: 3 }}>{t('spiritAnimal.kiedy_sie_pojawia_1', 'KIEDY SIĘ POJAWIA')}</Text>
                               <Text style={{ fontSize: 12, color: textColor, lineHeight: 18 }}>{animal.whenAppears}</Text>
                             </View>
                             <View>
-                              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor, marginBottom: 3 }}>JAK SIĘ POŁĄCZYĆ</Text>
+                              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor, marginBottom: 3 }}>{t('spiritAnimal.jak_sie_polaczyc_1', 'JAK SIĘ POŁĄCZYĆ')}</Text>
                               <Text style={{ fontSize: 12, color: textColor, lineHeight: 18 }}>{animal.howToConnect}</Text>
                             </View>
                             <View>
-                              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor, marginBottom: 3 }}>SZAMANIZM</Text>
+                              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor, marginBottom: 3 }}>{t('spiritAnimal.szamanizm', 'SZAMANIZM')}</Text>
                               <Text style={{ fontSize: 12, color: textColor, lineHeight: 18 }}>{animal.shamanic}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', gap: 8, marginTop: 4 }}>
                               <View style={{ flex: 1, padding: 10, borderRadius: 10, backgroundColor: animal.color + '12', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 1.2, color: subColor }}>ŻYWIOŁ</Text>
+                                <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 1.2, color: subColor }}>{t('spiritAnimal.zywiol_1', 'ŻYWIOŁ')}</Text>
                                 <Text style={{ fontSize: 12, color: animal.color, fontWeight: '600', marginTop: 2 }}>{animal.element}</Text>
                               </View>
                               <View style={{ flex: 1, padding: 10, borderRadius: 10, backgroundColor: animal.color + '12', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 1.2, color: subColor }}>ZODIAK</Text>
+                                <Text style={{ fontSize: 9, fontWeight: '700', letterSpacing: 1.2, color: subColor }}>{t('spiritAnimal.zodiak_1', 'ZODIAK')}</Text>
                                 <Text style={{ fontSize: 12, color: animal.color, fontWeight: '600', marginTop: 2, textAlign: 'center' }}>{animal.zodiac}</Text>
                               </View>
                             </View>
@@ -1134,7 +1134,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                             style={{ marginTop: 12, padding: 12, borderRadius: 12, borderWidth: 1, borderColor: animal.color + '44', backgroundColor: animal.color + '10', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 }}
                           >
                             <Play color={animal.color} size={13} strokeWidth={2} />
-                            <Text style={{ fontSize: 13, fontWeight: '700', color: animal.color }}>Wizualizacja medytacyjna</Text>
+                            <Text style={{ fontSize: 13, fontWeight: '700', color: animal.color }}>{t('spiritAnimal.wizualizac_medytacyjn', 'Wizualizacja medytacyjna')}</Text>
                           </Pressable>
                         </View>
                       )}
@@ -1150,8 +1150,8 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
             <>
               <Animated.View entering={FadeInDown.duration(360)}>
                 <View style={{ marginBottom: 20, marginTop: 8 }}>
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginBottom: 6 }}>TYPY ZWIERZĄT TOTEMU</Text>
-                  <Text style={{ fontSize: 13, color: subColor, lineHeight: 20 }}>W szamanizmie każda osoba ma kilka zwierząt duchowych, pełniących różne role na ścieżce duszy.</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginBottom: 6 }}>{t('spiritAnimal.typy_zwierzat_totemu', 'TYPY ZWIERZĄT TOTEMU')}</Text>
+                  <Text style={{ fontSize: 13, color: subColor, lineHeight: 20 }}>{t('spiritAnimal.w_szamanizmi_kazda_osoba_ma', 'W szamanizmie każda osoba ma kilka zwierząt duchowych, pełniących różne role na ścieżce duszy.')}</Text>
                 </View>
               </Animated.View>
 
@@ -1167,7 +1167,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                     </View>
                     <Text style={{ fontSize: 14, color: textColor, lineHeight: 21, marginBottom: 10 }}>{tt.desc}</Text>
                     <View style={{ padding: 12, borderRadius: 12, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)', borderWidth: 1, borderColor: cardBorder }}>
-                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: ACCENT, marginBottom: 4 }}>PRZYKŁAD</Text>
+                      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: ACCENT, marginBottom: 4 }}>{t('spiritAnimal.przyklad', 'PRZYKŁAD')}</Text>
                       <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, fontStyle: 'italic' }}>{tt.example}</Text>
                     </View>
                   </LinearGradient>
@@ -1176,7 +1176,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
 
               {/* Traditions section */}
               <Animated.View entering={FadeInDown.delay(360).duration(380)}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginTop: 12, marginBottom: 14 }}>TRADYCJE SZAMAŃSKIE</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginTop: 12, marginBottom: 14 }}>{t('spiritAnimal.tradycje_szamanskie', 'TRADYCJE SZAMAŃSKIE')}</Text>
               </Animated.View>
 
               {[
@@ -1205,7 +1205,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
             <>
               <Animated.View entering={FadeInDown.duration(360)}>
                 <View style={{ marginTop: 8, marginBottom: 20 }}>
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginBottom: 6 }}>PRZESŁANIE NA DZIŚ</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginBottom: 6 }}>{t('spiritAnimal.przeslanie_na_dzis_1', 'PRZESŁANIE NA DZIŚ')}</Text>
                   {primaryAnimal ? (
                     <LinearGradient
                       colors={[primaryAnimal.color + '1E', primaryAnimal.color + '08', 'transparent']}
@@ -1215,15 +1215,15 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                         <Text style={{ fontSize: 28 }}>{primaryAnimal.emoji}</Text>
                         <View>
                           <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.4, color: primaryAnimal.color }}>{primaryAnimal.name.toUpperCase()}</Text>
-                          <Text style={{ fontSize: 12, color: subColor }}>Twoje zwierzę ducha mówi:</Text>
+                          <Text style={{ fontSize: 12, color: subColor }}>{t('spiritAnimal.twoje_zwierze_ducha_mowi', 'Twoje zwierzę ducha mówi:')}</Text>
                         </View>
                       </View>
                       <Text style={{ fontSize: 15, color: textColor, lineHeight: 23, fontStyle: 'italic' }}>"{dailyMessage}"</Text>
                     </LinearGradient>
                   ) : (
                     <Pressable onPress={() => setActiveTab('quiz')} style={{ padding: 18, borderRadius: 16, borderWidth: 1, borderColor: ACCENT + '30', backgroundColor: cardBg }}>
-                      <Text style={{ fontSize: 13, color: subColor, textAlign: 'center' }}>Odkryj swoje zwierzę ducha w quizie, aby zobaczyć codzienne przesłania.</Text>
-                      <Text style={{ fontSize: 13, color: ACCENT, textAlign: 'center', marginTop: 8, fontWeight: '600' }}>Przejdź do quizu →</Text>
+                      <Text style={{ fontSize: 13, color: subColor, textAlign: 'center' }}>{t('spiritAnimal.odkryj_swoje_zwierze_ducha_w', 'Odkryj swoje zwierzę ducha w quizie, aby zobaczyć codzienne przesłania.')}</Text>
+                      <Text style={{ fontSize: 13, color: ACCENT, textAlign: 'center', marginTop: 8, fontWeight: '600' }}>{t('spiritAnimal.przejdz_do_quizu', 'Przejdź do quizu →')}</Text>
                     </Pressable>
                   )}
                 </View>
@@ -1231,7 +1231,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
 
               {/* 30-day oracle: daily message bank */}
               <Animated.View entering={FadeInDown.delay(80).duration(360)}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginBottom: 14 }}>WYROCZNIA 30 DNI</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginBottom: 14 }}>{t('spiritAnimal.wyrocznia_30_dni', 'WYROCZNIA 30 DNI')}</Text>
               </Animated.View>
 
               {primaryAnimal && Array.from({ length: 7 }, (_, i) => {
@@ -1256,8 +1256,8 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
 
               {/* Meditation visualizations */}
               <Animated.View entering={FadeInDown.delay(500).duration(360)}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginTop: 20, marginBottom: 14 }}>WIZUALIZACJE MEDYTACYJNE</Text>
-                <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 16 }}>Każde zwierzę ducha prowadzi Cię przez unikalną wizualizację medytacyjną. Zamknij oczy i pozwól, że poprowadzi Cię do swojego świata.</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginTop: 20, marginBottom: 14 }}>{t('spiritAnimal.wizualizac_medytacyjn_1', 'WIZUALIZACJE MEDYTACYJNE')}</Text>
+                <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 16 }}>{t('spiritAnimal.kazde_zwierze_ducha_prowadzi_cie', 'Każde zwierzę ducha prowadzi Cię przez unikalną wizualizację medytacyjną. Zamknij oczy i pozwól, że poprowadzi Cię do swojego świata.')}</Text>
               </Animated.View>
 
               {SPIRIT_ANIMALS.slice(0, 8).map((animal, i) => (
@@ -1285,15 +1285,15 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
             <>
               <Animated.View entering={FadeInDown.duration(360)}>
                 <View style={{ marginTop: 8, marginBottom: 16 }}>
-                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginBottom: 6 }}>DZIENNIK DUCHA ZWIERZĘCIA</Text>
-                  <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 16 }}>Zapisuj sny, spostrzeżenia i spotkania z Twoim zwierzęciem totemu. Wzorce ujawniają się z czasem.</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginBottom: 6 }}>{t('spiritAnimal.dziennik_ducha_zwierzecia', 'DZIENNIK DUCHA ZWIERZĘCIA')}</Text>
+                  <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 16 }}>{t('spiritAnimal.zapisuj_sny_spostrzeze_i_spotkania', 'Zapisuj sny, spostrzeżenia i spotkania z Twoim zwierzęciem totemu. Wzorce ujawniają się z czasem.')}</Text>
 
                   <Pressable
                     onPress={() => setShowJournalModal(true)}
                     style={{ padding: 16, borderRadius: 16, borderWidth: 1, borderColor: ACCENT + '44', backgroundColor: ACCENT + '10', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, marginBottom: 20 }}
                   >
                     <BookOpen color={ACCENT} size={16} strokeWidth={1.8} />
-                    <Text style={{ fontSize: 14, fontWeight: '700', color: ACCENT }}>Dodaj nowy wpis</Text>
+                    <Text style={{ fontSize: 14, fontWeight: '700', color: ACCENT }}>{t('spiritAnimal.dodaj_nowy_wpis', 'Dodaj nowy wpis')}</Text>
                   </Pressable>
                 </View>
               </Animated.View>
@@ -1317,7 +1317,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                 <Animated.View entering={FadeInDown.delay(120).duration(400)}>
                   <View style={{ alignItems: 'center', padding: 40, gap: 12 }}>
                     <Text style={{ fontSize: 36 }}>🌿</Text>
-                    <Text style={{ fontSize: 14, color: subColor, textAlign: 'center', lineHeight: 21 }}>Twój dziennik jest pusty. Zacznij od prostego spostrzeżenia — czy coś dziś przypomniało Ci o Twoim zwierzęciu ducha?</Text>
+                    <Text style={{ fontSize: 14, color: subColor, textAlign: 'center', lineHeight: 21 }}>{t('spiritAnimal.twoj_dziennik_jest_pusty_zacznij', 'Twój dziennik jest pusty. Zacznij od prostego spostrzeżenia — czy coś dziś przypomniało Ci o Twoim zwierzęciu ducha?')}</Text>
                   </View>
                 </Animated.View>
               ) : (
@@ -1338,7 +1338,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
 
               {/* Journaling prompts */}
               <Animated.View entering={FadeInDown.delay(200).duration(360)}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginTop: 20, marginBottom: 12 }}>PYTANIA DO REFLEKSJI</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT, marginTop: 20, marginBottom: 12 }}>{t('spiritAnimal.pytania_do_refleksji', 'PYTANIA DO REFLEKSJI')}</Text>
               </Animated.View>
 
               {[
@@ -1376,7 +1376,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
           <LinearGradient colors={isLight ? ['#E8F5EE', '#F0FAF4'] : ['#050F0A', '#030D07']} style={StyleSheet.absoluteFill} />
           <SafeAreaView edges={['top']} style={{ flex: 1 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 20, paddingBottom: 12 }}>
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: meditationAnimal?.color || ACCENT }}>WIZUALIZACJA MEDYTACYJNA</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: meditationAnimal?.color || ACCENT }}>{t('spiritAnimal.wizualizac_medytacyjn_2', 'WIZUALIZACJA MEDYTACYJNA')}</Text>
               <Pressable onPress={() => setShowMeditationModal(false)} hitSlop={12}>
                 <X color={subColor} size={20} strokeWidth={1.8} />
               </Pressable>
@@ -1391,12 +1391,12 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                   </View>
 
                   <View style={{ padding: 20, borderRadius: 20, borderWidth: 1, borderColor: (meditationAnimal.color) + '40', backgroundColor: (meditationAnimal.color) + '0C', marginBottom: 20 }}>
-                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.6, color: meditationAnimal.color, marginBottom: 12 }}>WIZUALIZACJA</Text>
+                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.6, color: meditationAnimal.color, marginBottom: 12 }}>{t('spiritAnimal.wizualizac', 'WIZUALIZACJA')}</Text>
                     <Text style={{ fontSize: 16, color: textColor, lineHeight: 28, fontStyle: 'italic' }}>{meditationAnimal.meditation}</Text>
                   </View>
 
                   <View style={{ padding: 16, borderRadius: 16, borderWidth: 1, borderColor: cardBorder, backgroundColor: cardBg, marginBottom: 16 }}>
-                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor, marginBottom: 8 }}>JAK PRAKTYKOWAĆ</Text>
+                    <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor, marginBottom: 8 }}>{t('spiritAnimal.jak_praktykowa', 'JAK PRAKTYKOWAĆ')}</Text>
                     {['Znajdź spokojne miejsce i usiądź lub połóż się wygodnie.', 'Zamknij oczy i weź trzy głębokie oddechy.', 'Czytaj wizualizację powoli lub poproś kogoś, by ją czytał.', 'Po wizualizacji zostań z uczuciem przez kilka minut.', 'Zapisz w dzienniku, co poczułeś lub zobaczyłeś.'].map((step, i) => (
                       <View key={i} style={{ flexDirection: 'row', gap: 10, marginBottom: 8, alignItems: 'flex-start' }}>
                         <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: ACCENT + '22', alignItems: 'center', justifyContent: 'center' }}>
@@ -1411,7 +1411,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                     onPress={() => setShowMeditationModal(false)}
                     style={{ padding: 16, borderRadius: 16, borderWidth: 1, borderColor: ACCENT + '44', backgroundColor: ACCENT + '14', alignItems: 'center' }}
                   >
-                    <Text style={{ fontSize: 15, fontWeight: '700', color: ACCENT }}>Zamknij i praktykuj</Text>
+                    <Text style={{ fontSize: 15, fontWeight: '700', color: ACCENT }}>{t('spiritAnimal.zamknij_i_praktykuj', 'Zamknij i praktykuj')}</Text>
                   </Pressable>
                 </>
               )}
@@ -1426,14 +1426,14 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
           <LinearGradient colors={isLight ? ['#E8F5EE', '#F0FAF4'] : ['#050F0A', '#030D07']} style={StyleSheet.absoluteFill} />
           <SafeAreaView edges={['top']} style={{ flex: 1 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 20, paddingBottom: 12 }}>
-              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT }}>NOWY WPIS</Text>
+              <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 2, color: ACCENT }}>{t('spiritAnimal.nowy_wpis', 'NOWY WPIS')}</Text>
               <Pressable onPress={() => setShowJournalModal(false)} hitSlop={12}>
                 <X color={subColor} size={20} strokeWidth={1.8} />
               </Pressable>
             </View>
             <ScrollView contentContainerStyle={{ padding: 22, paddingTop: 8 }} keyboardShouldPersistTaps="handled">
               {/* Tag selector */}
-              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor, marginBottom: 10 }}>TYP WPISU</Text>
+              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor, marginBottom: 10 }}>{t('spiritAnimal.typ_wpisu', 'TYP WPISU')}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingBottom: 16 }}>
                 {['spostrzeżenie', 'sen', 'spotkanie', 'synchroniczność', 'przesłanie', 'medytacja'].map(tag => (
                   <Pressable
@@ -1446,11 +1446,11 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                 ))}
               </ScrollView>
 
-              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor, marginBottom: 8 }}>TWÓJ WPIS</Text>
+              <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.4, color: subColor, marginBottom: 8 }}>{t('spiritAnimal.twoj_wpis', 'TWÓJ WPIS')}</Text>
               <TextInput
                 value={journalText}
                 onChangeText={setJournalText}
-                placeholder="Co chcesz zanotować? Sen, spostrzeżenie, wiadomość od przewodnika..."
+                placeholder={t('spiritAnimal.co_chcesz_zanotowac_sen_spostrzeze', 'Co chcesz zanotować? Sen, spostrzeżenie, wiadomość od przewodnika...')}
                 placeholderTextColor={subColor}
                 multiline
                 style={{ minHeight: 160, padding: 16, borderRadius: 16, borderWidth: 1, borderColor: ACCENT + '30', backgroundColor: cardBg, color: textColor, fontSize: 14, lineHeight: 22, textAlignVertical: 'top', marginBottom: 20 }}
@@ -1460,7 +1460,7 @@ export const SpiritAnimalScreen = ({ navigation }: any) => {
                 onPress={saveJournalEntry}
                 style={{ padding: 16, borderRadius: 16, borderWidth: 1, borderColor: ACCENT + '44', backgroundColor: ACCENT + '18', alignItems: 'center' }}
               >
-                <Text style={{ fontSize: 15, fontWeight: '700', color: ACCENT }}>Zapisz wpis</Text>
+                <Text style={{ fontSize: 15, fontWeight: '700', color: ACCENT }}>{t('spiritAnimal.zapisz_wpis', 'Zapisz wpis')}</Text>
               </Pressable>
             </ScrollView>
           </SafeAreaView>

@@ -5,7 +5,8 @@ import {
   getAuth,
   getReactNativePersistence,
 } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, initializeFirestore, persistentLocalCache, CACHE_SIZE_UNLIMITED } from "firebase/firestore";
+import { getAnalytics, logEvent, isSupported } from 'firebase/analytics';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const firebaseConfig = {
@@ -40,4 +41,22 @@ try {
 }
 
 export const auth = authInstance;
-export const db = getFirestore(app);
+
+// Offline persistence: uses Firebase SDK persistent LRU cache (React Native / Expo)
+let db: ReturnType<typeof initializeFirestore>;
+try {
+  db = initializeFirestore(app, {
+    localCache: persistentLocalCache({ cacheSizeBytes: CACHE_SIZE_UNLIMITED }),
+  });
+} catch (e) {
+  // Already initialized (e.g. Fast Refresh) — fall back to getFirestore
+  db = getFirestore(app);
+}
+export { db };
+
+let analytics: ReturnType<typeof getAnalytics> | null = null;
+isSupported().then(supported => {
+  if (supported) analytics = getAnalytics(app);
+}).catch(() => {});
+
+export { analytics };

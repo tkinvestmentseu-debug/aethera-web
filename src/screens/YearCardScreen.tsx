@@ -422,7 +422,7 @@ function YearWheelWidget({ personalYear, currentMonth, yearData, isLight }: {
         {/* Center year number */}
         <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, alignItems: 'center', justifyContent: 'center' }}>
           <Text style={{ color: accentColor, fontSize: 44, fontWeight: '900', letterSpacing: -1 }}>{personalYear}</Text>
-          <Text style={{ color: isLight ? 'rgba(37,29,22,0.6)' : 'rgba(255,255,255,0.6)', fontSize: 9, fontWeight: '700', letterSpacing: 2.5, marginTop: -4 }}>ROK OSOBISTY</Text>
+          <Text style={{ color: isLight ? 'rgba(37,29,22,0.6)' : 'rgba(255,255,255,0.6)', fontSize: 9, fontWeight: '700', letterSpacing: 2.5, marginTop: -4 }}>{t('yearCard.rok_osobisty', 'ROK OSOBISTY')}</Text>
         </View>
       </Animated.View>
     </GestureDetector>
@@ -540,7 +540,7 @@ function MonthCard({
                 <Text style={[styles.monthName, { color: textColor }]}>{MONTH_NAMES_PL[index]}</Text>
                 {isCurrent && (
                   <View style={[styles.currentBadge, { backgroundColor: `${color}22`, borderColor: `${color}55` }]}>
-                    <Text style={[styles.currentBadgeText, { color }]}>TERAZ</Text>
+                    <Text style={[styles.currentBadgeText, { color }]}>{t('yearCard.teraz', 'TERAZ')}</Text>
                   </View>
                 )}
               </View>
@@ -570,7 +570,7 @@ function MonthCard({
                 backgroundColor: isLight ? `${color}14` : `${color}10`,
                 borderColor: `${color}33`,
               }]}>
-                <Text style={[styles.monthPromptLabel, { color }]}>PYTANIE MIESIĄCA</Text>
+                <Text style={[styles.monthPromptLabel, { color }]}>{t('yearCard.pytanie_miesiaca', 'PYTANIE MIESIĄCA')}</Text>
                 <Text style={[styles.monthPromptText, { color: textColor }]}>
                   {MONTHLY_JOURNAL_PROMPTS[index]}
                 </Text>
@@ -670,7 +670,7 @@ export const YearCardScreen = ({ navigation }: any) => {
         <Pressable onPress={() => goBackOrToMainTab(navigation, 'Worlds')} style={styles.headerBtn} hitSlop={12}>
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
-        <Text style={[styles.headerTitle, { color: textColor }]}>✦ KARTA ROKU</Text>
+        <Text style={[styles.headerTitle, { color: textColor }]}>{t('yearCard.karta_roku', '✦ KARTA ROKU')}</Text>
         <Pressable onPress={handleStar} style={styles.headerBtn} hitSlop={12}>
           <Star size={20} color={isStarred ? ACCENT : textColor} fill={isStarred ? ACCENT : 'none'} />
         </Pressable>
@@ -710,10 +710,10 @@ export const YearCardScreen = ({ navigation }: any) => {
               borderColor: `${accentColor}55`,
             }]}>
               <Text style={[styles.bigYearNumber, { color: accentColor }]}>{personalYear}</Text>
-              <Text style={[styles.bigYearLabel, { color: subColor }]}>ROK</Text>
+              <Text style={[styles.bigYearLabel, { color: subColor }]}>{t('yearCard.rok', 'ROK')}</Text>
             </View>
             <View style={{ flex: 1 }}>
-              <Text style={[styles.sectionTitle, { color: textColor }]}>✦ TWÓJ ROK OSOBISTY</Text>
+              <Text style={[styles.sectionTitle, { color: textColor }]}>{t('yearCard.twoj_rok_osobisty', '✦ TWÓJ ROK OSOBISTY')}</Text>
               <Text style={[styles.yearNameText, { color: accentColor, marginTop: 2 }]}>{yearData?.name}</Text>
               <Text style={[styles.yearThemeText, { color: subColor, marginTop: 4, lineHeight: 20 }]}>
                 {yearData?.theme}
@@ -740,7 +740,7 @@ export const YearCardScreen = ({ navigation }: any) => {
           }]}>
             <View style={styles.infoBlockHeader}>
               <Sparkles size={14} color={accentColor} />
-              <Text style={[styles.infoBlockLabel, { color: accentColor }]}>SZANSA</Text>
+              <Text style={[styles.infoBlockLabel, { color: accentColor }]}>{t('yearCard.szansa', 'SZANSA')}</Text>
             </View>
             <Text style={[styles.infoBlockText, { color: textColor, lineHeight: 22 }]}>
               {yearData?.opportunity}
@@ -755,7 +755,7 @@ export const YearCardScreen = ({ navigation }: any) => {
           }]}>
             <View style={styles.infoBlockHeader}>
               <Zap size={14} color="#FB7185" />
-              <Text style={[styles.infoBlockLabel, { color: '#FB7185' }]}>WYZWANIE</Text>
+              <Text style={[styles.infoBlockLabel, { color: '#FB7185' }]}>{t('yearCard.wyzwanie', 'WYZWANIE')}</Text>
             </View>
             <Text style={[styles.infoBlockText, { color: textColor, lineHeight: 22 }]}>
               {yearData?.challenge}
@@ -765,9 +765,9 @@ export const YearCardScreen = ({ navigation }: any) => {
 
         {/* ── Year Timeline ── */}
         <Animated.View entering={FadeInDown.delay(200).springify()} style={[styles.section, { borderColor, backgroundColor: cardBg }]}>
-          <Text style={[styles.sectionTitle, { color: textColor }]}>✦ LINIA ENERGII ROKU</Text>
+          <Text style={[styles.sectionTitle, { color: textColor }]}>{t('yearCard.linia_energii_roku', '✦ LINIA ENERGII ROKU')}</Text>
           <Text style={[styles.sectionSub, { color: subColor, marginBottom: 12 }]}>
-            Miesięczna mapa energii osobistego roku
+            {t('yearCard.miesieczna_mapa_energii_osobistego_', 'Miesięczna mapa energii osobistego roku')}
           </Text>
           <YearTimeline
             energies={yearData?.monthlyEnergy ?? Array(12).fill(7)}
@@ -781,8 +781,8 @@ export const YearCardScreen = ({ navigation }: any) => {
         <Animated.View entering={FadeInDown.delay(250).springify()} style={[styles.section, { borderColor, backgroundColor: cardBg }]}>
           <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
             <View>
-              <Text style={[styles.sectionTitle, { color: textColor }]}>✦ PROGNOZA MIESIĘCZNA</Text>
-              <Text style={[styles.sectionSub, { color: subColor }]}>Tap aby rozwinąć każdy miesiąc</Text>
+              <Text style={[styles.sectionTitle, { color: textColor }]}>{t('yearCard.prognoza_miesieczna', '✦ PROGNOZA MIESIĘCZNA')}</Text>
+              <Text style={[styles.sectionSub, { color: subColor }]}>{t('yearCard.tap_aby_rozwinac_kazdy_miesiac', 'Tap aby rozwinąć każdy miesiąc')}</Text>
             </View>
             <Pressable
               onPress={() => { setShowAllMonths(v => !v); HapticsService.notify(); }}
@@ -815,7 +815,7 @@ export const YearCardScreen = ({ navigation }: any) => {
 
         {/* ── Affirmations for the year ── */}
         <Animated.View entering={FadeInDown.delay(300).springify()} style={[styles.section, { borderColor, backgroundColor: cardBg }]}>
-          <Text style={[styles.sectionTitle, { color: textColor }]}>✦ AFIRMACJE ROKU</Text>
+          <Text style={[styles.sectionTitle, { color: textColor }]}>{t('yearCard.afirmacje_roku', '✦ AFIRMACJE ROKU')}</Text>
           <Text style={[styles.sectionSub, { color: subColor, marginBottom: 12 }]}>
             Słowa rezonujące z energią {yearData?.name?.toLowerCase()}
           </Text>
@@ -836,7 +836,7 @@ export const YearCardScreen = ({ navigation }: any) => {
         {/* ── Life path integration ── */}
         {userData?.birthDate && (
           <Animated.View entering={FadeInDown.delay(350).springify()} style={[styles.section, { borderColor, backgroundColor: cardBg }]}>
-            <Text style={[styles.sectionTitle, { color: textColor }]}>✦ INTEGRACJA Z ŚCIEŻKĄ ŻYCIA</Text>
+            <Text style={[styles.sectionTitle, { color: textColor }]}>{t('yearCard.integracja_z_sciezka_zycia', '✦ INTEGRACJA Z ŚCIEŻKĄ ŻYCIA')}</Text>
             <Text style={[styles.infoBlockText, { color: subColor, lineHeight: 22, marginTop: 8 }]}>
               Rok osobisty {personalYear} wchodzi w interakcję z Twoją Ścieżką Życia, wzmacniając lub moderując jej naturalne tendencje. Sprawdź ekran Numerologii, aby zobaczyć pełną mapę swojego cyklu.
             </Text>
@@ -847,7 +847,7 @@ export const YearCardScreen = ({ navigation }: any) => {
                 borderColor: `${accentColor}55`,
               }]}
             >
-              <Text style={[styles.ctaText, { color: accentColor }]}>Otwórz Numerologię</Text>
+              <Text style={[styles.ctaText, { color: accentColor }]}>{t('yearCard.otworz_numerologi', 'Otwórz Numerologię')}</Text>
               <ChevronRight size={16} color={accentColor} />
             </Pressable>
           </Animated.View>
@@ -863,7 +863,7 @@ export const YearCardScreen = ({ navigation }: any) => {
               <Eye size={20} color={accentColor} />
               <View style={{ flex: 1, marginLeft: 12 }}>
                 <Text style={[styles.oracleBtnTitle, { color: accentColor }]}>
-                  Poznaj Swój Rok z Oracle
+                  {t('yearCard.poznaj_swoj_rok_z_oracle', 'Poznaj Swój Rok z Oracle')}
                 </Text>
                 <Text style={[styles.oracleBtnSub, { color: subColor }]}>
                   Głębsza rozmowa o energii roku {personalYear}
@@ -876,9 +876,9 @@ export const YearCardScreen = ({ navigation }: any) => {
 
         {/* ── Journal intention ── */}
         <Animated.View entering={FadeInDown.delay(450).springify()} style={[styles.section, { borderColor, backgroundColor: cardBg }]}>
-          <Text style={[styles.sectionTitle, { color: textColor }]}>✦ INTENCJA NA ROK</Text>
+          <Text style={[styles.sectionTitle, { color: textColor }]}>{t('yearCard.intencja_na_rok', '✦ INTENCJA NA ROK')}</Text>
           <Text style={[styles.sectionSub, { color: subColor, marginBottom: 12 }]}>
-            Zapisz, jak chcesz przeżyć ten rok numerologiczny
+            {t('yearCard.zapisz_jak_chcesz_przezyc_ten', 'Zapisz, jak chcesz przeżyć ten rok numerologiczny')}
           </Text>
           <TextInput
             value={intention}
@@ -910,7 +910,7 @@ export const YearCardScreen = ({ navigation }: any) => {
             >
               <BookOpen size={16} color={accentColor} />
               <Text style={[styles.ctaText, { color: accentColor, marginLeft: 8 }]}>
-                Zapisz w Dzienniku
+                {t('yearCard.zapisz_w_dzienniku', 'Zapisz w Dzienniku')}
               </Text>
               <ChevronRight size={16} color={accentColor} />
             </Pressable>
@@ -919,9 +919,9 @@ export const YearCardScreen = ({ navigation }: any) => {
 
         {/* ── Practice tips ── */}
         <Animated.View entering={FadeInDown.delay(500).springify()} style={[styles.section, { borderColor, backgroundColor: cardBg }]}>
-          <Text style={[styles.sectionTitle, { color: textColor }]}>✦ WSKAZÓWKI PRAKTYCZNE</Text>
+          <Text style={[styles.sectionTitle, { color: textColor }]}>{t('yearCard.wskazowki_praktyczne', '✦ WSKAZÓWKI PRAKTYCZNE')}</Text>
           <Text style={[styles.sectionSub, { color: subColor, marginBottom: 12 }]}>
-            Jak pracować z kartą roku
+            {t('yearCard.jak_pracowac_z_karta_roku', 'Jak pracować z kartą roku')}
           </Text>
           {[
             {

@@ -551,7 +551,7 @@ export const MagicEntryScreen = ({ navigation }: any) => {
       <View style={styles.textSection}>
         {/* Greeting + name */}
         <Animated.View entering={FadeInDown.delay(350).duration(700)}>
-          <Text style={styles.greetingLabel}>WITAJ</Text>
+          <Text style={styles.greetingLabel}>{t('magicEntry.witaj', 'WITAJ')}</Text>
           <Text style={[styles.userName, { color: accentColor }]}>{name}</Text>
         </Animated.View>
 
@@ -575,10 +575,10 @@ export const MagicEntryScreen = ({ navigation }: any) => {
             colors={[accentColor + '12', accentColor + '06', 'transparent']}
             style={styles.messageGradient}
           >
-            <Text style={styles.sanctuaryEyebrow}>SANKTUARIUM CZEKA</Text>
+            <Text style={styles.sanctuaryEyebrow}>{t('magicEntry.sanktuariu_czeka', 'SANKTUARIUM CZEKA')}</Text>
             <Text style={styles.messageText}>{signMessage}</Text>
             <Text style={[styles.messageSub, { color: accentColor + '99' }]}>
-              Twoje miejsce mocy zostało przygotowane
+              {t('magicEntry.twoje_miejsce_mocy_zostalo_przygoto', 'Twoje miejsce mocy zostało przygotowane')}
             </Text>
           </LinearGradient>
         </Animated.View>
@@ -607,12 +607,12 @@ export const MagicEntryScreen = ({ navigation }: any) => {
             end={{ x: 1, y: 0 }}
             style={styles.ctaGradient}
           >
-            <Text style={styles.ctaText}>Wejdź do Sanktuarium  ✦</Text>
+            <Text style={styles.ctaText}>{t('magicEntry.wejdz_do_sanktuariu', 'Wejdź do Sanktuarium  ✦')}</Text>
           </LinearGradient>
         </Pressable>
 
         <Animated.View entering={FadeIn.delay(2100).duration(600)}>
-          <Text style={styles.ctaHint}>Twoja podróż do siebie właśnie się zaczyna</Text>
+          <Text style={styles.ctaHint}>{t('magicEntry.twoja_podroz_do_siebie_wlasnie', 'Twoja podróż do siebie właśnie się zaczyna')}</Text>
         </Animated.View>
       </Animated.View>
     </Animated.View>

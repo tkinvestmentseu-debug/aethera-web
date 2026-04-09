@@ -284,11 +284,11 @@ export const SoulMatchScreen = ({ navigation }) => {
         </Svg>
         <View style={styles.arcCenter}>
           <Text style={[styles.arcPercent, { color: ACCENT }]}>{avgResonance}%</Text>
-          <Text style={[styles.arcLabel, { color: subColor }]}>rezonans</Text>
+          <Text style={[styles.arcLabel, { color: subColor }]}>{t('soulMatch.rezonans', 'rezonans')}</Text>
         </View>
       </View>
-      <Text style={[styles.resonanceTitle, { color: textColor }]}>Twój Kosmiczny Rezonans</Text>
-      <Text style={[styles.resonanceSub, { color: subColor }]}>Średnie dopasowanie z duszami w galaktyce</Text>
+      <Text style={[styles.resonanceTitle, { color: textColor }]}>{t('soulMatch.twoj_kosmiczny_rezonans', 'Twój Kosmiczny Rezonans')}</Text>
+      <Text style={[styles.resonanceSub, { color: subColor }]}>{t('soulMatch.srednie_dopasowani_z_duszami_w', 'Średnie dopasowanie z duszami w galaktyce')}</Text>
     </Animated.View>
   );
 
@@ -298,7 +298,7 @@ export const SoulMatchScreen = ({ navigation }) => {
         colors={[ACCENT + '28', ACCENT + '10']}
         style={[styles.userCard, { borderColor: ACCENT + '45' }]}
       >
-        <Text style={[styles.userCardLabel, { color: ACCENT }]}>TWÓJ PROFIL DUSZY</Text>
+        <Text style={[styles.userCardLabel, { color: ACCENT }]}>{t('soulMatch.twoj_profil_duszy', 'TWÓJ PROFIL DUSZY')}</Text>
         <View style={styles.userCardRow}>
           <View style={[styles.userAvatar, { borderColor: ACCENT + '60', backgroundColor: ACCENT + '22' }]}>
             <Text style={styles.userAvatarEmoji}>✨</Text>
@@ -316,7 +316,7 @@ export const SoulMatchScreen = ({ navigation }) => {
   const renderFilters = () => (
     <Animated.View entering={FadeInDown.delay(160)}>
       <View style={styles.sortRow}>
-        <Text style={[styles.sectionTitle, { color: textColor }]}>Dusze w Rezonansie</Text>
+        <Text style={[styles.sectionTitle, { color: textColor }]}>{t('soulMatch.dusze_w_rezonansie', 'Dusze w Rezonansie')}</Text>
         <Pressable onPress={() => setShowSort(!showSort)}
           style={[styles.sortBtn, { backgroundColor: cardBg, borderColor: cardBorder }]}>
           <Filter size={12} color={subColor} />
@@ -408,7 +408,7 @@ export const SoulMatchScreen = ({ navigation }) => {
               </View>
 
               {/* Compatibility Breakdown */}
-              <Text style={[styles.breakdownTitle, { color: subColor }]}>ANALIZA REZONANSU</Text>
+              <Text style={[styles.breakdownTitle, { color: subColor }]}>{t('soulMatch.analiza_rezonansu', 'ANALIZA REZONANSU')}</Text>
               {renderCompatBreakdown(profile)}
 
               {/* Ice-breaker */}
@@ -422,12 +422,12 @@ export const SoulMatchScreen = ({ navigation }) => {
                 <Pressable onPress={() => handleConnect(profile)}
                   style={[styles.connectBtn, { backgroundColor: ACCENT }]}>
                   <Send size={14} color="#FFF" />
-                  <Text style={styles.connectText}>Wyślij Kosmiczną Intencję</Text>
+                  <Text style={styles.connectText}>{t('soulMatch.wyslij_kosmiczna_intencje', 'Wyślij Kosmiczną Intencję')}</Text>
                 </Pressable>
               ) : (
                 <View style={[styles.sentBadge, { borderColor: '#10B981' + '55', backgroundColor: '#10B981' + '12' }]}>
                   <Sparkles size={13} color="#10B981" />
-                  <Text style={[styles.sentText, { color: '#10B981' }]}>Intencja wysłana ✦</Text>
+                  <Text style={[styles.sentText, { color: '#10B981' }]}>{t('soulMatch.intencja_wyslana', 'Intencja wysłana ✦')}</Text>
                 </View>
               )}
             </Animated.View>
@@ -440,7 +440,7 @@ export const SoulMatchScreen = ({ navigation }) => {
   const renderStats = () => (
     <Animated.View entering={FadeInDown.delay(180)}>
       <View style={[styles.statsCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-        <Text style={[styles.statsSectionTitle, { color: textColor }]}>KOSMICZNE STATYSTYKI</Text>
+        <Text style={[styles.statsSectionTitle, { color: textColor }]}>{t('soulMatch.kosmiczne_statystyki', 'KOSMICZNE STATYSTYKI')}</Text>
         <View style={styles.statsRow}>
           {[
             { label: 'Przeglądane', value: browseCount },
@@ -462,7 +462,7 @@ export const SoulMatchScreen = ({ navigation }) => {
       <View style={[styles.infoCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
         <View style={styles.infoHeader}>
           <Info size={15} color={ACCENT} />
-          <Text style={[styles.infoTitle, { color: textColor }]}>JAK DZIAŁA DOPASOWANIE?</Text>
+          <Text style={[styles.infoTitle, { color: textColor }]}>{t('soulMatch.jak_dziala_dopasowani', 'JAK DZIAŁA DOPASOWANIE?')}</Text>
         </View>
         {[
           '✦ Porównujemy żywioły Waszych znaków zodiaku — spójność elementów daje bazę rezonansu.',
@@ -477,7 +477,7 @@ export const SoulMatchScreen = ({ navigation }) => {
 
   const renderQuickLinks = () => (
     <Animated.View entering={FadeInDown.delay(260)}>
-      <Text style={[styles.sectionTitle, { color: textColor }]}>✦ CO DALEJ?</Text>
+      <Text style={[styles.sectionTitle, { color: textColor }]}>{t('soulMatch.co_dalej', '✦ CO DALEJ?')}</Text>
       <View style={styles.quickLinksRow}>
         {[
           { label: 'Krąg Energii', sub: 'Wspólna praktyka', route: 'EnergyCircle', color: '#A78BFA', icon: Zap },
@@ -516,8 +516,8 @@ export const SoulMatchScreen = ({ navigation }) => {
       {connectedProfiles.length === 0 ? (
         <Animated.View entering={FadeInDown.delay(80)} style={styles.emptyState}>
           <Moon size={40} color={subColor} />
-          <Text style={[styles.emptyTitle, { color: textColor }]}>Brak połączeń</Text>
-          <Text style={[styles.emptySub, { color: subColor }]}>Wyślij Kosmiczną Intencję do profilu w zakładce ODKRYJ, aby nawiązać połączenie duszy.</Text>
+          <Text style={[styles.emptyTitle, { color: textColor }]}>{t('soulMatch.brak_polaczen', 'Brak połączeń')}</Text>
+          <Text style={[styles.emptySub, { color: subColor }]}>{t('soulMatch.wyslij_kosmiczna_intencje_do_profil', 'Wyślij Kosmiczną Intencję do profilu w zakładce ODKRYJ, aby nawiązać połączenie duszy.')}</Text>
         </Animated.View>
       ) : (
         connectedProfiles.map((p, i) => {
@@ -538,12 +538,12 @@ export const SoulMatchScreen = ({ navigation }) => {
                 <Pressable onPress={() => navigation.navigate('EnergyCircle')}
                   style={[styles.connectedBtn, { backgroundColor: '#A78BFA' + '22', borderColor: '#A78BFA' + '55' }]}>
                   <Zap size={13} color="#A78BFA" />
-                  <Text style={[styles.connectedBtnText, { color: '#A78BFA' }]}>Wspólna medytacja</Text>
+                  <Text style={[styles.connectedBtnText, { color: '#A78BFA' }]}>{t('soulMatch.wspolna_medytacja', 'Wspólna medytacja')}</Text>
                 </Pressable>
                 <View style={[styles.intentionInputRow, { backgroundColor: inputBg, borderColor: cardBorder }]}>
                   <TextInput
                     style={[styles.intentionInput, { color: textColor }]}
-                    placeholder="Napisz intencję..."
+                    placeholder={t('soulMatch.napisz_intencje', 'Napisz intencję...')}
                     placeholderTextColor={subColor}
                     value={intentionInputs[p.id] || ''}
                     onChangeText={v => setIntentionInputs(prev => ({ ...prev, [p.id]: v }))}
@@ -569,8 +569,8 @@ export const SoulMatchScreen = ({ navigation }) => {
       {sentIntentions.length === 0 ? (
         <Animated.View entering={FadeInDown.delay(80)} style={styles.emptyState}>
           <Clock size={40} color={subColor} />
-          <Text style={[styles.emptyTitle, { color: textColor }]}>Brak historii</Text>
-          <Text style={[styles.emptySub, { color: subColor }]}>Wysłane intencje i wiadomości pojawią się tutaj jako oś czasu Twoich kosmicznych połączeń.</Text>
+          <Text style={[styles.emptyTitle, { color: textColor }]}>{t('soulMatch.brak_historii', 'Brak historii')}</Text>
+          <Text style={[styles.emptySub, { color: subColor }]}>{t('soulMatch.wyslane_intencje_i_wiadomosci_pojaw', 'Wysłane intencje i wiadomości pojawią się tutaj jako oś czasu Twoich kosmicznych połączeń.')}</Text>
         </Animated.View>
       ) : (
         sentIntentions.map((intent, i) => (
@@ -610,7 +610,7 @@ export const SoulMatchScreen = ({ navigation }) => {
         <Pressable onPress={() => goBackOrToMainTab(navigation, 'Worlds')} style={styles.backBtn}>
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
-        <Text style={[styles.headerTitle, { color: textColor }]}>Kosmiczne Dopasowanie</Text>
+        <Text style={[styles.headerTitle, { color: textColor }]}>{t('soulMatch.kosmiczne_dopasowani', 'Kosmiczne Dopasowanie')}</Text>
         <Heart size={20} color={ACCENT} />
       </View>
 

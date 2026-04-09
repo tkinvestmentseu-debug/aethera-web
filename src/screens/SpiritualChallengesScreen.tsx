@@ -161,8 +161,8 @@ export const SpiritualChallengesScreen = ({ navigation }) => {
           <ChevronLeft size={22} color={tc} />
         </Pressable>
         <View style={{ flex: 1, alignItems: 'center' }}>
-          <Text style={[styles.headerTitle, { color: tc }]}>Wyzwania Ducha</Text>
-          <Text style={[styles.headerSub, { color: ACCENT }]}>TRANSFORMACJA</Text>
+          <Text style={[styles.headerTitle, { color: tc }]}>{t('spiritualChallenges.wyzwania_ducha', 'Wyzwania Ducha')}</Text>
+          <Text style={[styles.headerSub, { color: ACCENT }]}>{t('spiritualChallenges.transforma', 'TRANSFORMACJA')}</Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <Pressable onPress={() => {
@@ -228,16 +228,16 @@ export const SpiritualChallengesScreen = ({ navigation }) => {
                   {/* Expanded */}
                   {expanded && (
                     <Animated.View entering={FadeIn} style={styles.expandedSection}>
-                      <Text style={[styles.expandLabel, { color: c.color }]}>ZADANIE NA DZIŚ</Text>
+                      <Text style={[styles.expandLabel, { color: c.color }]}>{t('spiritualChallenges.zadanie_na_dzis', 'ZADANIE NA DZIŚ')}</Text>
                       <Text style={[styles.expandTask, { color: tc }]}>{c.task}</Text>
-                      <Text style={[styles.expandLabel, { color: c.color, marginTop: 12 }]}>KORZYŚCI</Text>
+                      <Text style={[styles.expandLabel, { color: c.color, marginTop: 12 }]}>{t('spiritualChallenges.korzysci', 'KORZYŚCI')}</Text>
                       {c.benefits.map((b, j) => (
                         <View key={j} style={styles.benefitRow}>
                           <Text style={{ color: c.color }}>✦</Text>
                           <Text style={[styles.benefitText, { color: tc }]}>{b}</Text>
                         </View>
                       ))}
-                      <Text style={[styles.expandLabel, { color: c.color, marginTop: 12 }]}>WSKAZÓWKI SPOŁECZNOŚCI</Text>
+                      <Text style={[styles.expandLabel, { color: c.color, marginTop: 12 }]}>{t('spiritualChallenges.wskazowki_spolecznos', 'WSKAZÓWKI SPOŁECZNOŚCI')}</Text>
                       {c.tips.map((t, j) => (
                         <Text key={j} style={[styles.tipText, { color: sc }]}>• {t}</Text>
                       ))}
@@ -259,7 +259,7 @@ export const SpiritualChallengesScreen = ({ navigation }) => {
           {/* Joined summary */}
           {joinedIds.length > 0 && (
             <View style={{ marginTop: 8 }}>
-              <Text style={[styles.sectionTitle, { color: sc }]}>TWOJE WYZWANIA</Text>
+              <Text style={[styles.sectionTitle, { color: sc }]}>{t('spiritualChallenges.twoje_wyzwania', 'TWOJE WYZWANIA')}</Text>
               {CHALLENGES.filter(c => joinedIds.includes(c.id)).map(c => (
                 <View key={c.id} style={[styles.myChallenge, { backgroundColor: cb, borderColor: cbr }]}>
                   <View style={[styles.challengeColorDot, { backgroundColor: c.color }]} />
@@ -273,7 +273,7 @@ export const SpiritualChallengesScreen = ({ navigation }) => {
           )}
 
           {/* Ranking */}
-          <Text style={[styles.sectionTitle, { color: sc, marginTop: 24 }]}>SPOŁECZNY RANKING</Text>
+          <Text style={[styles.sectionTitle, { color: sc, marginTop: 24 }]}>{t('spiritualChallenges.spoleczny_ranking', 'SPOŁECZNY RANKING')}</Text>
           {leaderboard.map((r, i) => (
             <View key={i} style={[styles.rankRow, { backgroundColor: cb, borderColor: cbr }]}>
               <Text style={[styles.rankNum, { color: ACCENT }]}>#{i + 1}</Text>
@@ -284,11 +284,11 @@ export const SpiritualChallengesScreen = ({ navigation }) => {
           ))}
 
           {/* Create Challenge */}
-          <Text style={[styles.sectionTitle, { color: sc, marginTop: 24 }]}>STWÓRZ WYZWANIE</Text>
+          <Text style={[styles.sectionTitle, { color: sc, marginTop: 24 }]}>{t('spiritualChallenges.stworz_wyzwanie', 'STWÓRZ WYZWANIE')}</Text>
           <View style={[styles.createCard, { backgroundColor: cb, borderColor: cbr }]}>
-            <TextInput value={newTitle} onChangeText={setNewTitle} placeholder="Nazwa wyzwania..." placeholderTextColor={sc} style={[styles.createInput, { color: tc, borderColor: cbr }]} />
-            <TextInput value={newDays} onChangeText={setNewDays} placeholder="Liczba dni (np. 14)..." placeholderTextColor={sc} keyboardType="numeric" style={[styles.createInput, { color: tc, borderColor: cbr }]} />
-            <TextInput value={newTask} onChangeText={setNewTask} placeholder="Codzienne zadanie..." placeholderTextColor={sc} multiline style={[styles.createInput, { color: tc, borderColor: cbr, minHeight: 64 }]} />
+            <TextInput value={newTitle} onChangeText={setNewTitle} placeholder={t('spiritualChallenges.nazwa_wyzwania', 'Nazwa wyzwania...')} placeholderTextColor={sc} style={[styles.createInput, { color: tc, borderColor: cbr }]} />
+            <TextInput value={newDays} onChangeText={setNewDays} placeholder={t('spiritualChallenges.liczba_dni_np_14', 'Liczba dni (np. 14)...')} placeholderTextColor={sc} keyboardType="numeric" style={[styles.createInput, { color: tc, borderColor: cbr }]} />
+            <TextInput value={newTask} onChangeText={setNewTask} placeholder={t('spiritualChallenges.codzienne_zadanie', 'Codzienne zadanie...')} placeholderTextColor={sc} multiline style={[styles.createInput, { color: tc, borderColor: cbr, minHeight: 64 }]} />
             <Pressable onPress={handleCreate} style={[styles.createBtn, { backgroundColor: ACCENT }]}>
               <Text style={styles.createBtnText}>{createSent ? 'Wyzwanie wysłane do weryfikacji ✦' : 'Wyślij wyzwanie'}</Text>
             </Pressable>

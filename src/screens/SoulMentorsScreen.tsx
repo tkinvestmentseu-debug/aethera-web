@@ -118,7 +118,7 @@ export const SoulMentorsScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => goBackOrToMainTab(navigation, 'Portal')}>
           <ChevronLeft size={22} color={textColor} />
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: textColor }]}>MENTORZY DUSZY</Text>
+        <Text style={[styles.headerTitle, { color: textColor }]}>{t('soulMentors.mentorzy_duszy', 'MENTORZY DUSZY')}</Text>
         <View style={{ width: 32 }} />
       </View>
 
@@ -131,7 +131,7 @@ export const SoulMentorsScreen = ({ navigation }) => {
 
           {/* Featured mentor */}
           <Animated.View entering={FadeInDown.duration(600)} style={{ paddingHorizontal: 22, marginBottom: 20 }}>
-            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 10 }}>MENTOR TYGODNIA</Text>
+            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 10 }}>{t('soulMentors.mentor_tygodnia', 'MENTOR TYGODNIA')}</Text>
             <TouchableOpacity onPress={() => setSelectedMentor(featuredMentor)}>
               <LinearGradient
                 colors={[featuredMentor.color + '30', featuredMentor.color + '10', 'transparent']}
@@ -153,21 +153,21 @@ export const SoulMentorsScreen = ({ navigation }) => {
                   </View>
                   <View style={{ alignItems: 'flex-end' }}>
                     <View style={{ backgroundColor: '#10B981' + '20', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 }}>
-                      <Text style={{ color: '#10B981', fontSize: 10, fontWeight: '700' }}>● ONLINE</Text>
+                      <Text style={{ color: '#10B981', fontSize: 10, fontWeight: '700' }}>{t('soulMentors.online', '● ONLINE')}</Text>
                     </View>
                     <Text style={{ color: textColor, fontSize: 16, fontWeight: '800', marginTop: 8 }}>{featuredMentor.price} zł</Text>
-                    <Text style={{ color: subColor, fontSize: 10 }}>/sesję</Text>
+                    <Text style={{ color: subColor, fontSize: 10 }}>{t('soulMentors.sesje', '/sesję')}</Text>
                   </View>
                 </View>
                 <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginTop: 12 }} numberOfLines={2}>{featuredMentor.bio}</Text>
                 <View style={{ flexDirection: 'row', gap: 8, marginTop: 12 }}>
                   <View style={{ flex: 1, backgroundColor: featuredMentor.color + '20', borderRadius: 12, paddingVertical: 12, alignItems: 'center' }}>
                     <Video size={16} color={featuredMentor.color} />
-                    <Text style={{ color: featuredMentor.color, fontSize: 11, fontWeight: '600', marginTop: 4 }}>Sesja video</Text>
+                    <Text style={{ color: featuredMentor.color, fontSize: 11, fontWeight: '600', marginTop: 4 }}>{t('soulMentors.sesja_video', 'Sesja video')}</Text>
                   </View>
                   <View style={{ flex: 1, backgroundColor: cardBg, borderRadius: 12, paddingVertical: 12, alignItems: 'center', borderWidth: 1, borderColor: cardBorder }}>
                     <MessageCircle size={16} color={ACCENT} />
-                    <Text style={{ color: ACCENT, fontSize: 11, fontWeight: '600', marginTop: 4 }}>Wiadomość</Text>
+                    <Text style={{ color: ACCENT, fontSize: 11, fontWeight: '600', marginTop: 4 }}>{t('soulMentors.wiadomosc', 'Wiadomość')}</Text>
                   </View>
                 </View>
               </LinearGradient>
@@ -178,7 +178,7 @@ export const SoulMentorsScreen = ({ navigation }) => {
           <Animated.View entering={FadeInDown.delay(100).duration(500)} style={{ paddingHorizontal: 22, marginBottom: 14 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: cardBg, borderRadius: 14, borderWidth: 1, borderColor: cardBorder, paddingHorizontal: 14, paddingVertical: 10 }}>
               <Search size={16} color={subColor} />
-              <TextInput value={search} onChangeText={setSearch} placeholder="Szukaj mentora..."
+              <TextInput value={search} onChangeText={setSearch} placeholder={t('soulMentors.szukaj_mentora', 'Szukaj mentora...')}
                 placeholderTextColor={subColor} style={{ flex: 1, color: textColor, fontSize: 14 }} />
             </View>
           </Animated.View>
@@ -219,7 +219,7 @@ export const SoulMentorsScreen = ({ navigation }) => {
                     </View>
                     <View style={{ alignItems: 'flex-end' }}>
                       <Text style={{ color: textColor, fontSize: 15, fontWeight: '800' }}>{mentor.price} zł</Text>
-                      <Text style={{ color: subColor, fontSize: 10 }}>/sesję</Text>
+                      <Text style={{ color: subColor, fontSize: 10 }}>{t('soulMentors.sesje_1', '/sesję')}</Text>
                     </View>
                   </LinearGradient>
                 </TouchableOpacity>
@@ -229,7 +229,7 @@ export const SoulMentorsScreen = ({ navigation }) => {
 
           {/* Reviews */}
           <Animated.View entering={FadeInDown.delay(300).duration(600)} style={{ paddingHorizontal: 22, marginTop: 28 }}>
-            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 12 }}>OPINIE UCZESTNIKÓW</Text>
+            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 12 }}>{t('soulMentors.opinie_uczestniko', 'OPINIE UCZESTNIKÓW')}</Text>
             <View style={{ gap: 10 }}>
               {REVIEWS.map((r, i) => (
                 <View key={i} style={{ backgroundColor: cardBg, borderRadius: 14, padding: 14, borderWidth: 1, borderColor: cardBorder }}>
@@ -246,9 +246,9 @@ export const SoulMentorsScreen = ({ navigation }) => {
               <LinearGradient colors={['rgba(96,165,250,0.15)', 'rgba(96,165,250,0.05)']}
                 style={{ borderRadius: 16, padding: 18, borderWidth: 1, borderColor: ACCENT + '40', alignItems: 'center' }}>
                 <Crown size={24} color={ACCENT} style={{ marginBottom: 8 }} />
-                <Text style={{ color: textColor, fontSize: 16, fontWeight: '700' }}>Zostań Mentorem Duszy</Text>
+                <Text style={{ color: textColor, fontSize: 16, fontWeight: '700' }}>{t('soulMentors.zostan_mentorem_duszy', 'Zostań Mentorem Duszy')}</Text>
                 <Text style={{ color: subColor, fontSize: 12, textAlign: 'center', marginTop: 6, lineHeight: 18 }}>
-                  Dziel się swoją wiedzą i prowadź innych na ich ścieżce. Aplikuj i dołącz do naszej społeczności mistrzów.
+                  {t('soulMentors.dziel_sie_swoja_wiedza_i', 'Dziel się swoją wiedzą i prowadź innych na ich ścieżce. Aplikuj i dołącz do naszej społeczności mistrzów.')}
                 </Text>
               </LinearGradient>
             </TouchableOpacity>
@@ -271,7 +271,7 @@ export const SoulMentorsScreen = ({ navigation }) => {
                 <>
                   <Text style={{ color: selectedMentor.color, fontSize: 13, marginBottom: 8 }}>{selectedMentor.specialty}</Text>
                   <Text style={{ color: subColor, fontSize: 13, lineHeight: 21, marginBottom: 16 }}>{selectedMentor.bio}</Text>
-                  <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 10 }}>DOSTĘPNE TERMINY</Text>
+                  <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 10 }}>{t('soulMentors.dostepne_terminy', 'DOSTĘPNE TERMINY')}</Text>
                   <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 20 }}>
                     {selectedMentor.times.map(t => (
                       <TouchableOpacity key={t} onPress={() => setBookedTime(t)}
@@ -283,7 +283,7 @@ export const SoulMentorsScreen = ({ navigation }) => {
                   {bookingConfirmed ? (
                     <View style={{ backgroundColor: '#10B981' + '20', borderRadius: 14, padding: 16, alignItems: 'center' }}>
                       <Check size={24} color="#10B981" />
-                      <Text style={{ color: '#10B981', fontWeight: '700', fontSize: 15, marginTop: 8 }}>Sesja zarezerwowana!</Text>
+                      <Text style={{ color: '#10B981', fontWeight: '700', fontSize: 15, marginTop: 8 }}>{t('soulMentors.sesja_zarezerwow', 'Sesja zarezerwowana!')}</Text>
                       <Text style={{ color: subColor, fontSize: 12, marginTop: 4 }}>{bookedTime}</Text>
                     </View>
                   ) : (
@@ -321,13 +321,13 @@ export const SoulMentorsScreen = ({ navigation }) => {
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.85)', justifyContent: 'flex-end' }}>
           <View style={{ backgroundColor: isLight ? '#FFFFFF' : '#12101E', borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 24 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 }}>
-              <Text style={{ color: textColor, fontSize: 18, fontWeight: '700' }}>Aplikuj jako Mentor</Text>
+              <Text style={{ color: textColor, fontSize: 18, fontWeight: '700' }}>{t('soulMentors.aplikuj_jako_mentor', 'Aplikuj jako Mentor')}</Text>
               <TouchableOpacity onPress={() => setShowApplyModal(false)}>
                 <X size={20} color={subColor} />
               </TouchableOpacity>
             </View>
             <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 20 }}>
-              Twoja aplikacja zostanie rozpatrzona przez zespół Aethery. Poszukujemy doświadczonych praktykantów z potwierdzonym doświadczeniem.
+              {t('soulMentors.twoja_aplikacja_zostanie_rozpatrzon', 'Twoja aplikacja zostanie rozpatrzona przez zespół Aethery. Poszukujemy doświadczonych praktykantów z potwierdzonym doświadczeniem.')}
             </Text>
             <TouchableOpacity
               onPress={() => {
@@ -342,7 +342,7 @@ export const SoulMentorsScreen = ({ navigation }) => {
                 setShowApplyModal(false);
               }}
               style={{ backgroundColor: ACCENT, borderRadius: 14, paddingVertical: 16, alignItems: 'center' }}>
-              <Text style={{ color: '#fff', fontWeight: '700', fontSize: 15 }}>Wyślij zgłoszenie</Text>
+              <Text style={{ color: '#fff', fontWeight: '700', fontSize: 15 }}>{t('soulMentors.wyslij_zgloszenie', 'Wyślij zgłoszenie')}</Text>
             </TouchableOpacity>
           </View>
         </View>

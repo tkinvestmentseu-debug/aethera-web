@@ -283,7 +283,7 @@ const EventCard = React.memo(function EventCard({
           {isLive && (
             <View style={styles.liveBadge}>
               <View style={styles.liveDot} />
-              <Text style={styles.liveBadgeText}>LIVE</Text>
+              <Text style={styles.liveBadgeText}>{t('communityEvents.live', 'LIVE')}</Text>
             </View>
           )}
 
@@ -363,7 +363,7 @@ const EventCard = React.memo(function EventCard({
                 onPress={() => {
                   HapticsService.impact('medium');
                   if (isLive) {
-                    Alert.alert('Dołączanie do sesji', 'Funkcja wejścia live pojawi się wkrótce.');
+                    Alert.alert(t('communityEvents.dolaczanie_do_sesji', 'Dołączanie do sesji'), t('communityEvents.funkcja_wejscia_live_pojawi_sie', 'Funkcja wejścia live pojawi się wkrótce.'));
                   } else {
                     onLeave(event);
                   }
@@ -384,7 +384,7 @@ const EventCard = React.memo(function EventCard({
                 onPress={() => {
                   HapticsService.impact('medium');
                   if (isFull) {
-                    Alert.alert('Brak miejsc', 'To wydarzenie jest już pełne.');
+                    Alert.alert(t('communityEvents.brak_miejsc', 'Brak miejsc'), t('communityEvents.to_wydarzenie_jest_juz_pelne', 'To wydarzenie jest już pełne.'));
                     return;
                   }
                   onJoin(event);
@@ -453,11 +453,11 @@ const CreateEventModal = React.memo(function CreateEventModal({
 
   const handleCreate = async () => {
     if (!title.trim()) {
-      Alert.alert('Brak tytułu', 'Podaj tytuł wydarzenia.');
+      Alert.alert(t('communityEvents.brak_tytulu', 'Brak tytułu'), t('communityEvents.podaj_tytul_wydarzenia', 'Podaj tytuł wydarzenia.'));
       return;
     }
     if (!currentUser) {
-      Alert.alert('Błąd', 'Musisz być zalogowany(a).');
+      Alert.alert(t('communityEvents.blad', 'Błąd'), t('communityEvents.musisz_byc_zalogowany_a', 'Musisz być zalogowany(a).'));
       return;
     }
 
@@ -508,7 +508,7 @@ const CreateEventModal = React.memo(function CreateEventModal({
       setMaxParticipants('50');
       setIsPrivate(false);
     } catch (e) {
-      Alert.alert('Błąd', 'Nie udało się stworzyć wydarzenia. Spróbuj ponownie.');
+      Alert.alert(t('communityEvents.blad_1', 'Błąd'), t('communityEvents.nie_udalo_sie_stworzyc_wydarzenia', 'Nie udało się stworzyć wydarzenia. Spróbuj ponownie.'));
     } finally {
       setLoading(false);
     }
@@ -711,11 +711,11 @@ const JoinByCodeModal = React.memo(function JoinByCodeModal({
 
   const handleJoin = async () => {
     if (code.trim().length < 4) {
-      Alert.alert('Błąd', 'Podaj prawidłowy kod (min. 4 znaki).');
+      Alert.alert(t('communityEvents.blad_2', 'Błąd'), t('communityEvents.podaj_prawidlowy_kod_min_4', 'Podaj prawidłowy kod (min. 4 znaki).'));
       return;
     }
     if (!currentUser) {
-      Alert.alert('Błąd', 'Musisz być zalogowany(a).');
+      Alert.alert(t('communityEvents.blad_3', 'Błąd'), t('communityEvents.musisz_byc_zalogowany_a_1', 'Musisz być zalogowany(a).'));
       return;
     }
     setLoading(true);
@@ -730,10 +730,10 @@ const JoinByCodeModal = React.memo(function JoinByCodeModal({
         setCode('');
         onClose();
       } else {
-        Alert.alert('Nie znaleziono', 'Kod jest nieprawidłowy lub wydarzenie nie istnieje.');
+        Alert.alert(t('communityEvents.nie_znaleziono', 'Nie znaleziono'), t('communityEvents.kod_jest_nieprawidl_lub_wydarzenie', 'Kod jest nieprawidłowy lub wydarzenie nie istnieje.'));
       }
     } catch {
-      Alert.alert('Błąd', 'Nie udało się dołączyć. Spróbuj ponownie.');
+      Alert.alert(t('communityEvents.blad_4', 'Błąd'), t('communityEvents.nie_udalo_sie_dolaczyc_sprobuj', 'Nie udało się dołączyć. Spróbuj ponownie.'));
     } finally {
       setLoading(false);
     }
@@ -752,7 +752,7 @@ const JoinByCodeModal = React.memo(function JoinByCodeModal({
             <TextInput
               value={code}
               onChangeText={(t) => setCode(t.toUpperCase())}
-              placeholder="ABCDEF"
+              placeholder={t('communityEvents.abcdef', 'ABCDEF')}
               placeholderTextColor={sc}
               style={[
                 styles.codeInput,
@@ -874,7 +874,7 @@ export const CommunityEventsScreen = ({ navigation }: { navigation: any }) => {
   const handleJoin = useCallback(
     async (event: CommunityEvent) => {
       if (!currentUser) {
-        Alert.alert('Zaloguj się', 'Musisz być zalogowany(a), aby dołączyć do wydarzenia.');
+        Alert.alert(t('communityEvents.zaloguj_sie', 'Zaloguj się'), t('communityEvents.musisz_byc_zalogowany_a_aby', 'Musisz być zalogowany(a), aby dołączyć do wydarzenia.'));
         return;
       }
       try {
@@ -886,7 +886,7 @@ export const CommunityEventsScreen = ({ navigation }: { navigation: any }) => {
         HapticsService.notify();
         Alert.alert('Zapisano! 🎉', `Dołączyłeś(aś) do: ${event.title}`);
       } catch {
-        Alert.alert('Błąd', 'Nie udało się dołączyć do wydarzenia.');
+        Alert.alert(t('communityEvents.blad_5', 'Błąd'), t('communityEvents.nie_udalo_sie_dolaczyc_do', 'Nie udało się dołączyć do wydarzenia.'));
       }
     },
     [currentUser],
@@ -900,7 +900,7 @@ export const CommunityEventsScreen = ({ navigation }: { navigation: any }) => {
         setMyEvents((prev) => prev.filter((e) => e.id !== event.id));
         HapticsService.impact('medium');
       } catch {
-        Alert.alert('Błąd', 'Nie udało się opuścić wydarzenia.');
+        Alert.alert(t('communityEvents.blad_6', 'Błąd'), t('communityEvents.nie_udalo_sie_opuscic_wydarzenia', 'Nie udało się opuścić wydarzenia.'));
       }
     },
     [currentUser],

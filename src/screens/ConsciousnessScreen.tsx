@@ -169,7 +169,7 @@ export const ConsciousnessScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => goBackOrToMainTab(navigation, 'Portal')}>
           <ChevronLeft size={22} color={textColor} />
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: textColor }]}>ŚWIADOMOŚĆ ZBIOROWA</Text>
+        <Text style={[styles.headerTitle, { color: textColor }]}>{t('consciousness.swiadomosc_zbiorowa', 'ŚWIADOMOŚĆ ZBIOROWA')}</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <MusicToggleButton color={ACCENT} size={19} />
           <TouchableOpacity onPress={() => setShowPostModal(true)}
@@ -195,13 +195,13 @@ export const ConsciousnessScreen = ({ navigation }) => {
                 alignItems: 'center', justifyContent: 'center',
               }, orbStyle]}>
                 <Text style={{ color: ACCENT, fontSize: 32, fontWeight: '800' }}>{CONSCIOUSNESS_LEVEL}</Text>
-                <Text style={{ color: subColor, fontSize: 10, letterSpacing: 1 }}>ŚWIADOMOŚĆ</Text>
+                <Text style={{ color: subColor, fontSize: 10, letterSpacing: 1 }}>{t('consciousness.swiadomosc', 'ŚWIADOMOŚĆ')}</Text>
               </Animated.View>
               <Text style={{ color: textColor, fontSize: 14, fontWeight: '600', marginTop: 10 }}>
-                Globalny Poziom Świadomości
+                {t('consciousness.globalny_poziom_swiadomosc', 'Globalny Poziom Świadomości')}
               </Text>
               <Text style={{ color: subColor, fontSize: 12, textAlign: 'center', marginTop: 4, lineHeight: 18 }}>
-                Wyliczany z aktywności 12,847 połączonych dusz
+                {t('consciousness.wyliczany_z_aktywnosci_12_847', 'Wyliczany z aktywności 12,847 połączonych dusz')}
               </Text>
             </View>
 
@@ -217,9 +217,9 @@ export const ConsciousnessScreen = ({ navigation }) => {
             {/* Stats row */}
             <View style={{ flexDirection: 'row', gap: 16, marginTop: 16 }}>
               {[
-                { label: 'ONLINE', value: '12,847' },
-                { label: 'POSTY DZIŚ', value: '2,341' },
-                { label: 'REZONANS', value: '94%' },
+                { label: t('consciousness.online', 'ONLINE'), value: '12,847' },
+                { label: t('consciousness.posty_dzis', 'POSTY DZIŚ'), value: '2,341' },
+                { label: t('consciousness.rezonans', 'REZONANS'), value: '94%' },
               ].map(s => (
                 <View key={s.label} style={{ alignItems: 'center', flex: 1, backgroundColor: cardBg, borderRadius: 12, padding: 10, borderWidth: 1, borderColor: cardBorder }}>
                   <Text style={{ color: ACCENT, fontSize: 16, fontWeight: '800' }}>{s.value}</Text>
@@ -235,13 +235,13 @@ export const ConsciousnessScreen = ({ navigation }) => {
               colors={[ACCENT + '18', ACCENT + '08', 'transparent']}
               style={{ borderRadius: 16, padding: 16, borderWidth: 1, borderColor: ACCENT + '30' }}
             >
-              <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 8 }}>PYTANIE DNIA</Text>
+              <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 8 }}>{t('consciousness.pytanie_dnia', 'PYTANIE DNIA')}</Text>
               <Text style={{ color: textColor, fontSize: 14, lineHeight: 22, marginBottom: 14 }}>{QUESTION.text}</Text>
               <View style={{ flexDirection: 'row', gap: 8 }}>
                 {[
-                  { key: 'tak', label: 'Tak', color: '#34D399' },
-                  { key: 'nie', label: 'Nie', color: '#F87171' },
-                  { key: 'nwiem', label: 'Nie wiem', color: '#FBBF24' },
+                  { key: 'tak', label: t('consciousness.tak', 'Tak'), color: '#34D399' },
+                  { key: 'nie', label: t('consciousness.nie', 'Nie'), color: '#F87171' },
+                  { key: 'nwiem', label: t('consciousness.nie_wiem', 'Nie wiem'), color: '#FBBF24' },
                 ].map(opt => (
                   <TouchableOpacity
                     key={opt.key}
@@ -267,14 +267,14 @@ export const ConsciousnessScreen = ({ navigation }) => {
           <Animated.View entering={FadeInDown.delay(200).duration(600)} style={{ paddingHorizontal: 22, marginBottom: 20 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
               <TrendingUp size={14} color={ACCENT} />
-              <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 2 }}>TRENDY</Text>
+              <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 2 }}>{t('consciousness.trendy', 'TRENDY')}</Text>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={{ flexDirection: 'row', gap: 8 }}>
                 {TRENDING.map(t => (
                   <View key={t.tag} style={{ backgroundColor: cardBg, borderRadius: 20, paddingHorizontal: 12, paddingVertical: 6, borderWidth: 1, borderColor: cardBorder }}>
                     <Text style={{ color: ACCENT, fontSize: 12, fontWeight: '600' }}>{t.tag}</Text>
-                          <Text style={{ color: subColor, fontSize: 10 }}>{formatLocaleNumber(t.count)} {i18n.language?.startsWith('en') ? 'posts' : 'postów'}</Text>
+                          <Text style={{ color: subColor, fontSize: 10 }}>{formatLocaleNumber(t.count)} {i18n.language?.startsWith('en') ? 'posts' : t('consciousness.postow', 'postów')}</Text>
                   </View>
                 ))}
               </View>
@@ -362,14 +362,14 @@ export const ConsciousnessScreen = ({ navigation }) => {
           <Animated.View entering={FadeInDown.delay(400).duration(600)} style={{ paddingHorizontal: 22, marginTop: 24, marginBottom: 8 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
               <Eye size={14} color={ACCENT} />
-              <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 2 }}>NAJBARDZIEJ REZONUJĄCE W TYM TYGODNIU</Text>
+              <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 2 }}>{t('consciousness.najbardzie_rezonujace_w_tym_tygodni', 'NAJBARDZIEJ REZONUJĄCE W TYM TYGODNIU')}</Text>
             </View>
             {feedPosts.filter((_, i) => i < 3).sort((a, b) => b.likes - a.likes).map((post, i) => (
               <View key={post.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 12, backgroundColor: cardBg, borderRadius: 12, padding: 12, borderWidth: 1, borderColor: cardBorder, marginBottom: 8 }}>
                 <Text style={{ color: ACCENT, fontSize: 18, fontWeight: '800', width: 28 }}>#{i + 1}</Text>
                 <View style={{ flex: 1 }}>
                   <Text style={{ color: textColor, fontSize: 12 }} numberOfLines={2}>{post.content}</Text>
-                  <Text style={{ color: subColor, fontSize: 11, marginTop: 4 }}>{post.author} · {post.likes} rezonancji</Text>
+                  <Text style={{ color: subColor, fontSize: 11, marginTop: 4 }}>{post.author} · {post.likes} {t('consciousness.rezonancji', 'rezonancji')}</Text>
                 </View>
               </View>
             ))}
@@ -383,7 +383,7 @@ export const ConsciousnessScreen = ({ navigation }) => {
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'flex-end' }}>
           <View style={{ backgroundColor: isLight ? '#FFFFFF' : '#12101E', borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 24 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
-              <Text style={{ color: textColor, fontSize: 16, fontWeight: '700' }}>Podziel się ze wspólnotą</Text>
+              <Text style={{ color: textColor, fontSize: 16, fontWeight: '700' }}>{t('consciousness.podziel_sie_ze_wspolnota', 'Podziel się ze wspólnotą')}</Text>
               <TouchableOpacity onPress={() => setShowPostModal(false)}>
                 <X size={20} color={subColor} />
               </TouchableOpacity>
@@ -402,7 +402,7 @@ export const ConsciousnessScreen = ({ navigation }) => {
               multiline
               value={postText}
               onChangeText={setPostText}
-              placeholder="Co chcesz podzielić ze wspólnotą?"
+              placeholder={t('consciousness.co_chcesz_podzielic_ze_wspolnota', 'Co chcesz podzielić ze wspólnotą?')}
               placeholderTextColor={subColor}
               style={{ color: textColor, backgroundColor: cardBg, borderRadius: 12, padding: 14, height: 120, textAlignVertical: 'top', fontSize: 14, borderWidth: 1, borderColor: cardBorder, marginBottom: 16 }}
             />
@@ -437,7 +437,7 @@ export const ConsciousnessScreen = ({ navigation }) => {
               }}
               style={{ backgroundColor: ACCENT, borderRadius: 14, paddingVertical: 14, alignItems: 'center' }}
             >
-              <Text style={{ color: '#fff', fontWeight: '700', fontSize: 14 }}>Wyślij do strumienia</Text>
+              <Text style={{ color: '#fff', fontWeight: '700', fontSize: 14 }}>{t('consciousness.wyslij_do_strumienia', 'Wyślij do strumienia')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -448,15 +448,15 @@ export const ConsciousnessScreen = ({ navigation }) => {
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'flex-end' }}>
           <View style={{ backgroundColor: isLight ? '#FFFFFF' : '#12101E', borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 24 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
-              <Text style={{ color: textColor, fontSize: 16, fontWeight: '700' }}>Komentarze</Text>
+              <Text style={{ color: textColor, fontSize: 16, fontWeight: '700' }}>{t('consciousness.komentarze', 'Komentarze')}</Text>
               <TouchableOpacity onPress={() => setCommentModal(null)}>
                 <X size={20} color={subColor} />
               </TouchableOpacity>
             </View>
             {loadingComments ? (
-              <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', paddingVertical: 12 }}>Ładowanie...</Text>
+              <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', paddingVertical: 12 }}>{t('consciousness.ladowanie', 'Ładowanie...')}</Text>
             ) : comments.length === 0 ? (
-              <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', paddingVertical: 12 }}>Bądź pierwszą/pierwszym, kto skomentuje ✦</Text>
+              <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', paddingVertical: 12 }}>{t('consciousness.badz_pierwsza_pierwszym_kto_skoment', 'Bądź pierwszą/pierwszym, kto skomentuje ✦')}</Text>
             ) : (
               comments.map((c, i) => (
                 <View key={c.id ?? i} style={{ flexDirection: 'row', gap: 10, marginBottom: 12 }}>
@@ -474,7 +474,7 @@ export const ConsciousnessScreen = ({ navigation }) => {
               <TextInput
                 value={commentText}
                 onChangeText={setCommentText}
-                placeholder="Twój komentarz..."
+                placeholder={t('consciousness.twoj_komentarz', 'Twój komentarz...')}
                 placeholderTextColor={subColor}
                 returnKeyType="send"
                 onSubmitEditing={sendComment}

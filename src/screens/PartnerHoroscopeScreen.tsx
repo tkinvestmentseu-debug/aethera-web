@@ -149,7 +149,7 @@ const DualZodiacWheel = ({ accent }: { accent: string }) => {
         </Animated.View>
       </GestureDetector>
       <Typography variant="caption" style={{ position: 'absolute', bottom: 2, opacity: 0.38, letterSpacing: 1 }}>
-        ← przeciągnij, by odchylić →
+        {t('partnerHoroscope.przeciagni_by_odchylic', '← przeciągnij, by odchylić →')}
       </Typography>
     </View>
   );
@@ -481,8 +481,8 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
               <ChevronLeft color={accent} size={26} />
             </Pressable>
             <View style={s.headerCenter}>
-              <Typography variant="premiumLabel" color={accent} style={s.eyebrow}>HOROSKOP RELACYJNY</Typography>
-              <Typography variant="screenTitle" style={[s.headerTitle, { color: textColor }]}>Astrologia Połączenia</Typography>
+              <Typography variant="premiumLabel" color={accent} style={s.eyebrow}>{t('partnerHoroscope.horoskop_relacyjny', 'HOROSKOP RELACYJNY')}</Typography>
+              <Typography variant="screenTitle" style={[s.headerTitle, { color: textColor }]}>{t('partnerHoroscope.astrologia_polaczenia', 'Astrologia Połączenia')}</Typography>
             </View>
             <Pressable
               onPress={() => { if (isFavoriteItem('partner_horoscope')) { removeFavoriteItem('partner_horoscope'); } else { addFavoriteItem({ id: 'partner_horoscope', label: 'Horoskop partnera', route: 'PartnerHoroscope', params: {}, icon: 'Heart', color: accent, addedAt: new Date().toISOString() }); } }}
@@ -505,7 +505,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
             {/* ── HERO SUBTITLE ─────────────────────────────── */}
             <View style={s.heroSubtitle}>
               <Typography variant="bodyRefined" style={{ color: subColor, textAlign: 'center', lineHeight: 24 }}>
-                Dwa znaki, dwa żywioły — jedno pole magnetyczne. Odkryj harmonię i napięcie w Waszej astrologicznej dynamice.
+                {t('partnerHoroscope.dwa_znaki_dwa_zywioly_jedno', 'Dwa znaki, dwa żywioły — jedno pole magnetyczne. Odkryj harmonię i napięcie w Waszej astrologicznej dynamice.')}
               </Typography>
             </View>
 
@@ -515,7 +515,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
               <View style={[s.signCard, { backgroundColor: isLight ? accent + '06' : accent + '10', borderColor: accent + '40' }]}>
                 <View style={s.signCardHeader}>
                   <View style={[s.signCardDot, { backgroundColor: accent }]} />
-                  <Typography variant="microLabel" color={accent}>TWÓJ ZNAK</Typography>
+                  <Typography variant="microLabel" color={accent}>{t('partnerHoroscope.twoj_znak', 'TWÓJ ZNAK')}</Typography>
                 </View>
                 {mySign ? (
                   <View style={s.signDisplay}>
@@ -531,7 +531,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
                     onPress={() => setMyPickerVisible(true)}
                   >
                     <Calendar color={accent} size={15} />
-                    <Typography variant="caption" style={{ color: subColor, marginLeft: 8 }}>Twoja data urodzenia</Typography>
+                    <Typography variant="caption" style={{ color: subColor, marginLeft: 8 }}>{t('partnerHoroscope.twoja_data_urodzenia', 'Twoja data urodzenia')}</Typography>
                   </Pressable>
                 )}
               </View>
@@ -549,7 +549,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
               <View style={[s.signCard, { backgroundColor: isLight ? accentWarm + '06' : accentWarm + '10', borderColor: accentWarm + '40' }]}>
                 <View style={s.signCardHeader}>
                   <View style={[s.signCardDot, { backgroundColor: accentWarm }]} />
-                  <Typography variant="microLabel" color={accentWarm}>ZNAK PARTNERA/KI</Typography>
+                  <Typography variant="microLabel" color={accentWarm}>{t('partnerHoroscope.znak_partnera_ki', 'ZNAK PARTNERA/KI')}</Typography>
                 </View>
                 {partnerSign ? (
                   <View style={s.signDisplay}>
@@ -563,7 +563,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
                 <MysticalInput
                   value={partnerName}
                   onChangeText={setPartnerName}
-                  placeholder="Imię tej osoby"
+                  placeholder={t('partnerHoroscope.imie_tej_osoby', 'Imię tej osoby')}
                   placeholderTextColor={subColor + '88'}
                   style={{ color: textColor, fontSize: 14, marginBottom: 6 }}
                 />
@@ -586,7 +586,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
             {!partnerBirthDate && (
               <View style={[s.hintBox, { backgroundColor: accent + '0A', borderColor: accent + '25' }]}>
                 <Typography variant="caption" style={{ color: subColor, lineHeight: 19, textAlign: 'center' }}>
-                  Wpisz datę urodzenia partnera/ki, by odkryć astrologiczną dynamikę Waszej relacji.
+                  {t('partnerHoroscope.wpisz_date_urodzenia_partnera_ki', 'Wpisz datę urodzenia partnera/ki, by odkryć astrologiczną dynamikę Waszej relacji.')}
                 </Typography>
               </View>
             )}
@@ -594,7 +594,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
             {/* ── ZODIAC SELECTORS (12 chips each) ─────────── */}
             {!mySign && (
               <View style={s.zodiacPicker}>
-                <Typography variant="microLabel" color={accent} style={{ marginBottom: 10 }}>WYBIERZ SWÓJ ZNAK</Typography>
+                <Typography variant="microLabel" color={accent} style={{ marginBottom: 10 }}>{t('partnerHoroscope.wybierz_swoj_znak', 'WYBIERZ SWÓJ ZNAK')}</Typography>
                 <View style={s.zodiacChips}>
                   {ZODIAC_ORDER.map(sign => (
                     <Pressable
@@ -621,7 +621,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
                     <LinearGradient colors={[SCORE_COLOR(overallScore) + '14', 'transparent']} style={StyleSheet.absoluteFill as any} />
                     <View style={s.compatBadgeRow}>
                       <View style={[s.compatBadge, { backgroundColor: SCORE_COLOR(overallScore) + '20', borderColor: SCORE_COLOR(overallScore) + '44' }]}>
-                        <Typography variant="microLabel" color={SCORE_COLOR(overallScore)}>♥ ZGODNOŚĆ ZNAKÓW</Typography>
+                        <Typography variant="microLabel" color={SCORE_COLOR(overallScore)}>{t('partnerHoroscope.zgodnosc_znakow', '♥ ZGODNOŚĆ ZNAKÓW')}</Typography>
                       </View>
                     </View>
                     <CompatGauge score={overallScore} accent={accent} />
@@ -648,7 +648,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
                 {/* ── ELEMENT DYNAMICS ─────────────────────── */}
                 {elementDynamic && (
                   <Animated.View entering={FadeInDown.delay(100).springify()}>
-                    <SectionTitle label="DYNAMIKA PARY" accent={accent} />
+                    <SectionTitle label={t('partnerHoroscope.dynamika_pary', 'DYNAMIKA PARY')} accent={accent} />
                     <View style={[s.dynamikaCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                       <LinearGradient colors={[accent + '0A', accentWarm + '06', 'transparent']} style={StyleSheet.absoluteFill as any} />
                       <View style={s.dynamikaSigns}>
@@ -681,9 +681,9 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
                 {/* ── COMPATIBILITY RADAR ──────────────────── */}
                 {compatibilityScores && (
                   <Animated.View entering={FadeInDown.delay(100).springify()}>
-                    <SectionTitle label="OBSZARY ZGODNOŚCI" accent={accentWarm} />
+                    <SectionTitle label={t('partnerHoroscope.obszary_zgodnosci', 'OBSZARY ZGODNOŚCI')} accent={accentWarm} />
                     <Typography variant="caption" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
-                      Sześć wymiarów kompatybilności — profil Waszej relacji.
+                      {t('partnerHoroscope.szesc_wymiarow_kompatybil_profil_wa', 'Sześć wymiarów kompatybilności — profil Waszej relacji.')}
                     </Typography>
                     <View style={[s.radarCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                       <RadarChart
@@ -709,9 +709,9 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
                 {/* ── SYNASTRY PLANETS ─────────────────────── */}
                 {synastriaAspects && (
                   <Animated.View entering={FadeInDown.delay(100).springify()}>
-                    <SectionTitle label="SYNASTRIA PLANET" accent={accent} />
+                    <SectionTitle label={t('partnerHoroscope.synastria_planet', 'SYNASTRIA PLANET')} accent={accent} />
                     <Typography variant="caption" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
-                      Pięć kluczowych aspektów planetarnych między Waszymi mapami.
+                      {t('partnerHoroscope.piec_kluczowych_aspektow_planetarny', 'Pięć kluczowych aspektów planetarnych między Waszymi mapami.')}
                     </Typography>
                     <View style={{ gap: 10 }}>
                       {synastriaAspects.map((asp, idx) => (
@@ -741,7 +741,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
                 {/* ── RELATIONSHIP CYCLE ───────────────────── */}
                 {relationshipCycle && (
                   <Animated.View entering={FadeInDown.delay(100).springify()}>
-                    <SectionTitle label="CYKL ZWIĄZKU" accent={accentWarm} />
+                    <SectionTitle label={t('partnerHoroscope.cykl_zwiazku', 'CYKL ZWIĄZKU')} accent={accentWarm} />
                     <View style={[s.cycleCard, { backgroundColor: isLight ? relationshipCycle.color + '0A' : relationshipCycle.color + '12', borderColor: relationshipCycle.color + '44' }]}>
                       <LinearGradient colors={[relationshipCycle.color + '16', 'transparent']} style={StyleSheet.absoluteFill as any} />
                       <View style={s.cycleHeader}>
@@ -761,7 +761,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
 
                 {/* ── SILNE STRONY / WYZWANIA / RADA DNIA ─── */}
                 <Animated.View entering={FadeInDown.delay(100).springify()}>
-                  <SectionTitle label="SILNE STRONY, WYZWANIA I RADA DNIA" accent={accent} />
+                  <SectionTitle label={t('partnerHoroscope.silne_strony_wyzwania_i_rada', 'SILNE STRONY, WYZWANIA I RADA DNIA')} accent={accent} />
                   {[
                     {
                       title: 'Silne Strony',
@@ -802,7 +802,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
 
                 {/* ── RELATIONSHIP PRACTICES ───────────────── */}
                 <Animated.View entering={FadeInDown.delay(120).springify()}>
-                  <SectionTitle label="PRAKTYKI DLA PARY" accent={accentWarm} />
+                  <SectionTitle label={t('partnerHoroscope.praktyki_dla_pary', 'PRAKTYKI DLA PARY')} accent={accentWarm} />
                   <View style={{ gap: 12 }}>
                     {RELATIONSHIP_PRACTICES.map((practice, idx) => (
                       <Animated.View key={practice.title} entering={FadeInDown.delay(80 + idx * 55).duration(380)}>
@@ -828,7 +828,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
                 {/* ── AI SYNASTRY ──────────────────────────── */}
                 {aiAvailable && (
                   <Animated.View entering={FadeInDown.delay(140).springify()}>
-                    <SectionTitle label="AI SYNASTRIA" accent={accent} />
+                    <SectionTitle label={t('partnerHoroscope.ai_synastria', 'AI SYNASTRIA')} accent={accent} />
                     {!aiSynastria && !isGeneratingAi && (
                       <Pressable
                         onPress={generateAiSynastria}
@@ -837,7 +837,7 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
                         <LinearGradient colors={[accent + '18', 'transparent']} style={StyleSheet.absoluteFill as any} />
                         <Wand2 color={accent} size={18} strokeWidth={1.8} />
                         <Typography variant="cardTitle" style={{ color: accent, marginLeft: 12, fontSize: 14, flex: 1 }}>
-                          Wygeneruj odczyt synastrii AI
+                          {t('partnerHoroscope.wygeneruj_odczyt_synastrii_ai', 'Wygeneruj odczyt synastrii AI')}
                         </Typography>
                         <ArrowRight color={accent + '88'} size={14} />
                       </Pressable>
@@ -845,18 +845,18 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
                     {isGeneratingAi && (
                       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 20 }}>
                         <ActivityIndicator size="small" color={accent} />
-                        <Typography variant="bodySmall" color={accent} style={{ marginLeft: 12 }}>Czytamy Waszą synastię...</Typography>
+                        <Typography variant="bodySmall" color={accent} style={{ marginLeft: 12 }}>{t('partnerHoroscope.czytamy_wasza_synastie', 'Czytamy Waszą synastię...')}</Typography>
                       </View>
                     )}
                     {aiSynastria && (
                       <Animated.View entering={FadeInDown.duration(400)}>
                         <View style={[s.aiResultCard, { backgroundColor: isLight ? accent + '06' : accent + '0C', borderColor: accent + '30' }]}>
                           <LinearGradient colors={[accent + '0E', 'transparent']} style={StyleSheet.absoluteFill as any} />
-                          <Typography variant="premiumLabel" color={accent} style={{ marginBottom: 12 }}>Odczyt synastrii ✦</Typography>
+                          <Typography variant="premiumLabel" color={accent} style={{ marginBottom: 12 }}>{t('partnerHoroscope.odczyt_synastrii', 'Odczyt synastrii ✦')}</Typography>
                           <Typography variant="bodySmall" style={{ color: subColor, lineHeight: 25 }}>{aiSynastria}</Typography>
                         </View>
                         <Pressable onPress={() => setAiSynastria(null)} style={{ paddingVertical: 12, alignItems: 'center' }}>
-                          <Typography variant="caption" style={{ color: subColor }}>Wygeneruj ponownie</Typography>
+                          <Typography variant="caption" style={{ color: subColor }}>{t('partnerHoroscope.wygeneruj_ponownie', 'Wygeneruj ponownie')}</Typography>
                         </Pressable>
                       </Animated.View>
                     )}
@@ -870,17 +870,17 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
                   <Orbit color={accent} size={28} />
                 </View>
                 <Typography variant="premiumLabel" color={accent} style={{ marginBottom: 8, textAlign: 'center' }}>
-                  Odkryj horoskop relacyjny
+                  {t('partnerHoroscope.odkryj_horoskop_relacyjny', 'Odkryj horoskop relacyjny')}
                 </Typography>
                 <Typography variant="bodySmall" style={{ color: subColor, textAlign: 'center', lineHeight: 22 }}>
-                  Wpisz datę urodzenia partnera/ki, by otworzyć astrologiczną analizę Waszego połączenia.
+                  {t('partnerHoroscope.wpisz_date_urodzenia_partnera_ki_1', 'Wpisz datę urodzenia partnera/ki, by otworzyć astrologiczną analizę Waszego połączenia.')}
                 </Typography>
               </View>
             )}
 
             {/* ── CO DALEJ? ─────────────────────────────── */}
             <Animated.View entering={FadeInDown.delay(100).springify()} style={{ marginTop: 24 }}>
-              <SectionTitle label="CO DALEJ?" accent={accentWarm} />
+              <SectionTitle label={t('partnerHoroscope.co_dalej', 'CO DALEJ?')} accent={accentWarm} />
               {[
                 { label: 'Zgodność znaków', desc: 'Sprawdź pełną mapę relacji — żywioły, tryby i energetyczną wzajemność.', onPress: () => navigation.navigate('Compatibility') },
                 { label: 'Matryca relacji', desc: 'Przenieś partnerowy kontekst do wzorca, lekcji i numerologii połączenia.', onPress: () => navigation.navigate('PartnerMatrix') },
@@ -913,8 +913,8 @@ export const PartnerHoroscopeScreen = ({ navigation }: any) => {
       <PremiumDatePickerSheet
         visible={myPickerVisible}
         mode="date"
-        title="Twoja data urodzenia"
-        description="Potrzebna do obliczenia astrologicznej dynamiki relacji."
+        title={t('partnerHoroscope.twoja_data_urodzenia_1', 'Twoja data urodzenia')}
+        description={t('partnerHoroscope.potrzebna_do_obliczenia_astrologic_', 'Potrzebna do obliczenia astrologicznej dynamiki relacji.')}
         value={new Date(userData.birthDate || '1994-06-15')}
         maximumDate={new Date()}
         onCancel={() => setMyPickerVisible(false)}

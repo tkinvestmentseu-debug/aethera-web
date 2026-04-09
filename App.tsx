@@ -20,6 +20,7 @@ import { isFullySupportedLanguage } from './src/core/i18n/languageOptions';
 import { AudioService } from './src/core/services/audio.service';
 import { AiService } from './src/core/services/ai.service';
 import { TTSService } from './src/core/services/tts.service';
+import { ErrorBoundary } from './src/components/ErrorBoundary';
 
 class RootErrorBoundary extends React.Component<
   { children: React.ReactNode },
@@ -133,18 +134,20 @@ export default function App() {
   }, [experience.ambientSoundscape, experience.backgroundMusicCategory]);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <I18nextProvider i18n={i18n}>
-        <SafeAreaProvider>
-          <RootErrorBoundary>
-            <StatusBar style={statusStyle} translucent backgroundColor="transparent" />
-            {splashVisible
-              ? <SplashIntroScreen onDone={() => setSplashVisible(false)} />
-              : <AppNavigator />
-            }
-          </RootErrorBoundary>
-        </SafeAreaProvider>
-      </I18nextProvider>
-    </GestureHandlerRootView>
+    <ErrorBoundary>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <I18nextProvider i18n={i18n}>
+          <SafeAreaProvider>
+            <RootErrorBoundary>
+              <StatusBar style={statusStyle} translucent backgroundColor="transparent" />
+              {splashVisible
+                ? <SplashIntroScreen onDone={() => setSplashVisible(false)} />
+                : <AppNavigator />
+              }
+            </RootErrorBoundary>
+          </SafeAreaProvider>
+        </I18nextProvider>
+      </GestureHandlerRootView>
+    </ErrorBoundary>
   );
 }

@@ -427,7 +427,7 @@ function AchievementOrb({ unlockedCount, totalCount }: { unlockedCount: number; 
         {/* Center count text */}
         <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, alignItems: 'center', justifyContent: 'center' }}>
           <Text style={{ color: '#FFFFFF', fontSize: 28, fontWeight: '800', letterSpacing: 1 }}>{unlockedCount}</Text>
-          <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginTop: -2 }}>TROFEÓW</Text>
+          <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginTop: -2 }}>{t('achievements.trofeow', 'TROFEÓW')}</Text>
         </View>
       </Animated.View>
     </GestureDetector>
@@ -583,7 +583,7 @@ function AchievementCard({ item, stats, isLight, index }: {
           {/* Points */}
           <View style={[styles.pointsBadge, { borderColor: earned ? `${catColor}55` : (isLight ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)') }]}>
             <Text style={[styles.pointsText, { color: earned ? catColor : subColor }]}>+{item.points}</Text>
-            <Text style={[styles.pointsUnit, { color: subColor }]}>pkt</Text>
+            <Text style={[styles.pointsUnit, { color: subColor }]}>{t('achievements.pkt', 'pkt')}</Text>
           </View>
         </LinearGradient>
       </Pressable>
@@ -753,7 +753,7 @@ export const AchievementsScreen = ({ navigation }: any) => {
         <Pressable onPress={() => goBackOrToMainTab(navigation, 'Profile')} style={styles.headerBtn} hitSlop={12}>
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
-        <Text style={[styles.headerTitle, { color: textColor }]}>✦ OSIĄGNIĘCIA</Text>
+        <Text style={[styles.headerTitle, { color: textColor }]}>{t('achievements.osiagnieci', '✦ OSIĄGNIĘCIA')}</Text>
         <Pressable onPress={handleStar} style={styles.headerBtn} hitSlop={12}>
           <Star size={20} color={isStarred ? ACCENT : textColor} fill={isStarred ? ACCENT : 'none'} />
         </Pressable>
@@ -778,11 +778,11 @@ export const AchievementsScreen = ({ navigation }: any) => {
 
         {/* ── Stats Row ── */}
         <Animated.View entering={FadeInDown.delay(200).springify()} style={styles.statsRow}>
-          <StatCard label="Zdobyte" value={unlockedCount} icon={Trophy} color={ACCENT} isLight={isLight} />
-          <StatCard label="Ten tydzień" value={thisWeekUnlocked} icon={Zap} color="#60A5FA" isLight={isLight} />
-          <StatCard label="Seria dni" value={stats.streak} icon={Flame} color="#FB7185" isLight={isLight} />
+          <StatCard label={t('achievements.zdobyte', 'Zdobyte')} value={unlockedCount} icon={Trophy} color={ACCENT} isLight={isLight} />
+          <StatCard label={t('achievements.ten_tydzien', 'Ten tydzień')} value={thisWeekUnlocked} icon={Zap} color="#60A5FA" isLight={isLight} />
+          <StatCard label={t('achievements.seria_dni', 'Seria dni')} value={stats.streak} icon={Flame} color="#FB7185" isLight={isLight} />
           <StatCard
-            label="Najrzadsze"
+            label={t('achievements.najrzadsze', 'Najrzadsze')}
             value={rarestBadge ? rarestBadge.icon : '—'}
             icon={Crown}
             color="#A58FD8"
@@ -792,8 +792,8 @@ export const AchievementsScreen = ({ navigation }: any) => {
 
         {/* ── Constellation map ── */}
         <Animated.View entering={FadeInDown.delay(300).springify()} style={[styles.section, { borderColor, backgroundColor: cardBg }]}>
-          <Text style={[styles.sectionTitle, { color: textColor }]}>✦ MAPA KONSTELACJI</Text>
-          <Text style={[styles.sectionSub, { color: subColor }]}>Świecące gwiazdy — zdobyte trofea</Text>
+          <Text style={[styles.sectionTitle, { color: textColor }]}>{t('achievements.mapa_konstelacj', '✦ MAPA KONSTELACJI')}</Text>
+          <Text style={[styles.sectionSub, { color: subColor }]}>{t('achievements.swiecace_gwiazdy_zdobyte_trofea', 'Świecące gwiazdy — zdobyte trofea')}</Text>
           <View style={{ alignItems: 'center', marginTop: 8 }}>
             <ConstellationMap achievements={ACHIEVEMENTS} stats={stats} />
           </View>
@@ -850,8 +850,8 @@ export const AchievementsScreen = ({ navigation }: any) => {
               style={styles.sectionHeader}
             >
               <View>
-                <Text style={[styles.sectionTitle, { color: textColor }]}>✦ NA WYCIĄGNIĘCIE RĘKI</Text>
-                <Text style={[styles.sectionSub, { color: subColor }]}>Kolejne trofea do zdobycia</Text>
+                <Text style={[styles.sectionTitle, { color: textColor }]}>{t('achievements.na_wyciagniec_reki', '✦ NA WYCIĄGNIĘCIE RĘKI')}</Text>
+                <Text style={[styles.sectionSub, { color: subColor }]}>{t('achievements.kolejne_trofea_do_zdobycia', 'Kolejne trofea do zdobycia')}</Text>
               </View>
               <Target size={18} color={ACCENT} />
             </Pressable>

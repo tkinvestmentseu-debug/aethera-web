@@ -672,8 +672,8 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={styles.headerCenter}>
-          <Text style={[styles.eyebrow, { color: ACCENT }]}>ŚWIAT TY</Text>
-          <Text style={[styles.headerTitle, { color: textColor }]}>Kontrakt Duszy</Text>
+          <Text style={[styles.eyebrow, { color: ACCENT }]}>{t('soulContract.swiat_ty', 'ŚWIAT TY')}</Text>
+          <Text style={[styles.headerTitle, { color: textColor }]}>{t('soulContract.kontrakt_duszy', 'Kontrakt Duszy')}</Text>
         </View>
         <Animated.View style={starStyle}>
           <Pressable onPress={handleStar} style={styles.headerBtn} hitSlop={12}>
@@ -695,7 +695,7 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
           >
             <SoulMandala3D accent={ACCENT} />
             <Text style={[styles.heroText, { color: textColor }]}>
-              Kontrakt Duszy to mapa lekcji, które wybrałeś/aś przed przyjściem na Ziemię — wzorce karmiczne, misja, talenty i wyzwania zakorzenione w Twojej dacie urodzenia.
+              {t('soulContract.kontrakt_duszy_to_mapa_lekcji', 'Kontrakt Duszy to mapa lekcji, które wybrałeś/aś przed przyjściem na Ziemię — wzorce karmiczne, misja, talenty i wyzwania zakorzenione w Twojej dacie urodzenia.')}
             </Text>
             {birthDisplay ? (
               <View style={styles.birthRow}>
@@ -708,7 +708,7 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
                 style={[styles.setBirthBtn, { borderColor: ACCENT + '50' }]}
               >
                 <Text style={{ color: ACCENT, fontSize: 13, fontWeight: '600' }}>
-                  Ustaw datę urodzenia w profilu →
+                  {t('soulContract.ustaw_date_urodzenia_w_profilu', 'Ustaw datę urodzenia w profilu →')}
                 </Text>
               </Pressable>
             )}
@@ -720,15 +720,15 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
           <Animated.View entering={FadeInDown.delay(120).duration(600)}>
             <View style={[styles.placeholderCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <Eye size={28} color={ACCENT} style={{ marginBottom: 10 }} />
-              <Text style={[styles.placeholderTitle, { color: textColor }]}>Twój kontrakt czeka</Text>
+              <Text style={[styles.placeholderTitle, { color: textColor }]}>{t('soulContract.twoj_kontrakt_czeka', 'Twój kontrakt czeka')}</Text>
               <Text style={[styles.placeholderDesc, { color: subColor }]}>
-                Dodaj datę urodzenia w ustawieniach profilu, aby odblokować pełną mapę karmiczną, liczby duszy i archetype.
+                {t('soulContract.dodaj_date_urodzenia_w_ustawienia', 'Dodaj datę urodzenia w ustawieniach profilu, aby odblokować pełną mapę karmiczną, liczby duszy i archetype.')}
               </Text>
               <Pressable
                 onPress={() => navigation.navigate('Profile')}
                 style={[styles.placeholderBtn, { backgroundColor: ACCENT + '22', borderColor: ACCENT + '44' }]}
               >
-                <Text style={{ color: ACCENT, fontWeight: '700', fontSize: 14 }}>Przejdź do profilu</Text>
+                <Text style={{ color: ACCENT, fontWeight: '700', fontSize: 14 }}>{t('soulContract.przejdz_do_profilu', 'Przejdź do profilu')}</Text>
               </Pressable>
             </View>
           </Animated.View>
@@ -739,7 +739,7 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
         {/* ════════════════════════════════════════════════════ */}
         {nums && (
           <>
-            <SectionHeader label="MAPA KARMICZNA" isLight={isLight} />
+            <SectionHeader label={t('soulContract.mapa_karmiczna', 'MAPA KARMICZNA')} isLight={isLight} />
 
             {/* a. Liczba Duszy ──────────────────────────────── */}
             <Animated.View entering={FadeInDown.delay(100).duration(500)}>
@@ -750,7 +750,7 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
                 <View style={styles.mapCardHeader}>
                   <NumberBadge number={nums.soulUrge} color={ACCENT} />
                   <View style={{ flex: 1 }}>
-                    <Text style={[styles.mapLabel, { color: subColor }]}>LICZBA DUSZY</Text>
+                    <Text style={[styles.mapLabel, { color: subColor }]}>{t('soulContract.liczba_duszy', 'LICZBA DUSZY')}</Text>
                     <Text style={[styles.mapName, { color: textColor }]}>
                       {SOUL_URGE_NAMES[nums.soulUrge] ?? 'Poszukiwacz'}
                     </Text>
@@ -771,8 +771,8 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
                 <View style={styles.mapCardHeader}>
                   <NumberBadge number={nums.destiny} color="#A78BFA" />
                   <View style={{ flex: 1 }}>
-                    <Text style={[styles.mapLabel, { color: subColor }]}>LICZBA PRZEZNACZENIA</Text>
-                    <Text style={[styles.mapName, { color: textColor }]}>Misja życiowa</Text>
+                    <Text style={[styles.mapLabel, { color: subColor }]}>{t('soulContract.liczba_przeznacze', 'LICZBA PRZEZNACZENIA')}</Text>
+                    <Text style={[styles.mapName, { color: textColor }]}>{t('soulContract.misja_zyciowa', 'Misja życiowa')}</Text>
                   </View>
                 </View>
                 <Text style={[styles.mapDesc, { color: subColor }]}>
@@ -793,7 +793,7 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
                       <Flame size={20} color="#F472B6" />
                     </View>
                     <View style={{ flex: 1 }}>
-                      <Text style={[styles.mapLabel, { color: subColor }]}>DŁUG KARMICZNY</Text>
+                      <Text style={[styles.mapLabel, { color: subColor }]}>{t('soulContract.dlug_karmiczny', 'DŁUG KARMICZNY')}</Text>
                       <Text style={[styles.mapName, { color: textColor }]}>
                         {KARMIC_DEBT_DESC[nums.karmicDebt]?.title ?? `Wzorzec ${nums.karmicDebt}`}
                       </Text>
@@ -810,12 +810,12 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
                       <Shield size={20} color="#34D399" />
                     </View>
                     <View style={{ flex: 1 }}>
-                      <Text style={[styles.mapLabel, { color: subColor }]}>DŁUG KARMICZNY</Text>
-                      <Text style={[styles.mapName, { color: '#34D399' }]}>Czyste Konto</Text>
+                      <Text style={[styles.mapLabel, { color: subColor }]}>{t('soulContract.dlug_karmiczny_1', 'DŁUG KARMICZNY')}</Text>
+                      <Text style={[styles.mapName, { color: '#34D399' }]}>{t('soulContract.czyste_konto', 'Czyste Konto')}</Text>
                     </View>
                   </View>
                   <Text style={[styles.mapDesc, { color: subColor }]}>
-                    Nie niesiesz specyficznego długu karmicznego z poprzednich wcieleń. Twoja dusza przyszła tutaj ze stosunkowo czystym kontem, co daje Ci większą wolność w kreowaniu własnej ścieżki.
+                    {t('soulContract.nie_niesiesz_specyficzn_dlugu_karmi', 'Nie niesiesz specyficznego długu karmicznego z poprzednich wcieleń. Twoja dusza przyszła tutaj ze stosunkowo czystym kontem, co daje Ci większą wolność w kreowaniu własnej ścieżki.')}
                   </Text>
                 </View>
               )}
@@ -833,7 +833,7 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
                   <View style={styles.mapCardHeader}>
                     <NumberBadge number={nums.lifePath} color={lifePathData.color} />
                     <View style={{ flex: 1 }}>
-                      <Text style={[styles.mapLabel, { color: subColor }]}>ŚCIEŻKA ŻYCIA</Text>
+                      <Text style={[styles.mapLabel, { color: subColor }]}>{t('soulContract.sciezka_zycia', 'ŚCIEŻKA ŻYCIA')}</Text>
                       <Text style={[styles.lifePathName, { color: lifePathData.color }]}>
                         {lifePathData.name}
                       </Text>
@@ -862,12 +862,12 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
                   </View>
                   <View style={[styles.shadowGiftRow, { borderColor: lifePathData.color + '25' }]}>
                     <View style={styles.shadowGiftItem}>
-                      <Text style={[styles.sgLabel, { color: subColor }]}>CIEŃ</Text>
+                      <Text style={[styles.sgLabel, { color: subColor }]}>{t('soulContract.cien', 'CIEŃ')}</Text>
                       <Text style={[styles.sgValue, { color: textColor }]}>{lifePathData.shadow}</Text>
                     </View>
                     <View style={[styles.sgDivider, { backgroundColor: lifePathData.color + '30' }]} />
                     <View style={styles.shadowGiftItem}>
-                      <Text style={[styles.sgLabel, { color: subColor }]}>DAR</Text>
+                      <Text style={[styles.sgLabel, { color: subColor }]}>{t('soulContract.dar', 'DAR')}</Text>
                       <Text style={[styles.sgValue, { color: textColor }]}>{lifePathData.gift}</Text>
                     </View>
                   </View>
@@ -897,10 +897,10 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
             {/* ── LEKCJE KARMICZNE ─────────────────────────── */}
             {lessonCards.length > 0 && (
               <>
-                <SectionHeader label="LEKCJE KARMICZNE" isLight={isLight} />
+                <SectionHeader label={t('soulContract.lekcje_karmiczne', 'LEKCJE KARMICZNE')} isLight={isLight} />
                 <Animated.View entering={FadeInDown.delay(80).duration(600)}>
                   <Text style={[styles.sectionIntro, { color: subColor }]}>
-                    Czego Twoja dusza przyszła się tu nauczyć? Brakujące liczby w dacie urodzenia wskazują energie, z którymi musisz świadomie pracować.
+                    {t('soulContract.czego_twoja_dusza_przyszla_sie', 'Czego Twoja dusza przyszła się tu nauczyć? Brakujące liczby w dacie urodzenia wskazują energie, z którymi musisz świadomie pracować.')}
                   </Text>
                 </Animated.View>
                 {lessonCards.map((card, i) => (
@@ -923,7 +923,7 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
                   <View style={[styles.mapCard, { backgroundColor: cardBg, borderColor: cardBorder, borderWidth: 1, alignItems: 'center', paddingVertical: 20 }]}>
                     <Sparkles size={24} color={ACCENT} style={{ marginBottom: 8 }} />
                     <Text style={[styles.mapDesc, { color: subColor, textAlign: 'center' }]}>
-                      Twoja data urodzenia zawiera wszystkie cyfry 1–9. To rzadki wzorzec świadczący o bardzo zaawansowanej duszy z bogatym dorobkiem poprzednich wcieleń.
+                      {t('soulContract.twoja_data_urodzenia_zawiera_wszyst', 'Twoja data urodzenia zawiera wszystkie cyfry 1–9. To rzadki wzorzec świadczący o bardzo zaawansowanej duszy z bogatym dorobkiem poprzednich wcieleń.')}
                     </Text>
                   </View>
                 )}
@@ -935,7 +935,7 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
         {/* ── ARCHETYP DUSZY ─────────────────────────────────── */}
         {archetype && (
           <>
-            <SectionHeader label="ARCHETYP DUSZY" isLight={isLight} />
+            <SectionHeader label={t('soulContract.archetyp_duszy', 'ARCHETYP DUSZY')} isLight={isLight} />
             <Animated.View entering={FadeInDown.delay(100).duration(600)}>
               <LinearGradient
                 colors={isLight ? ['#F4E8FF', '#ECE0FE', '#F0E4FF'] : ['#1A083A', '#220C46', '#1A083A']}
@@ -974,12 +974,12 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
                 {/* Shadow & Gift */}
                 <View style={[styles.shadowGiftRow, { borderColor: ACCENT + '20', marginTop: 14 }]}>
                   <View style={styles.shadowGiftItem}>
-                    <Text style={[styles.sgLabel, { color: subColor }]}>CIEŃ</Text>
+                    <Text style={[styles.sgLabel, { color: subColor }]}>{t('soulContract.cien_1', 'CIEŃ')}</Text>
                     <Text style={[styles.sgValue, { color: textColor }]}>{archetype.shadow}</Text>
                   </View>
                   <View style={[styles.sgDivider, { backgroundColor: ACCENT + '25' }]} />
                   <View style={styles.shadowGiftItem}>
-                    <Text style={[styles.sgLabel, { color: subColor }]}>DAR</Text>
+                    <Text style={[styles.sgLabel, { color: subColor }]}>{t('soulContract.dar_1', 'DAR')}</Text>
                     <Text style={[styles.sgValue, { color: textColor }]}>{archetype.gift}</Text>
                   </View>
                 </View>
@@ -989,7 +989,7 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
         )}
 
         {/* ── AI ODCZYT KONTRAKTU ─────────────────────────────── */}
-        <SectionHeader label="AI ODCZYT KONTRAKTU" isLight={isLight} />
+        <SectionHeader label={t('soulContract.ai_odczyt_kontraktu', 'AI ODCZYT KONTRAKTU')} isLight={isLight} />
 
         {!aiReading && (
           <Animated.View entering={FadeInDown.delay(80).duration(500)}>
@@ -1006,12 +1006,12 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
                 {aiLoading ? (
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                     <ActivityIndicator color="#fff" size="small" />
-                    <Text style={styles.aiBtnText}>Odczytywanie kontraktu...</Text>
+                    <Text style={styles.aiBtnText}>{t('soulContract.odczytywan_kontraktu', 'Odczytywanie kontraktu...')}</Text>
                   </View>
                 ) : (
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                     <Sparkles size={18} color="#fff" />
-                    <Text style={styles.aiBtnText}>Wygeneruj pełny odczyt kontraktu</Text>
+                    <Text style={styles.aiBtnText}>{t('soulContract.wygeneruj_pelny_odczyt_kontraktu', 'Wygeneruj pełny odczyt kontraktu')}</Text>
                   </View>
                 )}
               </LinearGradient>
@@ -1032,14 +1032,14 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
                 >
                   <Sparkles size={18} color={ACCENT} />
                 </LinearGradient>
-                <Text style={[styles.aiReadingLabel, { color: textColor }]}>Twój Kontrakt Duszy</Text>
+                <Text style={[styles.aiReadingLabel, { color: textColor }]}>{t('soulContract.twoj_kontrakt_duszy', 'Twój Kontrakt Duszy')}</Text>
               </View>
               <Text style={[styles.aiReadingText, { color: subColor }]}>{aiReading}</Text>
               <Pressable
                 onPress={() => { setAiReading(''); }}
                 style={{ marginTop: 14, alignSelf: 'flex-end', flexDirection: 'row', alignItems: 'center', gap: 4 }}
               >
-                <Text style={{ fontSize: 12, color: ACCENT, opacity: 0.7 }}>Wygeneruj ponownie</Text>
+                <Text style={{ fontSize: 12, color: ACCENT, opacity: 0.7 }}>{t('soulContract.wygeneruj_ponownie', 'Wygeneruj ponownie')}</Text>
                 <ArrowRight size={12} color={ACCENT} opacity={0.7} />
               </Pressable>
             </LinearGradient>
@@ -1047,11 +1047,11 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
         )}
 
         {/* ── PRAKTYKI INTEGRACYJNE ───────────────────────────── */}
-        <SectionHeader label="PRAKTYKI INTEGRACYJNE" isLight={isLight} />
+        <SectionHeader label={t('soulContract.praktyki_integracyj', 'PRAKTYKI INTEGRACYJNE')} isLight={isLight} />
 
         <PracticeTile
           icon={Activity}
-          label="Medytacja kontraktu"
+          label={t('soulContract.medytacja_kontraktu', 'Medytacja kontraktu')}
           sublabel="15 min — wizualizacja ścieżki duszy"
           route="Meditation"
           navigation={navigation}
@@ -1060,7 +1060,7 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
         />
         <PracticeTile
           icon={BookOpen}
-          label="Dziennik lekcji"
+          label={t('soulContract.dziennik_lekcji', 'Dziennik lekcji')}
           sublabel="Zapisz refleksję nad swoimi lekcjami karmicznymi"
           route="JournalEntry"
           navigation={navigation}
@@ -1069,7 +1069,7 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
         />
         <PracticeTile
           icon={Sparkles}
-          label="Kryształ dopasowania"
+          label={t('soulContract.krysztal_dopasowani', 'Kryształ dopasowania')}
           sublabel={lifePathData ? `Twój kryształ: ${lifePathData.crystal}` : 'Odkryj swój kamień ścieżki'}
           route="Affirmations"
           navigation={navigation}
@@ -1078,7 +1078,7 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
         />
         <PracticeTile
           icon={Heart}
-          label="Afirmacja duszy"
+          label={t('soulContract.afirmacja_duszy', 'Afirmacja duszy')}
           sublabel="Afirmacje dopasowane do Twojej ścieżki"
           route="Affirmations"
           navigation={navigation}
@@ -1095,7 +1095,7 @@ Zacznij od "Twój Kontrakt Duszy mówi..." i opisz: główną lekcję karmiczną
             <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12 }}>
               <Shield size={22} color="#34D399" style={{ marginTop: 2 }} />
               <View style={{ flex: 1 }}>
-                <Text style={[styles.protectionTitle, { color: textColor }]}>Ochrona energetyczna</Text>
+                <Text style={[styles.protectionTitle, { color: textColor }]}>{t('soulContract.ochrona_energetycz', 'Ochrona energetyczna')}</Text>
                 <Text style={[styles.protectionText, { color: subColor }]}>
                   Znając swój kontrakt, możesz świadomie pracować z karmą zamiast ją nieświadomie powtarzać. Każda lekcja, którą rozpoznajesz i akceptujesz, zmniejsza jej energetyczny ciężar. Świadomość to pierwsza forma ochrony.
                 </Text>

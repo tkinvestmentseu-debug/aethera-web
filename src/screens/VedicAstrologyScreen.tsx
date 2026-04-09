@@ -534,8 +534,8 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
             <ChevronLeft color={accent} size={22} />
           </Pressable>
           <View style={{ alignItems: 'center' }}>
-            <Text style={[styles.headerTitle, { color: textColor }]}>Astrologia Wedyjska</Text>
-            <Text style={[styles.headerSub, { color: accent }]}>JYOTISH · NAUKA ŚWIATŁA</Text>
+            <Text style={[styles.headerTitle, { color: textColor }]}>{t('vedicAstrology.astrologia_wedyjska', 'Astrologia Wedyjska')}</Text>
+            <Text style={[styles.headerSub, { color: accent }]}>{t('vedicAstrology.jyotish_nauka_swiatla', 'JYOTISH · NAUKA ŚWIATŁA')}</Text>
           </View>
           <Pressable onPress={handleStar} style={styles.headerBtn}>
             <Star color={accent} size={20} fill={starred ? accent : 'none'} />
@@ -549,8 +549,8 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
           {/* HERO SVG CHART */}
           <Animated.View entering={FadeIn.duration(600)} style={{ alignItems: 'center', marginBottom: 4 }}>
             <VedicWheelHero accent={accent} />
-            <Text style={[styles.heroEyebrow, { color: accent }]}>KOŁO JYOTISH</Text>
-            <Text style={[styles.heroTitle, { color: textColor }]}>Mapa Światła</Text>
+            <Text style={[styles.heroEyebrow, { color: accent }]}>{t('vedicAstrology.kolo_jyotish', 'KOŁO JYOTISH')}</Text>
+            <Text style={[styles.heroTitle, { color: textColor }]}>{t('vedicAstrology.mapa_swiatla', 'Mapa Światła')}</Text>
             <Text style={[styles.heroDesc, { color: subColor }]}>
               Jyotish — „nauka o świetle" — to starożytny indyjski system astronomii i mistyki urodzenia. Korzysta z siderycznego zodiaku (przesuniętego o ~24°), 27 Nakshatry (konstelacji księżycowych) i systemu Dasha planet.
             </Text>
@@ -558,26 +558,26 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
 
           {/* SIGN COMPARISON */}
           <Animated.View entering={FadeInDown.delay(80).duration(420)}>
-            <SectionHeader label="ZNAK ZACHODNI vs. WEDYJSKI" accent={accent} />
+            <SectionHeader label={t('vedicAstrology.znak_zachodni_vs_wedyjski', 'ZNAK ZACHODNI vs. WEDYJSKI')} accent={accent} />
             <PremiumCard gradient={isLight ? [accent + '14', accent + '06'] : [accent + '18', accent + '08', '#0C0805']}>
               <View style={{ flexDirection: 'row', gap: 12 }}>
                 <View style={{ flex: 1, padding: 14, borderRadius: 14, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)', alignItems: 'center' }}>
-                  <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 2, color: subColor, marginBottom: 6 }}>TROPIKALNY</Text>
+                  <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 2, color: subColor, marginBottom: 6 }}>{t('vedicAstrology.tropikalny', 'TROPIKALNY')}</Text>
                   <Text style={{ fontSize: 22, fontWeight: '200', color: textColor, letterSpacing: -0.5 }}>{westernSign}</Text>
-                  <Text style={{ fontSize: 11, color: subColor, marginTop: 4 }}>Zachodni / IAU</Text>
+                  <Text style={{ fontSize: 11, color: subColor, marginTop: 4 }}>{t('vedicAstrology.zachodni_iau', 'Zachodni / IAU')}</Text>
                 </View>
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                   <Text style={{ fontSize: 20, color: accent }}>→</Text>
                   <Text style={{ fontSize: 9, color: subColor, marginTop: 4 }}>−24°</Text>
                 </View>
                 <View style={{ flex: 1, padding: 14, borderRadius: 14, backgroundColor: accent + '18', alignItems: 'center', borderWidth: 1, borderColor: accent + '44' }}>
-                  <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 2, color: accent, marginBottom: 6 }}>SYDERERYCZNY</Text>
+                  <Text style={{ fontSize: 9, fontWeight: '800', letterSpacing: 2, color: accent, marginBottom: 6 }}>{t('vedicAstrology.sydererycz', 'SYDERERYCZNY')}</Text>
                   <Text style={{ fontSize: 22, fontWeight: '200', color: accent, letterSpacing: -0.5 }}>{vedicSignData.polish.replace(' wedyjskie', '').replace(' wedyjska', '').replace(' wedyjski', '')}</Text>
-                  <Text style={{ fontSize: 11, color: accent + 'BB', marginTop: 4 }}>Wedyjski / Lahiri</Text>
+                  <Text style={{ fontSize: 11, color: accent + 'BB', marginTop: 4 }}>{t('vedicAstrology.wedyjski_lahiri', 'Wedyjski / Lahiri')}</Text>
                 </View>
               </View>
               <Text style={{ fontSize: 12, color: subColor, marginTop: 14, lineHeight: 19 }}>
-                Ayanamsa (~23,9°) to precesja punktu wiosennego od czasu Ptolemeusza. Znak wedyjski opisuje głębszy wzorzec karmiczny i wrodzone predyspozycje duszy.
+                {t('vedicAstrology.ayanamsa_23_9_to_precesja', 'Ayanamsa (~23,9°) to precesja punktu wiosennego od czasu Ptolemeusza. Znak wedyjski opisuje głębszy wzorzec karmiczny i wrodzone predyspozycje duszy.')}
               </Text>
             </PremiumCard>
           </Animated.View>
@@ -595,16 +595,16 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
                   <Text style={{ fontSize: 12, color: accent }}>{vedicSign} · {vedicSignData.planet} · {vedicSignData.element}</Text>
                 </View>
               </View>
-              <InfoPill label="Władca planety" value={vedicSignData.planet} accent={accent} isLight={isLight} />
-              <InfoPill label="Żywioł" value={vedicSignData.element} accent={accent} isLight={isLight} />
-              <InfoPill label="Jakość" value={vedicSignData.quality} accent={accent} isLight={isLight} />
+              <InfoPill label={t('vedicAstrology.wladca_planety', 'Władca planety')} value={vedicSignData.planet} accent={accent} isLight={isLight} />
+              <InfoPill label={t('vedicAstrology.zywiol', 'Żywioł')} value={vedicSignData.element} accent={accent} isLight={isLight} />
+              <InfoPill label={t('vedicAstrology.jakosc', 'Jakość')} value={vedicSignData.quality} accent={accent} isLight={isLight} />
               <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginTop: 12 }}>{vedicSignData.traits}</Text>
             </View>
           </Animated.View>
 
           {/* NAKSHATRA PROFILE */}
           <Animated.View entering={FadeInDown.delay(160).duration(420)}>
-            <SectionHeader label="NAKSHATRA — MANSJA KSIĘŻYCOWA" accent={accent} />
+            <SectionHeader label={t('vedicAstrology.nakshatra_mansja_ksiezycowa', 'NAKSHATRA — MANSJA KSIĘŻYCOWA')} accent={accent} />
             <PremiumCard gradient={isLight ? ['#FEF3E8', '#FDE0C0'] : ['#1C1008', '#140C06']}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 16 }}>
                 <View style={{ width: 56, height: 56, borderRadius: 18, backgroundColor: accent + '22', borderWidth: 1.5, borderColor: accent + '66', alignItems: 'center', justifyContent: 'center' }}>
@@ -615,20 +615,20 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
                   <Text style={{ fontSize: 13, color: accent }}>{nakshatra.sanskrit}</Text>
                 </View>
               </View>
-              <InfoPill label="Bóstwo (Devata)" value={nakshatra.deity} accent={accent} isLight={isLight} />
-              <InfoPill label="Symbol" value={nakshatra.symbol} accent={accent} isLight={isLight} />
-              <InfoPill label="Shakti (Moc)" value={nakshatra.shakti} accent={accent} isLight={isLight} />
-              <InfoPill label="Natura" value={nakshatra.nature} accent={accent} isLight={isLight} />
-              <InfoPill label="Władca planety" value={nakshatra.planet} accent={accent} isLight={isLight} />
+              <InfoPill label={t('vedicAstrology.bostwo_devata', 'Bóstwo (Devata)')} value={nakshatra.deity} accent={accent} isLight={isLight} />
+              <InfoPill label={t('vedicAstrology.symbol', 'Symbol')} value={nakshatra.symbol} accent={accent} isLight={isLight} />
+              <InfoPill label={t('vedicAstrology.shakti_moc', 'Shakti (Moc)')} value={nakshatra.shakti} accent={accent} isLight={isLight} />
+              <InfoPill label={t('vedicAstrology.natura', 'Natura')} value={nakshatra.nature} accent={accent} isLight={isLight} />
+              <InfoPill label={t('vedicAstrology.wladca_planety_1', 'Władca planety')} value={nakshatra.planet} accent={accent} isLight={isLight} />
               <Text style={{ fontSize: 12, color: subColor, lineHeight: 19, marginTop: 14 }}>
-                Nakshatra to konstelacja, w której znajdował się Księżyc w chwili Twoich urodzin. 27 Nakshatry opisuje emocjonalny instynkt, instynktowne reakcje i głęboki rytm wewnętrzny.
+                {t('vedicAstrology.nakshatra_to_konstelacj_w_ktorej', 'Nakshatra to konstelacja, w której znajdował się Księżyc w chwili Twoich urodzin. 27 Nakshatry opisuje emocjonalny instynkt, instynktowne reakcje i głęboki rytm wewnętrzny.')}
               </Text>
             </PremiumCard>
           </Animated.View>
 
           {/* DOSHAS */}
           <Animated.View entering={FadeInDown.delay(200).duration(420)}>
-            <SectionHeader label="DOSHA AJURWEDYJSKA" accent={accent} />
+            <SectionHeader label={t('vedicAstrology.dosha_ajurwedyjs', 'DOSHA AJURWEDYJSKA')} accent={accent} />
             <View style={{ flexDirection: 'row', gap: 8, marginBottom: 10 }}>
               {(['vata', 'pitta', 'kapha'] as const).map((d) => {
                 const dd = DOSHA_DATA[d];
@@ -647,10 +647,10 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
             <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <Text style={{ fontSize: 16, fontWeight: '700', color: textColor, marginBottom: 4 }}>{doshaData.name} dominuje w Tobie</Text>
               <Text style={{ fontSize: 12, color: accent, marginBottom: 12 }}>{doshaData.elements} · Sezon: {doshaData.seasons}</Text>
-              <InfoPill label="Cechy" value={doshaData.traits.slice(0, 28) + '…'} accent={accent} isLight={isLight} />
-              <InfoPill label="Nierównowaga" value={doshaData.imbalance.slice(0, 28) + '…'} accent={accent} isLight={isLight} />
+              <InfoPill label={t('vedicAstrology.cechy', 'Cechy')} value={doshaData.traits.slice(0, 28) + '…'} accent={accent} isLight={isLight} />
+              <InfoPill label={t('vedicAstrology.nierownowa', 'Nierównowaga')} value={doshaData.imbalance.slice(0, 28) + '…'} accent={accent} isLight={isLight} />
               <View style={{ marginTop: 12, padding: 12, borderRadius: 12, backgroundColor: accent + '10', borderWidth: 1, borderColor: accent + '28' }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.2, color: accent, marginBottom: 6 }}>WSKAZÓWKA AJURWEDYJSKA</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.2, color: accent, marginBottom: 6 }}>{t('vedicAstrology.wskazowka_ajurwedyjs', 'WSKAZÓWKA AJURWEDYJSKA')}</Text>
                 <Text style={{ fontSize: 13, color: subColor, lineHeight: 20 }}>{doshaData.remedy}</Text>
               </View>
             </View>
@@ -658,26 +658,26 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
 
           {/* PLANETARY PERIODS (DASHA) */}
           <Animated.View entering={FadeInDown.delay(240).duration(420)}>
-            <SectionHeader label="VIMSHOTTARI DASHA — OKRESY PLANETARNE" accent={accent} />
+            <SectionHeader label={t('vedicAstrology.vimshottar_dasha_okresy_planetarne', 'VIMSHOTTARI DASHA — OKRESY PLANETARNE')} accent={accent} />
             <PremiumCard gradient={isLight ? [accent + '12', accent + '06'] : [DASHA_COLORS[dasha.mahadasha] + '18', '#0C0805']}>
               <View style={{ flexDirection: 'row', gap: 10, marginBottom: 16 }}>
                 <View style={{ flex: 1, padding: 14, borderRadius: 14, backgroundColor: DASHA_COLORS[dasha.mahadasha] + '22', borderWidth: 1, borderColor: DASHA_COLORS[dasha.mahadasha] + '55', alignItems: 'center' }}>
-                  <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2, color: DASHA_COLORS[dasha.mahadasha], marginBottom: 6 }}>MAHADASHA</Text>
+                  <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2, color: DASHA_COLORS[dasha.mahadasha], marginBottom: 6 }}>{t('vedicAstrology.mahadasha', 'MAHADASHA')}</Text>
                   <Text style={{ fontSize: 22, fontWeight: '700', color: textColor }}>{dasha.mahadasha}</Text>
                   <Text style={{ fontSize: 11, color: DASHA_COLORS[dasha.mahadasha], marginTop: 4 }}>~{dasha.yearsLeft} lat zostało</Text>
                 </View>
                 <View style={{ flex: 1, padding: 14, borderRadius: 14, backgroundColor: cardBg, borderWidth: 1, borderColor: cardBorder, alignItems: 'center' }}>
-                  <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2, color: subColor, marginBottom: 6 }}>ANTARDASHA</Text>
+                  <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2, color: subColor, marginBottom: 6 }}>{t('vedicAstrology.antardasha', 'ANTARDASHA')}</Text>
                   <Text style={{ fontSize: 22, fontWeight: '700', color: textColor }}>{dasha.antardasha}</Text>
-                  <Text style={{ fontSize: 11, color: subColor, marginTop: 4 }}>Pod-okres</Text>
+                  <Text style={{ fontSize: 11, color: subColor, marginTop: 4 }}>{t('vedicAstrology.pod_okres', 'Pod-okres')}</Text>
                 </View>
               </View>
               <View style={{ padding: 12, borderRadius: 12, backgroundColor: DASHA_COLORS[dasha.mahadasha] + '14', borderWidth: 1, borderColor: DASHA_COLORS[dasha.mahadasha] + '30' }}>
-                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.2, color: DASHA_COLORS[dasha.mahadasha], marginBottom: 6 }}>OBSZAR ŻYCIA AKTYWOWANY</Text>
+                <Text style={{ fontSize: 11, fontWeight: '700', letterSpacing: 1.2, color: DASHA_COLORS[dasha.mahadasha], marginBottom: 6 }}>{t('vedicAstrology.obszar_zycia_aktywowany', 'OBSZAR ŻYCIA AKTYWOWANY')}</Text>
                 <Text style={{ fontSize: 14, color: textColor, fontWeight: '600' }}>{DASHA_LIFE[dasha.mahadasha] || 'Głęboka transformacja'}</Text>
               </View>
               <Text style={{ fontSize: 12, color: subColor, lineHeight: 19, marginTop: 14 }}>
-                System Vimshottari obejmuje 120 lat i 9 planet. Każda planeta rządzi określonym obszarem duszy i życia. Mahadasha to dominujący temat dekady, Antardasha to subtelniejszy głos wewnątrz niej.
+                {t('vedicAstrology.system_vimshottar_obejmuje_120_lat', 'System Vimshottari obejmuje 120 lat i 9 planet. Każda planeta rządzi określonym obszarem duszy i życia. Mahadasha to dominujący temat dekady, Antardasha to subtelniejszy głos wewnątrz niej.')}
               </Text>
             </PremiumCard>
 
@@ -700,7 +700,7 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
 
           {/* RASHI ENCYCLOPEDIA */}
           <Animated.View entering={FadeInDown.delay(280).duration(420)}>
-            <SectionHeader label="RASHI — ENCYKLOPEDIA WEDYJSKICH ZNAKÓW" accent={accent} />
+            <SectionHeader label={t('vedicAstrology.rashi_encykloped_wedyjskich_znakow', 'RASHI — ENCYKLOPEDIA WEDYJSKICH ZNAKÓW')} accent={accent} />
             {RASHI.map((r, i) => (
               <Animated.View key={r.name} entering={FadeInDown.delay(300 + i * 30).duration(360)}>
                 <Pressable
@@ -717,9 +717,9 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
                 </Pressable>
                 {expandedRashi === i && (
                   <Animated.View entering={FadeInDown.duration(300)} style={[styles.rashiExpanded, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-                    <InfoPill label="Żywioł" value={r.element} accent={accent} isLight={isLight} />
-                    <InfoPill label="Jakość" value={r.quality} accent={accent} isLight={isLight} />
-                    <InfoPill label="Planeta" value={r.planet} accent={accent} isLight={isLight} />
+                    <InfoPill label={t('vedicAstrology.zywiol_1', 'Żywioł')} value={r.element} accent={accent} isLight={isLight} />
+                    <InfoPill label={t('vedicAstrology.jakosc_1', 'Jakość')} value={r.quality} accent={accent} isLight={isLight} />
+                    <InfoPill label={t('vedicAstrology.planeta', 'Planeta')} value={r.planet} accent={accent} isLight={isLight} />
                     <Text style={{ fontSize: 13, color: subColor, lineHeight: 19, marginTop: 10 }}>{r.traits}</Text>
                   </Animated.View>
                 )}
@@ -729,9 +729,9 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
 
           {/* VEDIC REMEDIES */}
           <Animated.View entering={FadeInDown.delay(320).duration(420)}>
-            <SectionHeader label="UPAYAS — ŚRODKI ZARADCZE PLANET" accent={accent} />
+            <SectionHeader label={t('vedicAstrology.upayas_srodki_zaradcze_planet', 'UPAYAS — ŚRODKI ZARADCZE PLANET')} accent={accent} />
             <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 16 }}>
-              Jyotish oferuje praktyczne środki zaradcze (Upayas) dla każdej planety — kamienie, mantry, kolory i święte dni, które wzmacniają pozytywne energie i łagodzą trudne tranzycje.
+              {t('vedicAstrology.jyotish_oferuje_praktyczne_srodki_z', 'Jyotish oferuje praktyczne środki zaradcze (Upayas) dla każdej planety — kamienie, mantry, kolory i święte dni, które wzmacniają pozytywne energie i łagodzą trudne tranzycje.')}
             </Text>
             {PLANET_REMEDIES.map((p, i) => (
               <Animated.View key={p.planet} entering={FadeInDown.delay(340 + i * 25).duration(360)}>
@@ -749,11 +749,11 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
                 </Pressable>
                 {expandedRemedy === i && (
                   <Animated.View entering={FadeInDown.duration(300)} style={[styles.rashiExpanded, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-                    <InfoPill label="Kamień" value={p.gemstone} accent={p.color_hex} isLight={isLight} />
-                    <InfoPill label="Mantra" value={p.mantra} accent={p.color_hex} isLight={isLight} />
-                    <InfoPill label="Kolor" value={p.color} accent={p.color_hex} isLight={isLight} />
-                    <InfoPill label="Święty dzień" value={p.day} accent={p.color_hex} isLight={isLight} />
-                    <InfoPill label="Chakra" value={p.chakra} accent={p.color_hex} isLight={isLight} />
+                    <InfoPill label={t('vedicAstrology.kamien', 'Kamień')} value={p.gemstone} accent={p.color_hex} isLight={isLight} />
+                    <InfoPill label={t('vedicAstrology.mantra', 'Mantra')} value={p.mantra} accent={p.color_hex} isLight={isLight} />
+                    <InfoPill label={t('vedicAstrology.kolor', 'Kolor')} value={p.color} accent={p.color_hex} isLight={isLight} />
+                    <InfoPill label={t('vedicAstrology.swiety_dzien', 'Święty dzień')} value={p.day} accent={p.color_hex} isLight={isLight} />
+                    <InfoPill label={t('vedicAstrology.chakra', 'Chakra')} value={p.chakra} accent={p.color_hex} isLight={isLight} />
                   </Animated.View>
                 )}
               </Animated.View>
@@ -762,9 +762,9 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
 
           {/* YOGA CALCULATOR */}
           <Animated.View entering={FadeInDown.delay(360).duration(420)}>
-            <SectionHeader label="WEDYJSKIE JOGI — SZCZEGÓLNE KOMBINACJE" accent={accent} />
+            <SectionHeader label={t('vedicAstrology.wedyjskie_jogi_szczegolne_kombinacj', 'WEDYJSKIE JOGI — SZCZEGÓLNE KOMBINACJE')} accent={accent} />
             <Text style={{ fontSize: 13, color: subColor, lineHeight: 20, marginBottom: 14 }}>
-              Jogi to szczególne kombinacje planet w horoskopie urodzeniowym. Ich obecność wskazuje na specjalne dary, talenty lub wyzwania tego wcielenia.
+              {t('vedicAstrology.jogi_to_szczegolne_kombinacje_plane', 'Jogi to szczególne kombinacje planet w horoskopie urodzeniowym. Ich obecność wskazuje na specjalne dary, talenty lub wyzwania tego wcielenia.')}
             </Text>
             {yogas.map((yoga, i) => (
               <Animated.View key={yoga.name} entering={FadeInDown.delay(380 + i * 40).duration(360)}>
@@ -795,16 +795,16 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
 
           {/* SACRED NUMBER */}
           <Animated.View entering={FadeInDown.delay(400).duration(420)}>
-            <SectionHeader label="WEDYJSKA LICZBA SZCZĘŚLIWA" accent={accent} />
+            <SectionHeader label={t('vedicAstrology.wedyjska_liczba_szczesliwa', 'WEDYJSKA LICZBA SZCZĘŚLIWA')} accent={accent} />
             <PremiumCard gradient={isLight ? [accent + '18', accent + '08'] : [accent + '20', '#0A0805']}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
                 <View style={{ width: 72, height: 72, borderRadius: 22, backgroundColor: accent + '22', borderWidth: 2, borderColor: accent + '66', alignItems: 'center', justifyContent: 'center' }}>
                   <Text style={{ fontSize: 36, fontWeight: '200', color: accent }}>{luckyNumber}</Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={{ fontSize: 18, fontWeight: '700', color: textColor, marginBottom: 4 }}>Twoja liczba na dziś</Text>
+                  <Text style={{ fontSize: 18, fontWeight: '700', color: textColor, marginBottom: 4 }}>{t('vedicAstrology.twoja_liczba_na_dzis', 'Twoja liczba na dziś')}</Text>
                   <Text style={{ fontSize: 13, color: subColor, lineHeight: 19 }}>
-                    Wedyjska kombinacja Twojej daty urodzenia z energią dzisiejszego dnia tworzy rezonans liczbowy. Używaj tej liczby w decyzjach, medytacjach i ofiarach.
+                    {t('vedicAstrology.wedyjska_kombinacja_twojej_daty_uro', 'Wedyjska kombinacja Twojej daty urodzenia z energią dzisiejszego dnia tworzy rezonans liczbowy. Używaj tej liczby w decyzjach, medytacjach i ofiarach.')}
                   </Text>
                 </View>
               </View>
@@ -813,15 +813,15 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
 
           {/* AI VEDIC READING */}
           <Animated.View entering={FadeInDown.delay(440).duration(420)}>
-            <SectionHeader label="ODCZYT WEDYJSKI AI" accent={accent} />
+            <SectionHeader label={t('vedicAstrology.odczyt_wedyjski_ai', 'ODCZYT WEDYJSKI AI')} accent={accent} />
             <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 16 }}>
                 <View style={{ width: 44, height: 44, borderRadius: 14, backgroundColor: accent + '1E', borderWidth: 1, borderColor: accent + '44', alignItems: 'center', justifyContent: 'center' }}>
                   <Eye color={accent} size={22} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={{ fontSize: 16, fontWeight: '700', color: textColor }}>Jyotish Oracle</Text>
-                  <Text style={{ fontSize: 12, color: subColor }}>Personalizowany odczyt z perspektywy Jyotish</Text>
+                  <Text style={{ fontSize: 16, fontWeight: '700', color: textColor }}>{t('vedicAstrology.jyotish_oracle', 'Jyotish Oracle')}</Text>
+                  <Text style={{ fontSize: 12, color: subColor }}>{t('vedicAstrology.personaliz_odczyt_z_perspektyw_jyot', 'Personalizowany odczyt z perspektywy Jyotish')}</Text>
                 </View>
               </View>
 
@@ -833,7 +833,7 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
                   <Pressable
                     onPress={handleAiReading}
                     style={{ flexDirection: 'row', alignItems: 'center', gap: 8, alignSelf: 'flex-end', paddingHorizontal: 16, paddingVertical: 10, borderRadius: 12, borderWidth: 1, borderColor: accent + '44', backgroundColor: accent + '10' }}>
-                    <Text style={{ fontSize: 13, color: accent, fontWeight: '600' }}>Nowy odczyt</Text>
+                    <Text style={{ fontSize: 13, color: accent, fontWeight: '600' }}>{t('vedicAstrology.nowy_odczyt', 'Nowy odczyt')}</Text>
                     <ArrowRight color={accent} size={14} />
                   </Pressable>
                 </Animated.View>
@@ -843,8 +843,8 @@ Pisz poetycko ale konkretnie. Bez listy punktów — ciągły akapit.`;
                   disabled={aiLoading}
                   style={{ alignItems: 'center', padding: 18, borderRadius: 16, borderWidth: 1.5, borderColor: accent + '44', borderStyle: 'dashed' }}>
                   {aiLoading
-                    ? <><ActivityIndicator color={accent} /><Text style={{ color: subColor, fontSize: 13, marginTop: 10 }}>Gwiazdy przemawiają…</Text></>
-                    : <><Sparkles color={accent} size={28} style={{ marginBottom: 10 }} /><Text style={{ fontSize: 15, fontWeight: '700', color: textColor, marginBottom: 6 }}>Poproś o wedyjski odczyt</Text><Text style={{ fontSize: 12, color: subColor, textAlign: 'center', lineHeight: 18 }}>AI przeanalizuje Twój Rashi, Nakshatrę i bieżącą Mahadashę i udzieli głębokiej wskazówki.</Text></>
+                    ? <><ActivityIndicator color={accent} /><Text style={{ color: subColor, fontSize: 13, marginTop: 10 }}>{t('vedicAstrology.gwiazdy_przemawiaj', 'Gwiazdy przemawiają…')}</Text></>
+                    : <><Sparkles color={accent} size={28} style={{ marginBottom: 10 }} /><Text style={{ fontSize: 15, fontWeight: '700', color: textColor, marginBottom: 6 }}>{t('vedicAstrology.popros_o_wedyjski_odczyt', 'Poproś o wedyjski odczyt')}</Text><Text style={{ fontSize: 12, color: subColor, textAlign: 'center', lineHeight: 18 }}>{t('vedicAstrology.ai_przeanaliz_twoj_rashi_nakshatre', 'AI przeanalizuje Twój Rashi, Nakshatrę i bieżącą Mahadashę i udzieli głębokiej wskazówki.')}</Text></>
                   }
                 </Pressable>
               )}

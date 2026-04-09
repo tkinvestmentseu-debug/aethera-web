@@ -590,7 +590,7 @@ export const PersonalMantraScreen = ({ navigation }: any) => {
   // ─ AI generation ─────────────────────────────────────────────────────────
   const generateMantra = useCallback(async () => {
     if (!intentionText.trim()) {
-      Alert.alert('Wpisz intencję', 'Opisz swoją intencję, a Aethera stworzy dla Ciebie mantrę.');
+      Alert.alert(t('personalMantra.wpisz_intencje', 'Wpisz intencję'), t('personalMantra.opisz_swoja_intencje_a_aethera', 'Opisz swoją intencję, a Aethera stworzy dla Ciebie mantrę.'));
       return;
     }
     setGenerating(true);
@@ -648,7 +648,7 @@ ZASADY:
     setGeneratedMantra('');
     setIntentionText('');
     HapticsService.impact('light');
-    Alert.alert('Zapisano ✦', 'Mantra została dodana do Twojej biblioteki.');
+    Alert.alert(t('personalMantra.zapisano', 'Zapisano ✦'), t('personalMantra.mantra_zostala_dodana_do_twojej', 'Mantra została dodana do Twojej biblioteki.'));
   }, [generatedMantra, selectedCategory]);
 
   // ─── Render ───────────────────────────────────────────────────────────────
@@ -677,8 +677,8 @@ ZASADY:
         </Pressable>
 
         <View style={{ flex: 1, alignItems: 'center' }}>
-          <Text style={[styles.headerTitle, { color: textColor }]}>Mantra Osobista</Text>
-          <Text style={[styles.headerSub, { color: ACCENT }]}>✦ TRADYCJA DŹWIĘKU ✦</Text>
+          <Text style={[styles.headerTitle, { color: textColor }]}>{t('personalMantra.mantra_osobista', 'Mantra Osobista')}</Text>
+          <Text style={[styles.headerSub, { color: ACCENT }]}>{t('personalMantra.tradycja_dzwieku', '✦ TRADYCJA DŹWIĘKU ✦')}</Text>
         </View>
 
         <Pressable
@@ -705,14 +705,14 @@ ZASADY:
               isLight={isLight}
             />
             <Text style={[styles.orbHint, { color: subColor }]}>
-              Dotknij i przeciągnij, by poczuć mantrę w przestrzeni
+              {t('personalMantra.dotknij_i_przeciagni_by_poczuc', 'Dotknij i przeciągnij, by poczuć mantrę w przestrzeni')}
             </Text>
           </Animated.View>
 
           {/* ── Category selector ── */}
           <Animated.View entering={FadeInDown.delay(200).duration(600)}>
             <Text style={[styles.sectionLabel, { color: ACCENT, paddingHorizontal: layout.padding.screen }]}>
-              KATEGORIA
+              {t('personalMantra.kategoria', 'KATEGORIA')}
             </Text>
             <ScrollView
               horizontal
@@ -753,7 +753,7 @@ ZASADY:
 
           {/* ── Mantra Dnia ── */}
           <Animated.View entering={FadeInDown.delay(280).duration(600)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 20 }}>
-            <Text style={[styles.sectionLabel, { color: ACCENT }]}>MANTRA DNIA</Text>
+            <Text style={[styles.sectionLabel, { color: ACCENT }]}>{t('personalMantra.mantra_dnia', 'MANTRA DNIA')}</Text>
             <LinearGradient
               colors={
                 isLight
@@ -775,7 +775,7 @@ ZASADY:
                   style={[styles.todayBtn, { backgroundColor: activeCat.color + '20', borderColor: activeCat.color + '40' }]}
                 >
                   <Zap size={14} color={activeCat.color} />
-                  <Text style={[styles.todayBtnLabel, { color: activeCat.color }]}>Praktykuj</Text>
+                  <Text style={[styles.todayBtnLabel, { color: activeCat.color }]}>{t('personalMantra.praktykuj', 'Praktykuj')}</Text>
                 </Pressable>
                 <Pressable
                   onPress={() => {
@@ -789,7 +789,7 @@ ZASADY:
                   style={[styles.todayBtn, { backgroundColor: cardBg, borderColor: cardBorder }]}
                 >
                   <RefreshCw size={14} color={subColor} />
-                  <Text style={[styles.todayBtnLabel, { color: subColor }]}>Inna</Text>
+                  <Text style={[styles.todayBtnLabel, { color: subColor }]}>{t('personalMantra.inna', 'Inna')}</Text>
                 </Pressable>
               </View>
             </LinearGradient>
@@ -798,7 +798,7 @@ ZASADY:
           {/* ── Praktyka Mantry ── */}
           {practiceActive && (
             <Animated.View entering={FadeInDown.duration(500)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 24 }}>
-              <Text style={[styles.sectionLabel, { color: ACCENT }]}>PRAKTYKA MANTRY</Text>
+              <Text style={[styles.sectionLabel, { color: ACCENT }]}>{t('personalMantra.praktyka_mantry', 'PRAKTYKA MANTRY')}</Text>
               <View style={[styles.practiceCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 {/* Mantra text */}
                 <Text style={[styles.practiceMantraText, { color: textColor }]}>{activeMantra}</Text>
@@ -834,10 +834,10 @@ ZASADY:
                   {practiceComplete && (
                     <Animated.View entering={FadeInUp.duration(400)} style={{ alignItems: 'center', marginTop: 12 }}>
                       <Text style={{ color: activeCat.color, fontSize: 15, fontWeight: '600' }}>
-                        108 powtórzeń ukończone ✦
+                        {t('personalMantra.108_powtorzen_ukonczone', '108 powtórzeń ukończone ✦')}
                       </Text>
                       <Text style={{ color: subColor, fontSize: 12, marginTop: 4 }}>
-                        Mantra zakorzeniła się w Twoim polu energetycznym
+                        {t('personalMantra.mantra_zakorzenil_sie_w_twoim', 'Mantra zakorzeniła się w Twoim polu energetycznym')}
                       </Text>
                     </Animated.View>
                   )}
@@ -850,13 +850,13 @@ ZASADY:
                     style={[styles.practiceCtaSecondary, { borderColor: cardBorder, flex: 1 }]}
                   >
                     <RotateCcw size={15} color={subColor} />
-                    <Text style={[styles.practiceCtaSecondaryLabel, { color: subColor }]}>Reset</Text>
+                    <Text style={[styles.practiceCtaSecondaryLabel, { color: subColor }]}>{t('personalMantra.reset', 'Reset')}</Text>
                   </Pressable>
                   <Pressable
                     onPress={endPractice}
                     style={[styles.practiceCtaPrimary, { backgroundColor: activeCat.color, flex: 2 }]}
                   >
-                    <Text style={styles.practiceCtaPrimaryLabel}>Zakończ praktykę</Text>
+                    <Text style={styles.practiceCtaPrimaryLabel}>{t('personalMantra.zakoncz_praktyke', 'Zakończ praktykę')}</Text>
                   </Pressable>
                 </View>
               </View>
@@ -865,14 +865,14 @@ ZASADY:
 
           {/* ── Generuj Własną ── */}
           <Animated.View entering={FadeInDown.delay(340).duration(600)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[styles.sectionLabel, { color: ACCENT }]}>GENERUJ WŁASNĄ</Text>
+            <Text style={[styles.sectionLabel, { color: ACCENT }]}>{t('personalMantra.generuj_wlasna', 'GENERUJ WŁASNĄ')}</Text>
             <View style={[styles.generateCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
                 <Sparkles size={16} color={ACCENT} style={{ marginRight: 8 }} />
-                <Text style={[styles.generateTitle, { color: textColor }]}>Mantra od Aethery</Text>
+                <Text style={[styles.generateTitle, { color: textColor }]}>{t('personalMantra.mantra_od_aethery', 'Mantra od Aethery')}</Text>
               </View>
               <Text style={[styles.generateDesc, { color: subColor }]}>
-                Opisz swoją intencję lub wyzwanie. Aethera stworzy dla Ciebie spersonalizowaną mantrę opartą na Twoim profilu.
+                {t('personalMantra.opisz_swoja_intencje_lub_wyzwanie', 'Opisz swoją intencję lub wyzwanie. Aethera stworzy dla Ciebie spersonalizowaną mantrę opartą na Twoim profilu.')}
               </Text>
 
               <TextInput
@@ -880,7 +880,7 @@ ZASADY:
                   styles.intentionInput,
                   { backgroundColor: inputBg, borderColor: cardBorder, color: textColor },
                 ]}
-                placeholder="Np. Chcę uwolnić się od lęku i otworzyć na nowe możliwości..."
+                placeholder={t('personalMantra.np_chce_uwolnic_sie_od', 'Np. Chcę uwolnić się od lęku i otworzyć na nowe możliwości...')}
                 placeholderTextColor={subColor}
                 value={intentionText}
                 onChangeText={setIntentionText}
@@ -900,11 +900,11 @@ ZASADY:
                 ]}
               >
                 {generating ? (
-                  <Text style={styles.generateBtnLabel}>Generowanie mantry...</Text>
+                  <Text style={styles.generateBtnLabel}>{t('personalMantra.generowani_mantry', 'Generowanie mantry...')}</Text>
                 ) : (
                   <>
                     <Sparkles size={16} color="#1C1917" />
-                    <Text style={styles.generateBtnLabel}>Generuj mantrę AI</Text>
+                    <Text style={styles.generateBtnLabel}>{t('personalMantra.generuj_mantre_ai', 'Generuj mantrę AI')}</Text>
                   </>
                 )}
               </Pressable>
@@ -916,7 +916,7 @@ ZASADY:
                     colors={[ACCENT + '18', ACCENT + '08']}
                     style={[styles.generatedCard, { borderColor: ACCENT + '40' }]}
                   >
-                    <Text style={[styles.generatedLabel, { color: ACCENT }]}>TWOJA MANTRA</Text>
+                    <Text style={[styles.generatedLabel, { color: ACCENT }]}>{t('personalMantra.twoja_mantra', 'TWOJA MANTRA')}</Text>
                     <Text style={[styles.generatedText, { color: textColor }]}>{generatedMantra}</Text>
                     <View style={{ flexDirection: 'row', gap: 10, marginTop: 14 }}>
                       <Pressable
@@ -924,14 +924,14 @@ ZASADY:
                         style={[styles.todayBtn, { backgroundColor: ACCENT + '20', borderColor: ACCENT + '40', flex: 1 }]}
                       >
                         <Zap size={14} color={ACCENT} />
-                        <Text style={[styles.todayBtnLabel, { color: ACCENT }]}>Praktykuj</Text>
+                        <Text style={[styles.todayBtnLabel, { color: ACCENT }]}>{t('personalMantra.praktykuj_1', 'Praktykuj')}</Text>
                       </Pressable>
                       <Pressable
                         onPress={saveGeneratedMantra}
                         style={[styles.todayBtn, { backgroundColor: cardBg, borderColor: cardBorder, flex: 1 }]}
                       >
                         <BookOpen size={14} color={subColor} />
-                        <Text style={[styles.todayBtnLabel, { color: subColor }]}>Zapisz</Text>
+                        <Text style={[styles.todayBtnLabel, { color: subColor }]}>{t('personalMantra.zapisz', 'Zapisz')}</Text>
                       </Pressable>
                     </View>
                   </LinearGradient>
@@ -943,16 +943,16 @@ ZASADY:
           {/* ── Moja Biblioteka ── */}
           <Animated.View entering={FadeInDown.delay(400).duration(600)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 24 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-              <Text style={[styles.sectionLabel, { color: ACCENT }]}>MOJA BIBLIOTEKA</Text>
+              <Text style={[styles.sectionLabel, { color: ACCENT }]}>{t('personalMantra.moja_biblioteka', 'MOJA BIBLIOTEKA')}</Text>
               <Text style={[styles.sectionCount, { color: subColor }]}>{savedMantras.length} mantr</Text>
             </View>
 
             {savedMantras.length === 0 && (
               <View style={[styles.emptyCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <Text style={{ fontSize: 28, marginBottom: 8 }}>📖</Text>
-                <Text style={[styles.emptyTitle, { color: textColor }]}>Biblioteka jest pusta</Text>
+                <Text style={[styles.emptyTitle, { color: textColor }]}>{t('personalMantra.biblioteka_jest_pusta', 'Biblioteka jest pusta')}</Text>
                 <Text style={[styles.emptyDesc, { color: subColor }]}>
-                  Wygeneruj mantrę AI lub zapisz ulubioną ze zbioru, by zobaczyć ją tutaj.
+                  {t('personalMantra.wygeneruj_mantre_ai_lub_zapisz', 'Wygeneruj mantrę AI lub zapisz ulubioną ze zbioru, by zobaczyć ją tutaj.')}
                 </Text>
               </View>
             )}
@@ -995,7 +995,7 @@ ZASADY:
                           <Text style={[styles.libraryMeta, { color: subColor }]}>{dateStr}</Text>
                           {mantra.isAI && (
                             <View style={[styles.aiTag, { backgroundColor: ACCENT + '20', borderColor: ACCENT + '30' }]}>
-                              <Text style={[styles.aiTagLabel, { color: ACCENT }]}>AI</Text>
+                              <Text style={[styles.aiTagLabel, { color: ACCENT }]}>{t('personalMantra.ai', 'AI')}</Text>
                             </View>
                           )}
                           {(mantra.repeatsDone ?? 0) > 0 && (
@@ -1019,7 +1019,7 @@ ZASADY:
                           style={[styles.libraryBtn, { backgroundColor: cat.color + '22', borderColor: cat.color + '40', flex: 1 }]}
                         >
                           <Zap size={14} color={cat.color} />
-                          <Text style={[styles.libraryBtnLabel, { color: cat.color }]}>Praktykuj</Text>
+                          <Text style={[styles.libraryBtnLabel, { color: cat.color }]}>{t('personalMantra.praktykuj_2', 'Praktykuj')}</Text>
                         </Pressable>
                         <Pressable
                           onPress={() => {
@@ -1029,7 +1029,7 @@ ZASADY:
                           }}
                           style={[styles.libraryBtn, { backgroundColor: 'rgba(239,68,68,0.10)', borderColor: 'rgba(239,68,68,0.20)', flex: 1 }]}
                         >
-                          <Text style={{ color: '#EF4444', fontSize: 13 }}>Usuń</Text>
+                          <Text style={{ color: '#EF4444', fontSize: 13 }}>{t('personalMantra.usun', 'Usuń')}</Text>
                         </Pressable>
                       </Animated.View>
                     )}
@@ -1041,7 +1041,7 @@ ZASADY:
 
           {/* ── Tradycja 108 ── */}
           <Animated.View entering={FadeInDown.delay(480).duration(600)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[styles.sectionLabel, { color: ACCENT }]}>TRADYCJA 108</Text>
+            <Text style={[styles.sectionLabel, { color: ACCENT }]}>{t('personalMantra.tradycja_108', 'TRADYCJA 108')}</Text>
             <LinearGradient
               colors={
                 isLight
@@ -1051,7 +1051,7 @@ ZASADY:
               style={[styles.traditionCard, { borderColor: ACCENT + '35' }]}
             >
               <Text style={{ fontSize: 28, textAlign: 'center', marginBottom: 10 }}>🙏</Text>
-              <Text style={[styles.traditionTitle, { color: textColor }]}>Dlaczego 108?</Text>
+              <Text style={[styles.traditionTitle, { color: textColor }]}>{t('personalMantra.dlaczego_108', 'Dlaczego 108?')}</Text>
               <Text style={[styles.traditionText, { color: subColor }]}>
                 Liczba 108 jest święta w wielu tradycjach — od hinduizmu przez buddyzm po
                 jogę. W numerologii redukuje się do 9 (1+0+8), liczby pełni i zakończenia
@@ -1104,7 +1104,7 @@ ZASADY:
 
           {/* ── Co dalej ── */}
           <Animated.View entering={FadeInDown.delay(600).duration(600)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 28 }}>
-            <Text style={[styles.sectionLabel, { color: ACCENT }]}>CO DALEJ</Text>
+            <Text style={[styles.sectionLabel, { color: ACCENT }]}>{t('personalMantra.co_dalej', 'CO DALEJ')}</Text>
             <View style={{ gap: 10 }}>
               {[
                 {

@@ -429,7 +429,7 @@ export const LucidDreamingScreen = ({ navigation }: any) => {
     setIntention('');
     Keyboard.dismiss();
     HapticsService.notify();
-    Alert.alert('Intencja zapisana', 'Twoja intencja snu została ustawiona. Dobranoc!');
+    Alert.alert(t('lucidDreaming.intencja_zapisana', 'Intencja zapisana'), t('lucidDreaming.twoja_intencja_snu_zostala_ustawion', 'Twoja intencja snu została ustawiona. Dobranoc!'));
   };
 
   const lucidCount   = safeShadowWorkSessions.length; // repurposing as example stat
@@ -459,7 +459,7 @@ export const LucidDreamingScreen = ({ navigation }: any) => {
         {/* Hero 3D Portal */}
         <View style={{ alignItems: 'center', paddingVertical: 8 }}>
           <DreamPortal3D />
-          <Text style={{ color: 'rgba(167,139,250,0.6)', fontSize: 10, letterSpacing: 3, marginTop: 4 }}>DOTKNIJ I OBRÓĆ PORTAL</Text>
+          <Text style={{ color: 'rgba(167,139,250,0.6)', fontSize: 10, letterSpacing: 3, marginTop: 4 }}>{t('lucidDreaming.dotknij_i_obroc_portal', 'DOTKNIJ I OBRÓĆ PORTAL')}</Text>
         </View>
 
         {/* Date / context */}
@@ -470,7 +470,7 @@ export const LucidDreamingScreen = ({ navigation }: any) => {
         {/* What is lucid dreaming */}
         <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 28 }}>
           <Animated.View entering={FadeInDown.delay(100).springify()}>
-            <Text style={{ color: ACCENT_LIGHT, fontSize: 11, letterSpacing: 2.5, marginBottom: 10 }}>CZYM JEST ŚWIADOME ŚNIENIE</Text>
+            <Text style={{ color: ACCENT_LIGHT, fontSize: 11, letterSpacing: 2.5, marginBottom: 10 }}>{t('lucidDreaming.czym_jest_swiadome_snienie', 'CZYM JEST ŚWIADOME ŚNIENIE')}</Text>
             <LinearGradient
               colors={['rgba(124,58,237,0.12)', 'rgba(76,29,149,0.08)']}
               style={{ borderRadius: 18, borderWidth: 1, borderColor: ACCENT + '33', padding: 18 }}
@@ -487,7 +487,7 @@ export const LucidDreamingScreen = ({ navigation }: any) => {
         {/* Techniques */}
         <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 28 }}>
           <Animated.View entering={FadeInDown.delay(150).springify()}>
-            <Text style={{ color: ACCENT_LIGHT, fontSize: 11, letterSpacing: 2.5, marginBottom: 14 }}>TECHNIKI WEJŚCIA</Text>
+            <Text style={{ color: ACCENT_LIGHT, fontSize: 11, letterSpacing: 2.5, marginBottom: 14 }}>{t('lucidDreaming.techniki_wejscia', 'TECHNIKI WEJŚCIA')}</Text>
             {TECHNIQUES.map((tech) => <TechniqueCard key={tech.id} item={tech} />)}
           </Animated.View>
         </View>
@@ -495,9 +495,9 @@ export const LucidDreamingScreen = ({ navigation }: any) => {
         {/* Reality checks */}
         <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 28 }}>
           <Animated.View entering={FadeInDown.delay(200).springify()}>
-            <Text style={{ color: ACCENT_LIGHT, fontSize: 11, letterSpacing: 2.5, marginBottom: 14 }}>SYGNAŁY RZECZYWISTOŚCI</Text>
+            <Text style={{ color: ACCENT_LIGHT, fontSize: 11, letterSpacing: 2.5, marginBottom: 14 }}>{t('lucidDreaming.sygnaly_rzeczywist', 'SYGNAŁY RZECZYWISTOŚCI')}</Text>
             <Text style={{ color: 'rgba(221,214,254,0.6)', fontSize: 12, lineHeight: 18, marginBottom: 14 }}>
-              Wykonuj te testy wielokrotnie w ciągu dnia — nawyk przeniesie się do snu.
+              {t('lucidDreaming.wykonuj_te_testy_wielokrotn_w', 'Wykonuj te testy wielokrotnie w ciągu dnia — nawyk przeniesie się do snu.')}
             </Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
               {REALITY_CHECKS.map((rc) => <RealityCheckCard key={rc.id} item={rc} />)}
@@ -508,20 +508,20 @@ export const LucidDreamingScreen = ({ navigation }: any) => {
         {/* Intention Journal */}
         <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 28 }}>
           <Animated.View entering={FadeInDown.delay(250).springify()}>
-            <Text style={{ color: ACCENT_LIGHT, fontSize: 11, letterSpacing: 2.5, marginBottom: 14 }}>DZIENNIK INTENCJI</Text>
+            <Text style={{ color: ACCENT_LIGHT, fontSize: 11, letterSpacing: 2.5, marginBottom: 14 }}>{t('lucidDreaming.dziennik_intencji', 'DZIENNIK INTENCJI')}</Text>
             {savedInt ? (
               <LinearGradient
                 colors={['rgba(124,58,237,0.15)', 'rgba(76,29,149,0.08)']}
                 style={{ borderRadius: 14, borderWidth: 1, borderColor: ACCENT + '44', padding: 16, marginBottom: 12 }}
               >
-                <Text style={{ color: 'rgba(167,139,250,0.7)', fontSize: 10, letterSpacing: 2, marginBottom: 6 }}>AKTUALNA INTENCJA</Text>
+                <Text style={{ color: 'rgba(167,139,250,0.7)', fontSize: 10, letterSpacing: 2, marginBottom: 6 }}>{t('lucidDreaming.aktualna_intencja', 'AKTUALNA INTENCJA')}</Text>
                 <Text style={{ color: '#EDE9FE', fontSize: 14, lineHeight: 21 }}>"{savedInt}"</Text>
               </LinearGradient>
             ) : null}
             <TextInput
               value={intention}
               onChangeText={setIntention}
-              placeholder="Czego chcesz doświadczyć tej nocy we śnie?"
+              placeholder={t('lucidDreaming.czego_chcesz_doswiadczy_tej_nocy', 'Czego chcesz doświadczyć tej nocy we śnie?')}
               placeholderTextColor="rgba(167,139,250,0.4)"
               multiline
               style={{
@@ -540,7 +540,7 @@ export const LucidDreamingScreen = ({ navigation }: any) => {
                 colors={[ACCENT, ACCENT_DARK]}
                 style={{ paddingVertical: 14, alignItems: 'center', borderRadius: 14 }}
               >
-                <Text style={{ color: '#fff', fontSize: 14, fontWeight: '700', letterSpacing: 1 }}>USTAW INTENCJĘ SNU</Text>
+                <Text style={{ color: '#fff', fontSize: 14, fontWeight: '700', letterSpacing: 1 }}>{t('lucidDreaming.ustaw_intencje_snu', 'USTAW INTENCJĘ SNU')}</Text>
               </LinearGradient>
             </Pressable>
           </Animated.View>
@@ -549,7 +549,7 @@ export const LucidDreamingScreen = ({ navigation }: any) => {
         {/* Progress stats */}
         <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 28 }}>
           <Animated.View entering={FadeInDown.delay(300).springify()}>
-            <Text style={{ color: ACCENT_LIGHT, fontSize: 11, letterSpacing: 2.5, marginBottom: 14 }}>MÓJ POSTĘP</Text>
+            <Text style={{ color: ACCENT_LIGHT, fontSize: 11, letterSpacing: 2.5, marginBottom: 14 }}>{t('lucidDreaming.moj_postep', 'MÓJ POSTĘP')}</Text>
             <View style={{ flexDirection: 'row', gap: 12 }}>
               {[
                 { label: 'Sesje', value: String(lucidCount), icon: <Moon size={18} color={ACCENT} /> },
@@ -573,7 +573,7 @@ export const LucidDreamingScreen = ({ navigation }: any) => {
         {/* Advanced techniques */}
         <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 28 }}>
           <Animated.View entering={FadeInDown.delay(350).springify()}>
-            <Text style={{ color: ACCENT_LIGHT, fontSize: 11, letterSpacing: 2.5, marginBottom: 14 }}>TECHNIKI ZAAWANSOWANE</Text>
+            <Text style={{ color: ACCENT_LIGHT, fontSize: 11, letterSpacing: 2.5, marginBottom: 14 }}>{t('lucidDreaming.techniki_zaawansowa', 'TECHNIKI ZAAWANSOWANE')}</Text>
             {ADVANCED_TECHNIQUES.map((tech) => (
               <LinearGradient
                 key={tech.id}

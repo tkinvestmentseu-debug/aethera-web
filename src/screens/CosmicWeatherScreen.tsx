@@ -605,10 +605,7 @@ const SectionHeader = ({ label, accent }: { label: string; accent: string }) => 
 // ── MAIN SCREEN ────────────────────────────────────────────────
 export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
   const { t } = useTranslation();
-  const isEnglish = i18n.language?.startsWith('en');
-  const language = isEnglish ? 'en' : 'pl';
-  const localeCode = isEnglish ? 'en-US' : 'pl-PL';
-  const tr = (pl: string, en: string) => (isEnglish ? en : pl);
+  const language = i18n.language?.startsWith('en') ? 'en' : 'pl';
   const insets = useSafeAreaInsets();
     const userData = useAppStore(s => s.userData);
   const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
@@ -653,8 +650,8 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
     } else {
       addFavoriteItem({
         id: 'cosmic_weather',
-        label: tr('Kosmiczna Pogoda', 'Cosmic Weather'),
-        sublabel: tr('Przepowiednia energetyczna dnia', 'Daily energetic forecast'),
+        label: t('cosmicWeather.kosmiczna_pogoda', 'Kosmiczna Pogoda'),
+        sublabel: t('cosmicWeather.przepowiednia_energetyczna', 'Przepowiednia energetyczna dnia'),
         route: 'CosmicWeather',
         icon: 'Cloud',
         color: accent,
@@ -671,13 +668,13 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
     setCosmicAiLoading(true);
     HapticsService.notify();
     try {
-      const prompt = isEnglish
+      const prompt = (i18n.language?.startsWith('en'))
         ? `Today's cosmic weather: ${cosmic.weather.label}. Moon phase: ${cosmic.moonName}. Personal number: ${cosmic.personalNumber}. Day rating: ${cosmic.rating}/5. Write a short 3-4 sentence personalized reading of today's energy and give one specific practical suggestion.`
         : `Kosmiczna pogoda dnia: ${cosmic.weather.label}. Faza księżyca: ${cosmic.moonName}. Liczba osobista: ${cosmic.personalNumber}. Ocena dnia: ${cosmic.rating}/5. Napisz krótką, 3-4 zdaniową personalizowaną interpretację energii dnia i jedną konkretną sugestię dla użytkownika.`;
       const result = await AiService.chatWithOracle(prompt, language);
       setCosmicAiInsight(result);
     } catch (e) {
-      setCosmicAiInsight(tr('Nie udało się pobrać interpretacji. Spróbuj ponownie.', 'Could not load the interpretation. Try again.'));
+      setCosmicAiInsight(t('cosmicWeather.nie_udalo_sie', 'Nie udało się pobrać interpretacji. Spróbuj ponownie.'));
     } finally {
       setCosmicAiLoading(false);
     }
@@ -695,7 +692,7 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
 
   // Personalized sign advice
   const signAdvice = useMemo(() => {
-    const adviceMap: Record<string, string> = isEnglish ? {
+    const adviceMap: Record<string, string> = (i18n.language?.startsWith('en')) ? {
       'Aries': 'Today your Martian energy is amplified. Act boldly, but with an instinct for harmony.',
       'Taurus': 'Venus supports your senses. Find beauty in the ordinary and care for your body.',
       'Gemini': 'Mercury activates your mind. Write, speak and express yourself creatively.',
@@ -722,10 +719,10 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
       'Wodnik': 'Uranowe fale inspirują Cię do rewolucji. Myśl inaczej niż wszyscy.',
       'Ryby': 'Neptun zanurza Cię w morzu intuicji. Ufaj temu, co czujesz, nie tylko rozumiesz.',
     };
-    const fallbackSign = isEnglish ? 'Aries' : 'Baran';
+    const fallbackSign = (i18n.language?.startsWith('en')) ? 'Aries' : 'Baran';
     const sign = Object.keys(adviceMap).find(s => userZodiac?.includes(s)) || fallbackSign;
     return adviceMap[sign] || adviceMap[fallbackSign];
-  }, [isEnglish, userZodiac]);
+  }, [userZodiac]);
 
   return (
     <View style={[s.container, { backgroundColor: currentTheme.background }]}>
@@ -756,7 +753,7 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
             <ChevronLeft color={accent} size={22} strokeWidth={2} />
           </Pressable>
           <View style={s.headerCenter}>
-            <Text style={[s.headerTitle, { color: textColor }]}>{tr('Kosmiczna Pogoda', 'Cosmic Weather')}</Text>
+            <Text style={[s.headerTitle, { color: textColor }]}>{t('cosmicWeather.kosmiczna_pogoda', 'Kosmiczna Pogoda')}</Text>
             <Text style={[s.headerSub, { color: subColor }]}>{localizedDays[todayDOW]}, {todayDay} {monthLabel} {yearLabel}</Text>
           </View>
           <Pressable onPress={handleStar} style={s.backBtn} hitSlop={12}>
@@ -781,7 +778,7 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
             >
               <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 10 }}>
                 <View>
-                  <Text style={[s.forecastEyebrow, { color: cosmic.weather.color }]}>{tr('PROGNOZA NA DZIŚ', 'FORECAST FOR TODAY')}</Text>
+                  <Text style={[s.forecastEyebrow, { color: cosmic.weather.color }]}>{t('cosmicWeather.prognoza_na_dzis', 'PROGNOZA NA DZIŚ')}</Text>
                   <Text style={[s.forecastType, { color: textColor }]}>{cosmic.weather.label}</Text>
                 </View>
                 <View style={{ alignItems: 'flex-end', gap: 6 }}>
@@ -796,24 +793,24 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
               <View style={{ flexDirection: 'row', gap: 12 }}>
                 <View style={s.forecastStat}>
                   <Text style={[s.forecastStatVal, { color: cosmic.weather.color }]}>{cosmic.personalNumber}</Text>
-                  <Text style={[s.forecastStatLabel, { color: subColor }]}>{tr('LICZBA OSOBISTA', 'PERSONAL NUMBER')}</Text>
+                  <Text style={[s.forecastStatLabel, { color: subColor }]}>{t('cosmicWeather.liczba_osobista', 'LICZBA OSOBISTA')}</Text>
                 </View>
                 <View style={[s.forecastStatDivider, { backgroundColor: cosmic.weather.color + '25' }]} />
                 <View style={s.forecastStat}>
                   <Text style={[s.forecastStatVal, { color: '#C4B5FD' }]}>{cosmic.moonName.split(' ')[0]}</Text>
-                  <Text style={[s.forecastStatLabel, { color: subColor }]}>{tr('FAZA KSIĘŻYCA', 'MOON PHASE')}</Text>
+                  <Text style={[s.forecastStatLabel, { color: subColor }]}>{t('cosmicWeather.faza_ksiezyca', 'FAZA KSIĘŻYCA')}</Text>
                 </View>
                 <View style={[s.forecastStatDivider, { backgroundColor: cosmic.weather.color + '25' }]} />
                 <View style={s.forecastStat}>
                   <Text style={[s.forecastStatVal, { color: ACCENT }]}>{cosmic.rating}/5</Text>
-                  <Text style={[s.forecastStatLabel, { color: subColor }]}>{tr('OCENA DNIA', 'DAY RATING')}</Text>
+                  <Text style={[s.forecastStatLabel, { color: subColor }]}>{t('cosmicWeather.ocena_dnia', 'OCENA DNIA')}</Text>
                 </View>
               </View>
             </LinearGradient>
           </Animated.View>
 
           {/* 3. ENERGY BREAKDOWN */}
-          <SectionHeader label={tr('WYMIARY ENERGII', 'ENERGY DIMENSIONS')} accent={accent} />
+          <SectionHeader label={t('cosmicWeather.wymiary_energii', 'WYMIARY ENERGII')} accent={accent} />
           {localizedEnergyDimensions.map((dim, i) => (
             <EnergyGauge
               key={dim.id}
@@ -827,11 +824,11 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
           ))}
 
           {/* 4. PLANETARY INFLUENCES */}
-          <SectionHeader label={tr('WPŁYWY PLANETARNE', 'PLANETARY INFLUENCES')} accent={accent} />
+          <SectionHeader label={t('cosmicWeather.wplywy_planetarne', 'WPŁYWY PLANETARNE')} accent={accent} />
           <Animated.View entering={FadeInDown.delay(40).duration(400)}>
             <View style={[s.infoBox, { backgroundColor: cardBg, borderColor: accent + '20' }]}>
               <Text style={[s.infoText, { color: subColor }]}>
-                {tr('Dziś szczególnie aktywne są trzy planety, których energie wyraźnie kształtują wibracje kosmiczne.', 'Today three planets are especially active, and their influence is strongly shaping the cosmic field.')}
+                {t('cosmicWeather.dzis_aktywne_planety', 'Dziś szczególnie aktywne są trzy planety, których energie wyraźnie kształtują wibracje kosmiczne.')}
               </Text>
             </View>
           </Animated.View>
@@ -843,13 +840,13 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
               onPress={() => navigation.navigate('AstrologyCycles')}
               style={[s.linkRow, { borderColor: accent + '20' }]}
             >
-              <Text style={[s.linkText, { color: accent }]}>{tr('Pełna mapa tranzytów planetarnych', 'Full map of planetary transits')}</Text>
+              <Text style={[s.linkText, { color: accent }]}>{t('cosmicWeather.pelna_mapa_tranzytow', 'Pełna mapa tranzytów planetarnych')}</Text>
               <ArrowRight size={15} color={accent} />
             </Pressable>
           </Animated.View>
 
           {/* 5. WEEKLY COSMIC MAP */}
-          <SectionHeader label={tr('MAPA TYGODNIA', 'WEEK MAP')} accent={accent} />
+          <SectionHeader label={t('cosmicWeather.mapa_tygodnia', 'MAPA TYGODNIA')} accent={accent} />
           <Animated.View entering={FadeInDown.delay(60).duration(500)}>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingBottom: 4 }}>
               {cosmic.weekForecast.map((day, i) => (
@@ -859,7 +856,7 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
           </Animated.View>
 
           {/* 6. BEST ACTIVITIES */}
-          <SectionHeader label={tr('NAJLEPSZE AKTYWNOŚCI DZIŚ', 'BEST ACTIVITIES TODAY')} accent={accent} />
+          <SectionHeader label={t('cosmicWeather.najlepsze_aktywnosci', 'NAJLEPSZE AKTYWNOŚCI DZIŚ')} accent={accent} />
           {cosmic.bestActivities.map((activity, i) => (
             <Animated.View key={i} entering={FadeInDown.delay(i * 60).duration(400)}>
               <View style={[s.activityRow, { borderColor: accent + '18', backgroundColor: cardBg }]}>
@@ -873,7 +870,7 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
           ))}
 
           {/* 7. WHAT TO AVOID */}
-          <SectionHeader label={tr('CZEGO UNIKAĆ DZIŚ', 'WHAT TO AVOID TODAY')} accent="#F87171" />
+          <SectionHeader label={t('cosmicWeather.czego_unikac', 'CZEGO UNIKAĆ DZIŚ')} accent="#F87171" />
           {cosmic.avoidItems.map((item, i) => (
             <Animated.View key={i} entering={FadeInDown.delay(i * 60).duration(400)}>
               <View style={[s.avoidRow, { borderColor: '#F8717118', backgroundColor: '#F8717108' }]}>
@@ -886,7 +883,7 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
           ))}
 
           {/* 8. COSMIC WEATHER FOR YOUR SIGN */}
-          <SectionHeader label={`${tr('KOSMICZNA POGODA DLA', 'COSMIC WEATHER FOR')}: ${userZodiac?.toUpperCase?.() || tr('TWOJEGO ZNAKU', 'YOUR SIGN')}`} accent="#C4B5FD" />
+          <SectionHeader label={`${t('cosmicWeather.kosmiczna_pogoda_dla', 'KOSMICZNA POGODA DLA')}: ${userZodiac?.toUpperCase?.() || t('cosmicWeather.twojego_znaku', 'TWOJEGO ZNAKU')}`} accent="#C4B5FD" />
           <Animated.View entering={FadeInDown.delay(80).duration(500)}>
             <LinearGradient
               colors={['#C4B5FD18', '#A78BFA08', 'transparent']}
@@ -898,7 +895,7 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
                 </View>
                 <View>
                   <Text style={[s.signLabel, { color: '#C4B5FD' }]}>{userZodiac}</Text>
-                  <Text style={[s.signSublabel, { color: subColor }]}>{tr('Twój znak słoneczny', 'Your sun sign')}</Text>
+                  <Text style={[s.signSublabel, { color: subColor }]}>{t('cosmicWeather.twoj_znak_sloneczny', 'Twój znak słoneczny')}</Text>
                 </View>
                 <StarRating rating={cosmic.rating} color="#C4B5FD" />
               </View>
@@ -907,14 +904,14 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
                 onPress={() => navigation.navigate('Horoscope')}
                 style={[s.signCta, { borderColor: '#C4B5FD35' }]}
               >
-                <Text style={{ fontSize: 13, color: '#C4B5FD', fontWeight: '600' }}>{tr('Pełny horoskop dzienny', 'Full daily horoscope')}</Text>
+                <Text style={{ fontSize: 13, color: '#C4B5FD', fontWeight: '600' }}>{t('cosmicWeather.pelny_horoskop_dzienny', 'Pełny horoskop dzienny')}</Text>
                 <ArrowRight size={14} color="#C4B5FD" />
               </Pressable>
             </LinearGradient>
           </Animated.View>
 
           {/* 9. 30-DAY COSMIC CALENDAR */}
-          <SectionHeader label={`${tr('KALENDARZ', 'CALENDAR')} ${monthLabel.toUpperCase()} ${yearLabel}`} accent={accent} />
+          <SectionHeader label={`${t('cosmicWeather.kalendarz', 'KALENDARZ')} ${monthLabel.toUpperCase()} ${yearLabel}`} accent={accent} />
           <Animated.View entering={FadeInDown.delay(80).duration(500)}>
             <View style={[s.calendarWrap, { backgroundColor: cardBg, borderColor: accent + '18' }]}>
               {/* Day headers */}
@@ -938,11 +935,11 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
               {/* Legend */}
               <View style={[s.calLegend, { borderTopColor: accent + '15' }]}>
                 {[
-                  { color: '#F87171', label: tr('Intensywny', 'Intense') },
-                  { color: '#FBBF24', label: tr('Aktywny', 'Active') },
-                  { color: '#60A5FA', label: tr('Spokojny', 'Calm') },
-                  { color: '#34D399', label: tr('Harmonijny', 'Harmonious') },
-                  { color: '#C4B5FD', label: tr('Duchowy', 'Spiritual') },
+                  { color: '#F87171', label: t('cosmicWeather.intensywny', 'Intensywny') },
+                  { color: '#FBBF24', label: t('cosmicWeather.aktywny', 'Aktywny') },
+                  { color: '#60A5FA', label: t('cosmicWeather.spokojny', 'Spokojny') },
+                  { color: '#34D399', label: t('cosmicWeather.harmonijny', 'Harmonijny') },
+                  { color: '#C4B5FD', label: t('cosmicWeather.duchowy', 'Duchowy') },
                 ].map(l => (
                   <View key={l.label} style={s.legendItem}>
                     <View style={[s.legendDot, { backgroundColor: l.color }]} />
@@ -954,7 +951,7 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
           </Animated.View>
 
           {/* 10. SUBSCRIBE TO UPDATES */}
-          <SectionHeader label={tr('POWIADOMIENIA KOSMICZNE', 'COSMIC NOTIFICATIONS')} accent={accent} />
+          <SectionHeader label={t('cosmicWeather.powiadomienia_kosmiczne', 'POWIADOMIENIA KOSMICZNE')} accent={accent} />
           <Animated.View entering={FadeInDown.delay(80).duration(500)}>
             <Pressable
               onPress={() => navigation.navigate('NotificationsDetail')}
@@ -970,9 +967,9 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
                 <Bell color={accent} size={22} strokeWidth={1.8} />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={[s.notifTitle, { color: textColor }]}>{tr('Poranna prognoza kosmiczna', 'Morning cosmic forecast')}</Text>
+                <Text style={[s.notifTitle, { color: textColor }]}>{t('cosmicWeather.poranna_prognoza', 'Poranna prognoza kosmiczna')}</Text>
                 <Text style={[s.notifDesc, { color: subColor }]}>
-                  {tr('Ustaw powiadomienie o wybranej godzinie i zacznij dzień z kosmicznym briefingiem energetycznym.', 'Set a reminder for your chosen hour and begin the day with a cosmic energy briefing.')}
+                  {t('cosmicWeather.ustaw_powiadomienie', 'Ustaw powiadomienie o wybranej godzinie i zacznij dzień z kosmicznym briefingiem energetycznym.')}
                 </Text>
               </View>
               <ArrowRight color={accent} size={18} />
@@ -983,9 +980,9 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
           <Animated.View entering={FadeInDown.delay(120).duration(500)}>
             <View style={s.quickLinks}>
               {[
-                { label: tr('Kalendarz Księżycowy', 'Moon calendar'), route: 'LunarCalendar', color: '#C4B5FD' },
-                { label: tr('Cykle Planetarne', 'Planetary cycles'), route: 'AstrologyCycles', color: '#60A5FA' },
-                { label: tr('Biorytmy', 'Biorhythms'), route: 'Biorhythm', color: '#34D399' },
+                { label: t('cosmicWeather.kalendarz_ksiezycowy', 'Kalendarz Księżycowy'), route: 'LunarCalendar', color: '#C4B5FD' },
+                { label: t('cosmicWeather.cykle_planetarne', 'Cykle Planetarne'), route: 'AstrologyCycles', color: '#60A5FA' },
+                { label: t('cosmicWeather.biorytmy', 'Biorytmy'), route: 'Biorhythm', color: '#34D399' },
               ].map(link => (
                 <Pressable
                   key={link.route}
@@ -1001,14 +998,14 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
 
           {/* AI COSMIC INSIGHT */}
           <Animated.View entering={FadeInDown.delay(160).duration(500)}>
-            <SectionHeader label={tr('AI INTERPRETACJA DNIA', 'AI READING OF THE DAY')} accent={accent} />
+            <SectionHeader label={t('cosmicWeather.ai_interpretacja', 'AI INTERPRETACJA DNIA')} accent={accent} />
             <View style={[s.infoBox, { backgroundColor: cosmic.weather.color + "10", borderColor: cosmic.weather.color + "30" }]}>
               <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
                 <Text style={[s.infoText, { color: cosmic.weather.color, fontWeight: "700", fontSize: 11, letterSpacing: 1 }]}>{"ORACLE"}</Text>
                 <Pressable onPress={fetchCosmicInsight} disabled={cosmicAiLoading}
                   style={{ backgroundColor: cosmic.weather.color, paddingHorizontal: 14, paddingVertical: 7, borderRadius: 10 }}>
                   <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700" }}>
-                    {cosmicAiLoading ? "..." : tr('Interpretuj dzień', 'Interpret day')}
+                    {cosmicAiLoading ? "..." : t('cosmicWeather.interpretuj_dzien', 'Interpretuj dzień')}
                   </Text>
                 </Pressable>
               </View>
@@ -1016,7 +1013,7 @@ export const CosmicWeatherScreen = ({ navigation }: { navigation: any }) => {
                 <Text style={[s.infoText, { color: textColor, fontStyle: "italic", lineHeight: 22 }]}>{cosmicAiInsight}</Text>
               ) : (
                 <Text style={[s.infoText, { color: subColor }]}>
-                  {tr('Naciśnij Interpretuj dzień, aby uzyskać spersonalizowaną AI analizę kosmicznej energii dnia.', 'Press Interpret day to receive a personalized AI reading of today’s cosmic energy.')}
+                  {t('cosmicWeather.nacisnij_interpretuj', 'Naciśnij Interpretuj dzień, aby uzyskać spersonalizowaną AI analizę kosmicznej energii dnia.')}
                 </Text>
               )}
             </View>

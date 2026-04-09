@@ -185,7 +185,7 @@ const LoadingDots = ({ color }: { color: string }) => {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, paddingVertical: 4 }}>
       <ActivityIndicator size="small" color={color} />
-      <Text style={{ fontSize: 13, color, fontStyle: 'italic' }}>Analizuję Twoje cykle...</Text>
+      <Text style={{ fontSize: 13, color, fontStyle: 'italic' }}>{t('biorhythm.analizuje_twoje_cykle', 'Analizuję Twoje cykle...')}</Text>
     </View>
   );
 };
@@ -370,12 +370,12 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
   if (!userData.birthDate) {
     return (
       <View style={{ flex: 1, backgroundColor: isLight ? '#FAF6EE' : '#06050F', alignItems: 'center', justifyContent: 'center', padding: 32 }}>
-        <Typography variant="editorialHeader" style={{ color: ACCENT, textAlign: 'center' }}>Potrzebna data urodzenia</Typography>
+        <Typography variant="editorialHeader" style={{ color: ACCENT, textAlign: 'center' }}>{t('biorhythm.potrzebna_data_urodzenia', 'Potrzebna data urodzenia')}</Typography>
         <Typography variant="bodyRefined" style={{ color: subColor, textAlign: 'center', marginTop: 10, marginBottom: 24 }}>
-          Biorytm oblicza Twoje cykle na podstawie daty urodzenia.
+          {t('biorhythm.biorytm_oblicza_twoje_cykle_na', 'Biorytm oblicza Twoje cykle na podstawie daty urodzenia.')}
         </Typography>
         <Pressable onPress={() => navigation.navigate('Profile')} style={[bs.emptyBtn, { backgroundColor: ACCENT }]}>
-          <Text style={{ color: '#FFF', fontWeight: '700' }}>Przejdź do Profilu</Text>
+          <Text style={{ color: '#FFF', fontWeight: '700' }}>{t('biorhythm.przejdz_do_profilu', 'Przejdź do Profilu')}</Text>
         </Pressable>
       </View>
     );
@@ -396,8 +396,8 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
             <ChevronLeft color={ACCENT} size={28} strokeWidth={1.5} />
           </Pressable>
           <View style={bs.headerCenter}>
-            <Typography variant="premiumLabel" color={ACCENT}>Biorytm</Typography>
-            <Typography variant="screenTitle" style={{ color: textColor, marginTop: 2 }}>Twoje cykle życiowe</Typography>
+            <Typography variant="premiumLabel" color={ACCENT}>{t('biorhythm.biorytm', 'Biorytm')}</Typography>
+            <Typography variant="screenTitle" style={{ color: textColor, marginTop: 2 }}>{t('biorhythm.twoje_cykle_zyciowe', 'Twoje cykle życiowe')}</Typography>
           </View>
           <Pressable onPress={handleStar} style={bs.starBtn} hitSlop={12}>
             <Star color={ACCENT} size={22} strokeWidth={1.6} fill={isFav ? ACCENT : 'none'} />
@@ -417,7 +417,7 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
 
               <View style={bs.heroTopRow}>
                 <View>
-                  <Typography variant="premiumLabel" color={ACCENT}>CYKL ŁĄCZONY</Typography>
+                  <Typography variant="premiumLabel" color={ACCENT}>{t('biorhythm.cykl_laczony', 'CYKL ŁĄCZONY')}</Typography>
                   <Text style={[bs.heroScore, { color: ACCENT }]}>{avgToday}%</Text>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 }}>
                     <View style={[bs.heroPhaseBadge, { backgroundColor: overallPhase.color + '22', borderColor: overallPhase.color + '44' }]}>
@@ -450,7 +450,7 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
               <View style={{ marginHorizontal: -4, marginTop: 4 }}>
                 <CombinedArcChart birthDate={birthDate} isLight={isLight} />
               </View>
-              <Text style={[bs.chartLegend, { color: subColor }]}>← 14 dni temu · Dziś · +14 dni →</Text>
+              <Text style={[bs.chartLegend, { color: subColor }]}>{t('biorhythm.14_dni_temu_dzis_14', '← 14 dni temu · Dziś · +14 dni →')}</Text>
             </View>
           </Animated.View>
 
@@ -459,10 +459,10 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
             <View style={[bs.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <View style={bs.sectionHeaderRow}>
                 <Calendar color={ACCENT} size={14} strokeWidth={1.8} />
-                <Text style={[bs.eyebrow, { color: ACCENT }]}>PROGNOZA 14 DNI</Text>
+                <Text style={[bs.eyebrow, { color: ACCENT }]}>{t('biorhythm.prognoza_14_dni', 'PROGNOZA 14 DNI')}</Text>
               </View>
               <Text style={[bs.sectionSub, { color: subColor }]}>
-                Przesuń, aby zobaczyć nadchodzące dni. Słupki: Fizyczny · Emocjonalny · Intelektualny
+                {t('biorhythm.przesun_aby_zobaczyc_nadchodzac_dni', 'Przesuń, aby zobaczyć nadchodzące dni. Słupki: Fizyczny · Emocjonalny · Intelektualny')}
               </Text>
               <FlatList
                 data={forecast14}
@@ -491,7 +491,7 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
                 ))}
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                   <AlertTriangle color="#E8705A" size={9} strokeWidth={2} />
-                  <Text style={{ fontSize: 10, color: subColor }}>Dzień krytyczny</Text>
+                  <Text style={{ fontSize: 10, color: subColor }}>{t('biorhythm.dzien_krytyczny', 'Dzień krytyczny')}</Text>
                 </View>
               </View>
             </View>
@@ -503,10 +503,10 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
               <View style={[bs.sectionCard, { backgroundColor: '#E8705A0C', borderColor: '#E8705A33' }]}>
                 <View style={bs.sectionHeaderRow}>
                   <AlertTriangle color="#E8705A" size={14} strokeWidth={2} />
-                  <Text style={[bs.eyebrow, { color: '#E8705A' }]}>DNI KRYTYCZNE (14 DNI)</Text>
+                  <Text style={[bs.eyebrow, { color: '#E8705A' }]}>{t('biorhythm.dni_krytyczne_14_dni', 'DNI KRYTYCZNE (14 DNI)')}</Text>
                 </View>
                 <Text style={[bs.sectionSub, { color: subColor, marginBottom: 10 }]}>
-                  Kiedy cykl przechodzi przez zero — moment wrażliwości i przejścia. Zachowaj ostrożność.
+                  {t('biorhythm.kiedy_cykl_przechodzi_przez_zero', 'Kiedy cykl przechodzi przez zero — moment wrażliwości i przejścia. Zachowaj ostrożność.')}
                 </Text>
                 {criticalDays.map((cd, i) => (
                   <View key={i} style={[bs.criticalRow, { borderColor: '#E8705A22', backgroundColor: isLight ? 'rgba(232,112,90,0.05)' : 'rgba(232,112,90,0.08)' }]}>
@@ -529,7 +529,7 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
                 ))}
                 <View style={[bs.critAdviceBox, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: '#E8705A22' }]}>
                   <Text style={{ fontSize: 12, color: subColor, lineHeight: 18 }}>
-                    💡 W dniach krytycznych unikaj ważnych decyzji, operacji i intensywnego wysiłku. To czas na obserwację i introspekcję.
+                    {t('biorhythm.w_dniach_krytycznyc_unikaj_waznych', '💡 W dniach krytycznych unikaj ważnych decyzji, operacji i intensywnego wysiłku. To czas na obserwację i introspekcję.')}
                   </Text>
                 </View>
               </View>
@@ -541,10 +541,10 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
             <View style={[bs.sectionCard, { backgroundColor: '#34D3990C', borderColor: '#34D39933' }]}>
               <View style={bs.sectionHeaderRow}>
                 <TrendingUp color="#34D399" size={14} strokeWidth={1.8} />
-                <Text style={[bs.eyebrow, { color: '#34D399' }]}>NAJLEPSZE DNI NA DECYZJE</Text>
+                <Text style={[bs.eyebrow, { color: '#34D399' }]}>{t('biorhythm.najlepsze_dni_na_decyzje', 'NAJLEPSZE DNI NA DECYZJE')}</Text>
               </View>
               <Text style={[bs.sectionSub, { color: subColor, marginBottom: 10 }]}>
-                Kiedy WSZYSTKIE 3 cykle są powyżej 50% — idealne okna na ważne decyzje, rozmowy i działania.
+                {t('biorhythm.kiedy_wszystkie_3_cykle_sa', 'Kiedy WSZYSTKIE 3 cykle są powyżej 50% — idealne okna na ważne decyzje, rozmowy i działania.')}
               </Text>
               {bestDays.length === 0 ? (
                 <View style={[bs.noBestDays, { borderColor: cardBorder }]}>
@@ -616,7 +616,7 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
                   </View>
                   <Text style={[bs.cyclePeriod, { color: subColor }]}>Cykl: {cycle.days} dni · Kolejny szczyt za ~{Math.round(cycle.days / 4)} dni</Text>
                   <BioChart birthDate={birthDate} cycle={cycle} color={cycle.color} width={chartW} isLight={isLight} />
-                  <Text style={[bs.chartLegend, { color: subColor }]}>← 14 dni temu · Dziś · +14 dni →</Text>
+                  <Text style={[bs.chartLegend, { color: subColor }]}>{t('biorhythm.14_dni_temu_dzis_14_1', '← 14 dni temu · Dziś · +14 dni →')}</Text>
                 </View>
               </Animated.View>
             );
@@ -627,19 +627,19 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
             <View style={[bs.aiCard, { backgroundColor: ACCENT + '0E', borderColor: ACCENT + '22' }]}>
               <View style={bs.sectionHeaderRow}>
                 <Sparkles color={ACCENT} size={14} strokeWidth={1.8} />
-                <Text style={[bs.eyebrow, { color: ACCENT }]}>INTERPRETACJA AI</Text>
+                <Text style={[bs.eyebrow, { color: ACCENT }]}>{t('biorhythm.interpreta_ai', 'INTERPRETACJA AI')}</Text>
               </View>
               {!aiInsight && !loadingInsight && (
                 <>
                   <Text style={{ fontSize: 12, color: subColor, marginBottom: 10, lineHeight: 18 }}>
-                    Pobierz spersonalizowaną wskazówkę opartą na Twoich wartościach biorytmicznych na dziś.
+                    {t('biorhythm.pobierz_spersonali_wskazowke_oparta', 'Pobierz spersonalizowaną wskazówkę opartą na Twoich wartościach biorytmicznych na dziś.')}
                   </Text>
                   <Pressable
                     onPress={fetchAiInsight}
                     style={[bs.aiBtn, { borderColor: ACCENT + '55', backgroundColor: ACCENT + '18' }]}
                   >
                     <Sparkles color={ACCENT} size={15} strokeWidth={1.8} />
-                    <Text style={[bs.aiBtnText, { color: ACCENT }]}>Pobierz wgląd na dziś</Text>
+                    <Text style={[bs.aiBtnText, { color: ACCENT }]}>{t('biorhythm.pobierz_wglad_na_dzis', 'Pobierz wgląd na dziś')}</Text>
                   </Pressable>
                 </>
               )}
@@ -651,7 +651,7 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
                     onPress={() => setAiInsight('')}
                     style={{ marginTop: 10, alignSelf: 'flex-start' }}
                   >
-                    <Text style={{ fontSize: 11, color: subColor, textDecorationLine: 'underline' }}>Odśwież</Text>
+                    <Text style={{ fontSize: 11, color: subColor, textDecorationLine: 'underline' }}>{t('biorhythm.odswiez', 'Odśwież')}</Text>
                   </Pressable>
                 </>
               )}
@@ -661,9 +661,9 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
           {/* ── Info card ─────────────────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(560).duration(400)}>
             <View style={[bs.infoCard, { backgroundColor: ACCENT + '0E', borderColor: ACCENT + '28' }]}>
-              <Typography variant="premiumLabel" color={ACCENT}>Jak czytać biorytm</Typography>
+              <Typography variant="premiumLabel" color={ACCENT}>{t('biorhythm.jak_czytac_biorytm', 'Jak czytać biorytm')}</Typography>
               <Text style={[bs.infoBody, { color: subColor }]}>
-                Biorytm to trzy sinusoidalne cykle zaczynające się od daty urodzenia. Szczyt oznacza najlepszy czas na aktywność w danym obszarze. Minimum — czas na odpoczynek i regenerację. Środek cyklu (przejście przez zero) to <Text style={{ color: '#E8705A', fontWeight: '600' }}>dni krytyczne</Text> — momenty wzmożonej wrażliwości.
+                Biorytm to trzy sinusoidalne cykle zaczynające się od daty urodzenia. Szczyt oznacza najlepszy czas na aktywność w danym obszarze. Minimum — czas na odpoczynek i regenerację. Środek cyklu (przejście przez zero) to <Text style={{ color: '#E8705A', fontWeight: '600' }}>{t('biorhythm.dni_krytyczne', 'dni krytyczne')}</Text> — momenty wzmożonej wrażliwości.
               </Text>
             </View>
           </Animated.View>
@@ -671,7 +671,7 @@ Napisz w języku użytkownika dokładnie 3 zdania spersonalizowanej wskazówki n
           {/* ── Co dalej? ─────────────────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(620).duration(400)}>
             <View style={{ marginTop: 4 }}>
-              <Text style={[bs.eyebrow, { color: ACCENT, marginBottom: 12 }]}>✦ CO DALEJ?</Text>
+              <Text style={[bs.eyebrow, { color: ACCENT, marginBottom: 12 }]}>{t('biorhythm.co_dalej', '✦ CO DALEJ?')}</Text>
               {[
                 {
                   icon: Wand2,

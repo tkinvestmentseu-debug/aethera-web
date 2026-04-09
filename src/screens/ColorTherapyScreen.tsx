@@ -880,8 +880,8 @@ export function ColorTherapyScreen({ navigation }) {
         </Pressable>
 
         <View style={{ flex: 1, alignItems: 'center' }}>
-          <Text style={[styles.headerTitle, { color: textColor }]}>Terapia Kolorem</Text>
-          <Text style={[styles.headerSub, { color: subColor }]}>Chromotherapy · Uzdrawianie Światłem</Text>
+          <Text style={[styles.headerTitle, { color: textColor }]}>{t('colorTherapy.terapia_kolorem', 'Terapia Kolorem')}</Text>
+          <Text style={[styles.headerSub, { color: subColor }]}>{t('colorTherapy.chromother_uzdrawiani_swiatlem', 'Chromotherapy · Uzdrawianie Światłem')}</Text>
         </View>
 
         <Pressable onPress={handleStarPress} style={styles.headerBtn} hitSlop={10}>
@@ -904,11 +904,11 @@ export function ColorTherapyScreen({ navigation }) {
         <Animated.View entering={FadeInDown.duration(700).delay(80)}>
           <View style={[styles.mandalaHeroCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <Text style={[styles.mandalaHint, { color: subColor }]}>
-              Dotknij mandalę · przechyl dłonią
+              {t('colorTherapy.dotknij_mandale_przechyl_dlonia', 'Dotknij mandalę · przechyl dłonią')}
             </Text>
             <ColorMandala />
             <Text style={[styles.mandalaTagline, { color: textColor }]}>
-              Każdy kolor to inny wymiar uzdrowienia
+              {t('colorTherapy.kazdy_kolor_to_inny_wymiar', 'Każdy kolor to inny wymiar uzdrowienia')}
             </Text>
             <Text style={[styles.mandalaBody, { color: subColor }]}>
               Chromotherapy to starożytna sztuka używania świetlnych częstotliwości do harmonizowania ciała, umysłu i ducha. Każdy kolor wibruje w unikatowej częstotliwości, wpływając na konkretne czakry i aspekty naszej istoty.
@@ -953,14 +953,14 @@ export function ColorTherapyScreen({ navigation }) {
                   <Text style={[styles.todayColorSub, { color: subColor }]}>{todayColor.shortDesc}</Text>
 
                   <View style={[styles.freqRow, { borderColor: cardBorder }]}>
-                    <FreqBadge label="ZAKRES" value={todayColor.range} color={todayColor.hex} isLight={isLight} />
+                    <FreqBadge label={t('colorTherapy.zakres', 'ZAKRES')} value={todayColor.range} color={todayColor.hex} isLight={isLight} />
                     <View style={[styles.freqDivider, { backgroundColor: cardBorder }]} />
-                    <FreqBadge label="CZAKRA" value={todayColor.chakraEmoji} color={todayColor.hex} isLight={isLight} />
+                    <FreqBadge label={t('colorTherapy.czakra', 'CZAKRA')} value={todayColor.chakraEmoji} color={todayColor.hex} isLight={isLight} />
                     <View style={[styles.freqDivider, { backgroundColor: cardBorder }]} />
-                    <FreqBadge label="EMOCJA" value={todayColor.emotion.split(' ')[0]} color={todayColor.hex} isLight={isLight} />
+                    <FreqBadge label={t('colorTherapy.emocja', 'EMOCJA')} value={todayColor.emotion.split(' ')[0]} color={todayColor.hex} isLight={isLight} />
                   </View>
 
-                  <SectionLabel label="WŁAŚCIWOŚCI LECZNICZE" color={todayColor.hex} />
+                  <SectionLabel label={t('colorTherapy.wlasciwosc_lecznicze', 'WŁAŚCIWOŚCI LECZNICZE')} color={todayColor.hex} />
                   {todayColor.healingUses.map((use, i) => (
                     <View key={i} style={styles.bulletRow}>
                       <View style={[styles.bullet, { backgroundColor: todayColor.hex }]} />
@@ -968,7 +968,7 @@ export function ColorTherapyScreen({ navigation }) {
                     </View>
                   ))}
 
-                  <SectionLabel label="JAK UŻYWAĆ DZIŚ" color={todayColor.hex} />
+                  <SectionLabel label={t('colorTherapy.jak_uzywac_dzis', 'JAK UŻYWAĆ DZIŚ')} color={todayColor.hex} />
                   {todayColor.howToUse.map((tip, i) => (
                     <View key={i} style={styles.bulletRow}>
                       <Text style={{ color: todayColor.hex, fontSize: 13, marginRight: 8 }}>{i + 1}.</Text>
@@ -978,7 +978,7 @@ export function ColorTherapyScreen({ navigation }) {
 
                   <View style={[styles.affirmBox, { backgroundColor: todayColor.hex + '12', borderColor: todayColor.hex + '30' }]}>
                     <Text style={{ color: todayColor.hex, fontSize: 10, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>
-                      AFIRMACJA DNIA
+                      {t('colorTherapy.afirmacja_dnia', 'AFIRMACJA DNIA')}
                     </Text>
                     <Text style={[styles.affirmText, { color: textColor }]}>
                       {todayColor.affirmation}
@@ -1035,7 +1035,7 @@ export function ColorTherapyScreen({ navigation }) {
                         </View>
                       </View>
 
-                      <SectionLabel label="ZASTOSOWANIA LECZNICZE" color={selectedColor.hex} />
+                      <SectionLabel label={t('colorTherapy.zastosowan_lecznicze', 'ZASTOSOWANIA LECZNICZE')} color={selectedColor.hex} />
                       {selectedColor.healingUses.map((u, i) => (
                         <View key={i} style={styles.bulletRow}>
                           <View style={[styles.bullet, { backgroundColor: selectedColor.hex }]} />
@@ -1043,7 +1043,7 @@ export function ColorTherapyScreen({ navigation }) {
                         </View>
                       ))}
 
-                      <SectionLabel label="JAK WPROWADZIĆ DO ŻYCIA" color={selectedColor.hex} />
+                      <SectionLabel label={t('colorTherapy.jak_wprowadzic_do_zycia', 'JAK WPROWADZIĆ DO ŻYCIA')} color={selectedColor.hex} />
                       {selectedColor.howToUse.map((tip, i) => (
                         <View key={i} style={styles.bulletRow}>
                           <Text style={{ color: selectedColor.hex, fontSize: 12, marginRight: 8 }}>✦</Text>
@@ -1051,18 +1051,18 @@ export function ColorTherapyScreen({ navigation }) {
                         </View>
                       ))}
 
-                      <SectionLabel label="POKARMY KOLORU" color={selectedColor.hex} />
+                      <SectionLabel label={t('colorTherapy.pokarmy_koloru', 'POKARMY KOLORU')} color={selectedColor.hex} />
                       <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 10 }}>
                         {selectedColor.foods.map(f => <TagPill key={f} label={f} color={selectedColor.hex} />)}
                       </View>
 
-                      <SectionLabel label="KAMIENIE SZLACHETNE" color={selectedColor.hex} />
+                      <SectionLabel label={t('colorTherapy.kamienie_szlachetne', 'KAMIENIE SZLACHETNE')} color={selectedColor.hex} />
                       <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 10 }}>
                         {selectedColor.gemstones.map(g => <TagPill key={g} label={g} color={selectedColor.hex} />)}
                       </View>
 
                       <View style={[styles.affirmBox, { backgroundColor: selectedColor.hex + '12', borderColor: selectedColor.hex + '30' }]}>
-                        <Text style={{ color: selectedColor.hex, fontSize: 10, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>AFIRMACJA</Text>
+                        <Text style={{ color: selectedColor.hex, fontSize: 10, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>{t('colorTherapy.afirmacja', 'AFIRMACJA')}</Text>
                         <Text style={[styles.affirmText, { color: textColor }]}>{selectedColor.affirmation}</Text>
                       </View>
                     </LinearGradient>
@@ -1072,7 +1072,7 @@ export function ColorTherapyScreen({ navigation }) {
                 {!selectedColor && (
                   <View style={[styles.emptyHint, { borderColor: cardBorder }]}>
                     <Text style={{ color: subColor, fontSize: 13, textAlign: 'center' }}>
-                      Wybierz kolor powyżej, aby zobaczyć pełny profil terapeutyczny.
+                      {t('colorTherapy.wybierz_kolor_powyzej_aby_zobaczyc', 'Wybierz kolor powyżej, aby zobaczyć pełny profil terapeutyczny.')}
                     </Text>
                   </View>
                 )}
@@ -1084,7 +1084,7 @@ export function ColorTherapyScreen({ navigation }) {
               <Animated.View entering={FadeInDown.duration(400)}>
                 <View style={[styles.meditateCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                   <Text style={[styles.meditateIntro, { color: subColor }]}>
-                    Wybierz kolor, w którego świetle chcesz się zanurzyć. Medytacja krokowa poprowadzi Cię przez wizualizację.
+                    {t('colorTherapy.wybierz_kolor_w_ktorego_swietle', 'Wybierz kolor, w którego świetle chcesz się zanurzyć. Medytacja krokowa poprowadzi Cię przez wizualizację.')}
                   </Text>
 
                   <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 14 }}>
@@ -1153,7 +1153,7 @@ export function ColorTherapyScreen({ navigation }) {
                         }}
                         style={[styles.meditationBtn, { backgroundColor: selectedMeditationColor.hex }]}
                       >
-                        <Text style={{ color: '#fff', fontSize: 14, fontWeight: '700' }}>Rozpocznij Medytację</Text>
+                        <Text style={{ color: '#fff', fontSize: 14, fontWeight: '700' }}>{t('colorTherapy.rozpocznij_medytacje', 'Rozpocznij Medytację')}</Text>
                       </Pressable>
                     ) : (
                       <View style={{ flexDirection: 'row', gap: 10 }}>
@@ -1162,7 +1162,7 @@ export function ColorTherapyScreen({ navigation }) {
                             onPress={() => { HapticsService.notify(); setMeditationStep(s => s - 1); }}
                             style={[styles.meditationBtnSmall, { borderColor: selectedMeditationColor.hex + '60', backgroundColor: 'transparent' }]}
                           >
-                            <Text style={{ color: selectedMeditationColor.hex, fontSize: 13, fontWeight: '600' }}>← Wstecz</Text>
+                            <Text style={{ color: selectedMeditationColor.hex, fontSize: 13, fontWeight: '600' }}>{t('colorTherapy.wstecz', '← Wstecz')}</Text>
                           </Pressable>
                         )}
                         {meditationStep < MEDITATION_STEPS.length - 1 ? (
@@ -1170,7 +1170,7 @@ export function ColorTherapyScreen({ navigation }) {
                             onPress={() => { HapticsService.notify(); setMeditationStep(s => s + 1); }}
                             style={[styles.meditationBtnSmall, { backgroundColor: selectedMeditationColor.hex }]}
                           >
-                            <Text style={{ color: '#fff', fontSize: 13, fontWeight: '600' }}>Dalej →</Text>
+                            <Text style={{ color: '#fff', fontSize: 13, fontWeight: '600' }}>{t('colorTherapy.dalej', 'Dalej →')}</Text>
                           </Pressable>
                         ) : (
                           <Pressable
@@ -1182,7 +1182,7 @@ export function ColorTherapyScreen({ navigation }) {
                             }}
                             style={[styles.meditationBtnSmall, { backgroundColor: selectedMeditationColor.hex }]}
                           >
-                            <Text style={{ color: '#fff', fontSize: 13, fontWeight: '700' }}>✓ Zakończ</Text>
+                            <Text style={{ color: '#fff', fontSize: 13, fontWeight: '700' }}>{t('colorTherapy.zakoncz', '✓ Zakończ')}</Text>
                           </Pressable>
                         )}
                       </View>
@@ -1197,7 +1197,7 @@ export function ColorTherapyScreen({ navigation }) {
               <Animated.View entering={FadeInDown.duration(400)}>
                 <View style={[styles.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                   <Text style={[styles.prescribeIntro, { color: subColor }]}>
-                    Wybierz to, co Cię dręczy — dobierzemy kolor leczniczy dopasowany do Twojego stanu.
+                    {t('colorTherapy.wybierz_to_co_cie_dreczy', 'Wybierz to, co Cię dręczy — dobierzemy kolor leczniczy dopasowany do Twojego stanu.')}
                   </Text>
                   {PRESCRIPTIONS.map((p, i) => {
                     const Icon = p.icon;
@@ -1225,7 +1225,7 @@ export function ColorTherapyScreen({ navigation }) {
                           <Animated.View entering={FadeInDown.duration(280)}>
                             <View style={[styles.prescriptionResult, { backgroundColor: accent + '08', borderColor: accent + '30' }]}>
                               <Text style={{ color: accent, fontSize: 10, fontWeight: '700', letterSpacing: 1.5, marginBottom: 10 }}>
-                                PRZEPISANE KOLORY
+                                {t('colorTherapy.przepisane_kolory', 'PRZEPISANE KOLORY')}
                               </Text>
                               {p.colorIds.map((cid, ci) => {
                                 const c = THERAPY_COLORS.find(t => t.id === cid);
@@ -1256,7 +1256,7 @@ export function ColorTherapyScreen({ navigation }) {
               <Animated.View entering={FadeInDown.duration(400)}>
                 <View style={[styles.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                   <Text style={[styles.prescribeIntro, { color: subColor }]}>
-                    Podczas wdechu wchłaniasz wybrany kolor leczniczy. Podczas wydechu uwalniasz szarość napięcia.
+                    {t('colorTherapy.podczas_wdechu_wchlaniasz_wybrany_k', 'Podczas wdechu wchłaniasz wybrany kolor leczniczy. Podczas wydechu uwalniasz szarość napięcia.')}
                   </Text>
 
                   <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
@@ -1307,7 +1307,7 @@ export function ColorTherapyScreen({ navigation }) {
                     )}
                     {breathPhase === 'exhale' && (
                       <Text style={[styles.breathHint, { color: subColor }]}>
-                        Uwalniasz szarość napięcia i stresu
+                        {t('colorTherapy.uwalniasz_szarosc_napiecia_i_stresu', 'Uwalniasz szarość napięcia i stresu')}
                       </Text>
                     )}
                     {breathCount > 0 && breathPhase === 'idle' && (
@@ -1325,11 +1325,11 @@ export function ColorTherapyScreen({ navigation }) {
                     </View>
                     <View style={styles.breathSchemaItem}>
                       <View style={[styles.breathSchemaDot, { backgroundColor: '#9CA3AF' }]} />
-                      <Text style={{ color: subColor, fontSize: 12 }}>Zatrzymaj 1s</Text>
+                      <Text style={{ color: subColor, fontSize: 12 }}>{t('colorTherapy.zatrzymaj_1s', 'Zatrzymaj 1s')}</Text>
                     </View>
                     <View style={styles.breathSchemaItem}>
                       <View style={[styles.breathSchemaDot, { backgroundColor: '#6B7280' }]} />
-                      <Text style={{ color: subColor, fontSize: 12 }}>Wydech 6s — uwalniasz szarość</Text>
+                      <Text style={{ color: subColor, fontSize: 12 }}>{t('colorTherapy.wydech_6s_uwalniasz_szarosc', 'Wydech 6s — uwalniasz szarość')}</Text>
                     </View>
                   </View>
                 </View>
@@ -1341,7 +1341,7 @@ export function ColorTherapyScreen({ navigation }) {
               <Animated.View entering={FadeInDown.duration(400)}>
                 <View style={[styles.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                   <Text style={[styles.prescribeIntro, { color: subColor }]}>
-                    Notuj do jakich kolorów jesteś dziś przyciągana/y — Twoje ciało zawsze wie czego potrzebuje.
+                    {t('colorTherapy.notuj_do_jakich_kolorow_jestes', 'Notuj do jakich kolorów jesteś dziś przyciągana/y — Twoje ciało zawsze wie czego potrzebuje.')}
                   </Text>
 
                   <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 12 }}>
@@ -1381,12 +1381,12 @@ export function ColorTherapyScreen({ navigation }) {
                     style={[styles.journalSaveBtn, { backgroundColor: journalColor.hex, opacity: journalNote.trim() ? 1 : 0.4 }]}
                   >
                     <BookOpen color="#fff" size={16} strokeWidth={2} />
-                    <Text style={{ color: '#fff', fontSize: 14, fontWeight: '700', marginLeft: 8 }}>Zapisz w dzienniku</Text>
+                    <Text style={{ color: '#fff', fontSize: 14, fontWeight: '700', marginLeft: 8 }}>{t('colorTherapy.zapisz_w_dzienniku', 'Zapisz w dzienniku')}</Text>
                   </Pressable>
 
                   {journalEntries.length > 0 && (
                     <>
-                      <SectionLabel label="HISTORIA" color={accent} />
+                      <SectionLabel label={t('colorTherapy.historia', 'HISTORIA')} color={accent} />
                       {journalEntries.map((entry, i) => {
                         const c = THERAPY_COLORS.find(t => t.id === entry.colorId);
                         return (
@@ -1413,10 +1413,10 @@ export function ColorTherapyScreen({ navigation }) {
               <Animated.View entering={FadeInDown.duration(400)}>
                 <View style={[styles.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                   <Text style={[styles.prescribeIntro, { color: subColor }]}>
-                    Przestrzeń, w której żyjesz, nieustannie cię barwi. Oto jak używać kolorów w domu i szafie jako narzędzi uzdrowienia.
+                    {t('colorTherapy.przestrzen_w_ktorej_zyjesz_nieustan', 'Przestrzeń, w której żyjesz, nieustannie cię barwi. Oto jak używać kolorów w domu i szafie jako narzędzi uzdrowienia.')}
                   </Text>
 
-                  <SectionLabel label="KOLORY W POMIESZCZENIACH" color={accent} />
+                  <SectionLabel label={t('colorTherapy.kolory_w_pomieszcze', 'KOLORY W POMIESZCZENIACH')} color={accent} />
                   {ENV_ROOMS.map((room, i) => (
                     <Animated.View key={room.room} entering={FadeInDown.duration(280).delay(i * 50)}>
                       <View style={[styles.roomCard, { backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)', borderColor: cardBorder }]}>
@@ -1438,7 +1438,7 @@ export function ColorTherapyScreen({ navigation }) {
                     </Animated.View>
                   ))}
 
-                  <SectionLabel label="KOLORY W SZAFIE — DOBÓR NA OKAZJĘ" color={accent} />
+                  <SectionLabel label={t('colorTherapy.kolory_w_szafie_dobor_na', 'KOLORY W SZAFIE — DOBÓR NA OKAZJĘ')} color={accent} />
                   {WARDROBE_TIPS.map((wt, i) => (
                     <Animated.View key={wt.scenario} entering={FadeInDown.duration(280).delay(i * 40)}>
                       <View style={[styles.wardrobeRow, { borderColor: wt.hex + '30' }]}>
@@ -1460,7 +1460,7 @@ export function ColorTherapyScreen({ navigation }) {
               <Animated.View entering={FadeInDown.duration(400)}>
                 <View style={[styles.sectionCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                   <Text style={[styles.prescribeIntro, { color: subColor }]}>
-                    Twoja aura emanuje kolorami, które odzwierciedlają stan energetyczny ciała i duszy. Odkryj dominujący kolor swojego pola energetycznego.
+                    {t('colorTherapy.twoja_aura_emanuje_kolorami_ktore', 'Twoja aura emanuje kolorami, które odzwierciedlają stan energetyczny ciała i duszy. Odkryj dominujący kolor swojego pola energetycznego.')}
                   </Text>
 
                   <View style={[styles.auraPreview, { borderColor: accent + '40' }]}>
@@ -1485,7 +1485,7 @@ export function ColorTherapyScreen({ navigation }) {
                   </View>
 
                   <Text style={[styles.auraDesc, { color: subColor }]}>
-                    Każda czakra emituje kolor. Gdy jesteś w równowadze, Twoja aura emanuje czystymi, jasnymi barwami. Blokady pojawiają się jako zaciemnione lub błotniste odcienie.
+                    {t('colorTherapy.kazda_czakra_emituje_kolor_gdy', 'Każda czakra emituje kolor. Gdy jesteś w równowadze, Twoja aura emanuje czystymi, jasnymi barwami. Blokady pojawiają się jako zaciemnione lub błotniste odcienie.')}
                   </Text>
 
                   {THERAPY_COLORS.slice(0, 7).map((tc, i) => (
@@ -1506,7 +1506,7 @@ export function ColorTherapyScreen({ navigation }) {
                   >
                     <Sparkles color="#fff" size={16} strokeWidth={2} />
                     <Text style={{ color: '#fff', fontSize: 14, fontWeight: '700', marginLeft: 8 }}>
-                      Odczytaj kolor swojej aury
+                      {t('colorTherapy.odczytaj_kolor_swojej_aury', 'Odczytaj kolor swojej aury')}
                     </Text>
                     <ArrowRight color="#fff" size={16} strokeWidth={2} style={{ marginLeft: 4 }} />
                   </Pressable>

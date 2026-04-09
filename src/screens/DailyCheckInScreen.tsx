@@ -494,7 +494,7 @@ const ReflectionStep = ({
         <View style={[dc.reflCard, { backgroundColor: cardBg, borderColor: cardBdr }]}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 10 }}>
             <BookOpen size={14} color={accent} />
-            <Text style={{ color: accent, fontSize: 10, fontWeight: '700', letterSpacing: 1.2 }}>MYŚLI DNIA</Text>
+            <Text style={{ color: accent, fontSize: 10, fontWeight: '700', letterSpacing: 1.2 }}>{t('dailyCheckIn.mysli_dnia', 'MYŚLI DNIA')}</Text>
           </View>
           <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 10, fontStyle: 'italic' }}>
             {prompt}
@@ -505,7 +505,7 @@ const ReflectionStep = ({
               backgroundColor: inputBg,
               borderColor: focusedField === 'reflection' ? accent + '77' : 'transparent',
             }]}
-            placeholder="Zapisz swoje myśli…"
+            placeholder={t('dailyCheckIn.zapisz_swoje_mysli', 'Zapisz swoje myśli…')}
             placeholderTextColor={subColor + '88'}
             value={reflection}
             onChangeText={onChangeReflection}
@@ -522,8 +522,8 @@ const ReflectionStep = ({
         <View style={[dc.reflCard, { backgroundColor: cardBg, borderColor: cardBdr }]}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8 }}>
             <Heart size={14} color="#F472B6" />
-            <Text style={{ color: '#F472B6', fontSize: 10, fontWeight: '700', letterSpacing: 1.2 }}>WDZIĘCZNOŚĆ</Text>
-            <Text style={{ color: subColor, fontSize: 10, marginLeft: 'auto' }}>(opcjonalnie)</Text>
+            <Text style={{ color: '#F472B6', fontSize: 10, fontWeight: '700', letterSpacing: 1.2 }}>{t('dailyCheckIn.wdziecznos', 'WDZIĘCZNOŚĆ')}</Text>
+            <Text style={{ color: subColor, fontSize: 10, marginLeft: 'auto' }}>{t('dailyCheckIn.opcjonalni', '(opcjonalnie)')}</Text>
           </View>
           <TextInput
             style={[dc.reflInputShort, {
@@ -531,7 +531,7 @@ const ReflectionStep = ({
               backgroundColor: inputBg,
               borderColor: focusedField === 'gratitude' ? '#F472B688' : 'transparent',
             }]}
-            placeholder="Za co jesteś dziś wdzięczny/a?"
+            placeholder={t('dailyCheckIn.za_co_jestes_dzis_wdzieczny', 'Za co jesteś dziś wdzięczny/a?')}
             placeholderTextColor={subColor + '88'}
             value={gratitude}
             onChangeText={onChangeGratitude}
@@ -547,8 +547,8 @@ const ReflectionStep = ({
         <View style={[dc.reflCard, { backgroundColor: cardBg, borderColor: cardBdr }]}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8 }}>
             <Zap size={14} color="#34D399" />
-            <Text style={{ color: '#34D399', fontSize: 10, fontWeight: '700', letterSpacing: 1.2 }}>INTENCJA</Text>
-            <Text style={{ color: subColor, fontSize: 10, marginLeft: 'auto' }}>(opcjonalnie)</Text>
+            <Text style={{ color: '#34D399', fontSize: 10, fontWeight: '700', letterSpacing: 1.2 }}>{t('dailyCheckIn.intencja', 'INTENCJA')}</Text>
+            <Text style={{ color: subColor, fontSize: 10, marginLeft: 'auto' }}>{t('dailyCheckIn.opcjonalni_1', '(opcjonalnie)')}</Text>
           </View>
           <TextInput
             style={[dc.reflInputShort, {
@@ -556,7 +556,7 @@ const ReflectionStep = ({
               backgroundColor: inputBg,
               borderColor: focusedField === 'intention' ? '#34D39988' : 'transparent',
             }]}
-            placeholder="Jaka jest Twoja intencja na dziś?"
+            placeholder={t('dailyCheckIn.jaka_jest_twoja_intencja_na', 'Jaka jest Twoja intencja na dziś?')}
             placeholderTextColor={subColor + '88'}
             value={intention}
             onChangeText={onChangeIntention}
@@ -686,7 +686,7 @@ const CompletionScreen = ({
 
       <Animated.View style={[{ alignItems: 'center', gap: 6, marginTop: 20 }, msgStyle]}>
         <Text style={{ color: accent, fontSize: 10, fontWeight: '800', letterSpacing: 2.5 }}>
-          ZAMELDOWANIE ZAKOŃCZONE
+          {t('dailyCheckIn.zameldowan_zakonczone', 'ZAMELDOWANIE ZAKOŃCZONE')}
         </Text>
         <Text style={{ color: textColor, fontSize: 22, fontWeight: '700', textAlign: 'center', marginTop: 4 }}>
           Świetnie, {moodObj ? moodObj.emoji : '✨'}
@@ -705,7 +705,7 @@ const CompletionScreen = ({
         borderRadius: 18, padding: 18, alignItems: 'center', gap: 8,
       }, msgStyle]}>
         <Sparkles size={18} color={accent} />
-        <Text style={{ color: accent, fontSize: 9, fontWeight: '800', letterSpacing: 2 }}>PRZESŁANIE ORACLE</Text>
+        <Text style={{ color: accent, fontSize: 9, fontWeight: '800', letterSpacing: 2 }}>{t('dailyCheckIn.przeslanie_oracle', 'PRZESŁANIE ORACLE')}</Text>
         <Text style={{ color: textColor, fontSize: 14, lineHeight: 22, textAlign: 'center', fontStyle: 'italic' }}>
           "{message}"
         </Text>
@@ -720,7 +720,7 @@ const CompletionScreen = ({
             borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.12)',
           }]}>
           <BookOpen size={16} color={accent} />
-          <Text style={{ color: textColor, fontSize: 14, fontWeight: '600' }}>Otwórz Dziennik</Text>
+          <Text style={{ color: textColor, fontSize: 14, fontWeight: '600' }}>{t('dailyCheckIn.otworz_dziennik', 'Otwórz Dziennik')}</Text>
         </Pressable>
         <Pressable
           onPress={() => { HapticsService.impact('medium'); navigation.navigate('Portal'); }}
@@ -729,12 +729,12 @@ const CompletionScreen = ({
             borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.12)',
           }]}>
           <Star size={16} color={accent} />
-          <Text style={{ color: textColor, fontSize: 14, fontWeight: '600' }}>Przejdź do Portalu</Text>
+          <Text style={{ color: textColor, fontSize: 14, fontWeight: '600' }}>{t('dailyCheckIn.przejdz_do_portalu', 'Przejdź do Portalu')}</Text>
         </Pressable>
         <Pressable
           onPress={() => { HapticsService.impact('light'); navigation.goBack(); }}
           style={{ alignSelf: 'center', paddingVertical: 8 }}>
-          <Text style={{ color: subColor, fontSize: 13 }}>Wróć</Text>
+          <Text style={{ color: subColor, fontSize: 13 }}>{t('dailyCheckIn.wroc', 'Wróć')}</Text>
         </Pressable>
       </Animated.View>
     </View>
@@ -743,10 +743,10 @@ const CompletionScreen = ({
 
 // ─── Main Screen ──────────────────────────────────────────────────────────────
 const STEPS = [
-  { id: 'mood',       title: 'Nastrój Duszy',    subtitle: 'Jak się czujesz w tej chwili?' },
-  { id: 'energy',     title: 'Energia Ciała',     subtitle: 'Oceń swój poziom energii' },
-  { id: 'reflection', title: 'Myśli Dnia',        subtitle: 'Zatrzymaj się i poobserwuj siebie' },
-  { id: 'focus',      title: 'Rytuał Intencji',   subtitle: 'Wybierz fokus na dziś' },
+  { id: 'mood',       title: t('dailyCheckIn.nastrojDuszy', 'Nastrój Duszy'),    subtitle: t('dailyCheckIn.jakSieCzujesz', 'Jak się czujesz w tej chwili?') },
+  { id: 'energy',     title: t('dailyCheckIn.energiaCiala', 'Energia Ciała'),     subtitle: t('dailyCheckIn.ocenPoziomEnergii', 'Oceń swój poziom energii') },
+  { id: 'reflection', title: t('dailyCheckIn.mysliDnia', 'Myśli Dnia'),        subtitle: t('dailyCheckIn.zatrzymajSie', 'Zatrzymaj się i poobserwuj siebie') },
+  { id: 'focus',      title: t('dailyCheckIn.ritualIntencji', 'Rytuał Intencji'),   subtitle: t('dailyCheckIn.wybierzFokus', 'Wybierz fokus na dziś') },
 ];
 
 export const DailyCheckInScreen = ({ navigation }: any) => {
@@ -908,7 +908,7 @@ export const DailyCheckInScreen = ({ navigation }: any) => {
                   <ChevronLeft size={22} color={accent} />
                 </Pressable>
                 <Text style={{ color: accent, fontSize: 11, fontWeight: '800', letterSpacing: 2 }}>
-                  ✦ ZAMELDOWANIE DNIA
+                  {t('dailyCheckIn.zameldowan_dnia', '✦ ZAMELDOWANIE DNIA')}
                 </Text>
                 <View style={[dc.moonBadge, {
                   backgroundColor: isLight ? accent + '18' : accent + '22',
@@ -967,7 +967,7 @@ export const DailyCheckInScreen = ({ navigation }: any) => {
                 entering={FadeInDown.duration(380)}
                 style={{ paddingHorizontal: PAD, marginBottom: 16, alignItems: 'center' }}>
                 <Text style={{ color: accent, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 4 }}>
-                  KROK {step + 1} Z {STEPS.length}
+                  {t('dailyCheckIn.krok', 'KROK')} {step + 1} {t('dailyCheckIn.z', 'Z')} {STEPS.length}
                 </Text>
                 <Text style={{ color: textColor, fontSize: 22, fontWeight: '700', textAlign: 'center', letterSpacing: -0.3 }}>
                   {currentStep.title}

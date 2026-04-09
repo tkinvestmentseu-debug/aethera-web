@@ -162,8 +162,8 @@ export const DreamSymbolsScreen = ({ navigation }) => {
           <ChevronLeft size={22} color={tc} />
         </Pressable>
         <View style={{ flex: 1, alignItems: 'center' }}>
-          <Text style={[styles.headerTitle, { color: tc }]}>Symbolarium Snów</Text>
-          <Text style={[styles.headerSub, { color: ACCENT }]}>ZBIOROWE MARZENIA</Text>
+          <Text style={[styles.headerTitle, { color: tc }]}>{t('dreamSymbols.symbolariu_snow', 'Symbolarium Snów')}</Text>
+          <Text style={[styles.headerSub, { color: ACCENT }]}>{t('dreamSymbols.zbiorowe_marzenia', 'ZBIOROWE MARZENIA')}</Text>
         </View>
         <Animated.Text style={[{ fontSize: 24 }, moonStyle]}>🌕</Animated.Text>
       </View>
@@ -175,13 +175,13 @@ export const DreamSymbolsScreen = ({ navigation }) => {
           <View style={{ paddingHorizontal: layout.padding.screen, alignItems: 'center', marginTop: 8 }}>
             <View style={[styles.nightBadge, { backgroundColor: ACCENT + '18', borderColor: ACCENT + '44' }]}>
               <Moon size={14} color={ACCENT} />
-              <Text style={[styles.nightBadgeText, { color: ACCENT }]}>Wspólnota śniła 1 358 snów tej nocy</Text>
+              <Text style={[styles.nightBadgeText, { color: ACCENT }]}>{t('dreamSymbols.wspolnota_snila_1_358_snow', 'Wspólnota śniła 1 358 snów tej nocy')}</Text>
             </View>
           </View>
 
           {/* Trending Symbols */}
           <View style={{ marginTop: 16 }}>
-            <Text style={[styles.sectionTitle, { color: sc, paddingHorizontal: layout.padding.screen }]}>POPULARNE SYMBOLE</Text>
+            <Text style={[styles.sectionTitle, { color: sc, paddingHorizontal: layout.padding.screen }]}>{t('dreamSymbols.popularne_symbole', 'POPULARNE SYMBOLE')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: layout.padding.screen, gap: 8 }}>
               {TRENDING.map(s => (
                 <View key={s.name} style={[styles.trendPill, { backgroundColor: cb, borderColor: cbr }]}>
@@ -198,7 +198,7 @@ export const DreamSymbolsScreen = ({ navigation }) => {
 
           {/* Symbol Grid */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 20 }}>
-            <Text style={[styles.sectionTitle, { color: sc }]}>SYMBOLARIUM</Text>
+            <Text style={[styles.sectionTitle, { color: sc }]}>{t('dreamSymbols.symbolariu', 'SYMBOLARIUM')}</Text>
             <View style={styles.symbolGrid}>
               {SYMBOLS.map((s, i) => (
                 <Animated.View key={s.name} entering={FadeInDown.delay(i * 60)} style={{ width: '48%' }}>
@@ -222,11 +222,11 @@ export const DreamSymbolsScreen = ({ navigation }) => {
 
           {/* Submit Dream */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[styles.sectionTitle, { color: sc }]}>PODZIEL SIĘ SWOIM SNEM</Text>
+            <Text style={[styles.sectionTitle, { color: sc }]}>{t('dreamSymbols.podziel_sie_swoim_snem', 'PODZIEL SIĘ SWOIM SNEM')}</Text>
             <View style={[styles.dreamInputCard, { backgroundColor: cb, borderColor: cbr }]}>
               <TextInput
                 value={dreamText} onChangeText={setDreamText}
-                placeholder="Opisz swój sen..." placeholderTextColor={sc}
+                placeholder={t('dreamSymbols.opisz_swoj_sen', 'Opisz swój sen...')} placeholderTextColor={sc}
                 multiline style={[styles.dreamInput, { color: tc, minHeight: 100 }]}
               />
               <View style={styles.dreamFooter}>
@@ -250,7 +250,7 @@ export const DreamSymbolsScreen = ({ navigation }) => {
 
           {/* Collective Mood */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[styles.sectionTitle, { color: sc }]}>NASTRÓJ ZBIOROWY DZIŚ</Text>
+            <Text style={[styles.sectionTitle, { color: sc }]}>{t('dreamSymbols.nastroj_zbiorowy_dzis', 'NASTRÓJ ZBIOROWY DZIŚ')}</Text>
             <View style={[styles.moodCard, { backgroundColor: cb, borderColor: cbr }]}>
               {[{ label: 'Spokojny', pct: moods.spokojny, color: '#60A5FA' }, { label: 'Żywy', pct: moods.żywy, color: '#34D399' }, { label: 'Niespokojny', pct: moods.niespokojny, color: '#F87171' }].map(m => (
                 <View key={m.label} style={{ marginBottom: 10 }}>
@@ -268,7 +268,7 @@ export const DreamSymbolsScreen = ({ navigation }) => {
 
           {/* Moon Phase Correlation */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 20 }}>
-            <Text style={[styles.sectionTitle, { color: sc }]}>FAZY KSIĘŻYCA I SYMBOLE</Text>
+            <Text style={[styles.sectionTitle, { color: sc }]}>{t('dreamSymbols.fazy_ksiezyca_i_symbole', 'FAZY KSIĘŻYCA I SYMBOLE')}</Text>
             {MOON_PHASES.map((mp, i) => (
               <Animated.View key={mp.name} entering={FadeInDown.delay(i * 50)} style={[styles.moonPhaseRow, { backgroundColor: cb, borderColor: cbr }]}>
                 <Text style={{ fontSize: 24, width: 36 }}>{mp.phase}</Text>
@@ -282,7 +282,7 @@ export const DreamSymbolsScreen = ({ navigation }) => {
 
           {/* Archive */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 20 }}>
-            <Text style={[styles.sectionTitle, { color: sc }]}>TWOJE SENNE ARCHIWUM</Text>
+            <Text style={[styles.sectionTitle, { color: sc }]}>{t('dreamSymbols.twoje_senne_archiwum', 'TWOJE SENNE ARCHIWUM')}</Text>
             {ARCHIVE.map(a => (
               <View key={a.id} style={[styles.archiveRow, { backgroundColor: cb, borderColor: cbr }]}>
                 <Moon size={14} color={ACCENT} />

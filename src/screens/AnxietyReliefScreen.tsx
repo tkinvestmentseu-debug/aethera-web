@@ -157,8 +157,8 @@ export const AnxietyReliefScreen = ({ navigation }: any) => {
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={{ flex: 1 }}>
-          <Text style={{ color: ACCENT, fontSize: 10, letterSpacing: 2, fontWeight: '700' }}>WSPARCIE EMOCJONALNE</Text>
-          <Text style={{ color: textColor, fontSize: 20, fontWeight: '700' }}>Ulga w lęku</Text>
+          <Text style={{ color: ACCENT, fontSize: 10, letterSpacing: 2, fontWeight: '700' }}>{t('anxietyRelief.wsparcie_emocjonaln', 'WSPARCIE EMOCJONALNE')}</Text>
+          <Text style={{ color: textColor, fontSize: 20, fontWeight: '700' }}>{t('anxietyRelief.ulga_w_leku', 'Ulga w lęku')}</Text>
         </View>
         <Pressable style={styles.starBtn} hitSlop={12} onPress={() => { HapticsService.impact('light'); if (isFavoriteItem('anxiety-relief')) { removeFavoriteItem('anxiety-relief'); } else { addFavoriteItem({ id: 'anxiety-relief', label: 'Ulga w lęku', route: 'AnxietyRelief', params: {}, icon: 'Wind', color: ACCENT, addedAt: new Date().toISOString() }); } }}>
           <Star size={18} color={isFavoriteItem('anxiety-relief') ? ACCENT : subColor} strokeWidth={1.8} fill={isFavoriteItem('anxiety-relief') ? ACCENT : 'none'} />
@@ -203,7 +203,7 @@ export const AnxietyReliefScreen = ({ navigation }: any) => {
         {activeTab === 'techniques' && (
           <>
             <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 14 }}>
-              Sprawdzone techniki terapeutyczne do szybkiego obniżenia poziomu lęku. Wybierz technikę, aby zobaczyć instrukcję.
+              {t('anxietyRelief.sprawdzone_techniki_terapeutyc_do_s', 'Sprawdzone techniki terapeutyczne do szybkiego obniżenia poziomu lęku. Wybierz technikę, aby zobaczyć instrukcję.')}
             </Text>
             {TECHNIQUES.map((tech, i) => {
               const { Icon } = tech;
@@ -263,10 +263,10 @@ export const AnxietyReliefScreen = ({ navigation }: any) => {
                 <View style={styles.sosIconWrap}>
                   <Zap size={18} color="#EF4444" />
                 </View>
-                <Text style={{ color: '#EF4444', fontSize: 16, fontWeight: '800', letterSpacing: 0.5 }}>NAPAD LĘKU?</Text>
+                <Text style={{ color: '#EF4444', fontSize: 16, fontWeight: '800', letterSpacing: 0.5 }}>{t('anxietyRelief.napad_leku', 'NAPAD LĘKU?')}</Text>
               </View>
               <Text style={{ color: isLight ? 'rgba(180,20,20,0.75)' : 'rgba(252,165,165,0.9)', fontSize: 13, lineHeight: 20 }}>
-                Wykonaj poniższe kroki jeden po drugim. Każdy zaznaczony krok obniża poziom kortyzolu. Jesteś bezpieczny/a.
+                {t('anxietyRelief.wykonaj_ponizsze_kroki_jeden_po', 'Wykonaj poniższe kroki jeden po drugim. Każdy zaznaczony krok obniża poziom kortyzolu. Jesteś bezpieczny/a.')}
               </Text>
             </View>
 
@@ -304,7 +304,7 @@ export const AnxietyReliefScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.duration(500)} style={[styles.crisisDone, { backgroundColor: ACCENT + '14', borderColor: ACCENT + '35' }]}>
                 <Heart size={18} color={ACCENT} />
                 <Text style={{ color: ACCENT, fontSize: 14, fontWeight: '700', flex: 1 }}>
-                  Brawo — przeszłeś/przeszłaś przez wszystkie kroki. To wymaga odwagi.
+                  {t('anxietyRelief.brawo_przeszles_przeszlas_przez_wsz', 'Brawo — przeszłeś/przeszłaś przez wszystkie kroki. To wymaga odwagi.')}
                 </Text>
               </Animated.View>
             )}
@@ -315,7 +315,7 @@ export const AnxietyReliefScreen = ({ navigation }: any) => {
         {activeTab === 'habits' && (
           <>
             <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 16 }}>
-              Małe codzienne nawyki budują odporność na stres i redukują chroniczny lęk. Zaznaczaj ukończone dziś.
+              {t('anxietyRelief.male_codzienne_nawyki_buduja_odporn', 'Małe codzienne nawyki budują odporność na stres i redukują chroniczny lęk. Zaznaczaj ukończone dziś.')}
             </Text>
             {DAILY_HABITS.map((habit, i) => {
               const done = doneHabits.includes(i);

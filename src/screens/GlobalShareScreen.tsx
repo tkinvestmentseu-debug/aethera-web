@@ -493,7 +493,7 @@ const PostCard = React.memo(({ post, isLight, index, onComment }: PostCardProps)
           <ReactionBtn
             emoji="✦"
             count={reactions.resonuje}
-            label="Rezonuje"
+            label={t('globalShare.rezonuje', 'Rezonuje')}
             active={activeReaction === 'resonuje'}
             color={def.color}
             onPress={() => toggle('resonuje')}
@@ -501,7 +501,7 @@ const PostCard = React.memo(({ post, isLight, index, onComment }: PostCardProps)
           <ReactionBtn
             emoji="💫"
             count={reactions.prawda}
-            label="Prawda"
+            label={t('globalShare.prawda', 'Prawda')}
             active={activeReaction === 'prawda'}
             color={def.color}
             onPress={() => toggle('prawda')}
@@ -509,7 +509,7 @@ const PostCard = React.memo(({ post, isLight, index, onComment }: PostCardProps)
           <ReactionBtn
             emoji="🌙"
             count={reactions.czuje}
-            label="Czuję"
+            label={t('globalShare.czuje', 'Czuję')}
             active={activeReaction === 'czuje'}
             color={def.color}
             onPress={() => toggle('czuje')}
@@ -531,7 +531,7 @@ const PostCard = React.memo(({ post, isLight, index, onComment }: PostCardProps)
             onPress={() => { HapticsService.impact(); onComment(post); }}
           >
             <MessageCircle size={13} color={subColor} strokeWidth={1.5} />
-            <Text style={[s.actionBtnText, { color: subColor }]}>Komentuj</Text>
+            <Text style={[s.actionBtnText, { color: subColor }]}>{t('globalShare.komentuj', 'Komentuj')}</Text>
           </Pressable>
           <View style={[s.actionDivider, { backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)' }]} />
           <Pressable
@@ -539,7 +539,7 @@ const PostCard = React.memo(({ post, isLight, index, onComment }: PostCardProps)
             onPress={() => HapticsService.impact()}
           >
             <Share2 size={13} color={subColor} strokeWidth={1.5} />
-            <Text style={[s.actionBtnText, { color: subColor }]}>Podziel się</Text>
+            <Text style={[s.actionBtnText, { color: subColor }]}>{t('globalShare.podziel_sie', 'Podziel się')}</Text>
           </Pressable>
         </View>
       </View>
@@ -568,8 +568,8 @@ const FilterPanel = ({ visible, onClose, isLight }: { visible: boolean; onClose:
       <Pressable style={s.filterOverlay} onPress={onClose} />
       <View style={[s.filterSheet, { backgroundColor: bg, borderTopColor: cardBorder }]}>
         <View style={s.filterHandle} />
-        <Text style={[s.filterTitle, { color: textColor }]}>Filtry i Sortowanie</Text>
-        <Text style={[s.filterSection, { color: subColor }]}>SORTUJ WEDŁUG</Text>
+        <Text style={[s.filterTitle, { color: textColor }]}>{t('globalShare.filtry_i_sortowanie', 'Filtry i Sortowanie')}</Text>
+        <Text style={[s.filterSection, { color: subColor }]}>{t('globalShare.sortuj_wedlug', 'SORTUJ WEDŁUG')}</Text>
         <View style={s.filterRow}>
           {SORTS.map(sort => (
             <Pressable
@@ -582,7 +582,7 @@ const FilterPanel = ({ visible, onClose, isLight }: { visible: boolean; onClose:
             </Pressable>
           ))}
         </View>
-        <Text style={[s.filterSection, { color: subColor, marginTop: 16 }]}>KRAJ POCHODZENIA</Text>
+        <Text style={[s.filterSection, { color: subColor, marginTop: 16 }]}>{t('globalShare.kraj_pochodzeni', 'KRAJ POCHODZENIA')}</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -SP }}>
           <View style={[s.filterRow, { paddingHorizontal: SP }]}>
             {['🌍 Wszystkie', '🇵🇱 Polska', '🇫🇷 Francja', '🇩🇪 Niemcy', '🇬🇧 UK', '🇸🇪 Szwecja', '🇧🇷 Brazylia', '🇯🇵 Japonia'].map(c => (
@@ -601,7 +601,7 @@ const FilterPanel = ({ visible, onClose, isLight }: { visible: boolean; onClose:
           onPress={() => { HapticsService.impact(); onClose(); }}
         >
           <LinearGradient colors={['#CEAE72', '#B8944E']} style={s.filterApplyGrad}>
-            <Text style={s.filterApplyText}>Zastosuj filtry</Text>
+            <Text style={s.filterApplyText}>{t('globalShare.zastosuj_filtry', 'Zastosuj filtry')}</Text>
           </LinearGradient>
         </Pressable>
       </View>
@@ -675,7 +675,7 @@ const ComposeModal = ({ visible, onClose, onSubmit, isLight }: { visible: boolea
 
           {/* Header */}
           <View style={s.composeHeader}>
-            <Text style={[s.composeTitle, { color: textColor }]}>Co chcesz podzielić się ze wspólnotą?</Text>
+            <Text style={[s.composeTitle, { color: textColor }]}>{t('globalShare.co_chcesz_podzielic_sie_ze', 'Co chcesz podzielić się ze wspólnotą?')}</Text>
             <Pressable onPress={onClose} style={s.composeClose}>
               <X size={18} color={subColor} />
             </Pressable>
@@ -708,7 +708,7 @@ const ComposeModal = ({ visible, onClose, onSubmit, isLight }: { visible: boolea
           {/* Text input */}
           <TextInput
             style={[s.composeInput, { backgroundColor: inputBg, borderColor: inputBorder, color: textColor }]}
-            placeholder="Podziel się swoją duchową chwilą, przemyśleniem, lub wglądem..."
+            placeholder={t('globalShare.podziel_sie_swoja_duchowa_chwila', 'Podziel się swoją duchową chwilą, przemyśleniem, lub wglądem...')}
             placeholderTextColor={subColor}
             multiline
             numberOfLines={4}
@@ -723,7 +723,7 @@ const ComposeModal = ({ visible, onClose, onSubmit, isLight }: { visible: boolea
             <View style={s.composeExtras}>
               <TextInput
                 style={[s.composeSmallInput, { backgroundColor: inputBg, borderColor: inputBorder, color: textColor }]}
-                placeholder="Nazwa karty (np. Gwiazda, Wieża...)"
+                placeholder={t('globalShare.nazwa_karty_np_gwiazda_wieza', 'Nazwa karty (np. Gwiazda, Wieża...)')}
                 placeholderTextColor={subColor}
                 value={tarotCardInput}
                 onChangeText={setTarotCardInput}
@@ -774,7 +774,7 @@ const ComposeModal = ({ visible, onClose, onSubmit, isLight }: { visible: boolea
             <Pressable style={s.sendBtn} onPress={handleSend} disabled={text.trim().length < 2}>
               <LinearGradient colors={text.trim().length >= 2 ? ['#CEAE72', '#B8944E'] : ['#666', '#555']} style={s.sendBtnGrad}>
                 <Send size={14} color="#FFF" />
-                <Text style={s.sendBtnText}>Wyślij do Wspólnoty</Text>
+                <Text style={s.sendBtnText}>{t('globalShare.wyslij_do_wspolnoty', 'Wyślij do Wspólnoty')}</Text>
               </LinearGradient>
             </Pressable>
           </View>
@@ -848,9 +848,9 @@ const CommentsModal = ({
           <Text style={[s.commentsTitle, { color: textColor }]}>Komentarze ({comments.length})</Text>
           <ScrollView style={{ maxHeight: 260 }} showsVerticalScrollIndicator={false}>
             {loadingComments ? (
-              <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', paddingVertical: 16 }}>Ładowanie...</Text>
+              <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', paddingVertical: 16 }}>{t('globalShare.ladowanie', 'Ładowanie...')}</Text>
             ) : comments.length === 0 ? (
-              <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', paddingVertical: 16 }}>Bądź pierwszą osobą, która skomentuje ✦</Text>
+              <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', paddingVertical: 16 }}>{t('globalShare.badz_pierwsza_osoba_ktora_skomentuj', 'Bądź pierwszą osobą, która skomentuje ✦')}</Text>
             ) : (
               comments.map((c, i) => (
                 <Animated.View key={c.id} entering={FadeInDown.delay(i * 50)} style={[s.commentItem, { borderBottomColor: cardBorder }]}>
@@ -870,7 +870,7 @@ const CommentsModal = ({
           <View style={s.commentInputRow}>
             <TextInput
               style={[s.commentInput, { backgroundColor: inputBg, borderColor: inputBorder, color: textColor, flex: 1 }]}
-              placeholder="Napisz komentarz..."
+              placeholder={t('globalShare.napisz_komentarz', 'Napisz komentarz...')}
               placeholderTextColor={subColor}
               value={commentText}
               onChangeText={setCommentText}
@@ -992,10 +992,10 @@ export const GlobalShareScreen = () => {
           <ChevronLeft size={22} color={textColor} strokeWidth={1.8} />
         </Pressable>
         <View style={s.headerCenter}>
-          <Text style={[s.headerTitle, { color: textColor }]}>GLOBALNY STRUMIEŃ</Text>
+          <Text style={[s.headerTitle, { color: textColor }]}>{t('globalShare.globalny_strumien', 'GLOBALNY STRUMIEŃ')}</Text>
           <View style={s.liveRow}>
             <View style={s.liveDot} />
-            <Text style={[s.liveText, { color: subColor }]}>847 dusz online</Text>
+            <Text style={[s.liveText, { color: subColor }]}>{t('globalShare.847_dusz_online', '847 dusz online')}</Text>
           </View>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
@@ -1056,7 +1056,7 @@ export const GlobalShareScreen = () => {
       {showLive && (
         <Animated.View entering={FadeInDown.delay(100).duration(340)} style={[s.liveBanner, { borderColor: '#F59E0B44', backgroundColor: isLight ? '#FEF3C720' : '#F59E0B12' }]}>
           <Sparkles size={13} color="#F59E0B" />
-          <Text style={s.liveBannerText}>Nowe posty co kilka sekund · Wspólnota jest aktywna</Text>
+          <Text style={s.liveBannerText}>{t('globalShare.nowe_posty_co_kilka_sekund', 'Nowe posty co kilka sekund · Wspólnota jest aktywna')}</Text>
           <Pressable onPress={() => setShowLive(false)}>
             <X size={13} color={subColor} />
           </Pressable>
@@ -1083,7 +1083,7 @@ export const GlobalShareScreen = () => {
           <>
             {/* CO DALEJ? */}
             <View style={{ marginTop: 32 }}>
-              <Text style={{ color: ACCENT, fontSize: 11, letterSpacing: 2, marginBottom: 12 }}>CO DALEJ?</Text>
+              <Text style={{ color: ACCENT, fontSize: 11, letterSpacing: 2, marginBottom: 12 }}>{t('globalShare.co_dalej', 'CO DALEJ?')}</Text>
               {[
                 { route: 'CommunityChat', icon: MessageCircle, label: 'Czaty Wspólnoty', sub: 'Rozmawiaj w czasie rzeczywistym', color: '#6366F1' },
                 { route: 'SpiritualChallenges', icon: Flame, label: 'Wyzwania Ducha', sub: 'Podejmij transformacyjne wyzwanie', color: '#F97316' },
@@ -1116,7 +1116,7 @@ export const GlobalShareScreen = () => {
         <Pressable onPress={handleFabPress} style={s.fabInner}>
           <LinearGradient colors={['#CEAE72', '#C4983A', '#B8833A']} style={s.fabGrad}>
             <Feather size={20} color="#FFF" strokeWidth={2} />
-            <Text style={s.fabText}>Podziel się</Text>
+            <Text style={s.fabText}>{t('globalShare.podziel_sie_1', 'Podziel się')}</Text>
           </LinearGradient>
         </Pressable>
       </Animated.View>

@@ -417,10 +417,10 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
         </Pressable>
         <View style={{ flex: 1 }}>
           <Text style={{ color: subColor, fontSize: 10, letterSpacing: 2 }}>
-            POŁĄCZENIE
+            {t('ancestralConnection.polaczenie', 'POŁĄCZENIE')}
           </Text>
           <Text style={{ color: textColor, fontSize: 20, fontWeight: '700' }}>
-            Przodkowie
+            {t('ancestralConnection.przodkowie', 'Przodkowie')}
           </Text>
         </View>
         <Pressable onPress={toggleFav} style={[styles.iconBtn, { borderWidth: 1, borderColor: isFav ? ACCENT + '66' : 'rgba(110,231,183,0.2)', backgroundColor: isFav ? ACCENT + '18' : 'transparent' }]}>
@@ -468,7 +468,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
         {activeSection === 'tree' && (
           <Animated.View entering={FadeInDown.duration(400)}>
             <Text style={[styles.sectionDesc, { color: subColor }]}>
-              Dotknij węzła drzewa, aby dodać imię przodka. Trzy pokolenia — ty, rodzice i dziadkowie.
+              {t('ancestralConnection.dotknij_wezla_drzewa_aby_dodac', 'Dotknij węzła drzewa, aby dodać imię przodka. Trzy pokolenia — ty, rodzice i dziadkowie.')}
             </Text>
 
             {/* SVG Tree Canvas */}
@@ -582,7 +582,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
 
             {/* Node list below tree */}
             <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 16, marginBottom: 8 }}>
-              DODANE IMIONA
+              {t('ancestralConnection.dodane_imiona', 'DODANE IMIONA')}
             </Text>
             {tree.filter(n => n.name).map((node, i) => (
               <Animated.View key={node.id} entering={FadeInDown.delay(i * 60).duration(300)}>
@@ -597,13 +597,13 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
                     <Text style={{ color: textColor, fontSize: 14, fontWeight: '600' }}>{node.name}</Text>
                     <Text style={{ color: subColor, fontSize: 11 }}>{node.label}</Text>
                   </View>
-                  <Text style={{ color: subColor, fontSize: 11 }}>Edytuj</Text>
+                  <Text style={{ color: subColor, fontSize: 11 }}>{t('ancestralConnection.edytuj', 'Edytuj')}</Text>
                 </Pressable>
               </Animated.View>
             ))}
             {tree.filter(n => !n.name).length > 0 && (
               <Text style={{ color: subColor, fontSize: 12, lineHeight: 18, marginTop: 8 }}>
-                Dotknij węzła w drzewie lub pustego miejsca, aby dodać imię przodka.
+                {t('ancestralConnection.dotknij_wezla_w_drzewie_lub', 'Dotknij węzła w drzewie lub pustego miejsca, aby dodać imię przodka.')}
               </Text>
             )}
           </Animated.View>
@@ -613,7 +613,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
         {activeSection === 'message' && (
           <Animated.View entering={FadeInDown.duration(400)}>
             <Text style={[styles.sectionDesc, { color: subColor }]}>
-              Naciśnij przycisk, by przywołać przesłanie od linii twoich przodków. Głos AI-Oracle wyrazi ich zbiorową mądrość.
+              {t('ancestralConnection.nacisnij_przycisk_by_przywolac_prze', 'Naciśnij przycisk, by przywołać przesłanie od linii twoich przodków. Głos AI-Oracle wyrazi ich zbiorową mądrość.')}
             </Text>
 
             <Pressable
@@ -640,7 +640,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
               <Animated.View entering={FadeInDown.duration(500)}>
                 <View style={[styles.messageCard, { backgroundColor: ACCENT + '0E', borderColor: ACCENT + '33' }]}>
                   <Text style={{ color: ACCENT, fontSize: 10, letterSpacing: 2, marginBottom: 10 }}>
-                    GŁOS PRZODKÓW
+                    {t('ancestralConnection.glos_przodkow', 'GŁOS PRZODKÓW')}
                   </Text>
                   <Text style={{ color: textColor, fontSize: 15, lineHeight: 26, fontStyle: 'italic' }}>
                     "{aiMessage}"
@@ -653,7 +653,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
               <View style={[styles.placeholderCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <Text style={{ fontSize: 32, marginBottom: 8 }}>🌿</Text>
                 <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, textAlign: 'center' }}>
-                  Każda rodzina niesie w sobie głębię pokoleń. Twoi przodkowie mają dla ciebie słowo — naciśnij, by usłyszeć.
+                  {t('ancestralConnection.kazda_rodzina_niesie_w_sobie', 'Każda rodzina niesie w sobie głębię pokoleń. Twoi przodkowie mają dla ciebie słowo — naciśnij, by usłyszeć.')}
                 </Text>
               </View>
             )}
@@ -664,7 +664,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
         {activeSection === 'timer' && (
           <Animated.View entering={FadeInDown.duration(400)} style={{ alignItems: 'center' }}>
             <Text style={[styles.sectionDesc, { color: subColor, textAlign: 'center' }]}>
-              11-minutowa cisza dla przodków. Pozwól myślom przepłynąć i wsłuchaj się w to, co lineaż chce ci przekazać.
+              {t('ancestralConnection.11_minutowa_cisza_dla_przodkow', '11-minutowa cisza dla przodków. Pozwól myślom przepłynąć i wsłuchaj się w to, co lineaż chce ci przekazać.')}
             </Text>
 
             {/* Circular progress */}
@@ -705,7 +705,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
                   <>
                     <Text style={{ fontSize: 28 }}>✓</Text>
                     <Text style={{ color: ACCENT, fontSize: 13, fontWeight: '700', marginTop: 4 }}>
-                      Zakończono
+                      {t('ancestralConnection.zakonczono', 'Zakończono')}
                     </Text>
                   </>
                 ) : (
@@ -714,7 +714,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
                       {timerLabel}
                     </Text>
                     <Text style={{ color: subColor, fontSize: 11, marginTop: 2 }}>
-                      cisza rytualna
+                      {t('ancestralConnection.cisza_rytualna', 'cisza rytualna')}
                     </Text>
                   </>
                 )}
@@ -740,22 +740,22 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
             ) : (
               <View style={{ alignItems: 'center', gap: 12, marginTop: 8 }}>
                 <Text style={{ color: ACCENT, fontSize: 16, fontWeight: '700' }}>
-                  ✓ Rytuał zakończony
+                  {t('ancestralConnection.rytual_zakonczony', '✓ Rytuał zakończony')}
                 </Text>
                 <Text style={{ color: subColor, fontSize: 13, textAlign: 'center', lineHeight: 20 }}>
-                  Dziękujesz przodkom za ich obecność. Ich mądrość jest teraz w twoim sercu.
+                  {t('ancestralConnection.dziekujesz_przodkom_za_ich_obecnosc', 'Dziękujesz przodkom za ich obecność. Ich mądrość jest teraz w twoim sercu.')}
                 </Text>
                 <Pressable onPress={resetTimer} style={[styles.timerResetBtn, { borderColor: ACCENT + '44' }]}>
                   <RotateCcw size={16} color={ACCENT} />
-                  <Text style={{ color: ACCENT, fontSize: 13, fontWeight: '600' }}>Powtórz rytuał</Text>
+                  <Text style={{ color: ACCENT, fontSize: 13, fontWeight: '600' }}>{t('ancestralConnection.powtorz_rytual', 'Powtórz rytuał')}</Text>
                 </Pressable>
               </View>
             )}
 
             <View style={[styles.timerInfoCard, { backgroundColor: cardBg, borderColor: cardBorder, marginTop: 24 }]}>
-              <Text style={{ color: ACCENT, fontSize: 11, letterSpacing: 1.5, marginBottom: 6 }}>DLACZEGO 11 MINUT?</Text>
+              <Text style={{ color: ACCENT, fontSize: 11, letterSpacing: 1.5, marginBottom: 6 }}>{t('ancestralConnection.dlaczego_11_minut', 'DLACZEGO 11 MINUT?')}</Text>
               <Text style={{ color: subColor, fontSize: 13, lineHeight: 20 }}>
-                Liczba 11 to w numerologii liczba intuicji i połączenia z wyższymi wymiarami. 11 minut ciszy otwiera bramę między teraźniejszością a pamięcią przodków.
+                {t('ancestralConnection.liczba_11_to_w_numerologi', 'Liczba 11 to w numerologii liczba intuicji i połączenia z wyższymi wymiarami. 11 minut ciszy otwiera bramę między teraźniejszością a pamięcią przodków.')}
               </Text>
             </View>
           </Animated.View>
@@ -765,7 +765,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
         {activeSection === 'gratitude' && (
           <Animated.View entering={FadeInDown.duration(400)}>
             <Text style={[styles.sectionDesc, { color: subColor }]}>
-              Napisz słowa wdzięczności do trzech przodków. Wyraź, za co jesteś im wdzięczny/-a.
+              {t('ancestralConnection.napisz_slowa_wdziecznos_do_trzech', 'Napisz słowa wdzięczności do trzech przodków. Wyraź, za co jesteś im wdzięczny/-a.')}
             </Text>
 
             {gratitudes.map((g, i) => (
@@ -778,7 +778,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
                     <TextInput
                       value={g.to}
                       onChangeText={val => setGratitudes(prev => prev.map((x, j) => j === i ? { ...x, to: val } : x))}
-                      placeholder="Dla kogo? (imię lub relacja)"
+                      placeholder={t('ancestralConnection.dla_kogo_imie_lub_relacja', 'Dla kogo? (imię lub relacja)')}
                       placeholderTextColor={subColor}
                       returnKeyType="done"
                       onFocus={() => {
@@ -790,7 +790,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
                   <TextInput
                     value={g.text}
                     onChangeText={val => setGratitudes(prev => prev.map((x, j) => j === i ? { ...x, text: val } : x))}
-                    placeholder="Twoje słowa wdzięczności..."
+                    placeholder={t('ancestralConnection.twoje_slowa_wdziecznos', 'Twoje słowa wdzięczności...')}
                     placeholderTextColor={subColor}
                     multiline
                     returnKeyType="done"
@@ -818,7 +818,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
         {activeSection === 'symbols' && (
           <Animated.View entering={FadeInDown.duration(400)}>
             <Text style={[styles.sectionDesc, { color: subColor }]}>
-              Dotknij symbolu, by poznać jego znaczenie w tradycji ancestralnej.
+              {t('ancestralConnection.dotknij_symbolu_by_poznac_jego', 'Dotknij symbolu, by poznać jego znaczenie w tradycji ancestralnej.')}
             </Text>
 
             <View style={styles.symbolGrid}>
@@ -866,7 +866,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
         {activeSection === 'ritual' && (
           <Animated.View entering={FadeInDown.duration(400)}>
             <Text style={[styles.sectionDesc, { color: subColor }]}>
-              5-etapowy rytuał połączenia z przodkami. Wykonuj go wieczorem przy świecy w spokojnym miejscu.
+              {t('ancestralConnection.5_etapowy_rytual_polaczenia_z', '5-etapowy rytuał połączenia z przodkami. Wykonuj go wieczorem przy świecy w spokojnym miejscu.')}
             </Text>
 
             <View style={[styles.progressBar, { backgroundColor: cardBg, borderColor: cardBorder }]}>
@@ -917,10 +917,10 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
                 <View style={[styles.completionCard, { backgroundColor: ACCENT + '14', borderColor: ACCENT + '44' }]}>
                   <Text style={{ fontSize: 24, marginBottom: 6 }}>🌳</Text>
                   <Text style={{ color: ACCENT, fontSize: 16, fontWeight: '700', marginBottom: 4 }}>
-                    Rytuał ukończony
+                    {t('ancestralConnection.rytual_ukonczony', 'Rytuał ukończony')}
                   </Text>
                   <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, textAlign: 'center' }}>
-                    Połączyłeś się ze swoją linią przodków. Ich mądrość jest teraz częścią ciebie.
+                    {t('ancestralConnection.polaczyles_sie_ze_swoja_linia', 'Połączyłeś się ze swoją linią przodków. Ich mądrość jest teraz częścią ciebie.')}
                   </Text>
                 </View>
               </Animated.View>
@@ -947,7 +947,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
         <Pressable style={styles.modalOverlay} onPress={() => setEditNode(null)}>
           <Pressable style={[styles.modalSheet, { backgroundColor: isDark ? '#0D1F10' : '#F0FAF4', borderColor: ACCENT + '33' }]} onPress={(e) => e.stopPropagation()}>
             <Text style={{ color: subColor, fontSize: 11, letterSpacing: 2, marginBottom: 4 }}>
-              EDYTUJ PRZODKA
+              {t('ancestralConnection.edytuj_przodka', 'EDYTUJ PRZODKA')}
             </Text>
             <Text style={{ color: textColor, fontSize: 18, fontWeight: '700', marginBottom: 16 }}>
               {editNode?.label}
@@ -955,7 +955,7 @@ export const AncestralConnectionScreen = ({ navigation }: { navigation: any }) =
             <TextInput
               value={editInput}
               onChangeText={setEditInput}
-              placeholder="Imię i nazwisko..."
+              placeholder={t('ancestralConnection.imie_i_nazwisko', 'Imię i nazwisko...')}
               placeholderTextColor={subColor}
               autoFocus
               returnKeyType="done"

@@ -411,7 +411,7 @@ export function MorningRitualScreen() {
             <ChevronLeft size={22} color={textColor} />
           </Pressable>
           <View style={{ flex: 1 }}>
-            <Text style={[s.headerTitle, { color: textColor }]}>Poranny Rytuał</Text>
+            <Text style={[s.headerTitle, { color: textColor }]}>{t('morningRitual.poranny_rytual', 'Poranny Rytuał')}</Text>
           </View>
           <MusicToggleButton color={goldColor} size={20} />
           <Pressable
@@ -439,7 +439,7 @@ export function MorningRitualScreen() {
             {userName ? `,\n${userName}` : ''}
           </Text>
           <Text style={{ color: subColor, fontSize: 14, marginTop: 6, textAlign: 'center', lineHeight: 21 }}>
-            Każdy poranek to nowy rozdział Twojej duszy.
+            {t('morningRitual.kazdy_poranek_to_nowy_rozdzial', 'Każdy poranek to nowy rozdział Twojej duszy.')}
           </Text>
           <View style={[s.moonBadge, { borderColor: goldColor + '44', backgroundColor: goldColor + '14', marginTop: 12 }]}>
             <Text style={[s.moonBadgeText, { color: goldColor }]}>{moonPhase.icon} {moonPhase.name}</Text>
@@ -464,7 +464,7 @@ export function MorningRitualScreen() {
 
         {/* Duration selector */}
         <Animated.View entering={FadeInDown.delay(180).duration(500)} style={[s.card, { borderColor: cardBorder, backgroundColor: cardBg }]}>
-          <Text style={[s.cardLabel, { color: subColor }]}>CZAS TRWANIA</Text>
+          <Text style={[s.cardLabel, { color: subColor }]}>{t('morningRitual.czas_trwania', 'CZAS TRWANIA')}</Text>
           <View style={s.durationRow}>
             {DURATIONS.map(d => (
               <Pressable key={d.value} onPress={() => setDuration(d.value)} style={[s.durationChip, {
@@ -479,7 +479,7 @@ export function MorningRitualScreen() {
 
         {/* Stage list */}
         <Animated.View entering={FadeInDown.delay(240).duration(500)} style={[s.card, { borderColor: cardBorder, backgroundColor: cardBg }]}>
-          <Text style={[s.cardLabel, { color: subColor }]}>ETAPY PRAKTYKI</Text>
+          <Text style={[s.cardLabel, { color: subColor }]}>{t('morningRitual.etapy_praktyki', 'ETAPY PRAKTYKI')}</Text>
           {STAGES.map((st, i) => {
             const Icon = st.icon;
             const done = completedStages.includes(i);
@@ -509,11 +509,11 @@ export function MorningRitualScreen() {
           <Pressable onPress={() => { void HapticsService.selection(); setStage(0); }} style={s.startBtn}>
             <LinearGradient colors={['#F59E0B', '#D97706', '#B45309']} style={s.startBtnGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
               <Sun size={20} color="#1A0A00" />
-              <Text style={s.startBtnText}>Rozpocznij Rytuał ✦</Text>
+              <Text style={s.startBtnText}>{t('morningRitual.rozpocznij_rytual', 'Rozpocznij Rytuał ✦')}</Text>
             </LinearGradient>
           </Pressable>
           <Text style={{ color: subColor, fontSize: 11, textAlign: 'center', marginTop: 10, lineHeight: 17 }}>
-            5 etapów · oddech, afirmacja, intencja, mantra, wdzięczność
+            {t('morningRitual.5_etapow_oddech_afirmacja_intencja', '5 etapów · oddech, afirmacja, intencja, mantra, wdzięczność')}
           </Text>
         </Animated.View>
       </ScrollView>
@@ -534,18 +534,18 @@ export function MorningRitualScreen() {
         </Svg>
       </Animated.View>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: layout.padding.screen }}>
-        <Text style={[s.completionTitle, { color: goldColor }]}>✨ Rytuał Ukończony!</Text>
+        <Text style={[s.completionTitle, { color: goldColor }]}>{t('morningRitual.rytual_ukonczony', '✨ Rytuał Ukończony!')}</Text>
         <View style={[s.completionCard, { borderColor: goldColor + '44', backgroundColor: cardBg }]}>
           <Text style={[s.completionStat, { color: textColor }]}>⏱ Czas: {totalMinutes} min</Text>
-          <Text style={[s.completionStat, { color: textColor }]}>✅ Etapy: 5/5</Text>
+          <Text style={[s.completionStat, { color: textColor }]}>{t('morningRitual.etapy_5_5', '✅ Etapy: 5/5')}</Text>
           <Text style={[s.completionStat, { color: textColor }]}>🔥 Seria: {streak + 1} dni</Text>
         <Text style={[s.completionStat, { color: goldColor, marginTop: 6, fontSize: 13, fontWeight: '600', fontStyle: 'italic' }]}>
-          Twoja praktyka zostawia ślad w kosmicznej księdze.
+          {t('morningRitual.twoja_praktyka_zostawia_slad_w', 'Twoja praktyka zostawia ślad w kosmicznej księdze.')}
         </Text>
         </View>
         <Pressable onPress={() => goBackOrToMainTab(navigation, 'Portal')} style={[s.startBtn, { marginTop: 32 }]}>
           <LinearGradient colors={['#F59E0B', '#D97706']} style={s.startBtnGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-            <Text style={s.startBtnText}>Wróć do Portalu</Text>
+            <Text style={s.startBtnText}>{t('morningRitual.wroc_do_portalu', 'Wróć do Portalu')}</Text>
           </LinearGradient>
         </Pressable>
       </View>
@@ -580,12 +580,12 @@ export function MorningRitualScreen() {
           {/* STAGE 0: transition */}
           {stage === 0 && (
             <Animated.View entering={FadeIn.duration(600)} style={{ alignItems: 'center', paddingTop: 60 }}>
-              <Text style={[s.stageBigLabel, { color: goldColor }]}>Rytuał Poranny</Text>
-              <Text style={[s.stageSub, { color: subColor }]}>Zacznij od oddechu. Wejdź w rytm ciała.</Text>
+              <Text style={[s.stageBigLabel, { color: goldColor }]}>{t('morningRitual.rytual_poranny', 'Rytuał Poranny')}</Text>
+              <Text style={[s.stageSub, { color: subColor }]}>{t('morningRitual.zacznij_od_oddechu_wejdz_w', 'Zacznij od oddechu. Wejdź w rytm ciała.')}</Text>
               <Pressable onPress={() => setStage(1)} style={[s.startBtn, { marginTop: 40, alignSelf: 'center' }]}>
                 <LinearGradient colors={['#F59E0B', '#D97706']} style={s.startBtnGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
                   <Wind size={18} color="#1A0A00" />
-                  <Text style={s.startBtnText}>Zacznij oddech</Text>
+                  <Text style={s.startBtnText}>{t('morningRitual.zacznij_oddech', 'Zacznij oddech')}</Text>
                 </LinearGradient>
               </Pressable>
             </Animated.View>
@@ -594,7 +594,7 @@ export function MorningRitualScreen() {
           {/* STAGE 1: Breath */}
           {stage === 1 && (
             <Animated.View entering={FadeIn.duration(500)} style={{ alignItems: 'center', paddingTop: 20 }}>
-              <Text style={[s.eyebrow, { color: subColor }]}>ODDECH PUDEŁKOWY 4-4-4-4</Text>
+              <Text style={[s.eyebrow, { color: subColor }]}>{t('morningRitual.oddech_pudelkowy_4_4_4', 'ODDECH PUDEŁKOWY 4-4-4-4')}</Text>
               <Text style={[s.roundLabel, { color: subColor }]}>Runda {Math.min(breathRound + 1, totalRounds)} z {totalRounds}</Text>
               {/* Breathing circle */}
               <View style={{ width: SW - 80, height: 260, alignItems: 'center', justifyContent: 'center' }}>
@@ -613,11 +613,11 @@ export function MorningRitualScreen() {
               {!breathRunning ? (
                 <Pressable onPress={startBreath} style={[s.startBtn, { alignSelf: 'center' }]}>
                   <LinearGradient colors={['#F59E0B', '#D97706']} style={s.startBtnGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                    <Text style={s.startBtnText}>Zacznij oddech</Text>
+                    <Text style={s.startBtnText}>{t('morningRitual.zacznij_oddech_1', 'Zacznij oddech')}</Text>
                   </LinearGradient>
                 </Pressable>
               ) : (
-                <Text style={[s.breathHint, { color: subColor }]}>Oddychaj spokojnie...</Text>
+                <Text style={[s.breathHint, { color: subColor }]}>{t('morningRitual.oddychaj_spokojnie', 'Oddychaj spokojnie...')}</Text>
               )}
             </Animated.View>
           )}
@@ -625,11 +625,11 @@ export function MorningRitualScreen() {
           {/* STAGE 2: Affirmation */}
           {stage === 2 && (
             <Animated.View entering={FadeIn.duration(500)} style={{ alignItems: 'center', paddingTop: 24 }}>
-              <Text style={[s.eyebrow, { color: subColor }]}>AFIRMACJA DNIA</Text>
+              <Text style={[s.eyebrow, { color: subColor }]}>{t('morningRitual.afirmacja_dnia', 'AFIRMACJA DNIA')}</Text>
               <Animated.View style={[s.affGlow, affPulseStyle, { backgroundColor: goldColor + '18', borderColor: goldColor + '30' }]}>
                 <Text style={[s.affText, { color: goldColor }]}>{affirmation}</Text>
               </Animated.View>
-              <Text style={[s.affInstruction, { color: subColor }]}>Powtórz na głos 3 razy</Text>
+              <Text style={[s.affInstruction, { color: subColor }]}>{t('morningRitual.powtorz_na_glos_3_razy', 'Powtórz na głos 3 razy')}</Text>
               <Text style={[s.affTimer, { color: subColor }]}>Auto: {affTimer}s</Text>
               <Pressable onPress={() => {
                 const next = affTaps + 1;
@@ -648,23 +648,23 @@ export function MorningRitualScreen() {
           {/* STAGE 3: Intention */}
           {stage === 3 && (
             <Animated.View entering={FadeIn.duration(500)} style={{ paddingTop: 16 }}>
-              <Text style={[s.eyebrow, { color: subColor, textAlign: 'center' }]}>INTENCJA DNIA</Text>
-              <Text style={[s.stageDesc, { color: subColor, textAlign: 'center', marginBottom: 20 }]}>Nadaj kierunek swojej energii na dziś</Text>
-              <Text style={[s.inputLabel, { color: subColor }]}>Jaka jest moja intencja na dziś?</Text>
+              <Text style={[s.eyebrow, { color: subColor, textAlign: 'center' }]}>{t('morningRitual.intencja_dnia', 'INTENCJA DNIA')}</Text>
+              <Text style={[s.stageDesc, { color: subColor, textAlign: 'center', marginBottom: 20 }]}>{t('morningRitual.nadaj_kierunek_swojej_energii_na', 'Nadaj kierunek swojej energii na dziś')}</Text>
+              <Text style={[s.inputLabel, { color: subColor }]}>{t('morningRitual.jaka_jest_moja_intencja_na', 'Jaka jest moja intencja na dziś?')}</Text>
               <TextInput
                 style={[s.textInput, { color: textColor, borderColor: cardBorder, backgroundColor: cardBg }]}
                 value={intention1}
                 onChangeText={setIntention1}
-                placeholder="Moja intencja..."
+                placeholder={t('morningRitual.moja_intencja', 'Moja intencja...')}
                 placeholderTextColor={subColor + '88'}
                 multiline
               />
-              <Text style={[s.inputLabel, { color: subColor, marginTop: 12 }]}>Co chcę stworzyć lub doświadczyć?</Text>
+              <Text style={[s.inputLabel, { color: subColor, marginTop: 12 }]}>{t('morningRitual.co_chce_stworzyc_lub_doswiadczy', 'Co chcę stworzyć lub doświadczyć?')}</Text>
               <TextInput
                 style={[s.textInput, { color: textColor, borderColor: cardBorder, backgroundColor: cardBg }]}
                 value={intention2}
                 onChangeText={setIntention2}
-                placeholder="Chcę doświadczyć..."
+                placeholder={t('morningRitual.chce_doswiadczy', 'Chcę doświadczyć...')}
                 placeholderTextColor={subColor + '88'}
                 multiline
               />
@@ -679,7 +679,7 @@ export function MorningRitualScreen() {
               )}
               <Pressable onPress={() => goToNextStage(3)} style={[s.startBtn, { alignSelf: 'center', marginTop: 20 }]}>
                 <LinearGradient colors={['#F59E0B', '#D97706']} style={s.startBtnGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                  <Text style={s.startBtnText}>Zatwierdź intencję</Text>
+                  <Text style={s.startBtnText}>{t('morningRitual.zatwierdz_intencje', 'Zatwierdź intencję')}</Text>
                   <ChevronRight size={18} color="#1A0A00" />
                 </LinearGradient>
               </Pressable>
@@ -689,10 +689,10 @@ export function MorningRitualScreen() {
           {/* STAGE 4: Mantra */}
           {stage === 4 && (
             <Animated.View entering={FadeIn.duration(500)} style={{ alignItems: 'center', paddingTop: 24 }}>
-              <Text style={[s.eyebrow, { color: subColor }]}>MANTRA ZODIAKU</Text>
+              <Text style={[s.eyebrow, { color: subColor }]}>{t('morningRitual.mantra_zodiaku', 'MANTRA ZODIAKU')}</Text>
               <Text style={[s.mantraText, { color: goldColor }]}>{mantraData.text}</Text>
               <Text style={[s.mantraMeaning, { color: subColor }]}>{mantraData.meaning}</Text>
-              <Text style={[s.affInstruction, { color: subColor }]}>Recytuj z nami</Text>
+              <Text style={[s.affInstruction, { color: subColor }]}>{t('morningRitual.recytuj_z_nami', 'Recytuj z nami')}</Text>
               {/* Metronome dot */}
               <Animated.View style={[s.mantraDot, { backgroundColor: goldColor }, mantraDotStyle]} />
               <Text style={[s.mantraCount, { color: textColor }]}>{mantraCount} / 108</Text>
@@ -703,7 +703,7 @@ export function MorningRitualScreen() {
                 void HapticsService.selection();
                 if (next >= 108) goToNextStage(4);
               }} style={[s.affBtn, { borderColor: goldColor + '55', backgroundColor: goldColor + '14' }]}>
-                <Text style={[s.affBtnText, { color: goldColor }]}>Recytowałem/am (+1)</Text>
+                <Text style={[s.affBtnText, { color: goldColor }]}>{t('morningRitual.recytowale_am_1', 'Recytowałem/am (+1)')}</Text>
               </Pressable>
             </Animated.View>
           )}
@@ -711,8 +711,8 @@ export function MorningRitualScreen() {
           {/* STAGE 5: Gratitude */}
           {stage === 5 && (
             <Animated.View entering={FadeIn.duration(500)} style={{ paddingTop: 16 }}>
-              <Text style={[s.eyebrow, { color: subColor, textAlign: 'center' }]}>WDZIĘCZNOŚĆ</Text>
-              <Text style={[s.stageDesc, { color: subColor, textAlign: 'center', marginBottom: 20 }]}>Otwórz serce na trzy dary dnia</Text>
+              <Text style={[s.eyebrow, { color: subColor, textAlign: 'center' }]}>{t('morningRitual.wdziecznos', 'WDZIĘCZNOŚĆ')}</Text>
+              <Text style={[s.stageDesc, { color: subColor, textAlign: 'center', marginBottom: 20 }]}>{t('morningRitual.otworz_serce_na_trzy_dary', 'Otwórz serce na trzy dary dnia')}</Text>
               {[{ val: grat1, set: setGrat1 }, { val: grat2, set: setGrat2 }, { val: grat3, set: setGrat3 }].map((g, i) => (
                 <View key={i}>
                   <Text style={[s.inputLabel, { color: subColor }]}>Jestem wdzięczny/a za... ({i + 1})</Text>
@@ -720,7 +720,7 @@ export function MorningRitualScreen() {
                     style={[s.textInput, { color: textColor, borderColor: cardBorder, backgroundColor: cardBg }]}
                     value={g.val}
                     onChangeText={g.set}
-                    placeholder="Za co jesteś wdzięczny/a?"
+                    placeholder={t('morningRitual.za_co_jestes_wdzieczny_a', 'Za co jesteś wdzięczny/a?')}
                     placeholderTextColor={subColor + '88'}
                     maxLength={80}
                   />
@@ -730,7 +730,7 @@ export function MorningRitualScreen() {
               <Pressable onPress={finishRitual} style={[s.startBtn, { alignSelf: 'center', marginTop: 24 }]}>
                 <LinearGradient colors={['#F59E0B', '#D97706']} style={s.startBtnGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
                   <Heart size={18} color="#1A0A00" />
-                  <Text style={s.startBtnText}>Zakończ Rytuał</Text>
+                  <Text style={s.startBtnText}>{t('morningRitual.zakoncz_rytual', 'Zakończ Rytuał')}</Text>
                 </LinearGradient>
               </Pressable>
             </Animated.View>

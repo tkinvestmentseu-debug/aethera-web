@@ -385,7 +385,7 @@ const mountedRef = useRef(true);
 
           {/* ══ MÓJ POSTĘP ══ */}
           <View style={styles.progressSection}>
-            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 14 }}>📊 MÓJ POSTĘP</Typography>
+            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 14 }}>{t('breathwork.moj_postep', '📊 MÓJ POSTĘP')}</Typography>
             <View style={styles.statsGrid}>
               {[
                 { label: 'SESJE', value: totalSessions.toString(), sub: 'łącznie', color: pattern.color },
@@ -404,7 +404,7 @@ const mountedRef = useRef(true);
 
           {/* Technique map — clean inline tiles */}
           <View style={styles.mapSection}>
-            <Typography variant="premiumLabel" color={pattern.color}>🗺️ MAPA TECHNIKI</Typography>
+            <Typography variant="premiumLabel" color={pattern.color}>{t('breathwork.mapa_techniki', '🗺️ MAPA TECHNIKI')}</Typography>
             <View style={styles.mapGrid}>
               {[
                 { label: 'NAJLEPSZY MOMENT', value: pattern.bestFor[0] },
@@ -463,15 +463,15 @@ const mountedRef = useRef(true);
 
           {/* ══ BREATHWORK + DŹWIĘK — ambient selector ══ */}
           <View style={[styles.ambientSection, { backgroundColor: subBg, borderColor: pattern.color + '28' }]}>
-            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 12 }}>🎵 BREATHWORK + DŹWIĘK</Typography>
-            <Typography variant="bodySmall" style={{ color: theme.textMuted, marginBottom: 14 }}>Wybierz tło dźwiękowe na sesję. Dźwięk natury wspiera skupienie i reguluje napięcie układu nerwowego.</Typography>
+            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 12 }}>{t('breathwork.breathwork_dzwiek', '🎵 BREATHWORK + DŹWIĘK')}</Typography>
+            <Typography variant="bodySmall" style={{ color: theme.textMuted, marginBottom: 14 }}>{t('breathwork.wybierz_tlo_dzwiekowe_na_sesje', 'Wybierz tło dźwiękowe na sesję. Dźwięk natury wspiera skupienie i reguluje napięcie układu nerwowego.')}</Typography>
             <View style={styles.ambientRow}>
               <Pressable
                 onPress={() => { setSessionAmbient(null); HapticsService.impact('light'); }}
                 style={[styles.ambientChip, { backgroundColor: sessionAmbient === null ? pattern.color + '22' : cardBg, borderColor: sessionAmbient === null ? pattern.color : cardBorder }]}
               >
                 <Text style={[styles.ambientChipEmoji]}>🔇</Text>
-                <Typography variant="microLabel" color={sessionAmbient === null ? pattern.color : theme.textMuted}>Auto</Typography>
+                <Typography variant="microLabel" color={sessionAmbient === null ? pattern.color : theme.textMuted}>{t('breathwork.auto', 'Auto')}</Typography>
               </Pressable>
               {AMBIENT_OPTIONS.map(opt => (
                 <Pressable
@@ -538,7 +538,7 @@ const mountedRef = useRef(true);
           {/* ══ INTEGRACJA PO SESJI ══ */}
           {sessionCompleted && (
             <View style={[styles.integrationSection, { backgroundColor: '#34D399' + '0A', borderColor: '#34D399' + '44' }]}>
-              <Typography variant="premiumLabel" color="#34D399" style={{ marginBottom: 4 }}>✦ INTEGRACJA PO SESJI</Typography>
+              <Typography variant="premiumLabel" color="#34D399" style={{ marginBottom: 4 }}>{t('breathwork.integracja_po_sesji', '✦ INTEGRACJA PO SESJI')}</Typography>
               <Typography variant="bodySmall" style={{ color: theme.textMuted, marginBottom: 16 }}>{t('breathwork.sessionComplete')}</Typography>
               {INTEGRATION_STEPS.map((step, idx) => {
                 const done = integrationStep !== null && integrationStep > idx;
@@ -584,7 +584,7 @@ const mountedRef = useRef(true);
 
           {/* How to use — clean rows, no card wrapper */}
           <View style={styles.notesSection}>
-            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 4 }}>✦ JAK KORZYSTAĆ Z TEJ TECHNIKI</Typography>
+            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 4 }}>{t('breathwork.jak_korzystac_z_tej_techniki', '✦ JAK KORZYSTAĆ Z TEJ TECHNIKI')}</Typography>
             {pattern.notes.map((copy, index) => (
               <View key={copy} style={[styles.noteRow, index > 0 && { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: divColor }]}>
                 <View style={[styles.stepBadge, { backgroundColor: pattern.color + '18' }]}>
@@ -600,7 +600,7 @@ const mountedRef = useRef(true);
             <View style={[styles.detailCard, { backgroundColor: subBg, borderColor: pattern.color + '30' }]}>
               <Pressable onPress={() => setDetailExpanded((v) => !v)} style={styles.detailHeader}>
                 <View style={{ flex: 1 }}>
-                  <Typography variant="premiumLabel" color={pattern.color}>🌬️ GŁĘBIEJ W TĘ TECHNIKĘ</Typography>
+                  <Typography variant="premiumLabel" color={pattern.color}>{t('breathwork.glebiej_w_te_technike', '🌬️ GŁĘBIEJ W TĘ TECHNIKĘ')}</Typography>
                   <Typography variant="bodySmall" style={{ color: theme.textMuted, marginTop: 4 }}>{pattern.title} — instrukcja krok po kroku</Typography>
                 </View>
                 {detailExpanded
@@ -611,7 +611,7 @@ const mountedRef = useRef(true);
               {detailExpanded && (
                 <View style={styles.detailBody}>
                   <View style={[styles.detailDivider, { backgroundColor: pattern.color + '22' }]} />
-                  <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 10 }}>KROKI</Typography>
+                  <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 10 }}>{t('breathwork.kroki', 'KROKI')}</Typography>
                   {techniqueDetail.steps.map((step, i) => (
                     <View key={i} style={styles.detailStep}>
                       <View style={[styles.detailStepNum, { backgroundColor: pattern.color + '18' }]}>
@@ -626,7 +626,7 @@ const mountedRef = useRef(true);
                       <Brain color="#34D399" size={14} strokeWidth={1.8} />
                     </View>
                     <View style={{ flex: 1 }}>
-                      <Typography variant="microLabel" color="#34D399">NAUKA</Typography>
+                      <Typography variant="microLabel" color="#34D399">{t('breathwork.nauka', 'NAUKA')}</Typography>
                       <Typography variant="bodySmall" style={{ color: theme.textMuted, marginTop: 4, lineHeight: 20 }}>{techniqueDetail.science}</Typography>
                     </View>
                   </View>
@@ -635,7 +635,7 @@ const mountedRef = useRef(true);
                       <Zap color="#FBBF24" size={14} strokeWidth={1.8} />
                     </View>
                     <View style={{ flex: 1 }}>
-                      <Typography variant="microLabel" color="#FBBF24">PRZECIWWSKAZANIA</Typography>
+                      <Typography variant="microLabel" color="#FBBF24">{t('breathwork.przeciwwsk', 'PRZECIWWSKAZANIA')}</Typography>
                       <Typography variant="bodySmall" style={{ color: theme.textMuted, marginTop: 4, lineHeight: 20 }}>{techniqueDetail.contra}</Typography>
                     </View>
                   </View>
@@ -646,8 +646,8 @@ const mountedRef = useRef(true);
 
           {/* ══ PROGRAM TYGODNIOWY ══ */}
           <View style={styles.weeklySection}>
-            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 4 }}>📅 PROGRAM TYGODNIOWY</Typography>
-            <Typography variant="bodySmall" style={{ color: theme.textMuted, marginBottom: 16 }}>Zróżnicowany plan na 7 dni — każda technika dobrana do rytmu i energii dnia.</Typography>
+            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 4 }}>{t('breathwork.program_tygodniowy', '📅 PROGRAM TYGODNIOWY')}</Typography>
+            <Typography variant="bodySmall" style={{ color: theme.textMuted, marginBottom: 16 }}>{t('breathwork.zroznicowa_plan_na_7_dni', 'Zróżnicowany plan na 7 dni — każda technika dobrana do rytmu i energii dnia.')}</Typography>
             {WEEKLY_PROGRAM.map((day, index) => {
               const dayPattern = PATTERNS.find(p => p.id === day.technique);
               const isToday = index === currentWeekDayIndex;
@@ -673,7 +673,7 @@ const mountedRef = useRef(true);
                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                       <Text style={{ fontSize: 14 }}>{day.emoji}</Text>
                       <Typography variant="label" style={{ color: theme.text, fontWeight: '700' }}>{dayPattern?.title || day.technique}</Typography>
-                      {isToday && <Typography variant="microLabel" color={dayPattern?.color || pattern.color}>← DZIŚ</Typography>}
+                      {isToday && <Typography variant="microLabel" color={dayPattern?.color || pattern.color}>{t('breathwork.dzis', '← DZIŚ')}</Typography>}
                     </View>
                     {isExpanded && (
                       <Typography variant="bodySmall" style={{ color: theme.textMuted, marginTop: 6, lineHeight: 20 }}>{day.rationale}</Typography>
@@ -699,8 +699,8 @@ const mountedRef = useRef(true);
 
           {/* ══ ODDECH I NAUKA ══ */}
           <View style={styles.scienceSection}>
-            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 4 }}>🧬 ODDECH I NAUKA</Typography>
-            <Typography variant="bodySmall" style={{ color: theme.textMuted, marginBottom: 16 }}>Trzy fakty naukowe o tym, jak praca z oddechem zmienia ciało i mózg.</Typography>
+            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 4 }}>{t('breathwork.oddech_i_nauka', '🧬 ODDECH I NAUKA')}</Typography>
+            <Typography variant="bodySmall" style={{ color: theme.textMuted, marginBottom: 16 }}>{t('breathwork.trzy_fakty_naukowe_o_tym', 'Trzy fakty naukowe o tym, jak praca z oddechem zmienia ciało i mózg.')}</Typography>
             {SCIENCE_FACTS.slice(0, 3).map((item, i) => {
               const SciIcon = item.icon;
               const isExpanded = expandedFact === item.title;
@@ -739,7 +739,7 @@ const mountedRef = useRef(true);
 
           {/* ── Historia sesji ── */}
           <View style={styles.historySection}>
-            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 12 }}>📈 HISTORIA SESJI</Typography>
+            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 12 }}>{t('breathwork.historia_sesji', '📈 HISTORIA SESJI')}</Typography>
             {recentSessions.length === 0 ? (
               <View style={[styles.historyEmpty, { backgroundColor: subBg, borderColor: divColor }]}>
                 <Typography variant="bodySmall" style={{ color: theme.textMuted, textAlign: 'center', lineHeight: 22 }}>
@@ -769,7 +769,7 @@ const mountedRef = useRef(true);
                         {formatSessionDate(s.date)} · {s.durationMinutes} min · {s.cycles} cykli
                       </Typography>
                     </View>
-                    <Pressable hitSlop={10} onPress={() => Alert.alert('Usuń sesję', 'Czy na pewno chcesz usunąć tę sesję?', [
+                    <Pressable hitSlop={10} onPress={() => Alert.alert(t('breathwork.usun_sesje', 'Usuń sesję'), t('breathwork.czy_na_pewno_chcesz_usunac', 'Czy na pewno chcesz usunąć tę sesję?'), [
                       { text: 'Anuluj', style: 'cancel' },
                       { text: 'Usuń', style: 'destructive', onPress: () => deleteBreathworkSession(s.id) },
                     ])}>
@@ -783,8 +783,8 @@ const mountedRef = useRef(true);
 
           {/* ══ TWOJE WZORCE — heat map ══ */}
           <View style={styles.heatMapSection}>
-            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 4 }}>🗓️ TWOJE WZORCE</Typography>
-            <Typography variant="bodySmall" style={{ color: theme.textMuted, marginBottom: 16 }}>Aktywność oddechowa w ostatnich 30 dniach.</Typography>
+            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 4 }}>{t('breathwork.twoje_wzorce', '🗓️ TWOJE WZORCE')}</Typography>
+            <Typography variant="bodySmall" style={{ color: theme.textMuted, marginBottom: 16 }}>{t('breathwork.aktywnosc_oddechowa_w_ostatnich_30', 'Aktywność oddechowa w ostatnich 30 dniach.')}</Typography>
             <View style={styles.heatMapGrid}>
               {heatMapDays.map((day, idx) => {
                 const intensity = day.count === 0 ? 0 : day.count === 1 ? 1 : day.count === 2 ? 2 : 3;
@@ -804,7 +804,7 @@ const mountedRef = useRef(true);
               })}
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 10 }}>
-              <Typography variant="microLabel" color={theme.textMuted}>Mniej</Typography>
+              <Typography variant="microLabel" color={theme.textMuted}>{t('breathwork.mniej', 'Mniej')}</Typography>
               {[0, 1, 2, 3].map(lv => (
                 <View key={lv} style={[styles.heatMapLegendCell, {
                   backgroundColor: lv === 0
@@ -812,7 +812,7 @@ const mountedRef = useRef(true);
                     : lv === 1 ? pattern.color + '44' : lv === 2 ? pattern.color + '77' : pattern.color,
                 }]} />
               ))}
-              <Typography variant="microLabel" color={theme.textMuted}>Więcej</Typography>
+              <Typography variant="microLabel" color={theme.textMuted}>{t('breathwork.wiecej', 'Więcej')}</Typography>
             </View>
             {breathworkSessions.length > 0 && (
               <Typography variant="microLabel" color={theme.textMuted} style={{ marginTop: 6 }}>
@@ -823,7 +823,7 @@ const mountedRef = useRef(true);
 
           {/* ── Nauka o oddechu (full 4 facts) ── */}
           <View style={styles.scienceSection}>
-            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 16 }}>🧬 NAUKA O ODDECHU</Typography>
+            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 16 }}>{t('breathwork.nauka_o_oddechu', '🧬 NAUKA O ODDECHU')}</Typography>
             {SCIENCE_FACTS.map((item, i) => {
               const SciIcon = item.icon;
               return (
@@ -849,7 +849,7 @@ const mountedRef = useRef(true);
 
           {/* ── Co dalej? ── */}
           <View style={styles.whySection}>
-            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 12 }}>✦ CO DALEJ?</Typography>
+            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 12 }}>{t('breathwork.co_dalej', '✦ CO DALEJ?')}</Typography>
             {[
               { icon: Headphones, label: 'Kąpiel dźwiękowa', sub: 'Pogłęb relaksację dźwiękiem', color: '#A78BFA', route: 'SoundBath' },
               { icon: Moon, label: 'Medytacja', sub: 'Wejdź w ciszę po oddechu', color: '#60A5FA', route: 'Meditation' },
@@ -877,14 +877,14 @@ const mountedRef = useRef(true);
 
           {/* Why it works — clean rows, no card wrapper */}
           <View style={styles.whySection}>
-            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 4 }}>🔬 DLACZEGO TO DZIAŁA</Typography>
+            <Typography variant="premiumLabel" color={pattern.color} style={{ marginBottom: 4 }}>{t('breathwork.dlaczego_to_dziala', '🔬 DLACZEGO TO DZIAŁA')}</Typography>
             <View style={styles.whyRow}>
               <ArrowDownCircle color={pattern.color} size={15} />
-              <Typography variant="bodySmall" style={{ flex: 1, color: theme.textMuted }}>Zmiana długości wdechu i wydechu wpływa bezpośrednio na napięcie układu nerwowego, poziom pobudzenia i poczucie kontroli w ciele.</Typography>
+              <Typography variant="bodySmall" style={{ flex: 1, color: theme.textMuted }}>{t('breathwork.zmiana_dlugosci_wdechu_i_wydechu', 'Zmiana długości wdechu i wydechu wpływa bezpośrednio na napięcie układu nerwowego, poziom pobudzenia i poczucie kontroli w ciele.')}</Typography>
             </View>
             <View style={[styles.whyRow, { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: divColor }]}>
               <Shield color={pattern.color} size={15} />
-              <Typography variant="bodySmall" style={{ flex: 1, color: theme.textMuted }}>Największą wartość daje regularność i łagodne wejście w rytm, a nie agresywne dociskanie oddechu.</Typography>
+              <Typography variant="bodySmall" style={{ flex: 1, color: theme.textMuted }}>{t('breathwork.najwieksza_wartosc_daje_regularnos_', 'Największą wartość daje regularność i łagodne wejście w rytm, a nie agresywne dociskanie oddechu.')}</Typography>
             </View>
           </View>
 

@@ -146,6 +146,8 @@ interface AppState {
     spiritAnimal?: string;
     currentFocus?: string;
     spiritualGoals: string[];
+    favoritePractice: string;
+    practiceFrequency: string;
     favoriteArchetypes: string[];
     preferredRitualCategory?: string;
     primaryGuidanceMode?: 'western_astrology' | 'chinese_astrology' | 'tarot' | 'mixed';
@@ -314,9 +316,17 @@ interface AppState {
   saveWrozkaSession: (s: NonNullable<AppState['savedWrozkaSession']>) => void;
   clearWrozkaSession: () => void;
 
+  // Rate app tracking
+  appOpenCount: number;
+  hasRatedApp: boolean;
+  lastRatePromptDate: string; // ISO date string
+
   // Auth & Sync Infrastructure
   session: any | null;
   isSyncing: boolean;
+
+  incrementAppOpen: () => void;
+  markAppRated: () => void;
 
   setTheme: (name: ThemeName) => void;
   setThemeMode: (mode: ThemeMode) => void;
@@ -385,6 +395,11 @@ export const useAppStore = create<AppState>()(
       // Interrupted session state
       savedWrozkaSession: null,
 
+      // Rate app tracking
+      appOpenCount: 0,
+      hasRatedApp: false,
+      lastRatePromptDate: '',
+
       // Auth default state
       session: null,
       isSyncing: false,
@@ -405,6 +420,8 @@ export const useAppStore = create<AppState>()(
         spiritAnimal: '',
         currentFocus: 'Spokojne wejście',
         spiritualGoals: ['Poznanie siebie'],
+        favoritePractice: '',
+        practiceFrequency: '',
         favoriteArchetypes: [],
         primaryGuidanceMode: 'mixed',
       },
@@ -694,6 +711,8 @@ export const useAppStore = create<AppState>()(
       addEmotionalAnchor: (text) => set(s => ({ emotionalAnchors: s.emotionalAnchors.includes(text) ? s.emotionalAnchors : [...s.emotionalAnchors, text] })),
       removeEmotionalAnchor: (text) => set(s => ({ emotionalAnchors: s.emotionalAnchors.filter(a => a !== text) })),
       setDailyAiContent: (content) => set({ dailyAiContent: content }),
+      incrementAppOpen: () => set(s => ({ appOpenCount: s.appOpenCount + 1 })),
+      markAppRated: () => set({ hasRatedApp: true, lastRatePromptDate: new Date().toISOString() }),
     }),
     {
       name: 'aethera-storage',

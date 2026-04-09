@@ -382,7 +382,7 @@ const ReadingCard = React.memo(({
               />
               {slot.isReversed && (
                 <View style={[styles.reversedBadge, { backgroundColor: ACCENT + 'CC' }]}>
-                  <Typography variant="microLabel" style={{ color: '#000', fontSize: 8 }}>OBR</Typography>
+                  <Typography variant="microLabel" style={{ color: '#000', fontSize: 8 }}>{t('tarotJournal.obr', 'OBR')}</Typography>
                 </View>
               )}
             </View>
@@ -409,7 +409,7 @@ const ReadingCard = React.memo(({
                 <View style={styles.interpBlockHeader}>
                   <Brain size={13} color={ACCENT} />
                   <Typography variant="microLabel" style={{ color: ACCENT, marginLeft: 6, letterSpacing: 1.2 }}>
-                    INTERPRETACJA AI
+                    {t('tarotJournal.interpreta_ai', 'INTERPRETACJA AI')}
                   </Typography>
                 </View>
                 <Typography variant="body" style={[styles.interpText, { color: textColor, opacity: 0.82 }]}>
@@ -423,7 +423,7 @@ const ReadingCard = React.memo(({
               <View style={styles.reflectionHeader}>
                 <NotebookPen size={13} color={ACCENT} />
                 <Typography variant="microLabel" style={{ color: ACCENT, marginLeft: 6, letterSpacing: 1.2 }}>
-                  TWOJA REFLEKSJA
+                  {t('tarotJournal.twoja_refleksja', 'TWOJA REFLEKSJA')}
                 </Typography>
               </View>
 
@@ -432,7 +432,7 @@ const ReadingCard = React.memo(({
                   <TextInput
                     value={localText}
                     onChangeText={setLocalText}
-                    placeholder="Co czujesz? Co ta karta mówi do Ciebie dziś?"
+                    placeholder={t('tarotJournal.co_czujesz_co_ta_karta', 'Co czujesz? Co ta karta mówi do Ciebie dziś?')}
                     placeholderTextColor={subColor + '88'}
                     multiline
                     style={[styles.reflectionInput, {
@@ -447,7 +447,7 @@ const ReadingCard = React.memo(({
                     onPress={handleSave}
                   >
                     <Typography variant="label" style={{ color: '#1A1208', fontWeight: '700' }}>
-                      Zapisz refleksję
+                      {t('tarotJournal.zapisz_refleksje', 'Zapisz refleksję')}
                     </Typography>
                   </Pressable>
                 </>
@@ -458,7 +458,7 @@ const ReadingCard = React.memo(({
                   </Typography>
                   <Pressable onPress={() => setEditMode(true)} style={styles.editBtn}>
                     <Typography variant="microLabel" style={{ color: ACCENT, fontSize: 12 }}>
-                      Edytuj refleksję
+                      {t('tarotJournal.edytuj_refleksje', 'Edytuj refleksję')}
                     </Typography>
                   </Pressable>
                 </>
@@ -469,7 +469,7 @@ const ReadingCard = React.memo(({
                 >
                   <MessageSquarePlus size={14} color={ACCENT} />
                   <Typography variant="label" style={{ color: ACCENT, marginLeft: 8 }}>
-                    Dodaj refleksję
+                    {t('tarotJournal.dodaj_refleksje', 'Dodaj refleksję')}
                   </Typography>
                 </Pressable>
               )}
@@ -498,7 +498,7 @@ const ReadingCard = React.memo(({
                 <View style={styles.interpBlockHeader}>
                   <Brain size={13} color={ACCENT} />
                   <Typography variant="microLabel" style={{ color: ACCENT, marginLeft: 6, letterSpacing: 1.2 }}>
-                    GŁĘBSZY WGLĄD
+                    {t('tarotJournal.glebszy_wglad', 'GŁĘBSZY WGLĄD')}
                   </Typography>
                 </View>
                 <Typography variant="body" style={[styles.interpText, { color: textColor, opacity: 0.82 }]}>
@@ -706,7 +706,7 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <Typography variant="title3" style={[styles.headerTitle, { color: textColor }]}>
-          Dziennik Tarota
+          {t('tarotJournal.dziennik_tarota', 'Dziennik Tarota')}
         </Typography>
         <View style={styles.headerRight}>
           <Pressable onPress={handleFav} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
@@ -735,10 +735,10 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
             <View style={styles.heroTop}>
               <View style={styles.heroTextBlock}>
                 <Typography variant="microLabel" style={{ color: ACCENT, letterSpacing: 2, fontSize: 10 }}>
-                  STATYSTYKI
+                  {t('tarotJournal.statystyki', 'STATYSTYKI')}
                 </Typography>
                 <Typography variant="title2" style={[styles.heroTitle, { color: textColor }]}>
-                  Twoja Ścieżka
+                  {t('tarotJournal.twoja_sciezka', 'Twoja Ścieżka')}
                 </Typography>
                 <Typography variant="body" style={[styles.heroSub, { color: subColor }]}>
                   {totalReadings === 0
@@ -784,7 +784,7 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
             <View style={styles.sectionHeader}>
               <BarChart3 size={14} color={ACCENT} />
               <Typography variant="microLabel" style={[styles.sectionLabel, { color: ACCENT }]}>
-                WZORCE KART
+                {t('tarotJournal.wzorce_kart', 'WZORCE KART')}
               </Typography>
             </View>
             <ScrollView
@@ -835,7 +835,7 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
           <View style={styles.sectionHeader}>
             <Filter size={14} color={ACCENT} />
             <Typography variant="microLabel" style={[styles.sectionLabel, { color: ACCENT }]}>
-              FILTR
+              {t('tarotJournal.filtr', 'FILTR')}
             </Typography>
           </View>
           <ScrollView
@@ -873,7 +873,7 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
           <View style={styles.sectionHeader}>
             <BookOpen size={14} color={ACCENT} />
             <Typography variant="microLabel" style={[styles.sectionLabel, { color: ACCENT }]}>
-              LISTA ODCZYTÓW
+              {t('tarotJournal.lista_odczytow', 'LISTA ODCZYTÓW')}
             </Typography>
             <Typography variant="microLabel" style={{ color: subColor, marginLeft: 'auto', fontSize: 11 }}>
               {filtered.length} {filtered.length === 1 ? 'odczyt' : filtered.length < 5 ? 'odczyty' : 'odczytów'}
@@ -906,10 +906,10 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
                   </Svg>
                 </View>
                 <Typography variant="title3" style={[styles.emptyTitle, { color: textColor }]}>
-                  Dziennik czeka
+                  {t('tarotJournal.dziennik_czeka', 'Dziennik czeka')}
                 </Typography>
                 <Typography variant="body" style={[styles.emptySub, { color: subColor }]}>
-                  Twoje odczyty Tarota pojawią się tutaj. Każdy odczyt zostanie zapisany z kartami, interpretacją i miejscem na Twoją refleksję.
+                  {t('tarotJournal.twoje_odczyty_tarota_pojawia_sie', 'Twoje odczyty Tarota pojawią się tutaj. Każdy odczyt zostanie zapisany z kartami, interpretacją i miejscem na Twoją refleksję.')}
                 </Typography>
                 <Pressable
                   style={[styles.emptyBtn, { backgroundColor: ACCENT }]}
@@ -917,7 +917,7 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
                 >
                   <Sparkles size={14} color="#1A1208" />
                   <Typography variant="label" style={{ color: '#1A1208', marginLeft: 8, fontWeight: '700' }}>
-                    Zacznij odczyt
+                    {t('tarotJournal.zacznij_odczyt', 'Zacznij odczyt')}
                   </Typography>
                 </Pressable>
               </LinearGradient>
@@ -944,7 +944,7 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
           <View style={styles.sectionHeader}>
             <MoonStar size={14} color={ACCENT} />
             <Typography variant="microLabel" style={[styles.sectionLabel, { color: ACCENT }]}>
-              OBSERWACJE TYGODNIOWE
+              {t('tarotJournal.obserwacje_tygodniowe', 'OBSERWACJE TYGODNIOWE')}
             </Typography>
           </View>
           <LinearGradient
@@ -956,7 +956,7 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
                 <View style={styles.interpBlockHeader}>
                   <Brain size={13} color={ACCENT} />
                   <Typography variant="microLabel" style={{ color: ACCENT, marginLeft: 6, letterSpacing: 1.2 }}>
-                    WZORZEC TYGODNIA
+                    {t('tarotJournal.wzorzec_tygodnia', 'WZORZEC TYGODNIA')}
                   </Typography>
                 </View>
                 <Typography variant="body" style={[styles.weeklyText, { color: textColor, opacity: 0.85 }]}>
@@ -968,7 +968,7 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
                 >
                   <RefreshCw size={12} color={subColor} />
                   <Typography variant="microLabel" style={{ color: subColor, marginLeft: 5, fontSize: 11 }}>
-                    Odśwież
+                    {t('tarotJournal.odswiez', 'Odśwież')}
                   </Typography>
                 </Pressable>
               </Animated.View>
@@ -1002,7 +1002,7 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
           <View style={styles.sectionHeader}>
             <Brain size={14} color={ACCENT} />
             <Typography variant="microLabel" style={[styles.sectionLabel, { color: ACCENT }]}>
-              ANALIZA WZORCÓW Z ORACLE
+              {t('tarotJournal.analiza_wzorcow_z_oracle', 'ANALIZA WZORCÓW Z ORACLE')}
             </Typography>
           </View>
           <LinearGradient
@@ -1014,7 +1014,7 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
                 <View style={styles.interpBlockHeader}>
                   <Sparkles size={13} color={ACCENT} />
                   <Typography variant="microLabel" style={{ color: ACCENT, marginLeft: 6, letterSpacing: 1.2 }}>
-                    WZORCE MOJEGO DZIENNIKA
+                    {t('tarotJournal.wzorce_mojego_dziennika', 'WZORCE MOJEGO DZIENNIKA')}
                   </Typography>
                 </View>
                 {/* Parse and render labeled sections */}
@@ -1044,7 +1044,7 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
                 >
                   <RefreshCw size={12} color={subColor} />
                   <Typography variant="microLabel" style={{ color: subColor, marginLeft: 5, fontSize: 11 }}>
-                    Odśwież analizę
+                    {t('tarotJournal.odswiez_analize', 'Odśwież analizę')}
                   </Typography>
                 </Pressable>
               </Animated.View>
@@ -1078,7 +1078,7 @@ Odpowiedz w języku użytkownika, głęboko i poetycko, każda sekcja 2-3 zdania
           <View style={styles.sectionHeader}>
             <ArrowRight size={14} color={ACCENT} />
             <Typography variant="microLabel" style={[styles.sectionLabel, { color: ACCENT }]}>
-              CO DALEJ
+              {t('tarotJournal.co_dalej', 'CO DALEJ')}
             </Typography>
           </View>
           {[

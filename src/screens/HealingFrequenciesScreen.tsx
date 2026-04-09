@@ -161,7 +161,7 @@ export const HealingFrequenciesScreen = ({ navigation }: any) => {
         <Animated.View entering={FadeInDown.delay(60).duration(500)}>
           <View style={[styles.activeCard, { backgroundColor: selected.color + '16', borderColor: selected.color + '33' }]}>
             <Text style={{ color: selected.color, fontSize: 52, fontWeight: '100', letterSpacing: 2 }}>{selected.hz}</Text>
-            <Text style={{ color: selected.color, fontSize: 13, letterSpacing: 3, marginTop: -4 }}>Hz</Text>
+            <Text style={{ color: selected.color, fontSize: 13, letterSpacing: 3, marginTop: -4 }}>{t('healingFrequencies.hz', 'Hz')}</Text>
             <Text style={{ color: textColor, fontSize: 18, fontWeight: '700', marginTop: 8 }}>{selected.name}</Text>
             <Text style={{ color: subColor, fontSize: 12, letterSpacing: 2, marginBottom: 8 }}>CZAKRA {selected.chakra.toUpperCase()}</Text>
             <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, textAlign: 'center', marginBottom: 16 }}>{selected.desc}</Text>
@@ -177,11 +177,11 @@ export const HealingFrequenciesScreen = ({ navigation }: any) => {
                 </Pressable>
               </View>
             </View>
-            <Text style={{ color: subColor, fontSize: 11 }}>Słuchaj z słuchawkami dla najlepszych efektów</Text>
+            <Text style={{ color: subColor, fontSize: 11 }}>{t('healingFrequencies.sluchaj_z_sluchawkam_dla_najlepszyc', 'Słuchaj z słuchawkami dla najlepszych efektów')}</Text>
           </View>
         </Animated.View>
 
-        <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 16, marginBottom: 10 }}>SKALA SOLFEGGIO</Text>
+        <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 16, marginBottom: 10 }}>{t('healingFrequencies.skala_solfeggio', 'SKALA SOLFEGGIO')}</Text>
         {FREQUENCIES.map((freq, i) => (
           <Animated.View key={freq.hz} entering={FadeInDown.delay(80 + i * 40).duration(400)}>
             <Pressable onPress={() => { HapticsService.impactLight(); setSelected(freq); }}

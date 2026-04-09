@@ -294,8 +294,8 @@ export const RapeScreen = ({ navigation }: any) => {
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={{ flex: 1 }}>
-          <Text style={[styles.eyebrow, { color: subColor }]}>ŚWIAT RYTUAŁÓW</Text>
-          <Text style={[styles.title, { color: textColor }]}>Rapé / Hapé</Text>
+          <Text style={[styles.eyebrow, { color: subColor }]}>{t('rape.swiat_rytualow', 'ŚWIAT RYTUAŁÓW')}</Text>
+          <Text style={[styles.title, { color: textColor }]}>{t('rape.rap_hap', 'Rapé / Hapé')}</Text>
         </View>
         <MusicToggleButton color={ACCENT} size={18} />
         <Pressable style={styles.iconBtn}>
@@ -310,7 +310,7 @@ export const RapeScreen = ({ navigation }: any) => {
         {/* Description */}
         <Animated.View entering={FadeInDown.delay(0).duration(400)}>
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-            <Text style={[styles.sectionTitle, { color: ACCENT }]}>Co to jest Rapé / Hapé?</Text>
+            <Text style={[styles.sectionTitle, { color: ACCENT }]}>{t('rape.co_to_jest_rap_hap', 'Co to jest Rapé / Hapé?')}</Text>
             <Text style={[styles.bodyText, { color: subColor }]}>
               Rapé (wymawiane "ha-pé") to święta tabaka ceremonialna sporządzana przez rdzenne
               plemiona Amazonii z tytoniu Nicotiana rustica i roślin pomocniczych — ashes z
@@ -324,7 +324,7 @@ export const RapeScreen = ({ navigation }: any) => {
 
         {/* Preparation checklist */}
         <Animated.View entering={FadeInDown.delay(80).duration(400)}>
-          <Text style={[styles.sectionHeader, { color: textColor }]}>Przygotowanie ceremonialne</Text>
+          <Text style={[styles.sectionHeader, { color: textColor }]}>{t('rape.przygotowa_ceremonial', 'Przygotowanie ceremonialne')}</Text>
           {PREP_STEPS.map(step => (
             <Pressable
               key={step.id}
@@ -352,7 +352,7 @@ export const RapeScreen = ({ navigation }: any) => {
 
         {/* Ritual Steps */}
         <Animated.View entering={FadeInDown.delay(160).duration(400)}>
-          <Text style={[styles.sectionHeader, { color: textColor }]}>Kroki ceremonii</Text>
+          <Text style={[styles.sectionHeader, { color: textColor }]}>{t('rape.kroki_ceremonii', 'Kroki ceremonii')}</Text>
           {RITUAL_STEPS.map(step => (
             <Animated.View
               key={step.num}
@@ -372,7 +372,7 @@ export const RapeScreen = ({ navigation }: any) => {
 
         {/* Benefits */}
         <Animated.View entering={FadeInDown.delay(320).duration(400)}>
-          <Text style={[styles.sectionHeader, { color: textColor }]}>Korzyści ceremonii</Text>
+          <Text style={[styles.sectionHeader, { color: textColor }]}>{t('rape.korzysci_ceremonii', 'Korzyści ceremonii')}</Text>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
             {BENEFITS.map((b, i) => (
               <Animated.View
@@ -394,7 +394,7 @@ export const RapeScreen = ({ navigation }: any) => {
 
         {/* Meditation Timer */}
         <Animated.View entering={FadeInDown.delay(440).duration(400)}>
-          <Text style={[styles.sectionHeader, { color: textColor }]}>Medytacja integracyjna</Text>
+          <Text style={[styles.sectionHeader, { color: textColor }]}>{t('rape.medytacja_integracyj', 'Medytacja integracyjna')}</Text>
           <View style={[styles.timerCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <View style={[styles.progressTrack, { backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)' }]}>
               <View style={[styles.progressFill, { width: `${progress * 100}%`, backgroundColor: ACCENT }]} />
@@ -402,7 +402,7 @@ export const RapeScreen = ({ navigation }: any) => {
             <Text style={[styles.timerDisplay, { color: timerDone ? ACCENT : textColor }]}>
               {timerDone ? '✓ Medytacja ukończona' : fmt(remaining)}
             </Text>
-            <Text style={[styles.timerSub, { color: subColor }]}>15 minut cichej medytacji</Text>
+            <Text style={[styles.timerSub, { color: subColor }]}>{t('rape.15_minut_cichej_medytacji', '15 minut cichej medytacji')}</Text>
             <View style={styles.timerRow}>
               <Pressable onPress={toggleTimer} style={[styles.timerBtn, { backgroundColor: ACCENT + '22', borderColor: ACCENT + '44' }]}>
                 {timerRunning
@@ -421,16 +421,16 @@ export const RapeScreen = ({ navigation }: any) => {
 
         {/* Integration notes */}
         <Animated.View entering={FadeInDown.delay(500).duration(400)}>
-          <Text style={[styles.sectionHeader, { color: textColor }]}>Notatki integracyjne</Text>
+          <Text style={[styles.sectionHeader, { color: textColor }]}>{t('rape.notatki_integracyj', 'Notatki integracyjne')}</Text>
           <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 }}>
               <PenLine size={14} color={subColor} />
-              <Text style={[{ fontSize: 12, color: subColor }]}>Co pojawiło się w medytacji?</Text>
+              <Text style={[{ fontSize: 12, color: subColor }]}>{t('rape.co_pojawilo_sie_w_medytacji', 'Co pojawiło się w medytacji?')}</Text>
             </View>
             <TextInput
               value={integrationNote}
               onChangeText={setIntegrationNote}
-              placeholder="Zapisz obserwacje, wizje, odczucia..."
+              placeholder={t('rape.zapisz_obserwacje_wizje_odczucia', 'Zapisz obserwacje, wizje, odczucia...')}
               placeholderTextColor={subColor}
               multiline
               style={[styles.noteInput, {

@@ -324,7 +324,7 @@ const ZodiacCard = ({ sign }: { sign: { name: string; symbol: string } | null })
       >
         <Text style={styles.zodiacSymbol}>{sign.symbol}</Text>
         <View>
-          <Text style={styles.zodiacLabel}>Twój znak zodiaku</Text>
+          <Text style={styles.zodiacLabel}>{t('identitySetup.twoj_znak_zodiaku', 'Twój znak zodiaku')}</Text>
           <Text style={styles.zodiacName}>{sign.name}</Text>
         </View>
         <Sparkles size={16} color={ACCENT} style={{ marginLeft: 'auto' }} />
@@ -406,16 +406,16 @@ const Step1 = ({
   return (
     <Animated.View entering={FadeInDown.springify().damping(18)} style={styles.stepContainer}>
       <View style={styles.stepHeader}>
-        <Text style={styles.stepEyebrow}>✦ KROK 1 / 4</Text>
-        <Text style={styles.stepTitle}>Jak się nazywasz?</Text>
-        <Text style={styles.stepSubtitle}>Twoje imię jest kodem Twojej duszy</Text>
+        <Text style={styles.stepEyebrow}>{t('identitySetup.krok_1_4', '✦ KROK 1 / 4')}</Text>
+        <Text style={styles.stepTitle}>{t('identitySetup.jak_sie_nazywasz', 'Jak się nazywasz?')}</Text>
+        <Text style={styles.stepSubtitle}>{t('identitySetup.twoje_imie_jest_kodem_twojej', 'Twoje imię jest kodem Twojej duszy')}</Text>
       </View>
 
       <View style={styles.inputsGroup}>
         <StyledInput
           value={name}
           onChangeText={setName}
-          placeholder="Imię"
+          placeholder={t('identitySetup.imie', 'Imię')}
           autoFocus
           returnKeyType="next"
           onSubmitEditing={() => lastRef.current?.focus()}
@@ -425,7 +425,7 @@ const Step1 = ({
         <StyledInput
           value={lastName}
           onChangeText={setLastName}
-          placeholder="Nazwisko"
+          placeholder={t('identitySetup.nazwisko', 'Nazwisko')}
           returnKeyType="done"
         />
       </View>
@@ -485,15 +485,15 @@ const Step2 = ({
   return (
     <Animated.View entering={FadeInDown.springify().damping(18)} style={styles.stepContainer}>
       <View style={styles.stepHeader}>
-        <Text style={styles.stepEyebrow}>✦ KROK 2 / 4</Text>
-        <Text style={styles.stepTitle}>Kiedy przyszłeś/aś na świat?</Text>
-        <Text style={styles.stepSubtitle}>Data urodzenia otwiera mapę Twojej duszy</Text>
+        <Text style={styles.stepEyebrow}>{t('identitySetup.krok_2_4', '✦ KROK 2 / 4')}</Text>
+        <Text style={styles.stepTitle}>{t('identitySetup.kiedy_przyszles_as_na_swiat', 'Kiedy przyszłeś/aś na świat?')}</Text>
+        <Text style={styles.stepSubtitle}>{t('identitySetup.data_urodzenia_otwiera_mape_twojej', 'Data urodzenia otwiera mapę Twojej duszy')}</Text>
       </View>
 
       <View style={styles.dateRow}>
         <View style={{ flex: 1 }}>
           <PickerRow
-            label="Dzień"
+            label={t('identitySetup.dzien', 'Dzień')}
             value={day}
             options={DAYS}
             onSelect={setDay}
@@ -502,7 +502,7 @@ const Step2 = ({
         <View style={{ width: 10 }} />
         <View style={{ flex: 2 }}>
           <PickerRow
-            label="Miesiąc"
+            label={t('identitySetup.miesiac', 'Miesiąc')}
             value={month ? MONTHS_PL[parseInt(month) - 1] : ''}
             options={MONTHS_PL}
             onSelect={(v) => {
@@ -514,7 +514,7 @@ const Step2 = ({
         <View style={{ width: 10 }} />
         <View style={{ flex: 2 }}>
           <PickerRow
-            label="Rok"
+            label={t('identitySetup.rok', 'Rok')}
             value={year}
             options={YEAR_LIST}
             onSelect={setYear}
@@ -525,7 +525,7 @@ const Step2 = ({
       <ZodiacCard sign={zodiac} />
 
       <View style={{ marginTop: 20 }}>
-        <Text style={styles.optionalLabel}>Godzina urodzenia (opcjonalnie)</Text>
+        <Text style={styles.optionalLabel}>{t('identitySetup.godzina_urodzenia_opcjonalni', 'Godzina urodzenia (opcjonalnie)')}</Text>
         <Pressable
           onPress={() => setShowTimePicker(true)}
           style={({ pressed }) => ({
@@ -564,14 +564,14 @@ const Step2 = ({
         </Pressable>
 
         <Text style={styles.optionalHint}>
-          Godzina urodzenia pozwala wyliczyć Twój ascendent i wykreślić pełny horoskop natywny.
+          {t('identitySetup.godzina_urodzenia_pozwala_wyliczyc_', 'Godzina urodzenia pozwala wyliczyć Twój ascendent i wykreślić pełny horoskop natywny.')}
         </Text>
 
         <PremiumDatePickerSheet
           visible={showTimePicker}
           mode="time"
-          title="Godzina urodzenia"
-          description="Wybierz godzinę i minutę urodzenia"
+          title={t('identitySetup.godzina_urodzenia', 'Godzina urodzenia')}
+          description={t('identitySetup.wybierz_godzine_i_minute_urodzenia', 'Wybierz godzinę i minutę urodzenia')}
           value={timePickerValue}
           onCancel={() => setShowTimePicker(false)}
           onConfirm={(date) => {
@@ -597,17 +597,17 @@ const Step3 = ({
 }) => (
   <Animated.View entering={FadeInDown.springify().damping(18)} style={styles.stepContainer}>
     <View style={styles.stepHeader}>
-      <Text style={styles.stepEyebrow}>✦ KROK 3 / 4</Text>
+      <Text style={styles.stepEyebrow}>{t('identitySetup.krok_3_4', '✦ KROK 3 / 4')}</Text>
       <Text style={styles.stepTitle}>Gdzie zaczęło się{'\n'}Twoje życie?</Text>
       <Text style={styles.stepSubtitle}>
-        Miejsce urodzenia definiuje Twój ascendent i kosmiczne zakorzenienie
+        {t('identitySetup.miejsce_urodzenia_definiuje_twoj_as', 'Miejsce urodzenia definiuje Twój ascendent i kosmiczne zakorzenienie')}
       </Text>
     </View>
 
     <StyledInput
       value={birthPlace}
       onChangeText={setBirthPlace}
-      placeholder="Miasto, kraj — np. Kraków, Polska"
+      placeholder={t('identitySetup.miasto_kraj_np_krakow_polska', 'Miasto, kraj — np. Kraków, Polska')}
       autoFocus
       autoCapitalize="words"
       icon={<MapPin size={17} color={ACCENT_DIM} />}
@@ -618,7 +618,7 @@ const Step3 = ({
         colors={['rgba(206,174,114,0.10)', 'rgba(206,174,114,0.03)']}
         style={styles.placeInfoGrad}
       >
-        <Text style={styles.placeInfoTitle}>Dlaczego to ważne?</Text>
+        <Text style={styles.placeInfoTitle}>{t('identitySetup.dlaczego_to_wazne', 'Dlaczego to ważne?')}</Text>
         <Text style={styles.placeInfoText}>
           Położenie geograficzne w chwili narodzin wyznacza punkt wschodu zodiaku, czyli Twój
           ascendent — maskę, którą pokazujesz światu. To także centrum Twojego kosmicznego
@@ -640,10 +640,10 @@ const Step4 = ({
 }) => (
   <Animated.View entering={FadeInDown.springify().damping(18)} style={styles.stepContainer}>
     <View style={styles.stepHeader}>
-      <Text style={styles.stepEyebrow}>✦ KROK 4 / 4</Text>
-      <Text style={styles.stepTitle}>Jak głęboko sięgasz?</Text>
+      <Text style={styles.stepEyebrow}>{t('identitySetup.krok_4_4', '✦ KROK 4 / 4')}</Text>
+      <Text style={styles.stepTitle}>{t('identitySetup.jak_gleboko_siegasz', 'Jak głęboko sięgasz?')}</Text>
       <Text style={styles.stepSubtitle}>
-        Poziom doświadczenia pozwala nam dopasować język i głębię Wyroczni
+        {t('identitySetup.poziom_doswiadcze_pozwala_nam_dopas', 'Poziom doświadczenia pozwala nam dopasować język i głębię Wyroczni')}
       </Text>
     </View>
 

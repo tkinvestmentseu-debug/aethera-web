@@ -426,11 +426,11 @@ export const OraclePortalScreen = ({ navigation }: any) => {
               <View style={[op.offlineCard, { backgroundColor: 'rgba(249,115,22,0.08)', borderColor: 'rgba(249,115,22,0.25)' }]}>
                 <View style={op.offlineHeader}>
                   <Sparkles color="#F97316" size={18} strokeWidth={1.8} />
-                  <Text style={op.offlineEyebrow}>✦ ORACLE W CISZY</Text>
+                  <Text style={op.offlineEyebrow}>{t('oracle.oracle_w_ciszy', '✦ ORACLE W CISZY')}</Text>
                 </View>
-                <Text style={[op.offlineTitle, { color: textColor }]}>Połączenie z Oracle chwilowo niedostępne</Text>
+                <Text style={[op.offlineTitle, { color: textColor }]}>{t('oracle.polaczenie_z_oracle_chwilowo_niedos', 'Połączenie z Oracle chwilowo niedostępne')}</Text>
                 <Text style={[op.offlineBody, { color: subColor }]}>
-                  Oracle powróci, gdy połączenie zostanie przywrócone. W tym czasie możesz przeglądać tryby lub zapisać intencję w dzienniku.
+                  {t('oracle.oracle_powroci_gdy_polaczenie_zosta', 'Oracle powróci, gdy połączenie zostanie przywrócone. W tym czasie możesz przeglądać tryby lub zapisać intencję w dzienniku.')}
                 </Text>
                 <Pressable
                   onPress={() => navigation.navigate('Journal')}
@@ -473,10 +473,10 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                       fill={isFavoriteItem('oracle_portal') ? accent : 'none'}
                     />
                   </Pressable>
-                  <Text style={[op.heroEyebrow, { color: accent, letterSpacing: 3.5 }]}>✦ AETHERA ORACLE</Text>
+                  <Text style={[op.heroEyebrow, { color: accent, letterSpacing: 3.5 }]}>{t('oracle.aethera_oracle', '✦ AETHERA ORACLE')}</Text>
                   <Text style={[op.heroTitle, { color: textColor, fontSize: 28, fontWeight: '200', letterSpacing: -1.0 }]}>Twoja prywatna{'\n'}komnata rozmowy.</Text>
                   <Text style={[op.heroSub, { color: subColor }]}>
-                    Oracle to przewodnik, który nie daje gotowych odpowiedzi — pomaga Ci dojść do własnych. Każda sesja to przestrzeń bez oceny.
+                    {t('oracle.oracle_to_przewodnik_ktory_nie', 'Oracle to przewodnik, który nie daje gotowych odpowiedzi — pomaga Ci dojść do własnych. Każda sesja to przestrzeń bez oceny.')}
                   </Text>
                   <View style={op.heroStats}>
                     <View style={[op.statPill, { borderColor: accent + '33', backgroundColor: accent + '12' }]}>
@@ -492,7 +492,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                     )}
                     {ceremonialMode && (
                       <View style={[op.statPill, { borderColor: '#CEAE72' + '55', backgroundColor: '#CEAE72' + '18' }]}>
-                        <Text style={[op.statText, { color: '#CEAE72' }]}>🕯️ Ceremonial</Text>
+                        <Text style={[op.statText, { color: '#CEAE72' }]}>{t('oracle.ceremonial', '🕯️ Ceremonial')}</Text>
                       </View>
                     )}
                   </View>
@@ -520,10 +520,10 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                     <View style={[op.oracleDayOrb, { backgroundColor: accent + '22', borderColor: accent + '44' }]}>
                       <Sparkles color={accent} size={16} strokeWidth={1.8} />
                     </View>
-                    <Text style={[op.sectionEyebrow, { color: accent, marginBottom: 0 }]}>✦ ORACLE DNIA</Text>
+                    <Text style={[op.sectionEyebrow, { color: accent, marginBottom: 0 }]}>{t('oracle.oracle_dnia', '✦ ORACLE DNIA')}</Text>
                   </View>
                   <Text style={[op.oracleDayText, { color: textColor }]}>"{dailyWisdom}"</Text>
-                  <Text style={[op.oracleDaySub, { color: subColor }]}>Codziennie nowe przesłanie · Odśwież jutro</Text>
+                  <Text style={[op.oracleDaySub, { color: subColor }]}>{t('oracle.codziennie_nowe_przeslanie_odswiez_', 'Codziennie nowe przesłanie · Odśwież jutro')}</Text>
                 </View>
               </Animated.View>
 
@@ -532,7 +532,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                 <Animated.View entering={FadeInDown.delay(80).duration(450)}>
                   <View style={[op.lastSessionCard, { backgroundColor: cardBg, borderColor: accent + '35' }]}>
                     <LinearGradient colors={[accent + '12', 'transparent']} style={StyleSheet.absoluteFill} />
-                    <Text style={[op.sectionEyebrow, { color: accent }]}>📖 OSTATNIA SESJA</Text>
+                    <Text style={[op.sectionEyebrow, { color: accent }]}>{t('oracle.ostatnia_sesja', '📖 OSTATNIA SESJA')}</Text>
                     <View style={op.lastSessionRow}>
                       <View style={[op.lastSessionIcon, { backgroundColor: accent + '20', borderColor: accent + '44' }]}>
                         <MessageCircle color={accent} size={18} strokeWidth={1.8} />
@@ -589,7 +589,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                     </View>
                     <View style={{ flex: 1 }}>
                       <Text style={[op.sectionEyebrow, { color: ceremonialMode ? '#CEAE72' : accent, marginBottom: 2 }]}>
-                        🕯️ TRYB CEREMONIALNY
+                        {t('oracle.tryb_ceremonial', '🕯️ TRYB CEREMONIALNY')}
                       </Text>
                       <Text style={[op.ceremonialDesc, { color: subColor }]}>
                         {ceremonialMode
@@ -626,8 +626,8 @@ export const OraclePortalScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay(130).duration(450)}>
                 <View style={[op.questionsCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                   <LinearGradient colors={[accent + '10', 'transparent']} style={StyleSheet.absoluteFill} />
-                  <Text style={[op.sectionEyebrow, { color: accent }]}>💡 PYTANIA PRZEWODNIE</Text>
-                  <Text style={[op.questionsSub, { color: subColor }]}>Dotknij pytania, by użyć go w sesji</Text>
+                  <Text style={[op.sectionEyebrow, { color: accent }]}>{t('oracle.pytania_przewodnie', '💡 PYTANIA PRZEWODNIE')}</Text>
+                  <Text style={[op.questionsSub, { color: subColor }]}>{t('oracle.dotknij_pytania_by_uzyc_go', 'Dotknij pytania, by użyć go w sesji')}</Text>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingBottom: 4 }}>
                     {GUIDED_QUESTIONS.map(cat => (
                       <Pressable
@@ -677,25 +677,25 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                 <Animated.View entering={FadeInDown.delay(160).duration(450)}>
                   <View style={[op.statsCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                     <LinearGradient colors={[accent + '10', 'transparent']} style={StyleSheet.absoluteFill} />
-                    <Text style={[op.sectionEyebrow, { color: accent }]}>📊 STATYSTYKI ORACLE</Text>
+                    <Text style={[op.sectionEyebrow, { color: accent }]}>{t('oracle.statystyki_oracle', '📊 STATYSTYKI ORACLE')}</Text>
                     <View style={op.statsGrid}>
                       <View style={[op.statBlock, { borderColor: accent + '22', backgroundColor: accent + '08' }]}>
                         <Text style={[op.statBlockNum, { color: accent }]}>{sessionCount}</Text>
-                        <Text style={[op.statBlockLabel, { color: subColor }]}>Sesji łącznie</Text>
+                        <Text style={[op.statBlockLabel, { color: subColor }]}>{t('oracle.sesji_lacznie', 'Sesji łącznie')}</Text>
                       </View>
                       <View style={[op.statBlock, { borderColor: '#34D399' + '22', backgroundColor: '#34D399' + '08' }]}>
                         <Text style={[op.statBlockNum, { color: '#34D399' }]}>{thisWeekSessions}</Text>
-                        <Text style={[op.statBlockLabel, { color: subColor }]}>Ten tydzień</Text>
+                        <Text style={[op.statBlockLabel, { color: subColor }]}>{t('oracle.ten_tydzien', 'Ten tydzień')}</Text>
                       </View>
                       <View style={[op.statBlock, { borderColor: '#60A5FA' + '22', backgroundColor: '#60A5FA' + '08' }]}>
                         <Text style={[op.statBlockNum, { color: '#60A5FA' }]}>{avgMessages || '—'}</Text>
-                        <Text style={[op.statBlockLabel, { color: subColor }]}>Śr. wiadomości</Text>
+                        <Text style={[op.statBlockLabel, { color: subColor }]}>{t('oracle.sr_wiadomosci', 'Śr. wiadomości')}</Text>
                       </View>
                       <View style={[op.statBlock, { borderColor: '#FB923C' + '22', backgroundColor: '#FB923C' + '08' }]}>
                         <Text style={[op.statBlockNum, { color: '#FB923C', fontSize: 11 }]} numberOfLines={1}>
                           {favModeLabel ? favModeLabel.split(' ').slice(0, 2).join('\n') : '—'}
                         </Text>
-                        <Text style={[op.statBlockLabel, { color: subColor }]}>Ulubiony tryb</Text>
+                        <Text style={[op.statBlockLabel, { color: subColor }]}>{t('oracle.ulubiony_tryb', 'Ulubiony tryb')}</Text>
                       </View>
                     </View>
                   </View>
@@ -707,8 +707,8 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                 <Animated.View entering={FadeInDown.delay(190).duration(450)}>
                   <View style={[op.myQuestionsCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                     <LinearGradient colors={[accent + '10', 'transparent']} style={StyleSheet.absoluteFill} />
-                    <Text style={[op.sectionEyebrow, { color: accent }]}>🗂 MOJE PYTANIA</Text>
-                    <Text style={[op.questionsSub, { color: subColor }]}>Ostatnie pytania z Twoich sesji</Text>
+                    <Text style={[op.sectionEyebrow, { color: accent }]}>{t('oracle.moje_pytania', '🗂 MOJE PYTANIA')}</Text>
+                    <Text style={[op.questionsSub, { color: subColor }]}>{t('oracle.ostatnie_pytania_z_twoich_sesji', 'Ostatnie pytania z Twoich sesji')}</Text>
                     {lastQuestions.map((q, i) => (
                       <Pressable
                         key={i}
@@ -730,7 +730,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay(220).duration(450)}>
                 <View style={[op.chambersCard, { backgroundColor: cardBg, borderColor: accent + '30' }]}>
                   <LinearGradient colors={[accent + '14', 'transparent']} style={StyleSheet.absoluteFill} />
-                  <Text style={[op.sectionEyebrow, { color: accent }]}>⚡ SZYBKIE WEJŚCIA</Text>
+                  <Text style={[op.sectionEyebrow, { color: accent }]}>{t('oracle.szybkie_wejscia', '⚡ SZYBKIE WEJŚCIA')}</Text>
                   <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 4 }}>
                     {([
                       { label: 'Pytanie dnia', eyebrow: 'CODZIENNIE', desc: 'Nazwij jedno pytanie, z którym wchodzisz w ten dzień', color: '#CEAE72', Icon: Compass, kind: 'daily', prompt: `Pomóż mi nazwać jedno ważne pytanie na dziś, ${firstName}.` },
@@ -785,7 +785,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
               {/* How it works */}
               <Animated.View entering={FadeInDown.delay(260).duration(400)}>
                 <View style={[op.howCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-                  <Text style={[op.sectionEyebrow, { color: accent }]}>🔮 JAK DZIAŁA ORACLE</Text>
+                  <Text style={[op.sectionEyebrow, { color: accent }]}>{t('oracle.jak_dziala_oracle', '🔮 JAK DZIAŁA ORACLE')}</Text>
                   {[
                     { step: '01', title: 'Wybierz tryb', desc: 'Każdy tryb daje Oracle inny kontekst i cel rozmowy.' },
                     { step: '02', title: 'Zadaj pytanie', desc: 'Im konkretniejsze pytanie, tym głębsza i trafniejsza odpowiedź.' },
@@ -810,8 +810,8 @@ export const OraclePortalScreen = ({ navigation }: any) => {
           {activeTab === 'tryby' && (
             <>
               <Animated.View entering={FadeInDown.duration(400)}>
-                <Text style={[op.tabSectionTitle, { color: textColor }]}>Tryby specjalistyczne</Text>
-                <Text style={[op.tabSectionSub, { color: subColor }]}>Każdy tryb aktywuje inny profil Oracle — inny kontekst, inne pytania, inny cel.</Text>
+                <Text style={[op.tabSectionTitle, { color: textColor }]}>{t('oracle.tryby_specjalist', 'Tryby specjalistyczne')}</Text>
+                <Text style={[op.tabSectionSub, { color: subColor }]}>{t('oracle.kazdy_tryb_aktywuje_inny_profil', 'Każdy tryb aktywuje inny profil Oracle — inny kontekst, inne pytania, inny cel.')}</Text>
               </Animated.View>
 
               {/* 2-col grid for 6 specialist modes */}
@@ -864,7 +864,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                 </View>
               </Animated.View>
 
-              <Text style={[op.tabSectionTitle, { color: textColor, marginTop: 20 }]}>Tryby eksperckie</Text>
+              <Text style={[op.tabSectionTitle, { color: textColor, marginTop: 20 }]}>{t('oracle.tryby_eksperckie', 'Tryby eksperckie')}</Text>
 
               {/* 2-col grid for 4 expert modes */}
               <Animated.View entering={FadeInDown.delay(120).duration(400)}>
@@ -919,8 +919,8 @@ export const OraclePortalScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay((ORACLE_MODES.length + EXPERT_MODES.length) * 70).duration(420)}>
                 <View style={[op.guideCard, { backgroundColor: cardBg, borderColor: accent + '30' }]}>
                   <LinearGradient colors={[accent + '12', 'transparent']} style={StyleSheet.absoluteFill} />
-                  <Text style={[op.sectionEyebrow, { color: accent }]}>📚 PRZEWODNIK PO TRYBACH</Text>
-                  <Text style={[op.guideIntro, { color: subColor }]}>Kiedy użyć każdego trybu?</Text>
+                  <Text style={[op.sectionEyebrow, { color: accent }]}>{t('oracle.przewodnik_po_trybach', '📚 PRZEWODNIK PO TRYBACH')}</Text>
+                  <Text style={[op.guideIntro, { color: subColor }]}>{t('oracle.kiedy_uzyc_kazdego_trybu', 'Kiedy użyć każdego trybu?')}</Text>
                   {[...ORACLE_MODES, ...EXPERT_MODES].map((mode, i) => (
                     <View key={mode.id}>
                       <Pressable
@@ -949,7 +949,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                               onPress={() => !isOnline ? undefined : openSession(mode.prompt, mode.id, mode.sessionKind || mode.id)}
                               style={[op.guideExpandedBtn, { backgroundColor: mode.color + '20', borderColor: mode.color + '44' }]}
                             >
-                              <Text style={[op.guideExpandedBtnText, { color: mode.color }]}>Wypróbuj ten tryb</Text>
+                              <Text style={[op.guideExpandedBtnText, { color: mode.color }]}>{t('oracle.wyprobuj_ten_tryb', 'Wypróbuj ten tryb')}</Text>
                               <ArrowRight color={mode.color} size={12} />
                             </Pressable>
                           </View>
@@ -964,12 +964,12 @@ export const OraclePortalScreen = ({ navigation }: any) => {
               <Animated.View entering={FadeInDown.delay((ORACLE_MODES.length + EXPERT_MODES.length) * 70 + 60).duration(420)}>
                 <View style={[op.intentionCard, { backgroundColor: cardBg, borderColor: accent + '40' }]}>
                   <LinearGradient colors={[accent + '14', 'transparent']} style={StyleSheet.absoluteFill} />
-                  <Text style={[op.sectionEyebrow, { color: accent }]}>🕯️ INTENCJA DNIA</Text>
-                  <Text style={[op.intentionTitle, { color: textColor }]}>Zanim wejdziesz w sesję, ustaw intencję.</Text>
+                  <Text style={[op.sectionEyebrow, { color: accent }]}>{t('oracle.intencja_dnia', '🕯️ INTENCJA DNIA')}</Text>
+                  <Text style={[op.intentionTitle, { color: textColor }]}>{t('oracle.zanim_wejdziesz_w_sesje_ustaw', 'Zanim wejdziesz w sesję, ustaw intencję.')}</Text>
                   <TextInput
                     value={intentionText}
                     onChangeText={setIntentionText}
-                    placeholder="Napisz, co chcesz przenieść w tę rozmowę…"
+                    placeholder={t('oracle.napisz_co_chcesz_przeniesc_w', 'Napisz, co chcesz przenieść w tę rozmowę…')}
                     placeholderTextColor={subColor + 'AA'}
                     multiline
                     style={[op.intentionInput, {
@@ -1002,7 +1002,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
             <>
               {(currentSession || pastSessions.length > 0) ? (
                 <>
-                  <Text style={[op.tabSectionTitle, { color: textColor }]}>Twoje sesje</Text>
+                  <Text style={[op.tabSectionTitle, { color: textColor }]}>{t('oracle.twoje_sesje', 'Twoje sesje')}</Text>
                   {currentSession && (
                     <Animated.View entering={FadeInDown.duration(400)}>
                       <Pressable
@@ -1014,7 +1014,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                           <MessageCircle color={accent} size={18} strokeWidth={1.8} />
                         </View>
                         <View style={{ flex: 1 }}>
-                          <Text style={[op.historyBadge, { color: accent }]}>AKTYWNA SESJA</Text>
+                          <Text style={[op.historyBadge, { color: accent }]}>{t('oracle.aktywna_sesja', 'AKTYWNA SESJA')}</Text>
                           <Text style={[op.historyTitle, { color: textColor }]} numberOfLines={1}>{currentSession.title || 'Sesja w toku'}</Text>
                           <Text style={[op.historySub, { color: subColor }]}>{currentSession.messages?.length || 0} wiadomości</Text>
                         </View>
@@ -1061,13 +1061,13 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                     <Text style={{ fontSize: 40, marginBottom: 12 }}>✦</Text>
                     <Text style={[op.emptyTitle, { color: textColor }]}>{t('oracle.noHistory')}</Text>
                     <Text style={[op.emptySub, { color: subColor }]}>
-                      Twoje rozmowy z Oracle pojawią się tutaj. Zacznij pierwszą sesję, aby zbudować osobisty zapis podróży.
+                      {t('oracle.twoje_rozmowy_z_oracle_pojawia', 'Twoje rozmowy z Oracle pojawią się tutaj. Zacznij pierwszą sesję, aby zbudować osobisty zapis podróży.')}
                     </Text>
                     <Pressable
                       onPress={() => setActiveTab('wejście')}
                       style={[op.emptyBtn, { backgroundColor: accent }]}
                     >
-                      <Text style={{ color: '#FFF', fontWeight: '700', fontSize: 14 }}>Zacznij pierwszą sesję</Text>
+                      <Text style={{ color: '#FFF', fontWeight: '700', fontSize: 14 }}>{t('oracle.zacznij_pierwsza_sesje', 'Zacznij pierwszą sesję')}</Text>
                     </Pressable>
                   </View>
                 </Animated.View>
@@ -1085,14 +1085,14 @@ export const OraclePortalScreen = ({ navigation }: any) => {
         <Pressable style={op.modalOverlay} onPress={() => setShowCeremonialModal(false)}>
           <Pressable style={[op.modalSheet, { backgroundColor: isLight ? '#FAF6EE' : '#12101C', borderColor: '#CEAE72' + '44' }]} onPress={e => e.stopPropagation()}>
             <LinearGradient colors={['#CEAE72' + '18', 'transparent']} style={StyleSheet.absoluteFill} />
-            <Text style={[op.modalTitle, { color: '#CEAE72' }]}>🕯️ Tryb Ceremonialny</Text>
+            <Text style={[op.modalTitle, { color: '#CEAE72' }]}>{t('oracle.tryb_ceremonial_1', '🕯️ Tryb Ceremonialny')}</Text>
             <Text style={[op.modalBody, { color: subColor }]}>
-              Tryb ceremonialny dodaje intencję i rytualną oprawę do każdej sesji Oracle. Ustaw intencję na ten czas — to co chcesz przenieść, otworzyć lub zamknąć.
+              {t('oracle.tryb_ceremonial_dodaje_intencje_i', 'Tryb ceremonialny dodaje intencję i rytualną oprawę do każdej sesji Oracle. Ustaw intencję na ten czas — to co chcesz przenieść, otworzyć lub zamknąć.')}
             </Text>
             <TextInput
               value={ceremonialIntention}
               onChangeText={setCeremonialIntention}
-              placeholder="Moja intencja na ten czas ceremonialny…"
+              placeholder={t('oracle.moja_intencja_na_ten_czas', 'Moja intencja na ten czas ceremonialny…')}
               placeholderTextColor={subColor + '88'}
               multiline
               style={[op.intentionInput, {
@@ -1111,7 +1111,7 @@ export const OraclePortalScreen = ({ navigation }: any) => {
                 style={[op.modalBtnPrimary, { backgroundColor: '#CEAE72' }]}
               >
                 <Flame color="#FFF" size={15} />
-                <Text style={op.modalBtnPrimaryText}>Aktywuj ceremonię</Text>
+                <Text style={op.modalBtnPrimaryText}>{t('oracle.aktywuj_ceremonie', 'Aktywuj ceremonię')}</Text>
               </Pressable>
             </View>
           </Pressable>

@@ -213,8 +213,8 @@ return (
       />
       <Animated.View style={[{ alignItems: 'center' }, ashStyle]}>
         <Typography variant="displaySmall" style={{ color: ACCENT, fontSize: 40, marginBottom: 12 }}>✦</Typography>
-        <Typography variant="headingMedium" style={{ color: '#FEF3C7', fontSize: 22, letterSpacing: 3, marginBottom: 8 }}>Uwolniono</Typography>
-        <Typography variant="body" style={{ color: ACCENT + 'BB', fontSize: 14, letterSpacing: 1.5 }}>List oddany ogniowi</Typography>
+        <Typography variant="headingMedium" style={{ color: '#FEF3C7', fontSize: 22, letterSpacing: 3, marginBottom: 8 }}>{t('releaseLetters.uwolniono', 'Uwolniono')}</Typography>
+        <Typography variant="body" style={{ color: ACCENT + 'BB', fontSize: 14, letterSpacing: 1.5 }}>{t('releaseLetters.list_oddany_ogniowi', 'List oddany ogniowi')}</Typography>
       </Animated.View>
     </Animated.View>
   );
@@ -277,7 +277,7 @@ return () => { show.remove(); hide.remove(); };
   };
 
   const handleSave = () => {
-    if (letterText.trim().length < 2) { Alert.alert('Puste pole', 'Napisz coś w liście przed zapisaniem.'); return; }
+    if (letterText.trim().length < 2) { Alert.alert(t('releaseLetters.puste_pole', 'Puste pole'), t('releaseLetters.napisz_cos_w_liscie_przed', 'Napisz coś w liście przed zapisaniem.')); return; }
     HapticsService.impact('medium');
     const tgt = LETTER_TARGETS.find(t => t.id === selectedTarget);
     addReleaseLetter({
@@ -286,13 +286,13 @@ return () => { show.remove(); hide.remove(); };
       name: targetName,
       date: formatLocaleDate(new Date()),
     });
-    Alert.alert('Zachowano', 'List zapisany w pamięci — bez treści, tylko intencja.');
+    Alert.alert(t('releaseLetters.zachowano', 'Zachowano'), t('releaseLetters.list_zapisany_w_pamieci_bez', 'List zapisany w pamięci — bez treści, tylko intencja.'));
     setLetterText('');
   };
 
   const handleBurn = () => {
     if (!letterText.trim() || letterText.length < 20) {
-      Alert.alert('Za krótki list', 'Napisz przynajmniej kilka zdań przed ceremonią spalenia.');
+      Alert.alert(t('releaseLetters.za_krotki_list', 'Za krótki list'), t('releaseLetters.napisz_przynajmni_kilka_zdan_przed', 'Napisz przynajmniej kilka zdań przed ceremonią spalenia.'));
       return;
     }
     HapticsService.impact('heavy');
@@ -372,14 +372,14 @@ return (
             <Animated.View entering={FadeInDown.delay(80).duration(500)}>
               <ScrollAndFlameWidget isDark={!isLight} />
               <Typography variant="body" style={{ color: subColor, textAlign: 'center', fontSize: 13, lineHeight: 20, marginTop: 4, marginBottom: 20 }}>
-                Napisz list — puść go w ogień. Ceremonialne uwolnienie.
+                {t('releaseLetters.napisz_list_pusc_go_w', 'Napisz list — puść go w ogień. Ceremonialne uwolnienie.')}
               </Typography>
             </Animated.View>
 
             {/* Target selection */}
             <Animated.View entering={FadeInDown.delay(160).duration(500)}>
               <Typography variant="microLabel" style={{ color: ACCENT, letterSpacing: 2.5, fontSize: 10, marginBottom: 12 }}>
-                DO KOGO / CZEGO PISZESZ
+                {t('releaseLetters.do_kogo_czego_piszesz', 'DO KOGO / CZEGO PISZESZ')}
               </Typography>
               <View style={styles.targetGrid}>
                 {LETTER_TARGETS.map((t, i) => {
@@ -414,7 +414,7 @@ return (
             {/* Letter Input */}
             <Animated.View entering={FadeInDown.delay(300).duration(500)}>
               <Typography variant="microLabel" style={{ color: ACCENT, letterSpacing: 2.5, fontSize: 10, marginBottom: 12, marginTop: 20 }}>
-                TWÓJ LIST
+                {t('releaseLetters.twoj_list', 'TWÓJ LIST')}
               </Typography>
               <View style={[styles.letterContainer, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <LinearGradient
@@ -425,7 +425,7 @@ return (
                   value={letterText}
                   onChangeText={setLetterText}
                   multiline
-                  placeholder="Drogi/Droga... Chcę Ci powiedzieć..."
+                  placeholder={t('releaseLetters.drogi_droga_chce_ci_powiedziec', 'Drogi/Droga... Chcę Ci powiedzieć...')}
                   placeholderTextColor={subColor}
                   style={[styles.letterInput, { color: textColor }]}
                   textAlignVertical="top"
@@ -446,7 +446,7 @@ return (
                   style={[styles.actionBtn, { borderColor: ACCENT + '44', backgroundColor: cardBg, flex: 1 }]}
                 >
                   <BookOpen color={ACCENT} size={16} strokeWidth={2} />
-                  <Typography variant="label" style={{ color: ACCENT, fontSize: 12, marginLeft: 6, fontWeight: '700' }}>ZACHOWAJ</Typography>
+                  <Typography variant="label" style={{ color: ACCENT, fontSize: 12, marginLeft: 6, fontWeight: '700' }}>{t('releaseLetters.zachowaj', 'ZACHOWAJ')}</Typography>
                 </Pressable>
                 <Pressable
                   onPress={handleBurn}
@@ -458,7 +458,7 @@ return (
                     style={[StyleSheet.absoluteFill, { borderRadius: 14 }]}
                   />
                   <Flame color="#fff" size={16} strokeWidth={2} />
-                  <Typography variant="label" style={{ color: '#fff', fontSize: 12, marginLeft: 6, fontWeight: '800', letterSpacing: 1 }}>CEREMONIALNIE SPAL</Typography>
+                  <Typography variant="label" style={{ color: '#fff', fontSize: 12, marginLeft: 6, fontWeight: '800', letterSpacing: 1 }}>{t('releaseLetters.ceremonial_spal', 'CEREMONIALNIE SPAL')}</Typography>
                 </Pressable>
               </View>
             </Animated.View>
@@ -467,7 +467,7 @@ return (
             {showPostRelease && postReleaseAffirmations.length > 0 && (
               <Animated.View entering={FadeInDown.duration(600)} style={{ marginTop: 24 }}>
                 <Typography variant="microLabel" style={{ color: ACCENT, letterSpacing: 2.5, fontSize: 10, marginBottom: 12 }}>
-                  AFIRMACJE PO UWOLNIENIU
+                  {t('releaseLetters.afirmacje_po_uwolnieniu', 'AFIRMACJE PO UWOLNIENIU')}
                 </Typography>
                 {postReleaseAffirmations.map((aff, i) => (
                   <Animated.View key={i} entering={FadeInDown.delay(i * 100).duration(500)}>
@@ -484,7 +484,7 @@ return (
             {releaseLetters.length > 0 && (
               <Animated.View entering={FadeInDown.delay(440).duration(500)} style={{ marginTop: 24 }}>
                 <Typography variant="microLabel" style={{ color: ACCENT, letterSpacing: 2.5, fontSize: 10, marginBottom: 12 }}>
-                  HISTORIA SPALONYCH LISTÓW
+                  {t('releaseLetters.historia_spalonych_listow', 'HISTORIA SPALONYCH LISTÓW')}
                 </Typography>
                 {releaseLetters.map((ltr, i) => (
                   <Animated.View key={ltr.id} entering={FadeInDown.delay(i * 60).duration(400)}>
@@ -504,7 +504,7 @@ return (
             )}
 
                         <View style={{ marginTop: 16, marginBottom: 8, borderRadius: 16, backgroundColor: "#F59E0B22", borderWidth: 1, borderColor: "#F59E0B", padding: 16 }}>
-              <Text style={{ color: "#F59E0B", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>AI INTERPRETACJA UWOLNIENIA</Text>
+              <Text style={{ color: "#F59E0B", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>{t('releaseLetters.ai_interpreta_uwolnienia', 'AI INTERPRETACJA UWOLNIENIA')}</Text>
               {releaseAiInsight ? (
                 <Text style={{ color: "#FEF3C7", fontSize: 14, lineHeight: 22 }}>{releaseAiInsight}</Text>
               ) : null}
@@ -523,12 +523,12 @@ return (
           <Pressable style={StyleSheet.absoluteFill} onPress={() => setShowNameModal(false)} />
           <View style={[styles.modalSheet, { backgroundColor: isLight ? '#FEF9EE' : '#1C1610' }]}>
             <Typography variant="headingSmall" style={{ color: textColor, fontSize: 17, marginBottom: 16 }}>
-              Do kogo / czego?
+              {t('releaseLetters.do_kogo_czego', 'Do kogo / czego?')}
             </Typography>
             <TextInput
               value={nameInput}
               onChangeText={setNameInput}
-              placeholder="np. Mama, Złość, Praca w korporacji..."
+              placeholder={t('releaseLetters.np_mama_zlosc_praca_w', 'np. Mama, Złość, Praca w korporacji...')}
               placeholderTextColor={subColor}
               returnKeyType="done"
               onSubmitEditing={confirmName}
@@ -537,7 +537,7 @@ return (
             <Pressable onPress={confirmName} style={styles.modalCta}>
               <LinearGradient colors={[ACCENT, '#D97706']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
                 style={[StyleSheet.absoluteFill, { borderRadius: 14 }]} />
-              <Typography variant="label" style={{ color: '#fff', fontWeight: '800', letterSpacing: 1 }}>POTWIERDŹ</Typography>
+              <Typography variant="label" style={{ color: '#fff', fontWeight: '800', letterSpacing: 1 }}>{t('releaseLetters.potwierdz', 'POTWIERDŹ')}</Typography>
             </Pressable>
           </View>
         </View>

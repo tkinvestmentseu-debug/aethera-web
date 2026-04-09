@@ -270,7 +270,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
           style={StyleSheet.absoluteFillObject as any}
         />
         <TarotGlobe accent={accent} isDark={!isLight} />
-        <Typography variant="premiumLabel" color={ACCENT} style={{ letterSpacing: 3, marginTop: 4 }}>✦ TAROT ✦</Typography>
+        <Typography variant="premiumLabel" color={ACCENT} style={{ letterSpacing: 3, marginTop: 4 }}>{t('tarot.tarot', '✦ TAROT ✦')}</Typography>
         <Typography variant="heroTitle" style={[ts.hubHeroTitle, { color: isLight ? '#1A1A1A' : '#F0EBE2' }]}>{tr('tarot.chamber', 'Komnata Tarota', 'Tarot Chamber')}</Typography>
         <Typography variant="bodySmall" style={[ts.hubHeroTagline, { color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)' }]}>
           {tr('tarot.heroCopy', 'Karty nie kłamią — mówią tym, czego jeszcze nie śmiesz powiedzieć na głos.', 'The cards do not lie — they speak what you still do not dare to say aloud.')}
@@ -400,7 +400,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
       {/* ── CO DALEJ? quick links ── */}
       <Animated.View entering={FadeInDown.delay(350).duration(500)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 8, marginBottom: 4 }}>
         <View style={[ts.hubSectionHeader, { borderBottomWidth: 0, paddingHorizontal: 0 }]}>
-          <Typography variant="premiumLabel" color={ACCENT} style={{ letterSpacing: 2 }}>✦ CO DALEJ?</Typography>
+          <Typography variant="premiumLabel" color={ACCENT} style={{ letterSpacing: 2 }}>{t('tarot.co_dalej', '✦ CO DALEJ?')}</Typography>
         </View>
         {[
           { label: tr('tarot.next.numerology.label', 'Numerologia — odkryj swój cykl', 'Numerology — discover your cycle'), sub: tr('tarot.next.numerology.sub', 'Liczby i energia aktualnego okresu', 'Numbers and the energy of the current period'), route: 'Numerology', color: '#A78BFA', icon: BookOpen },
@@ -466,7 +466,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
 
       <View style={[ts.prepDeckCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.08)', borderWidth: 1, borderRadius: 16 }]}>
         <View style={ts.prepDeckRow}>
-          <TarotCardVisual deck={deck} faceDown size="small" subtitle="Talia aktywna" />
+          <TarotCardVisual deck={deck} faceDown size="small" subtitle={t('tarot.talia_aktywna', 'Talia aktywna')} />
           <View style={{ flex: 1 }}>
             <Typography variant="premiumLabel" color={ACCENT}>{deck.name}</Typography>
             <Typography variant="bodySmall" style={ts.prepDeckCopy}>{deck.description}</Typography>
@@ -514,33 +514,33 @@ export const TarotScreen = ({ navigation, route }: any) => {
       <View style={ts.topBar}>
         <Pressable onPress={resetReading} style={ts.topAction}>
           <ChevronLeft color={ACCENT} size={18} />
-          <Typography variant="microLabel" color={ACCENT} style={{ marginLeft: 6 }}>Zmień spread</Typography>
+          <Typography variant="microLabel" color={ACCENT} style={{ marginLeft: 6 }}>{t('tarot.zmien_spread', 'Zmień spread')}</Typography>
         </Pressable>
         <Typography variant="microLabel" color={ACCENT}>{selectedSpreadMeta?.name}</Typography>
       </View>
 
       <Animated.View entering={FadeInDown.duration(700)} style={ts.deckHero}>
         <Typography variant="premiumLabel" color={ACCENT}>{deck.name}</Typography>
-        <Typography variant="heroTitle" style={{ marginTop: 8, textAlign: 'center' }}>Talia jest gotowa na Twoje pytanie.</Typography>
-        <Typography variant="bodySmall" style={ts.deckCopy}>Dotknij pozycji, którą chcesz odsłonić. Aethera wyłoni kartę i dopiero potem wprowadzi ją do rozkładu.</Typography>
+        <Typography variant="heroTitle" style={{ marginTop: 8, textAlign: 'center' }}>{t('tarot.talia_jest_gotowa_na_twoje', 'Talia jest gotowa na Twoje pytanie.')}</Typography>
+        <Typography variant="bodySmall" style={ts.deckCopy}>{t('tarot.dotknij_pozycji_ktora_chcesz_odslon', 'Dotknij pozycji, którą chcesz odsłonić. Aethera wyłoni kartę i dopiero potem wprowadzi ją do rozkładu.')}</Typography>
       </Animated.View>
 
       <View style={ts.deckPresence}>
         {[0, 1, 2, 3, 4].map(i => (
           <View key={i} style={[ts.presenceCard, { zIndex: 5 - Math.abs(i - 2), transform: [{ rotate: `${(i - 2) * 5}deg` }, { translateX: (i - 2) * 10 }, { translateY: Math.abs(i - 2) * 2.5 }] }]}>
-            <TarotCardVisual deck={deck} faceDown size="small" subtitle="Talia w konsultacji" />
+            <TarotCardVisual deck={deck} faceDown size="small" subtitle={t('tarot.talia_w_konsultacj', 'Talia w konsultacji')} />
           </View>
         ))}
       </View>
 
       <View style={ts.questionStrip}>
-        <Typography variant="microLabel" color={ACCENT}>Przyjęte pytanie</Typography>
+        <Typography variant="microLabel" color={ACCENT}>{t('tarot.przyjete_pytanie', 'Przyjęte pytanie')}</Typography>
         <Typography variant="bodySmall" style={{ marginTop: 8, lineHeight: 22 }}>{userQuestion}</Typography>
       </View>
 
       <View style={ts.deckSectionHeader}>
-        <Typography variant="premiumLabel" color={ACCENT}>Mapa rozkładu</Typography>
-        <Typography variant="bodySmall" style={ts.deckSectionCopy}>Każda pozycja jest osobnym polem znaczenia. Nie losuj wszystkiego naraz. Wejdź w układ karta po karcie.</Typography>
+        <Typography variant="premiumLabel" color={ACCENT}>{t('tarot.mapa_rozkladu', 'Mapa rozkładu')}</Typography>
+        <Typography variant="bodySmall" style={ts.deckSectionCopy}>{t('tarot.kazda_pozycja_jest_osobnym_polem', 'Każda pozycja jest osobnym polem znaczenia. Nie losuj wszystkiego naraz. Wejdź w układ karta po karcie.')}</Typography>
       </View>
 
       <View style={ts.cardDesk}>
@@ -576,7 +576,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
         <Animated.View entering={FadeIn.delay(300).duration(600)}>
           <View style={[ts.synthesisBlock, { borderColor: ACCENT + '44', backgroundColor: ACCENT + '08' }]}>
             <LinearGradient colors={[ACCENT + '18', 'transparent']} style={StyleSheet.absoluteFillObject as any}/>
-            <Typography variant="premiumLabel" color={ACCENT}>SYNTEZA ROZKLADU</Typography>
+            <Typography variant="premiumLabel" color={ACCENT}>{t('tarot.synteza_rozkladu', 'SYNTEZA ROZKLADU')}</Typography>
             <Typography variant="editorialHeader" style={[ts.synthesisTitle, { color: isLight ? '#251D16' : '#F5F1EA' }]}>
               {drawnCards.filter(card => card.isReversed).length > 1
                 ? 'Napiecie — kilka kart niesie energie wymagajaca pracy'
@@ -590,19 +590,19 @@ export const TarotScreen = ({ navigation, route }: any) => {
             <View style={ts.synthesisStats}>
               <View style={ts.synthesisStatItem}>
                 <Typography variant="cardTitle" color={ACCENT}>{String(drawnCards.length)}</Typography>
-                <Typography variant="caption">Kart</Typography>
+                <Typography variant="caption">{t('tarot.kart', 'Kart')}</Typography>
               </View>
               <View style={ts.synthesisStatDiv}/>
               <View style={ts.synthesisStatItem}>
                 <Typography variant="cardTitle" color={drawnCards.filter(card => card.isReversed).length > 0 ? '#F87171' : '#34D399'}>
                   {String(drawnCards.filter(card => card.isReversed).length)}
                 </Typography>
-                <Typography variant="caption">Odwrocone</Typography>
+                <Typography variant="caption">{t('tarot.odwrocone', 'Odwrocone')}</Typography>
               </View>
               <View style={ts.synthesisStatDiv}/>
               <View style={ts.synthesisStatItem}>
                 <Typography variant="cardTitle" color={ACCENT}>{selectedSpreadMeta?.name?.slice(0,8) || ''}</Typography>
-                <Typography variant="caption">Rozklad</Typography>
+                <Typography variant="caption">{t('tarot.rozklad', 'Rozklad')}</Typography>
               </View>
             </View>
           </View>
@@ -610,8 +610,8 @@ export const TarotScreen = ({ navigation, route }: any) => {
       )}
       {drawnCards.length === selectedSpreadMeta?.slots.length && (
         <Animated.View entering={FadeIn.duration(600)} style={ts.deskFooter}>
-          <Typography variant="caption" style={ts.footerHint}>Wszystkie pozycje odsłonięte. Rozkład gotowy do interpretacji.</Typography>
-          <PremiumButton label="Otwórz dossier interpretacji" onPress={() => {
+          <Typography variant="caption" style={ts.footerHint}>{t('tarot.wszystkie_pozycje_odsloniete_rozkla', 'Wszystkie pozycje odsłonięte. Rozkład gotowy do interpretacji.')}</Typography>
+          <PremiumButton label={t('tarot.otworz_dossier_interpreta', 'Otwórz dossier interpretacji')} onPress={() => {
             if (!isPremium && !trackUsage('tarot')) {
               setTarotPaywallVisible(true);
               return;
@@ -627,7 +627,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
               })
             }
           >
-            <Typography variant="microLabel" color={ACCENT}>Zapisz intencję przed odczytem</Typography>
+            <Typography variant="microLabel" color={ACCENT}>{t('tarot.zapisz_intencje_przed_odczytem', 'Zapisz intencję przed odczytem')}</Typography>
           </Pressable>
         </Animated.View>
       )}
@@ -652,16 +652,16 @@ export const TarotScreen = ({ navigation, route }: any) => {
             {revealState ? (
               revealState.phase === 'consulting' ? (
                 <Animated.View entering={FadeIn.duration(400)} style={ts.modalStage}>
-                  <Typography variant="premiumLabel" color={ACCENT}>Talia przyjmuje pytanie</Typography>
+                  <Typography variant="premiumLabel" color={ACCENT}>{t('tarot.talia_przyjmuje_pytanie', 'Talia przyjmuje pytanie')}</Typography>
                   <Typography variant="bodySmall" style={ts.modalCopy}>{userQuestion}</Typography>
                   <View style={ts.modalFan}>
                     {[0, 1, 2, 3, 4].map(i => (
                       <View key={i} style={[ts.modalFanItem, { zIndex: 5 - Math.abs(i - 2), transform: [{ rotate: `${(i - 2) * 8}deg` }, { translateX: (i - 2) * 12 }, { translateY: Math.abs(i - 2) * 4 }] }]}>
-                        <TarotCardVisual deck={deck} faceDown size="small" subtitle="Przywołanie" />
+                        <TarotCardVisual deck={deck} faceDown size="small" subtitle={t('tarot.przywolani', 'Przywołanie')} />
                       </View>
                     ))}
                   </View>
-                  <Typography variant="caption" style={[ts.modalCopy, { opacity: 0.65 }]}>Karta wyłania się z talii spokojnie.</Typography>
+                  <Typography variant="caption" style={[ts.modalCopy, { opacity: 0.65 }]}>{t('tarot.karta_wylania_sie_z_talii', 'Karta wyłania się z talii spokojnie.')}</Typography>
                 </Animated.View>
               ) : (
                 <Animated.View entering={FadeInDown.duration(500)} style={ts.modalStage}>
@@ -673,7 +673,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
                   <Typography variant="bodySmall" style={ts.modalCopy}>{revealState.meaning}</Typography>
                   <Pressable style={[ts.acceptReveal, { backgroundColor: ACCENT }]} onPress={() => setRevealState(null)}>
                     <CheckCircle2 color={currentTheme.background} size={16} />
-                    <Typography variant="premiumLabel" color={currentTheme.background} style={{ marginLeft: 10 }}>Wprowadź kartę do rozkładu</Typography>
+                    <Typography variant="premiumLabel" color={currentTheme.background} style={{ marginLeft: 10 }}>{t('tarot.wprowadz_karte_do_rozkladu', 'Wprowadź kartę do rozkładu')}</Typography>
                   </Pressable>
                 </Animated.View>
               )
@@ -687,8 +687,8 @@ export const TarotScreen = ({ navigation, route }: any) => {
         <View style={[ts.modalOverlay, { paddingTop: insets.top + 18, paddingBottom: insets.bottom + 18 }]}>
           <Pressable style={StyleSheet.absoluteFillObject as any} onPress={() => setShowHistoryModal(false)} />
           <View style={[ts.historyShell, { backgroundColor: currentTheme.backgroundElevated, borderColor: currentTheme.glassBorder }]}>
-            <Typography variant="premiumLabel" color={ACCENT}>Archiwum tarota</Typography>
-            <Typography variant="bodySmall" style={ts.historyIntro}>Historia Twoich odczytów. Usuń, jeśli nie chcesz już trzymać zapisu.</Typography>
+            <Typography variant="premiumLabel" color={ACCENT}>{t('tarot.archiwum_tarota', 'Archiwum tarota')}</Typography>
+            <Typography variant="bodySmall" style={ts.historyIntro}>{t('tarot.historia_twoich_odczytow_usun_jesli', 'Historia Twoich odczytów. Usuń, jeśli nie chcesz już trzymać zapisu.')}</Typography>
             <ScrollView contentContainerStyle={{ gap: 10, paddingTop: 14, paddingBottom: 8 }} showsVerticalScrollIndicator={false}>
               {pastReadings.map((r, idx) => (
                 <View key={r.id} style={[{ padding: 16, borderRadius: 14, backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderWidth: StyleSheet.hairlineWidth, borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.08)' }]}>
@@ -705,13 +705,13 @@ export const TarotScreen = ({ navigation, route }: any) => {
               ))}
               {pastReadings.length === 0 && (
                 <View style={{ padding: 16 }}>
-                  <Typography variant="bodySmall" style={{ opacity: 0.75 }}>Brak zapisanych odczytów.</Typography>
+                  <Typography variant="bodySmall" style={{ opacity: 0.75 }}>{t('tarot.brak_zapisanych_odczytow', 'Brak zapisanych odczytów.')}</Typography>
                 </View>
               )}
             </ScrollView>
             <Pressable style={ts.historyClose} onPress={() => setShowHistoryModal(false)}>
               <RotateCcw color={ACCENT} size={15} />
-              <Typography variant="premiumLabel" color={ACCENT} style={{ marginLeft: 10 }}>Zamknij archiwum</Typography>
+              <Typography variant="premiumLabel" color={ACCENT} style={{ marginLeft: 10 }}>{t('tarot.zamknij_archiwum', 'Zamknij archiwum')}</Typography>
             </Pressable>
           </View>
         </View>
@@ -729,14 +729,14 @@ export const TarotScreen = ({ navigation, route }: any) => {
             <TextInput
               value={partnerName}
               onChangeText={setPartnerName}
-              placeholder="Imię osoby..."
+              placeholder={t('tarot.imie_osoby', 'Imię osoby...')}
               placeholderTextColor={currentTheme.textMuted}
               style={[ts.fsInput, { color: currentTheme.text, borderColor: ACCENT + '44', backgroundColor: cardBg }]}
             />
             <TextInput
               value={partnerBirth}
               onChangeText={setPartnerBirth}
-              placeholder="Data urodzenia (np. 1990-05-15)..."
+              placeholder={t('tarot.data_urodzenia_np_1990_05', 'Data urodzenia (np. 1990-05-15)...')}
               placeholderTextColor={currentTheme.textMuted}
               keyboardType="numbers-and-punctuation"
               style={[ts.fsInput, { color: currentTheme.text, borderColor: ACCENT + '44', backgroundColor: cardBg, marginTop: 10 }]}
@@ -744,7 +744,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
 
             {forSomeone && (
               <Pressable onPress={() => { setForSomeone(false); setShowForSomeoneModal(false); }} style={[ts.fsCta, { backgroundColor: 'rgba(255,100,100,0.2)', borderColor: '#FB7185', borderWidth: 1, marginTop: 12 }]}>
-                <Typography variant="caption" style={{ color: '#FB7185', fontWeight: '600' }}>Wyłącz tryb "Dla kogoś"</Typography>
+                <Typography variant="caption" style={{ color: '#FB7185', fontWeight: '600' }}>{t('tarot.wylacz_tryb_dla_kogos', 'Wyłącz tryb "Dla kogoś"')}</Typography>
               </Pressable>
             )}
 
@@ -757,7 +757,7 @@ export const TarotScreen = ({ navigation, route }: any) => {
               }}
               style={[ts.fsCta, { backgroundColor: ACCENT, marginTop: forSomeone ? 10 : 16 }]}
             >
-              <Typography variant="caption" style={{ color: '#FFF', fontWeight: '700' }}>Potwierdź</Typography>
+              <Typography variant="caption" style={{ color: '#FFF', fontWeight: '700' }}>{t('tarot.potwierdz', 'Potwierdź')}</Typography>
             </Pressable>
           </Pressable>
         </Pressable>

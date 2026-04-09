@@ -358,8 +358,8 @@ Odpowiedz WYŁĄCZNIE w tym formacie JSON (bez markdown, bez komentarzy):
           <ChevronLeft color={isLight ? '#5A4A78' : 'rgba(255,255,255,0.70)'} size={22} strokeWidth={2} />
         </Pressable>
         <View style={styles.headerCenter}>
-          <Text style={[styles.headerEyebrow, { color: activeIntention.color }]}>TWOJA ŚCIEŻKA DŹWIĘKOWA</Text>
-          <Text style={[styles.headerTitle, { color: textColor }]}>Generator Mantry</Text>
+          <Text style={[styles.headerEyebrow, { color: activeIntention.color }]}>{t('mantraGen.twoja_sciezka_dzwiekowa', 'TWOJA ŚCIEŻKA DŹWIĘKOWA')}</Text>
+          <Text style={[styles.headerTitle, { color: textColor }]}>{t('mantraGen.generator_mantry', 'Generator Mantry')}</Text>
         </View>
         <Pressable onPress={handleStar} hitSlop={12}>
           <Star
@@ -385,13 +385,13 @@ Odpowiedz WYŁĄCZNIE w tym formacie JSON (bez markdown, bez komentarzy):
           {/* ── SUBTITLE ── */}
           <Animated.View entering={FadeInDown.delay(100).springify()} style={{ marginBottom: 28 }}>
             <Text style={[styles.heroSubtitle, { color: subColor }]}>
-              Wybierz intencję, stan energetyczny i słowo klucz — AI stworzy Twoją spersonalizowaną mantrę wedyjską.
+              {t('mantraGen.wybierz_intencje_stan_energetycz_i', 'Wybierz intencję, stan energetyczny i słowo klucz — AI stworzy Twoją spersonalizowaną mantrę wedyjską.')}
             </Text>
           </Animated.View>
 
           {/* ── INTENTION SELECTOR ── */}
           <Animated.View entering={FadeInDown.delay(160).springify()} style={{ marginBottom: 24 }}>
-            <Text style={[styles.sectionLabel, { color: isLight ? '#7B6FAA' : 'rgba(255,255,255,0.45)' }]}>INTENCJA</Text>
+            <Text style={[styles.sectionLabel, { color: isLight ? '#7B6FAA' : 'rgba(255,255,255,0.45)' }]}>{t('mantraGen.intencja', 'INTENCJA')}</Text>
             <View style={styles.intentionGrid}>
               {INTENTIONS.map((intention) => {
                 const isActive = selectedIntention === intention.id;
@@ -427,7 +427,7 @@ Odpowiedz WYŁĄCZNIE w tym formacie JSON (bez markdown, bez komentarzy):
 
           {/* ── ENERGY STATE ── */}
           <Animated.View entering={FadeInDown.delay(220).springify()} style={{ marginBottom: 24 }}>
-            <Text style={[styles.sectionLabel, { color: isLight ? '#7B6FAA' : 'rgba(255,255,255,0.45)' }]}>STAN ENERGETYCZNY</Text>
+            <Text style={[styles.sectionLabel, { color: isLight ? '#7B6FAA' : 'rgba(255,255,255,0.45)' }]}>{t('mantraGen.stan_energetycz', 'STAN ENERGETYCZNY')}</Text>
             <View style={styles.energyRow}>
               {ENERGY_STATES.map((state) => {
                 const isActive = energyState === state.id;
@@ -460,11 +460,11 @@ Odpowiedz WYŁĄCZNIE w tym formacie JSON (bez markdown, bez komentarzy):
 
           {/* ── FOCUS KEYWORD ── */}
           <Animated.View entering={FadeInDown.delay(280).springify()} style={{ marginBottom: 28 }}>
-            <Text style={[styles.sectionLabel, { color: isLight ? '#7B6FAA' : 'rgba(255,255,255,0.45)' }]}>SŁOWO KLUCZ (OPCJONALNE)</Text>
+            <Text style={[styles.sectionLabel, { color: isLight ? '#7B6FAA' : 'rgba(255,255,255,0.45)' }]}>{t('mantraGen.slowo_klucz_opcjonalne', 'SŁOWO KLUCZ (OPCJONALNE)')}</Text>
             <TextInput
               value={focusKeyword}
               onChangeText={setFocusKeyword}
-              placeholder="np. wdzięczność, transformacja, spokój…"
+              placeholder={t('mantraGen.np_wdziecznos_transforma_spokoj', 'np. wdzięczność, transformacja, spokój…')}
               placeholderTextColor={isLight ? 'rgba(90,74,120,0.45)' : 'rgba(255,255,255,0.28)'}
               style={[
                 styles.keywordInput,
@@ -496,7 +496,7 @@ Odpowiedz WYŁĄCZNIE w tym formacie JSON (bez markdown, bez komentarzy):
                 ) : (
                   <>
                     <Sparkles color="#FFF" size={18} strokeWidth={2} />
-                    <Text style={styles.generateBtnText}>Wygeneruj Mantrę</Text>
+                    <Text style={styles.generateBtnText}>{t('mantraGen.wygeneruj_mantre', 'Wygeneruj Mantrę')}</Text>
                   </>
                 )}
               </LinearGradient>
@@ -539,7 +539,7 @@ Odpowiedz WYŁĄCZNIE w tym formacie JSON (bez markdown, bez komentarzy):
                 <View style={[styles.resultDivider, { backgroundColor: result.intentionColor + '22', marginVertical: 14 }]} />
 
                 {/* Meaning */}
-                <Text style={[styles.resultMeaningLabel, { color: isLight ? '#7B6FAA' : 'rgba(255,255,255,0.38)' }]}>ZNACZENIE</Text>
+                <Text style={[styles.resultMeaningLabel, { color: isLight ? '#7B6FAA' : 'rgba(255,255,255,0.38)' }]}>{t('mantraGen.znaczenie', 'ZNACZENIE')}</Text>
                 <Text style={[styles.resultMeaning, { color: isLight ? '#2A1860' : 'rgba(255,255,255,0.82)' }]}>
                   {result.meaning}
                 </Text>
@@ -549,7 +549,7 @@ Odpowiedz WYŁĄCZNIE w tym formacie JSON (bez markdown, bez komentarzy):
                   colors={[result.intentionColor + '14', result.intentionColor + '08']}
                   style={[styles.resultAffirmBox, { borderColor: result.intentionColor + '33' }]}
                 >
-                  <Text style={[styles.resultAffirmLabel, { color: result.intentionColor }]}>AFIRMACJA PARTNERSKA</Text>
+                  <Text style={[styles.resultAffirmLabel, { color: result.intentionColor }]}>{t('mantraGen.afirmacja_partnerska', 'AFIRMACJA PARTNERSKA')}</Text>
                   <Text style={[styles.resultAffirmText, { color: isLight ? '#1A1028' : 'rgba(255,255,255,0.88)' }]}>
                     {result.affirmation}
                   </Text>
@@ -563,7 +563,7 @@ Odpowiedz WYŁĄCZNIE w tym formacie JSON (bez markdown, bez komentarzy):
                     style={[styles.resultActionBtn, { borderColor: result.intentionColor + '55', backgroundColor: result.intentionColor + '14' }]}
                   >
                     <Volume2 color={result.intentionColor} size={16} strokeWidth={2} />
-                    <Text style={[styles.resultActionText, { color: result.intentionColor }]}>Recytuj</Text>
+                    <Text style={[styles.resultActionText, { color: result.intentionColor }]}>{t('mantraGen.recytuj', 'Recytuj')}</Text>
                   </Pressable>
 
                   {/* Regenerate */}
@@ -573,7 +573,7 @@ Odpowiedz WYŁĄCZNIE w tym formacie JSON (bez markdown, bez komentarzy):
                     style={[styles.resultActionBtn, { borderColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.18)', backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.06)' }]}
                   >
                     <RefreshCw color={isLight ? '#7B6FAA' : 'rgba(255,255,255,0.55)'} size={16} strokeWidth={2} />
-                    <Text style={[styles.resultActionText, { color: isLight ? '#7B6FAA' : 'rgba(255,255,255,0.55)' }]}>Nowa</Text>
+                    <Text style={[styles.resultActionText, { color: isLight ? '#7B6FAA' : 'rgba(255,255,255,0.55)' }]}>{t('mantraGen.nowa', 'Nowa')}</Text>
                   </Pressable>
 
                   {/* Save */}
@@ -611,7 +611,7 @@ Odpowiedz WYŁĄCZNIE w tym formacie JSON (bez markdown, bez komentarzy):
 
           {/* ── CO DALEJ? ── */}
           <Animated.View entering={FadeInDown.delay(60).springify()} style={{ marginBottom: 8 }}>
-            <Text style={[styles.sectionLabel, { color: isLight ? '#7B6FAA' : 'rgba(255,255,255,0.45)', marginBottom: 12 }]}>CO DALEJ?</Text>
+            <Text style={[styles.sectionLabel, { color: isLight ? '#7B6FAA' : 'rgba(255,255,255,0.45)', marginBottom: 12 }]}>{t('mantraGen.co_dalej', 'CO DALEJ?')}</Text>
             {CO_DALEJ_CARDS.map((card, i) => {
               const IconC = card.Icon;
               return (

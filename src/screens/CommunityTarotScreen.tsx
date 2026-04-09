@@ -231,7 +231,7 @@ export const CommunityTarotScreen = ({ navigation }) => {
         <Pressable onPress={() => goBackOrToMainTab(navigation, 'Worlds')} style={styles.backBtn}>
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
-        <Text style={[styles.headerTitle, { color: textColor }]}>Tarot Wspólnoty</Text>
+        <Text style={[styles.headerTitle, { color: textColor }]}>{t('communityTarot.tarot_wspolnoty', 'Tarot Wspólnoty')}</Text>
         <Star size={20} color={ACCENT} />
       </View>
 
@@ -249,7 +249,7 @@ export const CommunityTarotScreen = ({ navigation }) => {
             </Animated.View>
             <Pressable onPress={handleFlip} style={styles.cardWrapper}>
               <Animated.View style={[styles.tarotCard, { backgroundColor: ACCENT + '15', borderColor: ACCENT + '50' }, cardFrontStyle]}>
-                <Text style={[styles.cardNum, { color: ACCENT + 'AA' }]}>XVII</Text>
+                <Text style={[styles.cardNum, { color: ACCENT + 'AA' }]}>{t('communityTarot.xvii', 'XVII')}</Text>
                 <Svg width={60} height={60} viewBox="0 0 60 60">
                   <Circle cx={30} cy={20} r={10} fill={ACCENT + '60'} />
                   {[...Array(8)].map((_, i) => (
@@ -257,11 +257,11 @@ export const CommunityTarotScreen = ({ navigation }) => {
                   ))}
                   <Path d="M10,45 Q30,35 50,45" stroke={ACCENT + '80'} strokeWidth={2} fill="none" />
                 </Svg>
-                <Text style={[styles.cardName, { color: ACCENT }]}>Gwiazda</Text>
-                <Text style={[styles.cardHint, { color: subColor }]}>Dotknij, by obrócić</Text>
+                <Text style={[styles.cardName, { color: ACCENT }]}>{t('communityTarot.gwiazda', 'Gwiazda')}</Text>
+                <Text style={[styles.cardHint, { color: subColor }]}>{t('communityTarot.dotknij_by_obrocic', 'Dotknij, by obrócić')}</Text>
               </Animated.View>
               <Animated.View style={[styles.tarotCard, { backgroundColor: ACCENT + '25', borderColor: ACCENT + '70', alignItems: 'center', justifyContent: 'center' }, cardBackStyle]}>
-                <Text style={[styles.cardMeaning, { color: textColor }]}>Nadzieja · Odnowienie · Wiara w przyszłość</Text>
+                <Text style={[styles.cardMeaning, { color: textColor }]}>{t('communityTarot.nadzieja_odnowienie_wiara_w_przyszl', 'Nadzieja · Odnowienie · Wiara w przyszłość')}</Text>
               </Animated.View>
             </Pressable>
           </View>
@@ -276,7 +276,7 @@ export const CommunityTarotScreen = ({ navigation }) => {
           </View>
 
           {/* Stats */}
-          <Text style={[styles.cardStats, { color: subColor }]}>127 interpretacji · energia Yin · 3 841 odczytań</Text>
+          <Text style={[styles.cardStats, { color: subColor }]}>{t('communityTarot.127_interpreta_energia_yin_3', '127 interpretacji · energia Yin · 3 841 odczytań')}</Text>
 
           {/* Reactions */}
           <View style={[styles.reactionRow, { backgroundColor: cardBg, borderColor: cardBorder }]}>
@@ -321,7 +321,7 @@ export const CommunityTarotScreen = ({ navigation }) => {
           </View>
 
           {/* Interpretations */}
-          <Text style={[styles.sectionTitle, { color: textColor }]}>Interpretacje Wspólnoty</Text>
+          <Text style={[styles.sectionTitle, { color: textColor }]}>{t('communityTarot.interpreta_wspolnoty', 'Interpretacje Wspólnoty')}</Text>
           {filteredInterpretations.map((item, i) => (
             <Animated.View key={item.id} entering={FadeInDown.delay(i * 60)} style={[styles.interpCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <View style={styles.interpHeader}>
@@ -345,10 +345,10 @@ export const CommunityTarotScreen = ({ navigation }) => {
                   />
                   <View style={{ flexDirection: 'row', gap: 8 }}>
                     <Pressable onPress={() => handleEditSave(item.id)} style={[styles.editSaveBtn, { backgroundColor: ACCENT }]}>
-                      <Text style={{ color: '#FFF', fontSize: 12, fontWeight: '700' }}>Zapisz</Text>
+                      <Text style={{ color: '#FFF', fontSize: 12, fontWeight: '700' }}>{t('communityTarot.zapisz', 'Zapisz')}</Text>
                     </Pressable>
                     <Pressable onPress={() => { setEditingId(null); setEditText(''); }} style={[styles.editSaveBtn, { backgroundColor: cardBg, borderWidth: 1, borderColor: cardBorder }]}>
-                      <Text style={{ color: subColor, fontSize: 12 }}>Anuluj</Text>
+                      <Text style={{ color: subColor, fontSize: 12 }}>{t('communityTarot.anuluj', 'Anuluj')}</Text>
                     </Pressable>
                   </View>
                 </View>
@@ -379,7 +379,7 @@ export const CommunityTarotScreen = ({ navigation }) => {
             <TextInput
               value={inputText}
               onChangeText={setInputText}
-              placeholder="Dodaj swoją interpretację..."
+              placeholder={t('communityTarot.dodaj_swoja_interpreta', 'Dodaj swoją interpretację...')}
               placeholderTextColor={subColor}
               multiline
               onSubmitEditing={() => { if (inputText.trim().length >= 2) submitInterpretation(); }}
@@ -391,7 +391,7 @@ export const CommunityTarotScreen = ({ navigation }) => {
           </View>
 
           {/* Past Cards */}
-          <Text style={[styles.sectionTitle, { color: textColor }]}>Poprzednie Karty Tygodnia</Text>
+          <Text style={[styles.sectionTitle, { color: textColor }]}>{t('communityTarot.poprzednie_karty_tygodnia', 'Poprzednie Karty Tygodnia')}</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.pastRow} contentContainerStyle={{ gap: 10 }}>
             {PAST_CARDS.map(pc => (
               <View key={pc.id} style={[styles.pastCard, { backgroundColor: pc.color + '20', borderColor: pc.color + '50' }]}>

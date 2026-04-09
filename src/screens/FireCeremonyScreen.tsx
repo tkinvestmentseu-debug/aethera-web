@@ -393,7 +393,7 @@ export const FireCeremonyScreen = ({ navigation }: any) => {
 
   const startCeremony = () => {
     if (!intention.trim()) {
-      Alert.alert('Brakuje intencji', 'Wpisz czego dotyczy Twoja ceremonia ognia.');
+      Alert.alert(t('fireCeremony.brakuje_intencji', 'Brakuje intencji'), t('fireCeremony.wpisz_czego_dotyczy_twoja_ceremonia', 'Wpisz czego dotyczy Twoja ceremonia ognia.'));
       return;
     }
     HapticsService.impact('medium');
@@ -420,7 +420,7 @@ export const FireCeremonyScreen = ({ navigation }: any) => {
     setCeremonies(prev => [newEntry, ...prev]);
     setCeremonyActive(false);
     setIntention('');
-    Alert.alert('✦ Ceremonia zakończona', 'Ogień przyjął Twoją intencję. Przemiana się dokonała.');
+    Alert.alert(t('fireCeremony.ceremonia_zakonczona', '✦ Ceremonia zakończona'), t('fireCeremony.ogien_przyjal_twoja_intencje_przemi', 'Ogień przyjął Twoją intencję. Przemiana się dokonała.'));
   };
 
   const askOracle = async () => {
@@ -484,7 +484,7 @@ export const FireCeremonyScreen = ({ navigation }: any) => {
                 <AnimatedFire3D />
                 <View style={styles.heroLabel}>
                   <Flame color={ACCENT} size={14} />
-                  <Text style={styles.heroSubtext}>Dotknij ognia, by go pochylić</Text>
+                  <Text style={styles.heroSubtext}>{t('fireCeremony.dotknij_ognia_by_go_pochylic', 'Dotknij ognia, by go pochylić')}</Text>
                 </View>
               </View>
             </Animated.View>
@@ -495,14 +495,14 @@ export const FireCeremonyScreen = ({ navigation }: any) => {
                 <View style={styles.sectionHeader}>
                   <Flame color={ACCENT} size={15} />
                   <Typography variant="microLabel" style={styles.sectionTitle}>
-                    INTENCJA CEREMONII
+                    {t('fireCeremony.intencja_ceremonii', 'INTENCJA CEREMONII')}
                   </Typography>
                 </View>
                 <TextInput
                   style={styles.intentionInput}
                   value={intention}
                   onChangeText={setIntention}
-                  placeholder="Co chcesz przemienić przez ogień?"
+                  placeholder={t('fireCeremony.co_chcesz_przemienic_przez_ogien', 'Co chcesz przemienić przez ogień?')}
                   placeholderTextColor="rgba(252,165,165,0.4)"
                   multiline
                   numberOfLines={3}
@@ -528,7 +528,7 @@ export const FireCeremonyScreen = ({ navigation }: any) => {
                 <View style={styles.sectionHeader}>
                   <BookOpen color={ACCENT} size={15} />
                   <Typography variant="microLabel" style={styles.sectionTitle}>
-                    RYTUAŁ KROK PO KROKU
+                    {t('fireCeremony.rytual_krok_po_kroku', 'RYTUAŁ KROK PO KROKU')}
                   </Typography>
                 </View>
               </View>
@@ -570,7 +570,7 @@ export const FireCeremonyScreen = ({ navigation }: any) => {
                 <View style={styles.sectionHeader}>
                   <Sparkles color={ACCENT_ORANGE} size={15} />
                   <Typography variant="microLabel" style={styles.sectionTitle}>
-                    SŁOWA MOCY
+                    {t('fireCeremony.slowa_mocy', 'SŁOWA MOCY')}
                   </Typography>
                 </View>
                 {POWER_WORDS.map((pw, i) => (
@@ -589,7 +589,7 @@ export const FireCeremonyScreen = ({ navigation }: any) => {
                   <View style={styles.sectionHeader}>
                     <Clock color={ACCENT} size={15} />
                     <Typography variant="microLabel" style={styles.sectionTitle}>
-                      MUZEUM CEREMONII
+                      {t('fireCeremony.muzeum_ceremonii', 'MUZEUM CEREMONII')}
                     </Typography>
                   </View>
                   {ceremonies.map(c => (
@@ -608,17 +608,17 @@ export const FireCeremonyScreen = ({ navigation }: any) => {
                 <View style={styles.sectionHeader}>
                   <Wand2 color={ACCENT_ORANGE} size={15} />
                   <Typography variant="microLabel" style={styles.sectionTitle}>
-                    WYROCZNIA OGNIA
+                    {t('fireCeremony.wyrocznia_ognia', 'WYROCZNIA OGNIA')}
                   </Typography>
                 </View>
                 <View style={styles.oracleCard}>
-                  <Text style={styles.oracleHint}>Zapytaj o swoją przemianę</Text>
+                  <Text style={styles.oracleHint}>{t('fireCeremony.zapytaj_o_swoja_przemiane', 'Zapytaj o swoją przemianę')}</Text>
                   <View style={styles.oracleInputRow}>
                     <TextInput
                       style={styles.oracleInput}
                       value={oracleInput}
                       onChangeText={setOracleInput}
-                      placeholder="Twoje pytanie do ognia..."
+                      placeholder={t('fireCeremony.twoje_pytanie_do_ognia', 'Twoje pytanie do ognia...')}
                       placeholderTextColor="rgba(252,165,165,0.35)"
                       multiline
                     />
@@ -631,7 +631,7 @@ export const FireCeremonyScreen = ({ navigation }: any) => {
                     </Pressable>
                   </View>
                   {oracleLoading && (
-                    <Text style={styles.oracleLoading}>Ogień przemawia...</Text>
+                    <Text style={styles.oracleLoading}>{t('fireCeremony.ogien_przemawia', 'Ogień przemawia...')}</Text>
                   )}
                   {!!oracleResponse && !oracleLoading && (
                     <View style={styles.oracleReply}>
@@ -664,7 +664,7 @@ export const FireCeremonyScreen = ({ navigation }: any) => {
               style={styles.ctaGradient}
             >
               <Flame color="#fff" size={18} />
-              <Text style={styles.ctaText}>ROZPOCZNIJ CEREMONIĘ</Text>
+              <Text style={styles.ctaText}>{t('fireCeremony.rozpocznij_ceremonie', 'ROZPOCZNIJ CEREMONIĘ')}</Text>
               <ArrowRight color="#fff" size={16} />
             </LinearGradient>
           </Pressable>
@@ -679,7 +679,7 @@ export const FireCeremonyScreen = ({ navigation }: any) => {
               <Pressable onPress={() => setCeremonyActive(false)} style={styles.backBtn}>
                 <X color={ACCENT_LIGHT} size={22} />
               </Pressable>
-              <Text style={styles.ceremonyTitle}>CEREMONIA OGNIA</Text>
+              <Text style={styles.ceremonyTitle}>{t('fireCeremony.ceremonia_ognia', 'CEREMONIA OGNIA')}</Text>
               <Text style={styles.ceremonyCounter}>{activeStepIdx + 1} / {RITUAL_STEPS.length}</Text>
             </View>
 
@@ -703,8 +703,8 @@ export const FireCeremonyScreen = ({ navigation }: any) => {
                   style={styles.ctaGradient}
                 >
                   {activeStepIdx < RITUAL_STEPS.length - 1
-                    ? <><Text style={styles.ctaText}>NASTĘPNY KROK</Text><ArrowRight color="#fff" size={16} /></>
-                    : <><Check color="#fff" size={18} /><Text style={styles.ctaText}>ZAKOŃCZ CEREMONIĘ</Text></>}
+                    ? <><Text style={styles.ctaText}>{t('fireCeremony.nastepny_krok', 'NASTĘPNY KROK')}</Text><ArrowRight color="#fff" size={16} /></>
+                    : <><Check color="#fff" size={18} /><Text style={styles.ctaText}>{t('fireCeremony.zakoncz_ceremonie', 'ZAKOŃCZ CEREMONIĘ')}</Text></>}
                 </LinearGradient>
               </Pressable>
             </View>

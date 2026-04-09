@@ -218,7 +218,7 @@ const GoldenSpiralWidget = ({ accent }: { accent: string }) => {
         </Animated.View>
       </GestureDetector>
       <Typography variant="microLabel" style={{ color: accent, opacity: 0.7, letterSpacing: 2, marginTop: 4 }}>
-        SPIRALA ZŁOTEGO PROPORCJI
+        {t('manifestation.spirala_zlotego_proporcji', 'SPIRALA ZŁOTEGO PROPORCJI')}
       </Typography>
     </View>
   );
@@ -538,8 +538,8 @@ export default function ManifestationScreen({ navigation }: any) {
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
         <View style={{ flex: 1 }}>
-          <Typography variant="microLabel" style={{ color: accent, letterSpacing: 2 }}>ŚWIAT MANIFESTACJI</Typography>
-          <Typography variant="title3" style={{ color: textColor, fontWeight: '700' }}>Manifestacja</Typography>
+          <Typography variant="microLabel" style={{ color: accent, letterSpacing: 2 }}>{t('manifestation.swiat_manifestac', 'ŚWIAT MANIFESTACJI')}</Typography>
+          <Typography variant="title3" style={{ color: textColor, fontWeight: '700' }}>{t('manifestation.manifestac', 'Manifestacja')}</Typography>
         </View>
         <Pressable onPress={toggleFav} style={styles.headerBtn} hitSlop={8}>
           <Star size={20} color={isFav ? accent : subColor} fill={isFav ? accent : 'none'} />
@@ -581,7 +581,7 @@ export default function ManifestationScreen({ navigation }: any) {
                   </View>
                 </View>
                 <View style={{ flex: 1, gap: 4 }}>
-                  <Typography variant="microLabel" style={{ color: accent, letterSpacing: 2 }}>NÓW KSIĘŻYCA ZA</Typography>
+                  <Typography variant="microLabel" style={{ color: accent, letterSpacing: 2 }}>{t('manifestation.now_ksiezyca_za', 'NÓW KSIĘŻYCA ZA')}</Typography>
                   <Typography variant="title3" style={{ color: textColor, fontWeight: '700' }}>
                     {daysToNewMoon} {daysToNewMoon === 1 ? 'dzień' : daysToNewMoon < 5 ? 'dni' : 'dni'}
                   </Typography>
@@ -607,7 +607,7 @@ export default function ManifestationScreen({ navigation }: any) {
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 }}>
                 <Moon size={16} color={accent} />
                 <Typography variant="microLabel" style={{ color: accent, letterSpacing: 2 }}>
-                  MANIFESTACJA W TEJ FAZIE
+                  {t('manifestation.manifestac_w_tej_fazie', 'MANIFESTACJA W TEJ FAZIE')}
                 </Typography>
               </View>
               <Typography variant="body1" style={{ color: textColor, lineHeight: 22 }}>
@@ -621,11 +621,11 @@ export default function ManifestationScreen({ navigation }: any) {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
               <Sparkles size={16} color={accent} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>
-                TABLICA INTENCJI
+                {t('manifestation.tablica_intencji', 'TABLICA INTENCJI')}
               </Typography>
             </View>
             <Typography variant="body2" style={{ color: subColor, marginBottom: 12, lineHeight: 18 }}>
-              Wpisz trzy intencje na dziś. Wybierz symbol energii dla każdej z nich.
+              {t('manifestation.wpisz_trzy_intencje_na_dzis', 'Wpisz trzy intencje na dziś. Wybierz symbol energii dla każdej z nich.')}
             </Typography>
             {intents.map((intent, idx) => (
               <View key={idx} style={[styles.intentRow, { backgroundColor: cardBg, borderColor: cardBorder }]}>
@@ -670,7 +670,7 @@ export default function ManifestationScreen({ navigation }: any) {
               onPress={() => {
                 const filled = intents.filter(i => i.text.trim()).length;
                 if (filled === 0) {
-                  Alert.alert('Brak intencji', 'Wpisz przynajmniej jedną intencję, aby ją zatwierdzić.');
+                  Alert.alert(t('manifestation.brak_intencji', 'Brak intencji'), t('manifestation.wpisz_przynajmni_jedna_intencje_aby', 'Wpisz przynajmniej jedną intencję, aby ją zatwierdzić.'));
                   return;
                 }
                 HapticsService.notify();
@@ -680,7 +680,7 @@ export default function ManifestationScreen({ navigation }: any) {
             >
               <CheckCircle2 size={16} color="#fff" />
               <Typography variant="label" style={{ color: '#fff', fontWeight: '700', marginLeft: 6 }}>
-                Zatwierdź Intencje
+                {t('manifestation.zatwierdz_intencje', 'Zatwierdź Intencje')}
               </Typography>
             </Pressable>
           </Animated.View>
@@ -690,7 +690,7 @@ export default function ManifestationScreen({ navigation }: any) {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 24, marginBottom: 12 }}>
               <Wand2 size={16} color={accent} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>
-                TECHNIKI PISANIA
+                {t('manifestation.techniki_pisania', 'TECHNIKI PISANIA')}
               </Typography>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -layout.padding.screen }}>
@@ -714,7 +714,7 @@ export default function ManifestationScreen({ navigation }: any) {
                       style={[styles.techBtn, { backgroundColor: tech.color + '22', borderColor: tech.color + '55' }]}
                     >
                       <Typography variant="label" style={{ color: tech.color, fontWeight: '700' }}>
-                        Zacznij teraz →
+                        {t('manifestation.zacznij_teraz', 'Zacznij teraz →')}
                       </Typography>
                     </Pressable>
                   </View>
@@ -735,7 +735,7 @@ export default function ManifestationScreen({ navigation }: any) {
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 }}>
                 <Sun size={16} color={accent} />
                 <Typography variant="microLabel" style={{ color: accent, letterSpacing: 2 }}>
-                  AFIRMACJA OBFITOŚCI DNIA
+                  {t('manifestation.afirmacja_obfitosci_dnia', 'AFIRMACJA OBFITOŚCI DNIA')}
                 </Typography>
               </View>
               <Typography
@@ -757,7 +757,7 @@ export default function ManifestationScreen({ navigation }: any) {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 24, marginBottom: 12 }}>
               <Heart size={16} color={accent} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>
-                PRZEWODNIK WIZUALIZACJI
+                {t('manifestation.przewodnik_wizualizac', 'PRZEWODNIK WIZUALIZACJI')}
               </Typography>
             </View>
             {VISUALIZATION_STEPS.map((step, idx) => (
@@ -809,17 +809,17 @@ export default function ManifestationScreen({ navigation }: any) {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 24, marginBottom: 12 }}>
               <BookOpen size={16} color={accent} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>
-                DZIENNIK MANIFESTACJI
+                {t('manifestation.dziennik_manifestac', 'DZIENNIK MANIFESTACJI')}
               </Typography>
             </View>
             <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <Typography variant="body2" style={{ color: subColor, marginBottom: 8, lineHeight: 18 }}>
-                Zapisz co dziś zamanifestowałaś lub co chcesz przyciągnąć. Bądź konkretna i wdzięczna.
+                {t('manifestation.zapisz_co_dzis_zamanifest_lub', 'Zapisz co dziś zamanifestowałaś lub co chcesz przyciągnąć. Bądź konkretna i wdzięczna.')}
               </Typography>
               <TextInput
                 value={journalText}
                 onChangeText={setJournalText}
-                placeholder="Co manifestujesz w swoim życiu?..."
+                placeholder={t('manifestation.co_manifestuj_w_swoim_zyciu', 'Co manifestujesz w swoim życiu?...')}
                 placeholderTextColor={subColor + '88'}
                 style={[styles.journalInput, {
                   color: textColor,
@@ -835,14 +835,14 @@ export default function ManifestationScreen({ navigation }: any) {
               >
                 <CheckCircle2 size={15} color="#fff" />
                 <Typography variant="label" style={{ color: '#fff', fontWeight: '700', marginLeft: 6 }}>
-                  Zapisz Wpis
+                  {t('manifestation.zapisz_wpis', 'Zapisz Wpis')}
                 </Typography>
               </Pressable>
             </View>
             {journalEntries.length > 0 && (
               <View style={{ marginTop: 12, gap: 8 }}>
                 <Typography variant="microLabel" style={{ color: subColor, letterSpacing: 1.5 }}>
-                  OSTATNIE WPISY
+                  {t('manifestation.ostatnie_wpisy', 'OSTATNIE WPISY')}
                 </Typography>
                 {journalEntries.map((entry, idx) => (
                   <Animated.View
@@ -867,7 +867,7 @@ export default function ManifestationScreen({ navigation }: any) {
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 24, marginBottom: 12 }}>
               <Zap size={16} color={accent} />
               <Typography variant="label" style={{ color: textColor, fontWeight: '700' }}>
-                WYROCZNIA MANIFESTACJI
+                {t('manifestation.wyrocznia_manifestac', 'WYROCZNIA MANIFESTACJI')}
               </Typography>
             </View>
             <View style={[styles.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
@@ -889,7 +889,7 @@ export default function ManifestationScreen({ navigation }: any) {
               <TextInput
                 value={oracleInput}
                 onChangeText={setOracleInput}
-                placeholder="Zadaj pytanie Wyroczni Manifestacji..."
+                placeholder={t('manifestation.zadaj_pytanie_wyroczni_manifestac', 'Zadaj pytanie Wyroczni Manifestacji...')}
                 placeholderTextColor={subColor + '88'}
                 style={[styles.oracleInput, {
                   color: textColor,
@@ -920,7 +920,7 @@ export default function ManifestationScreen({ navigation }: any) {
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8 }}>
                     <Sparkles size={13} color={accent} />
                     <Typography variant="microLabel" style={{ color: accent, letterSpacing: 1.5 }}>
-                      ODPOWIEDŹ WYROCZNI
+                      {t('manifestation.odpowiedz_wyroczni', 'ODPOWIEDŹ WYROCZNI')}
                     </Typography>
                   </View>
                   <Typography variant="body2" style={{ color: textColor, lineHeight: 22 }}>
@@ -974,7 +974,7 @@ export default function ManifestationScreen({ navigation }: any) {
               onPress={() => {
                 if (!techniqueText.trim()) return;
                 HapticsService.notify();
-                Alert.alert('✨ Zapisano', 'Twoja praktyka pisania została zarejestrowana. Kontynuuj tę technikę regularnie, aby zamanifestować swoje pragnienia.');
+                Alert.alert(t('manifestation.zapisano', '✨ Zapisano'), t('manifestation.twoja_praktyka_pisania_zostala_zare', 'Twoja praktyka pisania została zarejestrowana. Kontynuuj tę technikę regularnie, aby zamanifestować swoje pragnienia.'));
                 setActiveTechnique(null);
                 setTechniqueText('');
               }}
@@ -982,7 +982,7 @@ export default function ManifestationScreen({ navigation }: any) {
             >
               <CheckCircle2 size={15} color="#fff" />
               <Typography variant="label" style={{ color: '#fff', fontWeight: '700', marginLeft: 6 }}>
-                Zapisz Praktykę
+                {t('manifestation.zapisz_praktyke', 'Zapisz Praktykę')}
               </Typography>
             </Pressable>
           </View>

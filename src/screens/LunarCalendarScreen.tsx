@@ -927,8 +927,8 @@ return (
             <ChevronLeft color={ACCENT} size={26} strokeWidth={1.6} />
           </Pressable>
           <View style={lc.headerCenter}>
-            <Typography variant="premiumLabel" color={ACCENT}>Horoskop</Typography>
-            <Typography variant="screenTitle" style={{ marginTop: 3 }}>Kalendarz Księżycowy</Typography>
+            <Typography variant="premiumLabel" color={ACCENT}>{t('lunar.horoskop', 'Horoskop')}</Typography>
+            <Typography variant="screenTitle" style={{ marginTop: 3 }}>{t('lunar.kalendarz_ksiezycowy', 'Kalendarz Księżycowy')}</Typography>
           </View>
           <Pressable
             onPress={() => { if (isFavoriteItem('lunar_calendar')) { removeFavoriteItem('lunar_calendar'); } else { addFavoriteItem({ id: 'lunar_calendar', label: 'Kalendarz Księżyca', route: 'LunarCalendar', params: {}, icon: 'Star', color: ACCENT, addedAt: new Date().toISOString() }); } }}
@@ -1033,7 +1033,7 @@ return (
               </View>
               <Text style={[lc.dayDetailDesc, { color: subColor }]}>{selectedPhaseEnergy.desc}</Text>
               <View style={[lc.activityBox, { backgroundColor: cardBg }]}>
-                <Text style={[lc.activityLabel, { color: ACCENT }]}>POLECANA AKTYWNOŚĆ</Text>
+                <Text style={[lc.activityLabel, { color: ACCENT }]}>{t('lunar.polecana_aktywnosc', 'POLECANA AKTYWNOŚĆ')}</Text>
                 <Text style={[lc.activityText, { color: textColor }]}>{selectedPhaseEnergy.activity}</Text>
               </View>
               {(selectedIsNew || selectedIsFull) && (
@@ -1051,7 +1051,7 @@ return (
           {/* MONTH INTENTIONS */}
           {monthIntentions.length > 0 && (
             <Animated.View entering={FadeInDown.delay(200).duration(500)}>
-              <Text style={[lc.sectionTitle, { color: subColor, marginHorizontal: layout.padding.screen }]}>INTENCJE MIESIĄCA</Text>
+              <Text style={[lc.sectionTitle, { color: subColor, marginHorizontal: layout.padding.screen }]}>{t('lunar.intencje_miesiaca', 'INTENCJE MIESIĄCA')}</Text>
               {monthIntentions.map((intent, i) => (
                 <View key={i} style={[lc.intentCard, { backgroundColor: cardBg, borderColor: (intent.type === 'new_moon' ? '#A78BFA' : '#FBBF24') + '33', marginHorizontal: layout.padding.screen }]}>
                   <Text style={[lc.intentType, { color: intent.type === 'new_moon' ? '#A78BFA' : '#FBBF24' }]}>
@@ -1065,7 +1065,7 @@ return (
 
           {/* RYTM LUNARNY — 4-phase grid */}
           <Animated.View entering={FadeInDown.delay(260).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 20 }}>
-            <Text style={[lc.sectionTitle, { color: subColor }]}>🌊 RYTM LUNARNY</Text>
+            <Text style={[lc.sectionTitle, { color: subColor }]}>{t('lunar.rytm_lunarny', '🌊 RYTM LUNARNY')}</Text>
             <View style={lc.rhythmGrid}>
               {LUNAR_RHYTHM_PHASES.map((phase, i) => (
                 <View key={i} style={[lc.rhythmCard, { backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.05)', borderColor: phase.color + '33' }]}>
@@ -1081,8 +1081,8 @@ return (
 
           {/* ── RYTM LUNARNY 13 KSIĘŻYCÓW ── */}
           <Animated.View entering={FadeInDown.delay(280).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[lc.sectionTitle, { color: subColor }]}>🌿 RYTM LUNARNY 13 KSIĘŻYCÓW</Text>
-            <Text style={[lc.sectionDesc, { color: subColor }]}>Tradycja celtycka i rdzenna dzieli rok na 13 cykli księżycowych. Każdy księżyc nosi imię drzewa lub symbolu i przynosi własną energię.</Text>
+            <Text style={[lc.sectionTitle, { color: subColor }]}>{t('lunar.rytm_lunarny_13_ksiezycow', '🌿 RYTM LUNARNY 13 KSIĘŻYCÓW')}</Text>
+            <Text style={[lc.sectionDesc, { color: subColor }]}>{t('lunar.tradycja_celtycka_i_rdzenna_dzieli', 'Tradycja celtycka i rdzenna dzieli rok na 13 cykli księżycowych. Każdy księżyc nosi imię drzewa lub symbolu i przynosi własną energię.')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10, paddingBottom: 4 }}>
               {THIRTEEN_MOONS.map((moon, i) => {
                 const isActive = activeMoonNum === moon.num;
@@ -1148,8 +1148,8 @@ return (
 
           {/* ── FAZY I DZIAŁANIA ── */}
           <Animated.View entering={FadeInDown.delay(300).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[lc.sectionTitle, { color: subColor }]}>✦ FAZY I DZIAŁANIA</Text>
-            <Text style={[lc.sectionDesc, { color: subColor }]}>Co robić w każdej z 8 faz księżyca. Dotknij fazy, aby rozwinąć konkretne wskazówki.</Text>
+            <Text style={[lc.sectionTitle, { color: subColor }]}>{t('lunar.fazy_i_dzialania', '✦ FAZY I DZIAŁANIA')}</Text>
+            <Text style={[lc.sectionDesc, { color: subColor }]}>{t('lunar.co_robic_w_kazdej_z', 'Co robić w każdej z 8 faz księżyca. Dotknij fazy, aby rozwinąć konkretne wskazówki.')}</Text>
             {PHASE_GUIDE.map((pg, i) => {
               const isOpen = expandedPhaseGuide === pg.name;
                 const fetchLunarAi = async () => {
@@ -1205,8 +1205,8 @@ return (
 
           {/* ── EKLIPSY I PORTALE ── */}
           <Animated.View entering={FadeInDown.delay(320).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[lc.sectionTitle, { color: subColor }]}>⚡ EKLIPSY I PORTALE</Text>
-            <Text style={[lc.sectionDesc, { color: subColor }]}>Następne zaćmienia i ich energia rytualna. Portale zaćmień przyspieszają zmiany — warto być świadomą.</Text>
+            <Text style={[lc.sectionTitle, { color: subColor }]}>{t('lunar.eklipsy_i_portale', '⚡ EKLIPSY I PORTALE')}</Text>
+            <Text style={[lc.sectionDesc, { color: subColor }]}>{t('lunar.nastepne_zacmienia_i_ich_energia', 'Następne zaćmienia i ich energia rytualna. Portale zaćmień przyspieszają zmiany — warto być świadomą.')}</Text>
             {ECLIPSES.map((eclipse, i) => (
               <Animated.View key={i} entering={FadeInDown.delay(340 + i * 60).duration(400)}
                 style={[lc.eclipseCard, { backgroundColor: eclipse.color + '12', borderColor: eclipse.color + '40' }]}>
@@ -1234,8 +1234,8 @@ return (
 
           {/* ── WPŁYW NA ZODIAKI ── */}
           <Animated.View entering={FadeInDown.delay(360).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[lc.sectionTitle, { color: subColor }]}>♾ WPŁYW NA ŻYWIOŁY</Text>
-            <Text style={[lc.sectionDesc, { color: subColor }]}>Jak księżyc w danym żywiole wpływa na Ciebie — i jakie rytuały są wtedy najbardziej skuteczne.</Text>
+            <Text style={[lc.sectionTitle, { color: subColor }]}>{t('lunar.wplyw_na_zywioly', '♾ WPŁYW NA ŻYWIOŁY')}</Text>
+            <Text style={[lc.sectionDesc, { color: subColor }]}>{t('lunar.jak_ksiezyc_w_danym_zywiole', 'Jak księżyc w danym żywiole wpływa na Ciebie — i jakie rytuały są wtedy najbardziej skuteczne.')}</Text>
             <View style={lc.elementTabs}>
               {(['Ogień', 'Ziemia', 'Powietrze', 'Woda'] as const).map((el) => {
                 const elData = MOON_SIGN_ELEMENT_GUIDE[el];
@@ -1274,15 +1274,15 @@ return (
               <Text style={[lc.elementDetailSigns, { color: subColor }]}>{elementData.signs}</Text>
               <Text style={[lc.elementDetailEffect, { color: textColor }]}>{elementData.effect}</Text>
               <View style={[lc.elementCaution, { backgroundColor: elementData.color + '14', borderColor: elementData.color + '33' }]}>
-                <Text style={[lc.elementCautionLabel, { color: elementData.color }]}>UWAGA</Text>
+                <Text style={[lc.elementCautionLabel, { color: elementData.color }]}>{t('lunar.uwaga', 'UWAGA')}</Text>
                 <Text style={[lc.elementCautionText, { color: textColor }]}>{elementData.caution}</Text>
               </View>
               <View style={[lc.elementRitualBox, { backgroundColor: cardBg }]}>
-                <Text style={[lc.elementRitualLabel, { color: elementData.color }]}>RYTUAŁ ŻYWIOŁU</Text>
+                <Text style={[lc.elementRitualLabel, { color: elementData.color }]}>{t('lunar.rytual_zywiolu', 'RYTUAŁ ŻYWIOŁU')}</Text>
                 <Text style={[lc.elementRitualText, { color: textColor }]}>{elementData.ritual}</Text>
               </View>
               <View style={{ marginTop: 12 }}>
-                <Text style={[lc.elementBestLabel, { color: subColor }]}>NAJLEPSZE DLA</Text>
+                <Text style={[lc.elementBestLabel, { color: subColor }]}>{t('lunar.najlepsze_dla', 'NAJLEPSZE DLA')}</Text>
                 <View style={lc.elementBestRow}>
                   {elementData.bestFor.map((item, j) => (
                     <View key={j} style={[lc.elementBestChip, { backgroundColor: elementData.color + '18', borderColor: elementData.color + '33' }]}>
@@ -1296,7 +1296,7 @@ return (
 
           {/* ── MEDYTACJA LUNARNA ── */}
           <Animated.View entering={FadeInDown.delay(390).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[lc.sectionTitle, { color: subColor }]}>🌙 MEDYTACJA LUNARNA</Text>
+            <Text style={[lc.sectionTitle, { color: subColor }]}>{t('lunar.medytacja_lunarna', '🌙 MEDYTACJA LUNARNA')}</Text>
             <Text style={[lc.sectionDesc, { color: subColor }]}>Przewodnik medytacyjny dostosowany do dzisiejszej fazy księżyca: {phaseIcon(todayPhase)} {todayPhaseName}</Text>
             <View style={[lc.medCard, { backgroundColor: ACCENT + '10', borderColor: ACCENT + '33' }]}>
               <LinearGradient colors={[ACCENT + '18', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
@@ -1320,15 +1320,15 @@ return (
                 style={[lc.medCta, { backgroundColor: ACCENT }]}
               >
                 <Moon color="#fff" size={15} strokeWidth={2} />
-                <Text style={lc.medCtaText}>Otwórz ekran medytacji</Text>
+                <Text style={lc.medCtaText}>{t('lunar.otworz_ekran_medytacji', 'Otwórz ekran medytacji')}</Text>
               </Pressable>
             </View>
           </Animated.View>
 
           {/* ── RYTUAŁY KOLEKTYWNE ── */}
           <Animated.View entering={FadeInDown.delay(420).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[lc.sectionTitle, { color: subColor }]}>👥 RYTUAŁY KOLEKTYWNE</Text>
-            <Text style={[lc.sectionDesc, { color: subColor }]}>Rytuały przeznaczone do praktykowania w grupie — z rodziną, przyjaciółmi lub kręgiem duchowym.</Text>
+            <Text style={[lc.sectionTitle, { color: subColor }]}>{t('lunar.rytualy_kolektywne', '👥 RYTUAŁY KOLEKTYWNE')}</Text>
+            <Text style={[lc.sectionDesc, { color: subColor }]}>{t('lunar.rytualy_przeznaczo_do_praktykowa_w', 'Rytuały przeznaczone do praktykowania w grupie — z rodziną, przyjaciółmi lub kręgiem duchowym.')}</Text>
             {COLLECTIVE_RITUALS.map((ritual, i) => {
               const isOpen = expandedCollective === i;
                 const fetchLunarAi = async () => {
@@ -1365,7 +1365,7 @@ return (
                   {isOpen && (
                     <View style={[lc.collectiveBody, { backgroundColor: ritual.color + '0C', borderColor: ritual.color + '22' }]}>
                       <Text style={[lc.collectiveDesc, { color: textColor }]}>{ritual.desc}</Text>
-                      <Text style={[lc.collectiveStepsLabel, { color: ritual.color }]}>PRZEBIEG RYTUAŁU</Text>
+                      <Text style={[lc.collectiveStepsLabel, { color: ritual.color }]}>{t('lunar.przebieg_rytualu', 'PRZEBIEG RYTUAŁU')}</Text>
                       {ritual.steps.map((step, j) => (
                         <View key={j} style={[lc.collectiveStep, j > 0 && { borderTopWidth: 1, borderTopColor: ritual.color + '18' }]}>
                           <View style={[lc.collectiveStepNum, { backgroundColor: ritual.color + '22' }]}>
@@ -1383,7 +1383,7 @@ return (
 
           {/* ── DZISIEJSZY KSIĘŻYC — HERO ── */}
           <Animated.View entering={FadeInDown.delay(430).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[lc.sectionTitle, { color: subColor }]}>🌕 DZISIEJSZY KSIĘŻYC</Text>
+            <Text style={[lc.sectionTitle, { color: subColor }]}>{t('lunar.dzisiejszy_ksiezyc', '🌕 DZISIEJSZY KSIĘŻYC')}</Text>
             <View style={[lc.heroMoonCard, { backgroundColor: ACCENT + '0E', borderColor: ACCENT + '30' }]}>
               <LinearGradient colors={[ACCENT + '1A', 'transparent', '#4F46E520']} style={StyleSheet.absoluteFillObject as any} />
               <View style={lc.heroMoonRow}>
@@ -1423,7 +1423,7 @@ return (
               </View>
               {/* Energy bar */}
               <View style={lc.heroEnergyBar}>
-                <Text style={[lc.heroEnergyLabel, { color: subColor }]}>ENERGIA CYKLU</Text>
+                <Text style={[lc.heroEnergyLabel, { color: subColor }]}>{t('lunar.energia_cyklu', 'ENERGIA CYKLU')}</Text>
                 <View style={[lc.heroEnergyTrack, { backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.08)' }]}>
                   <View style={[lc.heroEnergyFill, { width: `${todayIllumination}%` as any, backgroundColor: ACCENT }]} />
                 </View>
@@ -1438,13 +1438,13 @@ return (
               onPress={() => { void HapticsService.selection(); setShowEncyclopedia(v => !v); }}
               style={[lc.sectionToggleHeader, { backgroundColor: cardBg, borderColor: cardBorder }]}
             >
-              <Text style={[lc.sectionTitle, { color: subColor, marginBottom: 0 }]}>📚 ENCYKLOPEDIA 8 FAZ</Text>
+              <Text style={[lc.sectionTitle, { color: subColor, marginBottom: 0 }]}>{t('lunar.encykloped_8_faz', '📚 ENCYKLOPEDIA 8 FAZ')}</Text>
               <ChevronRight color={subColor} size={16} strokeWidth={1.8}
                 style={{ transform: [{ rotate: showEncyclopedia ? '90deg' : '0deg' }] }} />
             </Pressable>
             {showEncyclopedia && (
               <View style={{ marginTop: 8 }}>
-                <Text style={[lc.sectionDesc, { color: subColor }]}>Pełny przewodnik po 8 fazach księżyca — ich energia, co zaczynać, czego unikać i jak każda z nich wpływa na Twoje życie duchowe.</Text>
+                <Text style={[lc.sectionDesc, { color: subColor }]}>{t('lunar.pelny_przewodnik_po_8_fazach', 'Pełny przewodnik po 8 fazach księżyca — ich energia, co zaczynać, czego unikać i jak każda z nich wpływa na Twoje życie duchowe.')}</Text>
                 {[
                   { icon: '🌑', name: 'Nów', color: '#8B5CF6', polishName: 'Nowy Księżyc', energy: 'Ciemność, potencjał, cisza, intencje', start: 'Nowe projekty, marzenia, pragnienia serca, medytacje głębi', avoid: 'Wielkie decyzje, konflikty, nadmierna aktywność', moonGift: 'Dar ciszy — w jej wnętrzu mieszkają wszystkie możliwości.', emotionalKey: 'Wyciszenie, głęboki spokój, łączność z własną duszą', sacredAct: 'Napisz jedną intencję na całe 29 dni. Nie planuj — słuchaj.' },
                   { icon: '🌒', name: 'Sierp rosnący', color: '#7C3AED', polishName: 'Sierp Rosnący', energy: 'Budzenie, nadzieja, pierwsze kroki', start: 'Pierwsze działania, networking, zaczynanie nauki', avoid: 'Zniechęcania się, jeśli efekty są powolne', moonGift: 'Dar nadziei — nawet mały kiełek jest oznaką życia.', emotionalKey: 'Ciekawość, entuzjazm, lekki niepokój', sacredAct: 'Zrób jeden konkretny krok. Małość nie obniża jego wartości.' },
@@ -1491,16 +1491,16 @@ return (
                           </View>
                           <View style={lc.encRow}>
                             <View style={[lc.encCol, { backgroundColor: '#22C55E11', borderColor: '#22C55E22' }]}>
-                              <Text style={[lc.encColLabel, { color: '#22C55E' }]}>ZACZYNAJ</Text>
+                              <Text style={[lc.encColLabel, { color: '#22C55E' }]}>{t('lunar.zaczynaj', 'ZACZYNAJ')}</Text>
                               <Text style={[lc.encColText, { color: textColor }]}>{ph.start}</Text>
                             </View>
                             <View style={[lc.encCol, { backgroundColor: '#EF444411', borderColor: '#EF444422' }]}>
-                              <Text style={[lc.encColLabel, { color: '#EF4444' }]}>UNIKAJ</Text>
+                              <Text style={[lc.encColLabel, { color: '#EF4444' }]}>{t('lunar.unikaj', 'UNIKAJ')}</Text>
                               <Text style={[lc.encColText, { color: textColor }]}>{ph.avoid}</Text>
                             </View>
                           </View>
                           <View style={[lc.encEmotionBox, { backgroundColor: cardBg }]}>
-                            <Text style={[lc.encEmotionLabel, { color: ph.color }]}>EMOCJONALNY KLUCZ</Text>
+                            <Text style={[lc.encEmotionLabel, { color: ph.color }]}>{t('lunar.emocjonaln_klucz', 'EMOCJONALNY KLUCZ')}</Text>
                             <Text style={[lc.encEmotionText, { color: textColor }]}>{ph.emotionalKey}</Text>
                           </View>
                           <View style={[lc.encSacredBox, { backgroundColor: ph.color + '12', borderColor: ph.color + '28' }]}>
@@ -1518,7 +1518,7 @@ return (
 
           {/* ── KSIĘŻYC W ZNAKU ZODIAKU ── */}
           <Animated.View entering={FadeInDown.delay(450).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[lc.sectionTitle, { color: subColor }]}>♾ KSIĘŻYC W ZNAKU ZODIAKU</Text>
+            <Text style={[lc.sectionTitle, { color: subColor }]}>{t('lunar.ksiezyc_w_znaku_zodiaku', '♾ KSIĘŻYC W ZNAKU ZODIAKU')}</Text>
             <View style={[lc.zodiacMoonCard, { backgroundColor: todayMoonSign.color + '10', borderColor: todayMoonSign.color + '33' }]}>
               <LinearGradient colors={[todayMoonSign.color + '1A', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
               <View style={lc.zodiacMoonHeader}>
@@ -1528,7 +1528,7 @@ return (
                   <Text style={[lc.zodiacMoonElement, { color: subColor }]}>{todayMoonSign.element}</Text>
                 </View>
                 <View style={{ flex: 1, paddingLeft: 14 }}>
-                  <Text style={[lc.zodiacMoonTitle, { color: textColor }]}>Księżyc jest dziś w znaku</Text>
+                  <Text style={[lc.zodiacMoonTitle, { color: textColor }]}>{t('lunar.ksiezyc_jest_dzis_w_znaku', 'Księżyc jest dziś w znaku')}</Text>
                   <Text style={[lc.zodiacMoonSignName, { color: todayMoonSign.color }]}>{todayMoonSign.name}</Text>
                   <Text style={[lc.zodiacMoonElementText, { color: subColor }]}>Żywioł: {todayMoonSign.element}</Text>
                 </View>
@@ -1537,11 +1537,11 @@ return (
                 <>
                   <Text style={[lc.zodiacMoonEmotionText, { color: textColor }]}>{moonSignEmotional.emotion}</Text>
                   <View style={[lc.zodiacMoonBox, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.05)' }]}>
-                    <Text style={[lc.zodiacMoonBoxLabel, { color: todayMoonSign.color }]}>WSKAZÓWKA DNIA</Text>
+                    <Text style={[lc.zodiacMoonBoxLabel, { color: todayMoonSign.color }]}>{t('lunar.wskazowka_dnia', 'WSKAZÓWKA DNIA')}</Text>
                     <Text style={[lc.zodiacMoonBoxText, { color: textColor }]}>{moonSignEmotional.guidance}</Text>
                   </View>
                   <View style={[lc.zodiacMoonBox, { backgroundColor: '#EF444412', marginTop: 8 }]}>
-                    <Text style={[lc.zodiacMoonBoxLabel, { color: '#EF4444' }]}>UWAŻAJ NA</Text>
+                    <Text style={[lc.zodiacMoonBoxLabel, { color: '#EF4444' }]}>{t('lunar.uwazaj_na', 'UWAŻAJ NA')}</Text>
                     <Text style={[lc.zodiacMoonBoxText, { color: textColor }]}>{moonSignEmotional.avoid}</Text>
                   </View>
                   <View style={[lc.zodiacAffBox, { backgroundColor: todayMoonSign.color + '14', borderColor: todayMoonSign.color + '33' }]}>
@@ -1554,8 +1554,8 @@ return (
 
           {/* ── OGRODNICTWO BIODYNAMICZNE ── */}
           <Animated.View entering={FadeInDown.delay(460).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[lc.sectionTitle, { color: subColor }]}>🌱 OGRODNICTWO BIODYNAMICZNE</Text>
-            <Text style={[lc.sectionDesc, { color: subColor }]}>Księżyc wpływa na rośliny tak samo, jak na oceany. Biodynamiczny kalendarz ogrodniczy pomoże Ci sadzi, zbierać i pielęgnować w rytmie natury.</Text>
+            <Text style={[lc.sectionTitle, { color: subColor }]}>{t('lunar.ogrodnictw_biodynamic', '🌱 OGRODNICTWO BIODYNAMICZNE')}</Text>
+            <Text style={[lc.sectionDesc, { color: subColor }]}>{t('lunar.ksiezyc_wplywa_na_rosliny_tak', 'Księżyc wpływa na rośliny tak samo, jak na oceany. Biodynamiczny kalendarz ogrodniczy pomoże Ci sadzi, zbierać i pielęgnować w rytmie natury.')}</Text>
             {PLANTING_PHASES.map((pp, i) => {
               const isOpen = expandedPlantPhase === pp.phase;
                 const fetchLunarAi = async () => {
@@ -1591,27 +1591,27 @@ return (
                       <View style={lc.plantGrid}>
                         <View style={[lc.plantCell, { backgroundColor: '#22C55E10', borderColor: '#22C55E20' }]}>
                           <Text style={[lc.plantCellIcon]}>🌱</Text>
-                          <Text style={[lc.plantCellLabel, { color: '#22C55E' }]}>SADZENIE</Text>
+                          <Text style={[lc.plantCellLabel, { color: '#22C55E' }]}>{t('lunar.sadzenie', 'SADZENIE')}</Text>
                           <Text style={[lc.plantCellText, { color: textColor }]}>{pp.plant}</Text>
                         </View>
                         <View style={[lc.plantCell, { backgroundColor: '#F59E0B10', borderColor: '#F59E0B20' }]}>
                           <Text style={[lc.plantCellIcon]}>🌾</Text>
-                          <Text style={[lc.plantCellLabel, { color: '#F59E0B' }]}>ZBIORY</Text>
+                          <Text style={[lc.plantCellLabel, { color: '#F59E0B' }]}>{t('lunar.zbiory', 'ZBIORY')}</Text>
                           <Text style={[lc.plantCellText, { color: textColor }]}>{pp.harvest}</Text>
                         </View>
                         <View style={[lc.plantCell, { backgroundColor: '#3B82F610', borderColor: '#3B82F620' }]}>
                           <Text style={[lc.plantCellIcon]}>💧</Text>
-                          <Text style={[lc.plantCellLabel, { color: '#3B82F6' }]}>PODLEWANIE</Text>
+                          <Text style={[lc.plantCellLabel, { color: '#3B82F6' }]}>{t('lunar.podlewanie', 'PODLEWANIE')}</Text>
                           <Text style={[lc.plantCellText, { color: textColor }]}>{pp.water}</Text>
                         </View>
                         <View style={[lc.plantCell, { backgroundColor: '#EF444410', borderColor: '#EF444420' }]}>
                           <Text style={[lc.plantCellIcon]}>🚫</Text>
-                          <Text style={[lc.plantCellLabel, { color: '#EF4444' }]}>UNIKAJ</Text>
+                          <Text style={[lc.plantCellLabel, { color: '#EF4444' }]}>{t('lunar.unikaj_1', 'UNIKAJ')}</Text>
                           <Text style={[lc.plantCellText, { color: textColor }]}>{pp.avoid}</Text>
                         </View>
                       </View>
                       <View style={[lc.plantBestRow]}>
-                        <Text style={[lc.plantBestLabel, { color: pp.color }]}>NAJLEPSZE ROŚLINY</Text>
+                        <Text style={[lc.plantBestLabel, { color: pp.color }]}>{t('lunar.najlepsze_rosliny', 'NAJLEPSZE ROŚLINY')}</Text>
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 6 }}>
                           {pp.bestPlants.map((plant, j) => (
                             <View key={j} style={[lc.plantChip, { backgroundColor: pp.color + '18', borderColor: pp.color + '33' }]}>
@@ -1634,8 +1634,8 @@ return (
           {/* ── OSOBISTY CYKL KSIĘŻYCOWY — NARODZINY ── */}
           {birthMoonMeaning && (
             <Animated.View entering={FadeInDown.delay(470).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 24 }}>
-              <Text style={[lc.sectionTitle, { color: subColor }]}>✨ TWÓJ KSIĘŻYC NARODZIN</Text>
-              <Text style={[lc.sectionDesc, { color: subColor }]}>Faza księżyca w dniu Twoich narodzin kształtuje Twą duszową architekturę — jak reagujesz na emocje, jakie masz dary i ścieżkę.</Text>
+              <Text style={[lc.sectionTitle, { color: subColor }]}>{t('lunar.twoj_ksiezyc_narodzin', '✨ TWÓJ KSIĘŻYC NARODZIN')}</Text>
+              <Text style={[lc.sectionDesc, { color: subColor }]}>{t('lunar.faza_ksiezyca_w_dniu_twoich', 'Faza księżyca w dniu Twoich narodzin kształtuje Twą duszową architekturę — jak reagujesz na emocje, jakie masz dary i ścieżkę.')}</Text>
               <Pressable
                 onPress={() => { void HapticsService.selection(); setShowBirthMoon(v => !v); }}
                 style={[lc.birthMoonHeader, { backgroundColor: ACCENT + '14', borderColor: ACCENT + '33' }]}
@@ -1653,7 +1653,7 @@ return (
                 <View style={[lc.birthMoonBody, { backgroundColor: ACCENT + '08', borderColor: ACCENT + '1A' }]}>
                   <Text style={[lc.birthMoonDesc, { color: textColor }]}>{birthMoonMeaning.desc}</Text>
                   <View style={[lc.birthMoonSection, { backgroundColor: '#22C55E0E', borderColor: '#22C55E20' }]}>
-                    <Text style={[lc.birthMoonSectionLabel, { color: '#22C55E' }]}>TWOJE DARY LUNARNIE</Text>
+                    <Text style={[lc.birthMoonSectionLabel, { color: '#22C55E' }]}>{t('lunar.twoje_dary_lunarnie', 'TWOJE DARY LUNARNIE')}</Text>
                     {birthMoonMeaning.gifts.map((gift, i) => (
                       <View key={i} style={lc.birthMoonGiftRow}>
                         <View style={[lc.birthMoonDot, { backgroundColor: '#22C55E' }]} />
@@ -1662,11 +1662,11 @@ return (
                     ))}
                   </View>
                   <View style={[lc.birthMoonSection, { backgroundColor: '#F59E0B0E', borderColor: '#F59E0B20', marginTop: 8 }]}>
-                    <Text style={[lc.birthMoonSectionLabel, { color: '#F59E0B' }]}>CIEŃ DO INTEGRACJI</Text>
+                    <Text style={[lc.birthMoonSectionLabel, { color: '#F59E0B' }]}>{t('lunar.cien_do_integracji', 'CIEŃ DO INTEGRACJI')}</Text>
                     <Text style={[lc.birthMoonShadowText, { color: textColor }]}>{birthMoonMeaning.shadow}</Text>
                   </View>
                   <View style={[lc.birthMoonSection, { backgroundColor: ACCENT + '10', borderColor: ACCENT + '22', marginTop: 8 }]}>
-                    <Text style={[lc.birthMoonSectionLabel, { color: ACCENT }]}>ŚCIEŻKA DUSZY</Text>
+                    <Text style={[lc.birthMoonSectionLabel, { color: ACCENT }]}>{t('lunar.sciezka_duszy', 'ŚCIEŻKA DUSZY')}</Text>
                     <Text style={[lc.birthMoonPathText, { color: textColor }]}>{birthMoonMeaning.path}</Text>
                   </View>
                 </View>
@@ -1676,8 +1676,8 @@ return (
 
           {/* ── PRZEGLĄD 3-MIESIĘCZNY ── */}
           <Animated.View entering={FadeInDown.delay(480).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[lc.sectionTitle, { color: subColor }]}>📅 INTENCJE — CYKL 3 MIESIĘCY</Text>
-            <Text style={[lc.sectionDesc, { color: subColor }]}>Planuj intencje i uwolnienia z wyprzedzeniem. Pełnia i nów w kolejnych 3 miesiącach.</Text>
+            <Text style={[lc.sectionTitle, { color: subColor }]}>{t('lunar.intencje_cykl_3_miesiecy', '📅 INTENCJE — CYKL 3 MIESIĘCY')}</Text>
+            <Text style={[lc.sectionDesc, { color: subColor }]}>{t('lunar.planuj_intencje_i_uwolnienia_z', 'Planuj intencje i uwolnienia z wyprzedzeniem. Pełnia i nów w kolejnych 3 miesiącach.')}</Text>
             {threemonthCycles.map((cycle, i) => {
               const intentionsForCycle = lunarIntentions.filter(it => {
                 const [y, m] = it.date.split('-').map(Number);
@@ -1705,7 +1705,7 @@ return (
                   <View style={lc.cycleCardHeader}>
                     <Text style={[lc.cycleCardMonth, { color: i === 0 ? ACCENT : textColor }]}>
                       {MONTH_NAMES[cycle.month]} {cycle.year}
-                      {i === 0 && <Text style={{ color: ACCENT, fontSize: 10 }}> · OBECNY</Text>}
+                      {i === 0 && <Text style={{ color: ACCENT, fontSize: 10 }}> {t('lunar.obecny', '· OBECNY')}</Text>}
                     </Text>
                     <View style={{ flexDirection: 'row', gap: 10 }}>
                       {cycle.newMoonDay > 0 && (
@@ -1728,7 +1728,7 @@ return (
                             <Text style={[lc.cycleIntentType, { color: '#A78BFA' }]}>🌑 Intencja · {it.date.slice(5)}</Text>
                             <Text style={[lc.cycleIntentText, { color: textColor }]} numberOfLines={2}>{it.text}</Text>
                           </View>
-                          <Pressable hitSlop={10} onPress={() => Alert.alert('Usuń intencję', 'Czy na pewno chcesz usunąć tę intencję?', [
+                          <Pressable hitSlop={10} onPress={() => Alert.alert(t('lunar.usun_intencje', 'Usuń intencję'), t('lunar.czy_na_pewno_chcesz_usunac', 'Czy na pewno chcesz usunąć tę intencję?'), [
                             { text: 'Anuluj', style: 'cancel' },
                             { text: 'Usuń', style: 'destructive', onPress: () => deleteLunarIntent(it.id) },
                           ])}>
@@ -1746,7 +1746,7 @@ return (
                             <Text style={[lc.cycleIntentType, { color: '#FCD34D' }]}>🌕 Uwolnienie · {it.date.slice(5)}</Text>
                             <Text style={[lc.cycleIntentText, { color: textColor }]} numberOfLines={2}>{it.text}</Text>
                           </View>
-                          <Pressable hitSlop={10} onPress={() => Alert.alert('Usuń intencję', 'Czy na pewno chcesz usunąć tę intencję?', [
+                          <Pressable hitSlop={10} onPress={() => Alert.alert(t('lunar.usun_intencje_1', 'Usuń intencję'), t('lunar.czy_na_pewno_chcesz_usunac_1', 'Czy na pewno chcesz usunąć tę intencję?'), [
                             { text: 'Anuluj', style: 'cancel' },
                             { text: 'Usuń', style: 'destructive', onPress: () => deleteLunarIntent(it.id) },
                           ])}>
@@ -1757,7 +1757,7 @@ return (
                     </View>
                   )}
                   {newMoonIntents.length === 0 && fullMoonIntents.length === 0 && (
-                    <Text style={[lc.cycleEmptyText, { color: subColor }]}>Brak zapisanych intencji. Kliknij w dzień nówu lub pełni w kalendarzu.</Text>
+                    <Text style={[lc.cycleEmptyText, { color: subColor }]}>{t('lunar.brak_zapisanych_intencji_kliknij_w', 'Brak zapisanych intencji. Kliknij w dzień nówu lub pełni w kalendarzu.')}</Text>
                   )}
                 </Animated.View>
               );
@@ -1766,8 +1766,8 @@ return (
 
           {/* ── DZIENNIK KSIĘŻYCOWY ── */}
           <Animated.View entering={FadeInDown.delay(490).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={[lc.sectionTitle, { color: subColor }]}>📓 DZIENNIK KSIĘŻYCOWY</Text>
-            <Text style={[lc.sectionDesc, { color: subColor }]}>Zapisuj stan emocjonalny w rytmie księżyca. Odkryj wzorce swoich nastrojów w cyklu 29-dniowym.</Text>
+            <Text style={[lc.sectionTitle, { color: subColor }]}>{t('lunar.dziennik_ksiezycowy', '📓 DZIENNIK KSIĘŻYCOWY')}</Text>
+            <Text style={[lc.sectionDesc, { color: subColor }]}>{t('lunar.zapisuj_stan_emocjonaln_w_rytmie', 'Zapisuj stan emocjonalny w rytmie księżyca. Odkryj wzorce swoich nastrojów w cyklu 29-dniowym.')}</Text>
             {/* Today's prompt */}
             <View style={[lc.journalTodayCard, { backgroundColor: ACCENT + '0E', borderColor: ACCENT + '28' }]}>
               <LinearGradient colors={[ACCENT + '14', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
@@ -1792,7 +1792,7 @@ return (
             {/* Past entries */}
             {savedJournalEntries.length > 0 && (
               <View style={{ marginTop: 12 }}>
-                <Text style={[lc.journalEntriesLabel, { color: subColor }]}>POPRZEDNIE WPISY</Text>
+                <Text style={[lc.journalEntriesLabel, { color: subColor }]}>{t('lunar.poprzednie_wpisy', 'POPRZEDNIE WPISY')}</Text>
                 {savedJournalEntries.slice(0, 5).map((entry, i) => (
                   <View key={i} style={[lc.journalEntryCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                     <View style={lc.journalEntryHeader}>
@@ -1814,7 +1814,7 @@ return (
 
           {/* CO DALEJ — quick links */}
           <Animated.View entering={FadeInDown.delay(460).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 24, marginBottom: 4 }}>
-            <Text style={[lc.sectionTitle, { color: subColor }]}>✦ CO DALEJ?</Text>
+            <Text style={[lc.sectionTitle, { color: subColor }]}>{t('lunar.co_dalej', '✦ CO DALEJ?')}</Text>
             {[
               {
                 icon: '✦',
@@ -1857,7 +1857,7 @@ return (
           </Animated.View>
 
                   <View style={{ marginHorizontal: 16, marginBottom: 16, borderRadius: 16, backgroundColor: "#C4B5FD22", borderWidth: 1, borderColor: "#C4B5FD", padding: 16 }}>
-          <Text style={{ color: "#C4B5FD", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>AI INTERPRETACJA KSIEZYCA</Text>
+          <Text style={{ color: "#C4B5FD", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>{t('lunar.ai_interpreta_ksiezyca', 'AI INTERPRETACJA KSIEZYCA')}</Text>
           {lunarAiInsight ? (
             <Text style={{ color: "#E5E7EB", fontSize: 14, lineHeight: 22 }}>{lunarAiInsight}</Text>
           ) : null}
@@ -1889,7 +1889,7 @@ return (
                 </View>
               )}
               {/* Emotion slider */}
-              <Text style={[lc.journalEmotionLabel, { color: subColor }]}>ENERGIA EMOCJONALNA DZIŚ</Text>
+              <Text style={[lc.journalEmotionLabel, { color: subColor }]}>{t('lunar.energia_emocjonaln_dzis', 'ENERGIA EMOCJONALNA DZIŚ')}</Text>
               <View style={lc.journalEmotionRow}>
                 {[1, 2, 3, 4, 5].map(n => (
                   <Pressable key={n} onPress={() => setJournalEmotion(n)} hitSlop={8}>
@@ -1902,7 +1902,7 @@ return (
                 value={journalText}
                 onChangeText={setJournalText}
                 multiline
-                placeholder="Zapisz swoje refleksje..."
+                placeholder={t('lunar.zapisz_swoje_refleksje', 'Zapisz swoje refleksje...')}
                 placeholderTextColor={subColor}
                 textAlignVertical="top"
                 autoFocus
@@ -1923,7 +1923,7 @@ return (
                 disabled={!journalText.trim()}
                 style={[lc.modalSave, { backgroundColor: ACCENT, opacity: journalText.trim() ? 1 : 0.5 }]}
               >
-                <Text style={lc.modalSaveText}>Zapisz w dzienniku</Text>
+                <Text style={lc.modalSaveText}>{t('lunar.zapisz_w_dzienniku', 'Zapisz w dzienniku')}</Text>
               </Pressable>
             </View>
           </View>
@@ -1964,7 +1964,7 @@ return (
               disabled={!intentText.trim()}
               style={[lc.modalSave, { backgroundColor: ACCENT, opacity: intentText.trim() ? 1 : 0.5 }]}
             >
-              <Text style={lc.modalSaveText}>Zapisz</Text>
+              <Text style={lc.modalSaveText}>{t('lunar.zapisz', 'Zapisz')}</Text>
             </Pressable>
           </View>
         </View>

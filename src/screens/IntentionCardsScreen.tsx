@@ -297,7 +297,7 @@ const FlipHeroCard = ({ color, glyph, text, isLight }) => {
 
   return (
     <View style={{ alignItems: 'center', marginVertical: 20 }}>
-      <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 12 }]}>✦ KARTA INTENCJI — DOTKNIJ ABY ODWRÓCIĆ</Text>
+      <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 12 }]}>{t('intentionCards.karta_intencji_dotknij_aby_odwrocic', '✦ KARTA INTENCJI — DOTKNIJ ABY ODWRÓCIĆ')}</Text>
       <Pressable onPress={handleFlip} style={{ width: W, height: H }}>
         {/* Front face — intention text */}
         <Animated.View style={[{ width: W, height: H }, frontStyle]}>
@@ -310,7 +310,7 @@ const FlipHeroCard = ({ color, glyph, text, isLight }) => {
             <Text style={[s.flipGlyph, { color }]}>{glyph}</Text>
             <View style={[s.flipDivider, { backgroundColor: color + '66' }]} />
             <Text style={[s.flipText, isLight && { color: 'rgba(37,29,22,0.88)' }]}>{text || 'Twoja intencja pojawi się tutaj'}</Text>
-            <Text style={[s.flipHint, { color: isLight ? 'rgba(37,29,22,0.5)' : 'rgba(255,255,255,0.50)' }]}>Dotknij, by zobaczyć geometrię</Text>
+            <Text style={[s.flipHint, { color: isLight ? 'rgba(37,29,22,0.5)' : 'rgba(255,255,255,0.50)' }]}>{t('intentionCards.dotknij_by_zobaczyc_geometrie', 'Dotknij, by zobaczyć geometrię')}</Text>
           </LinearGradient>
         </Animated.View>
         {/* Back face — sacred geometry */}
@@ -321,7 +321,7 @@ const FlipHeroCard = ({ color, glyph, text, isLight }) => {
           >
             <SacredGeometryBack W={W} H={H} color={color} />
             <View style={[StyleSheet.absoluteFill, { alignItems: 'center', justifyContent: 'flex-end', paddingBottom: 28 }]}>
-              <Text style={[s.flipHint, { color: color + 'CC' }]}>Geometria tej intencji</Text>
+              <Text style={[s.flipHint, { color: color + 'CC' }]}>{t('intentionCards.geometria_tej_intencji', 'Geometria tej intencji')}</Text>
             </View>
           </LinearGradient>
         </Animated.View>
@@ -437,7 +437,7 @@ export const IntentionCardsScreen = ({ navigation }) => {
     HapticsService.notify();
   };
 
-  const handleDelete = (id) => Alert.alert('Usuń kartę', 'Na pewno usunąć tę kartę intencji?', [
+  const handleDelete = (id) => Alert.alert(t('intentionCards.usun_karte_1', 'Usuń kartę'), t('intentionCards.na_pewno_usunac_te_karte', 'Na pewno usunąć tę kartę intencji?'), [
     { text: 'Anuluj', style: 'cancel' },
     { text: 'Usuń', style: 'destructive', onPress: () => deleteIntentionCard(id) },
   ]);
@@ -544,8 +544,8 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
             <ChevronLeft size={22} color={textColor} />
           </Pressable>
           <View style={{ flex: 1, alignItems: 'center' }}>
-            <Text style={[s.headerEyebrow, { color: ACCENT }]}>KREATOR</Text>
-            <Text style={[s.headerTitle, { color: textColor }]}>Karty Intencji</Text>
+            <Text style={[s.headerEyebrow, { color: ACCENT }]}>{t('intentionCards.kreator', 'KREATOR')}</Text>
+            <Text style={[s.headerTitle, { color: textColor }]}>{t('intentionCards.karty_intencji', 'Karty Intencji')}</Text>
           </View>
           {streak > 0 ? (
             <Pressable style={[s.streakBadge, { borderColor: ACCENT + '55', backgroundColor: ACCENT + '18' }]}>
@@ -559,9 +559,9 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
 
           {/* Hero */}
           <Animated.View entering={FadeInDown.duration(500)} style={[s.heroCard, { backgroundColor: isLight ? 'rgba(255,248,236,0.82)' : 'rgba(21,15,26,0.82)', borderColor: cardBorder, marginHorizontal: SP }]}>
-            <Text style={[s.heroEyebrow, { color: ACCENT }]}>PRZESTRZEŃ INTENCJI</Text>
-            <Text style={[s.heroTitle, { color: textColor }]}>Tworzysz kartę, która ma działać jak osobisty talizman kierunku.</Text>
-            <Text style={[s.heroBody, { color: subColor }]}>Jedno zdanie, jeden symbol i jeden kolor wystarczą, żeby intencja miała własną aurę i wracała do Ciebie w ciągu dnia.</Text>
+            <Text style={[s.heroEyebrow, { color: ACCENT }]}>{t('intentionCards.przestrzen_intencji', 'PRZESTRZEŃ INTENCJI')}</Text>
+            <Text style={[s.heroTitle, { color: textColor }]}>{t('intentionCards.tworzysz_karte_ktora_ma_dzialac', 'Tworzysz kartę, która ma działać jak osobisty talizman kierunku.')}</Text>
+            <Text style={[s.heroBody, { color: subColor }]}>{t('intentionCards.jedno_zdanie_jeden_symbol_i', 'Jedno zdanie, jeden symbol i jeden kolor wystarczą, żeby intencja miała własną aurę i wracała do Ciebie w ciągu dnia.')}</Text>
             {streak > 0 && (
               <View style={[s.streakRow, { borderColor: ACCENT + '44', backgroundColor: ACCENT + '12' }]}>
                 <Flame size={15} color={ACCENT} />
@@ -582,8 +582,8 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
 
           {/* Preview deck */}
           <Animated.View entering={FadeInDown.delay(80).duration(500)} style={[s.previewDeck, { backgroundColor: isLight ? 'rgba(255,252,245,0.82)' : 'rgba(18,14,24,0.82)', borderColor: cardBorder, marginHorizontal: SP }]}>
-            <Text style={[s.sectionLabel, { color: ACCENT }]}>PODGLĄD RYTUAŁU</Text>
-            <Text style={[s.sectionBody, { color: subColor }]}>Ta karta ma wyglądać jak osobisty artefakt, nie jak prosty formularz. Zmieniaj symbol i kolor, aż poczujesz właściwe napięcie.</Text>
+            <Text style={[s.sectionLabel, { color: ACCENT }]}>{t('intentionCards.podglad_rytualu', 'PODGLĄD RYTUAŁU')}</Text>
+            <Text style={[s.sectionBody, { color: subColor }]}>{t('intentionCards.ta_karta_ma_wygladac_jak', 'Ta karta ma wyglądać jak osobisty artefakt, nie jak prosty formularz. Zmieniaj symbol i kolor, aż poczujesz właściwe napięcie.')}</Text>
             <View style={s.previewRail}>
               {[selectedColor, '#CEAE72', '#818CF8'].map((color, idx) => (
                 <View key={color + '-' + idx} style={s.previewMini}>
@@ -597,7 +597,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
           <View style={[s.creatorCard, { backgroundColor: cardBg, borderColor: cardBorder, marginHorizontal: SP }]}>
 
             {/* Category chips */}
-            <Text style={[s.sectionLabel, { color: ACCENT }]}>OBSZAR INTENCJI</Text>
+            <Text style={[s.sectionLabel, { color: ACCENT }]}>{t('intentionCards.obszar_intencji', 'OBSZAR INTENCJI')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 14 }} contentContainerStyle={{ gap: 8, paddingRight: 22 }}>
               {INTENTION_CATEGORIES.map((cat) => (
                 <Pressable key={cat.id} onPress={() => { setSelectedCategory(cat.id); HapticsService.impact('light'); setAiSuggestion(''); }}
@@ -611,12 +611,12 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
               ))}
             </ScrollView>
 
-            <Text style={[s.sectionLabel, { color: ACCENT }]}>TREŚĆ INTENCJI</Text>
-            <Text style={[s.sectionBody, { color: subColor }]}>Najmocniej działa zdanie, które można poczuć od razu po przeczytaniu.</Text>
+            <Text style={[s.sectionLabel, { color: ACCENT }]}>{t('intentionCards.tresc_intencji', 'TREŚĆ INTENCJI')}</Text>
+            <Text style={[s.sectionBody, { color: subColor }]}>{t('intentionCards.najmocniej_dziala_zdanie_ktore_mozn', 'Najmocniej działa zdanie, które można poczuć od razu po przeczytaniu.')}</Text>
             <MysticalInput
               value={text}
               onChangeText={(v) => { setText(v.slice(0, MAX_CHARS)); setAiSuggestion(''); }}
-              placeholder="Wpisz swoją intencję..."
+              placeholder={t('intentionCards.wpisz_swoja_intencje', 'Wpisz swoją intencję...')}
               placeholderTextColor={subColor}
               multiline
               onFocusScroll={() => focusIntoView()}
@@ -639,23 +639,23 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
             </Pressable>
             {aiSuggestion ? (
               <Animated.View entering={FadeIn.duration(400)} style={[s.suggestionCard, { backgroundColor: ACCENT + '14', borderColor: ACCENT + '44' }]}>
-                <Text style={[s.suggestionLabel, { color: ACCENT }]}>PROPOZYCJA AI</Text>
+                <Text style={[s.suggestionLabel, { color: ACCENT }]}>{t('intentionCards.propozycja_ai', 'PROPOZYCJA AI')}</Text>
                 <Text style={[s.suggestionText, { color: textColor }]}>"{aiSuggestion}"</Text>
                 <View style={{ flexDirection: 'row', gap: 8, marginTop: 10 }}>
                   <Pressable onPress={() => { setText(aiSuggestion); setAiSuggestion(''); HapticsService.impact('light'); }}
                     style={[s.suggCta, { backgroundColor: ACCENT + '28', borderColor: ACCENT + '55', flex: 1 }]}>
-                    <Text style={[s.suggCtaText, { color: ACCENT }]}>Użyj tej treści</Text>
+                    <Text style={[s.suggCtaText, { color: ACCENT }]}>{t('intentionCards.uzyj_tej_tresci', 'Użyj tej treści')}</Text>
                   </Pressable>
                   <Pressable onPress={generateAffirmation}
                     style={[s.suggCta, { backgroundColor: 'transparent', borderColor: ACCENT + '33', flex: 1 }]}>
-                    <Text style={[s.suggCtaText, { color: subColor }]}>Inna propozycja</Text>
+                    <Text style={[s.suggCtaText, { color: subColor }]}>{t('intentionCards.inna_propozycja', 'Inna propozycja')}</Text>
                   </Pressable>
                 </View>
               </Animated.View>
             ) : null}
 
             {/* Icon selector */}
-            <Text style={[s.sectionLabel, { color: ACCENT, marginTop: 16 }]}>IKONA</Text>
+            <Text style={[s.sectionLabel, { color: ACCENT, marginTop: 16 }]}>{t('intentionCards.ikona', 'IKONA')}</Text>
             <View style={s.iconRow}>
               {ICON_OPTIONS.map((opt) => (
                 <Pressable key={opt.id} onPress={() => { setSelectedIcon(opt.id); HapticsService.impact('light'); focusIntoView(240); }}
@@ -669,7 +669,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
             </View>
 
             {/* Color selector */}
-            <Text style={[s.sectionLabel, { color: ACCENT, marginTop: 16 }]}>KOLOR KARTY</Text>
+            <Text style={[s.sectionLabel, { color: ACCENT, marginTop: 16 }]}>{t('intentionCards.kolor_karty', 'KOLOR KARTY')}</Text>
             <View style={s.colorRow}>
               {COLOR_OPTIONS.map((col) => (
                 <Pressable key={col} onPress={() => { setSelectedColor(col); HapticsService.impact('light'); focusIntoView(240); }}
@@ -684,7 +684,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
               style={({ pressed }) => [s.saveBtn, { opacity: pressed || (!text.trim() && !aiSuggestion) ? 0.6 : 1 }]}>
               <LinearGradient colors={[selectedColor, selectedColor + 'AA']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={s.saveBtnGrad}>
                 <Star size={16} color="#fff" fill="#fff" />
-                <Text style={s.saveBtnText}>Zapisz kartę</Text>
+                <Text style={s.saveBtnText}>{t('intentionCards.zapisz_karte', 'Zapisz kartę')}</Text>
               </LinearGradient>
             </Pressable>
           </View>
@@ -694,14 +694,14 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
             <View style={[s.moonSpreadHeader, { backgroundColor: isNowPhase ? '#818CF8' + '18' : cardBg, borderColor: isNowPhase ? '#818CF8' + '55' : cardBorder }]}>
               <Moon size={16} color="#818CF8" strokeWidth={1.5} />
               <View style={{ flex: 1 }}>
-                <Text style={[s.sectionLabel, { color: '#818CF8', marginBottom: 2 }]}>NÓW KSIĘŻYCA — ROZKŁAD INTENCJI</Text>
+                <Text style={[s.sectionLabel, { color: '#818CF8', marginBottom: 2 }]}>{t('intentionCards.now_ksiezyca_rozklad_intencji', 'NÓW KSIĘŻYCA — ROZKŁAD INTENCJI')}</Text>
                 <Text style={[s.sectionBody, { color: subColor, marginBottom: 0 }]}>
                   {isNowPhase ? 'Nów księżyca jest teraz aktywny — to idealny moment na ten rozkład.' : 'Użyj w dniu nowiu, by zasadzić intencję w nowym cyklu.'}
                 </Text>
               </View>
               {isNowPhase && (
                 <View style={[s.activePhaseTag, { backgroundColor: '#818CF8' + '28', borderColor: '#818CF8' + '55' }]}>
-                  <Text style={[s.activePhaseTagText, { color: '#818CF8' }]}>AKTYWNY</Text>
+                  <Text style={[s.activePhaseTagText, { color: '#818CF8' }]}>{t('intentionCards.aktywny', 'AKTYWNY')}</Text>
                 </View>
               )}
             </View>
@@ -717,14 +717,14 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
             <View style={[s.moonSpreadHeader, { backgroundColor: isPelniaPhase ? '#F59E0B' + '18' : cardBg, borderColor: isPelniaPhase ? '#F59E0B' + '55' : cardBorder }]}>
               <Text style={{ fontSize: 16 }}>🌕</Text>
               <View style={{ flex: 1 }}>
-                <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 2 }]}>PEŁNIA KSIĘŻYCA — ROZKŁAD UWALNIANIA</Text>
+                <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 2 }]}>{t('intentionCards.pelnia_ksiezyca_rozklad_uwalniania', 'PEŁNIA KSIĘŻYCA — ROZKŁAD UWALNIANIA')}</Text>
                 <Text style={[s.sectionBody, { color: subColor, marginBottom: 0 }]}>
                   {isPelniaPhase ? 'Pełnia księżyca jest teraz aktywna — czas na uwolnienie i wdzięczność.' : 'Użyj w dzień pełni, by podsumować cykl i świadomie uwolnić to, co już nie służy.'}
                 </Text>
               </View>
               {isPelniaPhase && (
                 <View style={[s.activePhaseTag, { backgroundColor: ACCENT + '28', borderColor: ACCENT + '55' }]}>
-                  <Text style={[s.activePhaseTagText, { color: ACCENT }]}>AKTYWNY</Text>
+                  <Text style={[s.activePhaseTagText, { color: ACCENT }]}>{t('intentionCards.aktywny_1', 'AKTYWNY')}</Text>
                 </View>
               )}
             </View>
@@ -741,9 +741,9 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
               <LinearGradient colors={['#34D399' + '18', 'transparent']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={StyleSheet.absoluteFill} />
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                 <CheckCircle2 size={15} color="#34D399" strokeWidth={1.5} />
-                <Text style={[s.sectionLabel, { color: '#34D399', marginBottom: 0 }]}>INTENCJE TYGODNIA</Text>
+                <Text style={[s.sectionLabel, { color: '#34D399', marginBottom: 0 }]}>{t('intentionCards.intencje_tygodnia', 'INTENCJE TYGODNIA')}</Text>
               </View>
-              <Text style={[s.sectionBody, { color: subColor }]}>Ustaw 3 aktywne intencje na ten tydzień. Kiedy poczujesz, że zaczynają się manifestować — oznacz je.</Text>
+              <Text style={[s.sectionBody, { color: subColor }]}>{t('intentionCards.ustaw_3_aktywne_intencje_na', 'Ustaw 3 aktywne intencje na ten tydzień. Kiedy poczujesz, że zaczynają się manifestować — oznacz je.')}</Text>
             </View>
             {weeklyIntentions.map((wi, idx) => (
               <Animated.View key={wi.id} entering={FadeInDown.delay(560 + idx * 70).duration(500)}>
@@ -770,11 +770,11 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
                       <View style={{ flexDirection: 'row', gap: 8 }}>
                         <Pressable onPress={() => saveWeeklyIntention(idx)}
                           style={[s.weeklyConfirmBtn, { backgroundColor: '#34D399' + '28', borderColor: '#34D399' + '55' }]}>
-                          <Text style={[s.weeklyConfirmText, { color: '#34D399' }]}>Zapisz</Text>
+                          <Text style={[s.weeklyConfirmText, { color: '#34D399' }]}>{t('intentionCards.zapisz', 'Zapisz')}</Text>
                         </Pressable>
                         <Pressable onPress={() => { setWeeklyEditIdx(null); setWeeklyInput(''); }}
                           style={[s.weeklyConfirmBtn, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-                          <Text style={[s.weeklyConfirmText, { color: subColor }]}>Anuluj</Text>
+                          <Text style={[s.weeklyConfirmText, { color: subColor }]}>{t('intentionCards.anuluj', 'Anuluj')}</Text>
                         </Pressable>
                       </View>
                     </View>
@@ -814,15 +814,15 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
               <LinearGradient colors={[ACCENT + '14', 'transparent']} style={StyleSheet.absoluteFill} />
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 }}>
                 <Flame size={15} color={ACCENT} strokeWidth={1.5} />
-                <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 0 }]}>RYTUAŁ INTENCJI</Text>
+                <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 0 }]}>{t('intentionCards.rytual_intencji', 'RYTUAŁ INTENCJI')}</Text>
               </View>
-              <Text style={[s.sectionBody, { color: subColor }]}>Czterostopniowy rytuał osadzający intencję w ciele, oddechu i słowie.</Text>
+              <Text style={[s.sectionBody, { color: subColor }]}>{t('intentionCards.czterostop_rytual_osadzajacy_intenc', 'Czterostopniowy rytuał osadzający intencję w ciele, oddechu i słowie.')}</Text>
 
               {!ritualActive && !ritualDone && (
                 <Pressable onPress={startRitual}
                   style={[s.ritualStartBtn, { backgroundColor: ACCENT + '22', borderColor: ACCENT + '55' }]}>
                   <Flame size={16} color={ACCENT} />
-                  <Text style={[s.ritualStartText, { color: ACCENT }]}>Rozpocznij rytuał</Text>
+                  <Text style={[s.ritualStartText, { color: ACCENT }]}>{t('intentionCards.rozpocznij_rytual', 'Rozpocznij rytuał')}</Text>
                 </Pressable>
               )}
 
@@ -849,7 +849,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
                   <View style={{ flexDirection: 'row', gap: 10, marginTop: 12 }}>
                     <Pressable onPress={resetRitual}
                       style={[s.ritualNavBtn, { backgroundColor: cardBg, borderColor: cardBorder, flex: 1 }]}>
-                      <Text style={[s.ritualNavText, { color: subColor }]}>Przerwij</Text>
+                      <Text style={[s.ritualNavText, { color: subColor }]}>{t('intentionCards.przerwij', 'Przerwij')}</Text>
                     </Pressable>
                     <Pressable onPress={advanceRitual}
                       style={[s.ritualNavBtn, { backgroundColor: ACCENT + '28', borderColor: ACCENT + '55', flex: 2 }]}>
@@ -864,11 +864,11 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
               {ritualDone && (
                 <Animated.View entering={FadeIn.duration(500)} style={[s.ritualDoneCard, { backgroundColor: ACCENT + '18', borderColor: ACCENT + '55' }]}>
                   <Text style={s.ritualDoneIcon}>✦</Text>
-                  <Text style={[s.ritualDoneTitle, { color: ACCENT }]}>Rytuał zakończony</Text>
-                  <Text style={[s.ritualDoneDesc, { color: subColor }]}>Twoja intencja została zapieczętowana w rytuałem świecy, oddechu i słowa. Nosi ją teraz Twoje ciało.</Text>
+                  <Text style={[s.ritualDoneTitle, { color: ACCENT }]}>{t('intentionCards.rytual_zakonczony', 'Rytuał zakończony')}</Text>
+                  <Text style={[s.ritualDoneDesc, { color: subColor }]}>{t('intentionCards.twoja_intencja_zostala_zapieczeto_w', 'Twoja intencja została zapieczętowana w rytuałem świecy, oddechu i słowa. Nosi ją teraz Twoje ciało.')}</Text>
                   <Pressable onPress={resetRitual}
                     style={[s.ritualRestartBtn, { borderColor: ACCENT + '44' }]}>
-                    <Text style={[s.ritualNavText, { color: ACCENT }]}>Powtórz rytuał</Text>
+                    <Text style={[s.ritualNavText, { color: ACCENT }]}>{t('intentionCards.powtorz_rytual', 'Powtórz rytuał')}</Text>
                   </Pressable>
                 </Animated.View>
               )}
@@ -898,7 +898,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
                   })}
                 </ScrollView>
               </View>
-              <Text style={[s.galleryBody, { color: subColor, marginHorizontal: SP }]}>Zachowaj te, które naprawdę utrzymują kierunek. Dotknij, żeby zobaczyć szczegóły i aktywować.</Text>
+              <Text style={[s.galleryBody, { color: subColor, marginHorizontal: SP }]}>{t('intentionCards.zachowaj_te_ktore_naprawde_utrzymuj', 'Zachowaj te, które naprawdę utrzymują kierunek. Dotknij, żeby zobaczyć szczegóły i aktywować.')}</Text>
               {filteredCards.length > 0 ? (
                 <FlatList
                   data={filteredCards}
@@ -912,7 +912,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
                   style={{ marginTop: 12 }}
                 />
               ) : (
-                <Text style={[s.emptyText, { color: subColor, marginHorizontal: SP }]}>Brak kart w tej kategorii.</Text>
+                <Text style={[s.emptyText, { color: subColor, marginHorizontal: SP }]}>{t('intentionCards.brak_kart_w_tej_kategorii', 'Brak kart w tej kategorii.')}</Text>
               )}
             </Animated.View>
           )}
@@ -939,9 +939,9 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
             <Animated.View entering={FadeInDown.delay(700).duration(600)} style={{ marginTop: 28, marginHorizontal: SP }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 7, marginBottom: 12 }}>
                 <BookOpen size={14} color={ACCENT} strokeWidth={1.5} />
-                <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 0 }]}>HISTORIA INTENCJI</Text>
+                <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 0 }]}>{t('intentionCards.historia_intencji', 'HISTORIA INTENCJI')}</Text>
               </View>
-              <Text style={[s.sectionBody, { color: subColor, marginBottom: 14 }]}>Ostatnie 10 kart — oznacz te, które zostały spełnione.</Text>
+              <Text style={[s.sectionBody, { color: subColor, marginBottom: 14 }]}>{t('intentionCards.ostatnie_10_kart_oznacz_te', 'Ostatnie 10 kart — oznacz te, które zostały spełnione.')}</Text>
               {historyCards.map((card, i) => {
                 const iconGlyph = ICON_OPTIONS.find((o) => o.id === card.icon)?.glyph ?? '✦';
                 const catInfo = INTENTION_CATEGORIES.find((c) => c.id === card.category);
@@ -997,7 +997,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
             const tip = INTENTION_TIPS[new Date().getDate() % 6];
             return (
               <Animated.View entering={FadeInDown.delay(280).duration(500)} style={{ marginTop: 24, marginHorizontal: SP }}>
-                <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>🌟 WSKAZÓWKA INTENCJI</Text>
+                <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>{t('intentionCards.wskazowka_intencji', '🌟 WSKAZÓWKA INTENCJI')}</Text>
                 <View style={[s.tipCard, { backgroundColor: cardBg, borderColor: ACCENT + '44' }]}>
                   <LinearGradient colors={[ACCENT + '14', 'transparent']} style={StyleSheet.absoluteFill} />
                   <Text style={[s.tipTitle, { color: textColor }]}>{tip.title}</Text>
@@ -1009,7 +1009,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
 
           {/* All tips */}
           <Animated.View entering={FadeInDown.delay(300).duration(500)} style={{ marginTop: 20, marginHorizontal: SP }}>
-            <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>📖 WSZYSTKIE WSKAZÓWKI</Text>
+            <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>{t('intentionCards.wszystkie_wskazowki', '📖 WSZYSTKIE WSKAZÓWKI')}</Text>
             {INTENTION_TIPS.map((tip, i) => (
               <View key={i} style={[s.allTipRow, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <View style={[s.allTipNum, { backgroundColor: ACCENT + '22', borderColor: ACCENT + '44' }]}>
@@ -1025,7 +1025,7 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
 
           {/* Co dalej? */}
           <Animated.View entering={FadeInDown.delay(360).duration(500)} style={{ marginTop: 24, marginHorizontal: SP }}>
-            <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>✦ CO DALEJ?</Text>
+            <Text style={[s.sectionLabel, { color: ACCENT, marginBottom: 10 }]}>{t('intentionCards.co_dalej', '✦ CO DALEJ?')}</Text>
             {INTENTION_QUICK_LINKS.map((link, i) => (
               <Animated.View key={link.route + link.label} entering={FadeInDown.delay(400 + i * 60).duration(400)}>
                 <Pressable
@@ -1097,14 +1097,14 @@ Zasady: zacznij od "Ja " lub czasownika, bądź teraźniejsza, konkretna, pełna
                   {activating && (
                     <Animated.View entering={FadeIn.duration(300)} style={[s.activatingMsg, { borderColor: detailCard.color + '44' }]}>
                       <Text style={[s.activatingText, { color: detailCard.color }]}>
-                        ✦ Intencja wysyłana w przestrzeń... ✦
+                        {t('intentionCards.intencja_wysylana_w_przestrzen', '✦ Intencja wysyłana w przestrzeń... ✦')}
                       </Text>
                     </Animated.View>
                   )}
                   <Pressable onPress={() => { handleDelete(detailCard.id); setDetailCard(null); }}
                     style={s.detailDeleteBtn}>
                     <Trash2 size={14} color="rgba(239,68,68,0.7)" />
-                    <Text style={s.detailDeleteText}>Usuń kartę</Text>
+                    <Text style={s.detailDeleteText}>{t('intentionCards.usun_karte', 'Usuń kartę')}</Text>
                   </Pressable>
                 </Animated.View>
               );

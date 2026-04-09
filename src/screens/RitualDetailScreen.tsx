@@ -665,7 +665,7 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
           <Pressable onPress={() => goBackOrToMainTab(navigation, 'Worlds')} style={s.backBtn} hitSlop={16}>
             <ChevronLeft size={22} color={textColor} />
           </Pressable>
-          <Text style={[s.headerTitle, { color: textColor }]}>Rytuał Intencji</Text>
+          <Text style={[s.headerTitle, { color: textColor }]}>{t('rituals.rytual_intencji', 'Rytuał Intencji')}</Text>
           <Pressable onPress={toggleMusic} style={s.iconBtn} hitSlop={14}>
             {musicOn
               ? <Volume2 size={20} color={ACCENT} />
@@ -679,9 +679,9 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
           <Animated.View entering={FadeInDown.delay(80).duration(500)}>
             <View style={s.heroWrap}>
               <Text style={s.heroEmoji}>🕯️</Text>
-              <Text style={[s.heroTitle, { color: textColor }]}>Wybierz swój rytuał</Text>
+              <Text style={[s.heroTitle, { color: textColor }]}>{t('rituals.wybierz_swoj_rytual', 'Wybierz swój rytuał')}</Text>
               <Text style={[s.heroSub, { color: subColor }]}>
-                Każdy typ rytuału ma inne tempo, intencję i zestaw kroków. Wybierz ten, który odpowiada twojemu momentowi.
+                {t('rituals.kazdy_typ_rytualu_ma_inne', 'Każdy typ rytuału ma inne tempo, intencję i zestaw kroków. Wybierz ten, który odpowiada twojemu momentowi.')}
               </Text>
             </View>
           </Animated.View>
@@ -741,7 +741,7 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
           {/* Recent sessions */}
           {recentSessions.length > 0 && (
             <Animated.View entering={FadeInDown.delay(600).duration(460)}>
-              <Text style={[s.sectionLabel, { color: subColor, marginTop: 28 }]}>OSTATNIE SESJE</Text>
+              <Text style={[s.sectionLabel, { color: subColor, marginTop: 28 }]}>{t('rituals.ostatnie_sesje', 'OSTATNIE SESJE')}</Text>
               {recentSessions.map((sess, i) => (
                 <View key={sess.id} style={[s.historyRow, { borderColor: cardBorder }]}>
                   <CheckCircle size={14} color={ACCENT} style={{ marginRight: 10 }} />
@@ -826,7 +826,7 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
 
             <View style={[s.guidanceDivider, { borderColor: cardBorder }]} />
 
-            <Text style={[s.guidanceLabel, { color: config.color }]}>PROWADZENIE</Text>
+            <Text style={[s.guidanceLabel, { color: config.color }]}>{t('rituals.prowadzeni', 'PROWADZENIE')}</Text>
             <Text style={[s.guidanceText, { color: isLight ? 'rgba(0,0,0,0.70)' : 'rgba(255,255,255,0.75)' }]}>
               {currentStep.guidance}
             </Text>
@@ -850,11 +850,11 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
               {isLastStep ? (
                 <>
                   <CheckCircle size={18} color="#fff" style={{ marginRight: 8 }} />
-                  <Text style={s.nextBtnText}>Zakończ Rytuał</Text>
+                  <Text style={s.nextBtnText}>{t('rituals.zakoncz_rytual', 'Zakończ Rytuał')}</Text>
                 </>
               ) : (
                 <>
-                  <Text style={s.nextBtnText}>Następny krok</Text>
+                  <Text style={s.nextBtnText}>{t('rituals.nastepny_krok', 'Następny krok')}</Text>
                   <SkipForward size={18} color="#fff" style={{ marginLeft: 8 }} />
                 </>
               )}
@@ -899,7 +899,7 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
         <Pressable onPress={() => goBackOrToMainTab(navigation, 'Worlds')} style={s.backBtn} hitSlop={16}>
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
-        <Text style={[s.headerTitle, { color: textColor }]}>Rytuał Zakończony</Text>
+        <Text style={[s.headerTitle, { color: textColor }]}>{t('rituals.rytual_zakonczony', 'Rytuał Zakończony')}</Text>
         <View style={{ width: 36 }} />
       </View>
 
@@ -925,17 +925,17 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
                 <View style={[s.completionStat, { borderColor: cardBorder }]}>
                   <CheckCircle size={16} color={config.color} />
                   <Text style={[s.completionStatVal, { color: textColor }]}>{totalSteps}</Text>
-                  <Text style={[s.completionStatLabel, { color: subColor }]}>kroków</Text>
+                  <Text style={[s.completionStatLabel, { color: subColor }]}>{t('rituals.krokow', 'kroków')}</Text>
                 </View>
                 <View style={[s.completionStat, { borderColor: cardBorder }]}>
                   <Clock size={16} color={config.color} />
                   <Text style={[s.completionStatVal, { color: textColor }]}>{config.totalMinutes}</Text>
-                  <Text style={[s.completionStatLabel, { color: subColor }]}>minut</Text>
+                  <Text style={[s.completionStatLabel, { color: subColor }]}>{t('rituals.minut', 'minut')}</Text>
                 </View>
                 <View style={[s.completionStat, { borderColor: cardBorder }]}>
                   <Sparkles size={16} color={config.color} />
                   <Text style={[s.completionStatVal, { color: textColor }]}>{recentSessions.length + 1}</Text>
-                  <Text style={[s.completionStatLabel, { color: subColor }]}>rytuałów</Text>
+                  <Text style={[s.completionStatLabel, { color: subColor }]}>{t('rituals.rytualow', 'rytuałów')}</Text>
                 </View>
               </View>
             </LinearGradient>
@@ -943,7 +943,7 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
 
           {/* Reflection prompts */}
           <Animated.View entering={FadeInDown.delay(200).duration(460)}>
-            <Text style={[s.sectionLabel, { color: subColor, marginTop: 8 }]}>REFLEKSJA PO SESJI</Text>
+            <Text style={[s.sectionLabel, { color: subColor, marginTop: 8 }]}>{t('rituals.refleksja_po_sesji', 'REFLEKSJA PO SESJI')}</Text>
             {[
               'Co poczułeś/aś w ciele podczas tego rytuału?',
               'Jaka myśl lub obraz był najbardziej wyraźny?',
@@ -960,10 +960,10 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
 
           {/* Quick journal */}
           <Animated.View entering={FadeInDown.delay(520).duration(460)}>
-            <Text style={[s.sectionLabel, { color: subColor, marginTop: 20 }]}>SZYBKI DZIENNIK</Text>
+            <Text style={[s.sectionLabel, { color: subColor, marginTop: 20 }]}>{t('rituals.szybki_dziennik', 'SZYBKI DZIENNIK')}</Text>
             <View style={[s.journalCard, { backgroundColor: cardBg, borderColor: journalSaved ? config.color + '55' : cardBorder }]}>
               <Text style={[s.journalPrompt, { color: subColor }]}>
-                Jedno słowo lub zdanie które opisuje tę sesję…
+                {t('rituals.jedno_slowo_lub_zdanie_ktore', 'Jedno słowo lub zdanie które opisuje tę sesję…')}
               </Text>
               {journalSaved ? (
                 <View style={s.journalSavedRow}>
@@ -975,7 +975,7 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
                   <TextInput
                     value={reflectionText}
                     onChangeText={setReflectionText}
-                    placeholder="Spokój, klarowność, uwolnienie…"
+                    placeholder={t('rituals.spokoj_klarownosc_uwolnienie', 'Spokój, klarowność, uwolnienie…')}
                     placeholderTextColor={subColor}
                     style={[s.journalInput, { color: textColor, borderColor: cardBorder }]}
                     multiline
@@ -986,7 +986,7 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
                     style={[s.journalBtn, { backgroundColor: reflectionText.trim() ? config.color : cardBg }]}
                   >
                     <Text style={[s.journalBtnText, { color: reflectionText.trim() ? '#fff' : subColor }]}>
-                      Zapisz notatkę
+                      {t('rituals.zapisz_notatke', 'Zapisz notatkę')}
                     </Text>
                   </Pressable>
                 </>
@@ -996,7 +996,7 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
 
           {/* Co dalej */}
           <Animated.View entering={FadeInDown.delay(640).duration(460)}>
-            <Text style={[s.sectionLabel, { color: subColor, marginTop: 20 }]}>CO DALEJ</Text>
+            <Text style={[s.sectionLabel, { color: subColor, marginTop: 20 }]}>{t('rituals.co_dalej', 'CO DALEJ')}</Text>
             {[
               { icon: BookOpen, label: 'Dziennik', sub: 'Zapisz głębszą refleksję', route: 'Journal', color: '#F9A854' },
               { icon: Star, label: 'Medytacja', sub: 'Pogłęb spokój w ciszy', route: 'Meditation', color: ACCENT },
@@ -1044,7 +1044,7 @@ export const RitualDetailScreen: React.FC = ({ navigation, route }) => {
               ]}
             >
               <Sparkles size={16} color={ACCENT} style={{ marginRight: 8 }} />
-              <Text style={[s.newRitualText, { color: ACCENT }]}>Rozpocznij nowy rytuał</Text>
+              <Text style={[s.newRitualText, { color: ACCENT }]}>{t('rituals.rozpocznij_nowy_rytual', 'Rozpocznij nowy rytuał')}</Text>
             </Pressable>
           </Animated.View>
 

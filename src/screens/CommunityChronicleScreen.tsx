@@ -159,7 +159,7 @@ export const CommunityChronicleScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => goBackOrToMainTab(navigation, 'Portal')}>
           <ChevronLeft size={22} color={textColor} />
         </TouchableOpacity>
-        <Text style={[styles.headerTitle, { color: textColor }]}>KRONIKA WSPÓLNOTY</Text>
+        <Text style={[styles.headerTitle, { color: textColor }]}>{t('communityChronicle.kronika_wspolnoty', 'KRONIKA WSPÓLNOTY')}</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <TouchableOpacity onPress={() => {
             HapticsService.impact('light');
@@ -177,7 +177,7 @@ export const CommunityChronicleScreen = ({ navigation }) => {
       {publishSuccess && (
         <Animated.View entering={FadeInDown.duration(340)} style={{ marginHorizontal: 22, marginBottom: 8, backgroundColor: '#10B981' + '28', borderRadius: 12, borderWidth: 1, borderColor: '#10B981' + '60', paddingHorizontal: 16, paddingVertical: 10, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <Text style={{ fontSize: 14 }}>✦</Text>
-          <Text style={{ color: '#10B981', fontSize: 13, fontWeight: '600', flex: 1 }}>Historia opublikowana w Kronice! Dziękujemy za podzielenie się swoją podróżą.</Text>
+          <Text style={{ color: '#10B981', fontSize: 13, fontWeight: '600', flex: 1 }}>{t('communityChronicle.historia_opublikowa_w_kronice_dziek', 'Historia opublikowana w Kronice! Dziękujemy za podzielenie się swoją podróżą.')}</Text>
         </Animated.View>
       )}
 
@@ -190,7 +190,7 @@ export const CommunityChronicleScreen = ({ navigation }) => {
 
           {/* Featured story */}
           <Animated.View entering={FadeInDown.duration(600)} style={{ paddingHorizontal: 22, marginBottom: 20 }}>
-            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 10 }}>HISTORIA TYGODNIA</Text>
+            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 10 }}>{t('communityChronicle.historia_tygodnia', 'HISTORIA TYGODNIA')}</Text>
             <LinearGradient colors={[featuredStory.color + '25', featuredStory.color + '10', 'transparent']}
               style={{ borderRadius: 20, padding: 20, borderWidth: 1, borderColor: featuredStory.color + '40', overflow: 'hidden' }}>
               <Animated.View style={[{ position: 'absolute', top: 0, right: 0, width: 160, height: 160, borderRadius: 80, backgroundColor: featuredStory.color + '10' }, shimmerStyle]} />
@@ -215,14 +215,14 @@ export const CommunityChronicleScreen = ({ navigation }) => {
 
           {/* Trending */}
           <Animated.View entering={FadeInDown.delay(100).duration(600)} style={{ paddingHorizontal: 22, marginBottom: 20 }}>
-            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 12 }}>NAJCZĘŚCIEJ CZYTANE</Text>
+            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2, marginBottom: 12 }}>{t('communityChronicle.najczescie_czytane', 'NAJCZĘŚCIEJ CZYTANE')}</Text>
             <View style={{ gap: 8 }}>
               {TRENDING_STORIES.map((t, i) => (
                 <View key={i} style={{ backgroundColor: cardBg, borderRadius: 14, padding: 14, borderWidth: 1, borderColor: cardBorder, flexDirection: 'row', alignItems: 'center', gap: 12 }}>
                   <Text style={{ color: t.color, fontSize: 20, fontWeight: '900', width: 32 }}>#{i + 1}</Text>
                   <View style={{ flex: 1 }}>
                     <Text style={{ color: textColor, fontSize: 13, fontWeight: '600' }}>{t.title}</Text>
-                          <Text style={{ color: subColor, fontSize: 11, marginTop: 3 }}>{formatLocaleNumber(t.reads)} {i18n.language?.startsWith('en') ? 'reads' : 'czytań'}</Text>
+                          <Text style={{ color: subColor, fontSize: 11, marginTop: 3 }}>{formatLocaleNumber(t.reads)} {i18n.language?.startsWith('en') ? 'reads' : t('communityChronicle.czytan', 'czytań')}</Text>
                   </View>
                 </View>
               ))}
@@ -247,7 +247,7 @@ export const CommunityChronicleScreen = ({ navigation }) => {
               <View style={{ alignItems: 'center', paddingVertical: 40, opacity: 0.5 }}>
                 <BookOpen size={40} color="#888" />
                 <Text style={{ color: '#888', marginTop: 12, fontSize: 15, textAlign: 'center' }}>
-                  {loadingEntries ? 'Ładowanie kronik...' : 'Brak historii w tej kategorii. Napisz pierwszą!'}
+                  {loadingEntries ? t('communityChronicle.ladowanie_kronik', 'Ładowanie kronik...') : t('communityChronicle.brak_historii', 'Brak historii w tej kategorii. Napisz pierwszą!')}
                 </Text>
               </View>
             )}
@@ -307,7 +307,7 @@ export const CommunityChronicleScreen = ({ navigation }) => {
           <Animated.View entering={FadeInDown.delay(400).duration(600)} style={{ paddingHorizontal: 22, marginTop: 28 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 12 }}>
               <Trophy size={14} color={ACCENT} />
-              <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2 }}>TOP KRONIKARZE</Text>
+              <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 2 }}>{t('communityChronicle.top_kronikarze', 'TOP KRONIKARZE')}</Text>
             </View>
             <View style={{ gap: 8 }}>
               {TOP_STORYTELLERS.map((s, i) => (
@@ -317,7 +317,7 @@ export const CommunityChronicleScreen = ({ navigation }) => {
                     <Text style={{ color: s.color, fontSize: 11, fontWeight: '700' }}>{s.name[0]}</Text>
                   </View>
                   <Text style={{ color: textColor, fontSize: 13, fontWeight: '600', flex: 1 }}>{s.name}</Text>
-                  <Text style={{ color: subColor, fontSize: 12 }}>{s.stories} historii</Text>
+                  <Text style={{ color: subColor, fontSize: 12 }}>{s.stories} {t('communityChronicle.historii', 'historii')}</Text>
                 </View>
               ))}
             </View>
@@ -337,12 +337,12 @@ export const CommunityChronicleScreen = ({ navigation }) => {
               >
                 <View style={{ padding: 24 }} onStartShouldSetResponder={() => true}>
                   <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 }}>
-                    <Text style={{ color: textColor, fontSize: 18, fontWeight: '700' }}>Napisz swoją historię</Text>
+                    <Text style={{ color: textColor, fontSize: 18, fontWeight: '700' }}>{t('communityChronicle.napisz_swoja_historie', 'Napisz swoją historię')}</Text>
                     <TouchableOpacity onPress={() => setShowWriteModal(false)}>
                       <X size={20} color={subColor} />
                     </TouchableOpacity>
                   </View>
-                  <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 8 }}>KATEGORIA</Text>
+                  <Text style={{ color: ACCENT, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 8 }}>{t('communityChronicle.kategoria', 'KATEGORIA')}</Text>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
                     <View style={{ flexDirection: 'row', gap: 8 }}>
                       {CATEGORIES.slice(1).map(cat => (
@@ -353,17 +353,17 @@ export const CommunityChronicleScreen = ({ navigation }) => {
                       ))}
                     </View>
                   </ScrollView>
-                  <TextInput value={storyTitle} onChangeText={setStoryTitle} placeholder="Tytuł historii..."
+                  <TextInput value={storyTitle} onChangeText={setStoryTitle} placeholder={t('communityChronicle.tytul_historii', 'Tytuł historii...')}
                     placeholderTextColor={subColor}
                     style={{ color: textColor, backgroundColor: cardBg, borderRadius: 12, padding: 14, fontSize: 15, borderWidth: 1, borderColor: cardBorder, marginBottom: 12, fontWeight: '600' }} />
                   <TextInput value={storyBody} onChangeText={setStoryBody} multiline
-                    placeholder="Opisz swoje doświadczenie, przełom lub odkrycie..."
+                    placeholder={t('communityChronicle.opisz_swoje_doswiadcze_przelom_lub', 'Opisz swoje doświadczenie, przełom lub odkrycie...')}
                     placeholderTextColor={subColor}
                     style={{ color: textColor, backgroundColor: cardBg, borderRadius: 12, padding: 14, height: 180, textAlignVertical: 'top', fontSize: 14, lineHeight: 22, borderWidth: 1, borderColor: cardBorder, marginBottom: 20 }} />
                   <TouchableOpacity
                     onPress={handlePublish}
                     style={{ backgroundColor: storyTitle.trim().length >= 2 ? ACCENT : ACCENT + '66', borderRadius: 14, paddingVertical: 16, alignItems: 'center' }}>
-                    <Text style={{ color: '#fff', fontWeight: '700', fontSize: 15 }}>Opublikuj w Kronice</Text>
+                    <Text style={{ color: '#fff', fontWeight: '700', fontSize: 15 }}>{t('communityChronicle.opublikuj_w_kronice', 'Opublikuj w Kronice')}</Text>
                   </TouchableOpacity>
                 </View>
               </ScrollView>
@@ -381,7 +381,7 @@ export const CommunityChronicleScreen = ({ navigation }) => {
               onStartShouldSetResponder={() => true}
             >
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
-                <Text style={{ color: textColor, fontSize: 16, fontWeight: '700' }}>Komentarze</Text>
+                <Text style={{ color: textColor, fontSize: 16, fontWeight: '700' }}>{t('communityChronicle.komentarze', 'Komentarze')}</Text>
                 <TouchableOpacity onPress={() => setCommentModal(null)}>
                   <X size={20} color={subColor} />
                 </TouchableOpacity>
@@ -399,7 +399,7 @@ export const CommunityChronicleScreen = ({ navigation }) => {
                 </View>
               ))}
               <View style={{ flexDirection: 'row', gap: 10, marginTop: 8 }}>
-                <TextInput value={commentText} onChangeText={setCommentText} placeholder="Twój komentarz..."
+                <TextInput value={commentText} onChangeText={setCommentText} placeholder={t('communityChronicle.twoj_komentarz', 'Twój komentarz...')}
                   placeholderTextColor={subColor}
                   style={{ flex: 1, color: textColor, backgroundColor: cardBg, borderRadius: 12, paddingHorizontal: 14, paddingVertical: 10, fontSize: 13, borderWidth: 1, borderColor: cardBorder }} />
                 <TouchableOpacity

@@ -255,12 +255,12 @@ const BrainwaveViz = ({
         </Defs>
 
         {/* Left ear label */}
-        <SvgText x={6} y={mid - 38} fontSize={9} fill={color} fillOpacity={0.5}>Ucho L</SvgText>
+        <SvgText x={6} y={mid - 38} fontSize={9} fill={color} fillOpacity={0.5}>{t('binauralBeats.ucho_l', 'Ucho L')}</SvgText>
         {/* Left ear wave */}
         <Path d={leftPath} stroke="url(#leftGrad)" strokeWidth={1.5} fill="none" />
 
         {/* Right ear label */}
-        <SvgText x={6} y={mid - 2} fontSize={9} fill={color} fillOpacity={0.45}>Ucho P</SvgText>
+        <SvgText x={6} y={mid - 2} fontSize={9} fill={color} fillOpacity={0.45}>{t('binauralBeats.ucho_p', 'Ucho P')}</SvgText>
         {/* Right ear wave */}
         <Path d={rightPath} stroke="url(#rightGrad)" strokeWidth={1.5} fill="none" />
 
@@ -268,7 +268,7 @@ const BrainwaveViz = ({
         <Line x1={0} y1={mid + 22} x2={W} y2={mid + 22} stroke={color} strokeWidth={0.5} strokeOpacity={0.15} strokeDasharray="4 6" />
 
         {/* Beat wave label */}
-        <SvgText x={6} y={mid + 40} fontSize={9} fill={color} fillOpacity={active ? 0.85 : 0.4}>Fala binauralna</SvgText>
+        <SvgText x={6} y={mid + 40} fontSize={9} fill={color} fillOpacity={active ? 0.85 : 0.4}>{t('binauralBeats.fala_binauralna', 'Fala binauralna')}</SvgText>
         {/* Difference / beat wave */}
         <Path d={diffPath} stroke="url(#diffGrad)" strokeWidth={active ? 2.5 : 1.5} fill="none" />
 
@@ -646,16 +646,16 @@ const FreqCard = ({
             <View style={[styles.effectsPanel, { borderColor: freq.color + (isLight ? '44' : '33'), backgroundColor: freq.color + (isLight ? '0D' : '08') }]}>
               {/* Brainwave state diagram */}
               <View style={styles.effectsRow}>
-                <Text style={[styles.effectsLabel, { color: freq.color }]}>Stan mózgu</Text>
+                <Text style={[styles.effectsLabel, { color: freq.color }]}>{t('binauralBeats.stan_mozgu', 'Stan mózgu')}</Text>
                 <Text style={[styles.effectsValue, { color: isLight ? '#1A1208' : (isActive ? '#F5F1EA' : subColor) }]}>{freq.brainwaveState}</Text>
               </View>
               {/* Scientific description */}
               <View style={[styles.effectsRow, { borderBottomWidth: 0 }]}>
-                <Text style={[styles.effectsLabel, { color: freq.color }]}>Podstawy naukowe</Text>
+                <Text style={[styles.effectsLabel, { color: freq.color }]}>{t('binauralBeats.podstawy_naukowe', 'Podstawy naukowe')}</Text>
                 <Text style={[styles.effectsDesc, { color: isLight ? 'rgba(0,0,0,0.68)' : subColor }]}>{freq.scientificDesc}</Text>
               </View>
               {/* Recommended activities */}
-              <Text style={[styles.effectsLabel, { color: freq.color, marginTop: 10, marginBottom: 8 }]}>Rekomendowane aktywności</Text>
+              <Text style={[styles.effectsLabel, { color: freq.color, marginTop: 10, marginBottom: 8 }]}>{t('binauralBeats.rekomendow_aktywnosci', 'Rekomendowane aktywności')}</Text>
               {freq.recommendedActivities.map((act, ai) => (
                 <View key={ai} style={styles.activityRow}>
                   <View style={[styles.activityDot, { backgroundColor: freq.color }]} />
@@ -669,7 +669,7 @@ const FreqCard = ({
           {isActive && (
             <View style={[styles.playingBanner, { backgroundColor: freq.color + '18', borderTopColor: freq.color + '30' }]}>
               <View style={[styles.playingDot, { backgroundColor: freq.color }]} />
-              <Text style={[styles.playingText, { color: freq.color }]}>ODTWARZANIE — dotknij aby zatrzymać</Text>
+              <Text style={[styles.playingText, { color: freq.color }]}>{t('binauralBeats.odtwarzani_dotknij_aby_zatrzymac', 'ODTWARZANIE — dotknij aby zatrzymać')}</Text>
             </View>
           )}
         </LinearGradient>
@@ -850,7 +850,7 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
         <Modal visible={showRatingModal} transparent animationType="fade" onRequestClose={() => setShowRatingModal(false)}>
           <View style={styles.ratingOverlay}>
             <View style={[styles.ratingSheet, { backgroundColor: isLight ? '#FDFBF7' : '#15121E', borderColor: cardBorder }]}>
-              <Text style={[styles.ratingTitle, { color: textColor }]}>Jak oceniasz sesję?</Text>
+              <Text style={[styles.ratingTitle, { color: textColor }]}>{t('binauralBeats.jak_oceniasz_sesje', 'Jak oceniasz sesję?')}</Text>
               {pendingSession && (
                 <Text style={[styles.ratingSubtitle, { color: subColor }]}>
                   {FREQS.find(f => f.id === pendingSession.freqId)?.emoji} {pendingSession.freqLabel} · {formatSessionTime(pendingSession.durationSeconds)}
@@ -867,10 +867,10 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
                 onPress={() => saveSession(sessionRating)}
                 style={[styles.ratingConfirmBtn, { backgroundColor: accentColor }]}
               >
-                <Text style={[styles.ratingConfirmText, { color: isLight ? '#FFF' : '#000' }]}>Zapisz sesję</Text>
+                <Text style={[styles.ratingConfirmText, { color: isLight ? '#FFF' : '#000' }]}>{t('binauralBeats.zapisz_sesje', 'Zapisz sesję')}</Text>
               </Pressable>
               <Pressable onPress={() => setShowRatingModal(false)} style={{ marginTop: 10, alignItems: 'center' }}>
-                <Text style={{ color: subColor, fontSize: 13 }}>Pomiń</Text>
+                <Text style={{ color: subColor, fontSize: 13 }}>{t('binauralBeats.pomin', 'Pomiń')}</Text>
               </Pressable>
             </View>
           </View>
@@ -881,12 +881,12 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
           <Pressable style={styles.blendOverlay} onPress={() => setShowBlendModal(false)} />
           <View style={[styles.blendSheet, { backgroundColor: isLight ? '#FDFBF7' : '#15121E', borderColor: cardBorder }]}>
             <View style={styles.blendHandle} />
-            <Text style={[styles.blendTitle, { color: textColor }]}>SESJA CUSTOM — Mieszanie fal</Text>
+            <Text style={[styles.blendTitle, { color: textColor }]}>{t('binauralBeats.sesja_custom_mieszanie_fal', 'SESJA CUSTOM — Mieszanie fal')}</Text>
             <Text style={[styles.blendSubtitle, { color: subColor }]}>
-              Wybierz dwie częstotliwości do blendowania. Unikatowy efekt binauralny między ich stanami.
+              {t('binauralBeats.wybierz_dwie_czestotliw_do_blendowa', 'Wybierz dwie częstotliwości do blendowania. Unikatowy efekt binauralny między ich stanami.')}
             </Text>
             {/* Primary picker */}
-            <Text style={[styles.blendLabel, { color: accentColor }]}>Fala bazowa</Text>
+            <Text style={[styles.blendLabel, { color: accentColor }]}>{t('binauralBeats.fala_bazowa', 'Fala bazowa')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 14 }}>
               {FREQS.map(f => (
                 <Pressable
@@ -905,7 +905,7 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
               ))}
             </ScrollView>
             {/* Secondary picker */}
-            <Text style={[styles.blendLabel, { color: accentColor }]}>Fala uzupełniająca</Text>
+            <Text style={[styles.blendLabel, { color: accentColor }]}>{t('binauralBeats.fala_uzupelniaj', 'Fala uzupełniająca')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
               {FREQS.map(f => (
                 <Pressable
@@ -939,7 +939,7 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
               style={[styles.blendStartBtn, { backgroundColor: accentColor }]}
             >
               <Sliders color={isLight ? '#FFF' : '#000'} size={15} />
-              <Text style={[styles.blendStartText, { color: isLight ? '#FFF' : '#000' }]}>Rozpocznij blend</Text>
+              <Text style={[styles.blendStartText, { color: isLight ? '#FFF' : '#000' }]}>{t('binauralBeats.rozpocznij_blend', 'Rozpocznij blend')}</Text>
             </Pressable>
           </View>
         </Modal>
@@ -950,8 +950,8 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
             <ChevronLeft color={accentColor} size={24} />
           </Pressable>
           <View style={{ flex: 1, alignItems: 'center' }}>
-            <Typography variant="premiumLabel" color={accentColor}>Świat Wsparcia</Typography>
-            <Typography variant="screenTitle" style={{ color: textColor, marginTop: 2 }}>Fale Mózgowe</Typography>
+            <Typography variant="premiumLabel" color={accentColor}>{t('binauralBeats.swiat_wsparcia', 'Świat Wsparcia')}</Typography>
+            <Typography variant="screenTitle" style={{ color: textColor, marginTop: 2 }}>{t('binauralBeats.fale_mozgowe', 'Fale Mózgowe')}</Typography>
           </View>
           <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center' }}>
             <MusicToggleButton color={accentColor} size={18} />
@@ -980,25 +980,25 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
               colors={isLight ? ['rgba(109,40,217,0.10)', 'rgba(147,112,219,0.05)', 'transparent'] : ['rgba(255,215,0,0.14)', 'rgba(147,112,219,0.08)', 'transparent']}
               style={StyleSheet.absoluteFillObject}
             />
-            <Typography variant="premiumLabel" color={accentColor}>⚡ FREQ STUDIO</Typography>
+            <Typography variant="premiumLabel" color={accentColor}>{t('binauralBeats.freq_studio', '⚡ FREQ STUDIO')}</Typography>
             <Typography variant="heroTitle" style={{ color: textColor, fontSize: 28, lineHeight: 36, marginTop: 4 }}>
-              Rytmy binauralne i stany świadomości
+              {t('binauralBeats.rytmy_binauralne_i_stany_swiadomosc', 'Rytmy binauralne i stany świadomości')}
             </Typography>
             <Typography variant="bodyRefined" style={{ color: subColor, marginTop: 6, marginBottom: 14 }}>
-              To nie jest zwykła playlista. Każda częstotliwość otwiera inny stan: regenerację, fokus, relaks, intuicję albo głębszą pracę duchową.
+              {t('binauralBeats.to_nie_jest_zwykla_playlista', 'To nie jest zwykła playlista. Każda częstotliwość otwiera inny stan: regenerację, fokus, relaks, intuicję albo głębszą pracę duchową.')}
             </Typography>
             <View style={styles.headerPills}>
               <View style={[styles.headerPill, { borderColor: isLight ? 'rgba(109,40,217,0.20)' : 'rgba(255,215,0,0.18)', backgroundColor: isLight ? 'rgba(109,40,217,0.08)' : 'rgba(255,215,0,0.08)' }]}>
-                <Text style={[styles.headerPillText, { color: isLight ? '#6D28D9' : '#F4D78A' }]}>delta • theta • alpha • gamma</Text>
+                <Text style={[styles.headerPillText, { color: isLight ? '#6D28D9' : '#F4D78A' }]}>{t('binauralBeats.delta_theta_alpha_gamma', 'delta • theta • alpha • gamma')}</Text>
               </View>
               <View style={[styles.headerPill, { borderColor: isLight ? 'rgba(109,40,217,0.20)' : 'rgba(255,215,0,0.18)', backgroundColor: isLight ? 'rgba(109,40,217,0.08)' : 'rgba(255,215,0,0.08)' }]}>
-                <Text style={[styles.headerPillText, { color: isLight ? '#6D28D9' : '#F4D78A' }]}>najlepiej w słuchawkach stereo</Text>
+                <Text style={[styles.headerPillText, { color: isLight ? '#6D28D9' : '#F4D78A' }]}>{t('binauralBeats.najlepiej_w_sluchawkac_stereo', 'najlepiej w słuchawkach stereo')}</Text>
               </View>
             </View>
             <View style={[styles.tipCard, { backgroundColor: isLight ? 'rgba(160,120,255,0.08)' : 'rgba(160,120,255,0.08)', borderColor: isLight ? 'rgba(160,120,255,0.25)' : 'rgba(160,120,255,0.2)' }]}>
               <Text style={styles.tipIcon}>🎧</Text>
               <Text style={[styles.tipText, { color: isLight ? '#7C3AED' : '#A090C8' }]}>
-                Używaj słuchawek stereo dla pełnego efektu binauralnego. Dotknij kartę ponownie aby zatrzymać dźwięk.
+                {t('binauralBeats.uzywaj_sluchawek_stereo_dla_pelnego', 'Używaj słuchawek stereo dla pełnego efektu binauralnego. Dotknij kartę ponownie aby zatrzymać dźwięk.')}
               </Text>
             </View>
           </View>
@@ -1021,7 +1021,7 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
                 onPress={() => blendActive ? stopBlend() : (activeFreq ? toggle(activeFreq.id) : undefined)}
                 style={[styles.stopBtn, { borderColor: (activeFreq?.color || '#FFD700') + '60' }]}
               >
-                <Text style={[styles.stopBtnText, { color: activeFreq?.color || '#FFD700' }]}>◼ Stop</Text>
+                <Text style={[styles.stopBtnText, { color: activeFreq?.color || '#FFD700' }]}>{t('binauralBeats.stop', '◼ Stop')}</Text>
               </Pressable>
             </View>
           )}
@@ -1029,7 +1029,7 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
           {/* ─── Daily recommendation ─── */}
           <View style={[styles.infoBox, { backgroundColor: cardBg, borderColor: cardBorder, marginBottom: 16 }]}>
             <Sparkles color={accentColor} size={16} strokeWidth={1.6} />
-            <Typography variant="premiumLabel" color={accentColor} style={{ marginTop: 8, marginBottom: 6 }}>🌟 REKOMENDACJA NA DZIŚ</Typography>
+            <Typography variant="premiumLabel" color={accentColor} style={{ marginTop: 8, marginBottom: 6 }}>{t('binauralBeats.rekomendac_na_dzis', '🌟 REKOMENDACJA NA DZIŚ')}</Typography>
             <Typography variant="bodyRefined" style={{ color: subColor, lineHeight: 22 }}>
               {(() => {
                 const h = new Date().getHours();
@@ -1049,8 +1049,8 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
                 <BookOpen color={accentColor} size={16} strokeWidth={1.8} />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={[styles.sectionToggleLabel, { color: accentColor }]}>PORADA PRZED SESJĄ</Text>
-                <Text style={[styles.sectionToggleSub, { color: subColor }]}>Środowisko, pozycja, czas trwania</Text>
+                <Text style={[styles.sectionToggleLabel, { color: accentColor }]}>{t('binauralBeats.porada_przed_sesja', 'PORADA PRZED SESJĄ')}</Text>
+                <Text style={[styles.sectionToggleSub, { color: subColor }]}>{t('binauralBeats.srodowisko_pozycja_czas_trwania', 'Środowisko, pozycja, czas trwania')}</Text>
               </View>
               {showTips ? <ChevronUp color={accentColor} size={16} /> : <ChevronDown color={accentColor} size={16} />}
             </Pressable>
@@ -1081,7 +1081,7 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
 
           {/* ─── Frequency cards ─── */}
           <View style={[styles.sectionHeader, { marginTop: 20 }]}>
-            <Text style={[styles.sectionTitle, { color: accentColor }]}>CZĘSTOTLIWOŚCI</Text>
+            <Text style={[styles.sectionTitle, { color: accentColor }]}>{t('binauralBeats.czestotliw', 'CZĘSTOTLIWOŚCI')}</Text>
           </View>
           <View style={styles.list}>
             {FREQS.map(f => (
@@ -1104,10 +1104,10 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
             />
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
               <Sliders color={accentColor} size={16} strokeWidth={1.8} />
-              <Text style={[styles.customTitle, { color: accentColor }]}>SESJA CUSTOM</Text>
+              <Text style={[styles.customTitle, { color: accentColor }]}>{t('binauralBeats.sesja_custom', 'SESJA CUSTOM')}</Text>
             </View>
             <Text style={[styles.customDesc, { color: subColor }]}>
-              Połącz dwie częstotliwości — stwórz unikatowy stan między Theta a Alpha, Gamma a Beta lub dowolną kombinacją. Efekt binaural reaguje na różnicę częstotliwości.
+              {t('binauralBeats.polacz_dwie_czestotliw_stworz_unika', 'Połącz dwie częstotliwości — stwórz unikatowy stan między Theta a Alpha, Gamma a Beta lub dowolną kombinacją. Efekt binaural reaguje na różnicę częstotliwości.')}
             </Text>
             {blendActive ? (
               <View>
@@ -1125,13 +1125,13 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
                   </View>
                 </View>
                 <Pressable onPress={stopBlend} style={[styles.customStopBtn, { borderColor: accentColor + '55' }]}>
-                  <Text style={[styles.customStopText, { color: accentColor }]}>◼ Zatrzymaj blend</Text>
+                  <Text style={[styles.customStopText, { color: accentColor }]}>{t('binauralBeats.zatrzymaj_blend', '◼ Zatrzymaj blend')}</Text>
                 </Pressable>
               </View>
             ) : (
               <Pressable onPress={() => setShowBlendModal(true)} style={[styles.customStartBtn, { backgroundColor: accentColor }]}>
                 <Sliders color={isLight ? '#FFF' : '#000'} size={14} />
-                <Text style={[styles.customStartText, { color: isLight ? '#FFF' : '#000' }]}>Konfiguruj blend</Text>
+                <Text style={[styles.customStartText, { color: isLight ? '#FFF' : '#000' }]}>{t('binauralBeats.konfiguruj_blend', 'Konfiguruj blend')}</Text>
               </Pressable>
             )}
           </View>
@@ -1143,15 +1143,15 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
                 <Calendar color={accentColor} size={16} strokeWidth={1.8} />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={[styles.sectionToggleLabel, { color: accentColor }]}>PROGRAM 7-DNIOWY</Text>
-                <Text style={[styles.sectionToggleSub, { color: subColor }]}>Strukturalny trening fal mózgowych</Text>
+                <Text style={[styles.sectionToggleLabel, { color: accentColor }]}>{t('binauralBeats.program_7_dniowy', 'PROGRAM 7-DNIOWY')}</Text>
+                <Text style={[styles.sectionToggleSub, { color: subColor }]}>{t('binauralBeats.struktural_trening_fal_mozgowych', 'Strukturalny trening fal mózgowych')}</Text>
               </View>
               {showProgram ? <ChevronUp color={accentColor} size={16} /> : <ChevronDown color={accentColor} size={16} />}
             </Pressable>
             {showProgram && (
               <View style={{ marginTop: 14, gap: 10 }}>
                 <Text style={[styles.programIntro, { color: subColor }]}>
-                  Jeden tydzień — każdy dzień inna fala. Przejdź przez pełny spektrum od fundamentu (Delta) do Korony (Gamma), pozwalając mózgowi adaptować się stopniowo.
+                  {t('binauralBeats.jeden_tydzien_kazdy_dzien_inna', 'Jeden tydzień — każdy dzień inna fala. Przejdź przez pełny spektrum od fundamentu (Delta) do Korony (Gamma), pozwalając mózgowi adaptować się stopniowo.')}
                 </Text>
                 {SEVEN_DAY_PROGRAM.map((pd) => {
                   const freq = FREQS.find(f => f.id === pd.freqId);
@@ -1200,14 +1200,14 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
                     style={[styles.programNavBtn, { borderColor: cardBorder }]}
                     disabled={programDay === 1}
                   >
-                    <Text style={[styles.programNavText, { color: programDay === 1 ? subColor : textColor }]}>← Poprzedni</Text>
+                    <Text style={[styles.programNavText, { color: programDay === 1 ? subColor : textColor }]}>{t('binauralBeats.poprzedni', '← Poprzedni')}</Text>
                   </Pressable>
                   <Pressable
                     onPress={() => setProgramDay(d => Math.min(7, d + 1))}
                     style={[styles.programNavBtn, { borderColor: cardBorder, flex: 1 }]}
                     disabled={programDay === 7}
                   >
-                    <Text style={[styles.programNavText, { color: programDay === 7 ? subColor : accentColor }]}>Następny dzień →</Text>
+                    <Text style={[styles.programNavText, { color: programDay === 7 ? subColor : accentColor }]}>{t('binauralBeats.nastepny_dzien', 'Następny dzień →')}</Text>
                   </Pressable>
                 </View>
               </View>
@@ -1221,7 +1221,7 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
                 <Clock color={accentColor} size={16} strokeWidth={1.8} />
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={[styles.sectionToggleLabel, { color: accentColor }]}>HISTORIA SESJI</Text>
+                <Text style={[styles.sectionToggleLabel, { color: accentColor }]}>{t('binauralBeats.historia_sesji', 'HISTORIA SESJI')}</Text>
                 <Text style={[styles.sectionToggleSub, { color: subColor }]}>
                   {sessionHistory.length > 0 ? `${sessionHistory.length} ostatnich sesji` : 'Brak jeszcze sesji'}
                 </Text>
@@ -1232,7 +1232,7 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
               <View style={{ marginTop: 10, gap: 8 }}>
                 {sessionHistory.length === 0 ? (
                   <Text style={[styles.historyEmpty, { color: subColor }]}>
-                    Twoje sesje pojawią się tutaj po zakończeniu odtwarzania (min. 30 sekund). Historia przechowuje 7 ostatnich sesji.
+                    {t('binauralBeats.twoje_sesje_pojawia_sie_tutaj', 'Twoje sesje pojawią się tutaj po zakończeniu odtwarzania (min. 30 sekund). Historia przechowuje 7 ostatnich sesji.')}
                   </Text>
                 ) : (
                   sessionHistory.map((sess, si) => {
@@ -1264,9 +1264,9 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
 
           {/* ─── How it works ─── */}
           <View style={[styles.infoBox, { backgroundColor: cardBg, borderColor: cardBorder, marginTop: 16 }]}>
-            <Typography variant="cardTitle" style={{ color: textColor }}>🧠 Jak działają rytmy binauralne?</Typography>
+            <Typography variant="cardTitle" style={{ color: textColor }}>{t('binauralBeats.jak_dzialaja_rytmy_binauralne', '🧠 Jak działają rytmy binauralne?')}</Typography>
             <Typography variant="bodyRefined" style={{ color: subColor, marginTop: 10, marginBottom: 16, lineHeight: 22 }}>
-              Gdy lewe ucho słyszy 200 Hz a prawe 210 Hz, mózg odbiera różnicę 10 Hz. Ten efekt, zwany synchronizacją hemisferyczną, pomaga wejść w pożądany stan bez substancji psychoaktywnych.
+              {t('binauralBeats.gdy_lewe_ucho_slyszy_200', 'Gdy lewe ucho słyszy 200 Hz a prawe 210 Hz, mózg odbiera różnicę 10 Hz. Ten efekt, zwany synchronizacją hemisferyczną, pomaga wejść w pożądany stan bez substancji psychoaktywnych.')}
             </Typography>
             <View style={styles.infoGrid}>
               {[
@@ -1287,7 +1287,7 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
 
           {/* ─── CO DALEJ? ─── */}
           <View style={{ marginTop: 16, paddingHorizontal: 0 }}>
-            <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.8, color: accentColor, marginBottom: 12 }}>✦ CO DALEJ?</Text>
+            <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.8, color: accentColor, marginBottom: 12 }}>{t('binauralBeats.co_dalej', '✦ CO DALEJ?')}</Text>
             {[
               { icon: Wind, label: 'Pranajama i oddech', sub: 'Połącz z oddechem — Breathwork w tle sesji', color: '#34D399', route: 'Breathwork' },
               { icon: Headphones, label: 'Kąpiel dźwiękowa', sub: 'Kontynuuj immersję w pejzażach dźwięku', color: '#60A5FA', route: 'SoundBath' },

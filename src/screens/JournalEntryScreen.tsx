@@ -574,13 +574,13 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                     : ['rgba(203,170,100,0.07)', 'transparent']}
                   style={StyleSheet.absoluteFill}
                 />
-                <Text style={[s.promptLabel, { color: accent }]}>✦ PYTANIE PROWADZĄCE</Text>
+                <Text style={[s.promptLabel, { color: accent }]}>{t('journal.pytanie_prowadzace', '✦ PYTANIE PROWADZĄCE')}</Text>
                 <Text style={[s.promptText, { color: textColor }]}>{sanctuaryPrompt}</Text>
               </View>
             </Animated.View>
 
             {/* ── ENTRY TYPE CHIPS (10 types) ── */}
-            <Text style={[s.sectionLabel, { color: subColor }]}>RODZAJ WPISU</Text>
+            <Text style={[s.sectionLabel, { color: subColor }]}>{t('journal.rodzaj_wpisu', 'RODZAJ WPISU')}</Text>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -620,7 +620,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
             </ScrollView>
 
             {/* ── MOOD SELECTOR ── */}
-            <Text style={[s.sectionLabel, { color: subColor }]}>NASTRÓJ CHWILI</Text>
+            <Text style={[s.sectionLabel, { color: subColor }]}>{t('journal.nastroj_chwili', 'NASTRÓJ CHWILI')}</Text>
             <View style={s.moodRow}>
               {MOODS.map((m) => {
                 const active = mood === m.id;
@@ -660,7 +660,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
               }]}>
                 <View style={s.energyHeader}>
                   <Zap color={accent} size={13} />
-                  <Text style={[s.energyLabel, { color: subColor }]}>POZIOM ENERGII</Text>
+                  <Text style={[s.energyLabel, { color: subColor }]}>{t('journal.poziom_energii', 'POZIOM ENERGII')}</Text>
                   <Text style={[s.energyValue, { color: accent }]}>{energyLevel}/10</Text>
                 </View>
                 <View style={s.energyBarTrack}>
@@ -684,14 +684,14 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                   ))}
                 </View>
                 <View style={s.energyLabels}>
-                  <Text style={[s.energyHint, { color: subColor }]}>Wyczerpanie</Text>
-                  <Text style={[s.energyHint, { color: subColor }]}>Pełnia energii</Text>
+                  <Text style={[s.energyHint, { color: subColor }]}>{t('journal.wyczerpani', 'Wyczerpanie')}</Text>
+                  <Text style={[s.energyHint, { color: subColor }]}>{t('journal.pelnia_energii', 'Pełnia energii')}</Text>
                 </View>
               </View>
             </Animated.View>
 
             {/* ── TAGS ── */}
-            <Text style={[s.sectionLabel, { color: subColor }]}>TAGI (maks. 5)</Text>
+            <Text style={[s.sectionLabel, { color: subColor }]}>{t('journal.tagi_maks_5', 'TAGI (maks. 5)')}</Text>
             <View style={s.tagRow}>
               {PRESET_TAGS.map((tag) => {
                 const active = selectedTags.includes(tag);
@@ -719,7 +719,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
               <View style={{ flex: 1 }} />
               {selectedTags.length > 0 && (
                 <Pressable onPress={() => setSelectedTags([])}>
-                  <Text style={[s.tagClear, { color: subColor }]}>wyczyść</Text>
+                  <Text style={[s.tagClear, { color: subColor }]}>{t('journal.wyczysc', 'wyczyść')}</Text>
                 </Pressable>
               )}
             </View>
@@ -734,7 +734,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                 }]}
               >
                 <AlignLeft color={subColor} size={13} />
-                <Text style={[s.toolBtnLabel, { color: subColor }]}>Szablon</Text>
+                <Text style={[s.toolBtnLabel, { color: subColor }]}>{t('journal.szablon', 'Szablon')}</Text>
               </Pressable>
               <Pressable
                 onPress={loadGuidedPrompts}
@@ -744,7 +744,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                 }]}
               >
                 <Sparkles color={accent} size={13} />
-                <Text style={[s.toolBtnLabel, { color: accent }]}>Potrzebuję natchnienia</Text>
+                <Text style={[s.toolBtnLabel, { color: accent }]}>{t('journal.potrzebuje_natchnieni', 'Potrzebuję natchnienia')}</Text>
               </Pressable>
               <Pressable
                 onPress={() => setShowTarotModal(true)}
@@ -813,7 +813,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                     color: textColor,
                     lineHeight: 30,
                   }]}
-                  placeholder="Pisz spokojnie. Jedno prawdziwe zdanie jest cenniejsze niż długi tekst bez kontaktu z sobą..."
+                  placeholder={t('journal.pisz_spokojnie_jedno_prawdziwe_zdan', 'Pisz spokojnie. Jedno prawdziwe zdanie jest cenniejsze niż długi tekst bez kontaktu z sobą...')}
                   placeholderTextColor={isLight ? 'rgba(100,70,30,0.35)' : 'rgba(200,185,160,0.30)'}
                   value={content}
                   onChangeText={setContent}
@@ -838,7 +838,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                   </Text>
                   {content.trim().length > 0 && content.trim().length <= 10 && (
                     <Text style={[s.wordCountHint, { color: isLight ? '#B45309' : '#FCA5A5' }]}>
-                      · dodaj więcej, aby zapisać
+                      {t('journal.dodaj_wiecej_aby_zapisac', '· dodaj więcej, aby zapisać')}
                     </Text>
                   )}
                 </View>
@@ -854,7 +854,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                 }]}>
                   <Text style={{ fontSize: 24 }}>{attachedCard.emoji}</Text>
                   <View style={{ flex: 1, marginLeft: 12 }}>
-                    <Text style={[s.attachedLabel, { color: subColor }]}>DOŁĄCZONA KARTA</Text>
+                    <Text style={[s.attachedLabel, { color: subColor }]}>{t('journal.dolaczona_karta', 'DOŁĄCZONA KARTA')}</Text>
                     <Text style={[s.attachedName, { color: attachedCard.color }]}>{attachedCard.name}</Text>
                   </View>
                   <Pressable onPress={() => setAttachedCard(null)}>
@@ -873,7 +873,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                 }]}>
                   <Lock color={accent} size={12} />
                   <Text style={[s.privacyText, { color: accent }]}>
-                    Ten wpis będzie widoczny tylko dla Ciebie — treść zostanie ukryta w liście wpisów.
+                    {t('journal.ten_wpis_bedzie_widoczny_tylko', 'Ten wpis będzie widoczny tylko dla Ciebie — treść zostanie ukryta w liście wpisów.')}
                   </Text>
                 </View>
               </Animated.View>
@@ -900,10 +900,10 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                   <Sparkles color={accent} size={16} />
                   <View style={{ flex: 1, marginLeft: 12 }}>
                     <Text style={[s.oracleCtaTitle, { color: accent }]}>
-                      ✨ Zapytaj Oracle o ten wpis
+                      {t('journal.zapytaj_oracle_o_ten_wpis', '✨ Zapytaj Oracle o ten wpis')}
                     </Text>
                     <Text style={[s.oracleCtaSub, { color: subColor }]}>
-                      Oracle przeczyta Twój zapis i podzieli się spostrzeżeniami, wzorcami lub pytaniami.
+                      {t('journal.oracle_przeczyta_twoj_zapis_i', 'Oracle przeczyta Twój zapis i podzieli się spostrzeżeniami, wzorcami lub pytaniami.')}
                     </Text>
                   </View>
                   <ChevronLeft
@@ -924,7 +924,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
                 }]}>
                   <CheckCircle2 color="#22C55E" size={16} />
                   <Text style={[s.savedText, { color: '#22C55E' }]}>
-                    Wpis zapisany w prywatnym archiwum ✦
+                    {t('journal.wpis_zapisany_w_prywatnym_archiwum', 'Wpis zapisany w prywatnym archiwum ✦')}
                   </Text>
                 </View>
               </Animated.View>
@@ -953,7 +953,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
           >
             {!canSave && (
               <Text style={[s.footerHint, { color: subColor }]}>
-                Napisz przynajmniej kilka słów, aby zapisać wpis.
+                {t('journal.napisz_przynajmni_kilka_slow_aby', 'Napisz przynajmniej kilka słów, aby zapisać wpis.')}
               </Text>
             )}
 
@@ -994,9 +994,9 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
             }]}
             onPress={e => e.stopPropagation()}
           >
-            <Text style={[s.modalTitle, { color: textColor }]}>Szablony wpisu</Text>
+            <Text style={[s.modalTitle, { color: textColor }]}>{t('journal.szablony_wpisu', 'Szablony wpisu')}</Text>
             <Text style={[s.modalSub, { color: subColor }]}>
-              Wybierz szablon, który wstępnie wypełni strukturę Twojego wpisu.
+              {t('journal.wybierz_szablon_ktory_wstepnie_wype', 'Wybierz szablon, który wstępnie wypełni strukturę Twojego wpisu.')}
             </Text>
             {ENTRY_TEMPLATES.map((tpl) => (
               <Pressable
@@ -1023,7 +1023,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
               </Pressable>
             ))}
             <Pressable onPress={() => setShowTemplateModal(false)} style={s.modalCancelBtn}>
-              <Text style={[s.modalCancelText, { color: subColor }]}>Anuluj</Text>
+              <Text style={[s.modalCancelText, { color: subColor }]}>{t('journal.anuluj', 'Anuluj')}</Text>
             </Pressable>
           </Pressable>
         </Pressable>
@@ -1042,9 +1042,9 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
             }]}
             onPress={e => e.stopPropagation()}
           >
-            <Text style={[s.modalTitle, { color: textColor }]}>Dołącz kartę tarota</Text>
+            <Text style={[s.modalTitle, { color: textColor }]}>{t('journal.dolacz_karte_tarota', 'Dołącz kartę tarota')}</Text>
             <Text style={[s.modalSub, { color: subColor }]}>
-              Odkryj kartę, która rezonuje z tym wpisem. Dotknij karty, by ją odsłonić, a następnie wybierz.
+              {t('journal.odkryj_karte_ktora_rezonuje_z', 'Odkryj kartę, która rezonuje z tym wpisem. Dotknij karty, by ją odsłonić, a następnie wybierz.')}
             </Text>
             <View style={s.cardPickerRow}>
               {TAROT_CARD_OPTIONS.map((card, index) => {
@@ -1077,7 +1077,7 @@ export const JournalEntryScreen = ({ navigation, route }: any) => {
               })}
             </View>
             <Pressable onPress={() => { setShowTarotModal(false); setRevealedCards([]); }} style={s.modalCancelBtn}>
-              <Text style={[s.modalCancelText, { color: subColor }]}>Anuluj</Text>
+              <Text style={[s.modalCancelText, { color: subColor }]}>{t('journal.anuluj_1', 'Anuluj')}</Text>
             </Pressable>
           </Pressable>
         </Pressable>

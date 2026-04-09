@@ -288,8 +288,8 @@ export const SpiritualHabitsScreen = ({ navigation }: any) => {
             <ChevronLeft color={isLight ? '#1A1A2E' : '#F0EBE2'} size={22} strokeWidth={2} />
           </Pressable>
           <View style={s.headerCenter}>
-            <Text style={[s.headerTitle, { color: textColor }]}>NAWYKI DUCHOWE</Text>
-            <Text style={[s.headerSub, { color: subColor }]}>Twoja codzienna praktyka</Text>
+            <Text style={[s.headerTitle, { color: textColor }]}>{t('spiritualHabits.nawyki_duchowe', 'NAWYKI DUCHOWE')}</Text>
+            <Text style={[s.headerSub, { color: subColor }]}>{t('spiritualHabits.twoja_codzienna_praktyka', 'Twoja codzienna praktyka')}</Text>
           </View>
           <Pressable onPress={handleStar} hitSlop={12} style={s.starBtn}>
             <Star color={isStarred ? GOLD : isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.35)'}
@@ -317,7 +317,7 @@ export const SpiritualHabitsScreen = ({ navigation }: any) => {
 
               {/* Progress bar */}
               <View style={s.progressBarRow}>
-                <Text style={[s.progressLabel, { color: subColor }]}>Ukończono dziś:</Text>
+                <Text style={[s.progressLabel, { color: subColor }]}>{t('spiritualHabits.ukonczono_dzis', 'Ukończono dziś:')}</Text>
                 <Text style={[s.progressCount, { color: GOLD }]}>{completedCount}/{HABITS.length}</Text>
               </View>
               <View style={[s.progressTrack, { width: progressBarW, backgroundColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.10)' }]}>
@@ -339,7 +339,7 @@ export const SpiritualHabitsScreen = ({ navigation }: any) => {
 
           {/* ── Habit Grid ── */}
           <Animated.View entering={FadeInDown.delay(160).duration(400)}>
-            <Text style={[s.sectionTitle, { color: subColor }]}>TWOJE PRAKTYKI</Text>
+            <Text style={[s.sectionTitle, { color: subColor }]}>{t('spiritualHabits.twoje_praktyki', 'TWOJE PRAKTYKI')}</Text>
           </Animated.View>
 
           <View style={s.habitGrid}>
@@ -359,7 +359,7 @@ export const SpiritualHabitsScreen = ({ navigation }: any) => {
 
           {/* ── Weekly Heatmap ── */}
           <Animated.View entering={FadeInDown.delay(360).duration(400)}>
-            <Text style={[s.sectionTitle, { color: subColor }]}>OSTATNIE 7 DNI</Text>
+            <Text style={[s.sectionTitle, { color: subColor }]}>{t('spiritualHabits.ostatnie_7_dni', 'OSTATNIE 7 DNI')}</Text>
             <View style={[s.heatmapCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <View style={s.heatmapRow}>
                 {weekData.map(d => (
@@ -367,14 +367,14 @@ export const SpiritualHabitsScreen = ({ navigation }: any) => {
                 ))}
               </View>
               <Text style={[s.heatmapHint, { color: subColor }]}>
-                Złote kółko = &gt;50% nawyków ukończonych
+                {t('spiritualHabits.zlote_kolko_gt_50_nawykow', 'Złote kółko = &gt;50% nawyków ukończonych')}
               </Text>
             </View>
           </Animated.View>
 
           {/* ── Streak Leaderboard ── */}
           <Animated.View entering={FadeInDown.delay(420).duration(400)}>
-            <Text style={[s.sectionTitle, { color: subColor }]}>TWOJE SERIE</Text>
+            <Text style={[s.sectionTitle, { color: subColor }]}>{t('spiritualHabits.twoje_serie', 'TWOJE SERIE')}</Text>
             <View style={s.leaderRow}>
               {topStreaks.map(({ habit, streak }, idx) => {
                 const Icon = habit.icon;
@@ -394,7 +394,7 @@ export const SpiritualHabitsScreen = ({ navigation }: any) => {
 
           {/* ── AI Daily Guidance ── */}
           <Animated.View entering={FadeInDown.delay(480).duration(400)}>
-            <Text style={[s.sectionTitle, { color: subColor }]}>WSKAZÓWKI AI</Text>
+            <Text style={[s.sectionTitle, { color: subColor }]}>{t('spiritualHabits.wskazowki_ai', 'WSKAZÓWKI AI')}</Text>
             <Pressable
               onPress={fetchAiGuidance}
               disabled={aiLoading}
@@ -431,9 +431,9 @@ export const SpiritualHabitsScreen = ({ navigation }: any) => {
               >
                 <Flame color={GOLD} size={20} strokeWidth={1.8} />
                 <View style={s.ritualBtnText}>
-                  <Text style={[s.ritualBtnTitle, { color: GOLD }]}>ZAPROPONUJ RYTUAŁ</Text>
+                  <Text style={[s.ritualBtnTitle, { color: GOLD }]}>{t('spiritualHabits.zaproponuj_rytual', 'ZAPROPONUJ RYTUAŁ')}</Text>
                   <Text style={[s.ritualBtnSub, { color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.50)' }]}>
-                    Poranny Rytuał — 5 etapów, wiele nawyków naraz
+                    {t('spiritualHabits.poranny_rytual_5_etapow_wiele', 'Poranny Rytuał — 5 etapów, wiele nawyków naraz')}
                   </Text>
                 </View>
                 <ArrowRight color={GOLD} size={18} strokeWidth={2} />
@@ -443,7 +443,7 @@ export const SpiritualHabitsScreen = ({ navigation }: any) => {
 
           {/* ── CO DALEJ? ── */}
           <Animated.View entering={FadeInDown.delay(560).duration(400)}>
-            <Text style={[s.sectionTitle, { color: subColor }]}>CO DALEJ?</Text>
+            <Text style={[s.sectionTitle, { color: subColor }]}>{t('spiritualHabits.co_dalej', 'CO DALEJ?')}</Text>
           </Animated.View>
 
           {([

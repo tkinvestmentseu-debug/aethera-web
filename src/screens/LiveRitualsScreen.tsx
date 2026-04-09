@@ -540,7 +540,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
               {live
                 ? <View style={[styles.liveBadge, { backgroundColor: ACCENT }]}>
                     <View style={styles.liveDotSmall} />
-                    <Text style={styles.liveBadgeText}>LIVE</Text>
+                    <Text style={styles.liveBadgeText}>{t('liveRituals.live', 'LIVE')}</Text>
                   </View>
                 : <View style={[styles.countdownPill, { backgroundColor: r.color + '22', borderColor: r.color + '44' }]}>
                     <Clock size={9} color={r.color} />
@@ -573,7 +573,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
           </View>
           <Pressable onPress={() => enterRitual(r)}
             style={[styles.enterBtn, { backgroundColor: r.color }]}>
-            <Text style={styles.enterBtnText}>Wejdź</Text>
+            <Text style={styles.enterBtnText}>{t('liveRituals.wejdz', 'Wejdź')}</Text>
             <ChevronRight size={12} color="#FFF" />
           </Pressable>
         </Pressable>
@@ -601,13 +601,13 @@ export const LiveRitualsScreen = ({ navigation }) => {
         </View>
         <View style={[styles.heroBannerPill, { backgroundColor: ACCENT }]}>
           <Radio size={10} color="#FFF" />
-          <Text style={styles.heroBannerPillText}>NA ŻYWO</Text>
+          <Text style={styles.heroBannerPillText}>{t('liveRituals.na_zywo', 'NA ŻYWO')}</Text>
         </View>
       </Animated.View>
 
       {/* Polecane strip */}
       <Animated.View entering={FadeInDown.delay(120)}>
-        <Text style={[styles.sectionLabel, { color: textColor }]}>✦ DZIŚ POLECANE</Text>
+        <Text style={[styles.sectionLabel, { color: textColor }]}>{t('liveRituals.dzis_polecane', '✦ DZIŚ POLECANE')}</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 10, paddingRight: P }}>
           {featured.map((r, i) => {
             const Icon = r.icon;
@@ -659,7 +659,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
       <Animated.View entering={FadeInDown.delay(200)} style={{ marginTop: 28 }}>
         <View style={styles.leaderHeaderRow}>
           <Trophy size={14} color={ACCENT} />
-          <Text style={[styles.sectionLabel, { color: textColor, marginBottom: 0, marginLeft: 6 }]}>MISTRZOWIE RYTUAŁÓW</Text>
+          <Text style={[styles.sectionLabel, { color: textColor, marginBottom: 0, marginLeft: 6 }]}>{t('liveRituals.mistrzowie_rytualow', 'MISTRZOWIE RYTUAŁÓW')}</Text>
         </View>
         {LEADERBOARD.map((l, i) => (
           <Animated.View key={l.name} entering={FadeInDown.delay(220 + i * 50)}>
@@ -692,7 +692,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
           style={[styles.createBigBtn, { backgroundColor: ACCENT + '18', borderColor: ACCENT + '44' }]}>
           <LinearGradient colors={[ACCENT + '28', ACCENT + '06']} style={StyleSheet.absoluteFill} />
           <Plus size={20} color={ACCENT} />
-          <Text style={[styles.createBigBtnText, { color: ACCENT }]}>STWÓRZ RYTUAŁ</Text>
+          <Text style={[styles.createBigBtnText, { color: ACCENT }]}>{t('liveRituals.stworz_rytual', 'STWÓRZ RYTUAŁ')}</Text>
         </Pressable>
       </Animated.View>
 
@@ -701,8 +701,8 @@ export const LiveRitualsScreen = ({ navigation }) => {
         {joinedRituals.length === 0
           ? <View style={[styles.emptyState, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <Users size={32} color={subColor} style={{ marginBottom: 10 }} />
-              <Text style={[styles.emptyTitle, { color: textColor }]}>Nie dołączono do żadnego rytuału</Text>
-              <Text style={[styles.emptySub, { color: subColor }]}>Przejdź do zakładki NA ŻYWO i naciśnij "Wejdź"</Text>
+              <Text style={[styles.emptyTitle, { color: textColor }]}>{t('liveRituals.nie_dolaczono_do_zadnego_rytualu', 'Nie dołączono do żadnego rytuału')}</Text>
+              <Text style={[styles.emptySub, { color: subColor }]}>{t('liveRituals.przejdz_do_zakladki_na_zywo', 'Przejdź do zakładki NA ŻYWO i naciśnij "Wejdź"')}</Text>
             </View>
           : joinedRituals.map((r, i) => {
               const Icon = r.icon;
@@ -719,7 +719,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
                     </View>
                     <Pressable onPress={() => toggleJoin(r.id)}
                       style={[styles.exitBtn, { backgroundColor: ACCENT + '18', borderColor: ACCENT + '44' }]}>
-                      <Text style={[styles.exitBtnText, { color: ACCENT }]}>Wyjdź</Text>
+                      <Text style={[styles.exitBtnText, { color: ACCENT }]}>{t('liveRituals.wyjdz', 'Wyjdź')}</Text>
                     </Pressable>
                   </View>
                 </Animated.View>
@@ -733,8 +733,8 @@ export const LiveRitualsScreen = ({ navigation }) => {
         {createdRituals.length === 0
           ? <View style={[styles.emptyState, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <LayoutGrid size={32} color={subColor} style={{ marginBottom: 10 }} />
-              <Text style={[styles.emptyTitle, { color: textColor }]}>Brak własnych rytuałów</Text>
-              <Text style={[styles.emptySub, { color: subColor }]}>Naciśnij "STWÓRZ RYTUAŁ" powyżej</Text>
+              <Text style={[styles.emptyTitle, { color: textColor }]}>{t('liveRituals.brak_wlasnych_rytualow', 'Brak własnych rytuałów')}</Text>
+              <Text style={[styles.emptySub, { color: subColor }]}>{t('liveRituals.nacisnij_stworz_rytual_powyzej', 'Naciśnij "STWÓRZ RYTUAŁ" powyżej')}</Text>
             </View>
           : createdRituals.map((r, i) => {
               const Icon = r.icon;
@@ -784,7 +784,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
   const renderArchiveTab = () => (
     <>
       <Animated.View entering={FadeInDown.delay(60)}>
-        <Text style={[styles.sectionLabel, { color: textColor }]}>ZAKOŃCZONE RYTUAŁY</Text>
+        <Text style={[styles.sectionLabel, { color: textColor }]}>{t('liveRituals.zakonczone_rytualy', 'ZAKOŃCZONE RYTUAŁY')}</Text>
         {ARCHIVE.map((a, i) => (
           <Animated.View key={a.id} entering={FadeInDown.delay(80 + i * 60)}>
             <View style={[styles.archiveCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
@@ -800,7 +800,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
               </View>
               <Pressable onPress={() => HapticsService.impact()}
                 style={[styles.replayBtn, { backgroundColor: cardBg, borderColor: cardBorder }]}>
-                <Text style={[styles.replayText, { color: subColor }]}>Ponów</Text>
+                <Text style={[styles.replayText, { color: subColor }]}>{t('liveRituals.ponow', 'Ponów')}</Text>
               </Pressable>
             </View>
           </Animated.View>
@@ -809,7 +809,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
 
       {/* Stats strip */}
       <Animated.View entering={FadeInDown.delay(400)} style={{ marginTop: 24 }}>
-        <Text style={[styles.sectionLabel, { color: textColor }]}>WSPÓLNOTA DZIŚ</Text>
+        <Text style={[styles.sectionLabel, { color: textColor }]}>{t('liveRituals.wspolnota_dzis', 'WSPÓLNOTA DZIŚ')}</Text>
         <View style={styles.statsStrip}>
           {[
             { label: 'Uczestników', value: totalParticipants.toLocaleString() },
@@ -831,7 +831,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
 
   const renderCoDalej = () => (
     <Animated.View entering={FadeInDown.delay(440)} style={{ marginTop: 28 }}>
-      <Text style={[styles.sectionLabel, { color: textColor }]}>✦ CO DALEJ?</Text>
+      <Text style={[styles.sectionLabel, { color: textColor }]}>{t('liveRituals.co_dalej', '✦ CO DALEJ?')}</Text>
       {[
         { label: 'Krąg Energii', sub: 'Grupowa synchronizacja', route: 'EnergyCircle', color: '#10B981', Icon: Sparkles },
         { label: 'Czat Wspólnoty', sub: 'Połącz się z innymi', route: 'CommunityChat', color: '#6366F1', Icon: Users },
@@ -877,7 +877,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
                 <View style={styles.detailTitleArea}>
                   <View style={styles.detailBadgeRow}>
                     {live
-                      ? <View style={[styles.liveBadge, { backgroundColor: ACCENT }]}><View style={styles.liveDotSmall} /><Text style={styles.liveBadgeText}>LIVE</Text></View>
+                      ? <View style={[styles.liveBadge, { backgroundColor: ACCENT }]}><View style={styles.liveDotSmall} /><Text style={styles.liveBadgeText}>{t('liveRituals.live_1', 'LIVE')}</Text></View>
                       : <View style={[styles.typeBadge, { backgroundColor: r.color + '20', borderColor: r.color + '40' }]}><Text style={[styles.typeText, { color: r.color }]}>{r.type}</Text></View>
                     }
                     <Text style={[styles.typeText, { color: subColor, marginLeft: 8 }]}>{r.duration} min · {r.element}</Text>
@@ -894,7 +894,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
                 {live && (
                   <View style={styles.detailProgressWrap}>
                     <View style={styles.detailProgressRow}>
-                      <Text style={[styles.cardMeta, { color: subColor }]}>Postęp sesji</Text>
+                      <Text style={[styles.cardMeta, { color: subColor }]}>{t('liveRituals.postep_sesji', 'Postęp sesji')}</Text>
                       <Text style={[styles.cardMeta, { color: ACCENT }]}>{Math.round(progress * 100)}%</Text>
                     </View>
                     <View style={[styles.progressBarTrack, { backgroundColor: cardBorder, marginBottom: 0 }]}>
@@ -905,7 +905,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
 
                 <Text style={[styles.detailDesc, { color: subColor }]}>{r.desc}</Text>
 
-                <Text style={[styles.detailPrepTitle, { color: textColor }]}>Jak się przygotować:</Text>
+                <Text style={[styles.detailPrepTitle, { color: textColor }]}>{t('liveRituals.jak_sie_przygotowa', 'Jak się przygotować:')}</Text>
                 {r.tips.map((tip: string, i: number) => (
                   <View key={i} style={styles.tipRow}>
                     <View style={[styles.tipNumBadge, { backgroundColor: r.color + '25' }]}>
@@ -916,7 +916,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
                 ))}
 
                 <View style={styles.detailPartsRow}>
-                  <Text style={[styles.detailPrepTitle, { color: textColor }]}>Uczestnicy:</Text>
+                  <Text style={[styles.detailPrepTitle, { color: textColor }]}>{t('liveRituals.uczestnicy', 'Uczestnicy:')}</Text>
                   <View style={styles.avatarRow}>
                     {['🧘', '🌙', '✨'].map((em, i) => (
                       <View key={i} style={[styles.avatarChip, { backgroundColor: cardBg, borderColor: cardBorder }]}>
@@ -935,7 +935,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
                 </Pressable>
                 <Pressable onPress={() => enterRitual(r)}
                   style={[styles.detailEnterBtn, { backgroundColor: r.color }]}>
-                  <Text style={styles.detailEnterText}>Wejdź do rytuału</Text>
+                  <Text style={styles.detailEnterText}>{t('liveRituals.wejdz_do_rytualu', 'Wejdź do rytuału')}</Text>
                   <ChevronRight size={16} color="#FFF" />
                 </Pressable>
               </View>
@@ -952,7 +952,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ width: '100%' }}>
           <View style={[styles.modalSheet, { backgroundColor: sheetBg }]}>
             <View style={[styles.createHeader, { borderBottomColor: cardBorder }]}>
-              <Text style={[styles.detailTitle, { color: textColor }]}>Stwórz Rytuał</Text>
+              <Text style={[styles.detailTitle, { color: textColor }]}>{t('liveRituals.stworz_rytual_1', 'Stwórz Rytuał')}</Text>
               <Pressable onPress={() => setShowCreate(false)} style={styles.closeBtn}>
                 <X size={20} color={subColor} />
               </Pressable>
@@ -960,11 +960,11 @@ export const LiveRitualsScreen = ({ navigation }) => {
             <ScrollView showsVerticalScrollIndicator={false} style={{ maxHeight: 460 }}>
               <TextInput
                 value={cTitle} onChangeText={setCTitle}
-                placeholder="Nazwa rytuału..." placeholderTextColor={subColor}
+                placeholder={t('liveRituals.nazwa_rytualu', 'Nazwa rytuału...')} placeholderTextColor={subColor}
                 style={[styles.createInput, { color: textColor, backgroundColor: cardBg, borderColor: cardBorder }]}
               />
 
-              <Text style={[styles.formLabel, { color: subColor }]}>KATEGORIA</Text>
+              <Text style={[styles.formLabel, { color: subColor }]}>{t('liveRituals.kategoria', 'KATEGORIA')}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, marginBottom: 14 }}>
                 {['KSIĘŻYC', 'OGIEŃ', 'CZAKRY', 'MEDYTACJA', 'WODA'].map(cat => {
                   const col = TYPE_COLORS[cat];
@@ -980,12 +980,12 @@ export const LiveRitualsScreen = ({ navigation }) => {
 
               <TextInput
                 value={cDesc} onChangeText={setCDesc}
-                placeholder="Opis i instrukcje..." placeholderTextColor={subColor}
+                placeholder={t('liveRituals.opis_i_instrukcje', 'Opis i instrukcje...')} placeholderTextColor={subColor}
                 multiline numberOfLines={3}
                 style={[styles.createInput, { color: textColor, backgroundColor: cardBg, borderColor: cardBorder, minHeight: 72, textAlignVertical: 'top' }]}
               />
 
-              <Text style={[styles.formLabel, { color: subColor }]}>CZAS TRWANIA (MIN)</Text>
+              <Text style={[styles.formLabel, { color: subColor }]}>{t('liveRituals.czas_trwania_min', 'CZAS TRWANIA (MIN)')}</Text>
               <View style={styles.optRow}>
                 {DURATION_OPTS.map(d => {
                   const active = cDuration === d;
@@ -998,7 +998,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
                 })}
               </View>
 
-              <Text style={[styles.formLabel, { color: subColor }]}>GODZINA STARTU</Text>
+              <Text style={[styles.formLabel, { color: subColor }]}>{t('liveRituals.godzina_startu', 'GODZINA STARTU')}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 6, marginBottom: 8 }}>
                 {HOUR_OPTS.map(h => {
                   const active = cHour === h;
@@ -1010,7 +1010,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
                   );
                 })}
               </ScrollView>
-              <Text style={[styles.formLabel, { color: subColor }]}>MINUTY STARTU</Text>
+              <Text style={[styles.formLabel, { color: subColor }]}>{t('liveRituals.minuty_startu', 'MINUTY STARTU')}</Text>
               <View style={styles.optRow}>
                 {MIN_OPTS.map(m => {
                   const active = cMin === m;
@@ -1023,7 +1023,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
                 })}
               </View>
 
-              <Text style={[styles.formLabel, { color: subColor }]}>MAKS. UCZESTNIKÓW</Text>
+              <Text style={[styles.formLabel, { color: subColor }]}>{t('liveRituals.maks_uczestniko', 'MAKS. UCZESTNIKÓW')}</Text>
               <View style={styles.optRow}>
                 {MAX_PART_OPTS.map(n => {
                   const active = cMaxPart === n;
@@ -1036,17 +1036,17 @@ export const LiveRitualsScreen = ({ navigation }) => {
                 })}
               </View>
 
-              <Text style={[styles.formLabel, { color: subColor }]}>WIDOCZNOŚĆ</Text>
+              <Text style={[styles.formLabel, { color: subColor }]}>{t('liveRituals.widocznosc', 'WIDOCZNOŚĆ')}</Text>
               <View style={styles.toggleRow}>
                 <Pressable onPress={() => setCPublic(true)}
                   style={[styles.toggleOpt, { borderColor: cPublic ? ACCENT : cardBorder }, cPublic && { backgroundColor: ACCENT + '18' }]}>
                   <Unlock size={14} color={cPublic ? ACCENT : subColor} />
-                  <Text style={[styles.toggleOptText, { color: cPublic ? ACCENT : subColor }]}>Publiczny</Text>
+                  <Text style={[styles.toggleOptText, { color: cPublic ? ACCENT : subColor }]}>{t('liveRituals.publiczny', 'Publiczny')}</Text>
                 </Pressable>
                 <Pressable onPress={() => setCPublic(false)}
                   style={[styles.toggleOpt, { borderColor: !cPublic ? ACCENT : cardBorder }, !cPublic && { backgroundColor: ACCENT + '18' }]}>
                   <Lock size={14} color={!cPublic ? ACCENT : subColor} />
-                  <Text style={[styles.toggleOptText, { color: !cPublic ? ACCENT : subColor }]}>Tylko zaproszeni</Text>
+                  <Text style={[styles.toggleOptText, { color: !cPublic ? ACCENT : subColor }]}>{t('liveRituals.tylko_zaproszeni', 'Tylko zaproszeni')}</Text>
                 </Pressable>
               </View>
             </ScrollView>
@@ -1054,7 +1054,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
             <Pressable onPress={submitCreate}
               style={[styles.submitBtn, { backgroundColor: ACCENT }, !cTitle.trim() && { opacity: 0.5 }]}>
               <Plus size={16} color="#FFF" />
-              <Text style={styles.submitBtnText}>Utwórz Rytuał</Text>
+              <Text style={styles.submitBtnText}>{t('liveRituals.utworz_rytual', 'Utwórz Rytuał')}</Text>
             </Pressable>
           </View>
         </KeyboardAvoidingView>
@@ -1078,7 +1078,7 @@ export const LiveRitualsScreen = ({ navigation }) => {
         <Pressable onPress={() => goBackOrToMainTab(navigation, 'Worlds')} style={styles.backBtn}>
           <ChevronLeft size={22} color={textColor} />
         </Pressable>
-        <Text style={[styles.headerTitle, { color: textColor }]}>Rytuały na Żywo</Text>
+        <Text style={[styles.headerTitle, { color: textColor }]}>{t('liveRituals.rytualy_na_zywo', 'Rytuały na Żywo')}</Text>
         <Pressable onPress={() => setShowCreate(true)}
           style={[styles.addBtn, { backgroundColor: ACCENT + '20', borderColor: ACCENT + '50' }]}>
           <Plus size={16} color={ACCENT} />

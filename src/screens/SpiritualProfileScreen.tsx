@@ -715,8 +715,8 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
             <ChevronLeft color={ACCENT} size={26} strokeWidth={1.6} />
           </Pressable>
           <View style={styles.headerCenter}>
-            <Typography variant="premiumLabel" color={ACCENT}>Profil Duchowy</Typography>
-            <Typography variant="screenTitle" style={{ color: textColor, marginTop: 3 }}>Moje Centrum Duszy</Typography>
+            <Typography variant="premiumLabel" color={ACCENT}>{t('spiritualProfile.profil_duchowy', 'Profil Duchowy')}</Typography>
+            <Typography variant="screenTitle" style={{ color: textColor, marginTop: 3 }}>{t('spiritualProfile.moje_centrum_duszy', 'Moje Centrum Duszy')}</Typography>
           </View>
           <Pressable
             onPress={() => {
@@ -756,7 +756,7 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
               <View style={[styles.section, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <View style={styles.sectionHeader}>
                   <BarChart3 color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Uzupełnienie Profilu</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('spiritualProfile.uzupelnien_profilu', 'Uzupełnienie Profilu')}</Text>
                   <Text style={[styles.completionPct, { color: ACCENT }]}>{profileCompletion}%</Text>
                 </View>
                 {/* Progress bar */}
@@ -801,26 +801,26 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
                 <View style={styles.identityStats}>
                   <View style={styles.identityStat}>
                     <Text style={[styles.identityStatNum, { color: ACCENT }]}>{lifePath || '?'}</Text>
-                    <Text style={[styles.identityStatLabel, { color: subColor }]}>Droga Życia</Text>
+                    <Text style={[styles.identityStatLabel, { color: subColor }]}>{t('spiritualProfile.droga_zycia', 'Droga Życia')}</Text>
                   </View>
                   <View style={[styles.identityDivider, { backgroundColor: ACCENT + '33' }]} />
                   <View style={styles.identityStat}>
                     <Text style={[styles.identityStatNum, { color: ACCENT }]}>{expressionNum || '?'}</Text>
-                    <Text style={[styles.identityStatLabel, { color: subColor }]}>Ekspresja</Text>
+                    <Text style={[styles.identityStatLabel, { color: subColor }]}>{t('spiritualProfile.ekspresja', 'Ekspresja')}</Text>
                   </View>
                   <View style={[styles.identityDivider, { backgroundColor: ACCENT + '33' }]} />
                   <View style={styles.identityStat}>
                     <Text style={[styles.identityStatNum, { color: ACCENT }]}>{soulUrgeNum || '?'}</Text>
-                    <Text style={[styles.identityStatLabel, { color: subColor }]}>Impuls Duszy</Text>
+                    <Text style={[styles.identityStatLabel, { color: subColor }]}>{t('spiritualProfile.impuls_duszy', 'Impuls Duszy')}</Text>
                   </View>
                   <View style={[styles.identityDivider, { backgroundColor: ACCENT + '33' }]} />
                   <View style={styles.identityStat}>
                     <Text style={[styles.identityStatNum, { color: ACCENT }]}>{personalYear || '?'}</Text>
-                    <Text style={[styles.identityStatLabel, { color: subColor }]}>Rok 2026</Text>
+                    <Text style={[styles.identityStatLabel, { color: subColor }]}>{t('spiritualProfile.rok_2026', 'Rok 2026')}</Text>
                   </View>
                 </View>
                 <View style={[styles.identityArchRow, { borderTopColor: ACCENT + '22' }]}>
-                  <Text style={[styles.identityArchLabel, { color: subColor }]}>DOMINUJĄCE ARCHETYPY:</Text>
+                  <Text style={[styles.identityArchLabel, { color: subColor }]}>{t('spiritualProfile.dominujace_archetypy', 'DOMINUJĄCE ARCHETYPY:')}</Text>
                   <Text style={[styles.identityArchValues, { color: textColor }]}>
                     {topArchetypeIds.map(id => ARCHETYPES.find(a => a.id === id)?.name || id).join('  ·  ')}
                   </Text>
@@ -833,10 +833,10 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
               <View style={[styles.section, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <View style={styles.sectionHeader}>
                   <Hash color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Numerologia</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('spiritualProfile.numerologi', 'Numerologia')}</Text>
                 </View>
                 <Text style={[styles.sectionDesc, { color: subColor }]}>
-                  Pięć liczb, które tworzą Twój numerologiczny DNA. Każda mówi inną warstwę prawdy o Tobie.
+                  {t('spiritualProfile.piec_liczb_ktore_tworza_twoj', 'Pięć liczb, które tworzą Twój numerologiczny DNA. Każda mówi inną warstwę prawdy o Tobie.')}
                 </Text>
                 {NUM_SECTIONS.map((ns, i) => {
                   const isExp = expandedNumSection === ns.key;
@@ -874,7 +874,7 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
               <View style={[styles.section, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <View style={styles.sectionHeader}>
                   <Sun color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Profil Astrologiczny</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('spiritualProfile.profil_astrologic', 'Profil Astrologiczny')}</Text>
                 </View>
                 <LinearGradient
                   colors={isLight ? ['#FEF3C7', '#FFFBEB'] : ['#F59E0B18', '#F59E0B08']}
@@ -917,10 +917,10 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
               <View style={[styles.section, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <View style={styles.sectionHeader}>
                   <Brain color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Archetypy Jungowskie</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('spiritualProfile.archetypy_jungowskie', 'Archetypy Jungowskie')}</Text>
                 </View>
                 <Text style={[styles.sectionDesc, { color: subColor }]}>
-                  12 archetypów tworzy mapę ludzkich wzorców. Twoje trzy dominujące — wyznaczone przez kombinację drogi życia i znaku zodiaku — są Twoim duchowym DNA.
+                  {t('spiritualProfile.12_archetypow_tworzy_mape_ludzkich', '12 archetypów tworzy mapę ludzkich wzorców. Twoje trzy dominujące — wyznaczone przez kombinację drogi życia i znaku zodiaku — są Twoim duchowym DNA.')}
                 </Text>
                 {ARCHETYPES.map((archetype, i) => {
                   const isTop = topArchetypeIds.includes(archetype.id);
@@ -948,7 +948,7 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
                         </Text>
                         {isTop && (
                           <View style={[styles.archetypeTopBadge, { backgroundColor: archetype.color + '22', borderColor: archetype.color + '55' }]}>
-                            <Text style={{ color: archetype.color, fontSize: 9, fontWeight: '700' }}>TWÓJ</Text>
+                            <Text style={{ color: archetype.color, fontSize: 9, fontWeight: '700' }}>{t('spiritualProfile.twoj', 'TWÓJ')}</Text>
                           </View>
                         )}
                         {isExp ? (
@@ -971,10 +971,10 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
               <View style={[styles.section, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <View style={styles.sectionHeader}>
                   <Gem color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Dary Duchowe</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('spiritualProfile.dary_duchowe', 'Dary Duchowe')}</Text>
                 </View>
                 <Text style={[styles.sectionDesc, { color: subColor }]}>
-                  Twoje 5 unikalnych darów duchowych, wyznaczonych przez kombinację numerologiczną i astrologiczną.
+                  {t('spiritualProfile.twoje_5_unikalnych_darow_duchowych', 'Twoje 5 unikalnych darów duchowych, wyznaczonych przez kombinację numerologiczną i astrologiczną.')}
                 </Text>
                 {topGifts.map((gift, i) => (
                   <Animated.View key={gift.title} entering={FadeInDown.delay(i * 60).duration(400)}>
@@ -997,10 +997,10 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
               <View style={[styles.section, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <View style={styles.sectionHeader}>
                   <Moon color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Obszary Cienia</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('spiritualProfile.obszary_cienia', 'Obszary Cienia')}</Text>
                 </View>
                 <Text style={[styles.sectionDesc, { color: subColor }]}>
-                  Aspekty cienia to nie wady — to ukryte potencjały, które wymagają integracji. Świadomość jest pierwszym krokiem uzdrowienia.
+                  {t('spiritualProfile.aspekty_cienia_to_nie_wady', 'Aspekty cienia to nie wady — to ukryte potencjały, które wymagają integracji. Świadomość jest pierwszym krokiem uzdrowienia.')}
                 </Text>
                 {shadowAspects.map((shadow, i) => (
                   <Animated.View key={shadow.title} entering={FadeInDown.delay(i * 70).duration(400)}>
@@ -1026,12 +1026,12 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
               >
                 <View style={styles.sectionHeader}>
                   <Calendar color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Prognoza Roczna 2026</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('spiritualProfile.prognoza_roczna_2026', 'Prognoza Roczna 2026')}</Text>
                 </View>
                 <View style={styles.forecastBadgeRow}>
                   <View style={[styles.forecastBadge, { backgroundColor: ACCENT + '22', borderColor: ACCENT + '55' }]}>
                     <Text style={[styles.forecastBadgeNum, { color: ACCENT }]}>{personalYear}</Text>
-                    <Text style={[styles.forecastBadgeLabel, { color: subColor }]}>Rok Osobisty</Text>
+                    <Text style={[styles.forecastBadgeLabel, { color: subColor }]}>{t('spiritualProfile.rok_osobisty', 'Rok Osobisty')}</Text>
                   </View>
                   <View style={{ flex: 1 }}>
                     <Text style={[styles.forecastName, { color: textColor }]}>{yearForecast.name}</Text>
@@ -1040,11 +1040,11 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
                 </View>
 
                 <View style={[styles.forecastBlock, { borderColor: '#34D39933', backgroundColor: '#34D39908' }]}>
-                  <Text style={[styles.forecastBlockLabel, { color: '#34D399' }]}>SZANSE I MOŻLIWOŚCI</Text>
+                  <Text style={[styles.forecastBlockLabel, { color: '#34D399' }]}>{t('spiritualProfile.szanse_i_mozliwosci', 'SZANSE I MOŻLIWOŚCI')}</Text>
                   <Text style={[styles.forecastBlockText, { color: subColor }]}>{yearForecast.opportunities}</Text>
                 </View>
                 <View style={[styles.forecastBlock, { borderColor: '#F8717133', backgroundColor: '#F8717108', marginTop: 8 }]}>
-                  <Text style={[styles.forecastBlockLabel, { color: '#F87171' }]}>WYZWANIA DO PRZEKROCZENIA</Text>
+                  <Text style={[styles.forecastBlockLabel, { color: '#F87171' }]}>{t('spiritualProfile.wyzwania_do_przekrocze', 'WYZWANIA DO PRZEKROCZENIA')}</Text>
                   <Text style={[styles.forecastBlockText, { color: subColor }]}>{yearForecast.challenges}</Text>
                 </View>
               </LinearGradient>
@@ -1055,10 +1055,10 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
               <View style={[styles.section, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <View style={styles.sectionHeader}>
                   <Trophy color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Kamienie Milowe</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('spiritualProfile.kamienie_milowe', 'Kamienie Milowe')}</Text>
                 </View>
                 <Text style={[styles.sectionDesc, { color: subColor }]}>
-                  Twoja podróż duchowa w liczbach — każda sesja, każdy wpis, każda praktyka tworzy historię Twojej duszy.
+                  {t('spiritualProfile.twoja_podroz_duchowa_w_liczbach', 'Twoja podróż duchowa w liczbach — każda sesja, każdy wpis, każda praktyka tworzy historię Twojej duszy.')}
                 </Text>
                 <View style={styles.milestonesGrid}>
                   {[
@@ -1087,10 +1087,10 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
               <View style={[styles.section, { borderColor: ACCENT + '33', backgroundColor: isLight ? '#FEF9EC' : ACCENT + '08' }]}>
                 <View style={styles.sectionHeader}>
                   <Sparkles color={ACCENT} size={18} strokeWidth={1.6} />
-                  <Text style={[styles.sectionTitle, { color: textColor }]}>Zapytaj o swój profil</Text>
+                  <Text style={[styles.sectionTitle, { color: textColor }]}>{t('spiritualProfile.zapytaj_o_swoj_profil', 'Zapytaj o swój profil')}</Text>
                 </View>
                 <Text style={[styles.sectionDesc, { color: subColor }]}>
-                  Zadaj pytanie ze swoją kombinacją numerologiczną i astrologiczną jako kontekstem.
+                  {t('spiritualProfile.zadaj_pytanie_ze_swoja_kombinacja', 'Zadaj pytanie ze swoją kombinacją numerologiczną i astrologiczną jako kontekstem.')}
                 </Text>
 
                 {/* Quick prompts */}
@@ -1113,7 +1113,7 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
                 <TextInput
                   value={oracleText}
                   onChangeText={setOracleText}
-                  placeholder="Wpisz swoje pytanie..."
+                  placeholder={t('spiritualProfile.wpisz_swoje_pytanie', 'Wpisz swoje pytanie...')}
                   placeholderTextColor={subColor + '88'}
                   multiline
                   numberOfLines={3}
@@ -1129,10 +1129,10 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
                   ]}
                 >
                   {oracleLoading ? (
-                    <Text style={styles.ctaBtnText}>Analizuję profil...</Text>
+                    <Text style={styles.ctaBtnText}>{t('spiritualProfile.analizuje_profil', 'Analizuję profil...')}</Text>
                   ) : (
                     <>
-                      <Text style={styles.ctaBtnText}>Zapytaj Oracle</Text>
+                      <Text style={styles.ctaBtnText}>{t('spiritualProfile.zapytaj_oracle', 'Zapytaj Oracle')}</Text>
                       <Sparkles color="#fff" size={16} strokeWidth={2} />
                     </>
                   )}
@@ -1141,7 +1141,7 @@ ${i18n.language?.startsWith('en') ? 'Answer deeply, combining numerology, astrol
                 {oracleResult.length > 0 && (
                   <Animated.View entering={FadeInDown.duration(500)}>
                     <View style={[styles.oracleResult, { borderColor: ACCENT + '44', backgroundColor: isLight ? '#FEF3C7' : ACCENT + '0D' }]}>
-                      <Text style={[styles.oracleResultLabel, { color: ACCENT }]}>ORACLE ODPOWIADA</Text>
+                      <Text style={[styles.oracleResultLabel, { color: ACCENT }]}>{t('spiritualProfile.oracle_odpowiada', 'ORACLE ODPOWIADA')}</Text>
                       <Text style={[styles.oracleResultText, { color: textColor, lineHeight: 24 }]}>{oracleResult}</Text>
                     </View>
                   </Animated.View>

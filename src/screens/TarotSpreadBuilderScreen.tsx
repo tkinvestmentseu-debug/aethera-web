@@ -451,7 +451,7 @@ export default function TarotSpreadBuilderScreen() {
 
   const addCustomPosition = useCallback(() => {
     if (customPositions.length >= 12) {
-      Alert.alert('Maksimum', 'Układ może mieć maksymalnie 12 pozycji.');
+      Alert.alert(t('tarotSpreadBuilder.maksimum', 'Maksimum'), t('tarotSpreadBuilder.uklad_moze_miec_maksymalni_12', 'Układ może mieć maksymalnie 12 pozycji.'));
       return;
     }
     setCustomPositions(prev => [...prev, { label: `Karta ${prev.length + 1}`, meaning: '' }]);
@@ -501,7 +501,7 @@ export default function TarotSpreadBuilderScreen() {
     };
     setSpreadHistory(prev => [item, ...prev.slice(0, 4)]);
     HapticsService.notify();
-    Alert.alert('Zapisano', 'Układ dodany do historii.');
+    Alert.alert(t('tarotSpreadBuilder.zapisano', 'Zapisano'), t('tarotSpreadBuilder.uklad_dodany_do_historii', 'Układ dodany do historii.'));
   }, [drawnCards, selectedSpreadId, fullQuestion]);
 
   const s = useMemo(() => StyleSheet.create({
@@ -597,10 +597,10 @@ export default function TarotSpreadBuilderScreen() {
         </Pressable>
         <View style={s.headerTitle}>
           <Typography variant="title" style={{ color: textColor, fontSize: 17, fontWeight: '700' }}>
-            Budowniczy Układów
+            {t('tarotSpreadBuilder.budowniczy_ukladow', 'Budowniczy Układów')}
           </Typography>
           <Typography variant="caption" style={{ color: subColor, fontSize: 11, marginTop: 2 }}>
-            TAROT • UKŁAD • INTERPRETACJA
+            {t('tarotSpreadBuilder.tarot_uklad_interpreta', 'TAROT • UKŁAD • INTERPRETACJA')}
           </Typography>
         </View>
         <Pressable onPress={() => { if (isFavoriteItem('tarot_spread_builder')) { removeFavoriteItem('tarot_spread_builder'); } else { addFavoriteItem({ id: 'tarot_spread_builder', label: 'Kreator Układów', route: 'TarotSpreadBuilder', params: {}, icon: 'Layers', color: accent, addedAt: new Date().toISOString() }); } }} hitSlop={12}>
@@ -621,14 +621,14 @@ export default function TarotSpreadBuilderScreen() {
           <View style={{ alignItems: 'center', paddingHorizontal: layout.padding.screen, paddingBottom: 4 }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8 }}>
               <View style={{ width: 28, height: 1, backgroundColor: accent + '44' }} />
-              <Typography style={{ color: accent, fontSize: 10, fontWeight: '700', letterSpacing: 2 }}>BUDOWNICZY UKŁADÓW</Typography>
+              <Typography style={{ color: accent, fontSize: 10, fontWeight: '700', letterSpacing: 2 }}>{t('tarotSpreadBuilder.budowniczy_ukladow_1', 'BUDOWNICZY UKŁADÓW')}</Typography>
               <View style={{ width: 28, height: 1, backgroundColor: accent + '44' }} />
             </View>
             <Typography style={{ color: textColor, fontSize: 21, fontWeight: '800', textAlign: 'center', lineHeight: 28, marginBottom: 6, letterSpacing: -0.3 }}>
-              Zaprojektuj swój rozkład tarota
+              {t('tarotSpreadBuilder.zaprojektu_swoj_rozklad_tarota', 'Zaprojektuj swój rozkład tarota')}
             </Typography>
             <Typography style={{ color: subColor, fontSize: 13, lineHeight: 20, textAlign: 'center' }}>
-              Wybierz układ, sformułuj pytanie i pozwól kartom przemówić.
+              {t('tarotSpreadBuilder.wybierz_uklad_sformuluj_pytanie_i', 'Wybierz układ, sformułuj pytanie i pozwól kartom przemówić.')}
             </Typography>
           </View>
 
@@ -650,8 +650,8 @@ export default function TarotSpreadBuilderScreen() {
                   <Wand2 size={18} color={accent} strokeWidth={1.8} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={{ color: accent, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 1 }}>CO TO JEST?</Text>
-                  <Text style={{ color: textColor, fontSize: 14, fontWeight: '700' }}>Narzędzie do budowy odczytów</Text>
+                  <Text style={{ color: accent, fontSize: 10, fontWeight: '700', letterSpacing: 2, marginBottom: 1 }}>{t('tarotSpreadBuilder.co_to_jest', 'CO TO JEST?')}</Text>
+                  <Text style={{ color: textColor, fontSize: 14, fontWeight: '700' }}>{t('tarotSpreadBuilder.narzedzie_do_budowy_odczytow', 'Narzędzie do budowy odczytów')}</Text>
                 </View>
               </View>
 
@@ -680,7 +680,7 @@ export default function TarotSpreadBuilderScreen() {
               <View style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-start', marginTop: 4, paddingTop: 14, borderTopWidth: 1, borderTopColor: accent + '1A' }}>
                 <Sparkles size={13} color={accent} style={{ marginTop: 2 }} />
                 <Text style={{ color: accent + 'CC', fontSize: 12, lineHeight: 18, flex: 1, fontStyle: 'italic' }}>
-                  Wskazówka: Układ „Własny" umożliwia Ci nadanie każdej pozycji własnej nazwy i znaczenia — idealny do głębokiej pracy duchowej.
+                  {t('tarotSpreadBuilder.wskazowka_uklad_wlasny_umozliwia_ci', 'Wskazówka: Układ „Własny" umożliwia Ci nadanie każdej pozycji własnej nazwy i znaczenia — idealny do głębokiej pracy duchowej.')}
                 </Text>
               </View>
             </LinearGradient>
@@ -688,7 +688,7 @@ export default function TarotSpreadBuilderScreen() {
 
           {/* PRESET SPREADS */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <SectionHeader label="WYBIERZ UKŁAD" accent={accent} />
+            <SectionHeader label={t('tarotSpreadBuilder.wybierz_uklad', 'WYBIERZ UKŁAD')} accent={accent} />
             <ScrollView horizontal showsHorizontalScrollIndicator={false}
               contentContainerStyle={{ paddingRight: 20 }}>
               {PRESET_SPREADS.map(spread => {
@@ -761,7 +761,7 @@ export default function TarotSpreadBuilderScreen() {
           {/* CUSTOM SPREAD BUILDER */}
           {selectedSpreadId === 'custom' && (
             <Animated.View entering={FadeInDown.duration(400)} style={[s.section, { marginTop: 28 }]}>
-              <SectionHeader label="BUDOWNICZY WŁASNEGO UKŁADU" accent={accent} />
+              <SectionHeader label={t('tarotSpreadBuilder.budowniczy_wlasnego_ukladu', 'BUDOWNICZY WŁASNEGO UKŁADU')} accent={accent} />
               {customPositions.map((pos, i) => (
                 <LinearGradient
                   key={i}
@@ -797,14 +797,14 @@ export default function TarotSpreadBuilderScreen() {
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                     <Plus size={14} color={accent} />
                     <Typography style={{ color: accent, fontSize: 13, fontWeight: '600' }}>
-                      Dodaj pozycję
+                      {t('tarotSpreadBuilder.dodaj_pozycje', 'Dodaj pozycję')}
                     </Typography>
                   </View>
                 </Pressable>
                 <Pressable
                   onPress={() => setSaveModalVisible(true)}
                   style={[s.chip, { borderColor: cardBorder, backgroundColor: cardBg }]}>
-                  <Typography style={{ color: textColor, fontSize: 13 }}>Zapisz układ</Typography>
+                  <Typography style={{ color: textColor, fontSize: 13 }}>{t('tarotSpreadBuilder.zapisz_uklad', 'Zapisz układ')}</Typography>
                 </Pressable>
               </View>
             </Animated.View>
@@ -813,7 +813,7 @@ export default function TarotSpreadBuilderScreen() {
           {/* SPREAD LAYOUT VISUALIZER */}
           {activePositions.length > 0 && (
             <View style={[s.section, { marginTop: 28 }]}>
-              <SectionHeader label="WIZUALIZACJA UKŁADU" accent={accent} />
+              <SectionHeader label={t('tarotSpreadBuilder.wizualizac_ukladu', 'WIZUALIZACJA UKŁADU')} accent={accent} />
               <View style={[s.card, { paddingHorizontal: 8 }]}>
                 <SpreadVisualizer
                   positions={activePositions}
@@ -826,7 +826,7 @@ export default function TarotSpreadBuilderScreen() {
 
           {/* QUESTION FORMULATOR */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <SectionHeader label="SFORMUŁUJ PYTANIE" accent={accent} />
+            <SectionHeader label={t('tarotSpreadBuilder.sformuluj_pytanie', 'SFORMUŁUJ PYTANIE')} accent={accent} />
             {/* Segmented control */}
             <View style={{ flexDirection: 'row', backgroundColor: cardBg, borderRadius: 14, borderWidth: 1, borderColor: cardBorder, padding: 3, marginBottom: 12 }}>
               <Pressable onPress={() => { setUseTemplate(true); HapticsService.notify(); }} style={{ flex: 1 }}>
@@ -835,7 +835,7 @@ export default function TarotSpreadBuilderScreen() {
                   start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
                   style={{ borderRadius: 11, paddingVertical: 9, alignItems: 'center' }}>
                   <Typography style={{ color: useTemplate ? '#fff' : subColor, fontSize: 13, fontWeight: '700', letterSpacing: 0.2 }}>
-                    Z szablonu
+                    {t('tarotSpreadBuilder.z_szablonu', 'Z szablonu')}
                   </Typography>
                 </LinearGradient>
               </Pressable>
@@ -845,7 +845,7 @@ export default function TarotSpreadBuilderScreen() {
                   start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
                   style={{ borderRadius: 11, paddingVertical: 9, alignItems: 'center' }}>
                   <Typography style={{ color: !useTemplate ? '#fff' : subColor, fontSize: 13, fontWeight: '700', letterSpacing: 0.2 }}>
-                    Własne pytanie
+                    {t('tarotSpreadBuilder.wlasne_pytanie', 'Własne pytanie')}
                   </Typography>
                 </LinearGradient>
               </Pressable>
@@ -879,7 +879,7 @@ export default function TarotSpreadBuilderScreen() {
                   <Animated.View entering={FadeInDown.duration(250)}>
                     <View style={[s.card, { marginTop: 10, borderColor: accent + '30', backgroundColor: accent + '0A' }]}>
                       <Typography style={{ color: subColor, fontSize: 11, fontWeight: '700', letterSpacing: 1.5, marginBottom: 4 }}>
-                        TWOJE PYTANIE
+                        {t('tarotSpreadBuilder.twoje_pytanie', 'TWOJE PYTANIE')}
                       </Typography>
                       <Typography style={{ color: textColor, fontSize: 14, lineHeight: 22 }}>
                         {fullQuestion}
@@ -893,7 +893,7 @@ export default function TarotSpreadBuilderScreen() {
                 style={[s.qInput, { color: textColor, borderColor: cardBorder, backgroundColor: cardBg }]}
                 value={freeQuestion}
                 onChangeText={setFreeQuestion}
-                placeholder="Napisz swoje pytanie do tarota…"
+                placeholder={t('tarotSpreadBuilder.napisz_swoje_pytanie_do_tarota', 'Napisz swoje pytanie do tarota…')}
                 placeholderTextColor={subColor}
                 multiline
               />
@@ -902,12 +902,12 @@ export default function TarotSpreadBuilderScreen() {
 
           {/* DRAW & INTERPRET */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <SectionHeader label="CIĄGNIJ KARTY" accent={accent} />
+            <SectionHeader label={t('tarotSpreadBuilder.ciagnij_karty', 'CIĄGNIJ KARTY')} accent={accent} />
 
             {activePositions.length === 0 && selectedSpreadId === 'custom' && (
               <View style={[s.card, { borderColor: accent + '30' }]}>
                 <Typography style={{ color: subColor, fontSize: 13, textAlign: 'center' }}>
-                  Dodaj co najmniej jedną pozycję w swoim układzie powyżej.
+                  {t('tarotSpreadBuilder.dodaj_co_najmniej_jedna_pozycje', 'Dodaj co najmniej jedną pozycję w swoim układzie powyżej.')}
                 </Typography>
               </View>
             )}
@@ -919,7 +919,7 @@ export default function TarotSpreadBuilderScreen() {
                   start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
                   style={[s.btn, { flexDirection: 'row', gap: 10 }]}>
                   <Shuffle size={18} color="#fff" />
-                  <Typography style={s.btnText}>Tasuj i ciągnij</Typography>
+                  <Typography style={s.btnText}>{t('tarotSpreadBuilder.tasuj_i_ciagnij', 'Tasuj i ciągnij')}</Typography>
                 </LinearGradient>
               </Pressable>
             )}
@@ -950,7 +950,7 @@ export default function TarotSpreadBuilderScreen() {
                       {dc.reversed && (
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 3 }}>
                           <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: '#F87171' }} />
-                          <Typography style={{ color: '#F87171', fontSize: 11, fontWeight: '600' }}>odwrócona</Typography>
+                          <Typography style={{ color: '#F87171', fontSize: 11, fontWeight: '600' }}>{t('tarotSpreadBuilder.odwrocona', 'odwrócona')}</Typography>
                         </View>
                       )}
                       {pos.meaning ? (
@@ -973,7 +973,7 @@ export default function TarotSpreadBuilderScreen() {
                       start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
                       style={[s.btn, { flexDirection: 'row', gap: 8 }]}>
                       <Wand2 size={16} color="#fff" />
-                      <Typography style={s.btnText}>Interpretuj z Wyrocznią</Typography>
+                      <Typography style={s.btnText}>{t('tarotSpreadBuilder.interpretu_z_wyrocznia', 'Interpretuj z Wyrocznią')}</Typography>
                     </LinearGradient>
                   </Pressable>
                   <Pressable onPress={handleAddToHistory}
@@ -988,7 +988,7 @@ export default function TarotSpreadBuilderScreen() {
 
           {/* SPREAD HISTORY */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <SectionHeader label="HISTORIA UKŁADÓW" accent={accent} />
+            <SectionHeader label={t('tarotSpreadBuilder.historia_ukladow', 'HISTORIA UKŁADÓW')} accent={accent} />
             {spreadHistory.length === 0 ? (
               <View style={[s.card, { alignItems: 'center', paddingVertical: 20 }]}>
                 <History size={28} color={subColor} style={{ marginBottom: 8 }} />
@@ -1034,7 +1034,7 @@ export default function TarotSpreadBuilderScreen() {
 
           {/* LEARNING LIBRARY */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <SectionHeader label="BIBLIOTEKA WIEDZY" accent={accent} />
+            <SectionHeader label={t('tarotSpreadBuilder.biblioteka_wiedzy', 'BIBLIOTEKA WIEDZY')} accent={accent} />
             {LEARNING_SECTIONS.map((sec, i) => (
               <View key={i} style={[s.learnItem, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                 <Pressable style={s.learnHeader} onPress={() => {
@@ -1066,7 +1066,7 @@ export default function TarotSpreadBuilderScreen() {
 
           {/* ORACLE AI */}
           <View style={[s.section, { marginTop: 28 }]}>
-            <SectionHeader label="WYROCZNIA UKŁADÓW" accent={accent} />
+            <SectionHeader label={t('tarotSpreadBuilder.wyrocznia_ukladow', 'WYROCZNIA UKŁADÓW')} accent={accent} />
             <LinearGradient
               colors={isLight ? ['#FDF4DC', '#FAF0E0'] : [accent + '1A', accent + '08']}
               start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
@@ -1081,9 +1081,9 @@ export default function TarotSpreadBuilderScreen() {
                   <Wand2 size={16} color={accent} strokeWidth={1.5} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Typography style={{ color: accent, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 2 }}>AI WYROCZNIA</Typography>
+                  <Typography style={{ color: accent, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 2 }}>{t('tarotSpreadBuilder.ai_wyrocznia', 'AI WYROCZNIA')}</Typography>
                   <Typography style={{ color: textColor, fontSize: 14, fontWeight: '700' }}>
-                    Zapytaj wyrocznię o układ
+                    {t('tarotSpreadBuilder.zapytaj_wyrocznie_o_uklad', 'Zapytaj wyrocznię o układ')}
                   </Typography>
                 </View>
               </LinearGradient>
@@ -1100,7 +1100,7 @@ export default function TarotSpreadBuilderScreen() {
                 style={[s.oracleInput, { color: textColor, borderColor: cardBorder, backgroundColor: cardBg }]}
                 value={oracleInput}
                 onChangeText={setOracleInput}
-                placeholder="Zadaj pytanie dotyczące układu, interpretacji lub kart…"
+                placeholder={t('tarotSpreadBuilder.zadaj_pytanie_dotyczace_ukladu_inte', 'Zadaj pytanie dotyczące układu, interpretacji lub kart…')}
                 placeholderTextColor={subColor}
                 multiline
               />
@@ -1120,7 +1120,7 @@ export default function TarotSpreadBuilderScreen() {
                   <View style={{ marginTop: 14 }}>
                     <View style={{ height: 1, backgroundColor: cardBorder, marginBottom: 14 }} />
                     <Typography style={{ color: accent, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 8 }}>
-                      ODPOWIEDŹ WYROCZNI
+                      {t('tarotSpreadBuilder.odpowiedz_wyroczni', 'ODPOWIEDŹ WYROCZNI')}
                     </Typography>
                     <Typography style={{ color: textColor, fontSize: 14, lineHeight: 24 }}>
                       {oracleResponse}
@@ -1142,20 +1142,20 @@ export default function TarotSpreadBuilderScreen() {
           <View style={[s.modalBox, { backgroundColor: currentTheme.background, borderColor: cardBorder }]}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
               <Typography style={{ color: textColor, fontSize: 16, fontWeight: '700' }}>
-                Zapisz układ
+                {t('tarotSpreadBuilder.zapisz_uklad_1', 'Zapisz układ')}
               </Typography>
               <Pressable onPress={() => setSaveModalVisible(false)} hitSlop={10}>
                 <X size={20} color={subColor} />
               </Pressable>
             </View>
             <Typography style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 4 }}>
-              Nadaj swojemu układowi unikalną nazwę, aby łatwo go znaleźć w przyszłości.
+              {t('tarotSpreadBuilder.nadaj_swojemu_ukladowi_unikalna_naz', 'Nadaj swojemu układowi unikalną nazwę, aby łatwo go znaleźć w przyszłości.')}
             </Typography>
             <TextInput
               style={[s.modalInput, { color: textColor, borderColor: cardBorder, backgroundColor: cardBg }]}
               value={saveSpreadName}
               onChangeText={setSaveSpreadName}
-              placeholder="Nazwa układu…"
+              placeholder={t('tarotSpreadBuilder.nazwa_ukladu', 'Nazwa układu…')}
               placeholderTextColor={subColor}
               autoFocus
             />
@@ -1164,7 +1164,7 @@ export default function TarotSpreadBuilderScreen() {
                 colors={saveSpreadName.trim() ? [accent, accent + 'BB'] : (isLight ? ['#C0B8AF', '#ABA39A'] : ['#888', '#666'])}
                 start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
                 style={[s.btn, { marginTop: 0 }]}>
-                <Typography style={s.btnText}>Zapisz układ</Typography>
+                <Typography style={s.btnText}>{t('tarotSpreadBuilder.zapisz_uklad_2', 'Zapisz układ')}</Typography>
               </LinearGradient>
             </Pressable>
           </View>

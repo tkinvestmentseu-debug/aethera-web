@@ -284,7 +284,7 @@ const TimelineBar = ({ retro, isLight }: { retro: Retrograde; isLight: boolean }
           -{3}mies.
         </Text>
         <Text style={{ fontSize: 9, color: isLight ? 'rgba(0,0,0,0.60)' : 'rgba(255,255,255,0.30)', letterSpacing: 0.3 }}>
-          +9mies.
+          {t('astrologyCycles.9mies', '+9mies.')}
         </Text>
       </View>
     </View>
@@ -384,7 +384,7 @@ export const AstrologyCyclesScreen: React.FC = () => {
         </Pressable>
 
         <Text style={[styles.headerTitle, { color: isLight ? theme.text : '#E2D9FF' }]}>
-          ✦ CYKLE PLANET
+          {t('astrologyCycles.cykle_planet', '✦ CYKLE PLANET')}
         </Text>
 
         <Pressable onPress={toggleFav} hitSlop={12} style={styles.headerBtn}>
@@ -407,10 +407,10 @@ export const AstrologyCyclesScreen: React.FC = () => {
           <SolarSystemScene />
           <View style={{ alignItems: 'center', marginTop: -8, marginBottom: 20 }}>
             <Text style={[styles.heroTitle, { color: isLight ? theme.text : '#E2D9FF' }]}>
-              Rytm Kosmiczny
+              {t('astrologyCycles.rytm_kosmiczny', 'Rytm Kosmiczny')}
             </Text>
             <Text style={[styles.heroSub, { color: subColor }]}>
-              Planety mówią — naucz się słuchać
+              {t('astrologyCycles.planety_mowia_naucz_sie_sluchac', 'Planety mówią — naucz się słuchać')}
             </Text>
           </View>
         </Animated.View>
@@ -455,7 +455,7 @@ export const AstrologyCyclesScreen: React.FC = () => {
                   <Text style={styles.warningIcon}>⚠️</Text>
                   <View style={{ flex: 1 }}>
                     <Text style={[styles.warningTitle, { color: '#F59E0B' }]}>
-                      AKTYWNE RETROGADY
+                      {t('astrologyCycles.aktywne_retrogady', 'AKTYWNE RETROGADY')}
                     </Text>
                     <Text style={[styles.warningText, { color: isLight ? 'rgba(0,0,0,0.65)' : 'rgba(255,255,255,0.65)' }]}>
                       {activeRetrogrades.map(r => `${r.symbol} ${r.planet}`).join(' · ')}
@@ -467,7 +467,7 @@ export const AstrologyCyclesScreen: React.FC = () => {
 
             {/* Energy section */}
             <Animated.View entering={FadeInDown.duration(450).delay(160)}>
-              <Text style={[styles.eyebrow, { color: ACCENT }]}>ENERGIA DNI</Text>
+              <Text style={[styles.eyebrow, { color: ACCENT }]}>{t('astrologyCycles.energia_dni', 'ENERGIA DNI')}</Text>
             </Animated.View>
 
             {PLANETARY_ENERGIES.map((p, i) => (
@@ -495,7 +495,7 @@ export const AstrologyCyclesScreen: React.FC = () => {
                 backgroundColor: isLight ? 'rgba(96,165,250,0.07)' : 'rgba(96,165,250,0.10)',
                 borderColor: ACCENT + '33',
               }]}>
-                <Text style={[styles.eyebrow, { color: ACCENT, marginBottom: 8 }]}>WSKAZÓWKA DNIA</Text>
+                <Text style={[styles.eyebrow, { color: ACCENT, marginBottom: 8 }]}>{t('astrologyCycles.wskazowka_dnia', 'WSKAZÓWKA DNIA')}</Text>
                 <Text style={[styles.tipText, { color: textColor }]}>{cosmicTip}</Text>
               </View>
             </Animated.View>
@@ -508,7 +508,7 @@ export const AstrologyCyclesScreen: React.FC = () => {
             <Animated.View entering={FadeInDown.duration(450).delay(60)}>
               <View style={[styles.introCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <Text style={[styles.introText, { color: subColor }]}>
-                  Retrograd to zjawisko, gdy planeta pozornie porusza się wstecz po niebie. To czas rewizji, spowolnienia i głębszej refleksji w obszarach rządzonych przez daną planetę.
+                  {t('astrologyCycles.retrograd_to_zjawisko_gdy_planeta', 'Retrograd to zjawisko, gdy planeta pozornie porusza się wstecz po niebie. To czas rewizji, spowolnienia i głębszej refleksji w obszarach rządzonych przez daną planetę.')}
                 </Text>
               </View>
             </Animated.View>
@@ -564,14 +564,14 @@ export const AstrologyCyclesScreen: React.FC = () => {
                           backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)',
                           borderColor: r.color + '33',
                         }]}>
-                          <Text style={[styles.effectLabel, { color: r.color }]}>WPŁYW</Text>
+                          <Text style={[styles.effectLabel, { color: r.color }]}>{t('astrologyCycles.wplyw', 'WPŁYW')}</Text>
                           <Text style={[styles.effectText, { color: textColor }]}>{r.effect}</Text>
                         </View>
                         <View style={[styles.adviceCard, {
                           backgroundColor: isLight ? 'rgba(96,165,250,0.06)' : 'rgba(96,165,250,0.08)',
                           borderColor: ACCENT + '33',
                         }]}>
-                          <Text style={[styles.effectLabel, { color: ACCENT }]}>WSKAZÓWKA</Text>
+                          <Text style={[styles.effectLabel, { color: ACCENT }]}>{t('astrologyCycles.wskazowka', 'WSKAZÓWKA')}</Text>
                           <Text style={[styles.effectText, { color: textColor }]}>{r.advice}</Text>
                         </View>
                       </View>
@@ -589,7 +589,7 @@ export const AstrologyCyclesScreen: React.FC = () => {
             <Animated.View entering={FadeInDown.duration(450).delay(60)}>
               <View style={[styles.introCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <Text style={[styles.introText, { color: subColor }]}>
-                  Aspekty to kąty między planetami na mapie nieba. Opisują rodzaj relacji i napięcia energetycznego między ich wpływami w naszym życiu.
+                  {t('astrologyCycles.aspekty_to_katy_miedzy_planetami', 'Aspekty to kąty między planetami na mapie nieba. Opisują rodzaj relacji i napięcia energetycznego między ich wpływami w naszym życiu.')}
                 </Text>
               </View>
             </Animated.View>
@@ -632,7 +632,7 @@ export const AstrologyCyclesScreen: React.FC = () => {
 
             {/* Guide section */}
             <Animated.View entering={FadeInDown.duration(450).delay(500)}>
-              <Text style={[styles.eyebrow, { color: ACCENT, marginTop: 24 }]}>JAK PRACOWAĆ Z ASPEKTAMI</Text>
+              <Text style={[styles.eyebrow, { color: ACCENT, marginTop: 24 }]}>{t('astrologyCycles.jak_pracowac_z_aspektami', 'JAK PRACOWAĆ Z ASPEKTAMI')}</Text>
               {ASPECT_TIPS.map((tip, i) => (
                 <View key={i} style={[styles.guideTip, { borderColor: cardBorder, backgroundColor: cardBg }]}>
                   <View style={[styles.guideNumber, { backgroundColor: ACCENT + '20' }]}>
@@ -648,7 +648,7 @@ export const AstrologyCyclesScreen: React.FC = () => {
         {/* Co dalej? */}
         <Animated.View entering={FadeInDown.duration(450).delay(400)}
           style={{ paddingHorizontal: layout.padding.screen, marginTop: 32 }}>
-          <Text style={[styles.eyebrow, { color: ACCENT }]}>CO DALEJ?</Text>
+          <Text style={[styles.eyebrow, { color: ACCENT }]}>{t('astrologyCycles.co_dalej', 'CO DALEJ?')}</Text>
           {[
             { label: 'Horoskop', sublabel: 'Twój znak zodiakalny', route: 'Horoscope', symbol: '♈' },
             { label: 'Kalendarz Księżyca', sublabel: 'Fazy i intencje',  route: 'LunarCalendar', symbol: '☽' },

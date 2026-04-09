@@ -1,22 +1,6 @@
 {
-  "generatedAt": "2026-04-04T07:57:48.878Z",
+  "generatedAt": "2026-04-06T12:36:20.463Z",
   "missingKeys": {
-    "ar": [
-      "common.screenErrorTitle",
-      "common.screenErrorBody"
-    ],
-    "de": [
-      "common.screenErrorTitle",
-      "common.screenErrorBody"
-    ],
-    "es": [
-      "common.screenErrorTitle",
-      "common.screenErrorBody"
-    ],
-    "fr": [
-      "common.screenErrorTitle",
-      "common.screenErrorBody"
-    ],
     "glossary.aethera": [
       "common.appName",
       "common.localeCode",
@@ -314,226 +298,210 @@
       "tarot.decks.cosmicDesc",
       "tarot.decks.dark",
       "tarot.decks.darkDesc",
-      "horoscope.title",
-      "horoscope.daily",
-      "horoscope.weekly",
-      "horoscope.monthly",
-      "horoscope.yearly",
-      "horoscope.compatibility",
-      "horoscope.for_someone",
-      "horoscope.partnerHoroscope",
-      "horoscope.checkCompatibility",
-      "horoscope.dailyEnergy",
-      "horoscope.chineseZodiac",
-      "horoscope.compatibilityTitle",
-      "horoscope.luckyNumbers",
-      "horoscope.luckyColors",
-      "horoscope.yourSign",
-      "horoscope.todayMessage",
-      "horoscope.planetaryInfluences",
-      "horoscope.moonInSign",
-      "horoscope.sunInSign",
-      "horoscope.rising",
-      "horoscope.signs.aries",
-      "horoscope.signs.taurus",
-      "horoscope.signs.gemini",
-      "horoscope.signs.cancer",
-      "horoscope.signs.leo",
-      "horoscope.signs.virgo",
-      "horoscope.signs.libra",
-      "horoscope.signs.scorpio",
-      "horoscope.signs.sagittarius",
-      "horoscope.signs.capricorn",
-      "horoscope.signs.aquarius",
-      "horoscope.signs.pisces",
-      "horoscope.planets.sun",
-      "horoscope.planets.moon",
-      "horoscope.planets.mercury",
-      "horoscope.planets.venus",
-      "horoscope.planets.mars",
-      "horoscope.planets.jupiter",
-      "horoscope.planets.saturn",
-      "horoscope.planets.uranus",
-      "horoscope.planets.neptune",
-      "horoscope.planets.pluto",
-      "journal.title",
-      "journal.new_entry",
-      "journal.placeholder",
-      "journal.mood",
-      "journal.energy",
-      "journal.save",
-      "journal.soulJournal",
-      "journal.yourHistory",
-      "journal.weeklyInsight",
-      "journal.weeklyInsightDesc",
-      "journal.suggestedTopic",
-      "journal.cleanSlate",
-      "journal.journalEmptyDesc",
-      "journal.addFirstEntry",
-      "journal.editEntry",
-      "journal.deleteEntry",
-      "journal.entryDeleted",
-      "journal.wordCount",
-      "journal.types.reflection",
-      "journal.types.gratitude",
-      "journal.types.shadow_work",
-      "journal.types.dream",
-      "journal.types.matrix",
-      "journal.types.tarot",
-      "dreams.title",
-      "dreams.record_dream",
-      "dreams.placeholder",
-      "dreams.symbols",
-      "dreams.interpretation",
-      "dreams.no_dreams",
-      "dreams.analyze",
-      "dreams.dictionary",
-      "dreams.dreamTitle",
-      "dreams.dreamDate",
-      "dreams.recurringDream",
-      "dreams.lucidDream",
-      "dreams.emotionInDream",
-      "dreams.addSymbol",
-      "dreams.symbolMeaning",
-      "dreams.aiInterpretation",
-      "dreams.phases.rem",
-      "dreams.phases.deep",
-      "dreams.phases.light",
-      "dreams.symbolarium",
-      "dreams.searchSymbol",
-      "rituals.title",
-      "rituals.start",
-      "rituals.complete",
-      "rituals.daily_ritual",
-      "rituals.my_rituals",
-      "rituals.all_rituals",
-      "rituals.minutes",
-      "rituals.steps_count",
-      "rituals.sacredRituals",
-      "rituals.ritualDetail",
-      "rituals.description",
-      "rituals.materials",
-      "rituals.steps",
-      "rituals.completeRitual",
-      "rituals.ritualCompleted",
-      "rituals.ritualCompletedDesc",
-      "rituals.backToLibrary",
-      "rituals.quickPaths",
-      "rituals.planTab",
-      "rituals.libraryTab",
-      "rituals.historyTab",
-      "rituals.completedToday",
-      "rituals.currentStreak",
-      "rituals.categories.morning",
-      "rituals.categories.evening",
-      "rituals.categories.meditation",
-      "rituals.categories.energy",
-      "rituals.categories.Cleansing",
-      "rituals.categories.CleansingDesc",
-      "rituals.categories.Love",
-      "rituals.categories.LoveDesc",
-      "rituals.categories.Manifestation",
-      "rituals.categories.ManifestationDesc",
-      "rituals.categories.Protection",
-      "rituals.categories.ProtectionDesc",
-      "rituals.categories.Grounding",
-      "rituals.categories.GroundingDesc",
-      "rituals.transformativePractices",
-      "rituals.ritual_items.morning_alignment.title",
-      "rituals.ritual_items.morning_alignment.description",
-      "rituals.ritual_items.morning_alignment.duration",
-      "rituals.ritual_items.evening_reflection.title",
-      "rituals.ritual_items.evening_reflection.description",
-      "rituals.ritual_items.evening_reflection.duration",
-      "rituals.ritual_items.candle_magic.title",
-      "rituals.ritual_items.candle_magic.description",
-      "rituals.ritual_items.candle_magic.duration",
-      "meditation.title",
-      "meditation.start",
-      "meditation.pause",
-      "meditation.finish",
-      "meditation.duration",
-      "meditation.technique",
-      "meditation.session_complete",
-      "meditation.techniques.mindfulness",
-      "meditation.techniques.body_scan",
-      "meditation.techniques.loving_kindness",
-      "meditation.techniques.visualization",
-      "meditation.techniques.mantra",
-      "meditation.tips",
-      "meditation.streak",
-      "meditation.sessions",
-      "meditation.totalTime",
-      "meditation.avgSession",
-      "meditation.chooseAmbient",
-      "meditation.sessionHistory",
-      "meditation.noSessions",
-      "meditation.benefitsTitle",
-      "meditation.meditationTips",
-      "meditation.selectDuration",
-      "meditation.readyToBegin",
-      "meditation.focusBreath",
-      "breathwork.title",
-      "breathwork.inhale",
-      "breathwork.hold",
-      "breathwork.exhale",
-      "breathwork.start",
-      "breathwork.pause",
-      "breathwork.benefits",
-      "breathwork.selectTechnique",
-      "breathwork.sessionComplete",
-      "breathwork.roundsCompleted",
-      "breathwork.totalBreaths",
-      "breathwork.techniques.478",
-      "breathwork.techniques.box",
-      "breathwork.techniques.box_desc",
-      "breathwork.techniques.478_desc",
-      "breathwork.techniques.wim_hof",
-      "breathwork.techniques.wim_hof_desc",
-      "breathwork.techniques.calm",
-      "breathwork.techniques.calm_desc",
-      "breathwork.techniques.slow",
-      "breathwork.techniques.slow_desc",
-      "breathwork.techniques.nadi",
-      "breathwork.techniques.nadi_desc",
-      "chakra.title",
-      "chakra.balance",
-      "chakra.practice",
-      "chakra.bodyMap",
-      "chakra.chakraOfDay",
-      "chakra.activateChakra",
-      "chakra.practiceModal",
-      "chakra.affirmation",
-      "chakra.element",
-      "chakra.color",
-      "chakra.sanskrit",
-      "chakra.names.root",
-      "chakra.names.sacral",
-      "chakra.names.solar",
-      "chakra.names.heart",
-      "chakra.names.throat",
-      "chakra.names.third_eye",
-      "chakra.names.crown",
-      "chakra.elements.earth",
-      "chakra.elements.water",
-      "chakra.elements.fire",
-      "chakra.elements.air"
-    ],
-    "it": [
-      "common.screenErrorTitle",
-      "common.screenErrorBody"
-    ],
-    "ja": [
-      "common.screenErrorTitle",
-      "common.screenErrorBody"
-    ],
-    "pt": [
-      "common.screenErrorTitle",
-      "common.screenErrorBody"
-    ],
-    "ru": [
-      "common.screenErrorTitle",
-      "common.screenErrorBody"
+      "tarot.cards.major.0.name",
+      "tarot.cards.major.0.meaningUpright",
+      "tarot.cards.major.0.meaningReversed",
+      "tarot.cards.major.0.description",
+      "tarot.cards.major.0.advice",
+      "tarot.cards.major.1.name",
+      "tarot.cards.major.1.meaningUpright",
+      "tarot.cards.major.1.meaningReversed",
+      "tarot.cards.major.1.description",
+      "tarot.cards.major.1.advice",
+      "tarot.cards.major.2.name",
+      "tarot.cards.major.2.meaningUpright",
+      "tarot.cards.major.2.meaningReversed",
+      "tarot.cards.major.2.description",
+      "tarot.cards.major.2.advice",
+      "tarot.cards.major.3.name",
+      "tarot.cards.major.3.meaningUpright",
+      "tarot.cards.major.3.meaningReversed",
+      "tarot.cards.major.3.description",
+      "tarot.cards.major.3.advice",
+      "tarot.cards.major.4.name",
+      "tarot.cards.major.4.meaningUpright",
+      "tarot.cards.major.4.meaningReversed",
+      "tarot.cards.major.4.description",
+      "tarot.cards.major.4.advice",
+      "tarot.cards.major.5.name",
+      "tarot.cards.major.5.meaningUpright",
+      "tarot.cards.major.5.meaningReversed",
+      "tarot.cards.major.5.description",
+      "tarot.cards.major.5.advice",
+      "tarot.cards.major.6.name",
+      "tarot.cards.major.6.meaningUpright",
+      "tarot.cards.major.6.meaningReversed",
+      "tarot.cards.major.6.description",
+      "tarot.cards.major.6.advice",
+      "tarot.cards.major.7.name",
+      "tarot.cards.major.7.meaningUpright",
+      "tarot.cards.major.7.meaningReversed",
+      "tarot.cards.major.7.description",
+      "tarot.cards.major.7.advice",
+      "tarot.cards.major.8.name",
+      "tarot.cards.major.8.meaningUpright",
+      "tarot.cards.major.8.meaningReversed",
+      "tarot.cards.major.8.description",
+      "tarot.cards.major.8.advice",
+      "tarot.cards.major.9.name",
+      "tarot.cards.major.9.meaningUpright",
+      "tarot.cards.major.9.meaningReversed",
+      "tarot.cards.major.9.description",
+      "tarot.cards.major.9.advice",
+      "tarot.cards.major.10.name",
+      "tarot.cards.major.10.meaningUpright",
+      "tarot.cards.major.10.meaningReversed",
+      "tarot.cards.major.10.description",
+      "tarot.cards.major.10.advice",
+      "tarot.cards.major.11.name",
+      "tarot.cards.major.11.meaningUpright",
+      "tarot.cards.major.11.meaningReversed",
+      "tarot.cards.major.11.description",
+      "tarot.cards.major.11.advice",
+      "tarot.cards.major.12.name",
+      "tarot.cards.major.12.meaningUpright",
+      "tarot.cards.major.12.meaningReversed",
+      "tarot.cards.major.12.description",
+      "tarot.cards.major.12.advice",
+      "tarot.cards.major.13.name",
+      "tarot.cards.major.13.meaningUpright",
+      "tarot.cards.major.13.meaningReversed",
+      "tarot.cards.major.13.description",
+      "tarot.cards.major.13.advice",
+      "tarot.cards.major.14.name",
+      "tarot.cards.major.14.meaningUpright",
+      "tarot.cards.major.14.meaningReversed",
+      "tarot.cards.major.14.description",
+      "tarot.cards.major.14.advice",
+      "tarot.cards.major.15.name",
+      "tarot.cards.major.15.meaningUpright",
+      "tarot.cards.major.15.meaningReversed",
+      "tarot.cards.major.15.description",
+      "tarot.cards.major.15.advice",
+      "tarot.cards.major.16.name",
+      "tarot.cards.major.16.meaningUpright",
+      "tarot.cards.major.16.meaningReversed",
+      "tarot.cards.major.16.description",
+      "tarot.cards.major.16.advice",
+      "tarot.cards.major.17.name",
+      "tarot.cards.major.17.meaningUpright",
+      "tarot.cards.major.17.meaningReversed",
+      "tarot.cards.major.17.description",
+      "tarot.cards.major.17.advice",
+      "tarot.cards.major.18.name",
+      "tarot.cards.major.18.meaningUpright",
+      "tarot.cards.major.18.meaningReversed",
+      "tarot.cards.major.18.description",
+      "tarot.cards.major.18.advice",
+      "tarot.cards.major.19.name",
+      "tarot.cards.major.19.meaningUpright",
+      "tarot.cards.major.19.meaningReversed",
+      "tarot.cards.major.19.description",
+      "tarot.cards.major.19.advice",
+      "tarot.cards.major.20.name",
+      "tarot.cards.major.20.meaningUpright",
+      "tarot.cards.major.20.meaningReversed",
+      "tarot.cards.major.20.description",
+      "tarot.cards.major.20.advice",
+      "tarot.cards.major.21.name",
+      "tarot.cards.major.21.meaningUpright",
+      "tarot.cards.major.21.meaningReversed",
+      "tarot.cards.major.21.description",
+      "tarot.cards.major.21.advice",
+      "tarot.cards.cups.c1.name",
+      "tarot.cards.cups.c1.meaningUpright",
+      "tarot.cards.cups.c1.meaningReversed",
+      "tarot.cards.cups.c1.description",
+      "tarot.cards.cups.c1.advice",
+      "tarot.cards.cups.c2.name",
+      "tarot.cards.cups.c2.meaningUpright",
+      "tarot.cards.cups.c2.meaningReversed",
+      "tarot.cards.cups.c2.description",
+      "tarot.cards.cups.c2.advice",
+      "tarot.cards.cups.c3.name",
+      "tarot.cards.cups.c3.meaningUpright",
+      "tarot.cards.cups.c3.meaningReversed",
+      "tarot.cards.cups.c3.description",
+      "tarot.cards.cups.c3.advice",
+      "tarot.cards.cups.c4.name",
+      "tarot.cards.cups.c4.meaningUpright",
+      "tarot.cards.cups.c4.meaningReversed",
+      "tarot.cards.cups.c4.description",
+      "tarot.cards.cups.c4.advice",
+      "tarot.cards.cups.c5.name",
+      "tarot.cards.cups.c5.meaningUpright",
+      "tarot.cards.cups.c5.meaningReversed",
+      "tarot.cards.cups.c5.description",
+      "tarot.cards.cups.c5.advice",
+      "tarot.cards.cups.c6.name",
+      "tarot.cards.cups.c6.meaningUpright",
+      "tarot.cards.cups.c6.meaningReversed",
+      "tarot.cards.cups.c6.description",
+      "tarot.cards.cups.c6.advice",
+      "tarot.cards.cups.c7.name",
+      "tarot.cards.cups.c7.meaningUpright",
+      "tarot.cards.cups.c7.meaningReversed",
+      "tarot.cards.cups.c7.description",
+      "tarot.cards.cups.c7.advice",
+      "tarot.cards.cups.c8.name",
+      "tarot.cards.cups.c8.meaningUpright",
+      "tarot.cards.cups.c8.meaningReversed",
+      "tarot.cards.cups.c8.description",
+      "tarot.cards.cups.c8.advice",
+      "tarot.cards.cups.c9.name",
+      "tarot.cards.cups.c9.meaningUpright",
+      "tarot.cards.cups.c9.meaningReversed",
+      "tarot.cards.cups.c9.description",
+      "tarot.cards.cups.c9.advice",
+      "tarot.cards.cups.c10.name",
+      "tarot.cards.cups.c10.meaningUpright",
+      "tarot.cards.cups.c10.meaningReversed",
+      "tarot.cards.cups.c10.description",
+      "tarot.cards.cups.c10.advice",
+      "tarot.cards.cups.c11.name",
+      "tarot.cards.cups.c11.meaningUpright",
+      "tarot.cards.cups.c11.meaningReversed",
+      "tarot.cards.cups.c11.description",
+      "tarot.cards.cups.c11.advice",
+      "tarot.cards.cups.c12.name",
+      "tarot.cards.cups.c12.meaningUpright",
+      "tarot.cards.cups.c12.meaningReversed",
+      "tarot.cards.cups.c12.description",
+      "tarot.cards.cups.c12.advice",
+      "tarot.cards.cups.c13.name",
+      "tarot.cards.cups.c13.meaningUpright",
+      "tarot.cards.cups.c13.meaningReversed",
+      "tarot.cards.cups.c13.description",
+      "tarot.cards.cups.c13.advice",
+      "tarot.cards.cups.c14.name",
+      "tarot.cards.cups.c14.meaningUpright",
+      "tarot.cards.cups.c14.meaningReversed",
+      "tarot.cards.cups.c14.description",
+      "tarot.cards.cups.c14.advice",
+      "tarot.cards.wands.w1.name",
+      "tarot.cards.wands.w1.meaningUpright",
+      "tarot.cards.wands.w1.meaningReversed",
+      "tarot.cards.wands.w1.description",
+      "tarot.cards.wands.w1.advice",
+      "tarot.cards.wands.w2.name",
+      "tarot.cards.wands.w2.meaningUpright",
+      "tarot.cards.wands.w2.meaningReversed",
+      "tarot.cards.wands.w2.description",
+      "tarot.cards.wands.w2.advice",
+      "tarot.cards.wands.w3.name",
+      "tarot.cards.wands.w3.meaningUpright",
+      "tarot.cards.wands.w3.meaningReversed",
+      "tarot.cards.wands.w3.description",
+      "tarot.cards.wands.w3.advice",
+      "tarot.cards.wands.w4.name",
+      "tarot.cards.wands.w4.meaningUpright",
+      "tarot.cards.wands.w4.meaningReversed",
+      "tarot.cards.wands.w4.description",
+      "tarot.cards.wands.w4.advice",
+      "tarot.cards.wands.w5.name",
+      "tarot.cards.wands.w5.meaningUpright",
+      "tarot.cards.wands.w5.meaningReversed",
+      "tarot.cards.wands.w5.description"
     ],
     "translation-memory": [
       "common.appName",
@@ -832,210 +800,210 @@
       "tarot.decks.cosmicDesc",
       "tarot.decks.dark",
       "tarot.decks.darkDesc",
-      "horoscope.title",
-      "horoscope.daily",
-      "horoscope.weekly",
-      "horoscope.monthly",
-      "horoscope.yearly",
-      "horoscope.compatibility",
-      "horoscope.for_someone",
-      "horoscope.partnerHoroscope",
-      "horoscope.checkCompatibility",
-      "horoscope.dailyEnergy",
-      "horoscope.chineseZodiac",
-      "horoscope.compatibilityTitle",
-      "horoscope.luckyNumbers",
-      "horoscope.luckyColors",
-      "horoscope.yourSign",
-      "horoscope.todayMessage",
-      "horoscope.planetaryInfluences",
-      "horoscope.moonInSign",
-      "horoscope.sunInSign",
-      "horoscope.rising",
-      "horoscope.signs.aries",
-      "horoscope.signs.taurus",
-      "horoscope.signs.gemini",
-      "horoscope.signs.cancer",
-      "horoscope.signs.leo",
-      "horoscope.signs.virgo",
-      "horoscope.signs.libra",
-      "horoscope.signs.scorpio",
-      "horoscope.signs.sagittarius",
-      "horoscope.signs.capricorn",
-      "horoscope.signs.aquarius",
-      "horoscope.signs.pisces",
-      "horoscope.planets.sun",
-      "horoscope.planets.moon",
-      "horoscope.planets.mercury",
-      "horoscope.planets.venus",
-      "horoscope.planets.mars",
-      "horoscope.planets.jupiter",
-      "horoscope.planets.saturn",
-      "horoscope.planets.uranus",
-      "horoscope.planets.neptune",
-      "horoscope.planets.pluto",
-      "journal.title",
-      "journal.new_entry",
-      "journal.placeholder",
-      "journal.mood",
-      "journal.energy",
-      "journal.save",
-      "journal.soulJournal",
-      "journal.yourHistory",
-      "journal.weeklyInsight",
-      "journal.weeklyInsightDesc",
-      "journal.suggestedTopic",
-      "journal.cleanSlate",
-      "journal.journalEmptyDesc",
-      "journal.addFirstEntry",
-      "journal.editEntry",
-      "journal.deleteEntry",
-      "journal.entryDeleted",
-      "journal.wordCount",
-      "journal.types.reflection",
-      "journal.types.gratitude",
-      "journal.types.shadow_work",
-      "journal.types.dream",
-      "journal.types.matrix",
-      "journal.types.tarot",
-      "dreams.title",
-      "dreams.record_dream",
-      "dreams.placeholder",
-      "dreams.symbols",
-      "dreams.interpretation",
-      "dreams.no_dreams",
-      "dreams.analyze",
-      "dreams.dictionary",
-      "dreams.dreamTitle",
-      "dreams.dreamDate",
-      "dreams.recurringDream",
-      "dreams.lucidDream",
-      "dreams.emotionInDream",
-      "dreams.addSymbol",
-      "dreams.symbolMeaning",
-      "dreams.aiInterpretation",
-      "dreams.phases.rem",
-      "dreams.phases.deep",
-      "dreams.phases.light",
-      "dreams.symbolarium",
-      "dreams.searchSymbol",
-      "rituals.title",
-      "rituals.start",
-      "rituals.complete",
-      "rituals.daily_ritual",
-      "rituals.my_rituals",
-      "rituals.all_rituals",
-      "rituals.minutes",
-      "rituals.steps_count",
-      "rituals.sacredRituals",
-      "rituals.ritualDetail",
-      "rituals.description",
-      "rituals.materials",
-      "rituals.steps",
-      "rituals.completeRitual",
-      "rituals.ritualCompleted",
-      "rituals.ritualCompletedDesc",
-      "rituals.backToLibrary",
-      "rituals.quickPaths",
-      "rituals.planTab",
-      "rituals.libraryTab",
-      "rituals.historyTab",
-      "rituals.completedToday",
-      "rituals.currentStreak",
-      "rituals.categories.morning",
-      "rituals.categories.evening",
-      "rituals.categories.meditation",
-      "rituals.categories.energy",
-      "rituals.categories.Cleansing",
-      "rituals.categories.CleansingDesc",
-      "rituals.categories.Love",
-      "rituals.categories.LoveDesc",
-      "rituals.categories.Manifestation",
-      "rituals.categories.ManifestationDesc",
-      "rituals.categories.Protection",
-      "rituals.categories.ProtectionDesc",
-      "rituals.categories.Grounding",
-      "rituals.categories.GroundingDesc",
-      "rituals.transformativePractices",
-      "rituals.ritual_items.morning_alignment.title",
-      "rituals.ritual_items.morning_alignment.description",
-      "rituals.ritual_items.morning_alignment.duration",
-      "rituals.ritual_items.evening_reflection.title",
-      "rituals.ritual_items.evening_reflection.description",
-      "rituals.ritual_items.evening_reflection.duration",
-      "rituals.ritual_items.candle_magic.title",
-      "rituals.ritual_items.candle_magic.description",
-      "rituals.ritual_items.candle_magic.duration",
-      "meditation.title",
-      "meditation.start",
-      "meditation.pause",
-      "meditation.finish",
-      "meditation.duration",
-      "meditation.technique",
-      "meditation.session_complete",
-      "meditation.techniques.mindfulness",
-      "meditation.techniques.body_scan",
-      "meditation.techniques.loving_kindness",
-      "meditation.techniques.visualization",
-      "meditation.techniques.mantra",
-      "meditation.tips",
-      "meditation.streak",
-      "meditation.sessions",
-      "meditation.totalTime",
-      "meditation.avgSession",
-      "meditation.chooseAmbient",
-      "meditation.sessionHistory",
-      "meditation.noSessions",
-      "meditation.benefitsTitle",
-      "meditation.meditationTips",
-      "meditation.selectDuration",
-      "meditation.readyToBegin",
-      "meditation.focusBreath",
-      "breathwork.title",
-      "breathwork.inhale",
-      "breathwork.hold",
-      "breathwork.exhale",
-      "breathwork.start",
-      "breathwork.pause",
-      "breathwork.benefits",
-      "breathwork.selectTechnique",
-      "breathwork.sessionComplete",
-      "breathwork.roundsCompleted",
-      "breathwork.totalBreaths",
-      "breathwork.techniques.478",
-      "breathwork.techniques.box",
-      "breathwork.techniques.box_desc",
-      "breathwork.techniques.478_desc",
-      "breathwork.techniques.wim_hof",
-      "breathwork.techniques.wim_hof_desc",
-      "breathwork.techniques.calm",
-      "breathwork.techniques.calm_desc",
-      "breathwork.techniques.slow",
-      "breathwork.techniques.slow_desc",
-      "breathwork.techniques.nadi",
-      "breathwork.techniques.nadi_desc",
-      "chakra.title",
-      "chakra.balance",
-      "chakra.practice",
-      "chakra.bodyMap",
-      "chakra.chakraOfDay",
-      "chakra.activateChakra",
-      "chakra.practiceModal",
-      "chakra.affirmation",
-      "chakra.element",
-      "chakra.color",
-      "chakra.sanskrit",
-      "chakra.names.root",
-      "chakra.names.sacral",
-      "chakra.names.solar",
-      "chakra.names.heart",
-      "chakra.names.throat",
-      "chakra.names.third_eye",
-      "chakra.names.crown",
-      "chakra.elements.earth",
-      "chakra.elements.water",
-      "chakra.elements.fire",
-      "chakra.elements.air"
+      "tarot.cards.major.0.name",
+      "tarot.cards.major.0.meaningUpright",
+      "tarot.cards.major.0.meaningReversed",
+      "tarot.cards.major.0.description",
+      "tarot.cards.major.0.advice",
+      "tarot.cards.major.1.name",
+      "tarot.cards.major.1.meaningUpright",
+      "tarot.cards.major.1.meaningReversed",
+      "tarot.cards.major.1.description",
+      "tarot.cards.major.1.advice",
+      "tarot.cards.major.2.name",
+      "tarot.cards.major.2.meaningUpright",
+      "tarot.cards.major.2.meaningReversed",
+      "tarot.cards.major.2.description",
+      "tarot.cards.major.2.advice",
+      "tarot.cards.major.3.name",
+      "tarot.cards.major.3.meaningUpright",
+      "tarot.cards.major.3.meaningReversed",
+      "tarot.cards.major.3.description",
+      "tarot.cards.major.3.advice",
+      "tarot.cards.major.4.name",
+      "tarot.cards.major.4.meaningUpright",
+      "tarot.cards.major.4.meaningReversed",
+      "tarot.cards.major.4.description",
+      "tarot.cards.major.4.advice",
+      "tarot.cards.major.5.name",
+      "tarot.cards.major.5.meaningUpright",
+      "tarot.cards.major.5.meaningReversed",
+      "tarot.cards.major.5.description",
+      "tarot.cards.major.5.advice",
+      "tarot.cards.major.6.name",
+      "tarot.cards.major.6.meaningUpright",
+      "tarot.cards.major.6.meaningReversed",
+      "tarot.cards.major.6.description",
+      "tarot.cards.major.6.advice",
+      "tarot.cards.major.7.name",
+      "tarot.cards.major.7.meaningUpright",
+      "tarot.cards.major.7.meaningReversed",
+      "tarot.cards.major.7.description",
+      "tarot.cards.major.7.advice",
+      "tarot.cards.major.8.name",
+      "tarot.cards.major.8.meaningUpright",
+      "tarot.cards.major.8.meaningReversed",
+      "tarot.cards.major.8.description",
+      "tarot.cards.major.8.advice",
+      "tarot.cards.major.9.name",
+      "tarot.cards.major.9.meaningUpright",
+      "tarot.cards.major.9.meaningReversed",
+      "tarot.cards.major.9.description",
+      "tarot.cards.major.9.advice",
+      "tarot.cards.major.10.name",
+      "tarot.cards.major.10.meaningUpright",
+      "tarot.cards.major.10.meaningReversed",
+      "tarot.cards.major.10.description",
+      "tarot.cards.major.10.advice",
+      "tarot.cards.major.11.name",
+      "tarot.cards.major.11.meaningUpright",
+      "tarot.cards.major.11.meaningReversed",
+      "tarot.cards.major.11.description",
+      "tarot.cards.major.11.advice",
+      "tarot.cards.major.12.name",
+      "tarot.cards.major.12.meaningUpright",
+      "tarot.cards.major.12.meaningReversed",
+      "tarot.cards.major.12.description",
+      "tarot.cards.major.12.advice",
+      "tarot.cards.major.13.name",
+      "tarot.cards.major.13.meaningUpright",
+      "tarot.cards.major.13.meaningReversed",
+      "tarot.cards.major.13.description",
+      "tarot.cards.major.13.advice",
+      "tarot.cards.major.14.name",
+      "tarot.cards.major.14.meaningUpright",
+      "tarot.cards.major.14.meaningReversed",
+      "tarot.cards.major.14.description",
+      "tarot.cards.major.14.advice",
+      "tarot.cards.major.15.name",
+      "tarot.cards.major.15.meaningUpright",
+      "tarot.cards.major.15.meaningReversed",
+      "tarot.cards.major.15.description",
+      "tarot.cards.major.15.advice",
+      "tarot.cards.major.16.name",
+      "tarot.cards.major.16.meaningUpright",
+      "tarot.cards.major.16.meaningReversed",
+      "tarot.cards.major.16.description",
+      "tarot.cards.major.16.advice",
+      "tarot.cards.major.17.name",
+      "tarot.cards.major.17.meaningUpright",
+      "tarot.cards.major.17.meaningReversed",
+      "tarot.cards.major.17.description",
+      "tarot.cards.major.17.advice",
+      "tarot.cards.major.18.name",
+      "tarot.cards.major.18.meaningUpright",
+      "tarot.cards.major.18.meaningReversed",
+      "tarot.cards.major.18.description",
+      "tarot.cards.major.18.advice",
+      "tarot.cards.major.19.name",
+      "tarot.cards.major.19.meaningUpright",
+      "tarot.cards.major.19.meaningReversed",
+      "tarot.cards.major.19.description",
+      "tarot.cards.major.19.advice",
+      "tarot.cards.major.20.name",
+      "tarot.cards.major.20.meaningUpright",
+      "tarot.cards.major.20.meaningReversed",
+      "tarot.cards.major.20.description",
+      "tarot.cards.major.20.advice",
+      "tarot.cards.major.21.name",
+      "tarot.cards.major.21.meaningUpright",
+      "tarot.cards.major.21.meaningReversed",
+      "tarot.cards.major.21.description",
+      "tarot.cards.major.21.advice",
+      "tarot.cards.cups.c1.name",
+      "tarot.cards.cups.c1.meaningUpright",
+      "tarot.cards.cups.c1.meaningReversed",
+      "tarot.cards.cups.c1.description",
+      "tarot.cards.cups.c1.advice",
+      "tarot.cards.cups.c2.name",
+      "tarot.cards.cups.c2.meaningUpright",
+      "tarot.cards.cups.c2.meaningReversed",
+      "tarot.cards.cups.c2.description",
+      "tarot.cards.cups.c2.advice",
+      "tarot.cards.cups.c3.name",
+      "tarot.cards.cups.c3.meaningUpright",
+      "tarot.cards.cups.c3.meaningReversed",
+      "tarot.cards.cups.c3.description",
+      "tarot.cards.cups.c3.advice",
+      "tarot.cards.cups.c4.name",
+      "tarot.cards.cups.c4.meaningUpright",
+      "tarot.cards.cups.c4.meaningReversed",
+      "tarot.cards.cups.c4.description",
+      "tarot.cards.cups.c4.advice",
+      "tarot.cards.cups.c5.name",
+      "tarot.cards.cups.c5.meaningUpright",
+      "tarot.cards.cups.c5.meaningReversed",
+      "tarot.cards.cups.c5.description",
+      "tarot.cards.cups.c5.advice",
+      "tarot.cards.cups.c6.name",
+      "tarot.cards.cups.c6.meaningUpright",
+      "tarot.cards.cups.c6.meaningReversed",
+      "tarot.cards.cups.c6.description",
+      "tarot.cards.cups.c6.advice",
+      "tarot.cards.cups.c7.name",
+      "tarot.cards.cups.c7.meaningUpright",
+      "tarot.cards.cups.c7.meaningReversed",
+      "tarot.cards.cups.c7.description",
+      "tarot.cards.cups.c7.advice",
+      "tarot.cards.cups.c8.name",
+      "tarot.cards.cups.c8.meaningUpright",
+      "tarot.cards.cups.c8.meaningReversed",
+      "tarot.cards.cups.c8.description",
+      "tarot.cards.cups.c8.advice",
+      "tarot.cards.cups.c9.name",
+      "tarot.cards.cups.c9.meaningUpright",
+      "tarot.cards.cups.c9.meaningReversed",
+      "tarot.cards.cups.c9.description",
+      "tarot.cards.cups.c9.advice",
+      "tarot.cards.cups.c10.name",
+      "tarot.cards.cups.c10.meaningUpright",
+      "tarot.cards.cups.c10.meaningReversed",
+      "tarot.cards.cups.c10.description",
+      "tarot.cards.cups.c10.advice",
+      "tarot.cards.cups.c11.name",
+      "tarot.cards.cups.c11.meaningUpright",
+      "tarot.cards.cups.c11.meaningReversed",
+      "tarot.cards.cups.c11.description",
+      "tarot.cards.cups.c11.advice",
+      "tarot.cards.cups.c12.name",
+      "tarot.cards.cups.c12.meaningUpright",
+      "tarot.cards.cups.c12.meaningReversed",
+      "tarot.cards.cups.c12.description",
+      "tarot.cards.cups.c12.advice",
+      "tarot.cards.cups.c13.name",
+      "tarot.cards.cups.c13.meaningUpright",
+      "tarot.cards.cups.c13.meaningReversed",
+      "tarot.cards.cups.c13.description",
+      "tarot.cards.cups.c13.advice",
+      "tarot.cards.cups.c14.name",
+      "tarot.cards.cups.c14.meaningUpright",
+      "tarot.cards.cups.c14.meaningReversed",
+      "tarot.cards.cups.c14.description",
+      "tarot.cards.cups.c14.advice",
+      "tarot.cards.wands.w1.name",
+      "tarot.cards.wands.w1.meaningUpright",
+      "tarot.cards.wands.w1.meaningReversed",
+      "tarot.cards.wands.w1.description",
+      "tarot.cards.wands.w1.advice",
+      "tarot.cards.wands.w2.name",
+      "tarot.cards.wands.w2.meaningUpright",
+      "tarot.cards.wands.w2.meaningReversed",
+      "tarot.cards.wands.w2.description",
+      "tarot.cards.wands.w2.advice",
+      "tarot.cards.wands.w3.name",
+      "tarot.cards.wands.w3.meaningUpright",
+      "tarot.cards.wands.w3.meaningReversed",
+      "tarot.cards.wands.w3.description",
+      "tarot.cards.wands.w3.advice",
+      "tarot.cards.wands.w4.name",
+      "tarot.cards.wands.w4.meaningUpright",
+      "tarot.cards.wands.w4.meaningReversed",
+      "tarot.cards.wands.w4.description",
+      "tarot.cards.wands.w4.advice",
+      "tarot.cards.wands.w5.name",
+      "tarot.cards.wands.w5.meaningUpright",
+      "tarot.cards.wands.w5.meaningReversed",
+      "tarot.cards.wands.w5.description"
     ]
   },
   "placeholderMismatches": [
@@ -1065,14 +1033,6 @@
       "targetPlaceholders": []
     },
     {
-      "locale": "ar",
-      "key": "reports.streakDesc",
-      "sourcePlaceholders": [
-        "{{days}}"
-      ],
-      "targetPlaceholders": []
-    },
-    {
       "locale": "de",
       "key": "journal.weeklyInsightDesc",
       "sourcePlaceholders": [
@@ -1104,14 +1064,6 @@
       "sourcePlaceholders": [
         "{{percent}}",
         "{{next}}"
-      ],
-      "targetPlaceholders": []
-    },
-    {
-      "locale": "de",
-      "key": "reports.streakDesc",
-      "sourcePlaceholders": [
-        "{{days}}"
       ],
       "targetPlaceholders": []
     },
@@ -1151,14 +1103,6 @@
       "targetPlaceholders": []
     },
     {
-      "locale": "es",
-      "key": "reports.streakDesc",
-      "sourcePlaceholders": [
-        "{{days}}"
-      ],
-      "targetPlaceholders": []
-    },
-    {
       "locale": "it",
       "key": "rituals.steps_count",
       "sourcePlaceholders": [
@@ -1180,14 +1124,6 @@
       "sourcePlaceholders": [
         "{{percent}}",
         "{{next}}"
-      ],
-      "targetPlaceholders": []
-    },
-    {
-      "locale": "it",
-      "key": "reports.streakDesc",
-      "sourcePlaceholders": [
-        "{{days}}"
       ],
       "targetPlaceholders": []
     },
@@ -1239,14 +1175,6 @@
       "targetPlaceholders": []
     },
     {
-      "locale": "pt",
-      "key": "reports.streakDesc",
-      "sourcePlaceholders": [
-        "{{days}}"
-      ],
-      "targetPlaceholders": []
-    },
-    {
       "locale": "ru",
       "key": "rituals.steps_count",
       "sourcePlaceholders": [
@@ -1270,17 +1198,34 @@
         "{{next}}"
       ],
       "targetPlaceholders": []
-    },
-    {
-      "locale": "ru",
-      "key": "reports.streakDesc",
-      "sourcePlaceholders": [
-        "{{days}}"
-      ],
-      "targetPlaceholders": []
     }
   ],
   "polishResidueInNonPl": [
+    {
+      "locale": "ar",
+      "key": "tarot.cards.cups.c5.advice",
+      "sample": "Allow yourself to grieve, but do not forget what you still have."
+    },
+    {
+      "locale": "ar",
+      "key": "tarot.cards.cups.c12.advice",
+      "sample": "Follow your dreams, but do not lose yourself in illusions. Stay true to yourself."
+    },
+    {
+      "locale": "ar",
+      "key": "tarot.cards.wands.w10.advice",
+      "sample": "You do not have to carry everything alone. Share part of the burden with others."
+    },
+    {
+      "locale": "ar",
+      "key": "tarot.cards.pentacles.p4.advice",
+      "sample": "Enjoy your security, but do not let fear of loss limit your life."
+    },
+    {
+      "locale": "ar",
+      "key": "tarot.cards.pentacles.p5.advice",
+      "sample": "Do not be ashamed to ask for help. Support is available — you only need to accept it."
+    },
     {
       "locale": "de",
       "key": "onboarding.language_title",
@@ -1390,6 +1335,31 @@
       "locale": "de",
       "key": "tarot.spreads.daily_card.name",
       "sample": "Tageskarte"
+    },
+    {
+      "locale": "de",
+      "key": "tarot.cards.cups.c5.advice",
+      "sample": "Allow yourself to grieve, but do not forget what you still have."
+    },
+    {
+      "locale": "de",
+      "key": "tarot.cards.cups.c12.advice",
+      "sample": "Follow your dreams, but do not lose yourself in illusions. Stay true to yourself."
+    },
+    {
+      "locale": "de",
+      "key": "tarot.cards.wands.w10.advice",
+      "sample": "You do not have to carry everything alone. Share part of the burden with others."
+    },
+    {
+      "locale": "de",
+      "key": "tarot.cards.pentacles.p4.advice",
+      "sample": "Enjoy your security, but do not let fear of loss limit your life."
+    },
+    {
+      "locale": "de",
+      "key": "tarot.cards.pentacles.p5.advice",
+      "sample": "Do not be ashamed to ask for help. Support is available — you only need to accept it."
     },
     {
       "locale": "de",
@@ -1508,38 +1478,48 @@
     },
     {
       "locale": "de",
+      "key": "checkin.particles",
+      "sample": "Energiepartikel"
+    },
+    {
+      "locale": "de",
       "key": "reports.weeklyInsight",
       "sample": "Wöchentliche Erkenntnis"
     },
     {
       "locale": "de",
       "key": "reports.dominantEnergy",
-      "sample": "Dominante Energie"
+      "sample": "DOMINANTE ENERGIE"
     },
     {
       "locale": "de",
       "key": "reports.constellationDesc",
-      "sample": "Die Karte deiner Emotionen im Zeitraum"
+      "sample": "Visualisierung deiner emotionalen Zustände als Sternkarte."
     },
     {
       "locale": "de",
       "key": "astrology.starsMap",
-      "sample": "Sternenkarte"
+      "sample": "Himmelskarte"
     },
     {
       "locale": "de",
       "key": "paywall.choosePath",
-      "sample": "Wähle deinen Weg"
+      "sample": "WÄHLE DEINEN WEG"
     },
     {
       "locale": "de",
       "key": "compatibility.addPartnerEnergy",
-      "sample": "Partnerenergie hinzufügen"
+      "sample": "PARTNERENERGIE HINZUFÜGEN"
     },
     {
       "locale": "de",
       "key": "compatibility.relationshipEnergy",
-      "sample": "Beziehungsenergie"
+      "sample": "BEZIEHUNGSENERGIE"
+    },
+    {
+      "locale": "de",
+      "key": "journeys.weeklyFocus",
+      "sample": "Wöchentlicher Fokus"
     },
     {
       "locale": "de",
@@ -1550,6 +1530,11 @@
       "locale": "de",
       "key": "stars.tabMap",
       "sample": "Karte"
+    },
+    {
+      "locale": "de",
+      "key": "archetypes.6.title",
+      "sample": "Energieharmonisierer"
     },
     {
       "locale": "de",
@@ -1585,6 +1570,31 @@
       "locale": "en",
       "key": "oracle.starters.abundance",
       "sample": "How can I attract more abundance?"
+    },
+    {
+      "locale": "en",
+      "key": "tarot.cards.cups.c5.advice",
+      "sample": "Allow yourself to grieve, but do not forget what you still have."
+    },
+    {
+      "locale": "en",
+      "key": "tarot.cards.cups.c12.advice",
+      "sample": "Follow your dreams, but do not lose yourself in illusions. Stay true to yourself."
+    },
+    {
+      "locale": "en",
+      "key": "tarot.cards.wands.w10.advice",
+      "sample": "You do not have to carry everything alone. Share part of the burden with others."
+    },
+    {
+      "locale": "en",
+      "key": "tarot.cards.pentacles.p4.advice",
+      "sample": "Enjoy your security, but do not let fear of loss limit your life."
+    },
+    {
+      "locale": "en",
+      "key": "tarot.cards.pentacles.p5.advice",
+      "sample": "Do not be ashamed to ask for help. Support is available — you only need to accept it."
     },
     {
       "locale": "en",
@@ -1630,6 +1640,11 @@
       "locale": "es",
       "key": "common.session_complete",
       "sample": "Sesión completada"
+    },
+    {
+      "locale": "es",
+      "key": "common.screenErrorBody",
+      "sample": "Esta pantalla encontró un problema.\nVuelve e inténtalo de nuevo."
     },
     {
       "locale": "es",
@@ -1830,6 +1845,31 @@
       "locale": "es",
       "key": "tarot.decks.cosmicDesc",
       "sample": "Una interpretación moderna y galáctica de los arquetipos"
+    },
+    {
+      "locale": "es",
+      "key": "tarot.cards.cups.c5.advice",
+      "sample": "Allow yourself to grieve, but do not forget what you still have."
+    },
+    {
+      "locale": "es",
+      "key": "tarot.cards.cups.c12.advice",
+      "sample": "Follow your dreams, but do not lose yourself in illusions. Stay true to yourself."
+    },
+    {
+      "locale": "es",
+      "key": "tarot.cards.wands.w10.advice",
+      "sample": "You do not have to carry everything alone. Share part of the burden with others."
+    },
+    {
+      "locale": "es",
+      "key": "tarot.cards.pentacles.p4.advice",
+      "sample": "Enjoy your security, but do not let fear of loss limit your life."
+    },
+    {
+      "locale": "es",
+      "key": "tarot.cards.pentacles.p5.advice",
+      "sample": "Do not be ashamed to ask for help. Support is available — you only need to accept it."
     },
     {
       "locale": "es",
@@ -2268,18 +2308,13 @@
     },
     {
       "locale": "es",
-      "key": "reports.weeklyInsight",
-      "sample": "Revelación semanal"
-    },
-    {
-      "locale": "es",
       "key": "reports.moodConstellation",
-      "sample": "Constelación anímica"
+      "sample": "CONSTELACIÓN DE HUMOR"
     },
     {
       "locale": "es",
-      "key": "reports.tarotInsight",
-      "sample": "Revelación del tarot"
+      "key": "reports.constellationDesc",
+      "sample": "Visualización de tus estados emocionales como un mapa estelar."
     },
     {
       "locale": "es",
@@ -2303,13 +2338,13 @@
     },
     {
       "locale": "es",
-      "key": "compatibility.namePlaceholder",
-      "sample": "¿Cómo se llama?"
+      "key": "paywall.feature4Desc",
+      "sample": "Un santuario permanente para tus afirmaciones, lecturas y sueños favoritos."
     },
     {
       "locale": "es",
       "key": "compatibility.relationshipEnergy",
-      "sample": "Energía de la relación"
+      "sample": "ENERGÍA DE LA RELACIÓN"
     },
     {
       "locale": "es",
@@ -2324,12 +2359,12 @@
     {
       "locale": "es",
       "key": "journeys.transformationPaths",
-      "sample": "Caminos de transformación"
+      "sample": "Caminos de Transformación"
     },
     {
       "locale": "es",
       "key": "palmreading.instructions",
-      "sample": "Fotografía el interior de tu mano con buena iluminación"
+      "sample": "Fotografía la palma de tu mano con buena iluminación"
     },
     {
       "locale": "es",
@@ -2339,7 +2374,7 @@
     {
       "locale": "es",
       "key": "palmreading.interpretationTitle",
-      "sample": "Interpretación de la Mano"
+      "sample": "Interpretación de la Palma"
     },
     {
       "locale": "es",
@@ -2353,18 +2388,13 @@
     },
     {
       "locale": "es",
-      "key": "binauralbeats.waves.beta",
-      "sample": "Beta — concentración"
-    },
-    {
-      "locale": "es",
       "key": "binauralbeats.waves.gamma",
-      "sample": "Gamma — cognición elevada"
+      "sample": "Gamma — cognición superior"
     },
     {
       "locale": "es",
       "key": "binauralbeats.session_complete",
-      "sample": "Sesión completada"
+      "sample": "Sesión completa"
     },
     {
       "locale": "es",
@@ -2384,7 +2414,7 @@
     {
       "locale": "es",
       "key": "data.decks.classicDesc",
-      "sample": "La baraja clásica más precisa basada en la tradición Rider-Waite."
+      "sample": "El mazo más preciso y clásico basado en la tradición Rider-Waite."
     },
     {
       "locale": "es",
@@ -2394,7 +2424,7 @@
     {
       "locale": "es",
       "key": "data.decks.cosmicDesc",
-      "sample": "Interpretación moderna y galáctica de los arquetipos del universo."
+      "sample": "Una interpretación moderna y galáctica de arquetipos universales."
     },
     {
       "locale": "es",
@@ -2404,7 +2434,7 @@
     {
       "locale": "es",
       "key": "data.rituals.morning_alignment.description",
-      "sample": "Breve meditación para establecer la intención del día."
+      "sample": "Una meditación breve para establecer tu intención del día."
     },
     {
       "locale": "es",
@@ -2413,48 +2443,18 @@
     },
     {
       "locale": "es",
-      "key": "data.rituals.candle_magic.description",
-      "sample": "Manifestación de un deseo a través del elemento fuego."
-    },
-    {
-      "locale": "es",
-      "key": "archetypes.3.title",
-      "sample": "Madre de la creación"
-    },
-    {
-      "locale": "es",
-      "key": "archetypes.6.title",
-      "sample": "Unión y elección"
-    },
-    {
-      "locale": "es",
-      "key": "archetypes.12.title",
-      "sample": "Rendición y perspectiva"
+      "key": "archetypes.5.title",
+      "sample": "Guardián de la Tradición"
     },
     {
       "locale": "es",
       "key": "archetypes.13.title",
-      "sample": "Transformación y renacimiento"
+      "sample": "Agente de Transformación"
     },
     {
       "locale": "es",
-      "key": "archetypes.14.title",
-      "sample": "Armonía y moderación"
-    },
-    {
-      "locale": "es",
-      "key": "archetypes.15.title",
-      "sample": "Sombras y liberación"
-    },
-    {
-      "locale": "es",
-      "key": "archetypes.16.title",
-      "sample": "Revelación y cambio"
-    },
-    {
-      "locale": "es",
-      "key": "archetypes.18.title",
-      "sample": "Intuición y misterio"
+      "key": "archetypes.21.title",
+      "sample": "Maestro de la Integración"
     },
     {
       "locale": "es",
@@ -2478,13 +2478,33 @@
     },
     {
       "locale": "es",
+      "key": "protectionRitual.eyebrow",
+      "sample": "MUNDO DE LA PURIFICACIÓN"
+    },
+    {
+      "locale": "es",
       "key": "protectionRitual.activate",
       "sample": "Activar protección"
     },
     {
       "locale": "es",
+      "key": "saltBath.eyebrow",
+      "sample": "MUNDO DE LA PURIFICACIÓN"
+    },
+    {
+      "locale": "es",
+      "key": "releaseLetters.eyebrow",
+      "sample": "MUNDO DE LA PURIFICACIÓN"
+    },
+    {
+      "locale": "es",
       "key": "selfCompassion.title",
       "sample": "Autocompasión"
+    },
+    {
+      "locale": "es",
+      "key": "healingFrequencies.title",
+      "sample": "Frecuencias de Sanación"
     },
     {
       "locale": "es",
@@ -2527,9 +2547,54 @@
       "sample": "Afirmaciones"
     },
     {
+      "locale": "es",
+      "key": "auth.loginTitle",
+      "sample": "Iniciar sesión"
+    },
+    {
+      "locale": "es",
+      "key": "auth.email",
+      "sample": "Correo electrónico"
+    },
+    {
+      "locale": "es",
+      "key": "auth.login",
+      "sample": "Iniciar sesión"
+    },
+    {
+      "locale": "es",
+      "key": "auth.errorConnection",
+      "sample": "No se pudo iniciar sesión. Verifica tu conexión."
+    },
+    {
       "locale": "fr",
       "key": "onboarding.styles.mystical",
       "sample": "Mystique & Poétique"
+    },
+    {
+      "locale": "fr",
+      "key": "tarot.cards.cups.c5.advice",
+      "sample": "Allow yourself to grieve, but do not forget what you still have."
+    },
+    {
+      "locale": "fr",
+      "key": "tarot.cards.cups.c12.advice",
+      "sample": "Follow your dreams, but do not lose yourself in illusions. Stay true to yourself."
+    },
+    {
+      "locale": "fr",
+      "key": "tarot.cards.wands.w10.advice",
+      "sample": "You do not have to carry everything alone. Share part of the burden with others."
+    },
+    {
+      "locale": "fr",
+      "key": "tarot.cards.pentacles.p4.advice",
+      "sample": "Enjoy your security, but do not let fear of loss limit your life."
+    },
+    {
+      "locale": "fr",
+      "key": "tarot.cards.pentacles.p5.advice",
+      "sample": "Do not be ashamed to ask for help. Support is available — you only need to accept it."
     },
     {
       "locale": "fr",
@@ -2575,6 +2640,31 @@
       "locale": "it",
       "key": "tarot.yourTools",
       "sample": "I TUOI STRUMENTI"
+    },
+    {
+      "locale": "it",
+      "key": "tarot.cards.cups.c5.advice",
+      "sample": "Allow yourself to grieve, but do not forget what you still have."
+    },
+    {
+      "locale": "it",
+      "key": "tarot.cards.cups.c12.advice",
+      "sample": "Follow your dreams, but do not lose yourself in illusions. Stay true to yourself."
+    },
+    {
+      "locale": "it",
+      "key": "tarot.cards.wands.w10.advice",
+      "sample": "You do not have to carry everything alone. Share part of the burden with others."
+    },
+    {
+      "locale": "it",
+      "key": "tarot.cards.pentacles.p4.advice",
+      "sample": "Enjoy your security, but do not let fear of loss limit your life."
+    },
+    {
+      "locale": "it",
+      "key": "tarot.cards.pentacles.p5.advice",
+      "sample": "Do not be ashamed to ask for help. Support is available — you only need to accept it."
     },
     {
       "locale": "it",
@@ -2678,28 +2768,58 @@
     },
     {
       "locale": "it",
-      "key": "reports.dominantEnergy",
-      "sample": "Energia dominante"
+      "key": "checkin.particles",
+      "sample": "particelle di energia"
     },
     {
       "locale": "it",
-      "key": "paywall.feature2Title",
-      "sample": "Tutti i mazzi di tarocchi"
+      "key": "reports.dominantEnergy",
+      "sample": "ENERGIA DOMINANTE"
     },
     {
       "locale": "it",
       "key": "paywall.feature2Desc",
-      "sample": "Accesso a tutti i mazzi premium"
+      "sample": "Accesso a tutti i 22 arcani maggiori e minori più stese specializzate."
     },
     {
       "locale": "it",
       "key": "compatibility.addPartnerEnergy",
-      "sample": "Aggiungi l'energia del partner"
+      "sample": "AGGIUNGI ENERGIA DEL PARTNER"
     },
     {
       "locale": "it",
       "key": "compatibility.relationshipEnergy",
-      "sample": "Energia della relazione"
+      "sample": "ENERGIA DELLA RELAZIONE"
+    },
+    {
+      "locale": "it",
+      "key": "archetypes.6.title",
+      "sample": "Armonizzatore di Energia"
+    },
+    {
+      "locale": "ja",
+      "key": "tarot.cards.cups.c5.advice",
+      "sample": "Allow yourself to grieve, but do not forget what you still have."
+    },
+    {
+      "locale": "ja",
+      "key": "tarot.cards.cups.c12.advice",
+      "sample": "Follow your dreams, but do not lose yourself in illusions. Stay true to yourself."
+    },
+    {
+      "locale": "ja",
+      "key": "tarot.cards.wands.w10.advice",
+      "sample": "You do not have to carry everything alone. Share part of the burden with others."
+    },
+    {
+      "locale": "ja",
+      "key": "tarot.cards.pentacles.p4.advice",
+      "sample": "Enjoy your security, but do not let fear of loss limit your life."
+    },
+    {
+      "locale": "ja",
+      "key": "tarot.cards.pentacles.p5.advice",
+      "sample": "Do not be ashamed to ask for help. Support is available — you only need to accept it."
     },
     {
       "locale": "pt",
@@ -2870,6 +2990,31 @@
       "locale": "pt",
       "key": "tarot.decks.cosmic",
       "sample": "Luz Cósmica"
+    },
+    {
+      "locale": "pt",
+      "key": "tarot.cards.cups.c5.advice",
+      "sample": "Allow yourself to grieve, but do not forget what you still have."
+    },
+    {
+      "locale": "pt",
+      "key": "tarot.cards.cups.c12.advice",
+      "sample": "Follow your dreams, but do not lose yourself in illusions. Stay true to yourself."
+    },
+    {
+      "locale": "pt",
+      "key": "tarot.cards.wands.w10.advice",
+      "sample": "You do not have to carry everything alone. Share part of the burden with others."
+    },
+    {
+      "locale": "pt",
+      "key": "tarot.cards.pentacles.p4.advice",
+      "sample": "Enjoy your security, but do not let fear of loss limit your life."
+    },
+    {
+      "locale": "pt",
+      "key": "tarot.cards.pentacles.p5.advice",
+      "sample": "Do not be ashamed to ask for help. Support is available — you only need to accept it."
     },
     {
       "locale": "pt",
@@ -3168,38 +3313,33 @@
     },
     {
       "locale": "pt",
+      "key": "checkin.particles",
+      "sample": "partículas de energia"
+    },
+    {
+      "locale": "pt",
       "key": "reports.title",
       "sample": "Relatórios"
     },
     {
       "locale": "pt",
       "key": "reports.pathAnalysis",
-      "sample": "Análise do caminho"
+      "sample": "ANÁLISE DO CAMINHO"
     },
     {
       "locale": "pt",
       "key": "reports.dominantEnergy",
-      "sample": "Energia dominante"
-    },
-    {
-      "locale": "pt",
-      "key": "reports.consistencyMastery",
-      "sample": "Maestria na constância"
-    },
-    {
-      "locale": "pt",
-      "key": "reports.constellationDesc",
-      "sample": "O mapa das suas emoções do período"
+      "sample": "ENERGIA DOMINANTE"
     },
     {
       "locale": "pt",
       "key": "reports.tarotInsight",
-      "sample": "Revelação do tarot"
+      "sample": "PERSPECTIVA DO TAROT"
     },
     {
       "locale": "pt",
       "key": "reports.soulReports",
-      "sample": "Relatórios da alma"
+      "sample": "Relatórios da Alma"
     },
     {
       "locale": "pt",
@@ -3223,38 +3363,48 @@
     },
     {
       "locale": "pt",
-      "key": "astrology.biorhythmCycles",
-      "sample": "Ciclos do Biorritmo"
+      "key": "astrology.starsMap",
+      "sample": "Mapa do Céu"
     },
     {
       "locale": "pt",
       "key": "notifications.reminderLabel",
-      "sample": "Rótulo"
+      "sample": "Rótulo do lembrete"
+    },
+    {
+      "locale": "pt",
+      "key": "paywall.feature3Title",
+      "sample": "Perspectivas do Caminho da Alma"
     },
     {
       "locale": "pt",
       "key": "paywall.feature3Desc",
-      "sample": "Relatórios detalhados do seu caminho espiritual"
+      "sample": "Análise profunda da sua Matriz do Destino e trânsitos pessoais."
+    },
+    {
+      "locale": "pt",
+      "key": "paywall.feature4Desc",
+      "sample": "Um santuário permanente para suas afirmações, leituras e sonhos favoritos."
     },
     {
       "locale": "pt",
       "key": "compatibility.addPartnerEnergy",
-      "sample": "Adicionar energia do parceiro"
+      "sample": "ADICIONAR ENERGIA DO PARCEIRO"
     },
     {
       "locale": "pt",
       "key": "compatibility.partnerName",
-      "sample": "Nome do parceiro"
+      "sample": "NOME DO PARCEIRO / PESSOA"
     },
     {
       "locale": "pt",
       "key": "compatibility.relationshipEnergy",
-      "sample": "Energia do relacionamento"
+      "sample": "ENERGIA DO RELACIONAMENTO"
     },
     {
       "locale": "pt",
       "key": "journeys.nextStep",
-      "sample": "Próxima etapa"
+      "sample": "Próximo Passo"
     },
     {
       "locale": "pt",
@@ -3288,13 +3438,8 @@
     },
     {
       "locale": "pt",
-      "key": "biorhythm.chartTitle",
-      "sample": "Gráfico do Biorritmo"
-    },
-    {
-      "locale": "pt",
       "key": "data.decks.classicDesc",
-      "sample": "O baralho clássico mais preciso baseado na tradição Rider-Waite."
+      "sample": "O baralho mais preciso e clássico baseado na tradição Rider-Waite."
     },
     {
       "locale": "pt",
@@ -3303,33 +3448,38 @@
     },
     {
       "locale": "pt",
-      "key": "data.decks.cosmicDesc",
-      "sample": "Interpretação moderna e galáctica dos arquétipos do universo."
-    },
-    {
-      "locale": "pt",
-      "key": "data.rituals.morning_alignment.description",
-      "sample": "Breve meditação para definir a intenção do dia."
-    },
-    {
-      "locale": "pt",
       "key": "data.rituals.candle_magic.description",
-      "sample": "Manifestação de um desejo através do elemento fogo."
+      "sample": "Manifestar um desejo específico através do elemento fogo."
     },
     {
       "locale": "pt",
-      "key": "archetypes.2.title",
-      "sample": "Guardiã do mistério"
+      "key": "archetypes.6.title",
+      "sample": "Harmonizador de Energia"
     },
     {
       "locale": "pt",
-      "key": "archetypes.7.title",
-      "sample": "Vontade e vitória"
+      "key": "archetypes.8.title",
+      "sample": "Balança do Karma"
     },
     {
       "locale": "pt",
       "key": "archetypes.10.title",
-      "sample": "Ciclos do destino"
+      "sample": "Mestre do Destino"
+    },
+    {
+      "locale": "pt",
+      "key": "archetypes.14.title",
+      "sample": "Alquimista do Equilíbrio"
+    },
+    {
+      "locale": "pt",
+      "key": "archetypes.18.title",
+      "sample": "Viajante do Subconsciente"
+    },
+    {
+      "locale": "pt",
+      "key": "archetypes.20.title",
+      "sample": "Voz do Despertar"
     },
     {
       "locale": "pt",
@@ -3340,6 +3490,31 @@
       "locale": "pt",
       "key": "fireCeremony.title",
       "sample": "Cerimônia do Fogo"
+    },
+    {
+      "locale": "pt",
+      "key": "innerChild.eyebrow",
+      "sample": "MUNDO DO SUPORTE"
+    },
+    {
+      "locale": "pt",
+      "key": "anxietyRelief.eyebrow",
+      "sample": "MUNDO DO SUPORTE"
+    },
+    {
+      "locale": "pt",
+      "key": "selfCompassion.eyebrow",
+      "sample": "MUNDO DO SUPORTE"
+    },
+    {
+      "locale": "pt",
+      "key": "healingFrequencies.eyebrow",
+      "sample": "MUNDO DO SUPORTE"
+    },
+    {
+      "locale": "pt",
+      "key": "emotionalAnchors.eyebrow",
+      "sample": "MUNDO DO SUPORTE"
     },
     {
       "locale": "pt",
@@ -3370,6 +3545,71 @@
       "locale": "pt",
       "key": "signMeditation.tabAffirmations",
       "sample": "Afirmações"
+    },
+    {
+      "locale": "pt",
+      "key": "auth.subtitle",
+      "sample": "Entre na sua alma"
+    },
+    {
+      "locale": "pt",
+      "key": "auth.zodiacSign",
+      "sample": "Signo do zodíaco"
+    },
+    {
+      "locale": "pt",
+      "key": "auth.nextStep",
+      "sample": "Próximo →"
+    },
+    {
+      "locale": "ru",
+      "key": "tarot.cards.cups.c5.advice",
+      "sample": "Allow yourself to grieve, but do not forget what you still have."
+    },
+    {
+      "locale": "ru",
+      "key": "tarot.cards.cups.c12.advice",
+      "sample": "Follow your dreams, but do not lose yourself in illusions. Stay true to yourself."
+    },
+    {
+      "locale": "ru",
+      "key": "tarot.cards.wands.w10.advice",
+      "sample": "You do not have to carry everything alone. Share part of the burden with others."
+    },
+    {
+      "locale": "ru",
+      "key": "tarot.cards.pentacles.p4.advice",
+      "sample": "Enjoy your security, but do not let fear of loss limit your life."
+    },
+    {
+      "locale": "ru",
+      "key": "tarot.cards.pentacles.p5.advice",
+      "sample": "Do not be ashamed to ask for help. Support is available — you only need to accept it."
+    },
+    {
+      "locale": "zh",
+      "key": "tarot.cards.cups.c5.advice",
+      "sample": "Allow yourself to grieve, but do not forget what you still have."
+    },
+    {
+      "locale": "zh",
+      "key": "tarot.cards.cups.c12.advice",
+      "sample": "Follow your dreams, but do not lose yourself in illusions. Stay true to yourself."
+    },
+    {
+      "locale": "zh",
+      "key": "tarot.cards.wands.w10.advice",
+      "sample": "You do not have to carry everything alone. Share part of the burden with others."
+    },
+    {
+      "locale": "zh",
+      "key": "tarot.cards.pentacles.p4.advice",
+      "sample": "Enjoy your security, but do not let fear of loss limit your life."
+    },
+    {
+      "locale": "zh",
+      "key": "tarot.cards.pentacles.p5.advice",
+      "sample": "Do not be ashamed to ask for help. Support is available — you only need to accept it."
     }
   ]
 }

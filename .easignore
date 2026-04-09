@@ -10,6 +10,7 @@ coverage
 *.wav
 tmp_*
 *.html
+pnpm-lock.yaml
 tmp_video_audit
 tmp_video_review
 tmp_video_review_2

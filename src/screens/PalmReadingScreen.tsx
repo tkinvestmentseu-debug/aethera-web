@@ -397,14 +397,14 @@ export const PalmReadingScreen = ({ navigation }: any) => {
 
   const pickFromCamera = async () => {
     const perm = await ImagePicker.requestCameraPermissionsAsync();
-    if (!perm.granted) { Alert.alert('Brak dostępu', 'Zezwól aplikacji na użycie aparatu.'); return; }
+    if (!perm.granted) { Alert.alert(t('palmreading.brak_dostepu', 'Brak dostępu'), t('palmreading.zezwol_aplikacji_na_uzycie_aparatu', 'Zezwól aplikacji na użycie aparatu.')); return; }
     const result = await ImagePicker.launchCameraAsync({ mediaTypes: ['images'] as any, quality: 0.8 });
     if (!result.canceled) { setImageUri(result.assets[0].uri); setAnalysis(''); }
   };
 
   const pickFromGallery = async () => {
     const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!perm.granted) { Alert.alert('Brak dostępu', 'Zezwól aplikacji na dostęp do galerii.'); return; }
+    if (!perm.granted) { Alert.alert(t('palmreading.brak_dostepu_1', 'Brak dostępu'), t('palmreading.zezwol_aplikacji_na_dostep_do', 'Zezwól aplikacji na dostęp do galerii.')); return; }
     const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'] as any, quality: 0.8 });
     if (!result.canceled) { setImageUri(result.assets[0].uri); setAnalysis(''); }
   };
@@ -495,8 +495,8 @@ Pisz w języku użytkownika. Każda sekcja zaczyna się dokładnie od podanego n
             <ChevronLeft color={ACCENT} size={22} />
           </Pressable>
           <View style={{ flex: 1, alignItems: 'center' }}>
-            <Text style={ps.eyebrow}>CHIROMANCJA</Text>
-            <Text style={[ps.title, { color: textColor }]}>Odczyt Dłoni</Text>
+            <Text style={ps.eyebrow}>{t('palmreading.chiromancj', 'CHIROMANCJA')}</Text>
+            <Text style={[ps.title, { color: textColor }]}>{t('palmreading.odczyt_dloni', 'Odczyt Dłoni')}</Text>
           </View>
           <Pressable
             onPress={() => { if (isFav) { removeFavoriteItem('palm-reading'); } else { addFavoriteItem({ id: 'palm-reading', label: 'Dłoń', route: 'PalmReading', params: {}, icon: 'Hand', color: ACCENT, addedAt: new Date().toISOString() }); } }}
@@ -529,11 +529,11 @@ Pisz w języku użytkownika. Każda sekcja zaczyna się dokładnie od podanego n
           <Animated.View entering={FadeInDown.delay(60).duration(480)} style={{ paddingHorizontal: layout.padding.screen, marginBottom: 12 }}>
             <View style={ps.chambersCard}>
               <LinearGradient colors={[ACCENT + '16', 'transparent'] as const} style={StyleSheet.absoluteFill} />
-              <Text style={ps.sectionEyebrow}>KOMNATY CHIROMANCJI</Text>
+              <Text style={ps.sectionEyebrow}>{t('palmreading.komnaty_chiromancj', 'KOMNATY CHIROMANCJI')}</Text>
               <View style={ps.chambersGrid}>
-                <Pressable onPress={() => setActiveTab('learn')} style={[ps.chamberTile, isLight && { backgroundColor: 'rgba(255,255,255,0.88)', borderColor: 'rgba(139,100,42,0.20)' }, activeTab === 'learn' && { borderColor: ACCENT + '66', backgroundColor: ACCENT + '12' }]}><Hand color={ACCENT} size={16} /><Text style={ps.chamberTitle}>Poznaj linie</Text><Text style={[ps.chamberCopy, { color: subColor }]}>Uczysz się znaczeń, układów i subtelnych wariantów dłoni.</Text></Pressable>
-                <Pressable onPress={() => setActiveTab('scan')} style={[ps.chamberTile, isLight && { backgroundColor: 'rgba(255,255,255,0.88)', borderColor: 'rgba(139,100,42,0.20)' }, activeTab === 'scan' && { borderColor: ACCENT + '66', backgroundColor: ACCENT + '12' }]}><ZoomIn color={ACCENT} size={16} /><Text style={ps.chamberTitle}>Skan dłoni</Text><Text style={[ps.chamberCopy, { color: subColor }]}>AI rozkłada odczyt na sekcje i syntetyczne przesłanie.</Text></Pressable>
-                <View style={[ps.chamberTile, isLight && { backgroundColor: 'rgba(255,255,255,0.88)', borderColor: 'rgba(139,100,42,0.20)' }]}><Sparkles color={ACCENT} size={16} /><Text style={ps.chamberTitle}>Przesłanie</Text><Text style={[ps.chamberCopy, { color: subColor }]}>Na końcu dostajesz nie tylko opis, ale osobisty ton całej dłoni.</Text></View>
+                <Pressable onPress={() => setActiveTab('learn')} style={[ps.chamberTile, isLight && { backgroundColor: 'rgba(255,255,255,0.88)', borderColor: 'rgba(139,100,42,0.20)' }, activeTab === 'learn' && { borderColor: ACCENT + '66', backgroundColor: ACCENT + '12' }]}><Hand color={ACCENT} size={16} /><Text style={ps.chamberTitle}>{t('palmreading.poznaj_linie', 'Poznaj linie')}</Text><Text style={[ps.chamberCopy, { color: subColor }]}>{t('palmreading.uczysz_sie_znaczen_ukladow_i', 'Uczysz się znaczeń, układów i subtelnych wariantów dłoni.')}</Text></Pressable>
+                <Pressable onPress={() => setActiveTab('scan')} style={[ps.chamberTile, isLight && { backgroundColor: 'rgba(255,255,255,0.88)', borderColor: 'rgba(139,100,42,0.20)' }, activeTab === 'scan' && { borderColor: ACCENT + '66', backgroundColor: ACCENT + '12' }]}><ZoomIn color={ACCENT} size={16} /><Text style={ps.chamberTitle}>{t('palmreading.skan_dloni', 'Skan dłoni')}</Text><Text style={[ps.chamberCopy, { color: subColor }]}>{t('palmreading.ai_rozklada_odczyt_na_sekcje', 'AI rozkłada odczyt na sekcje i syntetyczne przesłanie.')}</Text></Pressable>
+                <View style={[ps.chamberTile, isLight && { backgroundColor: 'rgba(255,255,255,0.88)', borderColor: 'rgba(139,100,42,0.20)' }]}><Sparkles color={ACCENT} size={16} /><Text style={ps.chamberTitle}>{t('palmreading.przeslanie', 'Przesłanie')}</Text><Text style={[ps.chamberCopy, { color: subColor }]}>{t('palmreading.na_koncu_dostajesz_nie_tylko', 'Na końcu dostajesz nie tylko opis, ale osobisty ton całej dłoni.')}</Text></View>
               </View>
             </View>
           </Animated.View>
@@ -603,7 +603,7 @@ Pisz w języku użytkownika. Każda sekcja zaczyna się dokładnie od podanego n
                 </View>
 
                 {/* Indicators */}
-                <Text style={ps.indicatorsLabel}>ZNACZENIE KONFIGURACJI</Text>
+                <Text style={ps.indicatorsLabel}>{t('palmreading.znaczenie_konfigurac', 'ZNACZENIE KONFIGURACJI')}</Text>
                 {activeLine.indicators.map((ind, i) => (
                   <Animated.View
                     key={i}
@@ -628,9 +628,9 @@ Pisz w języku użytkownika. Każda sekcja zaczyna się dokładnie od podanego n
               <View style={ps.instructCard}>
                 <LinearGradient colors={[ACCENT + '18', ACCENT + '08'] as const} style={StyleSheet.absoluteFill} />
                 <Sparkles color={ACCENT} size={20} style={{ marginBottom: 8 }} />
-                <Text style={ps.instructTitle}>Jak wykonać skan?</Text>
+                <Text style={ps.instructTitle}>{t('palmreading.jak_wykonac_skan', 'Jak wykonać skan?')}</Text>
                 <Text style={[ps.instructText, { color: subColor }]}>
-                  Wyciągnij dłoń i uwyraźnij jej linie, delikatnie zaciskając palce. Zrób zdjęcie w dobrym oświetleniu, trzymając aparat prostopadle do dłoni. Im wyraźniejsze zdjęcie, tym dokładniejszy odczyt.
+                  {t('palmreading.wyciagnij_dlon_i_uwyraznij_jej', 'Wyciągnij dłoń i uwyraźnij jej linie, delikatnie zaciskając palce. Zrób zdjęcie w dobrym oświetleniu, trzymając aparat prostopadle do dłoni. Im wyraźniejsze zdjęcie, tym dokładniejszy odczyt.')}
                 </Text>
               </View>
 
@@ -641,14 +641,14 @@ Pisz w języku użytkownika. Każda sekcja zaczyna się dokładnie od podanego n
                   style={({ pressed }) => [ps.pickBtn, pressed && { opacity: 0.7 }]}
                 >
                   <Camera color={ACCENT} size={20} />
-                  <Text style={ps.pickBtnText}>Aparat</Text>
+                  <Text style={ps.pickBtnText}>{t('palmreading.aparat', 'Aparat')}</Text>
                 </Pressable>
                 <Pressable
                   onPress={pickFromGallery}
                   style={({ pressed }) => [ps.pickBtn, pressed && { opacity: 0.7 }]}
                 >
                   <ImageIcon color={ACCENT} size={20} />
-                  <Text style={ps.pickBtnText}>Galeria</Text>
+                  <Text style={ps.pickBtnText}>{t('palmreading.galeria', 'Galeria')}</Text>
                 </Pressable>
               </View>
 
@@ -662,7 +662,7 @@ Pisz w języku użytkownika. Każda sekcja zaczyna się dokładnie od podanego n
                   />
                   <View style={ps.imageOverlayRow}>
                     <Hand color={ACCENT} size={14} />
-                    <Text style={ps.imageOverlayText}>Dłoń gotowa do odczytu</Text>
+                    <Text style={ps.imageOverlayText}>{t('palmreading.dlon_gotowa_do_odczytu', 'Dłoń gotowa do odczytu')}</Text>
                   </View>
                 </Animated.View>
               )}
@@ -678,7 +678,7 @@ Pisz w języku użytkownika. Każda sekcja zaczyna się dokładnie od podanego n
                     style={[StyleSheet.absoluteFill, { borderRadius: 22 }]}
                   />
                   <Sparkles color="#1A0A00" size={16} />
-                  <Text style={ps.analyzeBtnText}>Odczytaj moją dłoń</Text>
+                  <Text style={ps.analyzeBtnText}>{t('palmreading.odczytaj_moja_dlon', 'Odczytaj moją dłoń')}</Text>
                 </Pressable>
               )}
 
@@ -686,15 +686,15 @@ Pisz w języku użytkownika. Każda sekcja zaczyna się dokładnie od podanego n
               {loading && (
                 <View style={ps.loadingCard}>
                   <TypingDots color={ACCENT} />
-                  <Text style={ps.loadingText}>Mistrzowie chiromancji odczytują Twoją dłoń…</Text>
+                  <Text style={ps.loadingText}>{t('palmreading.mistrzowie_chiromancj_odczytuja_two', 'Mistrzowie chiromancji odczytują Twoją dłoń…')}</Text>
                 </View>
               )}
 
               {imageUri ? (
                 <View style={[ps.resultCard, { borderColor: ACCENT + '30', backgroundColor: isLight ? 'rgba(255,255,255,0.68)' : 'rgba(255,255,255,0.05)' }]}>
                   <LinearGradient colors={[ACCENT + '10', 'transparent'] as const} style={StyleSheet.absoluteFill} />
-                  <Text style={ps.sectionEyebrow}>KOMNATA ODCZYTU</Text>
-                  <Text style={[ps.resultText, { color: subColor }]}>To miejsce nie służy tylko do analizy zdjęcia. Tutaj z ruchu linii, głębokości i kształtu powstaje osobiste przesłanie dłoni.</Text>
+                  <Text style={ps.sectionEyebrow}>{t('palmreading.komnata_odczytu', 'KOMNATA ODCZYTU')}</Text>
+                  <Text style={[ps.resultText, { color: subColor }]}>{t('palmreading.to_miejsce_nie_sluzy_tylko', 'To miejsce nie służy tylko do analizy zdjęcia. Tutaj z ruchu linii, głębokości i kształtu powstaje osobiste przesłanie dłoni.')}</Text>
                 </View>
               ) : null}
 
@@ -703,7 +703,7 @@ Pisz w języku użytkownika. Każda sekcja zaczyna się dokładnie od podanego n
                 <Animated.View entering={FadeInDown.duration(500)}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14, paddingHorizontal: 4 }}>
                     <Hand color={ACCENT} size={16} />
-                    <Text style={ps.resultTitle}>Odczyt Twojej Dłoni</Text>
+                    <Text style={ps.resultTitle}>{t('palmreading.odczyt_twojej_dloni', 'Odczyt Twojej Dłoni')}</Text>
                   </View>
                   {parsedSections ? parsedSections.map((sec, i) => (
                     <Animated.View key={sec.title} entering={FadeInDown.delay(i * 80).duration(400)} style={[ps.sectionCard, { borderColor: sec.color + '44', overflow: 'hidden' }]}>
@@ -731,7 +731,7 @@ Pisz w języku użytkownika. Każda sekcja zaczyna się dokładnie od podanego n
                     onPress={() => { setImageUri(null); setAnalysis(''); }}
                     style={ps.resetBtn}
                   >
-                    <Text style={ps.resetBtnText}>Nowy Odczyt</Text>
+                    <Text style={ps.resetBtnText}>{t('palmreading.nowy_odczyt', 'Nowy Odczyt')}</Text>
                   </Pressable>
                 </Animated.View>
               ) : null}
@@ -739,9 +739,9 @@ Pisz w języku użytkownika. Każda sekcja zaczyna się dokładnie od podanego n
               {!imageUri && !loading && (
                 <View style={ps.emptyState}>
                   <Hand color={ACCENT + '55'} size={44} style={{ marginBottom: 14 }} />
-                  <Text style={[ps.emptyTitle, { color: textColor }]}>Otwórz dłoń na mądrość</Text>
+                  <Text style={[ps.emptyTitle, { color: textColor }]}>{t('palmreading.otworz_dlon_na_madrosc', 'Otwórz dłoń na mądrość')}</Text>
                   <Text style={[ps.emptyText, { color: subColor }]}>
-                    Sfotografuj swoją dłoń, a starożytna sztuka chiromancji ujawni tajemnice Twojego życia, miłości i przeznaczenia.
+                    {t('palmreading.sfotografu_swoja_dlon_a_starozytna', 'Sfotografuj swoją dłoń, a starożytna sztuka chiromancji ujawni tajemnice Twojego życia, miłości i przeznaczenia.')}
                   </Text>
                 </View>
               )}
@@ -750,7 +750,7 @@ Pisz w języku użytkownika. Każda sekcja zaczyna się dokładnie od podanego n
 
           {/* ── Co dalej? ── */}
           <View style={{ paddingHorizontal: 22, marginTop: 8, marginBottom: 4 }}>
-            <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.8, color: ACCENT, marginBottom: 12 }}>✦ CO DALEJ?</Text>
+            <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 1.8, color: ACCENT, marginBottom: 12 }}>{t('palmreading.co_dalej', '✦ CO DALEJ?')}</Text>
             {[
               { icon: Sparkles, label: 'Wyrocznia Aethery', sub: 'Zapytaj o znaczenie linii w Twoim życiu', color: '#A78BFA', route: 'OraclePortal' },
               { icon: BookOpen, label: 'Dziennik refleksji', sub: 'Zapisz odkrycia z odczytu dłoni', color: ACCENT, route: 'JournalEntry', params: { type: 'reflection', prompt: 'Z odczytu mojej dłoni wynika, że...' } },

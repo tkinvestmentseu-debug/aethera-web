@@ -225,7 +225,7 @@ return (
             </Animated.View>
             <View style={[styles.infoCard, { backgroundColor: ACCENT + '14', borderColor: ACCENT + '28' }]}>
               <Text style={{ color: textColor, fontSize: 13, lineHeight: 20 }}>
-                Karta urodzenia to mapa nieba w chwili twoich narodzin. Każda planeta w konkretnym znaku i domu opowiada historię twojej duszy.
+                {t('natalChart.karta_urodzenia_to_mapa_nieba', 'Karta urodzenia to mapa nieba w chwili twoich narodzin. Każda planeta w konkretnym znaku i domu opowiada historię twojej duszy.')}
               </Text>
             </View>
             <View style={[styles.statsRow, { borderColor: cardBorder }]}>
@@ -273,7 +273,7 @@ return (
         ))}
 
                 <View style={{ marginHorizontal: 16, marginBottom: 16, borderRadius: 16, backgroundColor: "#F59E0B22", borderWidth: 1, borderColor: "#F59E0B", padding: 16 }}>
-          <Text style={{ color: "#F59E0B", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>AI INTERPRETACJA KARTY</Text>
+          <Text style={{ color: "#F59E0B", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>{t('natalChart.ai_interpreta_karty', 'AI INTERPRETACJA KARTY')}</Text>
           {natalAiInsight ? (
             <Text style={{ color: "#E5E7EB", fontSize: 14, lineHeight: 22 }}>{natalAiInsight}</Text>
           ) : null}

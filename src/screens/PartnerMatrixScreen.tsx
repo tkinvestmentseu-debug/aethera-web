@@ -161,7 +161,7 @@ const DualMatrixWidget = ({ accentA, accentB }: { accentA: string; accentB: stri
         </Animated.View>
       </GestureDetector>
       <Typography variant="caption" style={{ position: 'absolute', bottom: 2, opacity: 0.38, letterSpacing: 1 }}>
-        ← przeciągnij, by odchylić →
+        {t('partnerMatrix.przeciagni_by_odchylic', '← przeciągnij, by odchylić →')}
       </Typography>
     </View>
   );
@@ -213,7 +213,7 @@ const CompatibilityGauge = ({ score, accent }: { score: number; accent: string }
         </View>
       </View>
       <Typography variant="premiumLabel" color={scoreColor} style={{ marginTop: 10 }}>{scoreLabel}</Typography>
-      <Typography variant="caption" style={{ opacity: 0.50, marginTop: 3 }}>Numerologiczny wynik zgodności</Typography>
+      <Typography variant="caption" style={{ opacity: 0.50, marginTop: 3 }}>{t('partnerMatrix.numerologi_wynik_zgodnosci', 'Numerologiczny wynik zgodności')}</Typography>
     </View>
   );
 };
@@ -629,8 +629,8 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
               <ChevronLeft color={accentA} size={26} />
             </Pressable>
             <View style={s.headerCenter}>
-              <Typography variant="premiumLabel" color={accentA} style={s.eyebrow}>MATRYCA RELACJI</Typography>
-              <Typography variant="screenTitle" style={[s.headerTitle, { color: textColor }]}>Energia Połączenia</Typography>
+              <Typography variant="premiumLabel" color={accentA} style={s.eyebrow}>{t('partnerMatrix.matryca_relacji', 'MATRYCA RELACJI')}</Typography>
+              <Typography variant="screenTitle" style={[s.headerTitle, { color: textColor }]}>{t('partnerMatrix.energia_polaczenia', 'Energia Połączenia')}</Typography>
             </View>
             <Pressable
               onPress={() => { if (isFavoriteItem('partner_matrix')) { removeFavoriteItem('partner_matrix'); } else { addFavoriteItem({ id: 'partner_matrix', label: 'Matryca relacji', route: 'PartnerMatrix', params: {}, icon: 'Heart', color: accentA, addedAt: new Date().toISOString() }); } }}
@@ -653,7 +653,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
             {/* ── HERO SUBTITLE ─────────────────────────────── */}
             <View style={s.heroSubtitle}>
               <Typography variant="bodyRefined" style={{ color: subColor, textAlign: 'center', lineHeight: 24 }}>
-                Nie tylko kim jest ta osoba — ale jak jej wzorzec spotyka Twój rytm relacji i lekcji.
+                {t('partnerMatrix.nie_tylko_kim_jest_ta', 'Nie tylko kim jest ta osoba — ale jak jej wzorzec spotyka Twój rytm relacji i lekcji.')}
               </Typography>
             </View>
 
@@ -663,12 +663,12 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
               <View style={[s.inputCard, { backgroundColor: isLight ? accentA + '08' : accentA + '10', borderColor: accentA + '40' }]}>
                 <View style={s.inputCardHeader}>
                   <View style={[s.inputCardDot, { backgroundColor: accentA }]} />
-                  <Typography variant="microLabel" color={accentA}>TY</Typography>
+                  <Typography variant="microLabel" color={accentA}>{t('partnerMatrix.ty', 'TY')}</Typography>
                 </View>
                 <MysticalInput
                   value={personAName}
                   onChangeText={setPersonAName}
-                  placeholder="Twoje imię"
+                  placeholder={t('partnerMatrix.twoje_imie', 'Twoje imię')}
                   placeholderTextColor={subColor + '88'}
                   style={{ color: textColor, fontSize: 14 }}
                   onFocusScroll={() => focusIntoView(200)}
@@ -701,12 +701,12 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
               <View style={[s.inputCard, { backgroundColor: isLight ? accentB + '08' : accentB + '10', borderColor: accentB + '40' }]}>
                 <View style={s.inputCardHeader}>
                   <View style={[s.inputCardDot, { backgroundColor: accentB }]} />
-                  <Typography variant="microLabel" color={accentB}>PARTNER/KA</Typography>
+                  <Typography variant="microLabel" color={accentB}>{t('partnerMatrix.partner_ka', 'PARTNER/KA')}</Typography>
                 </View>
                 <MysticalInput
                   value={partnerName}
                   onChangeText={setPartnerName}
-                  placeholder="Imię tej osoby"
+                  placeholder={t('partnerMatrix.imie_tej_osoby', 'Imię tej osoby')}
                   placeholderTextColor={subColor + '88'}
                   style={{ color: textColor, fontSize: 14 }}
                   onFocusScroll={() => focusIntoView(350)}
@@ -730,7 +730,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
             {(!personABirthDate || !partnerBirthDate) && (
               <View style={[s.hintBox, { backgroundColor: accentA + '0A', borderColor: accentA + '25' }]}>
                 <Typography variant="caption" style={{ color: subColor, lineHeight: 19, textAlign: 'center' }}>
-                  Wypełnij dane obu osób, by otworzyć pełną analizę partnerowej matrycy relacji.
+                  {t('partnerMatrix.wypelnij_dane_obu_osob_by', 'Wypełnij dane obu osób, by otworzyć pełną analizę partnerowej matrycy relacji.')}
                 </Typography>
               </View>
             )}
@@ -744,13 +744,13 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
                     <LinearGradient colors={[accentA + '12', 'transparent']} style={StyleSheet.absoluteFill as any} />
                     <View style={s.gaugeBadgeRow}>
                       <View style={[s.gaugeBadge, { backgroundColor: accentA + '18', borderColor: accentA + '44' }]}>
-                        <Typography variant="microLabel" color={accentA}>♥ WYNIK KOMPATYBILNOŚCI</Typography>
+                        <Typography variant="microLabel" color={accentA}>{t('partnerMatrix.wynik_kompatybil', '♥ WYNIK KOMPATYBILNOŚCI')}</Typography>
                       </View>
                     </View>
                     <CompatibilityGauge score={compatibilityScore} accent={accentA} />
                     <View style={[s.gaugeDivider, { backgroundColor: dividerColor }]} />
                     <Typography variant="caption" style={{ color: subColor, textAlign: 'center', lineHeight: 19 }}>
-                      Wynik numerologiczny oparty na centrum relacji, osi kontaktu i lekcji więzi.
+                      {t('partnerMatrix.wynik_numerologi_oparty_na_centrum', 'Wynik numerologiczny oparty na centrum relacji, osi kontaktu i lekcji więzi.')}
                     </Typography>
                   </View>
                 </Animated.View>
@@ -773,30 +773,30 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
 
                 {/* ── PUNCT STYKU ─────────────────────────── */}
                 <Animated.View entering={FadeInDown.delay(100).springify()}>
-                  <SectionTitle label="PUNKT STYKU" accent={accentA} />
+                  <SectionTitle label={t('partnerMatrix.punkt_styku', 'PUNKT STYKU')} accent={accentA} />
                   <View style={[s.punktCard, { backgroundColor: cardBg, borderColor: accentA + '44' }]}>
                     <LinearGradient colors={[accentA + '10', accentB + '06', 'transparent']} style={StyleSheet.absoluteFill as any} />
                     <View style={[s.punktNumBadge, { backgroundColor: accentA + '20', borderColor: accentA + '55' }]}>
                       <Typography style={{ fontSize: 52, fontWeight: '800', color: accentA, lineHeight: 60 }}>{relationshipMatrix.center}</Typography>
                     </View>
                     <Typography variant="premiumLabel" color={textColor} style={{ textAlign: 'center', marginBottom: 10 }}>
-                      Wspólne centrum relacji
+                      {t('partnerMatrix.wspolne_centrum_relacji', 'Wspólne centrum relacji')}
                     </Typography>
                     <View style={[s.punktDivider, { backgroundColor: accentA + '30' }]} />
                     <Typography variant="bodySmall" style={{ color: subColor, lineHeight: 22, textAlign: 'center' }}>
                       {getEnergyMeaning(relationshipMatrix.center)}
                     </Typography>
                     <Typography variant="caption" style={{ color: subColor, opacity: 0.70, marginTop: 8, lineHeight: 19, textAlign: 'center', fontStyle: 'italic' }}>
-                      To liczba, którą razem uruchamiacie — nie należy ani do Ciebie, ani do tej osoby osobno.
+                      {t('partnerMatrix.to_liczba_ktora_razem_uruchamiac', 'To liczba, którą razem uruchamiacie — nie należy ani do Ciebie, ani do tej osoby osobno.')}
                     </Typography>
                   </View>
                 </Animated.View>
 
                 {/* ── COMPATIBILITY ASPECTS ───────────────── */}
                 <Animated.View entering={FadeInDown.delay(120).springify()}>
-                  <SectionTitle label="PRZEPŁYWY ENERGII" accent={accentB} />
+                  <SectionTitle label={t('partnerMatrix.przeplywy_energii', 'PRZEPŁYWY ENERGII')} accent={accentB} />
                   <Typography variant="caption" style={{ color: subColor, marginBottom: 14, lineHeight: 20 }}>
-                    Sześć wymiarów relacji — aspekty numerologiczne między Waszymi wzorcami.
+                    {t('partnerMatrix.szesc_wymiarow_relacji_aspekty_nume', 'Sześć wymiarów relacji — aspekty numerologiczne między Waszymi wzorcami.')}
                   </Typography>
                   {synastrAspects.map((asp, idx) => {
                     const AspIcon = asp.icon;
@@ -830,12 +830,12 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
 
                 {/* ── MATRIX COMPARISON TABLE ─────────────── */}
                 <Animated.View entering={FadeInDown.delay(80).springify()}>
-                  <SectionTitle label="LICZBY OBU OSÓB" accent={accentA} />
+                  <SectionTitle label={t('partnerMatrix.liczby_obu_osob', 'LICZBY OBU OSÓB')} accent={accentA} />
                   <View style={[s.compCard, { backgroundColor: cardBg, borderColor: accentA + '30' }]}>
                     <LinearGradient colors={[accentA + '08', 'transparent']} style={StyleSheet.absoluteFill as any} />
                     {/* Header row */}
                     <View style={[s.compRow, s.compHeaderRow, { borderBottomColor: dividerColor }]}>
-                      <Typography variant="microLabel" style={[s.compLabel, { color: accentA + 'AA' }]}>LICZBA</Typography>
+                      <Typography variant="microLabel" style={[s.compLabel, { color: accentA + 'AA' }]}>{t('partnerMatrix.liczba', 'LICZBA')}</Typography>
                       <View style={[s.compCell, { borderColor: accentA + '33', backgroundColor: accentA + '12' }]}>
                         <Typography variant="microLabel" color={accentA}>{personAName.trim() || 'TY'}</Typography>
                       </View>
@@ -880,7 +880,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
 
                 {/* ── KARMIC ANALYSIS ─────────────────────── */}
                 <Animated.View entering={FadeInDown.delay(100).springify()}>
-                  <SectionTitle label="KARMICZNA ANALIZA POŁĄCZENIA" accent={accentB} />
+                  <SectionTitle label={t('partnerMatrix.karmiczna_analiza_polaczenia', 'KARMICZNA ANALIZA POŁĄCZENIA')} accent={accentB} />
                   <View style={{ gap: 12 }}>
                     {karmicPatterns.map((p, idx) => (
                       <Animated.View key={p.num} entering={FadeInDown.delay(idx * 80).springify()}>
@@ -920,7 +920,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
 
                 {/* ── MUTUAL LESSONS ──────────────────────── */}
                 <Animated.View entering={FadeInDown.delay(80).springify()}>
-                  <SectionTitle label="WZAJEMNE LEKCJE" accent={accentA} />
+                  <SectionTitle label={t('partnerMatrix.wzajemne_lekcje', 'WZAJEMNE LEKCJE')} accent={accentA} />
                   <View style={{ gap: 12 }}>
                     {mutualLessons.map((lesson, idx) => {
                       const Icon = lesson.icon;
@@ -946,7 +946,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
                 {/* ── ENERGY TYPE ──────────────────────────── */}
                 {relationshipEnergyType && (
                   <Animated.View entering={FadeInDown.delay(100).springify()}>
-                    <SectionTitle label="ENERGIA ZWIĄZKU" accent={accentB} />
+                    <SectionTitle label={t('partnerMatrix.energia_zwiazku', 'ENERGIA ZWIĄZKU')} accent={accentB} />
                     <View style={[s.energyCard, { backgroundColor: isLight ? relationshipEnergyType.color + '0A' : relationshipEnergyType.color + '10', borderColor: relationshipEnergyType.color + '44' }]}>
                       <LinearGradient colors={[relationshipEnergyType.color + '18', 'transparent']} style={StyleSheet.absoluteFill as any} />
                       <View style={[s.energyBadge, { backgroundColor: relationshipEnergyType.color + '20', borderColor: relationshipEnergyType.color + '44' }]}>
@@ -959,7 +959,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
                         {relationshipEnergyType.desc}
                       </Typography>
                       <View style={[s.energyPracticeBox, { backgroundColor: relationshipEnergyType.color + '12', borderColor: relationshipEnergyType.color + '30' }]}>
-                        <Typography variant="microLabel" color={relationshipEnergyType.color} style={{ marginBottom: 6 }}>PRAKTYKA DLA TEGO WZORCA</Typography>
+                        <Typography variant="microLabel" color={relationshipEnergyType.color} style={{ marginBottom: 6 }}>{t('partnerMatrix.praktyka_dla_tego_wzorca', 'PRAKTYKA DLA TEGO WZORCA')}</Typography>
                         <Typography variant="caption" style={{ lineHeight: 20, color: textColor, opacity: 0.78 }}>{relationshipEnergyType.practice}</Typography>
                       </View>
                     </View>
@@ -968,7 +968,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
 
                 {/* ── ROADMAP ──────────────────────────────── */}
                 <Animated.View entering={FadeInDown.delay(100).springify()}>
-                  <SectionTitle label="MAPA FAZ ZWIĄZKU" accent={accentA} />
+                  <SectionTitle label={t('partnerMatrix.mapa_faz_zwiazku', 'MAPA FAZ ZWIĄZKU')} accent={accentA} />
                   <View style={{ gap: 0 }}>
                     {roadmap.map((phase, idx) => {
                       const PhaseIcon = phase.icon;
@@ -1019,7 +1019,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
 
                 {/* ── AI SYNASTRY ──────────────────────────── */}
                 <Animated.View entering={FadeInDown.delay(100).springify()}>
-                  <SectionTitle label="AI CZYTANIE SYNASTRII" accent={accentB} />
+                  <SectionTitle label={t('partnerMatrix.ai_czytanie_synastrii', 'AI CZYTANIE SYNASTRII')} accent={accentB} />
                   <Pressable
                     style={[s.aiCtaCard, { backgroundColor: isLight ? accentB + '0A' : accentB + '10', borderColor: accentB + '44', opacity: aiLoading ? 0.7 : 1 }]}
                     onPress={handleAiSynastry}
@@ -1042,7 +1042,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
                     <Animated.View entering={FadeInDown.delay(60).springify()}>
                       <View style={[s.aiResultCard, { backgroundColor: isLight ? accentB + '06' : accentB + '0C', borderColor: accentB + '30' }]}>
                         <LinearGradient colors={[accentB + '0E', 'transparent']} style={StyleSheet.absoluteFill as any} />
-                        <Typography variant="microLabel" color={accentB} style={{ marginBottom: 12 }}>✦ CZYTANIE SYNASTRII</Typography>
+                        <Typography variant="microLabel" color={accentB} style={{ marginBottom: 12 }}>{t('partnerMatrix.czytanie_synastrii', '✦ CZYTANIE SYNASTRII')}</Typography>
                         <Typography variant="bodySmall" style={{ lineHeight: 25, opacity: 0.88, color: textColor }}>{synastryCopy}</Typography>
                         <Pressable
                           style={[s.aiSaveBtn, { borderColor: accentB + '44' }]}
@@ -1051,7 +1051,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
                             type: 'reflection',
                           })}
                         >
-                          <Typography variant="microLabel" color={accentB}>Zapisz w dzienniku</Typography>
+                          <Typography variant="microLabel" color={accentB}>{t('partnerMatrix.zapisz_w_dzienniku', 'Zapisz w dzienniku')}</Typography>
                           <ArrowRight color={accentB} size={13} />
                         </Pressable>
                       </View>
@@ -1061,7 +1061,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
 
                 {/* ── AI ORACLE FULL READING ───────────────── */}
                 <Animated.View entering={FadeInDown.delay(80).springify()}>
-                  <SectionTitle label="AI ORACLE — PEŁNE CZYTANIE" accent={accentA} />
+                  <SectionTitle label={t('partnerMatrix.ai_oracle_pelne_czytanie', 'AI ORACLE — PEŁNE CZYTANIE')} accent={accentA} />
                   <Pressable
                     style={[s.aiCtaCard, { backgroundColor: isLight ? accentA + '0A' : accentA + '10', borderColor: accentA + '44', opacity: aiOracleLoading ? 0.7 : 1 }]}
                     onPress={handleAiOracle}
@@ -1074,7 +1074,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
                         {aiOracleLoading ? 'Oracle odczytuje połączenie...' : 'Oracle czytanie relacji'}
                       </Typography>
                       <Typography variant="caption" style={{ opacity: 0.65, marginTop: 3, lineHeight: 18, color: subColor }}>
-                        Głęboki poetycki odczyt całości numerologicznej tej relacji.
+                        {t('partnerMatrix.gleboki_poetycki_odczyt_calosci_num', 'Głęboki poetycki odczyt całości numerologicznej tej relacji.')}
                       </Typography>
                     </View>
                     {!aiOracleLoading && <ArrowRight color={accentA + '88'} size={16} />}
@@ -1083,7 +1083,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
                     <Animated.View entering={FadeInDown.delay(60).springify()}>
                       <View style={[s.aiResultCard, { backgroundColor: isLight ? accentA + '06' : accentA + '0C', borderColor: accentA + '30' }]}>
                         <LinearGradient colors={[accentA + '0E', 'transparent']} style={StyleSheet.absoluteFill as any} />
-                        <Typography variant="microLabel" color={accentA} style={{ marginBottom: 12 }}>✦ ORACLE CZYTANIE RELACJI</Typography>
+                        <Typography variant="microLabel" color={accentA} style={{ marginBottom: 12 }}>{t('partnerMatrix.oracle_czytanie_relacji', '✦ ORACLE CZYTANIE RELACJI')}</Typography>
                         <Typography variant="bodySmall" style={{ lineHeight: 25, opacity: 0.88, color: textColor }}>{aiOracleCopy}</Typography>
                       </View>
                     </Animated.View>
@@ -1093,7 +1093,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
                 {/* ── AI PROMPTS ───────────────────────────── */}
                 {relationshipAiPrompts.length > 0 && (
                   <Animated.View entering={FadeInDown.delay(80).springify()}>
-                    <SectionTitle label="PYTANIA INTEGRUJĄCE" accent={accentB} />
+                    <SectionTitle label={t('partnerMatrix.pytania_integrujac', 'PYTANIA INTEGRUJĄCE')} accent={accentB} />
                     {relationshipAiPrompts.map((item, idx) => (
                       <Pressable
                         key={item.title}
@@ -1115,7 +1115,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
 
                 {/* ── GROWTH QUESTIONS ─────────────────────── */}
                 <Animated.View entering={FadeInDown.delay(80).springify()}>
-                  <SectionTitle label="CIĄGŁOŚĆ ZWIĄZKU" accent={accentA} />
+                  <SectionTitle label={t('partnerMatrix.ciaglosc_zwiazku', 'CIĄGŁOŚĆ ZWIĄZKU')} accent={accentA} />
                   <View style={[s.growthCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                     {GROWTH_QUESTIONS.map((q, idx) => (
                       <Pressable
@@ -1138,7 +1138,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
 
                 {/* ── PARTNER PRACTICES ────────────────────── */}
                 <Animated.View entering={FadeInDown.delay(80).springify()}>
-                  <SectionTitle label="PRAKTYKI DLA PARY" accent={accentB} />
+                  <SectionTitle label={t('partnerMatrix.praktyki_dla_pary', 'PRAKTYKI DLA PARY')} accent={accentB} />
                   <View style={{ gap: 12 }}>
                     {PARTNER_PRACTICES.map((p, idx) => (
                       <Animated.View key={p.label} entering={FadeInDown.delay(idx * 70).springify()}>
@@ -1162,7 +1162,7 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
 
                 {/* ── FURTHER LINKS ─────────────────────────── */}
                 <Animated.View entering={FadeInDown.delay(80).springify()}>
-                  <SectionTitle label="DALSZE PARTNEROWE WEJŚCIA" accent={accentA} />
+                  <SectionTitle label={t('partnerMatrix.dalsze_partnerowe_wejscia', 'DALSZE PARTNEROWE WEJŚCIA')} accent={accentA} />
                   {[
                     { label: 'Pełna zgodność', desc: 'Przejdź do szerszej narracji relacyjnej — żywioły, znaki, harmonia.', onPress: () => navigation.navigate('Compatibility', { seededPartnerName: partnerName.trim(), seededPartnerBirthDate: partnerBirthDate }) },
                     { label: 'Tarot dla dwojga', desc: 'Zobacz tę więź przez symbol, napięcie i ukryty ruch pod powierzchnią.', onPress: () => navigation.navigate('PartnerTarot') },
@@ -1193,17 +1193,17 @@ export const PartnerMatrixScreen = ({ navigation }: any) => {
                   <Users color={accentA} size={28} />
                 </View>
                 <Typography variant="premiumLabel" color={accentA} style={{ marginBottom: 8, textAlign: 'center' }}>
-                  Uruchom partnerowy kontekst
+                  {t('partnerMatrix.uruchom_partnerowy_kontekst', 'Uruchom partnerowy kontekst')}
                 </Typography>
                 <Typography variant="bodySmall" style={{ color: subColor, textAlign: 'center', lineHeight: 22 }}>
-                  Wystarczą imię i data urodzenia obu osób, by otworzyć pierwszą warstwę relacyjnej matrycy.
+                  {t('partnerMatrix.wystarcza_imie_i_data_urodzenia', 'Wystarczą imię i data urodzenia obu osób, by otworzyć pierwszą warstwę relacyjnej matrycy.')}
                 </Typography>
               </View>
             )}
 
             {/* ── CO DALEJ? ─────────────────────────────── */}
             <Animated.View entering={FadeInDown.delay(100).springify()} style={{ marginTop: 24 }}>
-              <SectionTitle label="CO DALEJ?" accent={accentB} />
+              <SectionTitle label={t('partnerMatrix.co_dalej', 'CO DALEJ?')} accent={accentB} />
               {[
                 { label: 'Pełna zgodność', desc: 'Przejdź do szerszej narracji relacyjnej i żywiołów między Wami.', onPress: () => navigation.navigate('Compatibility') },
                 { label: 'Notatka relacyjna', desc: 'Zapisz wzorzec, który wraca — z zachowanym kontekstem matrycy.', onPress: () => navigation.navigate('JournalEntry', { prompt: `Pracuję z partnerową matrycą${partnerName.trim() ? ` dla ${partnerName.trim()}` : ''}. Co chcę lepiej rozumieć?`, type: 'reflection' }) },

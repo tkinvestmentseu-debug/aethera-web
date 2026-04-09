@@ -351,7 +351,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
 
   const deleteReminder = (id: string) => {
     void HapticsService.impact('medium');
-    Alert.alert('Usuń przypomnienie', 'Czy na pewno chcesz usunąć to przypomnienie?', [
+    Alert.alert(t('notifications.usun_przypomnie', 'Usuń przypomnienie'), t('notifications.czy_na_pewno_chcesz_usunac', 'Czy na pewno chcesz usunąć to przypomnienie?'), [
       { text: 'Anuluj', style: 'cancel' },
       { text: 'Usuń', style: 'destructive', onPress: () => removeReminder(id) },
     ]);
@@ -366,11 +366,11 @@ export const NotificationsScreen = ({ navigation }: any) => {
 
   const saveCustomReminder = () => {
     if (!customName.trim()) {
-      Alert.alert('Uzupełnij nazwę', 'Podaj nazwę przypomnienia.');
+      Alert.alert(t('notifications.uzupelnij_nazwe', 'Uzupełnij nazwę'), t('notifications.podaj_nazwe_przypomnie', 'Podaj nazwę przypomnienia.'));
       return;
     }
     if (customDays.length === 0) {
-      Alert.alert('Wybierz dni', 'Zaznacz przynajmniej jeden dzień tygodnia.');
+      Alert.alert(t('notifications.wybierz_dni', 'Wybierz dni'), t('notifications.zaznacz_przynajmni_jeden_dzien_tygo', 'Zaznacz przynajmniej jeden dzień tygodnia.'));
       return;
     }
     void HapticsService.impact('light');
@@ -411,7 +411,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
             <ChevronLeft color={textColor} size={22} strokeWidth={2} />
           </Pressable>
           <View style={{ flex: 1 }}>
-            <Text style={[ns.headerEyebrow, { color: subColor }]}>AETHERA</Text>
+            <Text style={[ns.headerEyebrow, { color: subColor }]}>{t('notifications.aethera', 'AETHERA')}</Text>
             <Text style={[ns.headerTitle, { color: textColor }]}>{t('notifications.title')}</Text>
           </View>
           {activeCount > 0 && (
@@ -434,7 +434,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
                 <BellOff color="#F87171" size={18} />
                 <View style={{ flex: 1 }}>
                   <Text style={[ns.permTitle, { color: '#F87171' }]}>{t('notifications.disabled')}</Text>
-                  <Text style={[ns.permBody, { color: subColor }]}>Kliknij, aby przyznać uprawnienia w ustawieniach systemu.</Text>
+                  <Text style={[ns.permBody, { color: subColor }]}>{t('notifications.kliknij_aby_przyznac_uprawnieni_w', 'Kliknij, aby przyznać uprawnienia w ustawieniach systemu.')}</Text>
                 </View>
                 <ChevronRight color="#F87171" size={16} />
               </Pressable>
@@ -447,7 +447,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
                 <CheckCircle2 color="#34D399" size={18} />
                 <View style={{ flex: 1 }}>
                   <Text style={[ns.permTitle, { color: '#34D399' }]}>{t('notifications.enabled')}</Text>
-                  <Text style={[ns.permBody, { color: subColor }]}>Aethera może wysyłać Ci duchowe przypomnienia.</Text>
+                  <Text style={[ns.permBody, { color: subColor }]}>{t('notifications.aethera_moze_wysylac_ci_duchowe', 'Aethera może wysyłać Ci duchowe przypomnienia.')}</Text>
                 </View>
               </View>
             </Animated.View>
@@ -459,22 +459,22 @@ export const NotificationsScreen = ({ navigation }: any) => {
               <LinearGradient colors={[ACCENT + '10', 'transparent']} style={StyleSheet.absoluteFill} />
               <View style={ns.statItem}>
                 <Text style={[ns.statValue, { color: ACCENT }]}>{activeCount}</Text>
-                <Text style={[ns.statLabel, { color: subColor }]}>Aktywne</Text>
+                <Text style={[ns.statLabel, { color: subColor }]}>{t('notifications.aktywne', 'Aktywne')}</Text>
               </View>
               <View style={[ns.statDivider, { backgroundColor: cardBorder }]} />
               <View style={ns.statItem}>
                 <Text style={[ns.statValue, { color: '#FBBF24' }]}>{longestStreak}</Text>
-                <Text style={[ns.statLabel, { color: subColor }]}>Najdłuższe pasmo</Text>
+                <Text style={[ns.statLabel, { color: subColor }]}>{t('notifications.najdluzsze_pasmo', 'Najdłuższe pasmo')}</Text>
               </View>
               <View style={[ns.statDivider, { backgroundColor: cardBorder }]} />
               <View style={ns.statItem}>
                 <Text style={[ns.statValue, { color: '#34D399' }]}>{deliveredCount}</Text>
-                <Text style={[ns.statLabel, { color: subColor }]}>Dostarczonych</Text>
+                <Text style={[ns.statLabel, { color: subColor }]}>{t('notifications.dostarczon', 'Dostarczonych')}</Text>
               </View>
               <View style={[ns.statDivider, { backgroundColor: cardBorder }]} />
               <View style={ns.statItem}>
                 <Text style={[ns.statValue, { color: '#60A5FA' }]}>{totalCount}</Text>
-                <Text style={[ns.statLabel, { color: subColor }]}>Łącznie</Text>
+                <Text style={[ns.statLabel, { color: subColor }]}>{t('notifications.lacznie', 'Łącznie')}</Text>
               </View>
             </View>
           </Animated.View>
@@ -488,15 +488,15 @@ export const NotificationsScreen = ({ navigation }: any) => {
                   <Text style={{ fontSize: 20 }}>🔮</Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={[ns.oracleTitle, { color: textColor }]}>Dzienna Mądrość Oracle</Text>
-                  <Text style={[ns.oracleSub, { color: subColor }]}>Codzienne przesłanie w powiadomieniu</Text>
+                  <Text style={[ns.oracleTitle, { color: textColor }]}>{t('notifications.dzienna_madrosc_oracle', 'Dzienna Mądrość Oracle')}</Text>
+                  <Text style={[ns.oracleSub, { color: subColor }]}>{t('notifications.codzienne_przeslanie_w_powiadomie', 'Codzienne przesłanie w powiadomieniu')}</Text>
                 </View>
                 <CustomToggle value={oracleEnabled} onChange={setOracleEnabled} accentColor={ACCENT} />
               </View>
               {oracleEnabled && (
                 <View style={[ns.oracleMessage, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: ACCENT + '28' }]}>
                   <Text style={[ns.oracleMessageText, { color: textColor }]}>„{oracleMessage}"</Text>
-                  <Text style={[ns.oracleMessageSub, { color: subColor }]}>— Aethera Oracle · dzisiejsze przesłanie</Text>
+                  <Text style={[ns.oracleMessageSub, { color: subColor }]}>{t('notifications.aethera_oracle_dzisiejsze_przeslani', '— Aethera Oracle · dzisiejsze przesłanie')}</Text>
                 </View>
               )}
             </View>
@@ -508,7 +508,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
               style={ns.sectionHeaderRow}
               onPress={() => setCosmicExpanded(v => !v)}
             >
-              <Text style={[ns.sectionTitle, { color: subColor }]}>NADCHODZĄCE KOSMICZNE WYDARZENIA</Text>
+              <Text style={[ns.sectionTitle, { color: subColor }]}>{t('notifications.nadchodzac_kosmiczne_wydarzenia', 'NADCHODZĄCE KOSMICZNE WYDARZENIA')}</Text>
               <ChevronRight
                 color={subColor}
                 size={14}
@@ -524,7 +524,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
                   <Text style={{ fontSize: 28 }}>{moonPhase.emoji}</Text>
                   <View style={{ flex: 1 }}>
                     <Text style={[ns.moonName, { color: textColor }]}>{moonPhase.name}</Text>
-                    <Text style={[ns.moonSub, { color: subColor }]}>Aktualna faza Księżyca</Text>
+                    <Text style={[ns.moonSub, { color: subColor }]}>{t('notifications.aktualna_faza_ksiezyca', 'Aktualna faza Księżyca')}</Text>
                   </View>
                   <View style={[ns.moonPct, { backgroundColor: '#60A5FA' + '20' }]}>
                     <Text style={[ns.moonPctText, { color: '#60A5FA' }]}>{Math.round(moonPhase.phase * 100)}%</Text>
@@ -559,8 +559,8 @@ export const NotificationsScreen = ({ navigation }: any) => {
                 <View style={[ns.retroCard, { backgroundColor: '#F87171' + '0E', borderColor: '#F87171' + '33' }]}>
                   <AlertCircle color="#F87171" size={16} strokeWidth={1.8} />
                   <View style={{ flex: 1 }}>
-                    <Text style={[ns.retroTitle, { color: '#F87171' }]}>Merkury Retrograde</Text>
-                    <Text style={[ns.retroBody, { color: subColor }]}>Następny cykl: lipiec 2026. Ostrożność w komunikacji i podpisywaniu umów.</Text>
+                    <Text style={[ns.retroTitle, { color: '#F87171' }]}>{t('notifications.merkury_retrograde', 'Merkury Retrograde')}</Text>
+                    <Text style={[ns.retroBody, { color: subColor }]}>{t('notifications.nastepny_cykl_lipiec_2026_ostroznos', 'Następny cykl: lipiec 2026. Ostrożność w komunikacji i podpisywaniu umów.')}</Text>
                   </View>
                 </View>
               </>
@@ -614,7 +614,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
           {/* Ritual Packs */}
           <Animated.View entering={FadeInDown.delay(260).duration(400)}>
             <Pressable style={ns.sectionHeaderRow} onPress={() => setPacksExpanded(v => !v)}>
-              <Text style={[ns.sectionTitle, { color: subColor }]}>PAKIETY RYTUALNYCH PRZYPOMNIEŃ</Text>
+              <Text style={[ns.sectionTitle, { color: subColor }]}>{t('notifications.pakiety_rytualnych_przypomnie', 'PAKIETY RYTUALNYCH PRZYPOMNIEŃ')}</Text>
               <ChevronRight
                 color={subColor}
                 size={14}
@@ -688,9 +688,9 @@ export const NotificationsScreen = ({ navigation }: any) => {
                           <View style={ns.editorSection}>
                             <Text style={[ns.editorLabel, { color: subColor }]}>{t('notifications.time').toUpperCase()}</Text>
                             <View style={ns.editorRow}>
-                              <TimeAdjuster value={reminder.hour} onChange={h => updateReminder(reminder.id, { hour: h })} min={0} max={23} label="GG" textColor={subColor} isLight={isLight} />
+                              <TimeAdjuster value={reminder.hour} onChange={h => updateReminder(reminder.id, { hour: h })} min={0} max={23} label={t('notifications.gg', 'GG')} textColor={subColor} isLight={isLight} />
                               <Text style={[ns.timeSep, { color: textColor }]}>:</Text>
-                              <TimeAdjuster value={reminder.minute} onChange={m => updateReminder(reminder.id, { minute: m })} min={0} max={59} step={5} label="MM" textColor={subColor} isLight={isLight} />
+                              <TimeAdjuster value={reminder.minute} onChange={m => updateReminder(reminder.id, { minute: m })} min={0} max={59} step={5} label={t('notifications.mm', 'MM')} textColor={subColor} isLight={isLight} />
                             </View>
                           </View>
                           <View style={ns.editorSection}>
@@ -731,7 +731,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={[ns.customCtaTitle, { color: textColor }]}>{t('notifications.add_reminder')}</Text>
-                <Text style={[ns.customCtaSub, { color: subColor }]}>Niestandardowa nazwa, czas i dni tygodnia</Text>
+                <Text style={[ns.customCtaSub, { color: subColor }]}>{t('notifications.niestandar_nazwa_czas_i_dni', 'Niestandardowa nazwa, czas i dni tygodnia')}</Text>
               </View>
               <ChevronRight color={ACCENT} size={16} />
             </Pressable>
@@ -742,9 +742,9 @@ export const NotificationsScreen = ({ navigation }: any) => {
             <Animated.View entering={FadeInDown.delay(400).duration(400)}>
               <View style={[ns.emptyCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 <Text style={{ fontSize: 32, marginBottom: 12 }}>🔔</Text>
-                <Text style={[ns.emptyTitle, { color: textColor }]}>Brak przypomnień</Text>
+                <Text style={[ns.emptyTitle, { color: textColor }]}>{t('notifications.brak_przypomnie', 'Brak przypomnień')}</Text>
                 <Text style={[ns.emptyBody, { color: subColor }]}>
-                  Dodaj pierwsze przypomnienie korzystając z szablonów powyżej lub utwórz własne.
+                  {t('notifications.dodaj_pierwsze_przypomnie_korzystaj', 'Dodaj pierwsze przypomnienie korzystając z szablonów powyżej lub utwórz własne.')}
                 </Text>
               </View>
             </Animated.View>
@@ -752,7 +752,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
 
           {/* Quiet Hours */}
           <Animated.View entering={FadeInDown.delay(420).duration(400)}>
-            <Text style={[ns.sectionTitle, { color: subColor, marginTop: 8 }]}>STREFA CISZY</Text>
+            <Text style={[ns.sectionTitle, { color: subColor, marginTop: 8 }]}>{t('notifications.strefa_ciszy', 'STREFA CISZY')}</Text>
             <View style={[ns.quietCard, { backgroundColor: cardBg, borderColor: quietEnabled ? '#60A5FA' + '44' : cardBorder }]}>
               <LinearGradient colors={quietEnabled ? ['#60A5FA' + '0C', 'transparent'] : ['transparent', 'transparent']} style={StyleSheet.absoluteFill} />
               <View style={ns.quietMainRow}>
@@ -760,7 +760,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
                   <Moon size={18} color="#60A5FA" strokeWidth={1.8} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={[ns.quietTitle, { color: textColor }]}>Nie przeszkadzać</Text>
+                  <Text style={[ns.quietTitle, { color: textColor }]}>{t('notifications.nie_przeszkadz', 'Nie przeszkadzać')}</Text>
                   <Text style={[ns.quietSub, { color: subColor }]}>
                     {quietEnabled
                       ? `${formatTime(quietFrom.hour, quietFrom.minute)} – ${formatTime(quietTo.hour, quietTo.minute)}`
@@ -780,27 +780,27 @@ export const NotificationsScreen = ({ navigation }: any) => {
                 <View style={[ns.quietEditor, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.08)' }]}>
                   <View style={ns.quietTimeRow}>
                     <View style={{ alignItems: 'center' }}>
-                      <Text style={[ns.editorLabel, { color: subColor, marginBottom: 8 }]}>OD GODZINY</Text>
+                      <Text style={[ns.editorLabel, { color: subColor, marginBottom: 8 }]}>{t('notifications.od_godziny', 'OD GODZINY')}</Text>
                       <View style={ns.editorRow}>
-                        <TimeAdjuster value={quietFrom.hour} onChange={h => setQuietFrom(p => ({ ...p, hour: h }))} min={0} max={23} label="GG" textColor={subColor} isLight={isLight} />
+                        <TimeAdjuster value={quietFrom.hour} onChange={h => setQuietFrom(p => ({ ...p, hour: h }))} min={0} max={23} label={t('notifications.gg_1', 'GG')} textColor={subColor} isLight={isLight} />
                         <Text style={[ns.timeSep, { color: textColor }]}>:</Text>
-                        <TimeAdjuster value={quietFrom.minute} onChange={m => setQuietFrom(p => ({ ...p, minute: m }))} min={0} max={59} step={15} label="MM" textColor={subColor} isLight={isLight} />
+                        <TimeAdjuster value={quietFrom.minute} onChange={m => setQuietFrom(p => ({ ...p, minute: m }))} min={0} max={59} step={15} label={t('notifications.mm_1', 'MM')} textColor={subColor} isLight={isLight} />
                       </View>
                     </View>
                     <View style={[ns.quietArrow, { backgroundColor: '#60A5FA' + '18' }]}>
                       <ChevronRight color="#60A5FA" size={16} />
                     </View>
                     <View style={{ alignItems: 'center' }}>
-                      <Text style={[ns.editorLabel, { color: subColor, marginBottom: 8 }]}>DO GODZINY</Text>
+                      <Text style={[ns.editorLabel, { color: subColor, marginBottom: 8 }]}>{t('notifications.do_godziny', 'DO GODZINY')}</Text>
                       <View style={ns.editorRow}>
-                        <TimeAdjuster value={quietTo.hour} onChange={h => setQuietTo(p => ({ ...p, hour: h }))} min={0} max={23} label="GG" textColor={subColor} isLight={isLight} />
+                        <TimeAdjuster value={quietTo.hour} onChange={h => setQuietTo(p => ({ ...p, hour: h }))} min={0} max={23} label={t('notifications.gg_2', 'GG')} textColor={subColor} isLight={isLight} />
                         <Text style={[ns.timeSep, { color: textColor }]}>:</Text>
-                        <TimeAdjuster value={quietTo.minute} onChange={m => setQuietTo(p => ({ ...p, minute: m }))} min={0} max={59} step={15} label="MM" textColor={subColor} isLight={isLight} />
+                        <TimeAdjuster value={quietTo.minute} onChange={m => setQuietTo(p => ({ ...p, minute: m }))} min={0} max={59} step={15} label={t('notifications.mm_2', 'MM')} textColor={subColor} isLight={isLight} />
                       </View>
                     </View>
                   </View>
                   <Text style={[ns.quietHint, { color: subColor }]}>
-                    W tym czasie Aethera nie wyśle żadnych powiadomień, nawet aktywnych.
+                    {t('notifications.w_tym_czasie_aethera_nie', 'W tym czasie Aethera nie wyśle żadnych powiadomień, nawet aktywnych.')}
                   </Text>
                 </View>
               )}
@@ -810,10 +810,10 @@ export const NotificationsScreen = ({ navigation }: any) => {
           {/* Notification History */}
           <Animated.View entering={FadeInDown.delay(460).duration(400)}>
             <Pressable style={ns.sectionHeaderRow} onPress={() => setShowHistory(v => !v)}>
-              <Text style={[ns.sectionTitle, { color: subColor }]}>HISTORIA POWIADOMIEŃ</Text>
+              <Text style={[ns.sectionTitle, { color: subColor }]}>{t('notifications.historia_powiadomie', 'HISTORIA POWIADOMIEŃ')}</Text>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
                 <View style={[ns.historyBadge, { backgroundColor: ACCENT + '18', borderColor: ACCENT + '30' }]}>
-                  <Text style={[ns.historyBadgeText, { color: ACCENT }]}>7 dni</Text>
+                  <Text style={[ns.historyBadgeText, { color: ACCENT }]}>{t('notifications.7_dni', '7 dni')}</Text>
                 </View>
                 <ChevronRight
                   color={subColor}
@@ -827,7 +827,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
               <View style={[ns.historyCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
                 {reminderHistory.length === 0 ? (
                   <Text style={[ns.historyMeta, { color: subColor, textAlign: 'center', paddingVertical: 12 }]}>
-                    Brak historii — dodaj przypomnienia powyżej
+                    {t('notifications.brak_historii_dodaj_przypomnie_powy', 'Brak historii — dodaj przypomnienia powyżej')}
                   </Text>
                 ) : null}
                 {reminderHistory.map((item, i) => (
@@ -890,7 +890,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
           <View style={ns.modalHeader}>
             <View>
               <Text style={[ns.modalTitle, { color: textColor }]}>{t('notifications.add_reminder')}</Text>
-              <Text style={[ns.modalSub, { color: subColor }]}>Spersonalizuj swój rytm duchowy</Text>
+              <Text style={[ns.modalSub, { color: subColor }]}>{t('notifications.spersonali_swoj_rytm_duchowy', 'Spersonalizuj swój rytm duchowy')}</Text>
             </View>
             <Pressable onPress={() => setShowCustomModal(false)} style={[ns.modalClose, { backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.08)' }]}>
               <X size={18} color={textColor} />
@@ -898,7 +898,7 @@ export const NotificationsScreen = ({ navigation }: any) => {
           </View>
 
           {/* Icon picker */}
-          <Text style={[ns.modalLabel, { color: subColor }]}>IKONA</Text>
+          <Text style={[ns.modalLabel, { color: subColor }]}>{t('notifications.ikona', 'IKONA')}</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 16 }}>
             <View style={{ flexDirection: 'row', gap: 8, paddingVertical: 4 }}>
               {CUSTOM_ICONS.map(ic => (
@@ -914,21 +914,21 @@ export const NotificationsScreen = ({ navigation }: any) => {
           </ScrollView>
 
           {/* Name input */}
-          <Text style={[ns.modalLabel, { color: subColor }]}>NAZWA</Text>
+          <Text style={[ns.modalLabel, { color: subColor }]}>{t('notifications.nazwa', 'NAZWA')}</Text>
           <TextInput
             value={customName}
             onChangeText={setCustomName}
-            placeholder="np. Medytacja poranna"
+            placeholder={t('notifications.np_medytacja_poranna', 'np. Medytacja poranna')}
             placeholderTextColor={subColor}
             style={[ns.modalInput, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)', color: textColor }]}
           />
 
           {/* Message input */}
-          <Text style={[ns.modalLabel, { color: subColor }]}>TREŚĆ POWIADOMIENIA (opcjonalnie)</Text>
+          <Text style={[ns.modalLabel, { color: subColor }]}>{t('notifications.tresc_powiadomie_opcjonalni', 'TREŚĆ POWIADOMIENIA (opcjonalnie)')}</Text>
           <TextInput
             value={customBody}
             onChangeText={setCustomBody}
-            placeholder="Krótka wiadomość motywacyjna..."
+            placeholder={t('notifications.krotka_wiadomosc_motywacyjn', 'Krótka wiadomość motywacyjna...')}
             placeholderTextColor={subColor}
             style={[ns.modalInput, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)', color: textColor }]}
           />
@@ -936,9 +936,9 @@ export const NotificationsScreen = ({ navigation }: any) => {
           {/* Time picker */}
           <Text style={[ns.modalLabel, { color: subColor }]}>{t('notifications.time').toUpperCase()}</Text>
           <View style={[ns.modalTimeRow, { marginBottom: 16 }]}>
-            <TimeAdjuster value={customHour} onChange={setCustomHour} min={0} max={23} label="GG" textColor={subColor} isLight={isLight} />
+            <TimeAdjuster value={customHour} onChange={setCustomHour} min={0} max={23} label={t('notifications.gg_3', 'GG')} textColor={subColor} isLight={isLight} />
             <Text style={[ns.timeSep, { color: textColor }]}>:</Text>
-            <TimeAdjuster value={customMinute} onChange={setCustomMinute} min={0} max={59} step={5} label="MM" textColor={subColor} isLight={isLight} />
+            <TimeAdjuster value={customMinute} onChange={setCustomMinute} min={0} max={59} step={5} label={t('notifications.mm_3', 'MM')} textColor={subColor} isLight={isLight} />
           </View>
 
           {/* Day picker */}

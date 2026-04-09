@@ -679,7 +679,7 @@ const NumberGlowBadge = ({ value, size = 72, isLight, pulse = false }: { value: 
         </Text>
         {isMaster && (
           <Text style={{ fontSize: 7, color: '#1A0F00', fontWeight: '800', letterSpacing: 2, marginTop: -2 }}>
-            MISTRZ
+            {t('numerology.mistrz', 'MISTRZ')}
           </Text>
         )}
       </LinearGradient>
@@ -716,7 +716,7 @@ const NumberCard = ({ label, value, meta, eyebrow, isLight, sublabel }: {
         {/* Master badge */}
         {isMaster && (
           <View style={{ position: 'absolute', top: 12, right: 12, paddingHorizontal: 8, paddingVertical: 3, borderRadius: 8, backgroundColor: goldColor + '33', borderWidth: 1, borderColor: goldColor + '88' }}>
-            <Text style={{ fontSize: 8, fontWeight: '800', color: goldColor, letterSpacing: 1.5 }}>✦ LICZBA MISTRZA</Text>
+            <Text style={{ fontSize: 8, fontWeight: '800', color: goldColor, letterSpacing: 1.5 }}>{t('numerology.liczba_mistrza', '✦ LICZBA MISTRZA')}</Text>
           </View>
         )}
 
@@ -759,12 +759,12 @@ const NumberCard = ({ label, value, meta, eyebrow, isLight, sublabel }: {
 
             <View style={{ flexDirection: 'row', gap: 10, marginBottom: 12 }}>
               <View style={{ flex: 1, padding: 12, borderRadius: 12, backgroundColor: accentColor + '15' }}>
-                <Text style={{ fontSize: 9, color: accentColor, fontWeight: '700', letterSpacing: 1.4, marginBottom: 5 }}>KAMIEŃ</Text>
+                <Text style={{ fontSize: 9, color: accentColor, fontWeight: '700', letterSpacing: 1.4, marginBottom: 5 }}>{t('numerology.kamien', 'KAMIEŃ')}</Text>
                 <Text style={{ fontSize: 13, color: textColor, fontWeight: '700' }}>{meta.crystal}</Text>
                 <Text style={{ fontSize: 11, color: subColor, marginTop: 4, lineHeight: 16 }}>{meta.crystalDesc}</Text>
               </View>
               <View style={{ flex: 1, padding: 12, borderRadius: 12, backgroundColor: accentColor + '15' }}>
-                <Text style={{ fontSize: 9, color: accentColor, fontWeight: '700', letterSpacing: 1.4, marginBottom: 5 }}>CIEŃ</Text>
+                <Text style={{ fontSize: 9, color: accentColor, fontWeight: '700', letterSpacing: 1.4, marginBottom: 5 }}>{t('numerology.cien', 'CIEŃ')}</Text>
                 <Text style={{ fontSize: 11, color: subColor, lineHeight: 16 }}>{meta.shadow}</Text>
               </View>
             </View>
@@ -954,7 +954,7 @@ const PinnacleTimeline = ({ pinnacles, birthDate, accent, isLight }: {
                 </Text>
                 {isActive && (
                   <View style={{ paddingHorizontal: 7, paddingVertical: 3, borderRadius: 8, backgroundColor: accentColor }}>
-                    <Text style={{ fontSize: 8, fontWeight: '800', color: isMaster ? '#1A0F00' : '#FFF' }}>TERAZ</Text>
+                    <Text style={{ fontSize: 8, fontWeight: '800', color: isMaster ? '#1A0F00' : '#FFF' }}>{t('numerology.teraz', 'TERAZ')}</Text>
                   </View>
                 )}
               </View>
@@ -1098,8 +1098,8 @@ const AiInsightCard = ({ insight, loading, accent, isLight, onRequest }: {
           <Sparkles color={accent} size={16} strokeWidth={1.8} />
         </View>
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 9, color: accent, fontWeight: '700', letterSpacing: 1.8 }}>ORACLE NUMEROLOGICZNY</Text>
-          <Text style={{ fontSize: 12, color: textColor, fontWeight: '600', marginTop: 2 }}>Wgląd AI dla Twoich liczb</Text>
+          <Text style={{ fontSize: 9, color: accent, fontWeight: '700', letterSpacing: 1.8 }}>{t('numerology.oracle_numerologi_1', 'ORACLE NUMEROLOGICZNY')}</Text>
+          <Text style={{ fontSize: 12, color: textColor, fontWeight: '600', marginTop: 2 }}>{t('numerology.wglad_ai_dla_twoich_liczb', 'Wgląd AI dla Twoich liczb')}</Text>
         </View>
       </View>
       {insight ? (
@@ -1116,7 +1116,7 @@ const AiInsightCard = ({ insight, loading, accent, isLight, onRequest }: {
         >
           <LinearGradient colors={[accent, accent + 'BB']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={{ paddingVertical: 12, paddingHorizontal: 20, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 8 }}>
             <Zap color="#FFF" size={14} strokeWidth={2} />
-            <Text style={{ fontSize: 13, fontWeight: '700', color: '#FFF', letterSpacing: 0.5 }}>Zapytaj Oracle</Text>
+            <Text style={{ fontSize: 13, fontWeight: '700', color: '#FFF', letterSpacing: 0.5 }}>{t('numerology.zapytaj_oracle', 'Zapytaj Oracle')}</Text>
           </LinearGradient>
         </Pressable>
       )}
@@ -1271,12 +1271,12 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
           <View style={styles.emptyState}>
             <SectionHeading
               eyebrow="Numerologia"
-              title="Najpierw potrzebujemy Twojej daty urodzenia."
-              subtitle="Numerologia w Aetherze jest żywa i osobista. Bez daty nie otworzymy drogi życia, pinnakli ani cyklu rocznego."
+              title={t('numerology.najpierw_potrzebuje_twojej_daty_uro', 'Najpierw potrzebujemy Twojej daty urodzenia.')}
+              subtitle={t('numerology.numerologi_w_aetherze_jest_zywa', 'Numerologia w Aetherze jest żywa i osobista. Bez daty nie otworzymy drogi życia, pinnakli ani cyklu rocznego.')}
               centered
             />
             <Pressable style={[styles.emptyAction, { borderColor: currentTheme.primary }]} onPress={() => navigateToMainTab(navigation, 'Profile')}>
-              <Typography variant="premiumLabel" color={currentTheme.primary}>Uzupełnij profil</Typography>
+              <Typography variant="premiumLabel" color={currentTheme.primary}>{t('numerology.uzupelnij_profil', 'Uzupełnij profil')}</Typography>
             </Pressable>
           </View>
         </SafeAreaView>
@@ -1309,7 +1309,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
             backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)',
             borderWidth: 1, borderColor: udMeta.color + '44', borderTopWidth: 3, borderTopColor: udMeta.color }}>
             <LinearGradient colors={[udMeta.color + '18', 'transparent']} style={StyleSheet.absoluteFillObject} />
-            <Text style={{ fontSize: 8, color: udMeta.color, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>☀ DZIEŃ UNIWERSALNY</Text>
+            <Text style={{ fontSize: 8, color: udMeta.color, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>{t('numerology.dzien_uniwersaln', '☀ DZIEŃ UNIWERSALNY')}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
               <NumberGlowBadge value={universalDay} size={44} isLight={isLight} />
               <View>
@@ -1323,7 +1323,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
             backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)',
             borderWidth: 1, borderColor: pdMeta.color + '44', borderTopWidth: 3, borderTopColor: pdMeta.color }}>
             <LinearGradient colors={[pdMeta.color + '18', 'transparent']} style={StyleSheet.absoluteFillObject} />
-            <Text style={{ fontSize: 8, color: pdMeta.color, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>🌙 DZIEŃ OSOBISTY</Text>
+            <Text style={{ fontSize: 8, color: pdMeta.color, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>{t('numerology.dzien_osobisty', '🌙 DZIEŃ OSOBISTY')}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
               <NumberGlowBadge value={personalDay} size={44} isLight={isLight} />
               <View>
@@ -1336,13 +1336,13 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
         </View>
       </View>
 
-      <Divider label="✦ RDZEŃ TOŻSAMOŚCI" color={currentTheme.primary} isLight={isLight} />
+      <Divider label={t('numerology.rdzen_tozsamosci', '✦ RDZEŃ TOŻSAMOŚCI')} color={currentTheme.primary} isLight={isLight} />
 
       <View style={{ paddingHorizontal: layout.padding.screen }}>
         <NumberMatrix3D lifePathNumber={lifePath} accent={currentTheme.primary} />
 
         <NumberCard
-          label="Droga Życia"
+          label={t('numerology.droga_zycia', 'Droga Życia')}
           value={lifePath}
           meta={lpMeta}
           eyebrow="Fundament tożsamości"
@@ -1351,7 +1351,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
         />
         {expressionNum > 0 && (
           <NumberCard
-            label="Liczba Wyrazu"
+            label={t('numerology.liczba_wyrazu', 'Liczba Wyrazu')}
             value={expressionNum}
             meta={exprMeta}
             eyebrow="Przeznaczenie i talent"
@@ -1361,7 +1361,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
         )}
         {soulUrge > 0 && (
           <NumberCard
-            label="Poryw Duszy"
+            label={t('numerology.poryw_duszy', 'Poryw Duszy')}
             value={soulUrge}
             meta={soulMeta}
             eyebrow="Głęboka motywacja serca"
@@ -1371,7 +1371,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
         )}
         {personality > 0 && (
           <NumberCard
-            label="Liczba Osobowości"
+            label={t('numerology.liczba_osobowosci', 'Liczba Osobowości')}
             value={personality}
             meta={perseMeta}
             eyebrow="Zewnętrzna maska"
@@ -1387,9 +1387,9 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
           <View style={{ borderRadius: 16, padding: 16, overflow: 'hidden',
             backgroundColor: cardBg, borderWidth: 1, borderColor: currentTheme.primary + '33' }}>
             <LinearGradient colors={[currentTheme.primary + '12', 'transparent']} style={StyleSheet.absoluteFillObject} />
-            <Text style={{ fontSize: 9, color: currentTheme.primary, fontWeight: '700', letterSpacing: 1.8, marginBottom: 10 }}>🌉 LICZBY POMOSTOWE</Text>
+            <Text style={{ fontSize: 9, color: currentTheme.primary, fontWeight: '700', letterSpacing: 1.8, marginBottom: 10 }}>{t('numerology.liczby_pomostowe', '🌉 LICZBY POMOSTOWE')}</Text>
             <Text style={{ fontSize: 11, color: subColor, lineHeight: 17, marginBottom: 10 }}>
-              Liczby pomostowe pokazują, jakie napięcie musisz zintegrować między kluczowymi energiami.
+              {t('numerology.liczby_pomostowe_pokazuja_jakie_nap', 'Liczby pomostowe pokazują, jakie napięcie musisz zintegrować między kluczowymi energiami.')}
             </Text>
             {[
               { label: 'Droga Życia ↔ Wyraz', value: bridges.lpExpr, desc: 'Napięcie między tym, kim jesteś, a tym, czym masz być.' },
@@ -1425,7 +1425,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
 
   const renderCykle = () => (
     <Animated.View entering={FadeInDown.duration(400)}>
-      <Divider label="✦ CYKL OSOBISTY" color={pyMeta.color} isLight={isLight} />
+      <Divider label={t('numerology.cykl_osobisty', '✦ CYKL OSOBISTY')} color={pyMeta.color} isLight={isLight} />
 
       <View style={{ paddingHorizontal: layout.padding.screen }}>
         {/* Year / Month side by side */}
@@ -1433,7 +1433,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
           <View style={{ flex: 1, borderRadius: 16, padding: 14, overflow: 'hidden',
             backgroundColor: cardBg, borderWidth: 1, borderColor: pyMeta.color + '55', borderLeftWidth: 4, borderLeftColor: pyMeta.color }}>
             <LinearGradient colors={[pyMeta.color + '18', 'transparent']} style={StyleSheet.absoluteFillObject} />
-            <Text style={{ fontSize: 9, color: pyMeta.color, fontWeight: '700', letterSpacing: 1.5, marginBottom: 8 }}>ROK OSOBISTY</Text>
+            <Text style={{ fontSize: 9, color: pyMeta.color, fontWeight: '700', letterSpacing: 1.5, marginBottom: 8 }}>{t('numerology.rok_osobisty', 'ROK OSOBISTY')}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
               <NumberGlowBadge value={personalYear} size={44} isLight={isLight} />
               <Text style={{ fontSize: 13, fontWeight: '700', color: textColor, flex: 1 }}>{getCycleInfo(personalYear).name}</Text>
@@ -1443,7 +1443,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
           <View style={{ flex: 1, borderRadius: 16, padding: 14, overflow: 'hidden',
             backgroundColor: cardBg, borderWidth: 1, borderColor: pmMeta.color + '55', borderLeftWidth: 4, borderLeftColor: pmMeta.color }}>
             <LinearGradient colors={[pmMeta.color + '18', 'transparent']} style={StyleSheet.absoluteFillObject} />
-            <Text style={{ fontSize: 9, color: pmMeta.color, fontWeight: '700', letterSpacing: 1.5, marginBottom: 8 }}>MIESIĄC OSOBISTY</Text>
+            <Text style={{ fontSize: 9, color: pmMeta.color, fontWeight: '700', letterSpacing: 1.5, marginBottom: 8 }}>{t('numerology.miesiac_osobisty', 'MIESIĄC OSOBISTY')}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
               <NumberGlowBadge value={personalMonth} size={44} isLight={isLight} />
               <Text style={{ fontSize: 13, fontWeight: '700', color: textColor, flex: 1 }}>{getCycleInfo(personalMonth).name}</Text>
@@ -1477,17 +1477,17 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
       </View>
 
       {/* Pinnacles */}
-      <Divider label="✦ PINNAKLE ŻYCIA" color="#A78BFA" isLight={isLight} />
+      <Divider label={t('numerology.pinnakle_zycia', '✦ PINNAKLE ŻYCIA')} color="#A78BFA" isLight={isLight} />
       <Animated.View entering={FadeInDown.delay(60).duration(520)} style={{ paddingHorizontal: layout.padding.screen }}>
         <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 14 }}>
-          4 główne etapy życia, z których każdy przynosi dominującą energię i lekcję. Aktywny pinnakl to Twój obecny sezon duszy.
+          {t('numerology.4_glowne_etapy_zycia_z', '4 główne etapy życia, z których każdy przynosi dominującą energię i lekcję. Aktywny pinnakl to Twój obecny sezon duszy.')}
         </Text>
         {activePinnacle && (
           <View style={{ borderRadius: 14, padding: 14, marginBottom: 16,
             backgroundColor: getMeta(activePinnacle.number).color + '18',
             borderWidth: 1.5, borderColor: getMeta(activePinnacle.number).color + '55' }}>
             <LinearGradient colors={[getMeta(activePinnacle.number).color + '20', 'transparent']} style={StyleSheet.absoluteFillObject} />
-            <Text style={{ fontSize: 9, color: getMeta(activePinnacle.number).color, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>✦ AKTYWNY PINNAKL TERAZ</Text>
+            <Text style={{ fontSize: 9, color: getMeta(activePinnacle.number).color, fontWeight: '700', letterSpacing: 1.5, marginBottom: 6 }}>{t('numerology.aktywny_pinnakl_teraz', '✦ AKTYWNY PINNAKL TERAZ')}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
               <NumberGlowBadge value={activePinnacle.number} size={52} isLight={isLight} pulse />
               <View style={{ flex: 1 }}>
@@ -1507,10 +1507,10 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
       {/* Challenges */}
       {challenges && (
         <>
-          <Divider label="✦ WYZWANIA KARMICZNE" color="#F87171" isLight={isLight} />
+          <Divider label={t('numerology.wyzwania_karmiczne', '✦ WYZWANIA KARMICZNE')} color="#F87171" isLight={isLight} />
           <Animated.View entering={FadeInDown.delay(80).duration(520)} style={{ paddingHorizontal: layout.padding.screen }}>
             <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 14 }}>
-              Wyzwania nie blokują — wskazują, gdzie leży Twoja największa szansa wzrostu.
+              {t('numerology.wyzwania_nie_blokuja_wskazuja_gdzie', 'Wyzwania nie blokują — wskazują, gdzie leży Twoja największa szansa wzrostu.')}
             </Text>
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
               {[
@@ -1543,14 +1543,14 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
 
   const renderGlebsze = () => (
     <Animated.View entering={FadeInDown.duration(400)}>
-      <Divider label="✦ LICZBY GŁĘBSZE" color="#A78BFA" isLight={isLight} />
+      <Divider label={t('numerology.liczby_glebsze', '✦ LICZBY GŁĘBSZE')} color="#A78BFA" isLight={isLight} />
 
       <View style={{ paddingHorizontal: layout.padding.screen }}>
         {/* Maturity + Balance in a row */}
         <View style={{ flexDirection: 'row', gap: 10, marginBottom: 14 }}>
           {maturityNum > 0 && (
             <CompactNumberCard
-              label="Dojrzałość"
+              label={t('numerology.dojrzalosc', 'Dojrzałość')}
               value={maturityNum}
               color="#A78BFA"
               desc="Droga Życia + Wyraz — kto staniesz się po 40."
@@ -1559,7 +1559,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
           )}
           {balanceNum > 0 && (
             <CompactNumberCard
-              label="Balans"
+              label={t('numerology.balans', 'Balans')}
               value={balanceNum}
               color="#34D399"
               desc="Suma inicjałów — Twoja kotwica w kryzysie."
@@ -1596,7 +1596,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                 {BALANCE_MEANINGS[balanceNum] || BALANCE_MEANINGS[((balanceNum - 1) % 9) + 1]}
               </Text>
               <Text style={{ fontSize: 11, color: subColor, marginTop: 8, lineHeight: 18, fontStyle: 'italic' }}>
-                Liczba Balansu pochodzi z Twoich inicjałów — to Twoja strategia radzenia sobie z kryzysami emocjonalnymi.
+                {t('numerology.liczba_balansu_pochodzi_z_twoich', 'Liczba Balansu pochodzi z Twoich inicjałów — to Twoja strategia radzenia sobie z kryzysami emocjonalnymi.')}
               </Text>
             </View>
           </Animated.View>
@@ -1611,13 +1611,13 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14, marginBottom: 12 }}>
                 <NumberGlowBadge value={hiddenPassion} size={52} isLight={isLight} />
                 <View style={{ flex: 1 }}>
-                  <Text style={{ fontSize: 9, color: '#F472B6', fontWeight: '700', letterSpacing: 1.8, marginBottom: 4 }}>🔥 UKRYTA PASJA</Text>
+                  <Text style={{ fontSize: 9, color: '#F472B6', fontWeight: '700', letterSpacing: 1.8, marginBottom: 4 }}>{t('numerology.ukryta_pasja', '🔥 UKRYTA PASJA')}</Text>
                   <Text style={{ fontSize: 15, fontWeight: '800', color: textColor }}>Energia {hiddenPassion}</Text>
                   <Text style={{ fontSize: 12, color: '#F472B6', marginTop: 2 }}>{getMeta(hiddenPassion).archetype} · {getMeta(hiddenPassion).planet}</Text>
                 </View>
               </View>
               <Text style={{ fontSize: 13, color: textColor, lineHeight: 20 }}>
-                Ukryta Pasja to liczba, która pojawia się najczęściej w Twoim imieniu. Reprezentuje szczególny talent i obszar, w którym możesz osiągnąć mistrzostwo.
+                {t('numerology.ukryta_pasja_to_liczba_ktora', 'Ukryta Pasja to liczba, która pojawia się najczęściej w Twoim imieniu. Reprezentuje szczególny talent i obszar, w którym możesz osiągnąć mistrzostwo.')}
               </Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 10 }}>
                 {getMeta(hiddenPassion).keywords.map(kw => (
@@ -1631,7 +1631,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
         )}
 
         {/* Crystal & Color */}
-        <Divider label="✦ KAMIEŃ I KOLOR DROGI ŻYCIA" color={lpMeta.color} isLight={isLight} />
+        <Divider label={t('numerology.kamien_i_kolor_drogi_zycia', '✦ KAMIEŃ I KOLOR DROGI ŻYCIA')} color={lpMeta.color} isLight={isLight} />
         <Animated.View entering={FadeInDown.delay(100).duration(520)}>
           <View style={{ borderRadius: 18, padding: 18, overflow: 'hidden', backgroundColor: cardBg, borderWidth: 1, borderColor: lpMeta.color + '55' }}>
             <LinearGradient colors={[lpMeta.color + '22', 'transparent']} style={StyleSheet.absoluteFillObject} />
@@ -1654,15 +1654,15 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
         </Animated.View>
 
         {/* Soul Compatibility */}
-        <Divider label="✦ ZGODNOŚĆ NUMEROLOGICZNA" color="#F472B6" isLight={isLight} />
+        <Divider label={t('numerology.zgodnosc_numerologi', '✦ ZGODNOŚĆ NUMEROLOGICZNA')} color="#F472B6" isLight={isLight} />
         <Animated.View entering={FadeInDown.delay(120).duration(520)}>
           <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 14 }}>
-            Wprowadź dane osoby, aby zobaczyć zgodność dróg życia oraz pełną dynamikę numerologiczną.
+            {t('numerology.wprowadz_dane_osoby_aby_zobaczyc', 'Wprowadź dane osoby, aby zobaczyć zgodność dróg życia oraz pełną dynamikę numerologiczną.')}
           </Text>
           <View style={{ borderRadius: 18, padding: 16, backgroundColor: cardBg, borderWidth: 1, borderColor: '#F472B633', overflow: 'hidden', marginBottom: 14 }}>
             <LinearGradient colors={['#F472B612', 'transparent']} style={StyleSheet.absoluteFillObject} />
-            <Text style={{ fontSize: 9, color: '#F472B6', fontWeight: '700', letterSpacing: 1.6, marginBottom: 12 }}>PARTNER NUMEROLOGICZNY</Text>
-            <MysticalInput value={partnerName} onChangeText={setPartnerName} placeholder="Imię tej osoby" />
+            <Text style={{ fontSize: 9, color: '#F472B6', fontWeight: '700', letterSpacing: 1.6, marginBottom: 12 }}>{t('numerology.partner_numerologi', 'PARTNER NUMEROLOGICZNY')}</Text>
+            <MysticalInput value={partnerName} onChangeText={setPartnerName} placeholder={t('numerology.imie_tej_osoby', 'Imię tej osoby')} />
             <Pressable style={[styles.partnerDateTrigger, { borderColor: currentTheme.glassBorder, backgroundColor: currentTheme.backgroundElevated, marginTop: 10 }]} onPress={() => setPickerVisible(true)}>
               <Typography variant="bodyRefined" style={{ color: partnerBirthDate ? currentTheme.text : currentTheme.textMuted }}>
                         {partnerBirthDate ? formatLocaleDate(partnerBirthDate) : (i18n.language?.startsWith('en') ? 'Birth date' : 'Data urodzenia')}
@@ -1675,7 +1675,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                 <View style={{ height: 1, backgroundColor: '#F472B444', marginBottom: 14 }} />
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 14 }}>
                   <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: 11, color: '#F472B6', fontWeight: '700', letterSpacing: 1.2, marginBottom: 5 }}>ZGODNOŚĆ DRÓG ŻYCIA</Text>
+                    <Text style={{ fontSize: 11, color: '#F472B6', fontWeight: '700', letterSpacing: 1.2, marginBottom: 5 }}>{t('numerology.zgodnosc_drog_zycia', 'ZGODNOŚĆ DRÓG ŻYCIA')}</Text>
                     <View style={{ height: 8, borderRadius: 4, backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)', marginBottom: 5 }}>
                       <View style={{ height: 8, borderRadius: 4, width: `${soulCompat.score}%`, backgroundColor: soulCompat.color }} />
                     </View>
@@ -1696,7 +1696,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                       <Text style={{ fontSize: 9, color: subColor, marginBottom: 5, textAlign: 'center' }}>{label}</Text>
                       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
                         <Text style={{ fontSize: 14, fontWeight: '800', color: currentTheme.primary }}>{you}</Text>
-                        <Text style={{ fontSize: 9, color: subColor }}>vs</Text>
+                        <Text style={{ fontSize: 9, color: subColor }}>{t('numerology.vs', 'vs')}</Text>
                         <Text style={{ fontSize: 14, fontWeight: '800', color: '#F472B6' }}>{them}</Text>
                       </View>
                     </View>
@@ -1709,7 +1709,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
           {/* Classic pairs */}
           <View style={{ borderRadius: 18, padding: 16, backgroundColor: cardBg, borderWidth: 1, borderColor: '#F472B622', overflow: 'hidden' }}>
             <LinearGradient colors={['#F472B608', 'transparent']} style={StyleSheet.absoluteFillObject} />
-            <Text style={{ fontSize: 9, color: '#F472B6', fontWeight: '700', letterSpacing: 1.6, marginBottom: 12 }}>KLASYCZNE PARY NUMEROLOGICZNE</Text>
+            <Text style={{ fontSize: 9, color: '#F472B6', fontWeight: '700', letterSpacing: 1.6, marginBottom: 12 }}>{t('numerology.klasyczne_pary_numerologi', 'KLASYCZNE PARY NUMEROLOGICZNE')}</Text>
             {[
               { a:1, b:5, score:92, desc:'Wzajemna inspiracja i wolność', color:'#F87171' },
               { a:2, b:6, score:90, desc:'Głęboka troska i harmonia', color:'#FB923C' },
@@ -1803,14 +1803,14 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
             </View>
             <Text style={{ fontSize: 13, color: isLight ? '#3A3A3A' : '#D0C8BE', lineHeight: 21, marginBottom: 14 }}>{YEAR_GUIDANCE[personalYear] || YEAR_GUIDANCE[1]}</Text>
             <View style={{ borderRadius: 14, padding: 12, backgroundColor: pyColor + '14', borderWidth: 1, borderColor: pyColor + '33' }}>
-              <Text style={{ fontSize: 9, color: pyColor, fontWeight: '700', letterSpacing: 1.5, marginBottom: 4 }}>MANTRA ROKU</Text>
+              <Text style={{ fontSize: 9, color: pyColor, fontWeight: '700', letterSpacing: 1.5, marginBottom: 4 }}>{t('numerology.mantra_roku', 'MANTRA ROKU')}</Text>
               <Text style={{ fontSize: 15, color: isLight ? '#1A1A1A' : '#F0EBE2', fontWeight: '700', fontStyle: 'italic' }}>"{actionGuide.mantra}"</Text>
             </View>
           </View>
 
           {/* Actions + Avoid */}
           <View style={{ borderRadius: 18, padding: 16, overflow: 'hidden', marginBottom: 16, backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.05)', borderWidth: 1, borderColor: pyColor + '33' }}>
-            <Text style={{ fontSize: 9, color: pyColor, fontWeight: '700', letterSpacing: 1.5, marginBottom: 12 }}>✦ PRIORYTETY ROKU</Text>
+            <Text style={{ fontSize: 9, color: pyColor, fontWeight: '700', letterSpacing: 1.5, marginBottom: 12 }}>{t('numerology.priorytety_roku', '✦ PRIORYTETY ROKU')}</Text>
             {actionGuide.actions.map((a, i) => (
               <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 8, gap: 10 }}>
                 <View style={{ width: 22, height: 22, borderRadius: 11, backgroundColor: pyColor + '22', alignItems: 'center', justifyContent: 'center', marginTop: 1 }}>
@@ -1820,7 +1820,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
               </View>
             ))}
             <View style={{ marginTop: 8, borderTopWidth: 1, borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)', paddingTop: 10 }}>
-              <Text style={{ fontSize: 9, color: '#F87171', fontWeight: '700', letterSpacing: 1.5, marginBottom: 4 }}>⚠ UNIKAJ</Text>
+              <Text style={{ fontSize: 9, color: '#F87171', fontWeight: '700', letterSpacing: 1.5, marginBottom: 4 }}>{t('numerology.unikaj', '⚠ UNIKAJ')}</Text>
               <Text style={{ fontSize: 12, color: isLight ? '#666' : '#B0A393', lineHeight: 18 }}>{actionGuide.avoid}</Text>
             </View>
           </View>
@@ -1828,16 +1828,16 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
           {/* Affirmation */}
           <View style={{ borderRadius: 16, padding: 16, marginBottom: 20, overflow: 'hidden', backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)', borderWidth: 1, borderColor: pyColor + '33' }}>
             <LinearGradient colors={[pyColor + '14', 'transparent']} style={StyleSheet.absoluteFillObject} />
-            <Text style={{ fontSize: 9, color: pyColor, fontWeight: '700', letterSpacing: 1.8, marginBottom: 8 }}>✦ AFIRMACJA ROKU</Text>
+            <Text style={{ fontSize: 9, color: pyColor, fontWeight: '700', letterSpacing: 1.8, marginBottom: 8 }}>{t('numerology.afirmacja_roku', '✦ AFIRMACJA ROKU')}</Text>
             <Text style={{ fontSize: 14, color: isLight ? '#1A1A1A' : '#F0EBE2', lineHeight: 22, fontStyle: 'italic' }}>"{actionGuide.affirmation}"</Text>
           </View>
         </View>
 
         {/* 9-year cycle */}
-        <Divider label="✦ CYKL 9-LETNI" color="#A78BFA" isLight={isLight} />
+        <Divider label={t('numerology.cykl_9_letni', '✦ CYKL 9-LETNI')} color="#A78BFA" isLight={isLight} />
         <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 20 }}>
           <Text style={{ fontSize: 12, color: isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)', lineHeight: 18, marginBottom: 14 }}>
-            Każdy cykl numerologiczny trwa 9 lat. Każdy rok niesie inną energię i lekcję — razem tworzą pełną spiralę wzrostu.
+            {t('numerology.kazdy_cykl_numerologi_trwa_9', 'Każdy cykl numerologiczny trwa 9 lat. Każdy rok niesie inną energię i lekcję — razem tworzą pełną spiralę wzrostu.')}
           </Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingBottom: 4 }}>
             {nineYears.map(({ year, pyN, color, isCurrent }) => (
@@ -1849,7 +1849,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                 {isCurrent && <LinearGradient colors={[color + '30', 'transparent']} style={StyleSheet.absoluteFillObject} />}
                 <Text style={{ fontSize: 22, fontWeight: '900', color }}>{pyN}</Text>
                 <Text style={{ fontSize: 10, color: isLight ? '#888' : '#999', marginTop: 2, fontWeight: '500' }}>{year}</Text>
-                {isCurrent && <Text style={{ fontSize: 8, color, fontWeight: '700', letterSpacing: 0.5, marginTop: 4 }}>TERAZ</Text>}
+                {isCurrent && <Text style={{ fontSize: 8, color, fontWeight: '700', letterSpacing: 0.5, marginTop: 4 }}>{t('numerology.teraz_1', 'TERAZ')}</Text>}
               </View>
             ))}
           </ScrollView>
@@ -1873,7 +1873,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                   <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 3 }}>
                     <Text style={{ fontSize: 13, fontWeight: '700', color: fc.isPast ? (isLight ? '#888' : '#888') : (isLight ? '#1A1A1A' : '#F0EBE2') }}>{fc.fullMonth}</Text>
                     {fc.isNow && <View style={{ paddingHorizontal: 7, paddingVertical: 2, borderRadius: 6, backgroundColor: fc.color }}>
-                      <Text style={{ fontSize: 8, color: '#fff', fontWeight: '700' }}>TERAZ</Text>
+                      <Text style={{ fontSize: 8, color: '#fff', fontWeight: '700' }}>{t('numerology.teraz_2', 'TERAZ')}</Text>
                     </View>}
                   </View>
                   <Text style={{ fontSize: 11, color: fc.color + (fc.isPast ? '88' : 'FF'), fontWeight: '600', marginBottom: 3 }}>{fc.name}</Text>
@@ -1902,7 +1902,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
           const ruler = PLANETARY_RULERS[personalYear] ?? PLANETARY_RULERS[1];
           return (
             <>
-              <Divider label="✦ WŁADCA PLANETARNY ROKU" color={ruler.color} isLight={isLight} />
+              <Divider label={t('numerology.wladca_planetarny_roku', '✦ WŁADCA PLANETARNY ROKU')} color={ruler.color} isLight={isLight} />
               <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 20 }}>
                 <View style={{ borderRadius: 20, padding: 18, overflow: 'hidden', borderWidth: 1.5, borderColor: ruler.color + '55', backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)' }}>
                   <LinearGradient colors={[ruler.color + '22', 'transparent']} style={StyleSheet.absoluteFillObject} />
@@ -1926,7 +1926,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                       <Text style={{ fontSize: 12, color: isLight ? '#888' : '#B0A393', lineHeight: 20, flex: 1 }}>{ruler.challenge}</Text>
                     </View>
                     <View style={{ borderRadius: 12, padding: 12, backgroundColor: ruler.color + '14', borderWidth: 1, borderColor: ruler.color + '33', marginTop: 4 }}>
-                      <Text style={{ fontSize: 9, color: ruler.color, fontWeight: '700', letterSpacing: 1.2, marginBottom: 5 }}>RYTUAŁ ROKU</Text>
+                      <Text style={{ fontSize: 9, color: ruler.color, fontWeight: '700', letterSpacing: 1.2, marginBottom: 5 }}>{t('numerology.rytual_roku', 'RYTUAŁ ROKU')}</Text>
                       <Text style={{ fontSize: 13, color: isLight ? '#1A1A1A' : '#F0EBE2', lineHeight: 20, fontStyle: 'italic' }}>{ruler.ritual}</Text>
                     </View>
                   </View>
@@ -1981,7 +1981,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
               <Divider label={`✦ NADCHODZĄCE DNI MOCY`} color={pyColor} isLight={isLight} />
               <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 20 }}>
                 <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 14 }}>
-                  Dni, kiedy Twoja liczba osobista (dzień + miesiąc + rok osobisty) rezonuje z kluczowymi częstotliwościami. To momenty wzmożonej synchroniczności.
+                  {t('numerology.dni_kiedy_twoja_liczba_osobista', 'Dni, kiedy Twoja liczba osobista (dzień + miesiąc + rok osobisty) rezonuje z kluczowymi częstotliwościami. To momenty wzmożonej synchroniczności.')}
                 </Text>
                 <View style={{ gap: 8 }}>
                   {powerDays.map((pd, i) => (
@@ -2027,7 +2027,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
           const AREA_COLORS = ['#A78BFA', '#34D399', '#FBBF24'];
           return (
             <>
-              <Divider label="✦ FOKUS MANIFESTACYJNY ROKU" color={pyColor} isLight={isLight} />
+              <Divider label={t('numerology.fokus_manifestac_roku', '✦ FOKUS MANIFESTACYJNY ROKU')} color={pyColor} isLight={isLight} />
               <View style={{ paddingHorizontal: layout.padding.screen, marginBottom: 20 }}>
                 <Text style={{ fontSize: 12, color: subColor, lineHeight: 18, marginBottom: 14 }}>Trzy główne obszary, w których energia roku {personalYear} najsilniej wspiera manifestację Twoich intencji.</Text>
                 <View style={{ gap: 10 }}>
@@ -2043,11 +2043,11 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                           <Text style={{ fontSize: 13, fontWeight: '800', color: AREA_COLORS[i], letterSpacing: 0.3 }}>{a.area}</Text>
                         </View>
                         <View style={{ marginBottom: 8 }}>
-                          <Text style={{ fontSize: 9, color: AREA_COLORS[i], fontWeight: '700', letterSpacing: 1.2, marginBottom: 4 }}>✦ DZIAŁAJ</Text>
+                          <Text style={{ fontSize: 9, color: AREA_COLORS[i], fontWeight: '700', letterSpacing: 1.2, marginBottom: 4 }}>{t('numerology.dzialaj', '✦ DZIAŁAJ')}</Text>
                           <Text style={{ fontSize: 13, color: isLight ? '#2A2A2A' : '#E0D8D0', lineHeight: 20 }}>{a.focus}</Text>
                         </View>
                         <View style={{ borderTopWidth: 1, borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.06)', paddingTop: 8 }}>
-                          <Text style={{ fontSize: 9, color: '#F87171', fontWeight: '700', letterSpacing: 1.2, marginBottom: 4 }}>⚠ BLOKADA</Text>
+                          <Text style={{ fontSize: 9, color: '#F87171', fontWeight: '700', letterSpacing: 1.2, marginBottom: 4 }}>{t('numerology.blokada', '⚠ BLOKADA')}</Text>
                           <Text style={{ fontSize: 12, color: subColor, lineHeight: 18 }}>{a.block}</Text>
                         </View>
                       </View>
@@ -2066,10 +2066,10 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
   const renderAnaliza = () => (
     <Animated.View entering={FadeInDown.duration(400)}>
       {/* Kosmogram */}
-      <Divider label="✦ KOSMOGRAM LICZBOWY" color="#60A5FA" isLight={isLight} />
+      <Divider label={t('numerology.kosmogram_liczbowy', '✦ KOSMOGRAM LICZBOWY')} color="#60A5FA" isLight={isLight} />
       <View style={{ paddingHorizontal: layout.padding.screen }}>
         <Text style={{ fontSize: 12, color: subColor, textAlign: 'center', marginBottom: 14, lineHeight: 18 }}>
-          Liczby z daty urodzenia na siatce Pitagorasa. Silne pozycje to energie naturalne — brakujące to główne lekcje.
+          {t('numerology.liczby_z_daty_urodzenia_na', 'Liczby z daty urodzenia na siatce Pitagorasa. Silne pozycje to energie naturalne — brakujące to główne lekcje.')}
         </Text>
         <View style={{ borderRadius: 20, padding: 18, backgroundColor: cardBg, borderWidth: 1, borderColor: '#60A5FA33', overflow: 'hidden', alignItems: 'center', marginBottom: 14 }}>
           <LinearGradient colors={['#60A5FA14', 'transparent']} style={StyleSheet.absoluteFillObject} />
@@ -2077,11 +2077,11 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
         </View>
 
         {/* Letter analysis */}
-        <Divider label="✦ ANALIZA IMIENIA LITEROWEGO" color="#34D399" isLight={isLight} />
+        <Divider label={t('numerology.analiza_imienia_literowego', '✦ ANALIZA IMIENIA LITEROWEGO')} color="#34D399" isLight={isLight} />
         <View style={{ borderRadius: 18, padding: 16, backgroundColor: cardBg, borderWidth: 1, borderColor: '#34D39933', overflow: 'hidden' }}>
           <LinearGradient colors={['#34D39914', 'transparent']} style={StyleSheet.absoluteFillObject} />
           <Text style={{ fontSize: 11, color: subColor, lineHeight: 18, marginBottom: 12 }}>
-            Każda litera Twojego imienia niesie liczbę Pitagorasa (V=samogłoska, C=spółgłoska). Suma samogłosek = Poryw Duszy. Suma spółgłosek = Osobowość.
+            {t('numerology.kazda_litera_twojego_imienia_niesie', 'Każda litera Twojego imienia niesie liczbę Pitagorasa (V=samogłoska, C=spółgłoska). Suma samogłosek = Poryw Duszy. Suma spółgłosek = Osobowość.')}
           </Text>
           <View style={[styles.nameInput, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)', borderColor: '#34D39944', marginBottom: 12 }]}>
             <Hash color="#34D399" size={16} strokeWidth={1.8} style={{ marginRight: 10 }} />
@@ -2117,7 +2117,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
 
         {/* Guide */}
         <View style={{ paddingTop: 24, paddingBottom: 4 }}>
-          <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 12 }}>✦ JAK CZYTAĆ TĘ MAPĘ</Typography>
+          <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 12 }}>{t('numerology.jak_czytac_te_mape', '✦ JAK CZYTAĆ TĘ MAPĘ')}</Typography>
           {[
             { label: 'Droga Życia', copy: 'Fundament tożsamości — rdzeń, który rozwijasz przez całe życie.' },
             { label: 'Wyraz', copy: 'Talent i misja — to, co wnosisz w świat poprzez swoje działania.' },
@@ -2139,7 +2139,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
 
         {/* Next steps */}
         <View style={{ height: 1, backgroundColor: isLight ? 'rgba(255,246,230,0.95)' : 'rgba(255,255,255,0.06)', marginVertical: 16 }} />
-        <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 8 }}>🌿 NASTĘPNE KROKI</Typography>
+        <Typography variant="microLabel" color={currentTheme.primary} style={{ letterSpacing: 1.5, marginBottom: 8 }}>{t('numerology.nastepne_kroki', '🌿 NASTĘPNE KROKI')}</Typography>
         {[
           { icon: Brain, color: '#60A5FA', label: 'Notatka refleksyjna', desc: 'Zapisz, która liczba pracuje dziś najmocniej', onPress: () => navigation.navigate('JournalEntry', { prompt: `Moja droga życia to ${lifePath}. Aktywny pinnakl: ${activePinnacle?.number || '?'}. Co teraz pracuje u mnie najmocniej?`, type: 'reflection' }) },
           { icon: HeartHandshake, color: '#F472B6', label: 'Zgodność numerologiczna', desc: 'Zestawiaj liczby z emocjonalnym obrazem relacji', onPress: () => navigation.navigate('Compatibility') },
@@ -2181,8 +2181,8 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
               <ChevronLeft color={currentTheme.primary} size={28} />
             </Pressable>
             <View style={styles.headerTitle}>
-              <Typography variant="premiumLabel" color={currentTheme.primary}>Numerologia</Typography>
-              <Typography variant="screenTitle" style={{ marginTop: 2 }}>Mapa liczb i cykli życia</Typography>
+              <Typography variant="premiumLabel" color={currentTheme.primary}>{t('numerology.numerologi_1', 'Numerologia')}</Typography>
+              <Typography variant="screenTitle" style={{ marginTop: 2 }}>{t('numerology.mapa_liczb_i_cykli_zycia', 'Mapa liczb i cykli życia')}</Typography>
             </View>
             <Pressable onPress={() => setShowForSomeoneModal(true)} style={styles.headerBtn} hitSlop={12}>
               <Users
@@ -2235,8 +2235,8 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
               >
                 <Infinity color="#1A1200" size={20} strokeWidth={2.2} />
                 <View style={{ alignItems: 'center' }}>
-                  <Text style={{ fontSize: 14, fontWeight: '800', letterSpacing: 1.5, color: '#1A1200' }}>SPRAWDŹ SWOJĄ LICZBĘ</Text>
-                  <Text style={{ fontSize: 11, fontWeight: '500', color: 'rgba(0,0,0,0.65)', marginTop: 2, letterSpacing: 0.3 }}>Kalkulator numerologiczny z odczytem Oracle</Text>
+                  <Text style={{ fontSize: 14, fontWeight: '800', letterSpacing: 1.5, color: '#1A1200' }}>{t('numerology.sprawdz_swoja_liczbe_1', 'SPRAWDŹ SWOJĄ LICZBĘ')}</Text>
+                  <Text style={{ fontSize: 11, fontWeight: '500', color: 'rgba(0,0,0,0.65)', marginTop: 2, letterSpacing: 0.3 }}>{t('numerology.kalkulator_numerologi_z_odczytem_or', 'Kalkulator numerologiczny z odczytem Oracle')}</Text>
                 </View>
                 <Infinity color="#1A1200" size={20} strokeWidth={2.2} />
               </LinearGradient>
@@ -2290,8 +2290,8 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
       <PremiumDatePickerSheet
         visible={pickerVisible}
         mode="date"
-        title="Data urodzenia tej osoby"
-        description="Numerologia porówna drogi życia, centrum i oś relacji."
+        title={t('numerology.data_urodzenia_tej_osoby', 'Data urodzenia tej osoby')}
+        description={t('numerology.numerologi_porowna_drogi_zycia_cent', 'Numerologia porówna drogi życia, centrum i oś relacji.')}
         value={new Date(partnerBirthDate || '1994-06-15')}
         maximumDate={new Date()}
         onCancel={() => setPickerVisible(false)}
@@ -2315,14 +2315,14 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
               pointerEvents="none"
             />
             <View style={{ width: 36, height: 4, borderRadius: 2, backgroundColor: currentTheme.primary + '44', alignSelf: 'center', marginBottom: 18 }} />
-            <Typography variant="cardTitle" style={{ color: currentTheme.text, marginBottom: 4 }}>Dla kogo ta sesja?</Typography>
+            <Typography variant="cardTitle" style={{ color: currentTheme.text, marginBottom: 4 }}>{t('numerology.dla_kogo_ta_sesja', 'Dla kogo ta sesja?')}</Typography>
             <Typography variant="bodySmall" style={{ color: currentTheme.textMuted, marginBottom: 20 }}>
-              Wprowadź dane osoby, dla której robisz odczyt. Imię jest potrzebne do obliczenia Wyrazu, Duszy i Osobowości.
+              {t('numerology.wprowadz_dane_osoby_dla_ktorej', 'Wprowadź dane osoby, dla której robisz odczyt. Imię jest potrzebne do obliczenia Wyrazu, Duszy i Osobowości.')}
             </Typography>
             <MysticalInput
               value={forSomeoneName}
               onChangeText={setForSomeoneName}
-              placeholder="Imię i nazwisko (do analizy liter)..."
+              placeholder={t('numerology.imie_i_nazwisko_do_analizy', 'Imię i nazwisko (do analizy liter)...')}
               returnKeyType="next"
             />
             <DateWheelPicker
@@ -2343,7 +2343,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
                 onPress={() => { setForSomeone(false); setShowForSomeoneModal(false); }}
                 style={[styles.fsCta, { backgroundColor: 'rgba(255,100,100,0.2)', borderColor: '#FB7185', borderWidth: 1, marginTop: 12 }]}
               >
-                <Typography variant="caption" style={{ color: '#FB7185', fontWeight: '600' }}>Wyłącz tryb "Dla kogoś"</Typography>
+                <Typography variant="caption" style={{ color: '#FB7185', fontWeight: '600' }}>{t('numerology.wylacz_tryb_dla_kogos', 'Wyłącz tryb "Dla kogoś"')}</Typography>
               </Pressable>
             )}
             <Pressable
@@ -2356,7 +2356,7 @@ Połącz te energie w jedno poetyckie, mistyczne przesłanie. Używaj polskiego,
               }}
               style={[styles.fsCta, { backgroundColor: currentTheme.primary, marginTop: forSomeone ? 10 : 16 }]}
             >
-              <Typography variant="caption" style={{ color: '#FFF', fontWeight: '700' }}>Potwierdź</Typography>
+              <Typography variant="caption" style={{ color: '#FFF', fontWeight: '700' }}>{t('numerology.potwierdz', 'Potwierdź')}</Typography>
             </Pressable>
           </Pressable>
         </Pressable>

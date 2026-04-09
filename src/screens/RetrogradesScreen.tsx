@@ -274,19 +274,19 @@ return (
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: layout.padding.screen }}>
         <Animated.View entering={FadeInDown.delay(60).duration(500)}>
           <Text style={{ color: subColor, fontSize: 13, lineHeight: 20, marginBottom: 20 }}>
-            Retrogradacja (Rx) to optyczna iluzja wstecznego ruchu planety. W astrologii oznacza czas refleksji, rewizji i pracy wewnętrznej.
+            {t('retrogrades.retrograda_rx_to_optyczna_iluzja', 'Retrogradacja (Rx) to optyczna iluzja wstecznego ruchu planety. W astrologii oznacza czas refleksji, rewizji i pracy wewnętrznej.')}
           </Text>
         </Animated.View>
 
         {/* ── AKTYWNE TERAZ section ──────────────────────────────── */}
         <Animated.View entering={FadeInDown.delay(100).duration(500)}>
-          <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginBottom: 10 }}>AKTYWNE TERAZ</Text>
+          <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginBottom: 10 }}>{t('retrogrades.aktywne_teraz', 'AKTYWNE TERAZ')}</Text>
           {activeRetrogrades.length === 0 ? (
             <View style={[styles.noActiveCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
               <CheckCircle2 size={20} color="#6EE7B7" style={{ marginBottom: 6 }} />
-              <Text style={{ color: textColor, fontSize: 14, fontWeight: '600' }}>Brak aktywnych retrogradacji</Text>
+              <Text style={{ color: textColor, fontSize: 14, fontWeight: '600' }}>{t('retrogrades.brak_aktywnych_retrograda', 'Brak aktywnych retrogradacji')}</Text>
               <Text style={{ color: subColor, fontSize: 12, textAlign: 'center', marginTop: 4, lineHeight: 18 }}>
-                Wszystkie planety poruszają się naprzód. Korzystaj z tej energii do rozpoczynania nowych projektów!
+                {t('retrogrades.wszystkie_planety_poruszaja_sie_nap', 'Wszystkie planety poruszają się naprzód. Korzystaj z tej energii do rozpoczynania nowych projektów!')}
               </Text>
             </View>
           ) : (
@@ -304,7 +304,7 @@ return (
                           <Text style={{ color: textColor, fontSize: 15, fontWeight: '700' }}>{ret.planet}</Text>
                           <View style={[styles.rxBadge, { backgroundColor: ret.color + '22', borderColor: ret.color + '55' }]}>
                             <Zap size={9} color={ret.color} />
-                            <Text style={{ color: ret.color, fontSize: 9, fontWeight: '800', letterSpacing: 0.8 }}>Rx AKTYWNA</Text>
+                            <Text style={{ color: ret.color, fontSize: 9, fontWeight: '800', letterSpacing: 0.8 }}>{t('retrogrades.rx_aktywna', 'Rx AKTYWNA')}</Text>
                           </View>
                         </View>
                         {win && (
@@ -331,7 +331,7 @@ return (
         </Animated.View>
 
         {/* ── All planets expandable list ────────────────────────── */}
-        <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 20, marginBottom: 10 }}>WSZYSTKIE PLANETY</Text>
+        <Text style={{ color: subColor, fontSize: 11, letterSpacing: 1.5, marginTop: 20, marginBottom: 10 }}>{t('retrogrades.wszystkie_planety', 'WSZYSTKIE PLANETY')}</Text>
 
         {RETROGRADES.map((ret, i) => {
           const isActive = isCurrentlyRetrograde(ret.id);
@@ -352,7 +352,7 @@ return (
                       <Text style={{ color: textColor, fontSize: 15, fontWeight: '700' }}>{ret.planet}</Text>
                       {isActive && (
                         <View style={[styles.rxSmallBadge, { backgroundColor: ret.color + '22', borderColor: ret.color + '55' }]}>
-                          <Text style={{ color: ret.color, fontSize: 8, fontWeight: '800' }}>Rx</Text>
+                          <Text style={{ color: ret.color, fontSize: 8, fontWeight: '800' }}>{t('retrogrades.rx', 'Rx')}</Text>
                         </View>
                       )}
                     </View>
@@ -373,21 +373,21 @@ return (
                       <View style={[styles.listBox, { borderColor: '#EF444433', backgroundColor: '#EF444412' }]}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 6 }}>
                           <AlertTriangle size={12} color="#EF4444" />
-                          <Text style={{ color: '#EF4444', fontSize: 10, letterSpacing: 1 }}>UNIKAJ</Text>
+                          <Text style={{ color: '#EF4444', fontSize: 10, letterSpacing: 1 }}>{t('retrogrades.unikaj', 'UNIKAJ')}</Text>
                         </View>
                         {ret.avoid.map(a => <Text key={a} style={{ color: textColor, fontSize: 11, lineHeight: 18 }}>• {a}</Text>)}
                       </View>
                       <View style={[styles.listBox, { borderColor: ret.color + '33', backgroundColor: ret.color + '10' }]}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 6 }}>
                           <CheckCircle2 size={12} color={ret.color} />
-                          <Text style={{ color: ret.color, fontSize: 10, letterSpacing: 1 }}>WYKORZYSTAJ</Text>
+                          <Text style={{ color: ret.color, fontSize: 10, letterSpacing: 1 }}>{t('retrogrades.wykorzysta', 'WYKORZYSTAJ')}</Text>
                         </View>
                         {ret.embrace.map(e => <Text key={e} style={{ color: textColor, fontSize: 11, lineHeight: 18 }}>• {e}</Text>)}
                       </View>
                     </View>
 
                     {/* Weekly / monthly focus */}
-                    <Text style={{ color: subColor, fontSize: 10, letterSpacing: 1.2, marginBottom: 8 }}>PLAN TYGODNIOWY</Text>
+                    <Text style={{ color: subColor, fontSize: 10, letterSpacing: 1.2, marginBottom: 8 }}>{t('retrogrades.plan_tygodniowy', 'PLAN TYGODNIOWY')}</Text>
                     {ret.weeklyFocus.map((wf, wi) => (
                       <View key={wi} style={[styles.weekRow, { borderLeftColor: ret.color + '80', backgroundColor: ret.color + '08' }]}>
                         <Text style={{ color: ret.color, fontSize: 10, fontWeight: '700', marginBottom: 2 }}>{wf.week}</Text>
@@ -464,7 +464,7 @@ return (
         </Animated.View>
 
                 <View style={{ marginTop: 16, marginBottom: 8, borderRadius: 16, backgroundColor: "#E879F922", borderWidth: 1, borderColor: "#E879F9", padding: 16 }}>
-          <Text style={{ color: "#E879F9", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>AI INTERPRETACJA RETROGRADACJI</Text>
+          <Text style={{ color: "#E879F9", fontWeight: "700", fontSize: 13, letterSpacing: 1, marginBottom: 8 }}>{t('retrogrades.ai_interpreta_retrograda', 'AI INTERPRETACJA RETROGRADACJI')}</Text>
           {retroAiInsight ? (
             <Text style={{ color: "#FDF4FF", fontSize: 14, lineHeight: 22 }}>{retroAiInsight}</Text>
           ) : null}

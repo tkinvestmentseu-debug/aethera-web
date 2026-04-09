@@ -195,8 +195,8 @@ export const EnergyCircleScreen = ({ navigation }) => {
         <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: layout.padding.screen, paddingVertical: 12 }}>
           <Pressable onPress={() => goBackOrToMainTab(navigation, 'Worlds')} hitSlop={14}><ChevronLeft color={ACCENT} size={26} strokeWidth={1.8} /></Pressable>
           <View style={{ flex: 1, alignItems: 'center' }}>
-            <Text style={{ color: tc, fontSize: 17, fontWeight: '700' }}>Krąg Energetyczny</Text>
-            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 1.8 }}>SYNCHRONICZNA MEDYTACJA</Text>
+            <Text style={{ color: tc, fontSize: 17, fontWeight: '700' }}>{t('energyCircle.krag_energetycz', 'Krąg Energetyczny')}</Text>
+            <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 1.8 }}>{t('energyCircle.synchronic_medytacja', 'SYNCHRONICZNA MEDYTACJA')}</Text>
           </View>
           <Pressable onPress={() => {
             HapticsService.impact('light');
@@ -217,7 +217,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
               <LinearGradient colors={[ACCENT + 'EE', ACCENT + '66']} style={StyleSheet.absoluteFill} />
               <Animated.View style={ps}><Globe2 color="#fff" size={34} strokeWidth={1.4} /></Animated.View>
                 <Text style={{ color: '#fff', fontSize: 22, fontWeight: '800', marginTop: 4 }}>{formatLocaleNumber(liveCount)}</Text>
-              <Text style={{ color: isLight ? 'rgba(37,29,22,0.8)' : 'rgba(255,255,255,0.8)', fontSize: 9, letterSpacing: 1.4 }}>DUSZ TERAZ</Text>
+              <Text style={{ color: isLight ? 'rgba(37,29,22,0.8)' : 'rgba(255,255,255,0.8)', fontSize: 9, letterSpacing: 1.4 }}>{t('energyCircle.dusz_teraz', 'DUSZ TERAZ')}</Text>
             </Animated.View>
           </View>
 
@@ -226,7 +226,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
             <LinearGradient colors={[ACCENT + '28', ACCENT + '0A']} style={{ borderRadius: 20, borderWidth: 1, borderColor: ACCENT + '50', padding: 18 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
                 <View>
-                  <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 4 }}>PRZEWODNIK ODDECHU</Text>
+                  <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 4 }}>{t('energyCircle.przewodnik_oddechu', 'PRZEWODNIK ODDECHU')}</Text>
                   <Text style={{ fontSize: 22, fontWeight: '800', color: bactive ? BREATH[bph].c : tc }}>
                     {bactive ? BREATH[bph].label : 'Synchronizuj oddech'}
                   </Text>
@@ -263,7 +263,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
               <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                   <Music color={ACCENT} size={14} />
-                  <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 1.8 }}>WSPÓLNA MUZYKA SESJI</Text>
+                  <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 1.8 }}>{t('energyCircle.wspolna_muzyka_sesji', 'WSPÓLNA MUZYKA SESJI')}</Text>
                 </View>
                 {joined && (
                   <Pressable onPress={toggleMute} style={{ width: 32, height: 32, borderRadius: 16, alignItems: 'center', justifyContent: 'center', backgroundColor: musicMuted ? ACCENT + '28' : ACCENT, borderWidth: 1, borderColor: ACCENT + '60' }}>
@@ -271,7 +271,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
                   </Pressable>
                 )}
               </View>
-              <Text style={{ color: sc, fontSize: 11, marginBottom: 10 }}>Wszyscy uczestnicy słyszą tę samą ścieżkę dźwiękową</Text>
+              <Text style={{ color: sc, fontSize: 11, marginBottom: 10 }}>{t('energyCircle.wszyscy_uczestnicy_slysza_te_sama', 'Wszyscy uczestnicy słyszą tę samą ścieżkę dźwiękową')}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -4 }} contentContainerStyle={{ gap: 8, paddingHorizontal: 4 }}>
                 {SYNC_MUSIC_OPTIONS.map(opt => (
                   <Pressable key={opt.id} onPress={() => { setSyncMusic(opt.id); HapticsService.impact('light'); if (joined && !musicMuted) AudioService.playAmbientForSession(opt.id); }}
@@ -288,7 +288,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
           {joined && (
             <Animated.View entering={FadeIn.duration(400)} style={{ paddingHorizontal: layout.padding.screen, marginTop: 14 }}>
               <View style={{ borderRadius: 18, borderWidth: 1, padding: 18, backgroundColor: cb, borderColor: cbr }}>
-                <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 12 }}>PODZIEL SIĘ SWOJĄ ENERGIĄ</Text>
+                <Text style={{ color: ACCENT, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 12 }}>{t('energyCircle.podziel_sie_swoja_energia', 'PODZIEL SIĘ SWOJĄ ENERGIĄ')}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14, marginBottom: 12 }}>
                   <Text style={{ color: ACCENT, fontSize: 40, fontWeight: '800', width: 60 }}>{energy}</Text>
                   <View style={{ flex: 1, height: 8, borderRadius: 4, overflow: 'hidden', backgroundColor: isLight ? 'rgba(122,95,54,0.18)' : 'rgba(255,255,255,0.10)' }}>
@@ -309,7 +309,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
 
           {/* Community energy */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 22 }}>
-            <Text style={{ color: sc, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 10 }}>ENERGIA ZBIOROWA — OSTATNIE 24H</Text>
+            <Text style={{ color: sc, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 10 }}>{t('energyCircle.energia_zbiorowa_ostatnie_24h', 'ENERGIA ZBIOROWA — OSTATNIE 24H')}</Text>
             <View style={{ borderRadius: 18, borderWidth: 1, padding: 18, backgroundColor: cb, borderColor: cbr }}>
               {[{ l: 'Spokój', v: 78, c: '#10B981' }, { l: 'Klarowność', v: 65, c: ACCENT }, { l: 'Miłość', v: 82, c: '#EC4899' }, { l: 'Siła', v: 59, c: '#F59E0B' }].map(({ l, v, c }) => (
                 <View key={l} style={{ marginBottom: 12 }}>
@@ -327,7 +327,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
 
           {/* Session filter */}
           <View style={{ marginTop: 22 }}>
-            <Text style={{ color: sc, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, paddingHorizontal: layout.padding.screen, marginBottom: 10 }}>NADCHODZĄCE SESJE</Text>
+            <Text style={{ color: sc, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, paddingHorizontal: layout.padding.screen, marginBottom: 10 }}>{t('energyCircle.nadchodzac_sesje', 'NADCHODZĄCE SESJE')}</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: layout.padding.screen, gap: 8 }}>
               {TYPES.map(tp => (
                 <Pressable key={tp} onPress={() => setFilter(tp)} style={{ paddingHorizontal: 14, paddingVertical: 8, borderRadius: 12, borderWidth: 1, backgroundColor: filter === tp ? ACCENT + '28' : cb, borderColor: filter === tp ? ACCENT : cbr }}>
@@ -354,7 +354,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
                       <Clock size={11} color={sess.color} /><Text style={{ color: sess.color, fontSize: 12, fontWeight: '700' }}>{sess.time}</Text>
                     </View>
                     <Pressable onPress={() => HapticsService.impact('light')} style={{ paddingHorizontal: 12, paddingVertical: 6, borderRadius: 10, borderWidth: 1, backgroundColor: sess.color + '22', borderColor: sess.color + '44' }}>
-                      <Text style={{ color: sess.color, fontSize: 11, fontWeight: '700' }}>Dołącz</Text>
+                      <Text style={{ color: sess.color, fontSize: 11, fontWeight: '700' }}>{t('energyCircle.dolacz', 'Dołącz')}</Text>
                     </Pressable>
                   </View>
                 </LinearGradient>
@@ -370,15 +370,15 @@ export const EnergyCircleScreen = ({ navigation }) => {
                   <Flame color="#10B981" size={22} strokeWidth={1.5} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={{ color: '#10B981', fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 2 }}>AKTYWNA SESJA</Text>
+                  <Text style={{ color: '#10B981', fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 2 }}>{t('energyCircle.aktywna_sesja', 'AKTYWNA SESJA')}</Text>
                   <Text style={{ color: tc, fontSize: 20, fontWeight: '800' }}>
                     {String(Math.floor(joinSeconds / 60)).padStart(2, '0')}:{String(joinSeconds % 60).padStart(2, '0')}
                   </Text>
-                  <Text style={{ color: sc, fontSize: 11, marginTop: 1 }}>Twoja energia płynie do kręgu</Text>
+                  <Text style={{ color: sc, fontSize: 11, marginTop: 1 }}>{t('energyCircle.twoja_energia_plynie_do_kregu', 'Twoja energia płynie do kręgu')}</Text>
                 </View>
                 <View style={{ alignItems: 'center' }}>
                   <Text style={{ color: '#10B981', fontSize: 22, fontWeight: '800' }}>{energy}%</Text>
-                  <Text style={{ color: sc, fontSize: 9 }}>udział</Text>
+                  <Text style={{ color: sc, fontSize: 9 }}>{t('energyCircle.udzial', 'udział')}</Text>
                 </View>
               </LinearGradient>
             </Animated.View>
@@ -386,7 +386,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
 
           {/* Community intentions board */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 22 }}>
-            <Text style={{ color: sc, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 10 }}>INTENCJE WSPÓLNOTY</Text>
+            <Text style={{ color: sc, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 10 }}>{t('energyCircle.intencje_wspolnoty', 'INTENCJE WSPÓLNOTY')}</Text>
             <View style={{ borderRadius: 18, borderWidth: 1, backgroundColor: cb, borderColor: cbr, overflow: 'hidden' }}>
               {intentions.slice(0, 4).map((item, i) => (
                 <View key={item.id} style={{ flexDirection: 'row', gap: 10, padding: 14, borderBottomWidth: i < Math.min(intentions.length, 4) - 1 ? 1 : 0, borderBottomColor: cbr }}>
@@ -408,7 +408,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
                 <TextInput
                   value={intentionInput}
                   onChangeText={setIntentionInput}
-                  placeholder="Wyślij intencję do kręgu..."
+                  placeholder={t('energyCircle.wyslij_intencje_do_kregu', 'Wyślij intencję do kręgu...')}
                   placeholderTextColor={sc}
                   style={{ flex: 1, color: tc, fontSize: 13, paddingVertical: 4 }}
                   returnKeyType="send"
@@ -433,7 +433,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
 
           {/* Stats */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 22 }}>
-            <Text style={{ color: sc, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 10 }}>TWOJE STATYSTYKI</Text>
+            <Text style={{ color: sc, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 10 }}>{t('energyCircle.twoje_statystyki', 'TWOJE STATYSTYKI')}</Text>
             <View style={{ flexDirection: 'row', gap: 10 }}>
               {[{ l: 'Sesje', v: String(totalSessionCount), I: Users }, { l: 'Minuty', v: String(totalMinutes), I: Clock }, { l: 'Energia', v: `${energy}%`, I: Zap }].map(({ l, v, I }) => (
                 <View key={l} style={{ flex: 1, borderRadius: 16, borderWidth: 1, padding: 14, alignItems: 'center', backgroundColor: cb, borderColor: cbr }}>
@@ -447,7 +447,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
 
           {/* CO DALEJ */}
           <View style={{ paddingHorizontal: layout.padding.screen, marginTop: 24 }}>
-            <Text style={{ color: sc, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 10 }}>✦ CO DALEJ?</Text>
+            <Text style={{ color: sc, fontSize: 9, fontWeight: '700', letterSpacing: 1.8, marginBottom: 10 }}>{t('energyCircle.co_dalej', '✦ CO DALEJ?')}</Text>
             {[
               { label: 'Oddech grupowy', sub: 'Zsynchronizuj się z innymi', color: '#6366F1', route: 'BreathworkScreen' },
               { label: 'Czat wspólnoty', sub: 'Podziel się przeżyciem', color: '#EC4899', route: 'CommunityChatScreen' },

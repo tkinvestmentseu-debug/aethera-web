@@ -278,8 +278,8 @@ const DreamMoonHero = ({ isLight }: { isLight: boolean }) => {
         </Animated.View>
       </View>
       <View style={di.moonHeroText}>
-        <Text style={[di.moonHeroEyebrow, { color: ACCENT }]}>BRAMA SNU</Text>
-        <Text style={[di.moonHeroTitle, { color: isLight ? '#1A1428' : '#F0EAFF' }]}>Nie szukasz etykiety. Otwierasz zapis nocnej symboliki.</Text>
+        <Text style={[di.moonHeroEyebrow, { color: ACCENT }]}>{t('dreamInterpreter.brama_snu', 'BRAMA SNU')}</Text>
+        <Text style={[di.moonHeroTitle, { color: isLight ? '#1A1428' : '#F0EAFF' }]}>{t('dreamInterpreter.nie_szukasz_etykiety_otwierasz_zapi', 'Nie szukasz etykiety. Otwierasz zapis nocnej symboliki.')}</Text>
         <View style={di.moonPhasePill}>
           <Text style={[di.moonHeroPhaseName, { color: ACCENT }]}>{moonPhaseInfo.name}</Text>
           <Text style={[di.moonHeroTip, { color: isLight ? '#6A5A88' : '#B0A3C8' }]}>{moonPhaseInfo.dreamTip}</Text>
@@ -544,8 +544,8 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
               <ChevronLeft color={ACCENT} size={28} strokeWidth={1.5} />
             </Pressable>
             <View style={di.headerCenter}>
-              <Text style={[di.eyebrow, { color: ACCENT }]}>SENNIK AI</Text>
-              <Text style={[di.title, { color: textColor }]}>Interpretuj sen</Text>
+              <Text style={[di.eyebrow, { color: ACCENT }]}>{t('dreamInterpreter.sennik_ai', 'SENNIK AI')}</Text>
+              <Text style={[di.title, { color: textColor }]}>{t('dreamInterpreter.interpretu_sen', 'Interpretuj sen')}</Text>
             </View>
             <Pressable onPress={handleAddFavorite} style={di.starBtn} hitSlop={14}>
               <Star color={ACCENT} size={20} strokeWidth={1.6} fill={isFav ? ACCENT : 'none'} />
@@ -561,8 +561,8 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
             <Animated.View entering={FadeInDown.duration(500).delay(60)}>
               <View style={[di.sectionCard, { backgroundColor: cardBg, borderColor: ACCENT + '33' }]}>
                 <LinearGradient colors={[ACCENT + '10', 'transparent']} style={StyleSheet.absoluteFill} />
-                <Text style={[di.sectionEyebrow, { color: ACCENT }]}>🌙 JAKOŚĆ SNU</Text>
-                <Text style={[di.sectionSubtitle, { color: subColor }]}>Jak wyglądał Twój sen tej nocy?</Text>
+                <Text style={[di.sectionEyebrow, { color: ACCENT }]}>{t('dreamInterpreter.jakosc_snu', '🌙 JAKOŚĆ SNU')}</Text>
+                <Text style={[di.sectionSubtitle, { color: subColor }]}>{t('dreamInterpreter.jak_wygladal_twoj_sen_tej', 'Jak wyglądał Twój sen tej nocy?')}</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={di.qualityRow}>
                   {QUALITY_CHIPS.map(chip => {
                     const active = sleepQuality === chip.id;
@@ -585,8 +585,8 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
             <Animated.View entering={FadeInDown.duration(500).delay(80)}>
               <View style={[di.sectionCard, { backgroundColor: cardBg, borderColor: ACCENT + '33' }]}>
                 <LinearGradient colors={[ACCENT + '0A', 'transparent']} style={StyleSheet.absoluteFill} />
-                <Text style={[di.sectionEyebrow, { color: ACCENT }]}>💭 NASTRÓJ I LUCYDNOŚĆ</Text>
-                <Text style={[di.sectionSubtitle, { color: subColor }]}>Jaki nastrój przeważał w śnie?</Text>
+                <Text style={[di.sectionEyebrow, { color: ACCENT }]}>{t('dreamInterpreter.nastroj_i_lucydnosc', '💭 NASTRÓJ I LUCYDNOŚĆ')}</Text>
+                <Text style={[di.sectionSubtitle, { color: subColor }]}>{t('dreamInterpreter.jaki_nastroj_przewazal_w_snie', 'Jaki nastrój przeważał w śnie?')}</Text>
                 <View style={di.moodGrid}>
                   {MOOD_OPTIONS.map(m => {
                     const active = selectedMood === m.id;
@@ -601,7 +601,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                 </View>
                 <View style={di.lucidRow}>
                   <Eye color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={[di.lucidLabel, { color: ACCENT }]}>LUCYDNOŚĆ</Text>
+                  <Text style={[di.lucidLabel, { color: ACCENT }]}>{t('dreamInterpreter.lucydnosc', 'LUCYDNOŚĆ')}</Text>
                   <Text style={[di.lucidSub, { color: subColor }]}>{lucidityRating}/5</Text>
                 </View>
                 <View style={di.lucidStars}>
@@ -625,9 +625,9 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                 <LinearGradient colors={[ACCENT + '08', 'transparent']} style={StyleSheet.absoluteFill} />
                 <View style={di.sectionHeaderRow}>
                   <Tag color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={[di.sectionEyebrow, { color: ACCENT }]}>TYPY SNÓW</Text>
+                  <Text style={[di.sectionEyebrow, { color: ACCENT }]}>{t('dreamInterpreter.typy_snow', 'TYPY SNÓW')}</Text>
                 </View>
-                <Text style={[di.sectionSubtitle, { color: subColor }]}>Wybierz jeden lub więcej typów, które pasują do Twojego snu.</Text>
+                <Text style={[di.sectionSubtitle, { color: subColor }]}>{t('dreamInterpreter.wybierz_jeden_lub_wiecej_typow', 'Wybierz jeden lub więcej typów, które pasują do Twojego snu.')}</Text>
                 <View style={di.dreamTypeGrid}>
                   {DREAM_TYPE_TAGS.map(dt => {
                     const active = selectedDreamTypes.has(dt.id);
@@ -647,7 +647,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
             <Animated.View entering={FadeInDown.duration(500).delay(110)}>
               <View style={[di.moonCard, { backgroundColor: cardBg, borderColor: ACCENT + '33' }]}>
                 <LinearGradient colors={[ACCENT + '0E', 'transparent']} style={StyleSheet.absoluteFill} />
-                <Text style={[di.sectionEyebrow, { color: ACCENT }]}>🌕 FAZA KSIĘŻYCA PRZY ŚNIE</Text>
+                <Text style={[di.sectionEyebrow, { color: ACCENT }]}>{t('dreamInterpreter.faza_ksiezyca_przy_snie', '🌕 FAZA KSIĘŻYCA PRZY ŚNIE')}</Text>
                 <View style={di.moonRow}>
                   <Text style={di.moonEmoji}>{moonPhaseInfo.emoji}</Text>
                   <View style={di.moonInfo}>
@@ -657,7 +657,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                 </View>
                 <Pressable onPress={() => navigation.navigate('LunarCalendar')} style={[di.moonLinkBtn, { borderColor: ACCENT + '44' }]}>
                   <CalendarDays color={ACCENT} size={14} />
-                  <Text style={[di.moonLinkText, { color: ACCENT }]}>Pełny kalendarz księżycowy</Text>
+                  <Text style={[di.moonLinkText, { color: ACCENT }]}>{t('dreamInterpreter.pelny_kalendarz_ksiezycowy', 'Pełny kalendarz księżycowy')}</Text>
                   <ArrowRight color={ACCENT} size={13} />
                 </Pressable>
               </View>
@@ -668,14 +668,14 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
               <View style={[di.inputCard, { backgroundColor: cardBg, borderColor: ACCENT + '44' }]}>
                 <LinearGradient colors={[ACCENT + '14', 'transparent']} style={StyleSheet.absoluteFill} />
                 <View style={di.inputLabelRow}>
-                  <Text style={[di.inputLabel, { color: ACCENT }]}>OPISZ SWÓJ SEN</Text>
+                  <Text style={[di.inputLabel, { color: ACCENT }]}>{t('dreamInterpreter.opisz_swoj_sen', 'OPISZ SWÓJ SEN')}</Text>
                   <Text style={[di.charCounter, { color: dreamText.length > 800 ? '#F87171' : subColor }]}>{dreamText.length}/1200</Text>
                 </View>
-                <Text style={[di.inputBody, { color: subColor }]}>Zapisz obrazy tak, jak wracają. Nie poprawiaj ich na siłę. Szczegóły, które wydają się dziwne, często niosą najmocniejsze znaczenie.</Text>
-                <MysticalInput value={dreamText} onChangeText={t => setDreamText(t.slice(0, 1200))} placeholder="Opisz sen, który wciąż z Tobą zostaje. Nie musisz pamiętać wszystkiego — wystarczy jeden obraz, jedno uczucie..." placeholderTextColor={subColor} multiline onFocusScroll={() => focusIntoView()} textAlignVertical="top" style={{ color: textColor, minHeight: 110, fontSize: 15, lineHeight: 24 }} />
+                <Text style={[di.inputBody, { color: subColor }]}>{t('dreamInterpreter.zapisz_obrazy_tak_jak_wracaja', 'Zapisz obrazy tak, jak wracają. Nie poprawiaj ich na siłę. Szczegóły, które wydają się dziwne, często niosą najmocniejsze znaczenie.')}</Text>
+                <MysticalInput value={dreamText} onChangeText={t => setDreamText(t.slice(0, 1200))} placeholder={t('dreamInterpreter.opisz_sen_ktory_wciaz_z', 'Opisz sen, który wciąż z Tobą zostaje. Nie musisz pamiętać wszystkiego — wystarczy jeden obraz, jedno uczucie...')} placeholderTextColor={subColor} multiline onFocusScroll={() => focusIntoView()} textAlignVertical="top" style={{ color: textColor, minHeight: 110, fontSize: 15, lineHeight: 24 }} />
                 {detectedSymbols.length > 0 && !loading && (
                   <View style={di.symbolsRow}>
-                    <Text style={[di.symbolsLabel, { color: ACCENT }]}>Wykryte:</Text>
+                    <Text style={[di.symbolsLabel, { color: ACCENT }]}>{t('dreamInterpreter.wykryte', 'Wykryte:')}</Text>
                     {detectedSymbols.map(s => <View key={s.id} style={[di.symbolChip, { backgroundColor: ACCENT + '18', borderColor: ACCENT + '33' }]}><Text style={[di.symbolChipText, { color: ACCENT }]}>{s.keyword}</Text></View>)}
                   </View>
                 )}
@@ -697,14 +697,14 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                   <View style={{ position: 'absolute', bottom: 10, left: 16, width: 8, height: 8, borderBottomWidth: 1.8, borderLeftWidth: 1.8, borderColor: ACCENT + '55' }} pointerEvents="none" />
                   <View style={di.resultHeader}>
                     <Moon color={ACCENT} size={18} />
-                    <Text style={[di.resultLabel, { color: ACCENT }]}>INTERPRETACJA ORACLE</Text>
+                    <Text style={[di.resultLabel, { color: ACCENT }]}>{t('dreamInterpreter.interpreta_oracle', 'INTERPRETACJA ORACLE')}</Text>
                   </View>
                   <Text style={[di.resultBody, { color: textColor }]}>{interpretation}</Text>
 
                   {/* Detected archetypes in result */}
                   {detectedArchetypes.length > 0 && (
                     <>
-                      <Text style={[di.symbolsTitle, { color: ACCENT }]}>🔮 ARCHETYPY W TYM ŚNIE</Text>
+                      <Text style={[di.symbolsTitle, { color: ACCENT }]}>{t('dreamInterpreter.archetypy_w_tym_snie', '🔮 ARCHETYPY W TYM ŚNIE')}</Text>
                       {detectedArchetypes.map(a => (
                         <View key={a.name} style={[di.archetypeResultCard, { backgroundColor: a.color + (isLight ? '12' : '1C'), borderColor: a.color + '30' }]}>
                           <Text style={di.archetypeResultIcon}>{a.icon}</Text>
@@ -719,7 +719,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
 
                   {detectedSymbols.length > 0 && (
                     <>
-                      <Text style={[di.symbolsTitle, { color: ACCENT }]}>💭 SYMBOLE SŁOWNIKA</Text>
+                      <Text style={[di.symbolsTitle, { color: ACCENT }]}>{t('dreamInterpreter.symbole_slownika', '💭 SYMBOLE SŁOWNIKA')}</Text>
                       {detectedSymbols.map(s => (
                         <View key={s.id} style={[di.symbolDetailCard, { backgroundColor: isLight ? 'rgba(129,140,248,0.07)' : 'rgba(129,140,248,0.10)', borderColor: ACCENT + '30' }]}>
                           <View style={di.symbolDetailHeader}>
@@ -737,7 +737,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
 
                   {questions.length > 0 && (
                     <>
-                      <Text style={[di.questionsTitle, { color: ACCENT }]}>PYTANIA DO REFLEKSJI</Text>
+                      <Text style={[di.questionsTitle, { color: ACCENT }]}>{t('dreamInterpreter.pytania_do_refleksji', 'PYTANIA DO REFLEKSJI')}</Text>
                       {questions.map((q, i) => (
                         <Pressable key={i} onPress={() => navigation.navigate('JournalEntry', { prompt: q, type: 'dream' })} style={[di.questionRow, { borderColor: ACCENT + '28' }]}>
                           <Text style={[di.questionText, { color: textColor }]}>{q}</Text>
@@ -748,12 +748,12 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                   )}
 
                   <View style={[di.integrationCard, { borderColor: ACCENT + '26', backgroundColor: ACCENT + '10' }]}>
-                    <Text style={[di.integrationTitle, { color: ACCENT }]}>PO INTERPRETACJI</Text>
-                    <Text style={[di.integrationBody, { color: subColor }]}>Zatrzymaj jedno zdanie z odczytu i przenieś je do dziennika. Sen zaczyna działać dopiero wtedy, gdy dostaje miejsce w codzienności.</Text>
+                    <Text style={[di.integrationTitle, { color: ACCENT }]}>{t('dreamInterpreter.po_interpreta', 'PO INTERPRETACJI')}</Text>
+                    <Text style={[di.integrationBody, { color: subColor }]}>{t('dreamInterpreter.zatrzymaj_jedno_zdanie_z_odczytu', 'Zatrzymaj jedno zdanie z odczytu i przenieś je do dziennika. Sen zaczyna działać dopiero wtedy, gdy dostaje miejsce w codzienności.')}</Text>
                   </View>
                   {!saved
-                    ? <Pressable onPress={saveDream} style={[di.saveBtn, { borderColor: ACCENT + '55', backgroundColor: ACCENT + '14' }]}><Brain color={ACCENT} size={16} /><Text style={[di.saveBtnText, { color: ACCENT }]}>Zapisz w archiwum snów</Text></Pressable>
-                    : <View style={di.savedBadge}><Text style={[di.savedText, { color: ACCENT }]}>✓ Zapisano w archiwum</Text></View>
+                    ? <Pressable onPress={saveDream} style={[di.saveBtn, { borderColor: ACCENT + '55', backgroundColor: ACCENT + '14' }]}><Brain color={ACCENT} size={16} /><Text style={[di.saveBtnText, { color: ACCENT }]}>{t('dreamInterpreter.zapisz_w_archiwum_snow', 'Zapisz w archiwum snów')}</Text></Pressable>
+                    : <View style={di.savedBadge}><Text style={[di.savedText, { color: ACCENT }]}>{t('dreamInterpreter.zapisano_w_archiwum', '✓ Zapisano w archiwum')}</Text></View>
                   }
                 </View>
               </Animated.View>
@@ -765,9 +765,9 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                 <LinearGradient colors={[ACCENT + '0C', 'transparent']} style={StyleSheet.absoluteFill} />
                 <View style={di.sectionHeaderRow}>
                   <Brain color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={[di.sectionEyebrow, { color: ACCENT }]}>PYTANIA POGŁĘBIAJĄCE</Text>
+                  <Text style={[di.sectionEyebrow, { color: ACCENT }]}>{t('dreamInterpreter.pytania_poglebiaja', 'PYTANIA POGŁĘBIAJĄCE')}</Text>
                 </View>
-                <Text style={[di.sectionSubtitle, { color: subColor }]}>5 Jungowskich pytań, które pomagają zejść głębiej z materiałem snu.</Text>
+                <Text style={[di.sectionSubtitle, { color: subColor }]}>{t('dreamInterpreter.5_jungowskic_pytan_ktore_pomagaja', '5 Jungowskich pytań, które pomagają zejść głębiej z materiałem snu.')}</Text>
                 {JUNGIAN_QUESTIONS.map((q, i) => (
                   <Pressable key={i} onPress={() => navigation.navigate('JournalEntry', { prompt: q, type: 'dream' })}
                     style={[di.jungianRow, { borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.09)', borderBottomWidth: i < JUNGIAN_QUESTIONS.length - 1 ? StyleSheet.hairlineWidth : 0 }]}>
@@ -787,16 +787,16 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                 <LinearGradient colors={[ACCENT + '08', 'transparent']} style={StyleSheet.absoluteFill} />
                 <Pressable onPress={() => setShowSymbolDict(!showSymbolDict)} style={di.sectionHeaderRow}>
                   <Search color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={[di.sectionEyebrow, { color: ACCENT, flex: 1 }]}>SŁOWNIK SYMBOLI</Text>
+                  <Text style={[di.sectionEyebrow, { color: ACCENT, flex: 1 }]}>{t('dreamInterpreter.slownik_symboli', 'SŁOWNIK SYMBOLI')}</Text>
                   <Text style={[di.dictCount, { color: subColor }]}>{QUICK_SYMBOLS.length} symboli</Text>
                   {showSymbolDict ? <ChevronUp color={ACCENT} size={16} /> : <ChevronDown color={ACCENT} size={16} />}
                 </Pressable>
-                <Text style={[di.sectionSubtitle, { color: subColor }]}>30+ najczęstszych symboli snów. Dotknij symbol po rozwinięciu, aby zobaczyć pełne znaczenie.</Text>
+                <Text style={[di.sectionSubtitle, { color: subColor }]}>{t('dreamInterpreter.30_najczestsz_symboli_snow_dotknij', '30+ najczęstszych symboli snów. Dotknij symbol po rozwinięciu, aby zobaczyć pełne znaczenie.')}</Text>
                 {showSymbolDict && (
                   <Animated.View entering={FadeInDown.duration(300)}>
                     <View style={[di.dictSearchRow, { backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.06)', borderColor: isLight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)' }]}>
                       <Search color={subColor} size={14} strokeWidth={1.6} />
-                      <TextInput value={symbolSearch} onChangeText={setSymbolSearch} placeholder="Szukaj symbolu..." placeholderTextColor={subColor} style={[di.dictSearchInput, { color: textColor }]} />
+                      <TextInput value={symbolSearch} onChangeText={setSymbolSearch} placeholder={t('dreamInterpreter.szukaj_symbolu', 'Szukaj symbolu...')} placeholderTextColor={subColor} style={[di.dictSearchInput, { color: textColor }]} />
                       {symbolSearch.length > 0 && (
                         <Pressable onPress={() => setSymbolSearch('')} hitSlop={8}>
                           <Text style={{ color: subColor, fontSize: 16 }}>×</Text>
@@ -835,11 +835,11 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                 <LinearGradient colors={[ACCENT + '08', 'transparent']} style={StyleSheet.absoluteFill} />
                 <Pressable onPress={() => setShowRecurring(!showRecurring)} style={di.sectionHeaderRow}>
                   <CheckSquare color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={[di.sectionEyebrow, { color: ACCENT, flex: 1 }]}>POWTARZAJĄCE SIĘ SNY</Text>
+                  <Text style={[di.sectionEyebrow, { color: ACCENT, flex: 1 }]}>{t('dreamInterpreter.powtarzaja_sie_sny', 'POWTARZAJĄCE SIĘ SNY')}</Text>
                   <Text style={[di.dictCount, { color: subColor }]}>{Object.keys(checkedThemes).length} zaznaczonych</Text>
                   {showRecurring ? <ChevronUp color={ACCENT} size={16} /> : <ChevronDown color={ACCENT} size={16} />}
                 </Pressable>
-                <Text style={[di.sectionSubtitle, { color: subColor }]}>Zaznacz motywy, które regularnie powracają w Twoich snach. Dotknij licznik, aby zwiększyć częstotliwość.</Text>
+                <Text style={[di.sectionSubtitle, { color: subColor }]}>{t('dreamInterpreter.zaznacz_motywy_ktore_regularnie_pow', 'Zaznacz motywy, które regularnie powracają w Twoich snach. Dotknij licznik, aby zwiększyć częstotliwość.')}</Text>
                 {showRecurring && (
                   <Animated.View entering={FadeInDown.duration(300)} style={{ gap: 8 }}>
                     {RECURRING_THEMES.map(theme => {
@@ -866,7 +866,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                     {Object.keys(checkedThemes).length > 0 && (
                       <View style={[di.recurringInsight, { backgroundColor: ACCENT + '12', borderColor: ACCENT + '30' }]}>
                         <Text style={[di.recurringInsightText, { color: ACCENT }]}>
-                          Powtarzające się sny często wskazują na nierozwiązane napięcia lub ważne przesłanie podświadomości. Rozważ pracę z cieniem lub sesję z Oracle.
+                          {t('dreamInterpreter.powtarzaja_sie_sny_czesto_wskazuja', 'Powtarzające się sny często wskazują na nierozwiązane napięcia lub ważne przesłanie podświadomości. Rozważ pracę z cieniem lub sesję z Oracle.')}
                         </Text>
                       </View>
                     )}
@@ -879,8 +879,8 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
             <Animated.View entering={FadeInDown.duration(500).delay(200)}>
               <View style={[di.sectionCard, { backgroundColor: cardBg, borderColor: ACCENT + '33' }]}>
                 <LinearGradient colors={[ACCENT + '08', 'transparent']} style={StyleSheet.absoluteFill} />
-                <Text style={[di.sectionEyebrow, { color: ACCENT }]}>📖 ARCHETYPY W SNACH</Text>
-                <Text style={[di.sectionSubtitle, { color: subColor }]}>6 Jungowskich wzorców — każdy niesie inną energię i przesłanie</Text>
+                <Text style={[di.sectionEyebrow, { color: ACCENT }]}>{t('dreamInterpreter.archetypy_w_snach', '📖 ARCHETYPY W SNACH')}</Text>
+                <Text style={[di.sectionSubtitle, { color: subColor }]}>{t('dreamInterpreter.6_jungowskic_wzorcow_kazdy_niesie', '6 Jungowskich wzorców — każdy niesie inną energię i przesłanie')}</Text>
                 <View style={di.archetypesGrid}>
                   {ARCHETYPES.map(a => (
                     <View key={a.name} style={[di.archetypeCard, { backgroundColor: a.color + (isLight ? '14' : '1A'), borderColor: a.color + '30' }]}>
@@ -901,9 +901,9 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                   <LinearGradient colors={[ACCENT + '08', 'transparent']} style={StyleSheet.absoluteFill} />
                   <View style={di.sectionHeaderRow}>
                     <BarChart2 color={ACCENT} size={14} strokeWidth={1.8} />
-                    <Text style={[di.sectionEyebrow, { color: ACCENT }]}>WZORCE SNÓW</Text>
+                    <Text style={[di.sectionEyebrow, { color: ACCENT }]}>{t('dreamInterpreter.wzorce_snow', 'WZORCE SNÓW')}</Text>
                   </View>
-                  <Text style={[di.sectionSubtitle, { color: subColor }]}>Najczęstsze symbole w Twoim archiwum snów.</Text>
+                  <Text style={[di.sectionSubtitle, { color: subColor }]}>{t('dreamInterpreter.najczestsz_symbole_w_twoim_archiwum', 'Najczęstsze symbole w Twoim archiwum snów.')}</Text>
                   {/* SVG chart */}
                   <Svg width={SW - 88} height={symbolFrequency.length * 36 + 8} style={{ marginTop: 4 }}>
                     {symbolFrequency.map((item, i) => {
@@ -944,10 +944,10 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                   <LinearGradient colors={[ACCENT + '08', 'transparent']} style={StyleSheet.absoluteFill} />
                   <View style={di.sectionHeaderRow}>
                     <BookOpen color={ACCENT} size={14} strokeWidth={1.8} />
-                    <Text style={[di.sectionEyebrow, { color: ACCENT }]}>HISTORIA SNÓW</Text>
+                    <Text style={[di.sectionEyebrow, { color: ACCENT }]}>{t('dreamInterpreter.historia_snow', 'HISTORIA SNÓW')}</Text>
                     <Text style={[di.dictCount, { color: subColor }]}>{recentDreamInterpretations.length} zapisanych</Text>
                   </View>
-                  <Text style={[di.sectionSubtitle, { color: subColor }]}>Ostatnie 7 snów z archiwum. Dotknij, aby rozwinąć interpretację.</Text>
+                  <Text style={[di.sectionSubtitle, { color: subColor }]}>{t('dreamInterpreter.ostatnie_7_snow_z_archiwum', 'Ostatnie 7 snów z archiwum. Dotknij, aby rozwinąć interpretację.')}</Text>
                   {recentDreamInterpretations.map((item, i) => {
                     const expanded = expandedHistId === item.id;
                     return (
@@ -985,10 +985,10 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                 <LinearGradient colors={[ACCENT + '0A', 'transparent']} style={StyleSheet.absoluteFill} />
                 <Pressable onPress={() => setShowLucidGuide(!showLucidGuide)} style={di.sectionHeaderRow}>
                   <Lightbulb color={ACCENT} size={14} strokeWidth={1.8} />
-                  <Text style={[di.sectionEyebrow, { color: ACCENT, flex: 1 }]}>SNY LUCYDNE — PORADNIK</Text>
+                  <Text style={[di.sectionEyebrow, { color: ACCENT, flex: 1 }]}>{t('dreamInterpreter.sny_lucydne_poradnik', 'SNY LUCYDNE — PORADNIK')}</Text>
                   {showLucidGuide ? <ChevronUp color={ACCENT} size={16} /> : <ChevronDown color={ACCENT} size={16} />}
                 </Pressable>
-                <Text style={[di.sectionSubtitle, { color: subColor }]}>Techniki wprowadzenia się w świadomy sen: WILD, MILD, DILD oraz kontrole rzeczywistości.</Text>
+                <Text style={[di.sectionSubtitle, { color: subColor }]}>{t('dreamInterpreter.techniki_wprowadzen_sie_w_swiadomy', 'Techniki wprowadzenia się w świadomy sen: WILD, MILD, DILD oraz kontrole rzeczywistości.')}</Text>
                 {showLucidGuide && (
                   <Animated.View entering={FadeInDown.duration(350)} style={{ gap: 14 }}>
                     {/* Technique selector */}
@@ -1006,7 +1006,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                       <Animated.View entering={FadeInDown.duration(300)} key={activeLucidTech} style={[di.lucidDetailCard, { backgroundColor: activeLucidData.color + (isLight ? '10' : '18'), borderColor: activeLucidData.color + '30' }]}>
                         <Text style={[di.lucidDetailTitle, { color: activeLucidData.color }]}>{activeLucidData.name} — {activeLucidData.full}</Text>
                         <Text style={[di.lucidDetailDesc, { color: textColor }]}>{activeLucidData.desc}</Text>
-                        <Text style={[di.lucidStepsTitle, { color: activeLucidData.color }]}>KROKI:</Text>
+                        <Text style={[di.lucidStepsTitle, { color: activeLucidData.color }]}>{t('dreamInterpreter.kroki', 'KROKI:')}</Text>
                         {activeLucidData.steps.map((step, si) => (
                           <View key={si} style={di.lucidStepRow}>
                             <View style={[di.lucidStepNum, { backgroundColor: activeLucidData.color + '22', borderColor: activeLucidData.color + '40' }]}>
@@ -1020,7 +1020,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                     {/* Reality checks */}
                     <Pressable onPress={() => setShowRealityChecks(!showRealityChecks)} style={[di.realityChecksHeader, { borderColor: ACCENT + '30' }]}>
                       <Eye color={ACCENT} size={14} />
-                      <Text style={[di.sectionEyebrow, { color: ACCENT, flex: 1 }]}>KONTROLE RZECZYWISTOŚCI</Text>
+                      <Text style={[di.sectionEyebrow, { color: ACCENT, flex: 1 }]}>{t('dreamInterpreter.kontrole_rzeczywist', 'KONTROLE RZECZYWISTOŚCI')}</Text>
                       {showRealityChecks ? <ChevronUp color={ACCENT} size={14} /> : <ChevronDown color={ACCENT} size={14} />}
                     </Pressable>
                     {showRealityChecks && (
@@ -1038,7 +1038,7 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
                     )}
                     {/* Pre-sleep ritual */}
                     <View style={[di.preSleepCard, { backgroundColor: ACCENT + '0E', borderColor: ACCENT + '28' }]}>
-                      <Text style={[di.preSleepTitle, { color: ACCENT }]}>🌙 RYTUAŁ PRZED SNEM</Text>
+                      <Text style={[di.preSleepTitle, { color: ACCENT }]}>{t('dreamInterpreter.rytual_przed_snem', '🌙 RYTUAŁ PRZED SNEM')}</Text>
                       {PRE_SLEEP_RITUAL.map((step, i) => (
                         <View key={i} style={di.preSleepRow}>
                           <View style={[di.preSleepDot, { backgroundColor: ACCENT }]} />
@@ -1055,23 +1055,23 @@ Pisz w języku użytkownika. Bądź konkretny — każde zdanie powinno dotyczy�
             <Animated.View entering={FadeInDown.duration(500).delay(270)}>
               <View style={[di.sectionCard, { backgroundColor: cardBg, borderColor: ACCENT + '33' }]}>
                 <LinearGradient colors={[ACCENT + '0A', 'transparent']} style={StyleSheet.absoluteFill} />
-                <Text style={[di.sectionEyebrow, { color: ACCENT }]}>✦ CO DALEJ?</Text>
-                <Text style={[di.sectionSubtitle, { color: subColor }]}>Pogłęb pracę z materiałem snu</Text>
+                <Text style={[di.sectionEyebrow, { color: ACCENT }]}>{t('dreamInterpreter.co_dalej', '✦ CO DALEJ?')}</Text>
+                <Text style={[di.sectionSubtitle, { color: subColor }]}>{t('dreamInterpreter.pogleb_prace_z_materialem_snu', 'Pogłęb pracę z materiałem snu')}</Text>
                 <Pressable onPress={() => navigation.navigate('LunarCalendar')} style={[di.nextStepRow, { borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.09)' }]}>
                   <View style={[di.nextStepIcon, { backgroundColor: '#818CF8' + '22' }]}><CalendarDays color="#818CF8" size={18} /></View>
-                  <View style={di.nextStepText}><Text style={[di.nextStepTitle, { color: textColor }]}>Kalendarz księżycowy</Text><Text style={[di.nextStepSub, { color: subColor }]}>Powiąż sen z energią Księżyca</Text></View>
+                  <View style={di.nextStepText}><Text style={[di.nextStepTitle, { color: textColor }]}>{t('dreamInterpreter.kalendarz_ksiezycowy', 'Kalendarz księżycowy')}</Text><Text style={[di.nextStepSub, { color: subColor }]}>{t('dreamInterpreter.powiaz_sen_z_energia_ksiezyca', 'Powiąż sen z energią Księżyca')}</Text></View>
                   <ArrowRight color={subColor} size={16} />
                 </Pressable>
                 <Pressable onPress={() => navigation.navigate('ShadowWork')} style={[di.nextStepRow, { borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.09)' }]}>
                   <View style={[di.nextStepIcon, { backgroundColor: '#6366F1' + '22' }]}><Layers color="#6366F1" size={18} /></View>
-                  <View style={di.nextStepText}><Text style={[di.nextStepTitle, { color: textColor }]}>Praca z cieniem</Text><Text style={[di.nextStepSub, { color: subColor }]}>Eksploruj odrzucone aspekty siebie</Text></View>
+                  <View style={di.nextStepText}><Text style={[di.nextStepTitle, { color: textColor }]}>{t('dreamInterpreter.praca_z_cieniem', 'Praca z cieniem')}</Text><Text style={[di.nextStepSub, { color: subColor }]}>{t('dreamInterpreter.eksploruj_odrzucone_aspekty_siebie', 'Eksploruj odrzucone aspekty siebie')}</Text></View>
                   <ArrowRight color={subColor} size={16} />
                 </Pressable>
                 <Pressable
                   onPress={() => navigation.navigate('JournalEntry', { prompt: dreamText ? `Refleksja nad snem: ${dreamText.slice(0, 80)}...` : 'Zapis snu i moich refleksji', type: 'dream' })}
                   style={[di.nextStepRow, { borderColor: isLight ? 'rgba(139,100,42,0.30)' : 'rgba(255,255,255,0.09)', borderBottomWidth: 0 }]}>
                   <View style={[di.nextStepIcon, { backgroundColor: '#34D399' + '22' }]}><BookOpen color="#34D399" size={18} /></View>
-                  <View style={di.nextStepText}><Text style={[di.nextStepTitle, { color: textColor }]}>Dziennik refleksji</Text><Text style={[di.nextStepSub, { color: subColor }]}>Zapisz przemyślenia w dzienniku</Text></View>
+                  <View style={di.nextStepText}><Text style={[di.nextStepTitle, { color: textColor }]}>{t('dreamInterpreter.dziennik_refleksji', 'Dziennik refleksji')}</Text><Text style={[di.nextStepSub, { color: subColor }]}>{t('dreamInterpreter.zapisz_przemyslen_w_dzienniku', 'Zapisz przemyślenia w dzienniku')}</Text></View>
                   <ArrowRight color={subColor} size={16} />
                 </Pressable>
               </View>

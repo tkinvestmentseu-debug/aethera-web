@@ -299,7 +299,7 @@ const MoodTrendChart = ({
 
   return (
     <View style={{ gap: 6 }}>
-      <Text style={[wr.sectionTitle, { color: isLight ? '#2A1E0F' : '#F5F1EA' }]}>NASTRÓJ TYGODNIA</Text>
+      <Text style={[wr.sectionTitle, { color: isLight ? '#2A1E0F' : '#F5F1EA' }]}>{t('weeklyReport.nastroj_tygodnia', 'NASTRÓJ TYGODNIA')}</Text>
       <View style={[wr.card, {
         backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)',
         borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)',
@@ -373,7 +373,7 @@ const PracticeTimeline = ({
 
   return (
     <View style={{ gap: 6 }}>
-      <Text style={[wr.sectionTitle, { color: textColor }]}>PRAKTYKI TYGODNIA</Text>
+      <Text style={[wr.sectionTitle, { color: textColor }]}>{t('weeklyReport.praktyki_tygodnia', 'PRAKTYKI TYGODNIA')}</Text>
       <View style={[wr.card, {
         backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)',
         borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)',
@@ -476,7 +476,7 @@ const EnergyRadar = ({
 
   return (
     <View style={{ gap: 6 }}>
-      <Text style={[wr.sectionTitle, { color: textColor }]}>MAPA ENERGII</Text>
+      <Text style={[wr.sectionTitle, { color: textColor }]}>{t('weeklyReport.mapa_energii', 'MAPA ENERGII')}</Text>
       <View style={[wr.card, {
         backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)',
         borderColor: isLight ? 'rgba(100,70,20,0.14)' : 'rgba(255,255,255,0.10)',
@@ -537,11 +537,11 @@ const EnergyRadar = ({
         <View style={{ flexDirection: 'row', gap: 16, justifyContent: 'center', marginTop: 4 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
             <View style={{ width: 18, height: 2, backgroundColor: accent, borderRadius: 1 }} />
-            <Text style={{ color: isLight ? '#4A3728' : '#B0A49A', fontSize: 10, fontWeight: '600' }}>Ten tydzień</Text>
+            <Text style={{ color: isLight ? '#4A3728' : '#B0A49A', fontSize: 10, fontWeight: '600' }}>{t('weeklyReport.ten_tydzien', 'Ten tydzień')}</Text>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
             <View style={{ width: 18, height: 2, backgroundColor: '#818CF8', borderRadius: 1 }} />
-            <Text style={{ color: isLight ? '#4A3728' : '#B0A49A', fontSize: 10, fontWeight: '600' }}>Poprzedni</Text>
+            <Text style={{ color: isLight ? '#4A3728' : '#B0A49A', fontSize: 10, fontWeight: '600' }}>{t('weeklyReport.poprzedni', 'Poprzedni')}</Text>
           </View>
         </View>
       </View>
@@ -569,7 +569,7 @@ const TopMoments = ({
 
   return (
     <View style={{ gap: 6 }}>
-      <Text style={[wr.sectionTitle, { color: textColor }]}>SZCZYTOWE MOMENTY</Text>
+      <Text style={[wr.sectionTitle, { color: textColor }]}>{t('weeklyReport.szczytowe_momenty', 'SZCZYTOWE MOMENTY')}</Text>
       <View style={{ gap: 8 }}>
         {items.map((item, i) => (
           <View key={i}>
@@ -622,7 +622,7 @@ const Achievements = ({
 
   return (
     <View style={{ gap: 6 }}>
-      <Text style={[wr.sectionTitle, { color: textColor }]}>ODZNAKI TYGODNIA</Text>
+      <Text style={[wr.sectionTitle, { color: textColor }]}>{t('weeklyReport.odznaki_tygodnia', 'ODZNAKI TYGODNIA')}</Text>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
         {unlocked.map((b, i) => (
           <View key={b.id}>
@@ -716,15 +716,15 @@ Format: używaj nagłówków PRZESŁANIE DUSZY:, OBSERWACJA 1:, OBSERWACJA 2:, O
         }]}>
         <Sparkles size={28} color={accent} />
         <Text style={{ color: textColor, fontSize: 16, fontWeight: '700', textAlign: 'center' }}>
-          Poznaj swój tydzień z Oracle
+          {t('weeklyReport.poznaj_swoj_tydzien_z_oracle', 'Poznaj swój tydzień z Oracle')}
         </Text>
         <Text style={{ color: subColor, fontSize: 12.5, textAlign: 'center', lineHeight: 19 }}>
-          Odkryj głębszy sens swojego tygodnia — wzorce, lekcje i wskazówki na przyszłość
+          {t('weeklyReport.odkryj_glebszy_sens_swojego_tygodni', 'Odkryj głębszy sens swojego tygodnia — wzorce, lekcje i wskazówki na przyszłość')}
         </Text>
         <LinearGradient
           colors={[accent, accent + 'BB']}
           style={{ paddingHorizontal: 28, paddingVertical: 11, borderRadius: 999, marginTop: 4 }}>
-          <Text style={{ color: '#1A1000', fontSize: 13.5, fontWeight: '700' }}>Wezwij Oracle ✦</Text>
+          <Text style={{ color: '#1A1000', fontSize: 13.5, fontWeight: '700' }}>{t('weeklyReport.wezwij_oracle', 'Wezwij Oracle ✦')}</Text>
         </LinearGradient>
       </Pressable>
     );
@@ -738,7 +738,7 @@ Format: używaj nagłówków PRZESŁANIE DUSZY:, OBSERWACJA 1:, OBSERWACJA 2:, O
       }]}>
         <ActivityIndicator color={accent} size="small" />
         <Text style={{ color: subColor, fontSize: 13, fontStyle: 'italic' }}>
-          Oracle analizuje Twój tydzień…
+          {t('weeklyReport.oracle_analizuje_twoj_tydzien', 'Oracle analizuje Twój tydzień…')}
         </Text>
       </View>
     );
@@ -751,13 +751,13 @@ Format: używaj nagłówków PRZESŁANIE DUSZY:, OBSERWACJA 1:, OBSERWACJA 2:, O
         padding: 20, gap: 10,
       }]}>
         <Text style={{ color: '#E8705A', fontSize: 13, textAlign: 'center' }}>
-          Nie udało się połączyć z Oracle. Spróbuj ponownie.
+          {t('weeklyReport.nie_udalo_sie_polaczyc_z', 'Nie udało się połączyć z Oracle. Spróbuj ponownie.')}
         </Text>
         <Pressable onPress={() => { HapticsService.impact('light'); fetchInsight(); }}
           style={{ alignSelf: 'center' }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <RefreshCw size={14} color={accent} />
-            <Text style={{ color: accent, fontSize: 13, fontWeight: '600' }}>Ponów</Text>
+            <Text style={{ color: accent, fontSize: 13, fontWeight: '600' }}>{t('weeklyReport.ponow', 'Ponów')}</Text>
           </View>
         </Pressable>
       </View>
@@ -803,7 +803,7 @@ Format: używaj nagłówków PRZESŁANIE DUSZY:, OBSERWACJA 1:, OBSERWACJA 2:, O
         onPress={() => { HapticsService.impact('light'); setInsight(null); }}
         style={{ alignSelf: 'center', flexDirection: 'row', alignItems: 'center', gap: 5, paddingVertical: 4 }}>
         <RefreshCw size={12} color={subColor} />
-        <Text style={{ color: subColor, fontSize: 11 }}>Odśwież</Text>
+        <Text style={{ color: subColor, fontSize: 11 }}>{t('weeklyReport.odswiez', 'Odśwież')}</Text>
       </Pressable>
     </View>
   );
@@ -838,7 +838,7 @@ const WeeklyAffirmationCard = ({
 
   return (
     <View style={{ gap: 6 }}>
-      <Text style={[wr.sectionTitle, { color: isLight ? '#2A1E0F' : '#F5F1EA' }]}>AFIRMACJA TYGODNIA</Text>
+      <Text style={[wr.sectionTitle, { color: isLight ? '#2A1E0F' : '#F5F1EA' }]}>{t('weeklyReport.afirmacja_tygodnia', 'AFIRMACJA TYGODNIA')}</Text>
       <LinearGradient
         colors={[accent + '22', accent + '0A', 'transparent']}
         style={[wr.card, { borderColor: accent + '55', padding: 22, alignItems: 'center', gap: 10 }]}>
@@ -1091,7 +1091,7 @@ export const WeeklyReportScreen = ({ navigation }: any) => {
           <Pressable onPress={() => goBackOrToMainTab(navigation, 'Worlds')} hitSlop={14} style={wr.headerBtn}>
             <ChevronLeft size={22} color={accent} />
           </Pressable>
-          <Text style={[wr.headerTitle, { color: textColor }]}>✦ RAPORT TYGODNIOWY</Text>
+          <Text style={[wr.headerTitle, { color: textColor }]}>{t('weeklyReport.raport_tygodniowy', '✦ RAPORT TYGODNIOWY')}</Text>
           <Pressable onPress={handleAddFavorite} hitSlop={14} style={wr.headerBtn}>
             <Star size={20} color={accent} fill={isFav ? accent : 'transparent'} strokeWidth={1.5} />
           </Pressable>
@@ -1233,7 +1233,7 @@ export const WeeklyReportScreen = ({ navigation }: any) => {
 
           {/* ── AI Oracle Insights ── */}
           <Animated.View entering={FadeInDown.delay(280).duration(400)} style={{ marginBottom: 20 }}>
-            <Text style={[wr.sectionTitle, { color: textColor, marginBottom: 6 }]}>ORACLE INSIGHTS</Text>
+            <Text style={[wr.sectionTitle, { color: textColor, marginBottom: 6 }]}>{t('weeklyReport.oracle_insights', 'ORACLE INSIGHTS')}</Text>
             <AIInsightsCard
               weekDates={weekDates}
               moodScores={moodScores}

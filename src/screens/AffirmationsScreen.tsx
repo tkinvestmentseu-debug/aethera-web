@@ -706,8 +706,8 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
             <ChevronLeft color={catColor} size={26} strokeWidth={1.6} />
           </Pressable>
           <View style={af.headerCenter}>
-            <Typography variant="premiumLabel" color={catColor}>Wsparcie</Typography>
-            <Typography variant="screenTitle" style={{ marginTop: 3 }}>Afirmacje</Typography>
+            <Typography variant="premiumLabel" color={catColor}>{t('affirmations.wsparcie', 'Wsparcie')}</Typography>
+            <Typography variant="screenTitle" style={{ marginTop: 3 }}>{t('affirmations.afirmacje', 'Afirmacje')}</Typography>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
             <Pressable onPress={() => setShowFsModal(true)} style={[af.backBtn, { alignItems: 'center', justifyContent: 'center' }]} hitSlop={12}>
@@ -808,7 +808,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
 
               {ritualTitle && (
                 <View style={[af.handoff, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', marginTop: 16 }]}>
-                  <Typography variant="microLabel" color={catColor}>HANDOFF Z RYTUAŁU</Typography>
+                  <Typography variant="microLabel" color={catColor}>{t('affirmations.handoff_z_rytualu', 'HANDOFF Z RYTUAŁU')}</Typography>
                   <Typography variant="bodySmall" style={af.handoffCopy}>Po praktyce "{ritualTitle}" zostań przy jednym zdaniu i powtórz je w ciszy trzy razy.</Typography>
                 </View>
               )}
@@ -821,7 +821,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
               </View>
 
               <Pressable style={[af.shareRow, { justifyContent: 'center', marginTop: 14 }]} onPress={() => handleShare(dailyPlan.affirmationGuidance.featured.text, dailyPlan.affirmationGuidance.rationale)}>
-                <Typography variant="microLabel" color={catColor}>Udostępnij afirmację</Typography>
+                <Typography variant="microLabel" color={catColor}>{t('affirmations.udostepnij_afirmacje', 'Udostępnij afirmację')}</Typography>
                 <ArrowRight color={catColor} size={13} />
               </Pressable>
             </View>
@@ -844,14 +844,14 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                 <View style={[af.mantraIconWrap, { backgroundColor: '#FBBF2420' }]}>
                   <Stars color="#FBBF24" size={18} strokeWidth={1.6} />
                 </View>
-                <Typography variant="premiumLabel" color="#FBBF24">MANTRA TYGODNIA</Typography>
+                <Typography variant="premiumLabel" color="#FBBF24">{t('affirmations.mantra_tygodnia', 'MANTRA TYGODNIA')}</Typography>
               </View>
               <Typography variant="editorialHeader" style={[af.mantraText, { color: isLight ? '#2A200A' : '#FEF3C7' }]}>
                 {weeklyMantra}
               </Typography>
               <View style={[af.mantraFooter, { borderTopColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(251,191,36,0.14)' }]}>
                 <Sparkles color="#FBBF24" size={12} />
-                <Typography variant="microLabel" color="#FBBF24" style={{ marginLeft: 6 }}>Nowa mantra każdego tygodnia</Typography>
+                <Typography variant="microLabel" color="#FBBF24" style={{ marginLeft: 6 }}>{t('affirmations.nowa_mantra_kazdego_tygodnia', 'Nowa mantra każdego tygodnia')}</Typography>
               </View>
             </View>
           </Animated.View>
@@ -876,7 +876,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                   <Clock color="#C084FC" size={18} strokeWidth={1.6} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Typography variant="premiumLabel" color="#C084FC">AFIRMACJA GODZINY</Typography>
+                  <Typography variant="premiumLabel" color="#C084FC">{t('affirmations.afirmacja_godziny', 'AFIRMACJA GODZINY')}</Typography>
                   <Typography variant="caption" style={{ opacity: 0.62, marginTop: 1 }}>Godz. {currentHour}:00 — zmienia się co godzinę</Typography>
                 </View>
               </View>
@@ -887,7 +887,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                 onPress={() => handleShare(hourlyAffirmation)}
                 style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}
               >
-                <Typography variant="microLabel" color="#C084FC">Udostępnij tę chwilę</Typography>
+                <Typography variant="microLabel" color="#C084FC">{t('affirmations.udostepnij_te_chwile', 'Udostępnij tę chwilę')}</Typography>
                 <ArrowRight color="#C084FC" size={13} />
               </Pressable>
             </View>
@@ -939,7 +939,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
 
           {/* FLOW */}
           <View style={[af.flowCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(139,100,42,0.45)' : 'rgba(244,114,182,0.14)' }]}>
-            <Typography variant="premiumLabel" color={catColor}>Jak działa wsparcie</Typography>
+            <Typography variant="premiumLabel" color={catColor}>{t('affirmations.jak_dziala_wsparcie', 'Jak działa wsparcie')}</Typography>
             {FLOW_STEPS.map((s, i) => (
               <View key={s.n} style={[af.flowRow, i > 0 && af.flowBorder]}>
                 <View style={[af.flowNum, { backgroundColor: catColor + '20' }]}>
@@ -965,13 +965,13 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                   <FlipHorizontal color="#60A5FA" size={18} strokeWidth={1.6} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Typography variant="premiumLabel" color="#60A5FA">ĆWICZENIE LUSTRZANE</Typography>
-                  <Typography variant="caption" style={{ opacity: 0.72, marginTop: 2 }}>Powiedz afirmację patrząc sobie w oczy</Typography>
+                  <Typography variant="premiumLabel" color="#60A5FA">{t('affirmations.cwiczenie_lustrzane', 'ĆWICZENIE LUSTRZANE')}</Typography>
+                  <Typography variant="caption" style={{ opacity: 0.72, marginTop: 2 }}>{t('affirmations.powiedz_afirmacje_patrzac_sobie_w', 'Powiedz afirmację patrząc sobie w oczy')}</Typography>
                 </View>
                 {mirrorAllDone && (
                   <View style={[af.mirrorDoneBadge, { backgroundColor: '#34D39920', borderColor: '#34D39944' }]}>
                     <Check color="#34D399" size={12} strokeWidth={2.5} />
-                    <Typography variant="microLabel" color="#34D399" style={{ marginLeft: 4 }}>Gotowe</Typography>
+                    <Typography variant="microLabel" color="#34D399" style={{ marginLeft: 4 }}>{t('affirmations.gotowe', 'Gotowe')}</Typography>
                   </View>
                 )}
               </View>
@@ -1025,8 +1025,8 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                   <Repeat color={catColor} size={18} strokeWidth={1.6} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Typography variant="premiumLabel" color={catColor}>108 POWTÓRZEŃ</Typography>
-                  <Typography variant="caption" style={{ opacity: 0.65, marginTop: 2 }}>Święta liczba w tradycji wedyjskiej</Typography>
+                  <Typography variant="premiumLabel" color={catColor}>{t('affirmations.108_powtorzen', '108 POWTÓRZEŃ')}</Typography>
+                  <Typography variant="caption" style={{ opacity: 0.65, marginTop: 2 }}>{t('affirmations.swieta_liczba_w_tradycji_wedyjskiej', 'Święta liczba w tradycji wedyjskiej')}</Typography>
                 </View>
                 {repElapsed > 0 && (
                   <View style={[af.repTimerBadge, { backgroundColor: catColor + '18', borderColor: catColor + '33' }]}>
@@ -1036,7 +1036,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
               </View>
 
               <Typography variant="caption" style={{ opacity: 0.72, lineHeight: 18, marginBottom: 20 }}>
-                108 to liczba pojawia się w wedyjskich mantrach, buddyjskich koralkach i astronomii. Podzielona na cztery kwadranty: 27 × 4 = 108 — każdy segment przynosi inne przebudzenie.
+                {t('affirmations.108_to_liczba_pojawia_sie', '108 to liczba pojawia się w wedyjskich mantrach, buddyjskich koralkach i astronomii. Podzielona na cztery kwadranty: 27 × 4 = 108 — każdy segment przynosi inne przebudzenie.')}
               </Typography>
 
               {/* Milestones */}
@@ -1077,7 +1077,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                     style={[af.repStartBtn, { backgroundColor: catColor }]}
                   >
                     <Play color="#fff" size={16} strokeWidth={2} />
-                    <Typography variant="microLabel" style={{ color: '#fff', marginLeft: 8 }}>Rozpocznij praktykę</Typography>
+                    <Typography variant="microLabel" style={{ color: '#fff', marginLeft: 8 }}>{t('affirmations.rozpocznij_praktyke', 'Rozpocznij praktykę')}</Typography>
                   </Pressable>
                 )}
                 {repActive && (
@@ -1086,8 +1086,8 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                       onPress={handleRep}
                       style={[af.repTapBtn, { backgroundColor: catColor, shadowColor: catColor, shadowOpacity: 0.5, shadowRadius: 20, elevation: 8 }]}
                     >
-                      <Typography variant="premiumLabel" style={{ color: '#fff', fontSize: 16 }}>DOTKNIJ</Typography>
-                      <Typography variant="caption" style={{ color: '#ffffff99', fontSize: 11, marginTop: 2 }}>jedno powtórzenie</Typography>
+                      <Typography variant="premiumLabel" style={{ color: '#fff', fontSize: 16 }}>{t('affirmations.dotknij', 'DOTKNIJ')}</Typography>
+                      <Typography variant="caption" style={{ color: '#ffffff99', fontSize: 11, marginTop: 2 }}>{t('affirmations.jedno_powtorzeni', 'jedno powtórzenie')}</Typography>
                     </Pressable>
                     <Pressable onPress={stopRepSession} style={[af.repStopBtn, { borderColor: catColor + '55' }]}>
                       <Pause color={catColor} size={16} strokeWidth={2} />
@@ -1098,7 +1098,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                   <View style={[af.repCompleteBox, { backgroundColor: catColor + '15', borderColor: catColor + '44' }]}>
                     <Sparkles color={catColor} size={18} strokeWidth={1.6} />
                     <View style={{ flex: 1, marginLeft: 12 }}>
-                      <Typography variant="cardTitle" color={catColor}>108 powtórzeń ukończone!</Typography>
+                      <Typography variant="cardTitle" color={catColor}>{t('affirmations.108_powtorzen_ukonczone', '108 powtórzeń ukończone!')}</Typography>
                       <Typography variant="caption" style={{ opacity: 0.72, marginTop: 2 }}>
                         Czas: {formatRepTime(repElapsed)} · Głęboka transformacja zakorzeniona.
                       </Typography>
@@ -1108,7 +1108,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                 {(repComplete || repCount > 0) && (
                   <Pressable onPress={resetReps} style={[af.repResetBtn, { borderColor: catColor + '33' }]}>
                     <SkipForward color={catColor} size={14} strokeWidth={2} />
-                    <Typography variant="microLabel" color={catColor} style={{ marginLeft: 6 }}>Reset</Typography>
+                    <Typography variant="microLabel" color={catColor} style={{ marginLeft: 6 }}>{t('affirmations.reset', 'Reset')}</Typography>
                   </Pressable>
                 )}
               </View>
@@ -1128,7 +1128,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                   {audioModeActive ? <Mic color="#34D399" size={18} strokeWidth={1.6} /> : <MicOff color="#34D399" size={18} strokeWidth={1.6} />}
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Typography variant="premiumLabel" color="#34D399">TRYB AUDIO — RYTM ODDECHU</Typography>
+                  <Typography variant="premiumLabel" color="#34D399">{t('affirmations.tryb_audio_rytm_oddechu', 'TRYB AUDIO — RYTM ODDECHU')}</Typography>
                   <Typography variant="caption" style={{ opacity: 0.65, marginTop: 2 }}>
                     {audioModeActive ? 'Aktywny — oddychaj zgodnie z kołem' : 'Połącz afirmację z oddechem'}
                   </Typography>
@@ -1201,7 +1201,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
           {/* SEQUENCE */}
           {supportingAffirmations.length > 0 && (
             <View style={[af.sequenceCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(139,100,42,0.45)' : 'rgba(244,114,182,0.14)' }]}>
-              <Typography variant="premiumLabel" color={catColor}>Sekwencja na dziś</Typography>
+              <Typography variant="premiumLabel" color={catColor}>{t('affirmations.sekwencja_na_dzis', 'Sekwencja na dziś')}</Typography>
               {supportingAffirmations.map((text, i) => (
                 <View key={i} style={[af.seqRow, i > 0 && af.flowBorder]}>
                   <Typography variant="microLabel" color={catColor} style={{ minWidth: 28 }}>0{i + 1}</Typography>
@@ -1219,7 +1219,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                   <View style={[af.favIconWrap, { backgroundColor: catColor + '20' }]}>
                     <Bookmark color={catColor} size={16} strokeWidth={1.8} fill={catColor + '44'} />
                   </View>
-                  <Typography variant="premiumLabel" color={catColor}>MOJE ULUBIONE</Typography>
+                  <Typography variant="premiumLabel" color={catColor}>{t('affirmations.moje_ulubione', 'MOJE ULUBIONE')}</Typography>
                   <View style={[af.favCountBadge, { backgroundColor: catColor + '20', borderColor: catColor + '33' }]}>
                     <Typography variant="microLabel" color={catColor}>{savedAffirmationsList.length}</Typography>
                   </View>
@@ -1260,8 +1260,8 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                 <View style={[af.histIconWrap, { backgroundColor: catColor + '18' }]}>
                   <BookOpen color={catColor} size={16} strokeWidth={1.8} />
                 </View>
-                <Typography variant="premiumLabel" color={catColor}>HISTORIA AFIRMACJI</Typography>
-                <Typography variant="caption" style={{ opacity: 0.55, marginLeft: 'auto' }}>7 dni</Typography>
+                <Typography variant="premiumLabel" color={catColor}>{t('affirmations.historia_afirmacji', 'HISTORIA AFIRMACJI')}</Typography>
+                <Typography variant="caption" style={{ opacity: 0.55, marginLeft: 'auto' }}>{t('affirmations.7_dni', '7 dni')}</Typography>
               </View>
               <View style={af.histRow}>
                 {affiHistory.map((item, idx) => {
@@ -1289,7 +1289,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                 })}
               </View>
               <Typography variant="caption" style={{ marginTop: 12, opacity: 0.60, lineHeight: 18 }}>
-                Każdy dzień z afirmacją zapisuje się tutaj. Kolor odpowiada kategorii praktyki.
+                {t('affirmations.kazdy_dzien_z_afirmacja_zapisuje', 'Każdy dzień z afirmacją zapisuje się tutaj. Kolor odpowiada kategorii praktyki.')}
               </Typography>
             </View>
           </Animated.View>
@@ -1306,8 +1306,8 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                   <Trophy color="#34D399" size={18} strokeWidth={1.6} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Typography variant="premiumLabel" color="#34D399">WYZWANIE 21 DNI</Typography>
-                  <Typography variant="caption" style={{ opacity: 0.70, marginTop: 2 }}>Codziennie przez 3 tygodnie</Typography>
+                  <Typography variant="premiumLabel" color="#34D399">{t('affirmations.wyzwanie_21_dni', 'WYZWANIE 21 DNI')}</Typography>
+                  <Typography variant="caption" style={{ opacity: 0.70, marginTop: 2 }}>{t('affirmations.codziennie_przez_3_tygodnie', 'Codziennie przez 3 tygodnie')}</Typography>
                 </View>
                 <View style={[af.challengeStreakBadge, {
                   backgroundColor: challengeStreak > 0 ? '#34D39920' : (isLight ? 'rgba(255,246,230,0.92)' : 'rgba(255,255,255,0.06)'),
@@ -1320,7 +1320,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
               </View>
 
               <Typography variant="caption" style={{ opacity: 0.72, lineHeight: 18, marginBottom: 16 }}>
-                Dotknij dnia, aby oznaczyć go jako ukończony. Badania pokazują, że 21 dni wystarczy, aby nowa praktyka stała się nawykowym wzorcem.
+                {t('affirmations.dotknij_dnia_aby_oznaczyc_go', 'Dotknij dnia, aby oznaczyć go jako ukończony. Badania pokazują, że 21 dni wystarczy, aby nowa praktyka stała się nawykowym wzorcem.')}
               </Typography>
 
               {/* 7×3 grid */}
@@ -1366,7 +1366,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
               {challengeDays.filter(Boolean).length === 21 && (
                 <View style={[af.challengeCompleteBanner, { backgroundColor: '#34D39920', borderColor: '#34D39944' }]}>
                   <Check color="#34D399" size={16} strokeWidth={2.5} />
-                  <Typography variant="cardTitle" color="#34D399" style={{ marginLeft: 8 }}>Wyzwanie ukończone! ✨</Typography>
+                  <Typography variant="cardTitle" color="#34D399" style={{ marginLeft: 8 }}>{t('affirmations.wyzwanie_ukonczone', 'Wyzwanie ukończone! ✨')}</Typography>
                 </View>
               )}
             </View>
@@ -1379,7 +1379,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
             onPress={() => setShowAddModal(true)}
             style={[af.addCustomBtn, { borderColor: catColor + '44', backgroundColor: catColor + '0A' }]}
           >
-            <Text style={[af.addCustomBtnText, { color: catColor }]}>+ Dodaj własną afirmację</Text>
+            <Text style={[af.addCustomBtnText, { color: catColor }]}>{t('affirmations.dodaj_wlasna_afirmacje', '+ Dodaj własną afirmację')}</Text>
           </Pressable>
 
           {customAffirmations.filter(a => !a.category || a.category === activeCategory).map((entry, idx) => (
@@ -1398,10 +1398,10 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                 <View style={{ width: 4, alignSelf: 'stretch', borderTopLeftRadius: 20, borderBottomLeftRadius: 20, backgroundColor: catColor, opacity: 0.85, flexShrink: 0 }} />
                 <View style={{ flex: 1, paddingHorizontal: 16, paddingVertical: 18, flexDirection: 'row', alignItems: 'center' }}>
                   <View style={{ flex: 1 }}>
-                    <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2, color: catColor, marginBottom: 6, textTransform: 'uppercase' }}>💫 Moja afirmacja</Text>
+                    <Text style={{ fontSize: 10, fontWeight: '800', letterSpacing: 2, color: catColor, marginBottom: 6, textTransform: 'uppercase' }}>{t('affirmations.moja_afirmacja', '💫 Moja afirmacja')}</Text>
                     <Text style={[af.affText, { color: isLight ? '#1A1410' : '#F0EBE2', fontSize: 16 }]}>{entry.text}</Text>
                   </View>
-                  <Pressable hitSlop={10} style={{ padding: 8 }} onPress={() => Alert.alert('Usuń afirmację', 'Czy na pewno chcesz usunąć tę afirmację?', [
+                  <Pressable hitSlop={10} style={{ padding: 8 }} onPress={() => Alert.alert(t('affirmations.usun_afirmacje', 'Usuń afirmację'), t('affirmations.czy_na_pewno_chcesz_usunac', 'Czy na pewno chcesz usunąć tę afirmację?'), [
                     { text: 'Anuluj', style: 'cancel' },
                     { text: 'Usuń', style: 'destructive', onPress: () => deleteCustomAffirmation(entry.id) },
                   ])}>
@@ -1496,14 +1496,14 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginTop: 8 }}>
                       <SpeakButton text={translated} color={catColor} compact />
                     </View>
-                    <Typography variant="caption" style={af.affSupport}>Powtórz trzy razy powoli i sprawdź, gdzie w ciele pojawia się ulga.</Typography>
+                    <Typography variant="caption" style={af.affSupport}>{t('affirmations.powtorz_trzy_razy_powoli_i', 'Powtórz trzy razy powoli i sprawdź, gdzie w ciele pojawia się ulga.')}</Typography>
                     <View style={af.affFooter}>
                       <View style={af.affFooterLeft}>
                         <MoonStar color={catColor} size={12} />
-                        <Typography variant="microLabel" color={catColor} style={{ marginLeft: 6 }}>Czytaj jak wers, nie jak notatkę</Typography>
+                        <Typography variant="microLabel" color={catColor} style={{ marginLeft: 6 }}>{t('affirmations.czytaj_jak_wers_nie_jak', 'Czytaj jak wers, nie jak notatkę')}</Typography>
                       </View>
                       <Pressable onPress={() => handleShare(translated)} style={af.affShare}>
-                        <Typography variant="microLabel" color={catColor}>Udostępnij</Typography>
+                        <Typography variant="microLabel" color={catColor}>{t('affirmations.udostepnij', 'Udostępnij')}</Typography>
                         <ArrowRight color={catColor} size={12} />
                       </Pressable>
                     </View>
@@ -1515,7 +1515,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
 
           {/* EKOSYSTEM */}
           <View style={[af.ecoCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.05)', borderColor: isLight ? 'rgba(139,100,42,0.45)' : 'rgba(244,114,182,0.14)' }]}>
-            <Typography variant="premiumLabel" color={catColor}>Ekosystem wsparcia</Typography>
+            <Typography variant="premiumLabel" color={catColor}>{t('affirmations.ekosystem_wsparcia', 'Ekosystem wsparcia')}</Typography>
             {[
               { title: 'Dziennik', copy: 'Kiedy potrzebujesz nazwać uczucie własnymi słowami przed działaniem.', onPress: () => navigation.navigate('Journal') },
               { title: 'Sny', copy: 'Kiedy materiał nocny niesie więcej prawdy niż dzienny hałas.', onPress: () => navigation.navigate('Dreams') },
@@ -1539,7 +1539,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                 <View style={[af.scienceIconWrap, { backgroundColor: '#A78BFA20' }]}>
                   <Brain color="#A78BFA" size={16} strokeWidth={1.8} />
                 </View>
-                <Typography variant="premiumLabel" color="#A78BFA">Nauka o afirmacjach</Typography>
+                <Typography variant="premiumLabel" color="#A78BFA">{t('affirmations.nauka_o_afirmacjac', 'Nauka o afirmacjach')}</Typography>
               </View>
               {SCIENCE_FACTS.map((fact, idx) => {
                 const expanded = expandedFact === idx;
@@ -1580,10 +1580,10 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
           {/* JOURNAL CTA */}
           <Pressable style={[af.journalCta, { backgroundColor: isLight ? catColor + '0C' : 'rgba(255,255,255,0.05)', borderColor: isLight ? catColor + '33' : catColor + '26' }]} onPress={() => navigation.navigate('JournalEntry', { prompt: dailyPlan.journalPrompt })}>
             <LinearGradient colors={[catColor + '18', 'transparent']} start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }} style={StyleSheet.absoluteFill} pointerEvents="none" />
-            <Typography variant="premiumLabel" color={catColor}>Domknij wsparcie zapisem</Typography>
-            <Typography variant="bodySmall" style={af.journalCtaCopy}>Jeśli chcesz, żeby to zdanie naprawdę zostało z Tobą, zapisz jedno zdanie o tym, co poruszyło się po jego powtórzeniu.</Typography>
+            <Typography variant="premiumLabel" color={catColor}>{t('affirmations.domknij_wsparcie_zapisem', 'Domknij wsparcie zapisem')}</Typography>
+            <Typography variant="bodySmall" style={af.journalCtaCopy}>{t('affirmations.jesli_chcesz_zeby_to_zdanie', 'Jeśli chcesz, żeby to zdanie naprawdę zostało z Tobą, zapisz jedno zdanie o tym, co poruszyło się po jego powtórzeniu.')}</Typography>
             <View style={af.journalCtaRow}>
-              <Typography variant="microLabel" color={catColor}>Przejdź do dziennika</Typography>
+              <Typography variant="microLabel" color={catColor}>{t('affirmations.przejdz_do_dziennika', 'Przejdź do dziennika')}</Typography>
               <ArrowRight color={catColor} size={14} />
             </View>
           </Pressable>
@@ -1598,19 +1598,19 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
           <Pressable onPress={e => e.stopPropagation()} style={[af.fsSheet, { backgroundColor: currentTheme.backgroundElevated, overflow: 'hidden', borderTopColor: catColor + '44', borderTopWidth: 1, borderLeftColor: catColor + '22', borderLeftWidth: 1, borderRightColor: catColor + '22', borderRightWidth: 1 }]}>
             <LinearGradient colors={[catColor + '18', 'transparent']} start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }} style={StyleSheet.absoluteFill} pointerEvents="none" />
             <View style={{ width: 36, height: 4, borderRadius: 2, backgroundColor: catColor + '44', alignSelf: 'center', marginBottom: 18 }} />
-            <Typography variant="cardTitle" style={{ color: currentTheme.text, marginBottom: 4 }}>Dla kogo te afirmacje?</Typography>
-            <Typography variant="bodySmall" style={{ color: currentTheme.textMuted, marginBottom: 20 }}>Wpisz imię osoby, której poświęcasz tę sesję.</Typography>
+            <Typography variant="cardTitle" style={{ color: currentTheme.text, marginBottom: 4 }}>{t('affirmations.dla_kogo_te_afirmacje', 'Dla kogo te afirmacje?')}</Typography>
+            <Typography variant="bodySmall" style={{ color: currentTheme.textMuted, marginBottom: 20 }}>{t('affirmations.wpisz_imie_osoby_ktorej_poswiecasz', 'Wpisz imię osoby, której poświęcasz tę sesję.')}</Typography>
             <MysticalInput
               value={fsNameInput}
               onChangeText={setFsNameInput}
-              placeholder="Imię osoby..."
+              placeholder={t('affirmations.imie_osoby', 'Imię osoby...')}
               placeholderTextColor={currentTheme.textMuted}
               style={{ color: currentTheme.text }}
               containerStyle={{ marginBottom: 4 }}
             />
             {forSomeone && (
               <Pressable onPress={() => { setForSomeone(false); setFsName(''); setShowFsModal(false); }} style={[af.fsCta, { backgroundColor: 'rgba(255,100,100,0.2)', borderColor: '#FB7185', borderWidth: 1, marginTop: 12 }]}>
-                <Typography variant="caption" style={{ color: '#FB7185', fontWeight: '600' }}>Wyłącz tryb "Dla kogoś"</Typography>
+                <Typography variant="caption" style={{ color: '#FB7185', fontWeight: '600' }}>{t('affirmations.wylacz_tryb_dla_kogos', 'Wyłącz tryb "Dla kogoś"')}</Typography>
               </Pressable>
             )}
             <Pressable
@@ -1623,7 +1623,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
               }}
               style={[af.fsCta, { backgroundColor: catColor, marginTop: forSomeone ? 10 : 16 }]}
             >
-              <Typography variant="caption" style={{ color: '#FFF', fontWeight: '700' }}>Potwierdź</Typography>
+              <Typography variant="caption" style={{ color: '#FFF', fontWeight: '700' }}>{t('affirmations.potwierdz', 'Potwierdź')}</Typography>
             </Pressable>
           </Pressable>
         </Pressable>
@@ -1634,10 +1634,10 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
           <Pressable onPress={e => e.stopPropagation()} style={[af.addModalSheet, { backgroundColor: currentTheme.backgroundElevated || currentTheme.background, overflow: 'hidden', borderTopColor: catColor + '44', borderTopWidth: 1, borderLeftColor: catColor + '22', borderLeftWidth: 1, borderRightColor: catColor + '22', borderRightWidth: 1 }]}>
             <LinearGradient colors={[catColor + '18', 'transparent']} start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }} style={StyleSheet.absoluteFill} pointerEvents="none" />
             <View style={{ width: 40, height: 4, borderRadius: 2, backgroundColor: catColor + '44', alignSelf: 'center', marginBottom: 18 }} />
-            <Typography variant="premiumLabel" color={catColor}>Własna afirmacja</Typography>
-            <Typography variant="editorialHeader" style={[af.addModalTitle, { color: currentTheme.text }]}>Nadaj swojej intencji własny język.</Typography>
+            <Typography variant="premiumLabel" color={catColor}>{t('affirmations.wlasna_afirmacja', 'Własna afirmacja')}</Typography>
+            <Typography variant="editorialHeader" style={[af.addModalTitle, { color: currentTheme.text }]}>{t('affirmations.nadaj_swojej_intencji_wlasny_jezyk', 'Nadaj swojej intencji własny język.')}</Typography>
             <Typography variant="bodySmall" style={[af.addModalCopy, { color: currentTheme.textMuted }]}>
-              Najmocniej działa zdanie krótkie, oddechowe i prawdziwe. Zapisz je tak, aby brzmiało jak coś, do czego naprawdę chcesz wracać rano albo wieczorem.
+              {t('affirmations.najmocniej_dziala_zdanie_krotkie_od', 'Najmocniej działa zdanie krótkie, oddechowe i prawdziwe. Zapisz je tak, aby brzmiało jak coś, do czego naprawdę chcesz wracać rano albo wieczorem.')}
             </Typography>
             <MysticalInput
               value={newAffText}
@@ -1645,14 +1645,14 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
               multiline
               textAlignVertical="top"
               maxLength={180}
-              placeholder="Np. Z każdym oddechem odzyskuję spokój i wracam do swojego centrum."
+              placeholder={t('affirmations.np_z_kazdym_oddechem_odzyskuje', 'Np. Z każdym oddechem odzyskuję spokój i wracam do swojego centrum.')}
               placeholderTextColor={currentTheme.textMuted}
               style={{ color: currentTheme.text, minHeight: 90, fontSize: 15, lineHeight: 24 }}
               containerStyle={{ marginTop: 8, marginBottom: 16 }}
             />
             <View style={af.addModalActions}>
               <Pressable onPress={() => { setShowAddModal(false); setNewAffText(''); }} style={[af.addModalSecondary, { borderColor: catColor + '26', backgroundColor: isLight ? 'rgba(240,230,215,0.90)' : 'rgba(255,255,255,0.04)' }]}>
-                <Typography variant="microLabel" color={catColor}>Anuluj</Typography>
+                <Typography variant="microLabel" color={catColor}>{t('affirmations.anuluj', 'Anuluj')}</Typography>
               </Pressable>
               <Pressable
                 onPress={() => {
@@ -1667,7 +1667,7 @@ export const AffirmationsScreen = ({ navigation, route }: any) => {
                 style={[af.addModalPrimary, { backgroundColor: catColor, opacity: newAffText.trim() ? 1 : 0.45 }]}
                 disabled={!newAffText.trim()}
               >
-                <Typography variant="microLabel" style={{ color: '#FFF' }}>Zapisz afirmację</Typography>
+                <Typography variant="microLabel" style={{ color: '#FFF' }}>{t('affirmations.zapisz_afirmacje', 'Zapisz afirmację')}</Typography>
               </Pressable>
             </View>
           </Pressable>

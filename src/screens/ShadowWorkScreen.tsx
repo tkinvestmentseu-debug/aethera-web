@@ -645,8 +645,8 @@ Pisz w języku użytkownika.`,
               <ChevronLeft color={ACCENT} size={26} strokeWidth={1.6} />
             </Pressable>
             <View style={sw.headerCenter}>
-              <Typography variant="premiumLabel" color={ACCENT}>Ty</Typography>
-              <Typography variant="screenTitle" style={{ marginTop: 3, color: textColor }}>Praca z cieniem</Typography>
+              <Typography variant="premiumLabel" color={ACCENT}>{t('shadow.ty', 'Ty')}</Typography>
+              <Typography variant="screenTitle" style={{ marginTop: 3, color: textColor }}>{t('shadow.praca_z_cieniem', 'Praca z cieniem')}</Typography>
             </View>
             <Pressable
               onPress={() => { if (isFavoriteItem('shadow_work')) { removeFavoriteItem('shadow_work'); } else { addFavoriteItem({ id: 'shadow_work', label: 'Praca z cieniem', route: 'ShadowWork', params: {}, icon: 'EyeOff', color: ACCENT, addedAt: new Date().toISOString() }); } }}
@@ -670,14 +670,14 @@ Pisz w języku użytkownika.`,
             <Animated.View entering={FadeInDown.duration(500)} style={[sw.introCard, { backgroundColor: cardBg }]}>
               <Brain color={ACCENT} size={20} strokeWidth={1.5} />
               <Text style={[sw.introText, { color: subColor }]}>
-                Praca z cieniem według Junga to odkrywanie i integrowanie odrzuconych części siebie. To przestrzeń na szczerość bez oceniania.
+                {t('shadow.praca_z_cieniem_wedlug_junga', 'Praca z cieniem według Junga to odkrywanie i integrowanie odrzuconych części siebie. To przestrzeń na szczerość bez oceniania.')}
               </Text>
             </Animated.View>
 
             {/* JAK PRACOWAĆ Z CIENIEM — guide */}
             <Animated.View entering={FadeInDown.delay(30).duration(500)} style={[sw.guideCard, { backgroundColor: 'rgba(139,92,246,0.07)', borderColor: ACCENT + '28' }]}>
               <LinearGradient colors={['rgba(139,92,246,0.10)', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
-              <Text style={[sw.guideTitle, { color: ACCENT }]}>🌑 JAK PRACOWAĆ Z CIENIEM</Text>
+              <Text style={[sw.guideTitle, { color: ACCENT }]}>{t('shadow.jak_pracowac_z_cieniem', '🌑 JAK PRACOWAĆ Z CIENIEM')}</Text>
               {[
                 { n: '1', title: 'Rozpoznaj', desc: 'Zauważ intensywną reakcję emocjonalną — gniew, wstyd, zazdrość — to cień daje o sobie znak.' },
                 { n: '2', title: 'Zbadaj', desc: 'Zamiast odpychać uczucie, zejdź głębiej: skąd pochodzi? Co kryje w sobie ten wzorzec?' },
@@ -697,8 +697,8 @@ Pisz w języku użytkownika.`,
 
             <Animated.View entering={FadeInDown.delay(40).duration(500)} style={[sw.ritualCard, { backgroundColor: 'rgba(139,92,246,0.09)', borderColor: ACCENT + '32' }]}>
               <LinearGradient colors={[ACCENT + '18', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
-              <Typography variant="premiumLabel" color={ACCENT}>Ceremonia zejścia głębiej</Typography>
-              <Text style={[sw.ritualLead, { color: textColor }]}>Nie wybieraj obszaru, który brzmi najładniej. Wybierz ten, przy którym ciało lekko się napina. Tam zwykle zaczyna się prawdziwa praca.</Text>
+              <Typography variant="premiumLabel" color={ACCENT}>{t('shadow.ceremonia_zejscia_glebiej', 'Ceremonia zejścia głębiej')}</Typography>
+              <Text style={[sw.ritualLead, { color: textColor }]}>{t('shadow.nie_wybieraj_obszaru_ktory_brzmi', 'Nie wybieraj obszaru, który brzmi najładniej. Wybierz ten, przy którym ciało lekko się napina. Tam zwykle zaczyna się prawdziwa praca.')}</Text>
               <View style={sw.ritualSteps}>
                 {['Nazwij obszar, zamiast go obchodzić.', 'Wybierz pytanie, które otwiera napięcie, nie to najwygodniejsze.', 'Zapisz odpowiedź bez poprawiania siebie.'].map((step, index) => (
                   <View key={step} style={[sw.ritualStep, { borderColor: ACCENT + '1E' }]}>
@@ -718,13 +718,13 @@ Pisz w języku użytkownika.`,
                   <Gem color={ACCENT} size={16} strokeWidth={1.8} />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Typography variant="premiumLabel" color={ACCENT}>KOMNATA INTEGRACJI</Typography>
-                  <Text style={[sw.chamberLead, { color: textColor }]}>Ten ekran ma prowadzić Cię w dół, nie zasypywać Cię jedną kartą pod drugą. Każdy obszar cienia ma własny ton, własne pytania i własny rytm wejścia.</Text>
+                  <Typography variant="premiumLabel" color={ACCENT}>{t('shadow.komnata_integracji', 'KOMNATA INTEGRACJI')}</Typography>
+                  <Text style={[sw.chamberLead, { color: textColor }]}>{t('shadow.ten_ekran_ma_prowadzic_cie', 'Ten ekran ma prowadzić Cię w dół, nie zasypywać Cię jedną kartą pod drugą. Każdy obszar cienia ma własny ton, własne pytania i własny rytm wejścia.')}</Text>
                 </View>
               </View>
               <View style={sw.chamberRow}>
-                <View style={[sw.chamberPill, { borderColor: '#60A5FA55', backgroundColor: '#60A5FA12' }]}><ShieldAlert color="#60A5FA" size={14} /><Text style={[sw.chamberPillText, { color: '#9DC4FF' }]}>obszar uruchamia ciało</Text></View>
-                <View style={[sw.chamberPill, { borderColor: '#FBBF2455', backgroundColor: '#FBBF2410' }]}><Sparkles color="#FBBF24" size={14} /><Text style={[sw.chamberPillText, { color: '#FDD87B' }]}>oracle pogłębia, nie zamyka</Text></View>
+                <View style={[sw.chamberPill, { borderColor: '#60A5FA55', backgroundColor: '#60A5FA12' }]}><ShieldAlert color="#60A5FA" size={14} /><Text style={[sw.chamberPillText, { color: '#9DC4FF' }]}>{t('shadow.obszar_uruchamia_cialo', 'obszar uruchamia ciało')}</Text></View>
+                <View style={[sw.chamberPill, { borderColor: '#FBBF2455', backgroundColor: '#FBBF2410' }]}><Sparkles color="#FBBF24" size={14} /><Text style={[sw.chamberPillText, { color: '#FDD87B' }]}>{t('shadow.oracle_poglebia_nie_zamyka', 'oracle pogłębia, nie zamyka')}</Text></View>
               </View>
             </Animated.View>
 
@@ -750,7 +750,7 @@ Pisz w języku użytkownika.`,
               return (
                 <Animated.View entering={FadeInDown.delay(100).duration(500)} style={[sw.prevCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: lastArea ? lastArea.color + '33' : ACCENT + '28' }]}>
                   <LinearGradient colors={[lastArea ? lastArea.color + '0D' : ACCENT + '0D', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
-                  <Text style={[sw.prevLabel, { color: subColor }]}>SESJA POPRZEDNIA</Text>
+                  <Text style={[sw.prevLabel, { color: subColor }]}>{t('shadow.sesja_poprzednia', 'SESJA POPRZEDNIA')}</Text>
                   <View style={sw.prevRow}>
                     <View style={[sw.prevBadge, { backgroundColor: lastArea ? lastArea.color + '18' : ACCENT + '18', borderColor: lastArea ? lastArea.color + '44' : ACCENT + '44' }]}>
                       <Text style={[sw.prevBadgeText, { color: lastArea?.color || ACCENT }]}>{lastArea?.label || last.areaId}</Text>
@@ -766,7 +766,7 @@ Pisz w języku użytkownika.`,
 
             {/* AREA CHIPS */}
             <Animated.View entering={FadeInDown.delay(120).duration(500)}>
-              <Text style={[sw.sectionTitle, { color: subColor }]}>🌑 WYBIERZ OBSZAR CIENIA</Text>
+              <Text style={[sw.sectionTitle, { color: subColor }]}>{t('shadow.wybierz_obszar_cienia', '🌑 WYBIERZ OBSZAR CIENIA')}</Text>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} style={sw.chipScroll} contentContainerStyle={{ paddingHorizontal: layout.padding.screen }}>
                 {SHADOW_AREAS.map(area => (
                   <Pressable
@@ -789,7 +789,7 @@ Pisz w języku użytkownika.`,
                 </View>
 
                 {/* Question selector */}
-                <Text style={[sw.sectionTitle, { color: subColor }]}>🔮 PYTANIE REFLEKSYJNE</Text>
+                <Text style={[sw.sectionTitle, { color: subColor }]}>{t('shadow.pytanie_refleksyjn', '🔮 PYTANIE REFLEKSYJNE')}</Text>
                 {activeArea.questions.map((q, i) => (
                   <Pressable
                     key={i}
@@ -804,12 +804,12 @@ Pisz w języku użytkownika.`,
                 ))}
 
                 {/* Reflection input */}
-                <Text style={[sw.sectionTitle, { color: subColor, marginTop: 16 }]}>✍️ TWOJA REFLEKSJA</Text>
+                <Text style={[sw.sectionTitle, { color: subColor, marginTop: 16 }]}>{t('shadow.twoja_refleksja', '✍️ TWOJA REFLEKSJA')}</Text>
                 <MysticalInput
                   value={reflection}
                   onChangeText={setReflection}
                   multiline
-                  placeholder="Pisz szczerze i bez oceniania. Ten tekst jest tylko dla Ciebie..."
+                  placeholder={t('shadow.pisz_szczerze_i_bez_oceniania', 'Pisz szczerze i bez oceniania. Ten tekst jest tylko dla Ciebie...')}
                   textAlignVertical="top"
                   containerStyle={{ marginBottom: 14 }}
                   style={{ minHeight: 120, fontSize: 15, lineHeight: 24, color: textColor }}
@@ -819,7 +819,7 @@ Pisz w języku użytkownika.`,
                 {/* AI response */}
                 {aiResponse ? (
                   <View style={[sw.aiCard, { backgroundColor: ACCENT + '12', borderColor: ACCENT + '33' }]}>
-                    <Text style={[sw.aiLabel, { color: ACCENT }]}>ORACLE</Text>
+                    <Text style={[sw.aiLabel, { color: ACCENT }]}>{t('shadow.oracle', 'ORACLE')}</Text>
                     <Text style={[sw.aiText, { color: textColor }]}>{aiResponse}</Text>
                   </View>
                 ) : null}
@@ -827,7 +827,7 @@ Pisz w języku użytkownika.`,
                 {/* Saved banner — stays inline */}
                 {saved && (
                   <View style={[sw.savedBanner, { backgroundColor: ACCENT + '18' }]}>
-                    <Text style={[sw.savedText, { color: ACCENT }]}>✓ Sesja zapisana</Text>
+                    <Text style={[sw.savedText, { color: ACCENT }]}>{t('shadow.sesja_zapisana', '✓ Sesja zapisana')}</Text>
                   </View>
                 )}
               </Animated.View>
@@ -835,7 +835,7 @@ Pisz w języku użytkownika.`,
 
             {/* EDU CARDS */}
             <Animated.View entering={FadeInDown.delay(200).duration(500)}>
-              <Text style={[sw.sectionTitle, { color: subColor, marginHorizontal: layout.padding.screen }]}>📖 DLACZEGO PRACA Z CIENIEM</Text>
+              <Text style={[sw.sectionTitle, { color: subColor, marginHorizontal: layout.padding.screen }]}>{t('shadow.dlaczego_praca_z_cieniem', '📖 DLACZEGO PRACA Z CIENIEM')}</Text>
               {EDU_CARDS.map((c, i) => (
                 <View key={i} style={[sw.eduCard, { backgroundColor: cardBg, marginHorizontal: layout.padding.screen }]}>
                   <View style={[sw.eduBar, { backgroundColor: ACCENT }]} />
@@ -850,14 +850,14 @@ Pisz w języku użytkownika.`,
             {/* HISTORY */}
             {shadowWorkSessions.length > 0 && (
               <Animated.View entering={FadeInDown.delay(280).duration(500)}>
-                <Text style={[sw.sectionTitle, { color: subColor, marginHorizontal: layout.padding.screen }]}>🕯️ HISTORIA SESJI</Text>
+                <Text style={[sw.sectionTitle, { color: subColor, marginHorizontal: layout.padding.screen }]}>{t('shadow.historia_sesji', '🕯️ HISTORIA SESJI')}</Text>
                 {shadowWorkSessions.slice(0, 5).map((s, i) => (
                   <View key={s.id || i} style={[sw.histItem, { backgroundColor: cardBg, marginHorizontal: layout.padding.screen }]}>
                     <Clock color={ACCENT} size={13} strokeWidth={1.5} />
                     <Text style={[sw.histText, { color: subColor, flex: 1 }]}>
                       {s.date} · {SHADOW_AREAS.find(a => a.id === s.areaId)?.label || s.areaId}
                     </Text>
-                    <Pressable hitSlop={10} onPress={() => Alert.alert('Usuń sesję', 'Czy na pewno chcesz usunąć tę sesję?', [
+                    <Pressable hitSlop={10} onPress={() => Alert.alert(t('shadow.usun_sesje', 'Usuń sesję'), t('shadow.czy_na_pewno_chcesz_usunac', 'Czy na pewno chcesz usunąć tę sesję?'), [
                       { text: 'Anuluj', style: 'cancel' },
                       { text: 'Usuń', style: 'destructive', onPress: () => deleteShadowSession(s.id) },
                     ])}>
@@ -870,7 +870,7 @@ Pisz w języku użytkownika.`,
 
             {/* CO DALEJ */}
             <Animated.View entering={FadeInDown.delay(320).duration(500)} style={{ marginHorizontal: layout.padding.screen, marginTop: 20, marginBottom: 4 }}>
-              <Text style={[sw.sectionTitle, { color: subColor }]}>✦ CO DALEJ?</Text>
+              <Text style={[sw.sectionTitle, { color: subColor }]}>{t('shadow.co_dalej', '✦ CO DALEJ?')}</Text>
               {[
                 {
                   icon: <Wand2 color={ACCENT} size={16} strokeWidth={1.8} />,
@@ -926,11 +926,11 @@ Pisz w języku użytkownika.`,
               <View style={sw.saveRow}>
                 <Pressable onPress={saveToJournal} style={[sw.saveBtn, { backgroundColor: ACCENT }]} disabled={reflection.trim().length < 2}>
                   <BookOpen color="#fff" size={15} strokeWidth={2} />
-                  <Text style={sw.saveBtnText}>Zapisz do dziennika</Text>
+                  <Text style={sw.saveBtnText}>{t('shadow.zapisz_do_dziennika', 'Zapisz do dziennika')}</Text>
                 </Pressable>
                 <Pressable onPress={saveAnonymous} style={[sw.anonBtn, { borderColor: ACCENT + '44' }]}>
                   <EyeOff color={subColor} size={15} strokeWidth={1.8} />
-                  <Text style={[sw.anonBtnText, { color: subColor }]}>Anonimowo</Text>
+                  <Text style={[sw.anonBtnText, { color: subColor }]}>{t('shadow.anonimowo', 'Anonimowo')}</Text>
                 </Pressable>
               </View>
             </View>

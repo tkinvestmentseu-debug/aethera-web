@@ -389,12 +389,12 @@ const ScryingRitual = ({
       <View style={[styles.ritualCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : accent + '0E', borderColor: 'transparent' }]}>
         <LinearGradient colors={[accent + '12', 'transparent']} style={StyleSheet.absoluteFill} />
         <Eye color={accent} size={22} strokeWidth={1.6} />
-        <Text style={[styles.ritualTitle, { color: textColor }]}>Rytuał wchodzenia w trans</Text>
+        <Text style={[styles.ritualTitle, { color: textColor }]}>{t('crystalBall.rytual_wchodzenia_w_trans', 'Rytuał wchodzenia w trans')}</Text>
         <Text style={[styles.ritualSub, { color: subColor }]}>
-          Przed zapytaniem kuli zaleca się krótki rytuał skupienia. Wycisza umysł i otwiera kanał wizji.
+          {t('crystalBall.przed_zapytaniem_kuli_zaleca_sie', 'Przed zapytaniem kuli zaleca się krótki rytuał skupienia. Wycisza umysł i otwiera kanał wizji.')}
         </Text>
         <Pressable onPress={startRitual} style={[styles.ritualBtn, { borderColor: 'transparent', backgroundColor: accent + '22' }]}>
-          <Text style={[styles.ritualBtnText, { color: accent }]}>Wejdź w trans — 3·2·1</Text>
+          <Text style={[styles.ritualBtnText, { color: accent }]}>{t('crystalBall.wejdz_w_trans_3_2', 'Wejdź w trans — 3·2·1')}</Text>
         </Pressable>
       </View>
     );
@@ -414,7 +414,7 @@ const ScryingRitual = ({
       </Animated.View>
       <Pressable onPress={nextStep} style={[styles.ritualBtn, { borderColor: 'transparent', backgroundColor: accent + '22', marginTop: 20 }]}>
         <Text style={[styles.ritualBtnText, { color: accent }]}>
-          {step < RITUAL_STEPS.length - 1 ? 'Dalej →' : 'Gotowa — otwórz wizję'}
+          {step < RITUAL_STEPS.length - 1 ? t('crystalBall.dalej_arrow', 'Dalej →') : t('crystalBall.gotowa_otworz', 'Gotowa — otwórz wizję')}
         </Text>
       </Pressable>
     </View>
@@ -598,7 +598,7 @@ Pisz w języku użytkownika.`;
       setSessions(prev => [{
         id: `${Date.now()}`,
         date: new Date().toLocaleDateString(getLocaleCode(), { day: 'numeric', month: 'long' }),
-        question: q, answer: 'Przestrzeń wyroczni jest teraz cicha. Spróbuj ponownie za chwilę.',
+        question: q, answer: t('crystalBall.przestrzen_wyroczni', 'Przestrzeń wyroczni jest teraz cicha. Spróbuj ponownie za chwilę.'),
         mode: mode as Exclude<Mode, 'daily'>, fogType: selectedFog,
       }, ...prev].slice(0, 10));
     } finally {
@@ -630,7 +630,7 @@ Pisz w języku użytkownika.`;
       <>
         <Animated.View entering={FadeInDown.duration(380)}>
           <Text style={[styles.sectionLabel, { color: accent, marginBottom: 10, marginTop: 4 }]}>
-            ✦ WIZJE Z KRYSZTAŁU
+            {t('crystalBall.wizje_z_krysztalu', '✦ WIZJE Z KRYSZTAŁU')}
           </Text>
         </Animated.View>
         {visions.map((v, idx) => {
@@ -661,9 +661,9 @@ Pisz w języku użytkownika.`;
   const renderFogSelector = () => (
     <Animated.View entering={FadeInDown.delay(60).duration(500)}>
       <View style={[styles.fogSection, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
-        <Text style={[styles.sectionLabel, { color: accent }]}>🌫️ RODZAJ MGŁY — OBSZAR PYTANIA</Text>
+        <Text style={[styles.sectionLabel, { color: accent }]}>{t('crystalBall.rodzaj_mgly_obszar_pytania', '🌫️ RODZAJ MGŁY — OBSZAR PYTANIA')}</Text>
         <Text style={[styles.sectionBody, { color: subColor, marginBottom: 12 }]}>
-          Kolor mgły wyznacza przestrzeń odczytu. Wybierz obszar, który dotyczy Twojego pytania.
+          {t('crystalBall.kolor_mgly_wyznacza_przestrzen_odcz', 'Kolor mgły wyznacza przestrzeń odczytu. Wybierz obszar, który dotyczy Twojego pytania.')}
         </Text>
         {FOG_TYPES.map(fog => {
           const active = selectedFog === fog.id;
@@ -690,9 +690,9 @@ Pisz w języku użytkownika.`;
   const renderSymbolInterpreter = () => (
     <Animated.View entering={FadeInDown.delay(180).duration(500)}>
       <View style={[styles.symbolSection, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
-        <Text style={[styles.sectionLabel, { color: accent }]}>🪄 CO WIDZISZ W KULI?</Text>
+        <Text style={[styles.sectionLabel, { color: accent }]}>{t('crystalBall.co_widzisz_w_kuli', '🪄 CO WIDZISZ W KULI?')}</Text>
         <Text style={[styles.sectionBody, { color: subColor, marginBottom: 12 }]}>
-          Wskaż symbole, które dostrzegasz. Możesz dodać notatkę i uzyskać osobistą interpretację.
+          {t('crystalBall.wskaz_symbole_ktore_dostrzegas_moze', 'Wskaż symbole, które dostrzegasz. Możesz dodać notatkę i uzyskać osobistą interpretację.')}
         </Text>
         <View style={styles.symbolGrid}>
           {SYMBOL_CATEGORIES.map(cat => {
@@ -719,7 +719,7 @@ Pisz w języku użytkownika.`;
               <TextInput
                 value={symbolNote}
                 onChangeText={setSymbolNote}
-                placeholder="Opisz, co dokładnie widzisz... (opcjonalnie)"
+                placeholder={t('crystalBall.opisz_co_dokladnie_widzisz_opcjonal', 'Opisz, co dokładnie widzisz... (opcjonalnie)')}
                 placeholderTextColor={subColor}
                 multiline
                 style={[styles.symbolInput, { color: textColor, borderColor: 'transparent', backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)' }]}
@@ -733,7 +733,7 @@ Pisz w języku użytkownika.`;
                 }]}
               >
                 <Text style={[styles.symbolBtnText, { color: SYMBOL_CATEGORIES.find(s => s.id === selectedSymbol)?.color ?? accent }]}>
-                  {loadingSymbol ? 'Interpretuję...' : 'Zinterpretuj symbol'}
+                  {loadingSymbol ? t('crystalBall.interpretuje', 'Interpretuję...') : t('crystalBall.zinterpretuj_symbol', 'Zinterpretuj symbol')}
                 </Text>
               </Pressable>
               <Text style={[styles.symbolInterpText, { color: symbolInterp ? textColor : subColor, fontStyle: symbolInterp ? 'normal' : 'italic' }]}>
@@ -752,7 +752,7 @@ Pisz w języku użytkownika.`;
       <Animated.View entering={FadeInDown.delay(140).duration(500)}>
         <Pressable onPress={() => setShowHistory(v => !v)} style={[styles.historyToggle, { borderColor: isLight ? 'rgba(139,100,42,0.45)' : 'rgba(255,255,255,0.06)' }]}>
           <BookOpen color={accent} size={16} strokeWidth={1.8} />
-          <Text style={[styles.historyToggleText, { color: textColor }]}>Historia odczytów ({sessions.length})</Text>
+          <Text style={[styles.historyToggleText, { color: textColor }]}>{t('crystalBall.historia_odczytow', 'Historia odczytów')} ({sessions.length})</Text>
           <ChevronLeft color={subColor} size={16} style={{ transform: [{ rotate: showHistory ? '90deg' : '-90deg' }] }} />
         </Pressable>
         {showHistory ? sessions.map((s, i) => {
@@ -765,7 +765,7 @@ Pisz w języku użytkownika.`;
                 <View style={styles.historyMeta}>
                   <View style={[styles.historyFogDot, { backgroundColor: fc }]} />
                   <Text style={[styles.historyDate, { color: subColor, flex: 1 }]}>{s.date}</Text>
-                  <Text style={[styles.historyMode, { color: ia }]}>{s.mode === 'mirror' ? 'Zwierciadło' : 'Wyrocznia'}</Text>
+                  <Text style={[styles.historyMode, { color: ia }]}>{s.mode === 'mirror' ? t('crystalBall.zwierciadlo', 'Zwierciadło') : t('crystalBall.wyrocznia', 'Wyrocznia')}</Text>
                 </View>
                 <Text style={[styles.historyQuestion, { color: textColor }]} numberOfLines={2}>{s.question}</Text>
                 <Text style={[styles.historyAnswer, { color: subColor }]} numberOfLines={4}>{s.answer}</Text>
@@ -780,9 +780,9 @@ Pisz w języku użytkownika.`;
   const renderWeeklySchedule = () => (
     <Animated.View entering={FadeInDown.delay(220).duration(500)}>
       <View style={[styles.scheduleSection, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
-        <Text style={[styles.sectionLabel, { color: accent }]}>📅 HARMONOGRAM TYGODNIOWY</Text>
+        <Text style={[styles.sectionLabel, { color: accent }]}>{t('crystalBall.harmonogra_tygodniowy', '📅 HARMONOGRAM TYGODNIOWY')}</Text>
         <Text style={[styles.sectionBody, { color: subColor, marginBottom: 14 }]}>
-          Każdy dzień tygodnia rządzi inna planeta, wpływając na jakość i głębię wizji kryształowej.
+          {t('crystalBall.kazdy_dzien_tygodnia_rzadzi_inna', 'Każdy dzień tygodnia rządzi inna planeta, wpływając na jakość i głębię wizji kryształowej.')}
         </Text>
         {WEEKLY_SCHEDULE.map((day, idx) => {
           const isToday = idx === scheduleIdx;
@@ -798,7 +798,7 @@ Pisz w języku użytkownika.`;
               <View style={{ flex: 1 }}>
                 <View style={styles.scheduleDayRow}>
                   <Text style={[styles.scheduleDay, { color: isToday ? day.color : textColor, fontWeight: isToday ? '700' : '500' }]}>
-                    {day.day}{isToday ? ' — dziś' : ''}
+                    {day.day}{isToday ? ` — ${t('crystalBall.dzis', 'dziś')}` : ''}
                   </Text>
                   <View style={[styles.scheduleQuality, { backgroundColor: day.color + '20', borderColor: 'transparent' }]}>
                     <Text style={[styles.scheduleQualityText, { color: day.color }]}>{day.quality}</Text>
@@ -829,13 +829,13 @@ Pisz w języku użytkownika.`;
             <ChevronLeft color={accent} size={24} />
           </Pressable>
           <View style={{ flex: 1, alignItems: 'center' }}>
-            <Typography variant="premiumLabel" color={accent}>Świat kryształu</Typography>
+            <Typography variant="premiumLabel" color={accent}>{t('crystalBall.swiat_krysztalu', 'Świat kryształu')}</Typography>
             <Typography variant="screenTitle" style={{ color: textColor, marginTop: 2 }}>
-              {mode === 'daily' ? 'Kryształ dnia' : mode === 'crystal' ? 'Wyrocznia kryształu' : 'Zwierciadło duszy'}
+              {mode === 'daily' ? t('crystalBall.krysztal_dnia', 'Kryształ dnia') : mode === 'crystal' ? t('crystalBall.wyrocznia_krystalu', 'Wyrocznia kryształu') : t('crystalBall.zwierciadlo_duszy', 'Zwierciadło duszy')}
             </Typography>
           </View>
           <Pressable
-            onPress={() => { if (isFav) { removeFavoriteItem('crystal-ball'); } else { addFavoriteItem({ id: 'crystal-ball', label: 'Kryształ dnia', route: 'CrystalBall', params: {}, icon: 'Sparkles', color: CRYSTAL_ACCENT, addedAt: new Date().toISOString() }); } }}
+            onPress={() => { if (isFav) { removeFavoriteItem('crystal-ball'); } else { addFavoriteItem({ id: 'crystal-ball', label: t('crystalBall.krysztal_dnia', 'Kryształ dnia'), route: 'CrystalBall', params: {}, icon: 'Sparkles', color: CRYSTAL_ACCENT, addedAt: new Date().toISOString() }); } }}
             hitSlop={12}
           >
             <Star color={isFav ? CRYSTAL_ACCENT : CRYSTAL_ACCENT + '77'} size={18} fill={isFav ? CRYSTAL_ACCENT : 'none'} />
@@ -876,9 +876,9 @@ Pisz w języku użytkownika.`;
           {/* ── Mode chips ──────────────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(70).duration(520)} style={styles.modeRow}>
             {([
-              { id: 'daily',   label: 'Kryształ dnia' },
+              { id: 'daily',   label: t('crystalBall.krysztal_dnia', 'Kryształ dnia') },
               { id: 'crystal', label: 'Wyrocznia' },
-              { id: 'mirror',  label: 'Zwierciadło' },
+              { id: 'mirror',  label: t('crystalBall.zwierciadlo', 'Zwierciadło') },
             ] as { id: Mode; label: string }[]).map(opt => {
               const active = mode === opt.id;
               return (
@@ -896,22 +896,22 @@ Pisz w języku użytkownika.`;
           {/* ── Chambers card ───────────────────────────────────────────── */}
           <Animated.View entering={FadeInDown.delay(100).duration(520)} style={[styles.chambersCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
             <LinearGradient colors={[accent + '16', 'transparent']} style={StyleSheet.absoluteFillObject as any} />
-            <Typography variant="premiumLabel" color={accent}>Komnaty kryształu</Typography>
+            <Typography variant="premiumLabel" color={accent}>{t('crystalBall.komnaty_krysztalu', 'Komnaty kryształu')}</Typography>
             <View style={styles.chambersGrid}>
               <Pressable onPress={() => setMode('daily')} style={[styles.chamberTile, { borderColor: mode === 'daily' ? accent + '44' : 'transparent', backgroundColor: mode === 'daily' ? accent + '16' : 'transparent' }]}>
                 <Gem color={accent} size={18} />
-                <Text style={[styles.chamberTitle, { color: textColor }]}>Kryształ dnia</Text>
-                <Text style={[styles.chamberBody, { color: subColor }]}>Właściwości, rytuał i afirmacja prowadząca dzień.</Text>
+                <Text style={[styles.chamberTitle, { color: textColor }]}>{t('crystalBall.krysztal_dnia', 'Kryształ dnia')}</Text>
+                <Text style={[styles.chamberBody, { color: subColor }]}>{t('crystalBall.wlasciwosc_rytual_i_afirmacja_prowa', 'Właściwości, rytuał i afirmacja prowadząca dzień.')}</Text>
               </Pressable>
               <Pressable onPress={() => { setMode('crystal'); focusIntoView(-40); }} style={[styles.chamberTile, { borderColor: mode === 'crystal' ? accent + '44' : 'transparent', backgroundColor: mode === 'crystal' ? accent + '16' : 'transparent' }]}>
                 <Sparkles color={accent} size={18} />
-                <Text style={[styles.chamberTitle, { color: textColor }]}>Wyrocznia kryształu</Text>
-                <Text style={[styles.chamberBody, { color: subColor }]}>Trójczęściowy odczyt dla konkretnego pytania.</Text>
+                <Text style={[styles.chamberTitle, { color: textColor }]}>{t('crystalBall.wyrocznia_krysztalu', 'Wyrocznia kryształu')}</Text>
+                <Text style={[styles.chamberBody, { color: subColor }]}>{t('crystalBall.trojczesci_odczyt_dla_konkretneg_py', 'Trójczęściowy odczyt dla konkretnego pytania.')}</Text>
               </Pressable>
               <Pressable onPress={() => { setMode('mirror'); focusIntoView(-40); }} style={[styles.chamberTile, { borderColor: mode === 'mirror' ? accent + '44' : 'transparent', backgroundColor: mode === 'mirror' ? accent + '16' : 'transparent' }]}>
                 <Layers3 color={accent} size={18} />
-                <Text style={[styles.chamberTitle, { color: textColor }]}>Zwierciadło duszy</Text>
-                <Text style={[styles.chamberBody, { color: subColor }]}>Odbicie, wzorzec i pytanie zwrotne.</Text>
+                <Text style={[styles.chamberTitle, { color: textColor }]}>{t('crystalBall.zwierciadl_duszy', 'Zwierciadło duszy')}</Text>
+                <Text style={[styles.chamberBody, { color: subColor }]}>{t('crystalBall.odbicie_wzorzec_i_pytanie_zwrotne', 'Odbicie, wzorzec i pytanie zwrotne.')}</Text>
               </Pressable>
             </View>
           </Animated.View>
@@ -934,7 +934,7 @@ Pisz w języku użytkownika.`;
               <Animated.View entering={FadeInUp.delay(120).duration(520)} onLayout={e => setOracleAnchorY(e.nativeEvent.layout.y)}>
                 <View style={[styles.heroCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : crystal.color + '12', borderColor: 'transparent' }]}>
                   <LinearGradient colors={[crystal.color + '16', 'transparent']} style={StyleSheet.absoluteFill} />
-                  <Text style={[styles.cardEyebrow, { color: crystal.color }]}>DZIŚ PRACUJESZ Z ENERGIĄ</Text>
+                  <Text style={[styles.cardEyebrow, { color: crystal.color }]}>{t('crystalBall.dzis_pracujesz_z_energia', 'DZIŚ PRACUJESZ Z ENERGIĄ')}</Text>
                   <View style={styles.crystalHeroRow}>
                     <View style={[styles.crystalSwatch, { backgroundColor: crystal.color }]} />
                     <View style={{ flex: 1 }}>
@@ -949,7 +949,7 @@ Pisz w języku użytkownika.`;
                 <View style={[styles.sectionCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
                   <View style={styles.sectionHead}>
                     <Gem color={crystal.color} size={16} strokeWidth={1.8} />
-                    <Text style={[styles.sectionLabel, { color: crystal.color }]}>✨ WŁAŚCIWOŚCI</Text>
+                    <Text style={[styles.sectionLabel, { color: crystal.color }]}>{t('crystalBall.wlasciwosc', '✨ WŁAŚCIWOŚCI')}</Text>
                   </View>
                   <Text style={[styles.sectionBody, { color: textColor }]}>{crystal.properties}</Text>
                 </View>
@@ -958,11 +958,11 @@ Pisz w języku użytkownika.`;
               <Animated.View entering={FadeInUp.delay(220).duration(520)}>
                 <View style={styles.dualRow}>
                   <View style={[styles.dualCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
-                    <Text style={[styles.sectionLabel, { color: crystal.color }]}>JAK UŻYĆ</Text>
+                    <Text style={[styles.sectionLabel, { color: crystal.color }]}>{t('crystalBall.jak_uzyc', 'JAK UŻYĆ')}</Text>
                     <Text style={[styles.sectionBody, { color: textColor }]}>{crystal.use}</Text>
                   </View>
                   <View style={[styles.dualCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
-                    <Text style={[styles.sectionLabel, { color: crystal.color }]}>MINI RYTUAŁ</Text>
+                    <Text style={[styles.sectionLabel, { color: crystal.color }]}>{t('crystalBall.mini_rytual', 'MINI RYTUAŁ')}</Text>
                     <Text style={[styles.sectionBody, { color: textColor }]}>{crystal.ritual}</Text>
                   </View>
                 </View>
@@ -971,7 +971,7 @@ Pisz w języku użytkownika.`;
               <Animated.View entering={FadeInUp.delay(270).duration(540)}>
                 <View style={[styles.sectionCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : crystal.color + '10', borderColor: 'transparent' }]}>
                   <LinearGradient colors={[crystal.color + '14', 'transparent']} style={StyleSheet.absoluteFill} />
-                  <Text style={[styles.sectionLabel, { color: crystal.color }]}>AFIRMACJA KRYSZTAŁU</Text>
+                  <Text style={[styles.sectionLabel, { color: crystal.color }]}>{t('crystalBall.afirmacja_krysztalu', 'AFIRMACJA KRYSZTAŁU')}</Text>
                   <View style={styles.speakRow}>
                     <Text style={[styles.quote, { color: textColor }]}>{crystal.affirmation}</Text>
                     <SpeakButton text={crystal.affirmation} compact color={crystal.color} />
@@ -980,7 +980,7 @@ Pisz w języku użytkownika.`;
                     onPress={() => navigation.navigate('JournalEntry', { type: 'reflection', prompt: `Dzisiejszy kryształ to ${crystal.name}. Jakiej jakości energii potrzebuję dziś więcej i jak mogę ją realnie zaprosić do dnia?` })}
                     style={[styles.cta, { borderColor: 'transparent', backgroundColor: crystal.color + '18' }]}
                   >
-                    <Text style={[styles.ctaText, { color: crystal.color }]}>Zapisz pracę z kryształem</Text>
+                    <Text style={[styles.ctaText, { color: crystal.color }]}>{t('crystalBall.zapisz_prace_z_krysztalem', 'Zapisz pracę z kryształem')}</Text>
                     <ArrowRight color={crystal.color} size={14} />
                   </Pressable>
                 </View>
@@ -991,7 +991,7 @@ Pisz w języku użytkownika.`;
                 <Animated.View entering={FadeInUp.delay(320).duration(520)}>
                   <View style={[styles.newSection, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : CRYSTAL_CHAKRA[crystal.name].color + '0E', borderColor: 'transparent' }]}>
                     <LinearGradient colors={[CRYSTAL_CHAKRA[crystal.name].color + '14', 'transparent']} style={StyleSheet.absoluteFill} />
-                    <Text style={[styles.sectionLabel, { color: CRYSTAL_CHAKRA[crystal.name].color }]}>🌸 KRYSZTAŁ I CHAKRY</Text>
+                    <Text style={[styles.sectionLabel, { color: CRYSTAL_CHAKRA[crystal.name].color }]}>{t('crystalBall.krysztal_i_chakry', '🌸 KRYSZTAŁ I CHAKRY')}</Text>
                     <View style={styles.chakraRow}>
                       <View style={[styles.chakraDot, { backgroundColor: CRYSTAL_CHAKRA[crystal.name].color }]} />
                       <View style={{ flex: 1 }}>
@@ -1007,9 +1007,9 @@ Pisz w języku użytkownika.`;
               {/* Cleansing section */}
               <Animated.View entering={FadeInUp.delay(340).duration(520)}>
                 <View style={[styles.newSection, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
-                  <Text style={[styles.sectionLabel, { color: accent }]}>🔮 OCZYSZCZANIE I PROGRAMOWANIE</Text>
+                  <Text style={[styles.sectionLabel, { color: accent }]}>{t('crystalBall.oczyszczan_i_programowa', '🔮 OCZYSZCZANIE I PROGRAMOWANIE')}</Text>
                   <Text style={[styles.sectionBody, { color: subColor, marginBottom: 14 }]}>
-                    Regularne oczyszczanie pozwala kryształowi pracować z pełną mocą. Wybierz metodę bliską Tobie dziś.
+                    {t('crystalBall.regularne_oczyszczan_pozwala_kryszt', 'Regularne oczyszczanie pozwala kryształowi pracować z pełną mocą. Wybierz metodę bliską Tobie dziś.')}
                   </Text>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.cleansingChipsRow}>
                     {CLEANSING_METHODS.map((m, idx) => {
@@ -1033,12 +1033,12 @@ Pisz w języku użytkownika.`;
               {/* What to do section */}
               <Animated.View entering={FadeInUp.delay(360).duration(520)}>
                 <View style={[styles.newSection, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.04)', borderColor: 'transparent' }]}>
-                  <Text style={[styles.sectionLabel, { color: accent }]}>✦ CO DZIŚ MOŻESZ ZROBIĆ Z TYM KRYSZTAŁEM</Text>
+                  <Text style={[styles.sectionLabel, { color: accent }]}>{t('crystalBall.co_dzis_mozesz_zrobic_z', '✦ CO DZIŚ MOŻESZ ZROBIĆ Z TYM KRYSZTAŁEM')}</Text>
                   {[
-                    { label: 'Medytacja z kryształem', route: 'Meditation', params: undefined },
-                    { label: 'Zapisz intencję dnia', route: 'JournalEntry', params: { type: 'reflection', prompt: `Pracuję dziś z ${crystal.name}. Jaka intencja chce się wyłonić?` } },
-                    { label: 'Praca z ciałem — Chakry', route: 'Chakra', params: undefined },
-                    { label: 'Kąpiel dźwiękowa', route: 'SoundBath', params: undefined },
+                    { label: t('crystalBall.medytacja_z_krystalem', 'Medytacja z kryształem'), route: 'Meditation', params: undefined },
+                    { label: t('crystalBall.zapisz_intencje', 'Zapisz intencję dnia'), route: 'JournalEntry', params: { type: 'reflection', prompt: `Pracuję dziś z ${crystal.name}. Jaka intencja chce się wyłonić?` } },
+                    { label: t('crystalBall.praca_z_cialem', 'Praca z ciałem — Chakry'), route: 'Chakra', params: undefined },
+                    { label: t('crystalBall.kapiel_dzwiekowa', 'Kąpiel dźwiękowa'), route: 'SoundBath', params: undefined },
                   ].map((item, idx, arr) => (
                     <Pressable
                       key={item.route}
@@ -1089,10 +1089,10 @@ Pisz w języku użytkownika.`;
                     pointerEvents="none"
                   />
                   <Text style={[styles.cardEyebrow, { color: accent }]}>
-                    {mode === 'crystal' ? 'PYTANIE DO KRYSZTAŁU' : 'PYTANIE DO ZWIERCIADŁA'}
+                    {mode === 'crystal' ? t('crystalBall.pytanie_do_krysztalu', 'PYTANIE DO KRYSZTAŁU') : t('crystalBall.pytanie_do_zwierciadla', 'PYTANIE DO ZWIERCIADŁA')}
                   </Text>
                   <Text style={[styles.sectionBody, { color: subColor, marginBottom: 10 }]}>
-                    Jedno konkretne pytanie — o relację, decyzję, lęk, kierunek lub powracający wzorzec.
+                    {t('crystalBall.jedno_konkretne_pytanie_o_relacje', 'Jedno konkretne pytanie — o relację, decyzję, lęk, kierunek lub powracający wzorzec.')}
                   </Text>
 
                   {/* 5 question template chips */}
@@ -1111,7 +1111,7 @@ Pisz w języku użytkownika.`;
                   <MysticalInput
                     value={question}
                     onChangeText={setQuestion}
-                    placeholder={mode === 'crystal' ? 'Zadaj pytanie kryształowej kuli...' : 'Co zwierciadło pokazuje pod powierzchnią?'}
+                    placeholder={mode === 'crystal' ? t('crystalBall.zadaj_pytanie', 'Zadaj pytanie kryształowej kuli...') : t('crystalBall.co_zwierciadlo', 'Co zwierciadło pokazuje pod powierzchnią?')}
                     placeholderTextColor={subColor}
                     multiline
                     textAlignVertical="top"
@@ -1130,7 +1130,7 @@ Pisz w języku użytkownika.`;
                     >
                       <Sparkles color="#FFF" size={18} strokeWidth={1.8} />
                       <Text style={styles.askButtonText}>
-                        {loading ? 'Kula patrzy w głąb...' : 'Uruchom odczyt kuli'}
+                        {loading ? t('crystalBall.kula_patrzy', 'Kula patrzy w głąb...') : t('crystalBall.uruchom_odczyt', 'Uruchom odczyt kuli')}
                       </Text>
                     </LinearGradient>
                   </Pressable>
@@ -1148,9 +1148,9 @@ Pisz w języku użytkownika.`;
                 <>
                   <Animated.View entering={FadeInUp.delay(150).duration(520)}>
                     <View style={[styles.sectionCard, { backgroundColor: isLight ? 'rgba(255,255,255,0.88)' : accent + '0A', borderColor: 'transparent' }]}>
-                      <Text style={[styles.cardEyebrow, { color: accent }]}>ARCHIWUM ODCZYTÓW</Text>
+                      <Text style={[styles.cardEyebrow, { color: accent }]}>{t('crystalBall.archiwum_odczytow', 'ARCHIWUM ODCZYTÓW')}</Text>
                       <Text style={[styles.sectionBody, { color: subColor }]}>
-                        Każda odpowiedź zostaje tu jako ślad. Wyrocznia i zwierciadło budują własną pamięć interpretacji.
+                        {t('crystalBall.kazda_odpowiedz_zostaje_tu_jako', 'Każda odpowiedź zostaje tu jako ślad. Wyrocznia i zwierciadło budują własną pamięć interpretacji.')}
                       </Text>
                     </View>
                   </Animated.View>
@@ -1170,7 +1170,7 @@ Pisz w języku użytkownika.`;
                           <View style={styles.answerHead}>
                             <Layers3 color={ia} size={15} strokeWidth={1.8} />
                             <Text style={[styles.answerMode, { color: ia }]}>
-                              {item.mode === 'mirror' ? 'Zwierciadło duszy' : 'Wyrocznia kryształu'}
+                              {item.mode === 'mirror' ? t('crystalBall.zwierciadlo_duszy', 'Zwierciadło duszy') : t('crystalBall.wyrocznia_krystalu', 'Wyrocznia kryształu')}
                             </Text>
                             <Text style={[styles.answerDate, { color: subColor }]}>{item.date}</Text>
                           </View>

@@ -118,7 +118,7 @@ const ProgressRing = ({ filled, total, isLight }: { filled: number; total: numbe
         </View>
       </View>
       <Text style={{ color: isLight ? '#4A3F6B' : 'rgba(245,240,255,0.7)', fontSize: 13, marginTop: 4 }}>
-        intencji ustawionych
+        {t('visionBoard.intencji_ustawionyc', 'intencji ustawionych')}
       </Text>
     </View>
   );
@@ -182,7 +182,7 @@ export function VisionBoardScreen({ navigation }: any) {
   const saveIntention = useCallback(() => {
     if (!modalArea) return;
     if (intentionText.trim().length < 2) {
-      Alert.alert('Brak intencji', 'Wpisz swoją intencję przed zapisaniem.');
+      Alert.alert(t('visionBoard.brak_intencji', 'Brak intencji'), t('visionBoard.wpisz_swoja_intencje_przed_zapisani', 'Wpisz swoją intencję przed zapisaniem.'));
       return;
     }
     setVisionBoardIntention(modalArea.id, {
@@ -197,7 +197,7 @@ export function VisionBoardScreen({ navigation }: any) {
 
   const askOracleForAffirmation = useCallback(async () => {
     if (intentionText.trim().length < 2) {
-      Alert.alert('Najpierw wpisz intencję', 'Wpisz intencję, aby Oracle mógł wesprzeć.');
+      Alert.alert(t('visionBoard.najpierw_wpisz_intencje', 'Najpierw wpisz intencję'), t('visionBoard.wpisz_intencje_aby_oracle_mogl', 'Wpisz intencję, aby Oracle mógł wesprzeć.'));
       return;
     }
     setModalAiLoading(true);
@@ -215,7 +215,7 @@ export function VisionBoardScreen({ navigation }: any) {
       const res = await AiService.chatWithOracle(messages, i18n.language?.slice(0, 2) || 'pl');
       setAffirmationText(res?.trim() || '');
     } catch {
-      Alert.alert('Błąd Oracle', 'Spróbuj ponownie za chwilę.');
+      Alert.alert(t('visionBoard.blad_oracle', 'Błąd Oracle'), t('visionBoard.sprobuj_ponownie_za_chwile', 'Spróbuj ponownie za chwilę.'));
     } finally {
       setModalAiLoading(false);
     }
@@ -224,7 +224,7 @@ export function VisionBoardScreen({ navigation }: any) {
   // ── AI board activation ─────────────────────────────────────────────────────
   const activateBoard = useCallback(async () => {
     if (filledCount === 0) {
-      Alert.alert('Pusta tablica', 'Dodaj przynajmniej jedną intencję, aby aktywować tablicę.');
+      Alert.alert(t('visionBoard.pusta_tablica', 'Pusta tablica'), t('visionBoard.dodaj_przynajmni_jedna_intencje_aby', 'Dodaj przynajmniej jedną intencję, aby aktywować tablicę.'));
       return;
     }
     setActivationLoading(true);
@@ -258,7 +258,7 @@ export function VisionBoardScreen({ navigation }: any) {
       }
       HapticsService.notify();
     } catch {
-      Alert.alert('Błąd aktywacji', 'Spróbuj ponownie za chwilę.');
+      Alert.alert(t('visionBoard.blad_aktywacji', 'Błąd aktywacji'), t('visionBoard.sprobuj_ponownie_za_chwile_1', 'Spróbuj ponownie za chwilę.'));
     } finally {
       setActivationLoading(false);
     }
@@ -296,8 +296,8 @@ export function VisionBoardScreen({ navigation }: any) {
           <ChevronLeft color={isLight ? '#4A3F6B' : 'rgba(245,240,255,0.75)'} size={22} strokeWidth={2} />
         </Pressable>
         <View style={{ flex: 1, alignItems: 'center' }}>
-          <Text style={[styles.headerTitle, { color: textColor }]}>TABLICA MANIFESTACJI</Text>
-          <Text style={[styles.headerSub, { color: subColor }]}>Twoja kosmiczna mapa intencji</Text>
+          <Text style={[styles.headerTitle, { color: textColor }]}>{t('visionBoard.tablica_manifestac', 'TABLICA MANIFESTACJI')}</Text>
+          <Text style={[styles.headerSub, { color: subColor }]}>{t('visionBoard.twoja_kosmiczna_mapa_intencji', 'Twoja kosmiczna mapa intencji')}</Text>
         </View>
         <Pressable onPress={handleStar} style={styles.backBtn} hitSlop={12}>
           <Star color={GOLD} size={20} fill={isFav ? GOLD : 'none'} strokeWidth={1.5} />
@@ -320,12 +320,12 @@ export function VisionBoardScreen({ navigation }: any) {
               colors={['rgba(129,140,248,0.25)', 'rgba(99,102,241,0.15)']}
               style={[styles.newMoonBanner, { borderColor: isLight ? '#818CF8' : 'rgba(129,140,248,0.40)' }]}
             >
-              <Text style={styles.newMoonText}>🌑 Nów Księżyca — idealna pora na nowe intencje!</Text>
+              <Text style={styles.newMoonText}>{t('visionBoard.now_ksiezyca_idealna_pora_na', '🌑 Nów Księżyca — idealna pora na nowe intencje!')}</Text>
               <Pressable
                 onPress={() => navigation.navigate('LunarCalendar')}
                 style={[styles.newMoonBtn, { backgroundColor: '#818CF8' + '33', borderColor: '#818CF8' + '88' }]}
               >
-                <Text style={{ color: '#818CF8', fontSize: 13, fontWeight: '600' }}>Ustaw Teraz</Text>
+                <Text style={{ color: '#818CF8', fontSize: 13, fontWeight: '600' }}>{t('visionBoard.ustaw_teraz', 'Ustaw Teraz')}</Text>
               </Pressable>
             </LinearGradient>
           </Animated.View>
@@ -333,7 +333,7 @@ export function VisionBoardScreen({ navigation }: any) {
 
         {/* 3×3 grid */}
         <Animated.View entering={FadeInDown.delay(180).duration(500)}>
-          <Text style={[styles.sectionLabel, { color: subColor }]}>OBSZARY ŻYCIA</Text>
+          <Text style={[styles.sectionLabel, { color: subColor }]}>{t('visionBoard.obszary_zycia', 'OBSZARY ŻYCIA')}</Text>
           <View style={styles.grid}>
             {AREAS.map((area, idx) => {
               const ic = visionBoardIntentions[area.id];
@@ -369,7 +369,7 @@ export function VisionBoardScreen({ navigation }: any) {
                       </View>
                     </>
                   ) : (
-                    <Text style={[styles.cellPlaceholder, { color: subColor }]}>Dotknij, aby dodać intencję</Text>
+                    <Text style={[styles.cellPlaceholder, { color: subColor }]}>{t('visionBoard.dotknij_aby_dodac_intencje', 'Dotknij, aby dodać intencję')}</Text>
                   )}
                 </Pressable>
               );
@@ -424,7 +424,7 @@ export function VisionBoardScreen({ navigation }: any) {
             onPress={() => setRitualOpen(v => !v)}
             style={[styles.ritualHeader, { borderColor: cardBorder, backgroundColor: cardBg }]}
           >
-            <Text style={[styles.sectionLabel, { color: subColor, marginBottom: 0 }]}>RYTUAŁ MANIFESTACJI</Text>
+            <Text style={[styles.sectionLabel, { color: subColor, marginBottom: 0 }]}>{t('visionBoard.rytual_manifestac', 'RYTUAŁ MANIFESTACJI')}</Text>
             {ritualOpen
               ? <ChevronUp color={subColor} size={18} strokeWidth={2} />
               : <ChevronDown color={subColor} size={18} strokeWidth={2} />
@@ -466,7 +466,7 @@ export function VisionBoardScreen({ navigation }: any) {
 
         {/* Inspiration quotes */}
         <Animated.View entering={FadeInDown.delay(380).duration(500)}>
-          <Text style={[styles.sectionLabel, { color: subColor, marginTop: 24 }]}>INSPIRACJE</Text>
+          <Text style={[styles.sectionLabel, { color: subColor, marginTop: 24 }]}>{t('visionBoard.inspiracje', 'INSPIRACJE')}</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginHorizontal: -layout.padding.screen }}>
             <View style={{ flexDirection: 'row', gap: 10, paddingHorizontal: layout.padding.screen, paddingBottom: 4 }}>
               {QUOTES.map((q, i) => (
@@ -489,7 +489,7 @@ export function VisionBoardScreen({ navigation }: any) {
 
         {/* CO DALEJ? */}
         <Animated.View entering={FadeInDown.delay(440).duration(500)}>
-          <Text style={[styles.sectionLabel, { color: subColor, marginTop: 24 }]}>CO DALEJ?</Text>
+          <Text style={[styles.sectionLabel, { color: subColor, marginTop: 24 }]}>{t('visionBoard.co_dalej', 'CO DALEJ?')}</Text>
           <View style={{ gap: 10 }}>
             {[
               { label: 'Generator Mantry', sub: 'Spersonalizowana mantra wedyjska', route: 'MantraGenerator', color: '#818CF8', Icon: Sparkles },
@@ -544,14 +544,14 @@ export function VisionBoardScreen({ navigation }: any) {
             )}
 
             {/* Intention input */}
-            <Text style={[styles.modalLabel, { color: subColor }]}>Twoja intencja</Text>
+            <Text style={[styles.modalLabel, { color: subColor }]}>{t('visionBoard.twoja_intencja', 'Twoja intencja')}</Text>
             <TextInput
               style={[styles.modalInput, {
                 color: isLight ? '#1A1410' : '#F0EAF8',
                 backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)',
                 borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.14)',
               }]}
-              placeholder="Wpisz swoją intencję..."
+              placeholder={t('visionBoard.wpisz_swoja_intencje', 'Wpisz swoją intencję...')}
               placeholderTextColor={subColor}
               multiline
               maxLength={200}
@@ -561,14 +561,14 @@ export function VisionBoardScreen({ navigation }: any) {
             />
 
             {/* Affirmation input */}
-            <Text style={[styles.modalLabel, { color: subColor }]}>Afirmacja</Text>
+            <Text style={[styles.modalLabel, { color: subColor }]}>{t('visionBoard.afirmacja', 'Afirmacja')}</Text>
             <TextInput
               style={[styles.modalInput, { minHeight: 48,
                 color: isLight ? '#1A1410' : '#F0EAF8',
                 backgroundColor: isLight ? 'rgba(255,248,236,0.95)' : 'rgba(255,255,255,0.07)',
                 borderColor: isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.14)',
               }]}
-              placeholder="Już mam/jestem..."
+              placeholder={t('visionBoard.juz_mam_jestem', 'Już mam/jestem...')}
               placeholderTextColor={subColor}
               value={affirmationText}
               onChangeText={setAffirmationText}
@@ -576,7 +576,7 @@ export function VisionBoardScreen({ navigation }: any) {
             />
 
             {/* Deadline pills */}
-            <Text style={[styles.modalLabel, { color: subColor }]}>Horyzont czasowy</Text>
+            <Text style={[styles.modalLabel, { color: subColor }]}>{t('visionBoard.horyzont_czasowy', 'Horyzont czasowy')}</Text>
             <View style={{ flexDirection: 'row', gap: 8, marginBottom: 14 }}>
               {DEADLINE_OPTIONS.map(d => (
                 <Pressable
@@ -612,7 +612,7 @@ export function VisionBoardScreen({ navigation }: any) {
               onPress={saveIntention}
               style={[styles.saveBtn, { backgroundColor: GOLD + '22', borderColor: GOLD + '88' }]}
             >
-              <Text style={{ color: GOLD, fontSize: 15, fontWeight: '700', letterSpacing: 0.5 }}>Zapisz intencję</Text>
+              <Text style={{ color: GOLD, fontSize: 15, fontWeight: '700', letterSpacing: 0.5 }}>{t('visionBoard.zapisz_intencje', 'Zapisz intencję')}</Text>
             </Pressable>
           </View>
         </View>
