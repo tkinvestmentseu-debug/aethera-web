@@ -681,6 +681,68 @@ const FreqCard = ({
   );
 };
 
+// ─── Pulsing frequency orb hero ───────────────────────────────────────────────
+
+const FreqHeroOrb = ({ color, active }: { color: string; active: boolean }) => {
+  const pulseA = useRef(new Animated.Value(0)).current;
+  const pulseB = useRef(new Animated.Value(0)).current;
+  const rot    = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const loopA = Animated.loop(Animated.sequence([
+      Animated.timing(pulseA, { toValue: 1, duration: 1800, useNativeDriver: true }),
+      Animated.timing(pulseA, { toValue: 0, duration: 1800, useNativeDriver: true }),
+    ]));
+    const loopB = Animated.loop(Animated.sequence([
+      Animated.delay(600),
+      Animated.timing(pulseB, { toValue: 1, duration: 1800, useNativeDriver: true }),
+      Animated.timing(pulseB, { toValue: 0, duration: 1800, useNativeDriver: true }),
+    ]));
+    const loopR = Animated.loop(
+      Animated.timing(rot, { toValue: 1, duration: 16000, useNativeDriver: true })
+    );
+    loopA.start(); loopB.start(); loopR.start();
+    return () => { loopA.stop(); loopB.stop(); loopR.stop(); };
+  }, [pulseA, pulseB, rot]);
+
+  const spin = rot.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '360deg'] });
+
+  return (
+    <View style={{ width: 200, height: 200, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 10 }}>
+      {/* Outer rotating dashed ring */}
+      <Animated.View style={{
+        position: 'absolute', width: 192, height: 192, borderRadius: 96,
+        borderWidth: 1, borderColor: color + '30', borderStyle: 'dashed',
+        transform: [{ rotate: spin }],
+      }} />
+      {/* Pulse ring A */}
+      <Animated.View style={{
+        position: 'absolute', width: 160, height: 160, borderRadius: 80,
+        borderWidth: 1.5, borderColor: color,
+        opacity: pulseA.interpolate({ inputRange: [0, 1], outputRange: [0.15, 0.55] }),
+        transform: [{ scale: pulseA.interpolate({ inputRange: [0, 1], outputRange: [0.88, 1.06] }) }],
+      }} />
+      {/* Pulse ring B */}
+      <Animated.View style={{
+        position: 'absolute', width: 124, height: 124, borderRadius: 62,
+        borderWidth: 1, borderColor: color,
+        opacity: pulseB.interpolate({ inputRange: [0, 1], outputRange: [0.22, 0.70] }),
+        transform: [{ scale: pulseB.interpolate({ inputRange: [0, 1], outputRange: [0.92, 1.08] }) }],
+      }} />
+      {/* Core glow */}
+      <Animated.View style={{
+        position: 'absolute', width: 86, height: 86, borderRadius: 43,
+        backgroundColor: color,
+        opacity: pulseA.interpolate({ inputRange: [0, 1], outputRange: [active ? 0.35 : 0.12, active ? 0.65 : 0.22] }),
+        transform: [{ scale: pulseA.interpolate({ inputRange: [0, 1], outputRange: [0.95, 1.05] }) }],
+      }} />
+      {/* Center symbol */}
+      <Text style={{ fontSize: 28, zIndex: 10 }}>🎧</Text>
+      <Text style={{ fontSize: 10, fontWeight: '700', letterSpacing: 2, color: color, marginTop: 3, zIndex: 10 }}>BINAURAL</Text>
+    </View>
+  );
+};
+
 // ─── main component ───────────────────────────────────────────────────────────
 
 export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation }) => {
@@ -984,10 +1046,11 @@ export const BinauralBeatsScreen: React.FC<{ navigation?: any }> = ({ navigation
               style={StyleSheet.absoluteFillObject}
             />
             <Typography variant="premiumLabel" color={accentColor}>{t('binauralBeats.freq_studio', '⚡ FREQ STUDIO')}</Typography>
-            <Typography variant="heroTitle" style={{ color: textColor, fontSize: 28, lineHeight: 36, marginTop: 4 }}>
+            <FreqHeroOrb color={accentColor} active={!!active} />
+            <Typography variant="heroTitle" style={{ color: textColor, fontSize: 28, lineHeight: 36, textAlign: 'center', marginTop: 4 }}>
               {t('binauralBeats.rytmy_binauralne_i_stany_swiadomosc', 'Rytmy binauralne i stany świadomości')}
             </Typography>
-            <Typography variant="bodyRefined" style={{ color: subColor, marginTop: 6, marginBottom: 14 }}>
+            <Typography variant="bodyRefined" style={{ color: subColor, marginTop: 6, marginBottom: 14, textAlign: 'center' }}>
               {t('binauralBeats.to_nie_jest_zwykla_playlista', 'To nie jest zwykła playlista. Każda częstotliwość otwiera inny stan: regenerację, fokus, relaks, intuicję albo głębszą pracę duchową.')}
             </Typography>
             <View style={styles.headerPills}>

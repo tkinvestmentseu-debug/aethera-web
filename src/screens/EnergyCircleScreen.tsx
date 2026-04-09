@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, ScrollView, StyleSheet, Pressable, Dimensions, TextInput } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Pressable, Dimensions, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { useSharedValue, useAnimatedStyle, withRepeat, withSequence, withTiming, FadeInDown, FadeIn } from 'react-native-reanimated';
@@ -189,6 +189,7 @@ export const EnergyCircleScreen = ({ navigation }) => {
   const sessions = filter === 'WSZYSTKIE' ? SESSIONS : SESSIONS.filter(s => s.type === filter);
 
   return (
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
     <View style={{ flex: 1, backgroundColor: isLight ? '#F0EEFF' : '#070714' }}>
       <LinearGradient colors={isLight ? [ACCENT + '18', 'transparent'] : [ACCENT + '30', '#070714']} style={StyleSheet.absoluteFill} />
       <SafeAreaView edges={['top']} style={{ flex: 1 }}>
@@ -471,5 +472,6 @@ export const EnergyCircleScreen = ({ navigation }) => {
         </ScrollView>
       </SafeAreaView>
     </View>
+    </KeyboardAvoidingView>
   );
 };

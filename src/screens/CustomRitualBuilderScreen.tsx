@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Alert,
   Dimensions,
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
   ScrollView,
   Share,
@@ -564,6 +566,7 @@ export const CustomRitualBuilderScreen = ({ navigation }: any) => {
   // ─── Render ─────────────────────────────────────────────────────────────────
 
   return (
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
     <View style={styles.container}>
       <LinearGradient
         colors={['#0D0B16', '#07080E', '#07080E']}
@@ -624,6 +627,7 @@ export const CustomRitualBuilderScreen = ({ navigation }: any) => {
         </View>
       </SafeAreaView>
     </View>
+    </KeyboardAvoidingView>
   );
 };
 

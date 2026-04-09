@@ -181,6 +181,50 @@ const INTEGRATION_STEPS = [
   },
 ];
 
+// ── Animated hero orb (module-level, Reanimated-safe) ─────────────────────────
+const BreathHeroOrb = ({ color, isLight }: { color: string; isLight: boolean }) => {
+  const outer = useRef(new Animated.Value(0)).current;
+  const mid = useRef(new Animated.Value(0)).current;
+  const inner = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    const makeLoop = (val: Animated.Value, delay: number, duration: number) =>
+      Animated.loop(Animated.sequence([
+        Animated.delay(delay),
+        Animated.timing(val, { toValue: 1, duration, useNativeDriver: true }),
+        Animated.timing(val, { toValue: 0, duration, useNativeDriver: true }),
+      ]));
+    const a = makeLoop(outer, 0, 2200);
+    const b = makeLoop(mid, 400, 2200);
+    const c = makeLoop(inner, 800, 2200);
+    a.start(); b.start(); c.start();
+    return () => { a.stop(); b.stop(); c.stop(); };
+  }, [outer, mid, inner]);
+
+  const ORBS = [
+    { size: 180, base: outer, opRange: [0.07, 0.22] as [number, number], scaleRange: [0.92, 1.04] as [number, number] },
+    { size: 130, base: mid,   opRange: [0.12, 0.35] as [number, number], scaleRange: [0.94, 1.06] as [number, number] },
+    { size: 82,  base: inner, opRange: [0.35, 0.85] as [number, number], scaleRange: [0.96, 1.08] as [number, number] },
+  ];
+
+  return (
+    <View style={{ width: 180, height: 180, alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginVertical: 8 }}>
+      {ORBS.map(({ size, base, opRange, scaleRange }, i) => (
+        <Animated.View key={i} style={{
+          position: 'absolute',
+          width: size, height: size, borderRadius: size / 2,
+          backgroundColor: color,
+          opacity: base.interpolate({ inputRange: [0, 1], outputRange: opRange }),
+          transform: [{ scale: base.interpolate({ inputRange: [0, 1], outputRange: scaleRange }) }],
+        }} />
+      ))}
+      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 32 }}>🌬️</Text>
+        <Text style={{ color: isLight ? '#3D2810' : 'rgba(255,255,255,0.9)', fontSize: 11, fontWeight: '700', letterSpacing: 2, marginTop: 4 }}>ODDECH</Text>
+      </View>
+    </View>
+  );
+};
+
 export const BreathworkScreen: React.FC = () => {
   const { t } = useTranslation();
   useAudioCleanup();
@@ -368,19 +412,17 @@ const mountedRef = useRef(true);
       <SafeAreaView edges={['top']} style={styles.safeArea}>
         <ScrollView ref={scrollRef} contentContainerStyle={[styles.scrollContent, { paddingBottom: screenContracts.bottomInset(insets.bottom, 'detail') + 26 }]} showsVerticalScrollIndicator={false}>
 
-          {/* Hero section — no card wrapper */}
+          {/* Hero section — animated orb */}
           <View style={styles.heroSection}>
             <View style={styles.heroRow}>
-              <View style={[styles.heroIcon, { backgroundColor: pattern.color + '18', borderColor: pattern.color + '44' }]}>
-                <Icon color={pattern.color} size={26} strokeWidth={1.8} />
-              </View>
               <View style={{ flex: 1 }}>
                 <Typography variant="premiumLabel" color={pattern.color}>{t('breathwork.title')}</Typography>
-                <Typography variant="heroTitle" style={{ color: theme.text, marginTop: 6 }}>{t('breathwork.selectTechnique')}</Typography>
               </View>
               <MusicToggleButton color={pattern.color} size={19} />
             </View>
-            <Typography variant="bodySmall" style={{ color: theme.textMuted, marginTop: 14 }}>Oddech to najstarszy instrument regulacji, jaki masz. Każda technika ma własny cel, własne tempo i własny kontekst — nie chodzi tu o odliczanie sekund, ale o świadome prowadzenie ciała w kierunku, którego teraz potrzebuje.</Typography>
+            <BreathHeroOrb color={pattern.color} isLight={isLight} />
+            <Typography variant="heroTitle" style={{ color: theme.text, textAlign: 'center', marginBottom: 6 }}>{t('breathwork.selectTechnique')}</Typography>
+            <Typography variant="bodySmall" style={{ color: theme.textMuted, textAlign: 'center' }}>Oddech to najstarszy instrument regulacji, jaki masz. Każda technika ma własny cel i własny rytm.</Typography>
           </View>
 
           {/* ══ MÓJ POSTĘP ══ */}
