@@ -97,6 +97,7 @@ Jeśli masz pytania dotyczące niniejszego Regulaminu, skontaktuj się z nami: c
 ];
 
 export const TermsOfServiceScreen = ({ navigation }: any) => {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <SafeAreaView edges={['top']} style={{ flex: 1 }}>

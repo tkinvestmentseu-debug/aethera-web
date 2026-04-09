@@ -550,6 +550,7 @@ const FreqCard = ({
   freq: FreqData; isActive: boolean; onPress: () => void;
   isLight: boolean; textColor: string; subColor: string;
 }) => {
+  const { t } = useTranslation();
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const [showEffects, setShowEffects] = useState(false);
 

@@ -359,6 +359,7 @@ const ScryingRitual = ({
   accent: string; textColor: string; subColor: string;
   cardBg: string; borderColor: string; onComplete: () => void;
 }) => {
+  const { t } = useTranslation();
   const [step, setStep] = useState(-1);
   const [running, setRunning] = useState(false);
   const fade = useSharedValue(0);

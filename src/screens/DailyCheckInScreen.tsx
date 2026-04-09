@@ -477,6 +477,7 @@ const ReflectionStep = ({
   intention: string; onChangeIntention: (t: string) => void;
   accent: string; isLight: boolean;
 }) => {
+  const { t } = useTranslation();
   const textColor = isLight ? '#2A1E0F' : '#F5F1EA';
   const subColor  = isLight ? '#6A5A48' : '#8A8080';
   const cardBg    = isLight ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.07)';

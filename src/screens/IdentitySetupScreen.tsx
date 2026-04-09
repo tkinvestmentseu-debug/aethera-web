@@ -402,6 +402,7 @@ const Step1 = ({
   lastName: string;
   setLastName: (v: string) => void;
 }) => {
+  const { t } = useTranslation();
   const energy = useMemo(() => (name.length >= 3 ? calcNameEnergy(name) : 0), [name]);
   const lastRef = useRef<TextInput>(null);
 
@@ -462,6 +463,7 @@ const Step2 = ({
   year: string; setYear: (v: string) => void;
   birthTime: string; setBirthTime: (v: string) => void;
 }) => {
+  const { t } = useTranslation();
   const zodiac = useMemo(() => {
     const d = parseInt(day);
     const m = parseInt(month);

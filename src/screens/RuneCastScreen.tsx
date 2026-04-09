@@ -544,6 +544,7 @@ const RuneBagCast = ({ casting, onCast }: { casting: boolean; onCast: () => void
 
 const RuneFlashcard = ({ rune, onNext, onPrev, index, total, isLight, textColor, subColor, cardBg, cardBorder }:
   { rune: Rune; onNext: () => void; onPrev: () => void; index: number; total: number; isLight: boolean; textColor: string; subColor: string; cardBg: string; cardBorder: string }) => {
+    const { t } = useTranslation();
   const [flipped, setFlipped] = useState(false);
   const flip = useSharedValue(0);
 

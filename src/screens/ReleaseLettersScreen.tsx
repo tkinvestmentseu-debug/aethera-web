@@ -184,6 +184,7 @@ return (
 
 // ── BURN ANIMATION OVERLAY ─────────────────────────────────────
 const BurnOverlay = React.memo(({ visible, onComplete }: { visible: boolean; onComplete: () => void }) => {
+  const { t } = useTranslation();
   const flames = useSharedValue(0);
   const textOpacity = useSharedValue(1);
   const ashOpacity = useSharedValue(0);

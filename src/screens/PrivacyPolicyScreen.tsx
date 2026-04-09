@@ -113,6 +113,7 @@ Masz również prawo do wniesienia skargi do organu nadzorczego — Prezesa Urz�
 ];
 
 export const PrivacyPolicyScreen = ({ navigation }: any) => {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <SafeAreaView edges={['top']} style={{ flex: 1 }}>

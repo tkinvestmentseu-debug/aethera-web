@@ -189,6 +189,7 @@ const StepRow = ({
   onChangeType: (v: string) => void;
   onDelete: () => void;
 }) => {
+  const { t } = useTranslation();
   const currentType = STEP_TYPES.find(t => t.label === stepType) || STEP_TYPES[0];
 
   const handleLongPress = () => {

@@ -1092,6 +1092,7 @@ const Divider = ({ label, color, isLight }: { label: string; color: string; isLi
 const AiInsightCard = ({ insight, loading, accent, isLight, onRequest }: {
   insight: string; loading: boolean; accent: string; isLight: boolean; onRequest: () => void;
 }) => {
+  const { t } = useTranslation();
   const textColor = isLight ? '#1A1A1A' : '#F0EBE2';
   const subColor = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.60)';
   return (

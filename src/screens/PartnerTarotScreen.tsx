@@ -510,6 +510,7 @@ const RelationshipOrb3D = ({ isLight }: { isLight: boolean }) => {
 
 // ─── Flipping Card ────────────────────────────────────────────────────────────
 const FlipCard = ({ entry, deck, index, onReveal }: { entry: any; deck: any; index: number; onReveal: (i: number) => void }) => {
+  const { t } = useTranslation();
   const flip = useSharedValue(0);
 
   const frontStyle = useAnimatedStyle(() => ({
@@ -761,6 +762,7 @@ const ProfileCard = ({
   name: string; birthDate: string; isLight: boolean; accentColor: string;
   label: string; onEditBirth?: () => void; onEditName?: () => void;
 }) => {
+  const { t } = useTranslation();
   const zodiac = getZodiacFromDate(birthDate);
   const lp = calcLifePath(birthDate);
   const moon = getMoonPhaseLabel(birthDate);
@@ -810,6 +812,7 @@ const ProfileCard = ({
 
 // ─── Reading History Entry ────────────────────────────────────────────────────
 const HistoryEntry = ({ entry, isLight, onDelete }: { entry: any; isLight: boolean; onDelete: () => void }) => {
+  const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
   const textColor = isLight ? '#1A1A2E' : '#F0EBF4';
   const subC = isLight ? 'rgba(0,0,0,0.72)' : 'rgba(255,255,255,0.55)';

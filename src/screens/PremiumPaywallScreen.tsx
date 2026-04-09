@@ -286,6 +286,7 @@ const PlanCard = React.memo(({
   onSelect: () => void;
   index: number;
 }) => {
+  const { t } = useTranslation();
   const scale = useSharedValue(1);
   const glow = useSharedValue(selected ? 1 : 0);
 

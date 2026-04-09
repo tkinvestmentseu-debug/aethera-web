@@ -420,6 +420,7 @@ const ArchGridCard = ({
   cardBg: string;
   cardBorder: string;
 }) => {
+  const { t } = useTranslation();
   return (
     <Animated.View entering={FadeInDown.duration(400)}>
       <Pressable

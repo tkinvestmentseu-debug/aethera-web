@@ -553,6 +553,7 @@ const PostCard = React.memo(({ post, isLight, index, onComment }: PostCardProps)
 // FILTER PANEL (bottom sheet)
 // ─────────────────────────────────────────────────────────────────────────────
 const FilterPanel = ({ visible, onClose, isLight }: { visible: boolean; onClose: () => void; isLight: boolean }) => {
+  const { t } = useTranslation();
   const [sortBy, setSortBy] = useState<'nowe' | 'popularne' | 'dzisiaj'>('nowe');
   const bg = isLight ? '#FFFFFF' : '#130D22';
   const textColor = isLight ? '#1A1020' : '#F0EBF8';
@@ -795,6 +796,7 @@ const CommentsModal = ({
   onClose,
   isLight,
 }: { post: FeedPost | null; visible: boolean; onClose: () => void; isLight: boolean }) => {
+  const { t } = useTranslation();
   const [commentText, setCommentText] = useState('');
   const [comments, setComments] = useState([]);
   const [loadingComments, setLoadingComments] = useState(false);
@@ -896,6 +898,7 @@ const CommentsModal = ({
 // MAIN SCREEN
 // ─────────────────────────────────────────────────────────────────────────────
 export const GlobalShareScreen = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation<any>();
   const insets = useSafeAreaInsets();
     const addFavoriteItem = useAppStore(s => s.addFavoriteItem);
