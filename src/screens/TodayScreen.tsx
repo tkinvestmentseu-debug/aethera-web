@@ -633,9 +633,9 @@ const ts = StyleSheet.create({
     paddingBottom: 14,
     borderBottomWidth: 1,
   },
-  eyebrow: { fontSize: 11, fontWeight: '800', letterSpacing: 2.5, marginBottom: 3 },
-  greeting: { fontSize: 26, fontWeight: '400', letterSpacing: -0.5, lineHeight: 32, fontFamily: 'serif' },
-  sub: { fontSize: 13, marginTop: 4, lineHeight: 18 },
+  eyebrow: { fontSize: 10, fontFamily: 'Raleway_700Bold', letterSpacing: 2.8, marginBottom: 3 },
+  greeting: { fontSize: 26, fontFamily: 'Cinzel_400Regular', letterSpacing: 0.5, lineHeight: 34 },
+  sub: { fontSize: 13, fontFamily: 'Raleway_400Regular', marginTop: 4, lineHeight: 18 },
 
   moonPill: {
     flexDirection: 'row', alignItems: 'center', gap: 5,
@@ -643,7 +643,7 @@ const ts = StyleSheet.create({
     borderRadius: 12, borderWidth: 1,
   },
   moonEmoji: { fontSize: 14 },
-  moonName: { fontSize: 12, fontWeight: '700', letterSpacing: 0.4 },
+  moonName: { fontSize: 12, fontFamily: 'Raleway_600SemiBold', letterSpacing: 0.5 },
 
   streakBadge: {
     flexDirection: 'row', alignItems: 'center', gap: 4,
