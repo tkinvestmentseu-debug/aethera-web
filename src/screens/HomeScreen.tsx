@@ -865,6 +865,30 @@ const renderContent = (id: string, navigation: any, dailyPlan: DailySoulPlan, us
     );
   }
 
+  if (id === 'aura') return (
+    <>
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginBottom: 16 }}>
+        <ActionTile icon={Zap} label={tr('home.aura.checkin', 'Moja Aura', 'My Aura')} sublabel={tr('home.aura.checkinSub', 'Check-in koloru i energii dnia', 'Daily color and energy check-in')} accent={ac} onPress={() => navigation.navigate('Aura')} delay={0} isLight={isLight} />
+        <ActionTile icon={Layers} label={tr('home.aura.colorTherapy', 'Terapia kolorem', 'Color Therapy')} sublabel={tr('home.aura.colorTherapySub', 'Barwa leczy, aktywuje, uzdrawia', 'Color heals, activates, restores')} accent={ac} onPress={() => navigation.navigate('ColorTherapy')} delay={60} isLight={isLight} />
+        <ActionTile icon={BookOpen} label={tr('home.aura.journal', 'Dziennik energii', 'Energy Journal')} sublabel={tr('home.aura.journalSub', 'Śledź zmiany w swoim polu', 'Track shifts in your field')} accent={ac} onPress={() => navigation.navigate('EnergyJournal')} delay={120} isLight={isLight} />
+        <ActionTile icon={Flower2} label={tr('home.aura.chakras', 'Chakry', 'Chakras')} sublabel={tr('home.aura.chakrasSub', 'Balansuj 7 centrów energii', 'Balance your 7 energy centers')} accent={ac} onPress={() => navigation.navigate('Chakra')} delay={180} isLight={isLight} />
+      </View>
+      <MetricsStrip accent={ac} isLight={isLight} items={[
+        { val: streaks.current + 'd', label: tr('home.metric.streak', 'CIĄGŁOŚĆ', 'STREAK') },
+        { val: dailyPlan.energyScore + '%', label: tr('home.metric.energy', 'ENERGIA', 'ENERGY') },
+        { val: dailyPlan.moonPhase?.icon || '🌙', label: tr('home.metric.moon', 'KSIĘŻYC', 'MOON') },
+        { val: '7', label: tr('home.aura.layers', 'WARSTWY', 'LAYERS') },
+      ]} />
+      <SectionDivider label={tr('home.aura.fieldWork', 'PRACA Z POLEM ENERGETYCZNYM', 'ENERGY FIELD WORK')} accent={ac} />
+      <ExploreRow title={tr('home.aura.reading', 'Odczyt Aury AI', 'AI Aura Reading')} desc={tr('home.aura.readingDesc', 'Analiza AI Twojego pola na podstawie nastroju, daty i intencji.', 'AI analysis of your field based on mood, date, and intention.')} accent={ac} onPress={() => navigation.navigate('AuraReading')} delay={0} isLight={isLight} />
+      <ExploreRow title={tr('home.aura.healing', 'Uzdrawiające Częstotliwości', 'Healing Frequencies')} desc={tr('home.aura.healingDesc', '432 Hz, 528 Hz, Solfeggio — dźwięki które harmonizują ciało i pole.', '432 Hz, 528 Hz, Solfeggio — sounds that harmonize body and field.')} accent={ac} onPress={() => navigation.navigate('HealingFrequencies')} delay={40} isLight={isLight} />
+      <ExploreRow title={tr('home.aura.soundBath', 'Kąpiel Dźwiękowa', 'Sound Bath')} desc={tr('home.aura.soundBathDesc', 'Immersyjna sesja z misami tybetańskimi i gongu — reset pola energetycznego.', 'Immersive session with Tibetan bowls and gong — energy field reset.')} accent={ac} onPress={() => navigation.navigate('SoundBath')} delay={80} isLight={isLight} />
+      <ExploreRow title={tr('home.aura.sacredGeometry', 'Geometria Sakralna', 'Sacred Geometry')} desc={tr('home.aura.sacredGeometryDesc', 'Kwiaty życia, Metatron, Sri Yantra — wzorce aktywujące pole świadomości.', 'Flower of Life, Metatron, Sri Yantra — patterns that activate the field of consciousness.')} accent={ac} onPress={() => navigation.navigate('SacredGeometry')} delay={120} isLight={isLight} />
+      <ExploreRow title={tr('home.aura.crystals', 'Przewodnik po Kryształach', 'Crystal Guide')} desc={tr('home.aura.crystalsDesc', 'Dobierz kryształ do swojej aury — ochrona, czyszczenie i wzmocnienie.', 'Match a crystal to your aura — protection, cleansing, and amplification.')} accent={ac} onPress={() => navigation.navigate('CrystalGuide')} delay={160} isLight={isLight} />
+      <ExploreRow title={tr('home.aura.ancestral', 'Połączenie z Przodkami', 'Ancestral Connection')} desc={tr('home.aura.ancestralDesc', 'Energia przodków wpływa na Twoje pole — nawiąż kontakt i uzdrów wzorce.', 'Ancestral energy affects your field — make contact and heal patterns.')} accent={ac} onPress={() => navigation.navigate('AncestralConnection')} delay={200} isLight={isLight} />
+    </>
+  );
+
   return null;
 };
 

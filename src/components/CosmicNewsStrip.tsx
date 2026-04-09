@@ -12,7 +12,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
 const { width: SW } = Dimensions.get('window');
-const CARD_W = Math.min(SW * 0.84, 340);
+// Card fills the visible width (SW minus 44px padding) — clean full-card snap, no ugly sliver peek
+const STRIP_PAD = 22;
+const CARD_W = SW - STRIP_PAD * 2;
 const CARD_H = 196;
 const GAP = 12;
 
