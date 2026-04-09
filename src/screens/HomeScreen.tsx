@@ -175,7 +175,7 @@ const qa = StyleSheet.create({
     minWidth: 76,
   },
   iconCircle: { width: 32, height: 32, borderRadius: 16, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
-  label: { fontSize: 11, fontWeight: '700', letterSpacing: 0.1 },
+  label: { fontSize: 10, fontFamily: 'Raleway_700Bold', letterSpacing: 0.8 },
 });
 const TILE_W = (SW - 44 - 10) / 2;
 
@@ -405,7 +405,7 @@ const WorldPillNav = React.memo(({ surfaces, activeIndex, onSelect, isLight }: {
 const wn = StyleSheet.create({
   pill: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingHorizontal: 16, paddingVertical: 8, borderRadius: 999, borderWidth: 1, borderColor: 'rgba(255,255,255,0.22)' },
   pillDot: { width: 5, height: 5, borderRadius: 3 },
-  pillText: { fontSize: 13, fontWeight: '600', letterSpacing: 0.2 },
+  pillText: { fontSize: 12, fontFamily: 'Raleway_600SemiBold', letterSpacing: 0.5 },
 });
 
 // ── ACTION TILE — glassy, glowing, rounded ─────────────────────
@@ -525,8 +525,8 @@ const at = StyleSheet.create({
   },
   tile: { borderRadius: 26, borderWidth: 1.4, paddingTop: 18, paddingBottom: 16, paddingHorizontal: 15, overflow: 'hidden', minHeight: 148, zIndex: 1 },
   iconRing: { width: 52, height: 52, borderRadius: 17, borderWidth: 1.2, alignItems: 'center', justifyContent: 'center', marginBottom: 12, overflow: 'hidden' },
-  label: { fontSize: 14, fontWeight: '800', letterSpacing: -0.3, marginBottom: 4 },
-  sub: { fontSize: 12, lineHeight: 17, marginRight: 30 },
+  label: { fontSize: 13, fontFamily: 'Cinzel_600SemiBold', letterSpacing: 0.1, marginBottom: 4 },
+  sub: { fontSize: 12, fontFamily: 'Raleway_400Regular', lineHeight: 17, marginRight: 30 },
   arrow: { position: 'absolute', bottom: 12, right: 12, width: 28, height: 28, borderRadius: 10, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
   cornerOrb: { position: 'absolute', bottom: -12, right: -12, width: 78, height: 78, borderRadius: 39 },
 });
@@ -610,8 +610,8 @@ const er = StyleSheet.create({
     marginBottom: 10, overflow: 'hidden',
   },
   strip: { width: 4, height: 48, borderRadius: 3, flexShrink: 0 },
-  title: { fontSize: 15, fontWeight: '800', letterSpacing: -0.2, marginBottom: 3 },
-  desc: { fontSize: 12, lineHeight: 17 },
+  title: { fontSize: 14, fontFamily: 'Cinzel_400Regular', letterSpacing: 0, marginBottom: 3 },
+  desc: { fontSize: 12, fontFamily: 'Raleway_400Regular', lineHeight: 17 },
   arrowPill: {
     width: 32, height: 32, borderRadius: 11, borderWidth: 1.2,
     alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden',
@@ -637,8 +637,8 @@ const MetricsStrip = React.memo(({ items, accent, isLight = false }: { items: { 
 const ms = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 14, marginBottom: 4 },
   cell: { flex: 1, alignItems: 'center' },
-  val: { fontSize: 16, fontWeight: '700', letterSpacing: -0.3 },
-  label: { fontSize: 10, fontWeight: '600', letterSpacing: 1.2, marginTop: 3 },
+  val: { fontSize: 16, fontFamily: 'Cinzel_600SemiBold', letterSpacing: 0 },
+  label: { fontSize: 9, fontFamily: 'Raleway_700Bold', letterSpacing: 1.5, marginTop: 3 },
   sep: { width: 1, height: 32, marginHorizontal: 4 },
 });
 
@@ -655,7 +655,7 @@ const SectionDivider = React.memo(({ label, accent }: { label: string; accent: s
 const sd = StyleSheet.create({
   wrap: { flexDirection: 'row', alignItems: 'center', marginTop: 8, marginBottom: 4 },
   line: { flex: 1, height: 1 },
-  label: { fontSize: 9, fontWeight: '800', letterSpacing: 2.2, marginHorizontal: 12 },
+  label: { fontSize: 9, fontFamily: 'Raleway_700Bold', letterSpacing: 2.2, marginHorizontal: 12 },
 });
 
 // ── WORLD CONTENT ─────────────────────────────────────────────
@@ -1149,20 +1149,20 @@ const hs = StyleSheet.create({
   loading: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 22, paddingTop: 6, paddingBottom: 10 },
   musicBtn: { width: 36, height: 36, borderRadius: 18, alignItems: 'center', justifyContent: 'center', borderWidth: 1 },
-  brand: { fontSize: 11, fontWeight: '800', letterSpacing: 3.5, marginBottom: 2 },
-  greeting: { fontSize: 18, fontWeight: '700', letterSpacing: -0.4 },
+  brand: { fontSize: 11, fontFamily: 'Cinzel_700Bold', letterSpacing: 3.5, marginBottom: 2 },
+  greeting: { fontSize: 18, fontFamily: 'Cinzel_400Regular', letterSpacing: 0.2 },
   scroll: { paddingHorizontal: 22, paddingTop: 12 },
   aiBanner: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, padding: 14, borderRadius: 16, borderWidth: 1, marginBottom: 16 },
-  aiBannerText: { fontSize: 13, lineHeight: 20, letterSpacing: 0.1 },
+  aiBannerText: { fontSize: 13, fontFamily: 'Raleway_400Regular', lineHeight: 20, letterSpacing: 0.1 },
   heroSection: { alignItems: 'center', paddingVertical: 4, marginBottom: 20 },
   heroCard: {
     width: '100%', borderRadius: 28, borderWidth: 1.5, overflow: 'hidden',
     paddingTop: 22, paddingBottom: 20, paddingHorizontal: 20,
     alignItems: 'center',
   },
-  heroEyebrow: { fontSize: 10, fontWeight: '800', letterSpacing: 2.8, marginTop: 10, marginBottom: 6 },
-  heroTitle: { fontSize: 40, fontWeight: '200', letterSpacing: -1.5, marginBottom: 8 },
-  heroDesc: { fontSize: 13, lineHeight: 20, textAlign: 'center', paddingHorizontal: 12, marginBottom: 12 },
-  heroMessage: { fontSize: 13, lineHeight: 21, fontStyle: 'italic', textAlign: 'center', paddingHorizontal: 16, paddingBottom: 4 },
-  ribbonLabel: { fontSize: 9, fontWeight: '800', letterSpacing: 2.4, marginBottom: 10 },
+  heroEyebrow: { fontSize: 10, fontFamily: 'Raleway_700Bold', letterSpacing: 2.8, marginTop: 10, marginBottom: 6 },
+  heroTitle: { fontSize: 38, fontFamily: 'Cinzel_400Regular', letterSpacing: 0.5, lineHeight: 48, marginBottom: 8 },
+  heroDesc: { fontSize: 13, fontFamily: 'Raleway_400Regular', lineHeight: 20, textAlign: 'center', paddingHorizontal: 12, marginBottom: 12 },
+  heroMessage: { fontSize: 13, fontFamily: 'Raleway_300Light', fontStyle: 'italic', lineHeight: 21, textAlign: 'center', paddingHorizontal: 16, paddingBottom: 4 },
+  ribbonLabel: { fontSize: 9, fontFamily: 'Raleway_700Bold', letterSpacing: 2.4, marginBottom: 10 },
 });
