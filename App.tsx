@@ -5,6 +5,9 @@ import './src/core/patchNativeAlert';
 // recursive string translation on EVERY prop of EVERY component render (thousands/sec).
 // Screens use explicit useTranslation() instead.
 import React, { useEffect, useRef, useState } from 'react';
+import { useFonts } from 'expo-font';
+import { Cinzel_400Regular, Cinzel_600SemiBold, Cinzel_700Bold } from '@expo-google-fonts/cinzel';
+import { Raleway_300Light, Raleway_400Regular, Raleway_500Medium, Raleway_600SemiBold, Raleway_700Bold } from '@expo-google-fonts/raleway';
 import { AppNavigator } from './src/navigation/AppNavigator';
 import { SplashIntroScreen } from './src/screens/SplashIntroScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -54,6 +57,17 @@ class RootErrorBoundary extends React.Component<
 }
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    Cinzel_400Regular,
+    Cinzel_600SemiBold,
+    Cinzel_700Bold,
+    Raleway_300Light,
+    Raleway_400Regular,
+    Raleway_500Medium,
+    Raleway_600SemiBold,
+    Raleway_700Bold,
+  });
+
   const themeName = useAppStore((state) => state.themeName);
   const themeMode = useAppStore((state) => state.themeMode);
   const language = useAppStore((state) => state.language);

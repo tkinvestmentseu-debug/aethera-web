@@ -105,40 +105,42 @@ export const Label: React.FC<BaseTypographyProps> = ({ style, children, ...rest 
 const styles = StyleSheet.create({
   base: {
     color: '#F0EDE8',
+    fontFamily: 'Raleway_400Regular',
   },
   display: {
     fontSize: 36,
-    fontWeight: '400',
-    letterSpacing: -0.6,
-    color: '#F0EDE8'
+    fontFamily: 'Cinzel_700Bold',
+    letterSpacing: -0.4,
+    color: '#F0EDE8',
   },
   heading: {
     fontSize: 23,
-    fontWeight: '600',
+    fontFamily: 'Cinzel_600SemiBold',
     letterSpacing: 0.05,
-    color: 'rgba(240,237,232,0.94)'
+    color: 'rgba(240,237,232,0.94)',
   },
   title: {
     fontSize: 19,
-    fontWeight: '600',
-    color: '#F0EDE8'
+    fontFamily: 'Cinzel_600SemiBold',
+    color: '#F0EDE8',
   },
   body: {
     fontSize: 16,
+    fontFamily: 'Raleway_400Regular',
     lineHeight: 25,
-    color: 'rgba(240,237,232,0.90)'
+    color: 'rgba(240,237,232,0.90)',
   },
   caption: {
     fontSize: 12,
-    fontWeight: '500',
-    letterSpacing: 0.12,
-    color: 'rgba(240,237,232,0.68)'
+    fontFamily: 'Raleway_500Medium',
+    letterSpacing: 0.2,
+    color: 'rgba(240,237,232,0.68)',
   },
   label: {
     fontSize: 13,
-    fontWeight: '600',
+    fontFamily: 'Raleway_600SemiBold',
     color: 'rgba(240,237,232,0.88)',
-    letterSpacing: 0.04,
+    letterSpacing: 0.3,
   },
   muted: {
     opacity: 0.84,

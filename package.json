@@ -23,6 +23,8 @@
     "i18n:sync:dry": "python -X utf8 scripts/i18n/i18n-sync.py --dry-run"
   },
   "dependencies": {
+    "@expo-google-fonts/cinzel": "^0.4.2",
+    "@expo-google-fonts/raleway": "^0.4.2",
     "@expo/vector-icons": "^15.1.1",
     "@react-native-async-storage/async-storage": "^2.2.0",
     "@react-native-community/datetimepicker": "^8.4.4",
