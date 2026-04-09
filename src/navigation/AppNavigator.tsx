@@ -579,17 +579,18 @@ const MainTabs = () => {
           paddingBottom: Math.max(insets.bottom, 4),
           paddingHorizontal: 4,
           shadowColor: '#000',
-          shadowOpacity: isLight ? 0.14 : 0.45,
+          shadowOpacity: isLight ? 0.12 : 0.45,
           shadowRadius: 28,
           shadowOffset: { width: 0, height: -4 },
         },
         tabBarBackground: () => (
           <View style={StyleSheet.absoluteFill}>
-            {/* Bottom nav is ALWAYS dark/cosmic — never light */}
-            <BlurView tint="dark" intensity={80} style={StyleSheet.absoluteFill} />
+            <BlurView tint={isLight ? 'light' : 'dark'} intensity={80} style={StyleSheet.absoluteFill} />
             <LinearGradient
-              colors={['rgba(12,8,24,0.96)', 'rgba(7,4,16,0.99)']}
-              style={[StyleSheet.absoluteFillObject, { borderTopLeftRadius: 28, borderTopRightRadius: 28, borderTopWidth: 1, borderLeftWidth: 0, borderRightWidth: 0, borderBottomWidth: 0, borderColor: 'rgba(255,255,255,0.10)' }]}
+              colors={isLight
+                ? ['rgba(255,252,245,0.97)', 'rgba(250,246,238,0.99)']
+                : ['rgba(12,8,24,0.96)', 'rgba(7,4,16,0.99)']}
+              style={[StyleSheet.absoluteFillObject, { borderTopLeftRadius: 28, borderTopRightRadius: 28, borderTopWidth: 1, borderLeftWidth: 0, borderRightWidth: 0, borderBottomWidth: 0, borderColor: isLight ? 'rgba(139,100,42,0.20)' : 'rgba(255,255,255,0.10)' }]}
             />
             {/* Top shimmer line */}
             <LinearGradient
@@ -600,7 +601,7 @@ const MainTabs = () => {
           </View>
         ),
         tabBarActiveTintColor: currentTheme.primary,
-        tabBarInactiveTintColor: 'rgba(255,255,255,0.38)', // always light on dark bar
+        tabBarInactiveTintColor: isLight ? 'rgba(80,60,40,0.38)' : 'rgba(255,255,255,0.38)',
         tabBarShowLabel: true,
         tabBarItemStyle: { paddingVertical: 0, minHeight: 0, minWidth: 0, flex: 1, justifyContent: 'center', alignItems: 'center' },
         tabBarIconStyle: { display: 'none' },
@@ -701,6 +702,8 @@ export const AppNavigator = () => {
         musicVolume: state.experience.musicVolume ?? 0.5,
         ambientVolume: state.experience.ambientVolume ?? 0.5,
       });
+      // Play a random startup track so each launch feels sonically fresh
+      void AudioService.playStartupAmbient();
     };
 
     void syncAudio();
