@@ -16,9 +16,10 @@ import Animated, {
   cancelAnimation,
 } from 'react-native-reanimated';
 import * as ImagePicker from 'expo-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   Camera, ChevronLeft, Image as ImageIcon, Sparkles, Layers,
-  Gem, ChevronDown, ChevronUp, Eye, Zap,
+  Gem, ChevronDown, ChevronUp, Eye, Zap, CalendarDays,
 } from 'lucide-react-native';
 import { useAppStore } from '../store/useAppStore';
 import { getResolvedTheme } from '../core/theme/tokens';
@@ -30,9 +31,15 @@ import { EndOfContentSpacer } from '../components/EndOfContentSpacer';
 import { useTranslation } from 'react-i18next';
 
 const { width: SW } = Dimensions.get('window');
-const ACCENT = '#C084FC';
+// ─── Teal/Cyan/Emerald color identity ─────────────────────────────────────────
+const ACCENT = '#2DD4BF';
+const ACCENT2 = '#34D399';
+const ACCENT3 = '#06B6D4';
 const HERO_H = 300;
 const ORB_CENTER = HERO_H / 2 - 10;
+
+// ─── AsyncStorage key for daily check-in log ──────────────────────────────────
+const AURA_LOG_KEY = '@aura_daily_log';
 
 // ─── Animated SVG circle component at module level ────────────────────────────
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
@@ -67,13 +74,29 @@ const ZODIAC_AURA: Record<string, { color: string; name: string; meaning: string
 
 const DEFAULT_AURA = { color: 'Fioletowa', name: 'Fioletowa', meaning: 'Intuicja i Duchowość', hex: '#A855F7', gradient: ['#C084FC', '#A855F7', '#7C3AED'] };
 
-// ─── Aura ring ring data ───────────────────────────────────────────────────────
+// ─── Aura ring data — teal/cyan/emerald spectrum ──────────────────────────────
 const AURA_RINGS = [
-  { r: 56, color: '#C084FC', opacity: 0.55, period: 3000, delay: 0,    dir: 1,  rotatePeriod: 20000 },
-  { r: 72, color: '#818CF8', opacity: 0.45, period: 4200, delay: 500,  dir: -1, rotatePeriod: 30000 },
-  { r: 88, color: '#22D3EE', opacity: 0.40, period: 5500, delay: 1000, dir: 1,  rotatePeriod: 45000 },
-  { r: 104, color: '#FBBF24', opacity: 0.30, period: 6500, delay: 1600, dir: -1, rotatePeriod: 55000 },
-  { r: 120, color: '#F472B6', opacity: 0.25, period: 7800, delay: 2200, dir: 1,  rotatePeriod: 65000 },
+  { r: 56,  color: '#2DD4BF', opacity: 0.60, period: 3000, delay: 0,    dir: 1,  rotatePeriod: 20000 },
+  { r: 72,  color: '#06B6D4', opacity: 0.48, period: 4200, delay: 500,  dir: -1, rotatePeriod: 30000 },
+  { r: 88,  color: '#34D399', opacity: 0.40, period: 5500, delay: 1000, dir: 1,  rotatePeriod: 45000 },
+  { r: 104, color: '#67E8F9', opacity: 0.30, period: 6500, delay: 1600, dir: -1, rotatePeriod: 55000 },
+  { r: 120, color: '#10B981', opacity: 0.22, period: 7800, delay: 2200, dir: 1,  rotatePeriod: 65000 },
+];
+
+// ─── Daily check-in aura colors ───────────────────────────────────────────────
+const CHECKIN_COLORS = [
+  { hex: '#EF4444', name: 'Czerwona'    },
+  { hex: '#F97316', name: 'Pomarańczowa'},
+  { hex: '#EAB308', name: 'Żółta'      },
+  { hex: '#22C55E', name: 'Zielona'    },
+  { hex: '#2DD4BF', name: 'Turkusowa'  },
+  { hex: '#3B82F6', name: 'Niebieska'  },
+  { hex: '#8B5CF6', name: 'Fioletowa'  },
+  { hex: '#EC4899', name: 'Różowa'     },
+  { hex: '#F8F8FF', name: 'Biała'      },
+  { hex: '#FBBF24', name: 'Złota'      },
+  { hex: '#A78BFA', name: 'Lawendowa'  },
+  { hex: '#1E293B', name: 'Czarna'     },
 ];
 
 // ─── Color guide data ──────────────────────────────────────────────────────────
@@ -370,7 +393,7 @@ const LayerAccordion = React.memo(({ layer }: { layer: typeof AURA_LAYERS[0] }) 
           <View style={[s.layerNumBadge, { backgroundColor: layer.color + '22' }]}>
             <Text style={[s.layerNum, { color: layer.color }]}>{layer.n}</Text>
           </View>
-          {open ? <ChevronUp size={16} color="#C084FC" /> : <ChevronDown size={16} color="#8B5CF6" />}
+          {open ? <ChevronUp size={16} color="#2DD4BF" /> : <ChevronDown size={16} color="#06B6D4" />}
         </View>
         {open && (
           <View style={s.layerBody}>
@@ -416,6 +439,47 @@ export const AuraScreen = ({ navigation }: Props) => {
   const [aiLoading, setAiLoading] = useState(false);
   const [aiResult, setAiResult] = useState<string | null>(null);
   const [aiSections, setAiSections] = useState<string[]>([]);
+
+  // Daily check-in state: { 'YYYY-MM-DD': { hex, name } }
+  const [auraLog, setAuraLog] = useState<Record<string, { hex: string; name: string }>>({});
+  const [todayCheckin, setTodayCheckin] = useState<string | null>(null); // hex of today's selection
+
+  // Load persisted log on mount
+  useEffect(() => {
+    AsyncStorage.getItem(AURA_LOG_KEY).then(raw => {
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          setAuraLog(parsed);
+          const today = new Date().toISOString().slice(0, 10);
+          if (parsed[today]) setTodayCheckin(parsed[today].hex);
+        } catch {}
+      }
+    });
+  }, []);
+
+  const handleCheckin = useCallback(async (colorItem: typeof CHECKIN_COLORS[0]) => {
+    HapticsService.impact('medium');
+    const today = new Date().toISOString().slice(0, 10);
+    const updated = { ...auraLog, [today]: { hex: colorItem.hex, name: colorItem.name } };
+    setAuraLog(updated);
+    setTodayCheckin(colorItem.hex);
+    await AsyncStorage.setItem(AURA_LOG_KEY, JSON.stringify(updated));
+  }, [auraLog]);
+
+  // Last 7 days log for history section
+  const last7Days = (() => {
+    const days: Array<{ date: string; label: string; entry: { hex: string; name: string } | null }> = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const key = d.toISOString().slice(0, 10);
+      const dayNames = ['Nd', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'Sb'];
+      const label = i === 0 ? 'Dziś' : dayNames[d.getDay()];
+      days.push({ date: key, label, entry: auraLog[key] ?? null });
+    }
+    return days;
+  })();
 
   // Loading aura pulse for AI analysis
   const loadingPulse = useSharedValue(0.85);
@@ -531,11 +595,9 @@ Odpowiedź sformułuj poetycko, mistycznie i inspirująco. Mów bezpośrednio do
   // ─── Render ────────────────────────────────────────────────────────────────
   return (
     <SafeAreaView style={s.safeArea} edges={['top']}>
-      {/* Cosmic background gradient */}
+      {/* Deep teal cosmic background */}
       <LinearGradient
-        colors={isLight
-          ? ['#1A0A2E', '#2D1B5E', '#1A0A2E']
-          : ['#050310', '#0D0620', '#130830']}
+        colors={['#030F0F', '#041616', '#061A1A']}
         style={StyleSheet.absoluteFill}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -544,7 +606,7 @@ Odpowiedź sformułuj poetycko, mistycznie i inspirująco. Mów bezpośrednio do
       {/* Header */}
       <View style={[s.header, { paddingTop: insets.top > 0 ? 0 : 8 }]}>
         <Pressable onPress={() => goBackOrToMainTab(navigation, 'Portal')} style={s.backBtn} hitSlop={10}>
-          <ChevronLeft size={24} color="#C084FC" />
+          <ChevronLeft size={24} color="#2DD4BF" />
         </Pressable>
         <Text style={s.headerTitle}>{t('aura.title', 'Aura')}</Text>
         <View style={{ width: 40 }} />
@@ -570,6 +632,102 @@ Odpowiedź sformułuj poetycko, mistycznie i inspirująco. Mów bezpośrednio do
           </View>
         </View>
 
+        {/* ── SECTION A: Daily Check-In ────────────────────────────────────── */}
+        <Animated.View entering={FadeInDown.delay(60).springify()} style={{ paddingHorizontal: layout.padding.screen }}>
+          <View style={s.sectionHeader}>
+            <CalendarDays size={18} color={ACCENT} />
+            <View style={{ flex: 1 }}>
+              <Text style={s.sectionEyebrow}>CODZIENNY CHECK-IN</Text>
+              <Text style={s.sectionTitle}>Kolor Twojej Aury Dziś</Text>
+            </View>
+          </View>
+
+          <View style={s.checkinCard}>
+            <LinearGradient
+              colors={['rgba(45,212,191,0.08)', 'rgba(6,182,212,0.04)']}
+              style={s.checkinCardInner}
+            >
+              <View style={s.checkinGrid}>
+                {CHECKIN_COLORS.map(colorItem => {
+                  const isSelected = todayCheckin === colorItem.hex;
+                  return (
+                    <Pressable
+                      key={colorItem.hex}
+                      style={s.checkinColorItem}
+                      onPress={() => handleCheckin(colorItem)}
+                    >
+                      <View style={[
+                        s.checkinCircleWrap,
+                        isSelected && { borderColor: ACCENT, borderWidth: 2.5 },
+                      ]}>
+                        <View style={[
+                          s.checkinCircle,
+                          { backgroundColor: colorItem.hex },
+                          colorItem.hex === '#F8F8FF' && { borderWidth: 1, borderColor: 'rgba(255,255,255,0.3)' },
+                          colorItem.hex === '#1E293B' && { borderWidth: 1, borderColor: 'rgba(255,255,255,0.2)' },
+                          isSelected && {
+                            shadowColor: colorItem.hex,
+                            shadowOffset: { width: 0, height: 0 },
+                            shadowOpacity: 0.9,
+                            shadowRadius: 8,
+                            elevation: 8,
+                          },
+                        ]} />
+                        {isSelected && (
+                          <View style={s.checkinSelectedRing} />
+                        )}
+                      </View>
+                      <Text style={[s.checkinColorName, isSelected && { color: ACCENT, fontWeight: '700' }]}>
+                        {colorItem.name}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </LinearGradient>
+          </View>
+        </Animated.View>
+
+        {/* ── SECTION B: Weekly Aura Log ───────────────────────────────────── */}
+        <Animated.View entering={FadeInDown.delay(80).springify()} style={{ paddingHorizontal: layout.padding.screen }}>
+          <View style={s.sectionHeader}>
+            <CalendarDays size={18} color={ACCENT3} />
+            <Text style={s.sectionTitle}>Historia tygodnia</Text>
+          </View>
+
+          <View style={s.weekCard}>
+            <LinearGradient
+              colors={['rgba(6,182,212,0.08)', 'rgba(45,212,191,0.04)']}
+              style={s.weekCardInner}
+            >
+              <View style={s.weekRow}>
+                {last7Days.map(day => (
+                  <View key={day.date} style={s.weekDayCol}>
+                    <View style={[
+                      s.weekCircle,
+                      day.entry
+                        ? { backgroundColor: day.entry.hex, borderColor: day.entry.hex + '88', borderWidth: 1.5 }
+                        : { backgroundColor: 'transparent', borderColor: 'rgba(45,212,191,0.35)', borderWidth: 1.5, borderStyle: 'dashed' },
+                    ]} />
+                    <Text style={s.weekDayLabel}>{day.label}</Text>
+                  </View>
+                ))}
+              </View>
+
+              {todayCheckin && (() => {
+                const todayEntry = last7Days.find(d => d.label === 'Dziś')?.entry;
+                return todayEntry ? (
+                  <View style={s.todayBanner}>
+                    <Text style={s.todayBannerText}>Dzisiejsza aura: </Text>
+                    <Text style={[s.todayBannerName, { color: todayEntry.hex }]}>{todayEntry.name}</Text>
+                    <View style={[s.todayDot, { backgroundColor: todayEntry.hex }]} />
+                  </View>
+                ) : null;
+              })()}
+            </LinearGradient>
+          </View>
+        </Animated.View>
+
         {/* ── SECTION 2: Camera / Gallery Reading ─────────────────────────── */}
         <Animated.View entering={FadeInDown.delay(100).springify()} style={{ paddingHorizontal: layout.padding.screen }}>
           <View style={s.sectionHeader}>
@@ -579,7 +737,7 @@ Odpowiedź sformułuj poetycko, mistycznie i inspirująco. Mów bezpośrednio do
 
           <View style={s.cameraCard}>
             <LinearGradient
-              colors={['rgba(192,132,252,0.08)', 'rgba(129,140,248,0.04)']}
+              colors={['rgba(45,212,191,0.08)', 'rgba(6,182,212,0.04)']}
               style={s.cameraCardInner}
             >
               <Text style={s.cameraCardDesc}>
@@ -864,6 +1022,122 @@ const s = StyleSheet.create({
     fontWeight: '700',
     color: '#E9D5FF',
     letterSpacing: 0.5,
+  },
+
+  // ── Section eyebrow ──
+  sectionEyebrow: {
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 3,
+    color: 'rgba(45,212,191,0.65)',
+    textTransform: 'uppercase',
+    marginBottom: 2,
+  },
+
+  // ── Daily check-in card ──
+  checkinCard: {
+    borderRadius: 20,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(45,212,191,0.28)',
+  },
+  checkinCardInner: {
+    padding: 16,
+  },
+  checkinGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    gap: 8,
+  },
+  checkinColorItem: {
+    width: (SW - layout.padding.screen * 2 - 32 - 24) / 4,
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  checkinCircleWrap: {
+    width: 54,
+    height: 54,
+    borderRadius: 27,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: 'transparent',
+    marginBottom: 5,
+  },
+  checkinCircle: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+  },
+  checkinSelectedRing: {
+    position: 'absolute',
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    borderWidth: 1.5,
+    borderColor: 'rgba(45,212,191,0.45)',
+  },
+  checkinColorName: {
+    fontSize: 10,
+    color: 'rgba(196,181,253,0.7)',
+    textAlign: 'center',
+    fontWeight: '500',
+  },
+
+  // ── Weekly log card ──
+  weekCard: {
+    borderRadius: 20,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(6,182,212,0.25)',
+  },
+  weekCardInner: {
+    padding: 18,
+  },
+  weekRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+  },
+  weekDayCol: {
+    alignItems: 'center',
+    gap: 6,
+  },
+  weekCircle: {
+    width: 35,
+    height: 35,
+    borderRadius: 17.5,
+  },
+  weekDayLabel: {
+    fontSize: 10,
+    color: 'rgba(196,181,253,0.6)',
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  todayBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 14,
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(45,212,191,0.15)',
+    gap: 4,
+  },
+  todayBannerText: {
+    fontSize: 13,
+    color: 'rgba(196,181,253,0.7)',
+    fontWeight: '500',
+  },
+  todayBannerName: {
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  todayDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginLeft: 2,
   },
 
   // ── Camera card ──
