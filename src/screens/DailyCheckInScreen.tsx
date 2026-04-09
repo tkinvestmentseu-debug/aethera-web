@@ -742,18 +742,19 @@ const CompletionScreen = ({
 };
 
 // ─── Main Screen ──────────────────────────────────────────────────────────────
-const STEPS = [
-  { id: 'mood',       title: t('dailyCheckIn.nastrojDuszy', 'Nastrój Duszy'),    subtitle: t('dailyCheckIn.jakSieCzujesz', 'Jak się czujesz w tej chwili?') },
-  { id: 'energy',     title: t('dailyCheckIn.energiaCiala', 'Energia Ciała'),     subtitle: t('dailyCheckIn.ocenPoziomEnergii', 'Oceń swój poziom energii') },
-  { id: 'reflection', title: t('dailyCheckIn.mysliDnia', 'Myśli Dnia'),        subtitle: t('dailyCheckIn.zatrzymajSie', 'Zatrzymaj się i poobserwuj siebie') },
-  { id: 'focus',      title: t('dailyCheckIn.ritualIntencji', 'Rytuał Intencji'),   subtitle: t('dailyCheckIn.wybierzFokus', 'Wybierz fokus na dziś') },
-];
-
 export const DailyCheckInScreen = ({ navigation }: any) => {
   const insets  = useSafeAreaInsets();
     const dailyProgress = useAppStore(s => s.dailyProgress);
   const updateDailyProgress = useAppStore(s => s.updateDailyProgress);
   const { currentTheme, isLight } = useTheme();
+  const { t } = useTranslation();
+
+  const STEPS = [
+    { id: 'mood',       title: t('dailyCheckIn.nastrojDuszy', 'Nastrój Duszy'),    subtitle: t('dailyCheckIn.jakSieCzujesz', 'Jak się czujesz w tej chwili?') },
+    { id: 'energy',     title: t('dailyCheckIn.energiaCiala', 'Energia Ciała'),     subtitle: t('dailyCheckIn.ocenPoziomEnergii', 'Oceń swój poziom energii') },
+    { id: 'reflection', title: t('dailyCheckIn.mysliDnia', 'Myśli Dnia'),        subtitle: t('dailyCheckIn.zatrzymajSie', 'Zatrzymaj się i poobserwuj siebie') },
+    { id: 'focus',      title: t('dailyCheckIn.ritualIntencji', 'Rytuał Intencji'),   subtitle: t('dailyCheckIn.wybierzFokus', 'Wybierz fokus na dziś') },
+  ];
   const accent  = ACCENT;
 
   const textColor = isLight ? '#2A1E0F' : '#F5F1EA';

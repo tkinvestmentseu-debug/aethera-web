@@ -594,7 +594,9 @@ const Step3 = ({
 }: {
   birthPlace: string;
   setBirthPlace: (v: string) => void;
-}) => (
+}) => {
+  const { t } = useTranslation();
+  return (
   <Animated.View entering={FadeInDown.springify().damping(18)} style={styles.stepContainer}>
     <View style={styles.stepHeader}>
       <Text style={styles.stepEyebrow}>{t('identitySetup.krok_3_4', '✦ KROK 3 / 4')}</Text>
@@ -627,7 +629,8 @@ const Step3 = ({
       </LinearGradient>
     </Animated.View>
   </Animated.View>
-);
+  );
+};
 
 // ─── Step 4: Experience ───────────────────────────────────────────────────────
 
@@ -637,7 +640,9 @@ const Step4 = ({
 }: {
   selected: string;
   onSelect: (id: string) => void;
-}) => (
+}) => {
+  const { t } = useTranslation();
+  return (
   <Animated.View entering={FadeInDown.springify().damping(18)} style={styles.stepContainer}>
     <View style={styles.stepHeader}>
       <Text style={styles.stepEyebrow}>{t('identitySetup.krok_4_4', '✦ KROK 4 / 4')}</Text>
@@ -684,7 +689,8 @@ const Step4 = ({
       })}
     </View>
   </Animated.View>
-);
+  );
+};
 
 // ─── Main Screen ──────────────────────────────────────────────────────────────
 
